@@ -6,9 +6,10 @@ A more flexible version of Flutter's ColorScheme.fromSeed.
 
 > **NOTE:**  
 > This is a pre-release dev version of the final package. This version is designed to work with 
-> Flutter master 3.1.0-0.0.pre.2199 or later. It does not work with Flutter beta 3.3.0-0.5.pre
-> or flutter stable 3.0.x. The first stable version of this package, intended for Flutter stable 
-> channel, will be released after Flutter 3.3.0 stable has been released. 
+> Flutter beta 3.3.0-0.3.pre or later. It also works with Flutter master 3.1.0-0.0.pre.2199,
+> but some test will fail due to new features not in beta. It does not work with Flutter 
+> stable 3.0.x. The first stable version of this package, will be released after Flutter 3.3.0 
+> stable has been released. 
 
 Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
 
@@ -133,7 +134,7 @@ With the example `FlexTones.vivid` setup, the light `ColorScheme` is mapped as s
 
 <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme.png?raw=true?" alt="colorscheme"/>
 
-And the dark color scheme as:
+And the dark `ColorScheme` as:
 
 <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme_dark.png?raw=true?" alt="colorscheme_dark"/>
 
