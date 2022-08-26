@@ -4,17 +4,40 @@
 
 A more flexible version Flutter ColorScheme.fromSeed.
 
-This repo is not yet ready for consumption. It will be published on pub.dev when it is.
+Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
 
-This package extracts the customizable `SeedColorScheme.fromSeeds` engine from the 
-[**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to itw own package. 
+* Use separate key colors to generate seed based tonal palettes for primary, secondary and tertiary
+  colors in `ColorScheme`.
+* Change the chroma limits and values used in the Material 3 default strategy for tonal palette 
+  generation in the Google HCT color space.
+* Change which tones in the generated core tonal palettes are used by which `ColorScheme` color.
+  Changes are limited to the tones from correct core palette for each `ColorScheme` color, but
+  any tone from it can be used.
+* Use two additional tonal palettes tones, 5 and tone 98. They can be used to offer more
+  fidelity in the dark and light end of the tonal palettes and mapped to `ColorScheme` colors
+  when using custom tone mapping. Tone 98 is also available in web based 
+  [Material 3 Theme Builder](https://m3.material.io/theme-builder#/custom), but not included in
+  [Material 3 design guide](https://m3.material.io/styles/color/the-color-system/key-colors-tones),
+  that explicitly mentions thirteen tones and excludes tone 98. With **FlexSeedScheme** you can 
+  use fifteen tones, including 98 and 5.
+
+## Background
+
+This package was extracted from the customizable `SeedColorScheme.fromSeeds` engine in the 
+[**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
+
 This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
-**FlexColorScheme** without using it. Starting with **FlexColorScheme** version 6 and later, 
-it depends on this package instead.
+**FlexColorScheme** without using the FlexColorScheme package. Starting with
+**FlexColorScheme** version 6 and later, it depends on this package instead.
+
+If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to use
+its features, FlexColorScheme exports its API as well. If you use FlexColorScheme you typically
+do not need to use FlexSeedScheme directly, its usage is baked in and used based on how you
+configure FlexColorScheme.
 
 ## Getting started
 
-Add the `flex_seed_scheme` package to `pubspec.yaml``
+Add the `flex_seed_scheme` package to `pubspec.yaml`:
 
 `dart pub add flex_seed_scheme` or `flutter pub add flex_seed_scheme`
 
@@ -26,7 +49,7 @@ Import the package to use it:
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 ```
 
-Defining some seed colors that will be used to generated your seed generated `ColorScheme`.
+Define seed colors that will be used to generate your seed generated `ColorScheme`.
 
 ```dart
 // Define your seed colors.
@@ -35,19 +58,19 @@ const Color secondarySeedColor = Color(0xFF3871BB);
 const Color tertiarySeedColor = Color(0xFF6CA450);
 ```
 
-Then make a more flexible seed generated `ColorScheme` using `SeedColorScheme.fromSeeds`. It works 
+Make a more flexible seed generated `ColorScheme` using `SeedColorScheme.fromSeeds`. It works 
 like `ColorScheme.fromSeed`, but instead of only accepting a single seed color, it can use
 three key colors as seed colors, one for each main color group in `ColorScheme`. 
 
 Chroma limits that differs from Material 3 defaults for its tonal palette generation 
-can also be defined. Optional tone mapping, that defines which tone is used by what `ColorScheme`
-color can be customized, both are done via `FlexTones` passed in to `tones`.
+can also be defined. Additionally, tone mapping, that defines which tone is used by what 
+`ColorScheme` color can be customized, both are done via `FlexTones` passed in to `tones`.
 
 Typically, you should use the same key colors and tones setup to produce the `ColorScheme` for
 light and dark theme mode. This guarantees that the light and dark theme use identical generated
-tonal palettes, and only vary which tones are used for what color in light and dark mode from
-identical palettes. This results in matching light and dark theme colors. This is just the norm
-though, feel free to experiment.
+tonal palettes, and only vary based on which tones are used for what color in light and dark mode.
+This results in matching light and dark theme colors. This is just the norm though, feel free
+to experiment.
 
 ```dart
     // Make a light ColorScheme from the seeds.
