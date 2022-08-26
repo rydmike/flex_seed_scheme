@@ -1,14 +1,14 @@
-[![Pub Version](https://img.shields.io/pub/v/flex_seed_scheme?label=flex_seed_scheme&labelColor=333940&logo=dart)](https://pub.dev/packages/flex_seed_scheme) [![codecov](https://codecov.io/gh/rydmike/flex_seed_scheme/branch/master/graph/badge.svg?token=4XJU30IGO3)](https://codecov.io/gh/rydmike/flex_seed_scheme) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Pub Version](https://img.shields.io/pub/v/flex_seed_scheme?label=flex_seed_scheme&labelColor=333940&logo=dart)](https://pub.dev/packages/flex_seed_scheme) [![codecov](https://codecov.io/gh/rydmike/flex_seed_scheme/branch/master/graph/badge.svg?token=YFNVrvWAXw)](https://codecov.io/gh/rydmike/flex_seed_scheme) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 # FlexSeedScheme
 
-A more flexible version Flutter ColorScheme.fromSeed.
+A more flexible version of Flutter's ColorScheme.fromSeed.
 
 > **NOTE:**  
-> This is pre-release dev version of the final package. This version is designed to work on Flutter 
-> master 3.1.0-0.0.pre.2199 or later. It does not work with Flutter beta 3.3.0-0.5.pre
-> or flutter stable 3.0.x. A first stable release of this package will be released after 
-> Flutter 3.3.0 stable has been released. 
+> This is pre-release dev version of the final package. This version is designed to work with 
+> Flutter master 3.1.0-0.0.pre.2199 or later. It does not work with Flutter beta 3.3.0-0.5.pre
+> or flutter stable 3.0.x. The first stable version of this package, intended for Flutter stable 
+> channel will be released after Flutter 3.3.0 stable has been released. 
 
 Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
 
@@ -101,7 +101,6 @@ to experiment.
       tones: FlexTones.vivid(Brightness.dark),
     );
 ```
-
 Separate key colors as seeds for the primary, secondary and tertiary colors in `ColorScheme` can 
 be provided to seed them from different key colors. If no key color for `secondaryKey` and/or 
 `tertiaryKey` are provided, they use `primaryKey` color as their seed color value.
@@ -116,6 +115,29 @@ standard Material 3 color palette. You can tune this behavior by passing in a cu
 configuration to `tones`. There are pre-made configuration you can use, above 
 `FlexTones.vivid` was used. It is also easy to make completely custom configuration. Look in
 `FlexTones` and use the pre-made definitions as inspiration for your own configs.
+
+
+Using the above configuration the following core palettes are generated, in order from top to
+bottom:
+
+* Primary tonal palette
+* Secondary tonal palette
+* Tertiary tonal palette
+* Error tonal palette
+* Neutral tonal palette
+* Neutral variant tonal palette
+
+<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/corepalettes.png?raw=true?" alt="palettes"/>
+
+With the example `FlexTones.vivid` setup, the light `ColorScheme` are mapped as shown below:
+
+<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme.png?raw=true?" alt="colorscheme"/>
+
+And the dark color scheme as:
+
+<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme_dark.png?raw=true?" alt="colorscheme_dark"/>
+
+### Define ThemeData
 
 In your `MaterialApp` you then define you light and dark mode themes as using the seed
 generated `ColorScheme`s just as you would with any other `ColorScheme`. For example:
@@ -231,3 +253,12 @@ accessibility system settings.
         useMaterial3: true,
       ),
 ```
+
+### Example App
+
+The included example app in light and dark theme mode using above color seeding and tone mapping.
+
+
+| Light theme app | Dark theme app |
+| --- | --- |
+| <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app.png?raw=true?" alt="light_app"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app.png?raw=true?" alt="dark_app"/> |
