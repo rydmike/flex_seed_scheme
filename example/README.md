@@ -1,16 +1,10 @@
-# example
+# FlexSeedScheme Example
 
-A new Flutter project.
+Examples that demonstrate how to use the FlexSeedScheme package.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This example shows how to use the FlexSeedScheme package by defining one and optionally two 
+or three key colors to seed generate a `colorScheme` colors. You can also and chroma and tone
+mapping configuration using `FlexTones`, by using a pre-defined options or defining your own.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
