@@ -1,0 +1,54 @@
+# This GitHub action is configured to run "on" push to "master".
+# Currently, using the "validate" workflow instead, this is an older test CI/CD.
+# This workflow:
+#  - Installs dart and flutter
+#  - Uses flutter stable channel.
+#    Consider setting up a matrix later with beta and dev included too.
+#  - Enables flutter web
+#  - Gets package dependencies
+#  - Runs dart analyze.
+#  - Show outdated packages, just added for info.
+#  - Verify that dart format is used by all committed code, fails if not.
+#    Controversial but pub.dev penalizes you if dart format is not used.
+#  - Run all tests with coverage.
+#  - Upload code coverage output to Codecov for analysis.
+name: Test
+on:
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - "**.md"
+  push:
+    branches: [master]
+    paths-ignore:
+      - "**.md"
+jobs:
+  flutter_test:
+    name: "Analyze and test package"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Install Flutter and Dart SDK"
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: "master"
+      - name: "Show Dart SDK version"
+        run: dart --version
+      - name: "Show Flutter SDK version"
+        run: flutter --version
+      - name: "Install Flutter package dependencies"
+        run: flutter pub get
+      - name: "Analyze Dart source"
+        run: dart analyze
+      - name: "Show outdated packages"
+        run: flutter pub outdated
+      - name: "Verify that Dart formatting is used, fail if not"
+        run: dart format --output=none --set-exit-if-changed .
+      - name: "Test package FlexSeedScheme with coverage"
+        run: flutter test --coverage
+      - name: Upload test coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info
+      

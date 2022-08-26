@@ -12,7 +12,6 @@ migrate_working_dir/
 **.fvm/
 .fvm
 .fvm/
-example/.fvm
 /coverage/lcov.info
 
 # IntelliJ related
