@@ -4,6 +4,12 @@
 
 A more flexible version Flutter ColorScheme.fromSeed.
 
+> **NOTE:**  
+> This is pre-release dev version of the final package. This version is designed to work on Flutter 
+> master 3.1.0-0.0.pre.2199 or later. It does not work with Flutter beta 3.3.0-0.5.pre
+> or flutter stable 3.0.x. A first stable release of this package will be released after 
+> Flutter 3.3.0 stable has been released. 
+
 Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
 
 * Use separate key colors to generate seed based tonal palettes for primary, secondary and tertiary

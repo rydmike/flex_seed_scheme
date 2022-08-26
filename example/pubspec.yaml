@@ -1,22 +1,18 @@
-name: flex_scheme_scheme_example
-description: Examples that demonstrate how to use the FlexSeedScheme package.
+name: flex_seed_scheme_example
+description: Example that demonstrate how to use the FlexSeedScheme package.
 version: 0.1.0-dev.1
 publish_to: 'none'
 environment:
   sdk: '>=2.17.0 <3.0.0'
-  # flutter: '>=3.1.0-0.0.pre.2199'
+  flutter: '>=3.1.0-0.0.pre.2199'
 
 dependencies:
   # Adds the Cupertino Icons font to your application. Used by the
   # CupertinoIcons class for iOS style icons, by Google flutter.dev.
   # https://pub.dev/packages/cupertino_icons
-  cupertino_icons: ^1.0.5
+  cupertino_icons: ^1.0.0
 
-  # Color picker package, by Mike Rydstrom, rydmike.com (@rydmike).
-  # https://pub.dev/packages/flex_color_picker
-  flex_color_picker: ^2.6.0-dev.2
-
-  # Color scheme package, by Mike Rydstrom, rydmike.com (@rydmike).
+  # FlexSeedScheme package, by Mike Rydstrom, rydmike.com (@rydmike).
   # https://pub.dev/packages/flex_seed_scheme
   flex_seed_scheme:
     path: ../

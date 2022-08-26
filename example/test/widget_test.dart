@@ -1,4 +1,4 @@
-import 'package:flex_scheme_scheme_example/main.dart';
+import 'package:flex_seed_scheme_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
