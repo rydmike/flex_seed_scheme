@@ -5,10 +5,10 @@
 A more flexible version of Flutter's ColorScheme.fromSeed.
 
 > **NOTE:**  
-> This is pre-release dev version of the final package. This version is designed to work with 
+> This is a pre-release dev version of the final package. This version is designed to work with 
 > Flutter master 3.1.0-0.0.pre.2199 or later. It does not work with Flutter beta 3.3.0-0.5.pre
 > or flutter stable 3.0.x. The first stable version of this package, intended for Flutter stable 
-> channel will be released after Flutter 3.3.0 stable has been released. 
+> channel, will be released after Flutter 3.3.0 stable has been released. 
 
 Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
 
@@ -129,7 +129,7 @@ bottom:
 
 <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/corepalettes.png?raw=true?" alt="palettes"/>
 
-With the example `FlexTones.vivid` setup, the light `ColorScheme` are mapped as shown below:
+With the example `FlexTones.vivid` setup, the light `ColorScheme` is mapped as shown below:
 
 <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme.png?raw=true?" alt="colorscheme"/>
 
@@ -139,7 +139,7 @@ And the dark color scheme as:
 
 ### Define ThemeData
 
-In your `MaterialApp` you then define you light and dark mode themes as using the seed
+In your `MaterialApp` you then define you light and dark mode themes using the seed
 generated `ColorScheme`s just as you would with any other `ColorScheme`. For example:
 
 ```dart
@@ -168,11 +168,11 @@ All colors in the seed produced `ColorScheme` can be overridden by providing eac
 color property in `SeedColorScheme.fromSeeds` a given color value. This feature is equivalent to
 `ColorScheme.fromSeed`.
 
-This is typically used to assign a given color to `primary` color, which is often used as app
-brand color. When the brand color is used as `primaryKey`, as a seed color, it typically does not
-end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as
-`primary` color is often desired. You can assign the color used as `primaryKey` to `primary` color
-as well.
+This is typically used to assign a given color value to `primary` color, which is often used as app
+brand color. When the brand color is used as `primaryKey`, and as a seed color, it typically does 
+not end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as
+`primary` color is often desired. The get the seed color as your `primary` brand color, assign the
+color used as `primaryKey` to `primary` color as well.
 
 ```dart
     // Make a light ColorScheme from the seeds.

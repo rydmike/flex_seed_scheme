@@ -45,7 +45,7 @@ jobs:
         run: ./.github/workflows/scripts/install-flutter.sh stable
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
-      - name: "Test package FlexColorScheme with coverage"
+      - name: "Test package FlexSeedScheme with coverage"
         run: flutter test --coverage
       - name: "Upload test coverage to Codecov"
         uses: codecov/codecov-action@v3
