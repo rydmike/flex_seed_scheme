@@ -2,6 +2,12 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 0.1.0-dev.3
+
+**Aug 27, 2022**
+
+* Fix pub points.
+
 ## 0.1.0-dev.2
 
 **Aug 27, 2022**
