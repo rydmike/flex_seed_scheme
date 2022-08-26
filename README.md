@@ -214,7 +214,7 @@ mapping setup that increases contrast further from standard light and dark theme
 
 There are two high contrast `FlexTones` configuration pre-made for this. They are called 
 `FlexTones.highContrast` colorful high contrast version, and `FlexTones.ultraContrast` a less 
-colorful version with more pure dark on light, and light ond dark result.
+colorful version with more pure dark on light, and light on dark result.
 
 ```dart
 // Make a high contrast light ColorScheme from the seeds.
