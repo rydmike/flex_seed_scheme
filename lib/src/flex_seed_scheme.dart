@@ -32,9 +32,10 @@ import 'flex_tones.dart';
 /// passing all the extra min chroma and fixed level parameters it should
 /// use when it makes the [FlexCorePalette].
 ///
-/// Keeping this helper class internal for now in [FlexColorScheme] package,
-/// if there ever is a request for making it available directly via the library,
-/// post an issue and we will consider it.
+/// Keeping this helper class internal for now in [FlexSeedScheme] package,
+/// if there ever is a need for using it via the library, post an issue and
+/// we will consider it.
+@immutable
 @internal
 class FlexSeedScheme {
   /// The color displayed most frequently across your app.
@@ -113,6 +114,9 @@ class FlexSeedScheme {
 
   /// A utility color that creates boundaries for decorative elements when a
   /// 3:1 contrast isn’t required, such as for dividers or decorative elements.
+  ///
+  /// This color is not yet available in Flutter 3.3.0 an earlier, is in latest
+  /// master. It will have no function until it lands in Flutter stable channel.
   final int outlineVariant;
 
   /// A color use to paint the drop shadows of elevated components.
@@ -241,11 +245,12 @@ class FlexSeedScheme {
 /// Flutter's Material 3 [ColorScheme.fromSeed].
 ///
 /// Use this extension to make a seeded [ColorScheme] using separate key colors
-/// for primary, secondary and tertiary colors in [ColorScheme].
+/// for primary, secondary and tertiary color groups in [ColorScheme].
 ///
-/// By providing a [FlexTones] you can override customize tone mapping from
+/// By providing a [FlexTones] you can also customize tone mapping from
 /// tonal palettes to [ColorScheme] color and key color chroma usage per key
-/// color for the tonal palette creation.
+/// color, used by the Material 3 tonal palette creation HCT color space
+/// algorithm.
 extension SeedColorScheme on ColorScheme {
   /// Returns a [ColorScheme] from seed keys [primaryKey], [secondaryKey] and
   /// [tertiaryKey] colors. Use [FlexTones] configuration to customize mapping
@@ -253,42 +258,137 @@ extension SeedColorScheme on ColorScheme {
   /// key color for the tonal palette creation.
   ///
   /// Any seed produced [ColorScheme] color can be overridden by providing it a
-  /// given [Color] pre-assigned value.
+  /// given [Color] value.
   static ColorScheme fromSeeds({
+    /// The overall brightness of this color scheme.
     Brightness brightness = Brightness.light,
+
+    /// Seed color used to generate all the primary color dependent colors in
+    /// a ColorScheme.
+    ///
+    /// By Material 3 default design and as implemented in
+    /// [ColorScheme.fromSeed] it is used generate palettes for all tonal
+    /// palettes, except error palettes that has its own fixed definition.
+    ///
+    /// The default is the same here, however if colors are provided for
+    /// [secondaryKey] and [tertiaryKey] their tonal palettes will be seeded
+    /// from their own key color.
     required Color primaryKey,
+
+    /// Optional key color to seed the secondary tonal palette.
     Color? secondaryKey,
+
+    /// Optional key color to seed the tertiary tonal palette.
     Color? tertiaryKey,
+
+    /// Tonal palette chroma usage configuration and mapping to [ColorScheme].
+    ///
+    /// Optional mapping configuration for how tonal palette tones are mapped
+    /// to their corresponding [ColorScheme] colors.
+    ///
+    /// Can also configure how chroma is limited or fixed from the provided
+    /// key colors when generating each tonal palette.
+    ///
+    /// If not provided, a setup matching the Material 3 Color System is used.
     FlexTones? tones,
+
+    /// Override color for the seed generated [primary] color.
+    ///
+    /// You may want to assign the [primaryKey] to this color in light
+    /// brightness mode if it is your branding or main design color.
     Color? primary,
+
+    /// Override color for the seed generated [onPrimary] color.
     Color? onPrimary,
+
+    /// Override color for the seed generated [primaryContainer] color.
     Color? primaryContainer,
+
+    /// Override color for the seed generated [onPrimaryContainer] color.
     Color? onPrimaryContainer,
+
+    /// Override color for the seed generated [secondary] color.
     Color? secondary,
+
+    /// Override color for the seed generated [onSecondary] color.
     Color? onSecondary,
+
+    /// Override color for the seed generated [secondaryContainer] color.
     Color? secondaryContainer,
+
+    /// Override color for the seed generated [onSecondaryContainer] color.
     Color? onSecondaryContainer,
+
+    /// Override color for the seed generated [tertiary] color.
     Color? tertiary,
+
+    /// Override color for the seed generated [onTertiary] color.
     Color? onTertiary,
+
+    /// Override color for the seed generated [tertiaryContainer] color.
     Color? tertiaryContainer,
+
+    /// Override color for the seed generated [onTertiaryContainer] color.
     Color? onTertiaryContainer,
+
+    /// Override color for the seed generated [error] color.
     Color? error,
+
+    /// Override color for the seed generated [onError] color.
     Color? onError,
+
+    /// Override color for the seed generated [errorContainer] color.
     Color? errorContainer,
+
+    /// Override color for the seed generated [onErrorContainer] color.
     Color? onErrorContainer,
+
+    /// Override color for the seed generated [background] color.
     Color? background,
+
+    /// Override color for the seed generated [onBackground] color.
     Color? onBackground,
+
+    /// Override color for the seed generated [surface] color.
     Color? surface,
+
+    /// Override color for the seed generated [onSurface] color.
     Color? onSurface,
+
+    /// Override color for the seed generated [surfaceVariant] color.
     Color? surfaceVariant,
+
+    /// Override color for the seed generated [onSurfaceVariant] color.
     Color? onSurfaceVariant,
+
+    /// Override color for the seed generated [outline] color.
     Color? outline,
+
+    /// Override color for the seed generated [outlineVariant] color.
+    ///
+    /// This property has no function in Flutter 3.3 or earlier versions.
+    /// It will be enabled in a future release.
     Color? outlineVariant,
+
+    /// Override color for the seed generated [shadow] color.
     Color? shadow,
+
+    /// Override color for the seed generated [scrim] color.
+    ///
+    /// This property has no function in Flutter 3.3 or earlier versions.
+    /// It will be enabled in a future release.
     Color? scrim,
+
+    /// Override color for the seed generated [inverseSurface] color.
     Color? inverseSurface,
+
+    /// Override color for the seed generated [onInverseSurface] color.
     Color? onInverseSurface,
+
+    /// Override color for the seed generated [inversePrimary] color.
     Color? inversePrimary,
+
+    /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
   }) {
     final FlexSeedScheme scheme = brightness == Brightness.light
@@ -332,10 +432,10 @@ extension SeedColorScheme on ColorScheme {
       surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
       onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
       outline: outline ?? Color(scheme.outline),
-      // TODO(rydmike): Removed from release, not available in Flutter 3.3
+      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
       // outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
       shadow: shadow ?? Color(scheme.shadow),
-      // TODO(rydmike): Removed from release, not available in Flutter 3.3
+      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
       // scrim: scrim ?? Color(scheme.scrim),
       inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
       onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),

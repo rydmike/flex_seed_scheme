@@ -2,6 +2,20 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 0.2.0-dev.1
+
+**Aug 27, 2022**
+
+**NEW**
+
+* Add customization possibility of `error` tonal palette to the default `FlexTonalPalette`
+  constructor.
+
+**BREAKING** 
+ 
+* The `FlexTonalPalette` method `asList` and constructor `fromList`, now include the values of  
+  the error color in produced `asList`, and as required values in `fromList`.
+
 ## 0.1.0-dev.3
 
 **Aug 27, 2022**
