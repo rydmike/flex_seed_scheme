@@ -234,7 +234,6 @@ void main() {
     );
     // m2, makes tonal palette using CorePalette.of
     final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value);
-    int m = m2.primary.get(10);
     // Do identity tests
     test(
         'FCP1.01: GIVEN same FlexCorePalette.fromSeeds default and '
