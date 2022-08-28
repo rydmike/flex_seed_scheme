@@ -2,6 +2,14 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 0.2.0-dev.2
+
+**Aug 28, 2022**
+
+**NEW**
+
+* From Material Color utilities export and show `Cam16`.
+
 ## 0.2.0-dev.1
 
 **Aug 27, 2022**
