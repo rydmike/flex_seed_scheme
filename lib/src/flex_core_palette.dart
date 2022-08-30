@@ -48,7 +48,7 @@ import 'package:meta/meta.dart' show immutable;
 /// chroma, but vary in tone.
 ///
 /// This is a modification of package material_color_utilities [TonalPalette]
-/// to be able to add the tone 98, that the Web based Material 3 theme builder
+/// made to include the tone 98, that the Web based Material 3 theme builder
 /// has, as well as an additional custom tone, 5.
 ///
 /// This class can be instantiated in two ways:
@@ -60,13 +60,13 @@ import 'package:meta/meta.dart' show immutable;
 ///     corresponding to [commonTones].
 @immutable
 class FlexTonalPalette {
-  // If changed commonTones length, update commonSize to commonTones.length.
-  // There is a test and assert that fails if you did not.
-  //
+  // If modifying commonTones length, update commonSize to equal
+  // commonTones.length. There is a test and assert that fails if you did not.
+
   /// Commonly-used tone values in a [FlexTonalPalette].
   ///
   /// Contains custom tones 5 and 98, in addition to the 13 tones included
-  /// in the Material 3 guide. The tone 98 also exists in the
+  /// in the Material 3 guide tonal palette. The tone 98 also exists in the
   /// [Web Material Theme Builder app](https://m3.material.io/theme-builder#/custom),
   /// but not in Flutter or
   /// [Material Color Utilities package](https://pub.dev/packages/material_color_utilities).
@@ -89,9 +89,9 @@ class FlexTonalPalette {
     100,
   ];
 
-  // If you changed commonTones length, update commonSize to commonTones.length.
-  // There is a test and assert that fails if you did not.
-  //
+  // If modifying commonTones length, update commonSize to equal
+  // commonTones.length. There is a test and assert that fails if you did not.
+
   /// Number of tones in [commonTones].
   ///
   /// In original implementation package material_color_utilities this is
@@ -190,7 +190,7 @@ class FlexTonalPalette {
 
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. Five tonal palettes are generated, plus a default
-/// error palette.
+/// error palette if not provided.
 ///
 /// This is a modification of package:material_color_utilities [CorePalette],
 /// to make it possible to create Material 3 seeded ColorScheme using tonal
@@ -201,7 +201,9 @@ class FlexTonalPalette {
 /// This implementation also has an unnamed constructor for the five main final
 /// [FlexTonalPalette] properties. Exposes the original version's private
 /// constructor [FlaxCorePalette.fromHueChroma], that is used by
-/// [FlexCorePalette.of]. It also adds a [FlexCorePalette.fromSeeds] constructor
+/// [FlexCorePalette.of].
+///
+/// It adds a [FlexCorePalette.fromSeeds] constructor
 /// to enable creating the [FlexTonalPalette]s for primary, secondary and
 /// tertiary color groups using optional ARGB seed colors, for secondary and
 /// tertiary [FlexTonalPalette]s, instead of tying them down to same seed ARGB

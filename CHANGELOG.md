@@ -2,6 +2,15 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.0.0
+
+**Aug 30, 2022**
+
+First stable release.
+
+* Document updates
+* Updated minimum dependencies to Dart >=2.18.0 and Flutter >= 3.3.0. 
+
 ## 0.2.0-dev.2
 
 **Aug 28, 2022**

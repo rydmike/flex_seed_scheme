@@ -1,9 +1,10 @@
 name: flex_seed_scheme_example
 description: Example that demonstrate how to use the FlexSeedScheme package.
-version: 0.2.0-dev.2
+version: 1.0.0
 publish_to: 'none'
 environment:
-  sdk: '>=2.18.0-271.4.beta <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
+  flutter: '>=3.3.0'
 
 dependencies:
   # Adds the Cupertino Icons font to your application. Used by the

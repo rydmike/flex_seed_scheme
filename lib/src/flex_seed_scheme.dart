@@ -16,10 +16,10 @@ import 'flex_tones.dart';
 ///
 /// 1) Three seed colors instead of just one.
 ///
-/// Instead of [CorePalette] it uses inherited version called [FlexCorePalette]
+/// Instead of [CorePalette] it uses custom version called [FlexCorePalette]
 /// that enables using 1, 2 or 3 seed colors for more degrees
 /// of freedom in seeded ColorScheme, using defined seed colors for
-/// primary, secondary and tertiary colors. The extended [FlexCorePalette]
+/// primary, secondary and tertiary colors. The custom [FlexCorePalette]
 /// version also allows for adjusting chroma usage and levels that are
 /// hard coded into M3 design [CorePalette].
 ///
@@ -184,8 +184,8 @@ class FlexSeedScheme {
   /// tones mapping.
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
-  /// internally to create a seeded [ColorScheme] via its static method
-  /// [FlexSeedScheme.fromSeeds] from one, two or three seed
+  /// internally to create a seeded [ColorScheme] via its static extension
+  /// [SeedColorScheme.fromSeeds] from one, two or three seed
   /// colors, and with customizable [FlexTones] tone mapping to [ColorScheme].
   factory FlexSeedScheme._tones({
     required int primaryKey,

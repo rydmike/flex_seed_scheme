@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 // ignore_for_file: comment_references
 
 /// Configuration data class that defines which tone to use from each
-/// [TonalPalette] when assigning used color to each [ColorScheme] color.
+/// [FlexTonalPalette] when assigning used color to each [ColorScheme] color.
 ///
 /// It is also possible to define how Cam16 chroma is used and limited when
 /// generating the tonal palette.
 ///
-/// To use [FlexTones] pass in one of the predefined configs to [tones]:
+/// To use [FlexTones] pass in one of the predefined configs to `tones`]:
 ///
 /// * FlexTones.material, default and same as Flutter SDK M3 setup.
 /// * FlexTones.soft, softer and earthier tones than M3 FlexTones.material.
@@ -24,32 +24,25 @@ import 'package:flutter/foundation.dart';
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
-/// match the Material 3 design setup. Just modify the properties you
+/// match the Material 3 design setup tone mapping wise, but don't lock
+/// chroma bu default. Just modify the properties you
 /// want to change. The above pre-made constructors are examples of doing this.
 ///
-/// When [TonalPalette]s are generated from key color(s) and used to define
+/// When [FlexTonalPalette]s are generated from key color(s) and used to define
 /// a [ColorScheme], it is recommended to use the same key colors and
 /// [FlexTones] setup for both the light and dark theme. By doing so the
-/// same [TonalPalette] is used to assign suitable tones from the same
-/// [TonalPalette] but using different tones.
+/// same [FlexTonalPalette] is used to assign suitable tones from identical
+/// [FlexTonalPalette], but using different tones for light and dark
+/// [Brightness].
 ///
-/// When you use [FlexColorScheme.dark] and its built in schemes via [scheme]
-/// enum property, it automatically uses the light mode [primary],
-/// [secondary] and [tertiary] color definitions as seed keys for their
-/// respective tonal palette generation. Thus creating identical [TonalPalettes]
-/// for dark mode as for light mode and using the tones based and chroma setup
-/// from provided or default [FlexTones].
+/// The [FlexTones.light] and [FlexTones.dark] constructors match the
+/// definition used by Material Design 3 based seed generated tones, for
+/// the tone mapping, however chroma is by default unbound. Use the
+/// [FlexTones.material], for an exact match.
 ///
-/// If you make custom color schemes using [FlexColorScheme] it is up to you
-/// to define what colors you use when you use key colors to seed
-/// [ColorScheme]s.
-///
-/// The used default [FlexTones.light] and [FlexTones.dark] match the definition
-/// Flutter SDK uses for its Material Design 3 based seed generated tones.
 /// In Flutter SDK this tone mapping and chroma setup is done with hard coded
-/// values in [ColorScheme.fromSeed] and libraries it uses. You have to go to
-/// lower APIs and open them up a bit to offer the possibilities and flexibility
-/// FlexColorScheme provides as configurable parameters.
+/// values in [ColorScheme.fromSeed] and libraries it uses. This class offers
+/// configuration of those parameters.
 @immutable
 class FlexTones with Diagnosticable {
   /// Default constructor requiring all properties.
