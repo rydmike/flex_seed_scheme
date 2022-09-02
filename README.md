@@ -165,7 +165,7 @@ color property in `SeedColorScheme.fromSeeds` a given color value. This feature 
 This is typically used to assign a given color value to `primary` color, which is often used as app
 brand color. When the brand color is used as `primaryKey`, and as a seed color, it typically does 
 not end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as
-`primary` color is often desired. The get the seed color as your `primary` brand color, assign the
+`primary` color is often desired. To get the seed color as your `primary` brand color, assign the
 color used as `primaryKey` to `primary` color as well.
 
 ```dart
@@ -174,8 +174,8 @@ color used as `primaryKey` to `primary` color as well.
       brightness: Brightness.light,
       // Use a "brand" seed color as primary color in the result.
       primary: primarySeedColor,
-      //
       primaryKey: primarySeedColor,
+      //
       secondaryKey: secondarySeedColor,
       tertiaryKey: tertiarySeedColor,
       tones: FlexTones.vivid(Brightness.light),
@@ -185,11 +185,11 @@ color used as `primaryKey` to `primary` color as well.
 This strategy works well for the light mode `ColorScheme`, since the prominent brand color a company
 has defined is typically intended to be printed on white paper. If you have secondary brand colors
 that are to be used, using them as seeds for `secondaryKey` and `tertiaryKey` will work too.
-How well they will fit and match the Material 3 color system needs if assigned to 
+How well they will fit and match the Material 3 color system needs, if assigned to 
 `secondary` and `tertiary` directly as colors in `SeedColorScheme.fromSeeds`, will vary depending 
 on what colors they are.
 
-Companies rarely have brand colors suited for good contrast in dark theme mode. in that case 
+Companies rarely have brand colors suited for good contrast in dark theme mode. In that case 
 prefer only using the same light mode brand colors as key colors to seed the dark mode 
 `ColorScheme`. If they do have dark mode specifications, and the colors are of same hue as 
 light mode, consider still using the light mode colors as seed source and only applying the 
@@ -199,7 +199,7 @@ If there is a spec that calls for completely different main colors in dark mode,
 hues, then seeding from them and also setting `primary`, `secondary` and `tertiary` to these 
 color values is appropriate.
 
-### Customize tones and chroma
+### Customize Tones and Chroma
 
 In the above example, we used a predefined tone mapping and chroma setup called `FlexTones.vivid`.
 There are currently seven predefined configurations available:
@@ -254,8 +254,8 @@ as your standard theme's light and dark scheme colors, but uses a chroma configu
 mapping setup that increases contrast further from standard light and dark theme setup.
 
 There are two high contrast `FlexTones` configuration pre-made for this. They are called 
-`FlexTones.highContrast` colorful high contrast version, and `FlexTones.ultraContrast` a less 
-colorful version with more pure dark on light, and light on dark result.
+`FlexTones.highContrast`, a colorful high contrast version, and `FlexTones.ultraContrast`, a less 
+colorful version with more pure dark on light in light theme mode, and light on dark in dark mode.
 
 ```dart
 // Make a high contrast light ColorScheme from the seeds.

@@ -104,10 +104,28 @@ class _MyAppState extends State<MyApp> {
         ),
         useMaterial3: useMaterial3,
       ),
+      //
       // Define accessibility high contrast versions using same color base.
-      // These are same as selecting the ultra contrast option in the popup.
-      // By providing the choice on these themes, it will be auto selected
-      // when platform accessibility theme is used.
+      //
+      // The theme below is same as selecting the ultra contrast option in the
+      // popup.
+      //
+      // By providing a theme on these properties, it will be auto selected
+      // when platform accessibility theme is requested. Some host platforms
+      // (for example, iOS, so far only iOS supports this in Flutter) allow the
+      // users to increase contrast through an  accessibility setting.
+      //
+      // If the user requested a high contrast between foreground and background
+      // content on iOS, via Settings -> Accessibility -> Increase Contrast.
+      // This is currently only supported on iOS devices that are running
+      // iOS 13 or above.
+      //
+      // If you make the selection on an iOS device, you will get the high
+      // contrast scheme based ThemeData versions below, regardless of what
+      // is selected in the popup in this demo app. This demonstrates how to
+      // follow device accessibility setting on iOS, while still using a theme
+      // with ColorScheme based on your theme design goal used for your standard
+      // contrast.
       highContrastTheme: ThemeData.from(
         colorScheme: schemeLightHc,
         useMaterial3: useMaterial3,
