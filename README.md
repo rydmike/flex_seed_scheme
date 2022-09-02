@@ -301,11 +301,11 @@ accessibility system settings.
 The included example app in light and dark theme mode using above color seeding and tone mapping.
 
 
-| Light from seeds custom tones | Dark from seeds custom tones|
+| Light from seeds - Custom tones | Dark from seeds - Custom tones|
 | --- | --- |
 | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app.png?raw=true?" alt="light_app"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app.png?raw=true?" alt="dark_app"/> |
 
-| Light from seed Material 3 tones | Dark from seeds Material 3 tones|
+| Light from seed - Material 3 tones | Dark from seed - Material 3 tones|
 | --- | --- |
 | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app_m3.png?raw=true?" alt="light_app_m3"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app_m3.png?raw=true?" alt="dark_app_m3"/> |
 
