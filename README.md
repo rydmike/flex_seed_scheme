@@ -4,14 +4,7 @@
 
 A more flexible version of Flutter's ColorScheme.fromSeed.
 
-> **NOTE:**  
-> This is a pre-release dev version of the final package. This version is designed to work with 
-> Flutter beta 3.3.0-0.3.pre or later. It also works with Flutter master 3.1.0-0.0.pre.2199,
-> but some test will fail due to new features not in beta. It does not work with Flutter 
-> stable 3.0.x. The first stable version of this package, will be released after Flutter 3.3.0 
-> stable has been released. 
-
-Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
+Use this package like `ColorScheme.fromSeed` with the following additional capabilities:
 
 * Use separate key colors to generate seed based tonal palettes for primary, secondary and tertiary
   colors in `ColorScheme`.
@@ -19,7 +12,7 @@ Use this package like `ColorScheme.fromSeed` but with the following additional c
   generation in the Google HCT color space.
 * Change which tones in the generated core tonal palettes are used by which `ColorScheme` color.
   Changes are limited to the tones from correct core palette for each `ColorScheme` color, but
-  any tone from it can be used.
+  any tone from it can be used. Going up or down one tone is often usable, in some cases even two.
 * Use two additional tonal palettes tones, 5 and tone 98. They can be used to offer more
   fidelity in the dark and light end of the tonal palettes and mapped to `ColorScheme` colors
   when using custom tone mapping. Tone 98 is also available in web based 
@@ -30,11 +23,11 @@ Use this package like `ColorScheme.fromSeed` but with the following additional c
 
 ## Background
 
-This package was extracted from the customizable `SeedColorScheme.fromSeeds` engine in the 
+This package was extracted from the customizable color scheme seeding engine in the 
 [**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
 
 This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
-**FlexColorScheme** without using the FlexColorScheme package. Starting with
+**FlexColorScheme**, without using the FlexColorScheme package. Starting with
 **FlexColorScheme** version 6 and later, it depends on this package instead.
 
 If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to use
@@ -205,6 +198,54 @@ appropriate dark mode colors to `primary`, `secondary` and `tertiary` as needed.
 If there is a spec that calls for completely different main colors in dark mode, using different 
 hues, then seeding from them and also setting `primary`, `secondary` and `tertiary` to these 
 color values is appropriate.
+
+### Customize tones and chroma
+
+In the above example, we used a predefined tone mapping and chroma setup called `FlexTones.vivid`.
+There are currently seven predefined configurations available:
+
+* `FlexTones.material`, default and same as Flutter SDK M3 setup.
+* `FlexTones.soft`, softer and earthier tones than M3 FlexTones.material.
+* `FlexTones.vivid`, more vivid colors, uses chroma as given from all key colors.
+* `FlexTones.vividSurfaces`, like vivid, but with more colors in surfaces.
+* `FlexTones.highContrast`, can be used for more color accessible themes.
+* `FlexTones.ultraContrast`, for a very high contrast theme version.
+* `FlexTones.jolly`, for a more "jolly" and colorful theme.
+
+You can define custom tones mapping and chroma limitation setups with `FlexTones`. Using
+the `FlexTones.light` and `FlexTones.dark` constructors as base for custom definitions are 
+preferred. By using them you only need to override defaults that you want to change.
+
+```dart
+// Example definition of light custom tones config.
+const FlexTones myLightTones = FlexTones.light(
+  primaryTone: 30, // Default is 40.
+  onPrimaryTone: 95, // Default is 100
+  onSecondaryTone: 95, // Default is 100
+  onTertiaryTone: 95, // Default is 100
+  onErrorTone: 95, // Default is 100
+  primaryMinChroma: 55, // Default is 48
+  secondaryChroma: 25, // Default is 16
+  tertiaryChroma: 40, // Default is 24
+  neutralChroma: 7, // Default is 4,
+  neutralVariantChroma: 14, // Default is 8
+);
+
+// Example definition of dark custom tones config.
+const FlexTones myDarkTones = FlexTones.dark(
+  primaryTone: 70, // Default is 80.
+  onPrimaryTone: 10, // Default is 20
+  onSecondaryTone: 10, // Default is 20
+  onTertiaryTone: 10, // Default is 20
+  onErrorTone: 10, // Default is 20
+  primaryMinChroma: 55, // Default is 48
+  secondaryChroma: 25, // Default is 16
+  tertiaryChroma: 40, // Default is 24
+  neutralChroma: 7, // Default is 4,
+  neutralVariantChroma: 14, // Default is 8
+);
+
+```
 
 ### Accessibility
 

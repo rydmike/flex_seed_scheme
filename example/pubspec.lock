@@ -56,7 +56,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0"
+    version: "1.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -75,7 +75,7 @@ packages:
     source: hosted
     version: "0.12.12"
   material_color_utilities:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: material_color_utilities
       url: "https://pub.dartlang.org"

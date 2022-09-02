@@ -266,19 +266,43 @@ extension SeedColorScheme on ColorScheme {
     /// Seed color used to generate all the primary color dependent colors in
     /// a ColorScheme.
     ///
-    /// By Material 3 default design and as implemented in
-    /// [ColorScheme.fromSeed] it is used generate palettes for all tonal
-    /// palettes, except error palettes that has its own fixed definition.
+    /// In Material 3 color system and in [ColorScheme.fromSeed], this color is
+    /// used to generate palettes for all tonal palettes, except error palette
+    /// that has its own fixed seed value.
     ///
-    /// The default is the same here, however if colors are provided for
+    /// The default is the same here. However, if colors are provided for
     /// [secondaryKey] and [tertiaryKey] their tonal palettes will be seeded
     /// from their own key color.
+    ///
+    /// As in [ColorScheme.fromSeed], there is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [primaryKey] will typically not become your [ColorScheme.primary] color.
+    /// It will only be of the same hue. If you used a color intended for light
+    /// theme mode as [primaryKey], consider overriding [primary] for the light
+    /// theme with the same color value as your [primaryKey].
     required Color primaryKey,
 
-    /// Optional key color to seed the secondary tonal palette.
+    /// Optional key color used to seed the secondary tonal palette.
+    ///
+    /// There is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [secondaryKey] will typically not become your [ColorScheme.secondary]
+    /// color. It will only be of the same hue. If you used a color intended
+    /// for light theme mode as [secondaryKey], consider overriding [secondary]
+    /// for the light theme with the same color value as your [secondaryKey].
     Color? secondaryKey,
 
-    /// Optional key color to seed the tertiary tonal palette.
+    /// Optional key color used to seed the tertiary tonal palette.
+    ///
+    /// There is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [tertiaryKey] will typically not become your [ColorScheme.tertiary]
+    /// color. It will only be of the same hue. If you used a color intended
+    /// for light theme mode as [tertiaryKey], consider overriding [tertiary]
+    /// for the light theme with the same color value as your [tertiaryKey].
     Color? tertiaryKey,
 
     /// Tonal palette chroma usage configuration and mapping to [ColorScheme].
@@ -295,7 +319,7 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [primary] color.
     ///
     /// You may want to assign the [primaryKey] to this color in light
-    /// brightness mode if it is your branding or main design color.
+    /// brightness mode, if it is also your branding or main design color.
     Color? primary,
 
     /// Override color for the seed generated [onPrimary] color.
