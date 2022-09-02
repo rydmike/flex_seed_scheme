@@ -307,4 +307,6 @@ The included example app in light and dark theme mode using above color seeding 
 
 | Light from seed Material 3 tones | Dark from seeds Material 3 tones|
 | --- | --- |
-| <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app_m3.png?raw=true?" alt="light_app_m3"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app_3.png?raw=true?" alt="dark_app_m3"/> |
+| <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app_m3.png?raw=true?" alt="light_app_m3"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app_m3.png?raw=true?" alt="dark_app_m3"/> |
+
+You can try a web version of this example [**here**](https://rydmike.com/flexseedscheme/demo-v1).
