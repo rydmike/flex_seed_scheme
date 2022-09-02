@@ -10,11 +10,12 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * Readme: Removed old notice about it being a beta release and using Flutter 3.3 beta.
 * Readme: Describe custom FlexTones config.
-* API docs: 
+* API doc improvements
 
 **EXAMPLE**
 
 * Allow selection of example custom tones and all built-in options.
+* Make example available as live web demo.
 
 ## 1.0.0
 
