@@ -298,7 +298,14 @@ accessibility system settings.
 
 ### Example App
 
-The included example app in light and dark theme mode using above color seeding and tone mapping.
+The included example app in light and dark theme mode using above color seeding and custom 
+tone mapping. 
+
+Below also comparing it to only single color `ColorScheme.fromSeed` generated default
+Material 3 seed algorithm available in Flutter. Both are using same key color as primary
+seed color, but as `ColorScheme.fromSeed` can only use a single seed color, we cannot customize the
+hues of its seed generated secondary and tertiary colors. The secondary and tertiary colors are 
+also more muted, earthy and pastel color tones.
 
 
 | Light from seeds - Custom tones | Dark from seeds - Custom tones|
