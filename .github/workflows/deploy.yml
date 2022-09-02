@@ -11,12 +11,10 @@
 #    Controversial but pub.dev penalizes you if dart format is not used.
 #  - Run all tests with coverage.
 #  - Upload code coverage output to Codecov for analysis.
-#  - Build 5 different WEB example apps using FlexColorScheme.
-#    All examples use these steps:
+#  - Build WEB example app.
+#    Steps:
 #    - Flutter clean.
-#    - Flutter build web app, in release mode and with CanvasKit renderer.
-#    - Use rpl to fix/modify the index.html file to give it the correct
-#      href deployment sub-folder.
+#    - Flutter build web app, in release mode and with CanvasKit renderer.#
 #    - Deploy each built Web App to GitHub pages.
 name: Deploy Web
 on:
@@ -35,7 +33,7 @@ on:
       - "**.md"
 jobs:
   flutter_tests:
-    name: "Analyze and test package, then build and deploy 5 web apps"
+    name: "Analyze and test package, then build and deploy web demo"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -69,7 +67,7 @@ jobs:
       - name: "EXAMPLE START BUILD - Flutter clean before build"
         run: flutter clean && cd example && flutter clean
       - name: "EXAMPLE WEB release build"
-        run: cd example && flutter build web --web-renderer canvaskit --base-href "/flexseedscheme/demo-v1/" --release -t lib/web_demo/main.dart
+        run: cd example && flutter build web --web-renderer canvaskit --base-href "/flexseedscheme/demo-v1/" --release -t lib/main.dart
       - name: "EXAMPLE DEPLOY to GitHub Pages repository, published on commit."
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
