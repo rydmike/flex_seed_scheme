@@ -10,13 +10,13 @@ import 'package:flutter/foundation.dart';
 ///
 /// To use [FlexTones] pass in one of the predefined configs to `tones`]:
 ///
-/// * FlexTones.material, default and same as Flutter SDK M3 setup.
-/// * FlexTones.soft, softer and earthier tones than M3 FlexTones.material.
-/// * FlexTones.vivid, more vivid colors, uses chroma from all key colors.
-/// * FlexTones.vividSurfaces, like vivid, but with colors in surfaces.
-/// * FlexTones.highContrast, can be used for more color accessible themes.
-/// * FlexTones.ultraContrast, for a very high contrast theme version.
-/// * FlexTones.jolly, for a more "jolly" and colorful theme.
+/// * [FlexTones.material], default and same as Flutter SDK M3 setup.
+/// * [FlexTones.soft], softer and earthier tones than M3 FlexTones.material.
+/// * [FlexTones.vivid], more vivid colors, uses chroma from all key colors.
+/// * [FlexTones.vividSurfaces], like vivid, but with more colors in surfaces.
+/// * [FlexTones.highContrast], can be used for more color accessible themes.
+/// * [FlexTones.ultraContrast], for a very high contrast theme version.
+/// * [FlexTones.jolly], for a more "jolly" and colorful theme.
 ///
 /// in a [FlexColorScheme.light] or [FlexColorScheme.dark], or the
 /// equivalent [FlexThemeData] extension, with the brightness set

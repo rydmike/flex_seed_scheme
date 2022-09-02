@@ -1,6 +1,6 @@
 name: flex_seed_scheme_example
 description: Example that demonstrate how to use the FlexSeedScheme package.
-version: 1.0.0
+version: 1.0.1
 publish_to: 'none'
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -33,7 +33,7 @@ dependencies:
   #
   # This is an unusual range since 0.2.0 is a breaking semver step over 0.1.x, but it works for this
   # case, and was also observed as range used by Google package dynamic_color.
-  material_color_utilities: '>=0.1.5 <=0.2.0'
+  # material_color_utilities: '>=0.1.5 <=0.2.0'
 
 dev_dependencies:
   flutter_test:

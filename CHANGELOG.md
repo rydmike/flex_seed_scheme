@@ -2,6 +2,20 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.0.1
+
+**Sep 2, 2022**
+
+**DOCS**
+
+* Readme: Removed old notice about it being a beta release and using Flutter 3.3 beta.
+* Readme: Describe custom FlexTones config.
+* API docs: 
+
+**EXAMPLE**
+
+* Allow selection of example custom tones and all built-in options.
+
 ## 1.0.0
 
 **Aug 30, 2022**

@@ -4,14 +4,7 @@
 
 A more flexible version of Flutter's ColorScheme.fromSeed.
 
-> **NOTE:**  
-> This is a pre-release dev version of the final package. This version is designed to work with 
-> Flutter beta 3.3.0-0.3.pre or later. It also works with Flutter master 3.1.0-0.0.pre.2199,
-> but some test will fail due to new features not in beta. It does not work with Flutter 
-> stable 3.0.x. The first stable version of this package, will be released after Flutter 3.3.0 
-> stable has been released. 
-
-Use this package like `ColorScheme.fromSeed` but with the following additional capabilities:
+Use this package like `ColorScheme.fromSeed` with the following additional capabilities:
 
 * Use separate key colors to generate seed based tonal palettes for primary, secondary and tertiary
   colors in `ColorScheme`.
@@ -19,7 +12,7 @@ Use this package like `ColorScheme.fromSeed` but with the following additional c
   generation in the Google HCT color space.
 * Change which tones in the generated core tonal palettes are used by which `ColorScheme` color.
   Changes are limited to the tones from correct core palette for each `ColorScheme` color, but
-  any tone from it can be used.
+  any tone from it can be used. Going up or down one tone is often usable, in some cases even two.
 * Use two additional tonal palettes tones, 5 and tone 98. They can be used to offer more
   fidelity in the dark and light end of the tonal palettes and mapped to `ColorScheme` colors
   when using custom tone mapping. Tone 98 is also available in web based 
@@ -30,11 +23,11 @@ Use this package like `ColorScheme.fromSeed` but with the following additional c
 
 ## Background
 
-This package was extracted from the customizable `SeedColorScheme.fromSeeds` engine in the 
+This package was extracted from the customizable color scheme seeding engine in the 
 [**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
 
 This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
-**FlexColorScheme** without using the FlexColorScheme package. Starting with
+**FlexColorScheme**, without using the FlexColorScheme package. Starting with
 **FlexColorScheme** version 6 and later, it depends on this package instead.
 
 If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to use
@@ -172,7 +165,7 @@ color property in `SeedColorScheme.fromSeeds` a given color value. This feature 
 This is typically used to assign a given color value to `primary` color, which is often used as app
 brand color. When the brand color is used as `primaryKey`, and as a seed color, it typically does 
 not end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as
-`primary` color is often desired. The get the seed color as your `primary` brand color, assign the
+`primary` color is often desired. To get the seed color as your `primary` brand color, assign the
 color used as `primaryKey` to `primary` color as well.
 
 ```dart
@@ -181,8 +174,8 @@ color used as `primaryKey` to `primary` color as well.
       brightness: Brightness.light,
       // Use a "brand" seed color as primary color in the result.
       primary: primarySeedColor,
-      //
       primaryKey: primarySeedColor,
+      //
       secondaryKey: secondarySeedColor,
       tertiaryKey: tertiarySeedColor,
       tones: FlexTones.vivid(Brightness.light),
@@ -192,11 +185,11 @@ color used as `primaryKey` to `primary` color as well.
 This strategy works well for the light mode `ColorScheme`, since the prominent brand color a company
 has defined is typically intended to be printed on white paper. If you have secondary brand colors
 that are to be used, using them as seeds for `secondaryKey` and `tertiaryKey` will work too.
-How well they will fit and match the Material 3 color system needs if assigned to 
+How well they will fit and match the Material 3 color system needs, if assigned to 
 `secondary` and `tertiary` directly as colors in `SeedColorScheme.fromSeeds`, will vary depending 
 on what colors they are.
 
-Companies rarely have brand colors suited for good contrast in dark theme mode. in that case 
+Companies rarely have brand colors suited for good contrast in dark theme mode. In that case 
 prefer only using the same light mode brand colors as key colors to seed the dark mode 
 `ColorScheme`. If they do have dark mode specifications, and the colors are of same hue as 
 light mode, consider still using the light mode colors as seed source and only applying the 
@@ -206,6 +199,54 @@ If there is a spec that calls for completely different main colors in dark mode,
 hues, then seeding from them and also setting `primary`, `secondary` and `tertiary` to these 
 color values is appropriate.
 
+### Customize Tones and Chroma
+
+In the above example, we used a predefined tone mapping and chroma setup called `FlexTones.vivid`.
+There are currently seven predefined configurations available:
+
+* `FlexTones.material`, default and same as Flutter SDK M3 setup.
+* `FlexTones.soft`, softer and earthier tones than M3 FlexTones.material.
+* `FlexTones.vivid`, more vivid colors, uses chroma as given from all key colors.
+* `FlexTones.vividSurfaces`, like vivid, but with more colors in surfaces.
+* `FlexTones.highContrast`, can be used for more color accessible themes.
+* `FlexTones.ultraContrast`, for a very high contrast theme version.
+* `FlexTones.jolly`, for a more "jolly" and colorful theme.
+
+You can define custom tones mapping and chroma limitation setups with `FlexTones`. Using
+the `FlexTones.light` and `FlexTones.dark` constructors as base for custom definitions are 
+preferred. By using them you only need to override defaults that you want to change.
+
+```dart
+// Example definition of light custom tones config.
+const FlexTones myLightTones = FlexTones.light(
+  primaryTone: 30, // Default is 40.
+  onPrimaryTone: 95, // Default is 100
+  onSecondaryTone: 95, // Default is 100
+  onTertiaryTone: 95, // Default is 100
+  onErrorTone: 95, // Default is 100
+  primaryMinChroma: 55, // Default is 48
+  secondaryChroma: 25, // Default is 16
+  tertiaryChroma: 40, // Default is 24
+  neutralChroma: 7, // Default is 4,
+  neutralVariantChroma: 14, // Default is 8
+);
+
+// Example definition of dark custom tones config.
+const FlexTones myDarkTones = FlexTones.dark(
+  primaryTone: 70, // Default is 80.
+  onPrimaryTone: 10, // Default is 20
+  onSecondaryTone: 10, // Default is 20
+  onTertiaryTone: 10, // Default is 20
+  onErrorTone: 10, // Default is 20
+  primaryMinChroma: 55, // Default is 48
+  secondaryChroma: 25, // Default is 16
+  tertiaryChroma: 40, // Default is 24
+  neutralChroma: 7, // Default is 4,
+  neutralVariantChroma: 14, // Default is 8
+);
+
+```
+
 ### Accessibility
 
 You can use `FlexTones` to create a seed generated `ColorScheme`, that is based on same colors
@@ -213,8 +254,8 @@ as your standard theme's light and dark scheme colors, but uses a chroma configu
 mapping setup that increases contrast further from standard light and dark theme setup.
 
 There are two high contrast `FlexTones` configuration pre-made for this. They are called 
-`FlexTones.highContrast` colorful high contrast version, and `FlexTones.ultraContrast` a less 
-colorful version with more pure dark on light, and light on dark result.
+`FlexTones.highContrast`, a colorful high contrast version, and `FlexTones.ultraContrast`, a less 
+colorful version with more pure dark on light in light theme mode, and light on dark in dark mode.
 
 ```dart
 // Make a high contrast light ColorScheme from the seeds.
@@ -260,6 +301,10 @@ accessibility system settings.
 The included example app in light and dark theme mode using above color seeding and tone mapping.
 
 
-| Light theme app | Dark theme app |
+| Light from seeds custom tones | Dark from seeds custom tones|
 | --- | --- |
 | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app.png?raw=true?" alt="light_app"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app.png?raw=true?" alt="dark_app"/> |
+
+| Light from seed Material 3 tones | Dark from seeds Material 3 tones|
+| --- | --- |
+| <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app_m3.png?raw=true?" alt="light_app_m3"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app_3.png?raw=true?" alt="dark_app_m3"/> |
