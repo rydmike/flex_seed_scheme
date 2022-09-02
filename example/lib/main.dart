@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SeedColorScheme.fromSeeds Demo',
+      title: 'ColorScheme from Seeds',
       themeMode: themeMode,
       // Make light and dark theme using seeded color color schemes, where
       // seeding type is selected via a function.
@@ -138,7 +138,7 @@ class _MyAppState extends State<MyApp> {
       //
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SeedColorScheme.fromSeeds Demo'),
+          title: const Text('ColorScheme from Seeds'),
           actions: <Widget>[
             IconButton(
               icon: useMaterial3
