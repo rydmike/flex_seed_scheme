@@ -385,8 +385,8 @@ void main() {
             surfaceTintTone: 30,
             //
             primaryMinChroma: 50,
-            neutralChroma: 6,
-            neutralVariantChroma: 12,
+            neutralChroma: 5,
+            neutralVariantChroma: 10,
           ),
         ),
       );
@@ -405,8 +405,8 @@ void main() {
             inverseSurfaceTone: 95,
             //
             primaryMinChroma: 50,
-            neutralChroma: 6,
-            neutralVariantChroma: 12,
+            neutralChroma: 5,
+            neutralVariantChroma: 10,
           ),
         ),
       );
@@ -428,8 +428,8 @@ void main() {
             surfaceTintTone: 30,
             //
             primaryMinChroma: 50,
-            neutralChroma: 6,
-            neutralVariantChroma: 12,
+            neutralChroma: 5,
+            neutralVariantChroma: 10,
           ),
         ),
       );
@@ -448,8 +448,8 @@ void main() {
             inverseSurfaceTone: 95,
             //
             primaryMinChroma: 50,
-            neutralChroma: 6,
-            neutralVariantChroma: 12,
+            neutralChroma: 5,
+            neutralVariantChroma: 10,
           ),
         ),
       );
@@ -621,29 +621,40 @@ void main() {
         ),
       );
     });
-
     //
-    test('FTO1.030: Verify FlexTones.jolly(Brightness.dark).', () {
+    test('FTO1.031: Verify FlexTones.oneHue(Brightness.light).', () {
       expect(
-        FlexTones.jolly(Brightness.dark),
+        FlexTones.oneHue(Brightness.light),
         equals(
-          const FlexTones.dark(
-            primaryTone: 80,
-            secondaryTone: 90,
-            secondaryContainerTone: 20,
-            onPrimaryTone: 10,
-            onSecondaryTone: 10,
-            onTertiaryTone: 10,
-            onErrorTone: 10,
-            tertiaryChroma: 40,
+          const FlexTones.light(
+            secondaryContainerTone: 95,
+            tertiaryTone: 30,
+            tertiaryContainerTone: 80,
+            //
             primaryMinChroma: 55,
-            secondaryMinChroma: 40,
-            neutralChroma: 6,
-            neutralVariantChroma: 10,
+            secondaryChroma: 26,
+            tertiaryChroma: 36,
+            tertiaryHueRotation: 0,
           ),
         ),
       );
     });
-//
+    test('FTO1.030: Verify FlexTones.oneHue(Brightness.dark).', () {
+      expect(
+        FlexTones.oneHue(Brightness.dark),
+        equals(
+          const FlexTones.dark(
+            tertiaryTone: 90,
+            tertiaryContainerTone: 40,
+            onTertiaryContainerTone: 95,
+            //
+            primaryMinChroma: 55,
+            secondaryChroma: 26,
+            tertiaryChroma: 36,
+            tertiaryHueRotation: 0,
+          ),
+        ),
+      );
+    });
   });
 }

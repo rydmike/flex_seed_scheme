@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'flex_tones_enum.dart';
 import 'flex_tones_popup_menu.dart';
 import 'show_color_scheme_colors.dart';
+import 'show_key_colors.dart';
 
 // Define your seed colors.
 const Color primarySeedColor = Color(0xFF6750A4);
@@ -12,24 +13,19 @@ const Color tertiarySeedColor = Color(0xFF6CA450);
 
 // Return a ColorScheme from the fixed seeds for primary, secondary and tertiary
 // keys colors, at given brightness and provided tones FlexTones,
-ColorScheme selectedSeedScheme(
-  Brightness brightness,
-  FlexTones tones,
-) =>
+ColorScheme selectedSeedScheme({
+  required Brightness brightness,
+  required FlexTones tones,
+  required bool useSecondaryKey,
+  required bool useTertiaryKey,
+}) =>
     SeedColorScheme.fromSeeds(
       brightness: brightness,
       // Primary key color is required, like seed color ColorScheme.fromSeed.
       primaryKey: primarySeedColor,
-      // You can add optional own seeds for secondary and tertiary key colors.
-      // To see the real diff between M3 default result, we are not going to
-      // use the secondary and tertiary keys, if used tones mapping
-      // is equal to FlexTones.material, although you can of course, but then
-      // the result will not be identical to M3, only the mapping and chroma
-      // limits wil be, hue will come from the key colors.
-      secondaryKey:
-          tones == FlexTones.material(brightness) ? null : secondarySeedColor,
-      tertiaryKey:
-          tones == FlexTones.material(brightness) ? null : tertiarySeedColor,
+      // We can opt in on using secondary and tertiary seed key colors.
+      secondaryKey: useSecondaryKey ? secondarySeedColor : null,
+      tertiaryKey: useTertiaryKey ? tertiarySeedColor : null,
       // Tone chroma config and tone mapping is optional, if you do not add it
       // you get the config matching Flutter's Material 3 ColorScheme.fromSeed.
       tones: tones,
@@ -75,6 +71,9 @@ class _MyAppState extends State<MyApp> {
   ThemeMode themeMode = ThemeMode.light;
   FlexTonesEnum usedTone = FlexTonesEnum.custom;
   int counter = 0;
+  bool useSecondaryKey = true;
+  bool useTertiaryKey = true;
+  bool keepAllOnColorsBW = false;
 
   void _incrementCounter() {
     setState(() {
@@ -92,15 +91,25 @@ class _MyAppState extends State<MyApp> {
       // seeding type is selected via a function.
       theme: ThemeData.from(
         colorScheme: selectedSeedScheme(
-          Brightness.light,
-          usedTone.tones(Brightness.light),
+          brightness: Brightness.light,
+          tones: usedTone
+              .tones(Brightness.light)
+              .onMainsUseBW(keepAllOnColorsBW)
+              .onSurfacesUseBW(keepAllOnColorsBW),
+          useSecondaryKey: useSecondaryKey,
+          useTertiaryKey: useTertiaryKey,
         ),
         useMaterial3: useMaterial3,
       ),
       darkTheme: ThemeData.from(
         colorScheme: selectedSeedScheme(
-          Brightness.dark,
-          usedTone.tones(Brightness.dark),
+          brightness: Brightness.dark,
+          tones: usedTone
+              .tones(Brightness.dark)
+              .onMainsUseBW(keepAllOnColorsBW)
+              .onSurfacesUseBW(keepAllOnColorsBW),
+          useSecondaryKey: useSecondaryKey,
+          useTertiaryKey: useTertiaryKey,
         ),
         useMaterial3: useMaterial3,
       ),
@@ -183,6 +192,51 @@ class _MyAppState extends State<MyApp> {
               title: Text('${usedTone.toneLabel}'
                   ' FlexTones setup has CAM16 chroma:'),
               subtitle: Text('${usedTone.setup}\n'),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: ShowKeyColors(
+                primaryKey: primarySeedColor,
+                secondaryKey: secondarySeedColor,
+                tertiaryKey: tertiarySeedColor,
+              ),
+            ),
+            const ListTile(
+                dense: true,
+                title: Text('Primary key color is always used to seed the '
+                    'ColorScheme')),
+            SwitchListTile(
+              dense: true,
+              title:
+                  const Text('Use secondary key color to seed the ColorScheme'),
+              value: useSecondaryKey,
+              onChanged: (bool value) {
+                setState(() {
+                  useSecondaryKey = value;
+                });
+              },
+            ),
+            SwitchListTile(
+              dense: true,
+              title:
+                  const Text('Use tertiary key color to seed the ColorScheme'),
+              value: useTertiaryKey,
+              onChanged: (bool value) {
+                setState(() {
+                  useTertiaryKey = value;
+                });
+              },
+            ),
+            SwitchListTile(
+              dense: true,
+              title: const Text(
+                  'Keep all onColors in seeded ColorScheme black and white'),
+              value: keepAllOnColorsBW,
+              onChanged: (bool value) {
+                setState(() {
+                  keepAllOnColorsBW = value;
+                });
+              },
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

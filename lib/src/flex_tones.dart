@@ -226,7 +226,7 @@ class FlexTones with Diagnosticable {
   /// Create a M3 tonal palette tones extraction, but with no hue rotation
   /// from primary if no ARGB key color is provided for tertiary palette.
   ///
-  /// This setup will if only one seed color is used, produce a slighlt more
+  /// This setup will if only one seed color is used, produce a slightly more
   /// chromatic color set than [FlexTones.material], since it does not rotate
   /// hue from primary to get hue for tertiary, it will create a color
   /// scheme using tonal palettes that are based on same hue, but with different
@@ -236,15 +236,23 @@ class FlexTones with Diagnosticable {
   factory FlexTones.oneHue(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
+              secondaryContainerTone: 95,
+              tertiaryTone: 30,
+              tertiaryContainerTone: 80,
+              //
               primaryMinChroma: 55,
-              secondaryChroma: 20,
-              tertiaryChroma: 35,
+              secondaryChroma: 26,
+              tertiaryChroma: 36,
               tertiaryHueRotation: 0,
             )
           : const FlexTones.dark(
+              tertiaryTone: 90,
+              tertiaryContainerTone: 40,
+              onTertiaryContainerTone: 95,
+              //
               primaryMinChroma: 55,
-              secondaryChroma: 20,
-              tertiaryChroma: 35,
+              secondaryChroma: 26,
+              tertiaryChroma: 36,
               tertiaryHueRotation: 0,
             );
 
@@ -325,8 +333,8 @@ class FlexTones with Diagnosticable {
               surfaceTintTone: 30,
               //
               primaryMinChroma: 50,
-              neutralChroma: 6,
-              neutralVariantChroma: 12,
+              neutralChroma: 5,
+              neutralVariantChroma: 10,
             )
           : const FlexTones.dark(
               onPrimaryTone: 10,
@@ -338,8 +346,8 @@ class FlexTones with Diagnosticable {
               inverseSurfaceTone: 95,
               //
               primaryMinChroma: 50,
-              neutralChroma: 6,
-              neutralVariantChroma: 12,
+              neutralChroma: 5,
+              neutralVariantChroma: 10,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
@@ -360,8 +368,8 @@ class FlexTones with Diagnosticable {
               surfaceTintTone: 30,
               //
               primaryMinChroma: 50,
-              neutralChroma: 6,
-              neutralVariantChroma: 12,
+              neutralChroma: 5,
+              neutralVariantChroma: 10,
             )
           : const FlexTones.dark(
               onPrimaryTone: 10,
@@ -373,8 +381,8 @@ class FlexTones with Diagnosticable {
               inverseSurfaceTone: 95,
               //
               primaryMinChroma: 50,
-              neutralChroma: 6,
-              neutralVariantChroma: 12,
+              neutralChroma: 5,
+              neutralVariantChroma: 10,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
@@ -534,11 +542,12 @@ class FlexTones with Diagnosticable {
   /// existing or pre-made [FlexTones] config to not have any color tint in
   /// their seeded main **on** colors.
   ///
-  /// The [removeTint] flag is true by default making the function effective.
-  /// If set to false, the function is no op and just returns object unmodified,
-  /// this is typically used to control applying the tint removal via a control.
-  FlexTones noOnMainsTint([bool removeTint = true]) {
-    if (!removeTint) return this;
+  /// The [useBW] flag is true by default, making the function effective.
+  /// If set to false, the function is a no op and just returns the [FlexTones]
+  /// object unmodified. This is typically used to control applying the tint
+  /// removal via a controller.
+  FlexTones onMainsUseBW([bool useBW = true]) {
+    if (!useBW) return this;
     return copyWith(
       onPrimaryTone: primaryTone <= 60 ? 100 : 0,
       onPrimaryContainerTone: primaryContainerTone <= 60 ? 100 : 0,
@@ -563,11 +572,12 @@ class FlexTones with Diagnosticable {
   /// existing or pre-made [FlexTones] config to not have any color tint in
   /// their seeded main on colors.
   ///
-  /// The [removeTint] flag is true by default making the function effective.
-  /// If set to false, the function is no op and just returns object unmodified,
-  /// this is typically used to control applying the tint removal via a control.
-  FlexTones noOnSurfacesTint([bool removeTint = true]) {
-    if (!removeTint) return this;
+  /// The [useBW] flag is true by default, making the function effective.
+  /// If set to false, the function is a no op and just returns the [FlexTones]
+  /// object unmodified. This is typically used to control applying the tint
+  /// removal via a controller.
+  FlexTones onSurfacesUseBW([bool useBW = true]) {
+    if (!useBW) return this;
     return copyWith(
       onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,

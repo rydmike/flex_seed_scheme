@@ -159,7 +159,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.light).noOnMainsTint(),
+        tones: FlexTones.jolly(Brightness.light).onMainsUseBW(),
       );
       expect(scheme.onPrimary, Colors.white);
       expect(scheme.onPrimaryContainer, Colors.black);
@@ -180,7 +180,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.light).noOnMainsTint(false),
+        tones: FlexTones.jolly(Brightness.light).onMainsUseBW(false),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -200,7 +200,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.dark).noOnMainsTint(),
+        tones: FlexTones.jolly(Brightness.dark).onMainsUseBW(),
       );
       expect(scheme.onPrimary, Colors.black);
       expect(scheme.onPrimaryContainer, Colors.white);
@@ -221,7 +221,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.dark).noOnMainsTint(false),
+        tones: FlexTones.jolly(Brightness.dark).onMainsUseBW(false),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
@@ -244,7 +244,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.light).noOnSurfacesTint(),
+        tones: FlexTones.jolly(Brightness.light).onSurfacesUseBW(),
       );
       expect(scheme.onBackground, Colors.black);
       expect(scheme.onSurface, Colors.black);
@@ -261,7 +261,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.light).noOnSurfacesTint(false),
+        tones: FlexTones.jolly(Brightness.light).onSurfacesUseBW(false),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -282,7 +282,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.dark).noOnSurfacesTint(),
+        tones: FlexTones.jolly(Brightness.dark).onSurfacesUseBW(),
       );
       expect(scheme.onBackground, Colors.white);
       expect(scheme.onSurface, Colors.white);
@@ -299,7 +299,7 @@ void main() {
         primaryKey: primarySeedColor,
         secondaryKey: secondarySeedColor,
         tertiaryKey: tertiarySeedColor,
-        tones: FlexTones.jolly(Brightness.dark).noOnSurfacesTint(false),
+        tones: FlexTones.jolly(Brightness.dark).onSurfacesUseBW(false),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
