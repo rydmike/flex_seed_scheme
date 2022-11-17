@@ -35,7 +35,7 @@ its features, FlexColorScheme exports its API as well. If you use FlexColorSchem
 do not need to use FlexSeedScheme directly, its usage is baked in and used based on how you
 configure FlexColorScheme.
 
-## Getting started
+## Getting Started
 
 Add the `flex_seed_scheme` package to `pubspec.yaml`:
 
@@ -106,10 +106,9 @@ The default chroma limits in the HCT color space used for seed generated colors 
 tertiary colors in `ColorScheme.fromSeed` have quite low chroma values. This makes the colors fairly 
 muted or pastel like. This is especially the case with secondary colors. This is by design in the 
 standard Material 3 color palette. You can tune this behavior by passing in a custom `FlexTones`
-configuration to `tones`. There are pre-made configuration you can use, above 
+configuration to `tones`. There are pre-made configurations you can use, above 
 `FlexTones.vivid` was used. It is also easy to make completely custom configuration. Look in
 `FlexTones` and use the pre-made definitions as inspiration for your own configs.
-
 
 Using the above configuration the following core palettes are generated, in order from top to
 bottom:
@@ -281,7 +280,9 @@ If you then define equivalent `ThemeData` based on those schemes as your standar
 `theme` and `darkTheme` definitions, but assign them to `highContrastTheme` and 
 `highContrastDarkTheme`, you get more accessible themed colors that are based on same colors, 
 but with higher contrast, that are activated when users select high contrast theme in device
-accessibility system settings.
+accessibility system settings. Changing to accessibility theme based on device system setting 
+automatically, by using theme data defined on `MaterialApp` properties `highContrastTheme` and
+`highContrastDarkTheme`, is only supported on **iOS** devices in current version of Flutter SDK.
 
 ```dart
       // Define accessibility high contrast versions using same color base.

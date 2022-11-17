@@ -29,13 +29,9 @@ class ColorSchemeBox extends StatelessWidget {
       height: size.height,
       child: Material(
         color: color,
-        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          side: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
+          side: BorderSide(color: Theme.of(context).dividerColor),
         ),
         child: Icon(optionIcon, color: _onColor(color)),
       ),
