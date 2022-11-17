@@ -31,7 +31,7 @@ enum FlexTonesEnum {
         'Secondary - Chroma set to 16\n'
         'Tertiary - Chroma set to 24\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8\n',
+        'Neutral variant - Chroma set to 8',
     icon: Icons.blur_circular,
     shade: -5,
   ),
@@ -42,7 +42,7 @@ enum FlexTonesEnum {
         'Secondary - Chroma set to 14\n'
         'Tertiary - Chroma set to 20\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8\n',
+        'Neutral variant - Chroma set to 8',
     icon: Icons.blur_on,
     shade: 2,
   ),
@@ -53,19 +53,20 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8\n',
+        'Neutral variant - Chroma set to 8',
     icon: Icons.tonality,
     shade: 6,
   ),
   vividSurfaces(
     toneLabel: 'Vivid surfaces',
-    describe: 'Like Vivid, with more colorful containers, onColors and '
-        'surface and background tones.',
+    describe: 'Like Vivid, but with more colorful containers, onColors and '
+        'surface tones. Creates alpha blend like effect without '
+        'any blend level',
     setup: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
-        'Neutral - Chroma set to 8\n'
-        'Neutral variant - Chroma set to 16\n',
+        'Neutral - Chroma set to 5\n'
+        'Neutral variant - Chroma set to 10',
     icon: Icons.radio_button_checked,
     shade: 10,
   ),
@@ -76,19 +77,19 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color, but min 55\n'
         'Tertiary - Chroma from key color, but min 55\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8\n',
+        'Neutral variant - Chroma set to 8',
     icon: Icons.contrast,
     shade: 14,
   ),
   ultraContrast(
     toneLabel: 'Ultra contrast',
-    describe: 'Ultra high contrast accessibility, '
+    describe: 'Ultra high contrast version, useful for accessibility, '
         'less colorful than high contrast, especially dark mode',
     setup: 'Primary - Chroma from key color, but min 60\n'
         'Secondary - Chroma from key color, but min 70\n'
         'Tertiary - Chroma from key color, but min 65\n'
         'Neutral - Chroma set to 3\n'
-        'Neutral variant - Chroma set to 6\n',
+        'Neutral variant - Chroma set to 6',
     icon: Icons.lens,
     shade: 20,
   ),
@@ -99,9 +100,32 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color, but min 40\n'
         'Tertiary - Chroma set to 40\n'
         'Neutral - Chroma set to 6\n'
-        'Neutral variant - Chroma set to 10\n',
+        'Neutral variant - Chroma set to 10',
     icon: Icons.sunny,
     shade: 8,
+  ),
+  vividBackground(
+    toneLabel: 'Vivid background',
+    describe: 'Like Vivid surfaces, but with tone mapping for surface '
+        'and background swapped',
+    setup: 'Primary - Chroma from key color, but min 50\n'
+        'Secondary - Chroma from key color\n'
+        'Tertiary - Chroma from key color\n'
+        'Neutral - Chroma set to 5\n'
+        'Neutral variant - Chroma set to 10',
+    icon: Icons.panorama_wide_angle_select_rounded,
+    shade: 10,
+  ),
+  oneHue(
+    toneLabel: 'One hue',
+    describe: 'If only primary key color given, scheme uses only one hue',
+    setup: 'Primary - Chroma from key color, but min 55\n'
+        'Secondary - Chroma set to 26\n'
+        'Tertiary - Chroma set to 36, no Hue rotation\n'
+        'Neutral - Chroma set to 4\n'
+        'Neutral variant - Chroma set to 8',
+    icon: Icons.looks_one_rounded,
+    shade: 7,
   );
 
   const FlexTonesEnum({
@@ -136,6 +160,10 @@ enum FlexTonesEnum {
         return FlexTones.ultraContrast(brightness);
       case FlexTonesEnum.jolly:
         return FlexTones.jolly(brightness);
+      case FlexTonesEnum.vividBackground:
+        return FlexTones.vividBackground(brightness);
+      case FlexTonesEnum.oneHue:
+        return FlexTones.oneHue(brightness);
     }
   }
 }

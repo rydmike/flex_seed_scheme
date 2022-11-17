@@ -326,12 +326,13 @@ class FlexCorePalette {
 
     /// Integer ARGB value of seed color used for tertiary tonal palette.
     /// Cam16 chroma is capped at 48 if provided. If not provided, the palette
-    /// is based on [primary] with Cam16 hue+60 and chroma at 24.
+    /// is based on [primary] with Cam16 hue + 60 degrees (default value for
+    /// [tertiaryHueRotation]) and chroma at 24.
     ///
     /// A chroma value can also be specified via [tertiaryChroma].
     int? tertiary,
-    // TODO(rydmike): Consider adding neutrals ARGB and chroma input parameters.
-    // TODO(rydmike): Consider adding error ARGB and chroma input parameters.
+
+    // TODO(rydmike): Consider adding neutrals and error ARGB parameters.
 
     /// Cam16 chroma value to use for primary colors [TonalPalette} generation.
     ///
@@ -423,6 +424,15 @@ class FlexCorePalette {
     /// always locked to 24.
     final double tertiaryMinChroma = 0,
 
+    /// The number of degrees to rotate Hue to use to get hue from primary
+    /// color's Hue, used as base with rotated amount of degrees provided.
+    ///
+    /// This is only used when [tertiary] ARGB key color is null and we have
+    /// no specified Hue input for tertiary key color.
+    final double tertiaryHueRotation = 60,
+
+    // TODO(rydmike): Consider adding neutrals and error chroma parameters.
+
     /// Cam16 chroma value to use for neutral colors [TonalPalette} generation.
     ///
     /// Always uses chroma from the [primary] key color, but you can vary the
@@ -480,8 +490,9 @@ class FlexCorePalette {
     // If we had no tertiary keyColor, we won't use primary key's hue
     // directly, we add 60 degrees to it, this is the M3 way to shift hue from a
     // single key.
-    final double effectiveTertiaryHue =
-        tertiary == null ? camPrimary.hue + 60 : camTertiary.hue;
+    final double effectiveTertiaryHue = tertiary == null
+        ? camPrimary.hue + tertiaryHueRotation
+        : camTertiary.hue;
     // We use the effective hue and the effectiveChroma, but chroma
     // only if it is over the min level.
     final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(

@@ -203,6 +203,7 @@ class FlexSeedScheme {
       secondaryMinChroma: tones.secondaryMinChroma,
       tertiaryChroma: tones.tertiaryChroma,
       tertiaryMinChroma: tones.tertiaryMinChroma,
+      tertiaryHueRotation: tones.tertiaryHueRotation,
       neutralChroma: tones.neutralChroma,
       neutralVariantChroma: tones.neutralVariantChroma,
     );

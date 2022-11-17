@@ -127,7 +127,7 @@ void main() {
         ).toString(minLevel: DiagnosticLevel.fine),
         equalsIgnoringHashCodes(
           // ignore: lines_longer_than_80_chars
-          'ColorScheme#00000(brightness: Brightness.light, primary: Color(0xff512da3), onPrimary: Color(0xffffffff), primaryContainer: Color(0xfff6eeff), onPrimaryContainer: Color(0xff160041), secondary: Color(0xff005eb2), onSecondary: Color(0xffffffff), secondaryContainer: Color(0xffebf1ff), onSecondaryContainer: Color(0xff001129), tertiary: Color(0xff1b5200), onTertiary: Color(0xffffffff), tertiaryContainer: Color(0xffceffb2), onTertiaryContainer: Color(0xff031500), error: Color(0xffba1a1a), onError: Color(0xffffffff), errorContainer: Color(0xffffedea), onErrorContainer: Color(0xff2d0001), background: Color(0xfffffbff), onBackground: Color(0xff000000), surface: Color(0xfffffbff), onSurface: Color(0xff000000), surfaceVariant: Color(0xfff5eff7), onSurfaceVariant: Color(0xff1d1b20), outline: Color(0xff605d64), shadow: Color(0xff000000), inverseSurface: Color(0xff313032), onInverseSurface: Color(0xfffffbff), inversePrimary: Color(0xffe9ddff), primaryVariant: Color(0xff512da3), secondaryVariant: Color(0xff005eb2), surfaceTint: Color(0xff512da3))',
+          'ColorScheme#00000(brightness: Brightness.light, primary: Color(0xff3a0a8c), onPrimary: Color(0xffffffff), primaryContainer: Color(0xfff6eeff), onPrimaryContainer: Color(0xff160041), secondary: Color(0xff005eb2), onSecondary: Color(0xffffffff), secondaryContainer: Color(0xffebf1ff), onSecondaryContainer: Color(0xff001129), tertiary: Color(0xff1b5200), onTertiary: Color(0xffffffff), tertiaryContainer: Color(0xffceffb2), onTertiaryContainer: Color(0xff031500), error: Color(0xffba1a1a), onError: Color(0xffffffff), errorContainer: Color(0xffffedea), onErrorContainer: Color(0xff2d0001), background: Color(0xfffffbff), onBackground: Color(0xff000000), surface: Color(0xfffffbff), onSurface: Color(0xff000000), surfaceVariant: Color(0xfff5eff7), onSurfaceVariant: Color(0xff1d1b20), outline: Color(0xff605d64), shadow: Color(0xff000000), inverseSurface: Color(0xff313032), onInverseSurface: Color(0xfffffbff), inversePrimary: Color(0xffe9ddff), primaryVariant: Color(0xff3a0a8c), secondaryVariant: Color(0xff005eb2), surfaceTint: Color(0xff3a0a8c))',
         ),
       );
     });
@@ -145,9 +145,170 @@ void main() {
         ).toString(minLevel: DiagnosticLevel.fine),
         equalsIgnoringHashCodes(
           // ignore: lines_longer_than_80_chars
-          'ColorScheme#00000(brightness: Brightness.dark, primary: Color(0xffe9ddff), onPrimary: Color(0xff160041), primaryContainer: Color(0xff512da3), onPrimaryContainer: Color(0xfffdf7ff), secondary: Color(0xffebf1ff), onSecondary: Color(0xff001129), secondaryContainer: Color(0xff004788), onSecondaryContainer: Color(0xfff9f9ff), tertiary: Color(0xffceffb2), onTertiary: Color(0xff031500), tertiaryContainer: Color(0xff1b5200), onTertiaryContainer: Color(0xffeeffde), error: Color(0xffffb4ab), onError: Color(0xff2d0001), errorContainer: Color(0xff93000a), onErrorContainer: Color(0xfffff8f7), background: Color(0xff1c1b1e), onBackground: Color(0xfffffbff), surface: Color(0xff1c1b1e), onSurface: Color(0xfffffbff), surfaceVariant: Color(0xff322f35), onSurfaceVariant: Color(0xfff5eff7), outline: Color(0xffcac5cc), shadow: Color(0xff000000), inverseSurface: Color(0xffe6e1e4), onInverseSurface: Color(0xff1c1b1e), inversePrimary: Color(0xff6948bc), primaryVariant: Color(0xffe9ddff), secondaryVariant: Color(0xffebf1ff), surfaceTint: Color(0xffe9ddff))',
+          'ColorScheme#00000(brightness: Brightness.dark, primary: Color(0xffe9ddff), onPrimary: Color(0xff160041), primaryContainer: Color(0xff512da3), onPrimaryContainer: Color(0xfffdf7ff), secondary: Color(0xffebf1ff), onSecondary: Color(0xff001129), secondaryContainer: Color(0xff004788), onSecondaryContainer: Color(0xfff9f9ff), tertiary: Color(0xffceffb2), onTertiary: Color(0xff031500), tertiaryContainer: Color(0xff1b5200), onTertiaryContainer: Color(0xffeeffde), error: Color(0xffffb4ab), onError: Color(0xff2d0001), errorContainer: Color(0xff93000a), onErrorContainer: Color(0xfffff8f7), background: Color(0xff111013), onBackground: Color(0xfffffbff), surface: Color(0xff111013), onSurface: Color(0xfffffbff), surfaceVariant: Color(0xff322f35), onSurfaceVariant: Color(0xfff5eff7), outline: Color(0xffcac5cc), shadow: Color(0xff000000), inverseSurface: Color(0xffe6e1e4), onInverseSurface: Color(0xff1c1b1e), inversePrimary: Color(0xff6948bc), primaryVariant: Color(0xffe9ddff), secondaryVariant: Color(0xffebf1ff), surfaceTint: Color(0xffe9ddff))',
         ),
       );
+    });
+    //
+    test(
+        'FCS7.005-a: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with noOnTint '
+        'EXPECT on colors to be pure black and white contrast colors', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).onMainsUseBW(),
+      );
+      expect(scheme.onPrimary, Colors.white);
+      expect(scheme.onPrimaryContainer, Colors.black);
+      expect(scheme.onSecondary, Colors.white);
+      expect(scheme.onSecondaryContainer, Colors.black);
+      expect(scheme.onTertiary, Colors.white);
+      expect(scheme.onTertiaryContainer, Colors.black);
+      expect(scheme.onError, Colors.white);
+      expect(scheme.onErrorContainer, Colors.black);
+    });
+    test(
+        'FCS7.005-a-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with noOnTint '
+        ' false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).onMainsUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light),
+      );
+      expect(scheme, equals(scheme2));
+    });
+    test(
+        'FCS7.005-b: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with noOnTint '
+        'EXPECT on colors to be pure black and white contrast colors', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).onMainsUseBW(),
+      );
+      expect(scheme.onPrimary, Colors.black);
+      expect(scheme.onPrimaryContainer, Colors.white);
+      expect(scheme.onSecondary, Colors.black);
+      expect(scheme.onSecondaryContainer, Colors.white);
+      expect(scheme.onTertiary, Colors.black);
+      expect(scheme.onTertiaryContainer, Colors.white);
+      expect(scheme.onError, Colors.black);
+      expect(scheme.onErrorContainer, Colors.white);
+    });
+    test(
+        'FCS7.005-b-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with noOnTint '
+        'false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).onMainsUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark),
+      );
+      expect(scheme, equals(scheme2));
+    });
+    //
+    //
+    test(
+        'FCS7.006-a: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with '
+        'noOnSurfaceTint '
+        'EXPECT on colors to be pure black and white contrast colors', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).onSurfacesUseBW(),
+      );
+      expect(scheme.onBackground, Colors.black);
+      expect(scheme.onSurface, Colors.black);
+      expect(scheme.onSurfaceVariant, Colors.black);
+      expect(scheme.onInverseSurface, Colors.white);
+    });
+    test(
+        'FCS7.006-a-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with '
+        'noOnSurfaceTint false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).onSurfacesUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light),
+      );
+      expect(scheme, equals(scheme2));
+    });
+    test(
+        'FCS7.006-b: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with '
+        'noOnSurfaceTint '
+        'EXPECT on colors to be pure black and white contrast colors', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).onSurfacesUseBW(),
+      );
+      expect(scheme.onBackground, Colors.white);
+      expect(scheme.onSurface, Colors.white);
+      expect(scheme.onSurfaceVariant, Colors.white);
+      expect(scheme.onInverseSurface, Colors.black);
+    });
+    test(
+        'FCS7.006-b-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with '
+        'noOnSurfaceTint false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).onSurfacesUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark),
+      );
+      expect(scheme, equals(scheme2));
     });
   });
 }

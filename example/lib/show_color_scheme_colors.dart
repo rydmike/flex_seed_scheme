@@ -41,10 +41,7 @@ class ShowColorSchemeColors extends StatelessWidget {
     // If we had one, copy in a border side to it.
     if (border is RoundedRectangleBorder) {
       border = border.copyWith(
-        side: BorderSide(
-          color: theme.dividerColor,
-          width: 1,
-        ),
+        side: BorderSide(color: theme.dividerColor),
       );
       // If
     } else {
@@ -52,10 +49,7 @@ class ShowColorSchemeColors extends StatelessWidget {
       // side, if it was not null, we leave it as it was.
       border ??= RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
-        side: BorderSide(
-          color: theme.dividerColor,
-          width: 1,
-        ),
+        side: BorderSide(color: theme.dividerColor),
       );
     }
 
@@ -101,7 +95,6 @@ class ShowColorSchemeColors extends StatelessWidget {
             ),
           ),
           Wrap(
-            alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: spacing,
             runSpacing: spacing,
