@@ -229,10 +229,10 @@ class FlexTones with Diagnosticable {
   /// This setup will if only one seed color is used, produce a slightly more
   /// chromatic color set than [FlexTones.material], since it does not rotate
   /// hue from primary to get hue for tertiary, it will create a color
-  /// scheme using tonal palettes that are based on same hue, but with different
-  /// chroma. In simple terms, all colors are shades of the provided key color
-  /// to seed the tonal palettes. We can get nice one tones theme with
-  /// configuration.
+  /// scheme using tonal palettes that are based on the same hue, but with
+  /// different chroma. In simple terms, all colors are shades of the provided
+  /// key color to seed the tonal palettes. We can get a nice one hue
+  /// toned theme with this configuration.
   factory FlexTones.oneHue(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
