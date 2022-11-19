@@ -8,19 +8,19 @@ import 'package:flutter/foundation.dart';
 /// It is also possible to define how Cam16 chroma is used and limited when
 /// generating the tonal palette.
 ///
-/// To use [FlexTones] pass in one of the predefined configs to `tones`]:
+/// To use [FlexTones] with [SeedColorScheme.fromSeeds] pass in one of the
+/// predefined configs below, to its [tones] property:
 ///
 /// * [FlexTones.material], default and same as Flutter SDK M3 setup.
-/// * [FlexTones.soft], softer and earthier tones than M3 FlexTones.material.
+/// * [FlexTones.soft], softer and earthier tones than M3 [FlexTones.material].
 /// * [FlexTones.vivid], more vivid colors, uses chroma from all key colors.
-/// * [FlexTones.vividSurfaces], like vivid, but with more colors in surfaces.
+/// * [FlexTones.vividSurfaces], like [vivid], but with more colors in surfaces.
+/// * [FlexTones.vividBackground], like [vividSurfaces], but with tone mapping
+///   for [Colorscheme.surface] and [Colorscheme.background] colors swapped.
 /// * [FlexTones.highContrast], can be used for more color accessible themes.
 /// * [FlexTones.ultraContrast], for a very high contrast theme version.
 /// * [FlexTones.jolly], for a more "jolly" and colorful theme.
-///
-/// in a [FlexColorScheme.light] or [FlexColorScheme.dark], or the
-/// equivalent [FlexThemeData] extension, with the brightness set
-/// to same brightness as the [FlexColorScheme] constructor.
+/// * [FlexTones.oneHue], to create one hues schemes from primary seed color.
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
