@@ -20,10 +20,6 @@ class ShowColorSchemeColors extends StatelessWidget {
   static bool _isLight(final Color color) =>
       ThemeData.estimateBrightnessForColor(color) == Brightness.light;
 
-  // Return true if the color is dark, meaning it needs light text for contrast.
-  static bool _isDark(final Color color) =>
-      ThemeData.estimateBrightnessForColor(color) == Brightness.dark;
-
   // On color used when a theme color property does not have a theme onColor.
   static Color _onColor(final Color color, final Color bg) =>
       _isLight(Color.alphaBlend(color, bg)) ? Colors.black : Colors.white;
@@ -32,7 +28,6 @@ class ShowColorSchemeColors extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final bool isDark = colorScheme.brightness == Brightness.dark;
     final bool useMaterial3 = theme.useMaterial3;
     const double spacing = 6;
 
