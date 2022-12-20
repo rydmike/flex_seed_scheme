@@ -390,18 +390,12 @@ extension SeedColorScheme on ColorScheme {
     Color? outline,
 
     /// Override color for the seed generated [outlineVariant] color.
-    ///
-    /// This property has no function in Flutter 3.3 or earlier versions.
-    /// It will be enabled in a future release.
     Color? outlineVariant,
 
     /// Override color for the seed generated [shadow] color.
     Color? shadow,
 
     /// Override color for the seed generated [scrim] color.
-    ///
-    /// This property has no function in Flutter 3.3 or earlier versions.
-    /// It will be enabled in a future release.
     Color? scrim,
 
     /// Override color for the seed generated [inverseSurface] color.
@@ -457,11 +451,9 @@ extension SeedColorScheme on ColorScheme {
       surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
       onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
       outline: outline ?? Color(scheme.outline),
-      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
-      // outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
+      outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
       shadow: shadow ?? Color(scheme.shadow),
-      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
-      // scrim: scrim ?? Color(scheme.scrim),
+      scrim: scrim ?? Color(scheme.scrim),
       inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
       onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
       inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),

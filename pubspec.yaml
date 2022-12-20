@@ -1,6 +1,6 @@
 name: flex_seed_scheme
 description: A more flexible version of Flutter's ColorScheme.fromSeed, use multiple seed colors, custom chroma and tone mapping.
-version: 1.1.0
+version: 1.2.0
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
@@ -8,7 +8,7 @@ documentation: https://github.com/rydmike/flex_seed_scheme/blob/master/README.md
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
-  flutter: '>=3.3.0'
+  flutter: '>=3.7.0-1.2.pre'
 
 dependencies:
   flutter:
@@ -33,7 +33,7 @@ dependencies:
   #
   # Flutter does not expose the "@internal" annotation via foundation, to use it we need to
   # import the package.
-  meta: ^1.7.0
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
