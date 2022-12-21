@@ -2,6 +2,16 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.0-dev.1
+
+**Dec 21, 2022**
+
+Requires minimum Flutter 3.7.0-1.2.pre (beta channel). This is a development pre-release to support `outlineVariant` and `scrim` colors in `ColorScheme`. It is used for development and testing against new Material 3 features in Flutter 3.7 beta and master channel. It will be released as a stable version when the new color properties land in the Flutter stable channel, most likely after January 25, 2023.
+
+**NEW**
+
+* Adds support for `outlineVariant` and `scrim` colors in `ColorScheme`
+
 ## 1.1.0
 
 **Nov 17, 2022**

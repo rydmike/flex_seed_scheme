@@ -48,8 +48,8 @@ import 'package:meta/meta.dart' show immutable;
 /// chroma, but vary in tone.
 ///
 /// This is a modification of package material_color_utilities [TonalPalette]
-/// made to include the tone 98, that the Web based Material 3 theme builder
-/// has, as well as an additional custom tone, 5.
+/// made to also include the tones 98 and tone 5. This gives additional fidelity
+/// and expression possibilities when using tones close to black and white.
 ///
 /// This class can be instantiated in two ways:
 ///
@@ -61,7 +61,7 @@ import 'package:meta/meta.dart' show immutable;
 @immutable
 class FlexTonalPalette {
   // If modifying commonTones length, update commonSize to equal
-  // commonTones.length. There is a test and assert that fails if you did not.
+  // commonTones.length. There is both a test and assert that fails if not done.
 
   /// Commonly-used tone values in a [FlexTonalPalette].
   ///
