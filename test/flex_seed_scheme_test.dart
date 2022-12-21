@@ -310,5 +310,288 @@ void main() {
       );
       expect(scheme, equals(scheme2));
     });
+    //
+    const Color errorSeedColor = Color(0xFFDE3730);
+    test(
+        'FCS7.007-l: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and errorSeedColor tones map FlexTones.jolly for a light scheme with '
+        'error chroma set to 84 '
+        'EXPECT scheme equal to no error color definition', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        tones: FlexTones.jolly(Brightness.light).copyWith(errorChroma: 84),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.007-d: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and errorSeedColor tones map FlexTones.jolly for a dark scheme with '
+        'error chroma set to 84 '
+        'EXPECT scheme equal to no error color definition', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        tones: FlexTones.jolly(Brightness.dark).copyWith(errorChroma: 84),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.008-l: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and errorSeedColor tones map FlexTones.jolly for a light scheme with '
+        'error chroma set to 80, min 40 '
+        'EXPECT scheme equal to no error color definition with 80, 40', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        tones: FlexTones.jolly(Brightness.light).copyWith(
+          errorChroma: 80,
+          errorMinChroma: 40,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).copyWith(
+          errorChroma: 80,
+          errorMinChroma: 40,
+        ),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.008-d: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and errorSeedColor tones map FlexTones.jolly for a dark scheme with '
+        'error chroma set to 80, min 40 '
+        'EXPECT scheme equal to no error color definition with 80, 40', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        tones: FlexTones.jolly(Brightness.dark).copyWith(
+          errorChroma: 80,
+          errorMinChroma: 40,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).copyWith(
+          errorChroma: 80,
+          errorMinChroma: 40,
+        ),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.009-l: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a light scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral 4 and variant 8', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: secondarySeedColor,
+        neutralVariantKey: tertiarySeedColor,
+        tones: FlexTones.material(Brightness.light),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: secondarySeedColor,
+        neutralVariantKey: tertiarySeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+          neutralChroma: 4,
+          neutralVariantChroma: 8,
+        ),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.009-d: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a dark scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral 4 and variant 8', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: secondarySeedColor,
+        neutralVariantKey: tertiarySeedColor,
+        tones: FlexTones.material(Brightness.dark),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: secondarySeedColor,
+        neutralVariantKey: tertiarySeedColor,
+        tones: FlexTones.material(Brightness.dark).copyWith(
+          neutralChroma: 4,
+          neutralVariantChroma: 8,
+        ),
+      );
+      expect(scheme, scheme2);
+    });
+    const Color neutralSeedColor = Color(0xFF76777C);
+    const Color neutralVariantSeedColor = Color(0xFF767871);
+    test(
+        'FCS7.010-l: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a light scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral null and variant null', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+          neutralChroma: null,
+          neutralVariantChroma: null,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+            neutralChroma: null,
+            neutralMinChroma: 1,
+            neutralVariantChroma: null,
+            neutralVariantMinChroma: 1),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.010-d: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a dark scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral null and variant null', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.dark).copyWith(
+          neutralChroma: null,
+          neutralVariantChroma: null,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.dark).copyWith(
+            neutralChroma: null,
+            neutralMinChroma: 1,
+            neutralVariantChroma: null,
+            neutralVariantMinChroma: 1),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.011-l: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a light scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral 4 and variant 8', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+            neutralChroma: 4,
+            neutralMinChroma: 1,
+            neutralVariantChroma: 8,
+            neutralVariantMinChroma: 1),
+      );
+      expect(scheme, scheme2);
+    });
+    test(
+        'FCS7.011-d: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a dark scheme with '
+        'error no neutral and variant chroma set  '
+        'EXPECT scheme equal to neutral 4 and variant 8', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.dark),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.dark).copyWith(
+            neutralChroma: 4,
+            neutralMinChroma: 1,
+            neutralVariantChroma: 8,
+            neutralVariantMinChroma: 1),
+      );
+      expect(scheme, scheme2);
+    });
   });
+  //
 }

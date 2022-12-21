@@ -506,31 +506,6 @@ class FlexCorePalette {
     /// but with subtle tone and shade variations.
     final double tertiaryHueRotation = 60,
 
-    /// Cam16 chroma value to use for error colors tonal palette generation.
-    ///
-    /// If null, the chroma value from the used [error] seed key color is
-    /// used, if it is larger than [errorMinChroma].
-    ///
-    /// Defaults to null. Set it to 84 for M3 default also on custom hues.
-    ///
-    /// To use chroma value from [error] seed color, keep [errorChroma]
-    /// null and [errorMinChroma] at desired threshold for target min
-    /// colorfulness.
-    final double? errorChroma,
-
-    /// The minimum used chroma value for error palette.
-    ///
-    /// If chroma in provided [error] key color is below this value, or if a
-    /// fixed [errorChroma] is provided that is lower than
-    /// [errorMinChroma] then the [errorMinChroma] value is used.
-    ///
-    /// Defaults to 0.
-    ///
-    /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
-    /// concept of minimum level for error tonal palettes, as its value is
-    /// always locked to 84.
-    final double errorMinChroma = 0,
-
     /// Cam16 chroma value to use for neutral colors tonal palette generation.
     ///
     /// Uses chroma from the [neutral] key color, but you can vary the
@@ -592,6 +567,31 @@ class FlexCorePalette {
     /// has no concept of minimum level for neutral variant tonal palettes as
     /// its chroma value is always locked to 8.
     final double neutralVariantMinChroma = 0,
+
+    /// Cam16 chroma value to use for error colors tonal palette generation.
+    ///
+    /// If null, the chroma value from the used [error] seed key color is
+    /// used, if it is larger than [errorMinChroma].
+    ///
+    /// Defaults to null. Set it to 84 for M3 default also on custom hues.
+    ///
+    /// To use chroma value from [error] seed color, keep [errorChroma]
+    /// null and [errorMinChroma] at desired threshold for target min
+    /// colorfulness.
+    final double? errorChroma,
+
+    /// The minimum used chroma value for error palette.
+    ///
+    /// If chroma in provided [error] key color is below this value, or if a
+    /// fixed [errorChroma] is provided that is lower than
+    /// [errorMinChroma] then the [errorMinChroma] value is used.
+    ///
+    /// Defaults to 0.
+    ///
+    /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
+    /// concept of minimum level for error tonal palettes, as its value is
+    /// always locked to 84.
+    final double errorMinChroma = 0,
   }) {
     // Primary TonalPalette calculation.
     //
@@ -646,23 +646,6 @@ class FlexCorePalette {
     final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(
         camNeutral.hue, math.max(neutralMinChroma, effectiveNeutralChroma));
 
-    // Error TonalPalette calculation.
-    //
-    // Provided key color may be null, then we use M3 default value.
-    // The M3 magic seed color error red ARGB in hex is #FFBA1A1A.
-    final Cam16 camError =
-        error == null ? Cam16.fromInt(0xFFBA1A1A) : Cam16.fromInt(error);
-    // If a fixed chroma value was given we use it instead.
-    final double effectiveErrorChroma = errorChroma ?? camError.chroma;
-    // We use the effectiveChroma, but only if it is over the min level.
-    //
-    // If the passed in error and error chroma were both null, we use null as
-    // tonal error palette and will get default FlexTonalPalette.of(25, 84).
-    final FlexTonalPalette? tonalError = (error == null && errorChroma == null)
-        ? null
-        : FlexTonalPalette.of(
-            camError.hue, math.max(errorMinChroma, effectiveErrorChroma));
-
     // NeutralVariant TonalPalette calculation.
     //
     // Provided key color may be null, then we use primary as key color.
@@ -675,6 +658,23 @@ class FlexCorePalette {
     final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
         camNeutralVariant.hue,
         math.max(neutralVariantMinChroma, effectiveNeutralVariantChroma));
+
+    // Error TonalPalette calculation.
+    //
+    // Provided key color may be null, then we use M3 default value.
+    // The M3 magic seed color error red ARGB in hex is #FFDE3730.
+    final Cam16 camError =
+        error == null ? Cam16.fromInt(0xFFDE3730) : Cam16.fromInt(error);
+    // If a fixed chroma value was given we use it instead.
+    final double effectiveErrorChroma = errorChroma ?? camError.chroma;
+    // We use the effectiveChroma, but only if it is over the min level.
+    //
+    // If the passed in error and error chroma were both null, we use null as
+    // tonal error palette to ensure we get default FlexTonalPalette.of(25, 84).
+    final FlexTonalPalette? tonalError = (error == null && errorChroma == null)
+        ? null
+        : FlexTonalPalette.of(
+            camError.hue, math.max(errorMinChroma, effectiveErrorChroma));
 
     return FlexCorePalette(
       primary: tonalPrimary,
