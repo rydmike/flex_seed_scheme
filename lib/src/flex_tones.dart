@@ -20,7 +20,7 @@ import 'package:flutter/foundation.dart';
 /// * [FlexTones.highContrast], can be used for more color accessible themes.
 /// * [FlexTones.ultraContrast], for a very high contrast theme version.
 /// * [FlexTones.jolly], for a more "jolly" and colorful theme.
-/// * [FlexTones.oneHue], to create one hues schemes from primary seed color.
+/// * [FlexTones.oneHue], to create one hue schemes from a primary seed color.
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
@@ -86,8 +86,12 @@ class FlexTones with Diagnosticable {
     this.tertiaryChroma,
     required this.tertiaryMinChroma,
     required this.tertiaryHueRotation,
-    required this.neutralChroma,
-    required this.neutralVariantChroma,
+    this.errorChroma,
+    required this.errorMinChroma,
+    this.neutralChroma,
+    required this.neutralMinChroma,
+    this.neutralVariantChroma,
+    required this.neutralVariantMinChroma,
   });
 
   /// Create a M3 standard light tonal palette tones extraction setup.
@@ -144,8 +148,17 @@ class FlexTones with Diagnosticable {
     this.tertiaryMinChroma = 0,
     // Default M3 hue rotation from primary, when now key with own hue given.
     this.tertiaryHueRotation = 60,
+    // Defaults to null, chroma in key color is used, if over errorMinChroma and
+    // a chroma key is given.
+    this.errorChroma,
+    this.errorMinChroma = 0,
+    // Defaults to null, chroma in key color is used, if over errorMinChroma.
     this.neutralChroma = 4,
+    this.neutralMinChroma = 0,
+    // Defaults to null, chroma in key color is used, if over
+    // neutralVariantMinChroma.
     this.neutralVariantChroma = 8,
+    this.neutralVariantMinChroma = 0,
   });
 
   /// Create a M3 standard dark tonal palette tones extraction setup.
@@ -202,8 +215,16 @@ class FlexTones with Diagnosticable {
     this.tertiaryMinChroma = 0,
     // Default M3 hue rotation from primary, when now key with own hue given.
     this.tertiaryHueRotation = 60,
+    // Defaults to null, chroma in key color is used, if over errorMinChroma.
+    this.errorChroma,
+    this.errorMinChroma = 0,
+    // Defaults to null, chroma in key color is used, if over errorMinChroma.
     this.neutralChroma = 4,
+    this.neutralMinChroma = 0,
+    // Defaults to null, chroma in key color is used, if over
+    // neutralVariantMinChroma.
     this.neutralVariantChroma = 8,
+    this.neutralVariantMinChroma = 0,
   });
 
   /// Create a M3 standard tonal palette tones extraction and CAM16
@@ -547,6 +568,7 @@ class FlexTones with Diagnosticable {
   /// object unmodified. This is typically used to control applying the tint
   /// removal via a controller.
   FlexTones onMainsUseBW([bool useBW = true]) {
+    // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       onPrimaryTone: primaryTone <= 60 ? 100 : 0,
@@ -577,6 +599,7 @@ class FlexTones with Diagnosticable {
   /// object unmodified. This is typically used to control applying the tint
   /// removal via a controller.
   FlexTones onSurfacesUseBW([bool useBW = true]) {
+    // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
@@ -586,105 +609,112 @@ class FlexTones with Diagnosticable {
     );
   }
 
-  /// Tone used for [ColorScheme.primary] from primary [TonalPalette].
+  /// Tone used for [ColorScheme.primary] from primary [FlexTonalPalette].
   final int primaryTone;
 
-  /// Tone used for [ColorScheme.onPrimary] from primary [TonalPalette].
+  /// Tone used for [ColorScheme.onPrimary] from primary [FlexTonalPalette].
   final int onPrimaryTone;
 
-  /// Tone used for [ColorScheme.primaryContainer] from primary [TonalPalette].
+  /// Tone used for [ColorScheme.primaryContainer] from primary
+  /// [FlexTonalPalette].
   final int primaryContainerTone;
 
   /// Tone used for [ColorScheme.onPrimaryContainer] from primary
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int onPrimaryContainerTone;
 
-  /// Tone used for [ColorScheme.secondary] from secondary [TonalPalette].
+  /// Tone used for [ColorScheme.secondary] from secondary [FlexTonalPalette].
   final int secondaryTone;
 
-  /// Tone used for [ColorScheme.onSecondary] from secondary [TonalPalette].
+  /// Tone used for [ColorScheme.onSecondary] from secondary [FlexTonalPalette].
   final int onSecondaryTone;
 
   /// Tone used for [ColorScheme.secondaryContainer] from secondary
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int secondaryContainerTone;
 
   /// Tone used for [ColorScheme.onSecondaryContainer] from secondary
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int onSecondaryContainerTone;
 
-  /// Tone used for [ColorScheme.tertiary] from tertiary [TonalPalette].
+  /// Tone used for [ColorScheme.tertiary] from tertiary [FlexTonalPalette].
   final int tertiaryTone;
 
-  /// Tone used for [ColorScheme.onTertiary] from tertiary [TonalPalette].
+  /// Tone used for [ColorScheme.onTertiary] from tertiary [FlexTonalPalette].
   final int onTertiaryTone;
 
   /// Tone used for [ColorScheme.tertiaryContainer] from tertiary
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int tertiaryContainerTone;
 
   /// Tone used for [ColorScheme.onTertiaryContainer] from tertiary
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int onTertiaryContainerTone;
 
-  /// Tone used for [ColorScheme.error] from error [TonalPalette].
+  /// Tone used for [ColorScheme.error] from error [FlexTonalPalette].
   final int errorTone;
 
-  /// Tone used for [ColorScheme.onError] from error [TonalPalette].
+  /// Tone used for [ColorScheme.onError] from error [FlexTonalPalette].
   final int onErrorTone;
 
-  /// Tone used for [ColorScheme.errorContainer] from error [TonalPalette].
+  /// Tone used for [ColorScheme.errorContainer] from error [FlexTonalPalette].
   final int errorContainerTone;
 
-  /// Tone used for [ColorScheme.onErrorContainer] from error [TonalPalette].
+  /// Tone used for [ColorScheme.onErrorContainer] from error
+  /// [FlexTonalPalette].
   final int onErrorContainerTone;
 
-  /// Tone used for [ColorScheme.background] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.background] from neutral [FlexTonalPalette].
   final int backgroundTone;
 
-  /// Tone used for [ColorScheme.onBackground] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.onBackground] from neutral [FlexTonalPalette].
   final int onBackgroundTone;
 
-  /// Tone used for [ColorScheme.surface] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.surface] from neutral [FlexTonalPalette].
   final int surfaceTone;
 
-  /// Tone used for [ColorScheme.onSurface] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.onSurface] from neutral [FlexTonalPalette].
   final int onSurfaceTone;
 
   /// Tone used for [ColorScheme.surfaceVariant] from neutralVariant
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int surfaceVariantTone;
 
   /// Tone used for [ColorScheme.onSurfaceVariant] from neutralVariant
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int onSurfaceVariantTone;
 
-  /// Tone used for [ColorScheme.outline] from neutralVariant [TonalPalette].
+  /// Tone used for [ColorScheme.outline] from neutralVariant
+  /// [FlexTonalPalette].
   final int outlineTone;
 
   /// Tone used for [ColorScheme.outlineVariant] from neutralVariant
-  /// [TonalPalette].
+  /// [FlexTonalPalette].
   final int outlineVariantTone;
 
-  /// Tone used for [ColorScheme.shadow] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.shadow] from neutral [FlexTonalPalette].
   final int shadowTone;
 
-  /// Tone used for [ColorScheme.scrim] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.scrim] from neutral [FlexTonalPalette].
   final int scrimTone;
 
-  /// Tone used for [ColorScheme.inverseSurface] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.inverseSurface] from neutral
+  /// [FlexTonalPalette].
   final int inverseSurfaceTone;
 
-  /// Tone used for [ColorScheme.onInverseSurface] from neutral [TonalPalette].
+  /// Tone used for [ColorScheme.onInverseSurface] from neutral
+  /// [FlexTonalPalette].
   final int onInverseSurfaceTone;
 
-  /// Tone used for [ColorScheme.inversePrimary] from primary [TonalPalette].
+  /// Tone used for [ColorScheme.inversePrimary] from primary
+  /// [FlexTonalPalette].
   final int inversePrimaryTone;
 
-  /// Tone used for [ColorScheme.surfaceTint] from primary [TonalPalette].
+  /// Tone used for [ColorScheme.surfaceTint] from primary [FlexTonalPalette].
   final int surfaceTintTone;
 
-  /// Cam16 chroma value to use for primary colors [TonalPalette] generation.
+  /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
+  /// generation.
   ///
   /// If null, the chroma value from the used primary seed key color is used,
   /// if it is larger than [primaryMinChroma].
@@ -707,7 +737,8 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK uses 48 via a hard coded value and design.
   final double primaryMinChroma;
 
-  /// Cam16 chroma value to use for secondary colors [TonalPalette] generation.
+  /// Cam16 chroma value to use for secondary colors [FlexTonalPalette]
+  /// generation.
   ///
   /// If null, the chroma value from the used secondary seed key color is used,
   /// if it is larger than [secondaryMinChroma].
@@ -733,7 +764,8 @@ class FlexTones with Diagnosticable {
   /// always locked to 16.
   final double secondaryMinChroma;
 
-  /// Cam16 chroma value to use for tertiary colors [TonalPalette] generation.
+  /// Cam16 chroma value to use for tertiary colors [FlexTonalPalette]
+  /// generation.
   ///
   /// If null, the chroma value from the used tertiary seed key color is used,
   /// if it is larger than [tertiaryMinChroma].
@@ -767,7 +799,34 @@ class FlexTones with Diagnosticable {
   /// no specified Hue input for tertiary key color.
   final double tertiaryHueRotation;
 
-  /// Cam16 chroma value to use for neutral colors [TonalPalette] generation.
+  /// Cam16 chroma value to use for error colors [FlexTonalPalette]
+  /// generation.
+  ///
+  /// If null, the chroma value from the used error seed key color is used,
+  /// if it is larger than [errorMinChroma].
+  ///
+  /// Flutter SDK [ColorScheme.fromSeed] uses [errorChroma] from
+  /// FlexTonalPalette.of(25, 84) as its define 84 value.
+  ///
+  /// To use chroma value from the primary key color, pass in null and keep
+  /// min chroma below desired threshold for required colorfulness.
+  ///
+  /// If not defined and no error key color is defined, it defaults to 84.
+  final double? errorChroma;
+
+  /// The minimum used error chroma value.
+  ///
+  /// If chroma in provided error key color is below this value, or if a
+  /// fixed [errorChroma] is provided that is lower than
+  /// [errorMinChroma] then the [errorMinChroma] value is used.
+  ///
+  /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
+  /// concept of minimum level for error tonal palettes as its value is
+  /// always locked to 84.
+  final double errorMinChroma;
+
+  /// Cam16 chroma value to use for neutral colors [FlexTonalPalette]
+  /// generation.
   ///
   /// Always uses chroma from the primary key color, but you can vary the
   /// amount of chroma from primary key color that is used to generate
@@ -775,10 +834,23 @@ class FlexTones with Diagnosticable {
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded
   /// and locked to 4.
-  final double neutralChroma;
+  ///
+  /// Default to 4.
+  final double? neutralChroma;
+
+  /// The minimum used neutral chroma value.
+  ///
+  /// If chroma in provided neutral key color is below this value, or if a
+  /// fixed [neutralChroma] is provided that is lower than
+  /// [neutralMinChroma] then the [neutralMinChroma] value is used.
+  ///
+  /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
+  /// concept of minimum level for neutral tonal palettes as its value is
+  /// always locked to 4.
+  final double neutralMinChroma;
 
   /// Cam16 chroma value to use for neutralVariant colors
-  /// [TonalPalette] generation.
+  /// [FlexTonalPalette] generation.
   ///
   /// Always uses chroma from the primary key color, but you can vary the
   /// amount of chroma from primary key color that is used to generate
@@ -786,7 +858,19 @@ class FlexTones with Diagnosticable {
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [neutralVariantChroma] hard
   /// coded and locked to 8.
-  final double neutralVariantChroma;
+  final double? neutralVariantChroma;
+
+  /// The minimum used neutral variant chroma value.
+  ///
+  /// If chroma in provided neutral variant key color is below this value, or
+  /// if a fixed [neutralVariantChroma] is provided that is lower than
+  /// [neutralVariantMinChroma] then the [neutralVariantMinChroma] value is
+  /// used.
+  ///
+  /// Flutter SDK only uses [neutralVariantChroma] hard coded to 8, and has no
+  /// concept of minimum level for neutral variant tonal palettes as its value
+  /// is always locked to 8.
+  final double neutralVariantMinChroma;
 
   /// Copy the object with one or more provided properties changed.
   FlexTones copyWith({
@@ -827,8 +911,12 @@ class FlexTones with Diagnosticable {
     double? tertiaryChroma,
     double? tertiaryMinChroma,
     double? tertiaryHueRotation,
+    double? errorChroma,
+    double? errorMinChroma,
     double? neutralChroma,
+    double? neutralMinChroma,
     double? neutralVariantChroma,
+    double? neutralVariantMinChroma,
   }) {
     return FlexTones(
       primaryTone: primaryTone ?? this.primaryTone,
@@ -873,8 +961,13 @@ class FlexTones with Diagnosticable {
       tertiaryChroma: tertiaryChroma ?? this.tertiaryChroma,
       tertiaryMinChroma: tertiaryMinChroma ?? this.tertiaryMinChroma,
       tertiaryHueRotation: tertiaryHueRotation ?? this.tertiaryHueRotation,
+      errorChroma: errorChroma ?? this.errorChroma,
+      errorMinChroma: errorMinChroma ?? this.errorMinChroma,
       neutralChroma: neutralChroma ?? this.neutralChroma,
+      neutralMinChroma: neutralMinChroma ?? this.neutralMinChroma,
       neutralVariantChroma: neutralVariantChroma ?? this.neutralVariantChroma,
+      neutralVariantMinChroma:
+          neutralVariantMinChroma ?? this.neutralVariantMinChroma,
     );
   }
 
@@ -921,8 +1014,12 @@ class FlexTones with Diagnosticable {
         other.tertiaryChroma == tertiaryChroma &&
         other.tertiaryMinChroma == tertiaryMinChroma &&
         other.tertiaryHueRotation == tertiaryHueRotation &&
+        other.errorChroma == errorChroma &&
+        other.errorMinChroma == errorMinChroma &&
         other.neutralChroma == neutralChroma &&
-        other.neutralVariantChroma == neutralVariantChroma;
+        other.neutralMinChroma == neutralMinChroma &&
+        other.neutralVariantChroma == neutralVariantChroma &&
+        other.neutralVariantMinChroma == neutralVariantMinChroma;
   }
 
   /// Override for hashcode, dart.ui Jenkins based.
@@ -965,8 +1062,12 @@ class FlexTones with Diagnosticable {
         tertiaryChroma,
         tertiaryMinChroma,
         tertiaryHueRotation,
+        errorChroma,
+        errorMinChroma,
         neutralChroma,
+        neutralMinChroma,
         neutralVariantChroma,
+        neutralVariantMinChroma,
       ]);
 
   /// Flutter debug properties override, includes toString.
@@ -1032,8 +1133,15 @@ class FlexTones with Diagnosticable {
         'tertiaryHueRotation', tertiaryHueRotation));
     properties.add(
         DiagnosticsProperty<double>('tertiaryMinChroma', tertiaryMinChroma));
+    properties.add(DiagnosticsProperty<double>('errorChroma', errorChroma));
+    properties
+        .add(DiagnosticsProperty<double>('errorMinChroma', errorMinChroma));
     properties.add(DiagnosticsProperty<double>('neutralChroma', neutralChroma));
+    properties
+        .add(DiagnosticsProperty<double>('neutralMinChroma', neutralMinChroma));
     properties.add(DiagnosticsProperty<double>(
         'neutralVariantChroma', neutralVariantChroma));
+    properties.add(DiagnosticsProperty<double>(
+        'neutralVariantMinChroma', neutralVariantMinChroma));
   }
 }
