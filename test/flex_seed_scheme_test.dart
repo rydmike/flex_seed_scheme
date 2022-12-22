@@ -472,8 +472,8 @@ void main() {
     const Color neutralVariantSeedColor = Color(0xFF767871);
     test(
         'FCS7.010-l: GIVEN a SeedColorScheme.fromSeeds using five seeds '
-        'and tones map FlexTones.material for a light scheme with '
-        'error no neutral and variant chroma set  '
+        'and tones map FlexTones.light for with neutrals from key incl its '
+        'own chroma, so no fixed neutral and variant chroma '
         'EXPECT scheme equal to neutral null and variant null', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -482,7 +482,9 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.light).copyWith(
+        tones: const FlexTones.light(
+          secondaryChroma: 16,
+          tertiaryChroma: 24,
           neutralChroma: null,
           neutralVariantChroma: null,
         ),
@@ -494,7 +496,9 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.light).copyWith(
+        tones: const FlexTones.light(
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
             neutralChroma: null,
             neutralMinChroma: 1,
             neutralVariantChroma: null,
@@ -504,8 +508,8 @@ void main() {
     });
     test(
         'FCS7.010-d: GIVEN a SeedColorScheme.fromSeeds using five seeds '
-        'and tones map FlexTones.material for a dark scheme with '
-        'error no neutral and variant chroma set  '
+        'and tones map FlexTones.dark for with neutrals from key incl its '
+        'own chroma, so no fixed neutral and variant chroma '
         'EXPECT scheme equal to neutral null and variant null', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
@@ -514,7 +518,9 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.dark).copyWith(
+        tones: const FlexTones.light(
+          secondaryChroma: 16,
+          tertiaryChroma: 24,
           neutralChroma: null,
           neutralVariantChroma: null,
         ),
@@ -526,7 +532,9 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.dark).copyWith(
+        tones: const FlexTones.light(
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
             neutralChroma: null,
             neutralMinChroma: 1,
             neutralVariantChroma: null,
@@ -546,7 +554,8 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.light),
+        tones: FlexTones.material(Brightness.light)
+            .copyWith(neutralChroma: 5, neutralVariantChroma: 10),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -556,9 +565,9 @@ void main() {
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
         tones: FlexTones.material(Brightness.light).copyWith(
-            neutralChroma: 4,
+            neutralChroma: 5,
             neutralMinChroma: 1,
-            neutralVariantChroma: 8,
+            neutralVariantChroma: 10,
             neutralVariantMinChroma: 1),
       );
       expect(scheme, scheme2);
@@ -575,7 +584,8 @@ void main() {
         tertiaryKey: tertiarySeedColor,
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
-        tones: FlexTones.material(Brightness.dark),
+        tones: FlexTones.material(Brightness.dark)
+            .copyWith(neutralChroma: 5, neutralVariantChroma: 10),
       );
       final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
@@ -585,13 +595,12 @@ void main() {
         neutralKey: neutralSeedColor,
         neutralVariantKey: neutralVariantSeedColor,
         tones: FlexTones.material(Brightness.dark).copyWith(
-            neutralChroma: 4,
+            neutralChroma: 5,
             neutralMinChroma: 1,
-            neutralVariantChroma: 8,
+            neutralVariantChroma: 10,
             neutralVariantMinChroma: 1),
       );
       expect(scheme, scheme2);
     });
   });
-  //
 }

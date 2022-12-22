@@ -143,8 +143,8 @@ class FlexSeedScheme {
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
   /// internally to create a seeded [ColorScheme] via its static method
-  /// [FlexSeedScheme.fromSeeds] from one, two or three seed
-  /// colors, and with customizable [FlexTones] tone mapping to [ColorScheme].
+  /// [FlexSeedScheme.fromSeeds] from one to six seed colors, and optionally
+  /// using customizable [FlexTones] tone mapping to [ColorScheme].
   const FlexSeedScheme._({
     required this.primary,
     required this.onPrimary,

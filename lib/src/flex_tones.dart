@@ -8,8 +8,9 @@ import 'package:flutter/foundation.dart';
 /// It is also possible to define how Cam16 chroma is used and limited when
 /// generating the tonal palette.
 ///
-/// To use [FlexTones] with [SeedColorScheme.fromSeeds] pass in one of the
-/// predefined configs below, to its [tones] property:
+/// To use optional [FlexTones] to change tone mappings and default chroma
+/// usage and limits with [SeedColorScheme.fromSeeds], you can pass in one of
+/// the predefined configs below, to its [tones] property:
 ///
 /// * [FlexTones.material], default and same as Flutter SDK M3 setup.
 /// * [FlexTones.soft], softer and earthier tones than M3 [FlexTones.material].
@@ -18,15 +19,21 @@ import 'package:flutter/foundation.dart';
 /// * [FlexTones.vividBackground], like [vividSurfaces], but with tone mapping
 ///   for [Colorscheme.surface] and [Colorscheme.background] colors swapped.
 /// * [FlexTones.highContrast], can be used for more color accessible themes.
-/// * [FlexTones.ultraContrast], for a very high contrast theme version.
+/// * [FlexTones.ultraContrast], for a very high contrast theme that is still
+///   in Material 3 color system style.
 /// * [FlexTones.jolly], for a more "jolly" and colorful theme.
 /// * [FlexTones.oneHue], to create one hue schemes from a primary seed color.
+///   When only a primary seed color is used the tertiary color is not rotated
+///   60 degrees as with the all the other tone mapping to create the tertiary
+///   hue when a key for it is not provided, the primary hue is used. We can
+///   thus create a color scheme that uses only one hue.
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
 /// match the Material 3 design setup tone mapping wise, but don't lock
-/// chroma bu default. Just modify the properties you
-/// want to change. The above pre-made constructors are examples of doing this.
+/// chroma by default for primary, secondary and tertiary key colors. Modify
+/// the properties you want to change. The above pre-made constructors are
+/// examples of doing this.
 ///
 /// When [FlexTonalPalette]s are generated from key color(s) and used to define
 /// a [ColorScheme], it is recommended to use the same key colors and
@@ -37,15 +44,20 @@ import 'package:flutter/foundation.dart';
 ///
 /// The [FlexTones.light] and [FlexTones.dark] constructors match the
 /// definition used by Material Design 3 based seed generated tones, for
-/// the tone mapping, however chroma is by default unbound. Use the
+/// the tone mapping, however chroma is by default unbound. Use
 /// [FlexTones.material], for an exact match.
 ///
 /// In Flutter SDK this tone mapping and chroma setup is done with hard coded
 /// values in [ColorScheme.fromSeed] and libraries it uses. This class offers
-/// configuration of those parameters.
+/// configuration of those tone mapping parameters. Depending on which color
+/// in the [ColorScheme] it concerns, mapping can typically be changed one step
+/// in either direction for a slightly different result. In some cases two
+/// tone steps can also be used. Three steps is rarely a good idea, but doable
+/// in a few select cases. Avoid going any further than that with any default
+/// tone mapping adjustments.
 @immutable
 class FlexTones with Diagnosticable {
-  /// Default constructor requiring all properties.
+  /// Default constructor requiring almost all properties.
   ///
   /// Prefer using [FlexTones.light] or [FlexTones.dark].
   const FlexTones({
@@ -99,13 +111,27 @@ class FlexTones with Diagnosticable {
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
   /// [Scheme.light] and [ColorPalette.of]. The difference is
-  /// that it does not lock the chroma value to a specific chroma value, but
-  /// uses actual chroma of specified key color, as long as it is over the
-  /// minimum value. The minimum values matches the Material 3 defaults.
+  /// that it does not lock the chroma values for primary, secondary and
+  /// tertiary to a specific chroma value, but uses actual chroma of specified
+  /// key color, as long as it is over the minimum value.
+  /// The minimum values match the Material 3 defaults.
   ///
   /// To get the an exact matching setup as used by Material 3
   /// [ColorScheme.fromSeed] use the [FlexTones.material] factory as the
   /// [FlexTones] configuration.
+  ///
+  /// The default chroma limits for neutral and neutral variant key colors are
+  /// set to 4 and 8 as in Material 3 design. You can create a
+  /// [FlexTones.light] where you set [neutralChroma] and [neutralVariantChroma]
+  /// to use the effective chroma values in their seed key values as the actual
+  /// chroma value for the neutral and neutral tonal palette generation.
+  /// This is usually not a good idea, as the seeds value then have to be
+  /// pre-tuned to have suitable chroma for neutral surfaces with hint of the
+  /// intended low colorfulness. If using key colors to seed generated neutral
+  /// colors with other than primary base, it is recommended to set the chroma
+  /// values for neutrals to fixed values to get good predictable surface
+  /// colors. Limits from 2 to 12 are recommended, with the higher range more
+  /// suitable for the neutral variant.
   const FlexTones.light({
     this.primaryTone = 40,
     this.onPrimaryTone = 100,
@@ -152,11 +178,10 @@ class FlexTones with Diagnosticable {
     // a chroma key is given.
     this.errorChroma,
     this.errorMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over errorMinChroma.
+    // Defaults to 4, chroma in key color is not used, fixed to 4.
     this.neutralChroma = 4,
     this.neutralMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over
-    // neutralVariantMinChroma.
+    // Defaults to 8, chroma in key color is not used, fixed to 8.
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma = 0,
   });
@@ -166,13 +191,27 @@ class FlexTones with Diagnosticable {
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
   /// [Scheme.dark] and [ColorPalette.of]. The difference is
-  /// that it does not lock the chroma value to a specific chroma value, but
-  /// uses actual chroma of specified key color, as long as it is over the
-  /// minimum value. The minimum values matches the Material 3 defaults.
+  /// that it does not lock the chroma values for primary, secondary and
+  /// tertiary to a specific chroma value, but uses actual chroma of specified
+  /// key color, as long as it is over the minimum value.
+  /// The minimum values match the Material 3 defaults.
   ///
   /// To get the an exact matching setup as used by Material 3
   /// [ColorScheme.fromSeed] use the [FlexTones.material] factory as the
   /// [FlexTones] configuration.
+  ///
+  /// The default chroma limits for neutral and neutral variant key colors are
+  /// set to 4 and 8 as in Material 3 design. You can create a
+  /// [FlexTones.dark] where you set [neutralChroma] and [neutralVariantChroma]
+  /// to use the effective chroma values in their seed key values as the actual
+  /// chroma value for the neutral and neutral tonal palette generation.
+  /// This is usually not a good idea, as the seeds value then have to be
+  /// pre-tuned to have suitable chroma for neutral surfaces with hint of the
+  /// intended low colorfulness. If using key colors to seed generated neutral
+  /// colors with other than primary base, it is recommended to set the chroma
+  /// values for neutrals to fixed values to get good predictable surface
+  /// colors. Limits from 2 to 12 are recommended, with the higher range more
+  /// suitable for the neutral variant.
   const FlexTones.dark({
     this.primaryTone = 80,
     this.onPrimaryTone = 20,
@@ -218,10 +257,10 @@ class FlexTones with Diagnosticable {
     // Defaults to null, chroma in key color is used, if over errorMinChroma.
     this.errorChroma,
     this.errorMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over errorMinChroma.
+    // Defaults to 4, chroma in key color is not used, fixed to 4.
     this.neutralChroma = 4,
     this.neutralMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over
+    // Defaults to 4, chroma in key color is not used, fixed to 8.
     // neutralVariantMinChroma.
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma = 0,
@@ -242,39 +281,6 @@ class FlexTones with Diagnosticable {
           : const FlexTones.dark(
               secondaryChroma: 16,
               tertiaryChroma: 24,
-            );
-
-  /// Create a M3 tonal palette tones extraction, but with no hue rotation
-  /// from primary if no ARGB key color is provided for tertiary palette.
-  ///
-  /// This setup will if only one seed color is used, produce a slightly more
-  /// chromatic color set than [FlexTones.material], since it does not rotate
-  /// hue from primary to get hue for tertiary, it will create a color
-  /// scheme using tonal palettes that are based on the same hue, but with
-  /// different chroma. In simple terms, all colors are shades of the provided
-  /// key color to seed the tonal palettes. We can get a nice one hue
-  /// toned theme with this configuration.
-  factory FlexTones.oneHue(Brightness brightness) =>
-      brightness == Brightness.light
-          ? const FlexTones.light(
-              secondaryContainerTone: 95,
-              tertiaryTone: 30,
-              tertiaryContainerTone: 80,
-              //
-              primaryMinChroma: 55,
-              secondaryChroma: 26,
-              tertiaryChroma: 36,
-              tertiaryHueRotation: 0,
-            )
-          : const FlexTones.dark(
-              tertiaryTone: 90,
-              tertiaryContainerTone: 40,
-              onTertiaryContainerTone: 95,
-              //
-              primaryMinChroma: 55,
-              secondaryChroma: 26,
-              tertiaryChroma: 36,
-              tertiaryHueRotation: 0,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
@@ -550,6 +556,39 @@ class FlexTones with Diagnosticable {
               neutralVariantChroma: 10,
             );
 
+  /// Create a M3 tonal palette tones extraction, but with no hue rotation
+  /// from primary if no ARGB key color is provided for tertiary palette.
+  ///
+  /// This setup will if only one seed color is used, produce a slightly more
+  /// chromatic color set than [FlexTones.material], since it does not rotate
+  /// hue from primary to get hue for tertiary, it will create a color
+  /// scheme using tonal palettes that are based on the same hue, but with
+  /// different chroma. In simple terms, all colors are shades of the provided
+  /// key color to seed the tonal palettes. We can get a nice one hue
+  /// toned theme with this configuration.
+  factory FlexTones.oneHue(Brightness brightness) =>
+      brightness == Brightness.light
+          ? const FlexTones.light(
+              secondaryContainerTone: 95,
+              tertiaryTone: 30,
+              tertiaryContainerTone: 80,
+              //
+              primaryMinChroma: 55,
+              secondaryChroma: 26,
+              tertiaryChroma: 36,
+              tertiaryHueRotation: 0,
+            )
+          : const FlexTones.dark(
+              tertiaryTone: 90,
+              tertiaryContainerTone: 40,
+              onTertiaryContainerTone: 95,
+              //
+              primaryMinChroma: 55,
+              secondaryChroma: 26,
+              tertiaryChroma: 36,
+              tertiaryHueRotation: 0,
+            );
+
   /// Returns a new [FlexTones] instance where on colors tones for all main on
   /// color tones, are set to be either pure white 100 or black 0, depending
   /// what is appropriate contrast for its color pair.
@@ -592,7 +631,7 @@ class FlexTones with Diagnosticable {
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
-  /// their seeded main on colors.
+  /// their seeded main **on** colors.
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
@@ -723,9 +762,6 @@ class FlexTones with Diagnosticable {
   /// set to 48, so the chroma from the key color is used when above 48, but
   /// never lower than 48. This keeps primary color at the used tonal values
   /// reasonably vivid and usable regardless of uses primary key color.
-  ///
-  /// To use chroma value from the primary key color, pass in null and keep
-  /// min chroma below desired threshold for required colorfulness.
   final double? primaryChroma;
 
   /// The minimum used chroma value.
@@ -746,11 +782,16 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK [ColorScheme.fromSeed] uses [secondaryChroma] hard coded
   /// and locked to 16.
   ///
-  /// The default produces quite soft and muted tones as secondary tonal palette
-  /// at the mid-point tones of the palette.
+  /// The Material 3 default produces quite soft and muted tones as secondary
+  /// tonal palette at the mid-point tones of the palette.
   ///
-  /// To use chroma value from the primary key color, pass in null and keep
-  /// min chroma below desired threshold for required colorfulness.
+  /// By adjusting [secondaryChroma] and/or [secondaryMinChroma] you can change
+  /// this. The color system usage of the secondary colors in Material 3 is
+  /// pretty strict from a design point of view. For default widget coloring
+  /// to work and look as intended it is recommended to keep secondary color
+  /// close in hue, or same as primary, with a lower chroma value
+  /// (less colorful). You can certainly vary the hue a bit and make it a bit
+  /// more colorful then Material 3 design defaults.
   final double? secondaryChroma;
 
   /// The minimum used chroma value.
@@ -771,14 +812,14 @@ class FlexTones with Diagnosticable {
   /// if it is larger than [tertiaryMinChroma].
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [tertiaryChroma] hard coded
-  /// and locked to 24.
+  /// and locked to 24. This produces slightly less colorful colors than primary
+  /// tones for tertiary tonal palette at the mid-point tones of the palette.
+  /// They are a lot less muted than the default secondary tonal palette, but
+  /// not as bright as primary.
   ///
-  /// The default produces soft and muted tones as tertiary tonal palette
-  /// at the mid-point tones of the palette, that are bit less muted than
-  /// the default secondary tonal palette.
-  ///
-  /// To use chroma value from the primary key color, pass in null and keep
-  /// min chroma below desired threshold for required colorfulness.
+  /// By adjusting [tertiaryChroma] and/or [tertiaryMinChroma] you can change
+  /// this. The color system usage of the tertiary colors in Material 3 is
+  /// pretty lenient and work well with brighter colors too on tertiary.
   final double? tertiaryChroma;
 
   /// The minimum used chroma value.
@@ -808,10 +849,8 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK [ColorScheme.fromSeed] uses [errorChroma] from
   /// FlexTonalPalette.of(25, 84) as its define 84 value.
   ///
-  /// To use chroma value from the primary key color, pass in null and keep
-  /// min chroma below desired threshold for required colorfulness.
-  ///
-  /// If not defined and no error key color is defined, it defaults to 84.
+  /// If not defined and no error key color is defined, [errorChroma] defaults
+  /// to 84, like in Material 3 defaults.
   final double? errorChroma;
 
   /// The minimum used error chroma value.
@@ -828,33 +867,29 @@ class FlexTones with Diagnosticable {
   /// Cam16 chroma value to use for neutral colors [FlexTonalPalette]
   /// generation.
   ///
-  /// Always uses chroma from the primary key color, but you can vary the
-  /// amount of chroma from primary key color that is used to generate
-  /// the tonal palette
+  /// If null, the chroma value from the used neutral seed key color is used,
+  /// if it is larger than [neutralMinChroma].
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded
   /// and locked to 4.
-  ///
-  /// Default to 4.
   final double? neutralChroma;
 
   /// The minimum used neutral chroma value.
   ///
   /// If chroma in provided neutral key color is below this value, or if a
   /// fixed [neutralChroma] is provided that is lower than
-  /// [neutralMinChroma] then the [neutralMinChroma] value is used.
+  /// [neutralMinChroma], then the [neutralMinChroma] value is used.
   ///
   /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
   /// concept of minimum level for neutral tonal palettes as its value is
   /// always locked to 4.
   final double neutralMinChroma;
 
-  /// Cam16 chroma value to use for neutralVariant colors
-  /// [FlexTonalPalette] generation.
+  /// Cam16 chroma value to use for neutral colors [FlexTonalPalette]
+  /// generation.
   ///
-  /// Always uses chroma from the primary key color, but you can vary the
-  /// amount of chroma from primary key color that is used to generate
-  /// the tonal palette
+  /// If null, the chroma value from the used neutral variant seed key color is
+  /// used, if it is larger than [neutralVariantMinChroma].
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [neutralVariantChroma] hard
   /// coded and locked to 8.
@@ -864,7 +899,7 @@ class FlexTones with Diagnosticable {
   ///
   /// If chroma in provided neutral variant key color is below this value, or
   /// if a fixed [neutralVariantChroma] is provided that is lower than
-  /// [neutralVariantMinChroma] then the [neutralVariantMinChroma] value is
+  /// [neutralVariantMinChroma], then the [neutralVariantMinChroma] value is
   /// used.
   ///
   /// Flutter SDK only uses [neutralVariantChroma] hard coded to 8, and has no

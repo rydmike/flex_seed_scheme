@@ -59,7 +59,7 @@ void main() {
     // m2, has same definition as m1, but via default values
     const FlexTones m2 = FlexTones.light();
     // m3, has same definition as m1, but one value is different.
-    const FlexTones m3 = FlexTones.light(neutralChroma: 8);
+    const FlexTones m3 = FlexTones.light(neutralMinChroma: 8);
     // m4, has all values different from m1
     const FlexTones m4 = FlexTones.dark();
     // Do identity tests
@@ -108,7 +108,7 @@ void main() {
         'an unequal object when made equal with copyWith.', () {
       expect(
         m3.copyWith(
-          neutralChroma: 4,
+          neutralMinChroma: 0,
         ),
         equals(m1),
       );
