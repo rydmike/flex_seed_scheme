@@ -2,6 +2,28 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.0-dev.1
+
+**Dec 23, 2022**
+
+Requires minimum Flutter 3.7.0-1.2.pre (beta channel). This is a development pre-release to support `outlineVariant` and `scrim` colors in `ColorScheme`. It is used for development and testing against new Material 3 features in Flutter 3.7 beta and master channel. It will be released as a stable version when the new color properties land in the Flutter stable channel, most likely after January 25, 2023.
+
+The release also adds new features to allow customization of seed generation of error, neutral and neutral variant tonal palettes.
+
+**NEW**
+
+* Adds support for `outlineVariant` and `scrim` colors in `ColorScheme`.
+* Added support for customizing seed generation for error, neutral and neutral variant tonal palettes. 
+
+
+* To support the new features the `SeedColorScheme.fromSeeds` got the following new `Color` properties `errorKey`, `neutralKey` and `neutralVariantKey`.
+* The `FlexTones` class got the following new `double` properties
+  `errorChroma`, `errorMinChroma`, `neutralMinChroma` and `neutralVariantMinChroma`
+* The `FlexCorePalette.fromSeeds` factory got the following new `int` properties `error`, `neutral`, `neutralVariant` and `neutralVariantMinChroma`. As well as new `double` properties `errorChroma`, `errorMinChroma`, `neutralChroma`, `neutralMinChroma`, `neutralVariantChroma` and `neutralVariantMinChroma`.
+
+
+* The demo application got an **About** dialog. The demo app also shows the `ColorScheme` applied on common **Material** components.
+
 ## 1.1.0
 
 **Nov 17, 2022**
@@ -21,7 +43,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **CHANGE**
 
-Tone mappings for some pre-configured `FlexTones` were slightly modified. They now produce improved and more usable color schemes. Most significantly, the mappings for `FlexTones.vividSurfaces` were modified to provide a more usable and improved vivid surfaces tinted color schemes, while still offering a slightly more tinted surface design than `FlexTones.vivid`. Tone mapping changes are as follows:
+Tone mappings for some pre-configured `FlexTones` were slightly modified. They now produce improved and more usable color schemes. Most significantly, the mappings for `FlexTones.vividSurfaces` were modified to provide a more usable and improved vivid surfaces tinted color scheme, while still offering a slightly more tinted surface design than `FlexTones.vivid`. Tone mapping changes are as follows:
 
 * The `FlexTones.vivid`, brightness **light**:
   - Tone `surfaceTone` was changed from 99 to 98.

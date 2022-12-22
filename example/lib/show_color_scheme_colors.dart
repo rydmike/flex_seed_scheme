@@ -20,10 +20,6 @@ class ShowColorSchemeColors extends StatelessWidget {
   static bool _isLight(final Color color) =>
       ThemeData.estimateBrightnessForColor(color) == Brightness.light;
 
-  // Return true if the color is dark, meaning it needs light text for contrast.
-  static bool _isDark(final Color color) =>
-      ThemeData.estimateBrightnessForColor(color) == Brightness.dark;
-
   // On color used when a theme color property does not have a theme onColor.
   static Color _onColor(final Color color, final Color bg) =>
       _isLight(Color.alphaBlend(color, bg)) ? Colors.black : Colors.white;
@@ -32,7 +28,6 @@ class ShowColorSchemeColors extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final bool isDark = colorScheme.brightness == Brightness.dark;
     final bool useMaterial3 = theme.useMaterial3;
     const double spacing = 6;
 
@@ -56,24 +51,6 @@ class ShowColorSchemeColors extends StatelessWidget {
     // Get effective background color.
     final Color background =
         onBackgroundColor ?? theme.cardTheme.color ?? theme.cardColor;
-
-    // Warning label for scaffold background when it uses to much blend.
-    final String surfaceTooHigh = isDark
-        ? _isLight(theme.colorScheme.surface)
-            ? '\nTOO HIGH'
-            : ''
-        : _isDark(theme.colorScheme.surface)
-            ? '\nTOO HIGH'
-            : '';
-
-    // Warning label for scaffold background when it uses to much blend.
-    final String backTooHigh = isDark
-        ? _isLight(theme.colorScheme.background)
-            ? '\nTOO HIGH'
-            : ''
-        : _isDark(theme.colorScheme.background)
-            ? '\nTOO HIGH'
-            : '';
 
     // Wrap this widget branch in a custom theme where card has a border outline
     // if it did not have one, but retains in ambient themed border radius.
@@ -180,7 +157,7 @@ class ShowColorSchemeColors extends StatelessWidget {
                 textColor: colorScheme.errorContainer,
               ),
               ColorCard(
-                label: 'Background$backTooHigh',
+                label: 'Background',
                 color: colorScheme.background,
                 textColor: colorScheme.onBackground,
               ),
@@ -190,7 +167,7 @@ class ShowColorSchemeColors extends StatelessWidget {
                 textColor: colorScheme.background,
               ),
               ColorCard(
-                label: 'Surface$surfaceTooHigh',
+                label: 'Surface',
                 color: colorScheme.surface,
                 textColor: colorScheme.onSurface,
               ),
@@ -215,9 +192,19 @@ class ShowColorSchemeColors extends StatelessWidget {
                 textColor: colorScheme.background,
               ),
               ColorCard(
+                label: 'Outline\nVariant',
+                color: colorScheme.outlineVariant,
+                textColor: _onColor(colorScheme.outlineVariant, background),
+              ),
+              ColorCard(
                 label: 'Shadow',
                 color: colorScheme.shadow,
                 textColor: _onColor(colorScheme.shadow, background),
+              ),
+              ColorCard(
+                label: 'Scrim',
+                color: colorScheme.scrim,
+                textColor: _onColor(colorScheme.scrim, background),
               ),
               ColorCard(
                 label: 'Inverse\nSurface',

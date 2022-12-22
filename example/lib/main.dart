@@ -1,10 +1,13 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
+import 'about.dart';
+import 'app_data.dart';
 import 'flex_tones_enum.dart';
 import 'flex_tones_popup_menu.dart';
 import 'show_color_scheme_colors.dart';
 import 'show_key_colors.dart';
+import 'theme_showcase.dart';
 
 // Define your seed colors.
 const Color primarySeedColor = Color(0xFF6750A4);
@@ -147,8 +150,11 @@ class _MyAppState extends State<MyApp> {
       //
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('ColorScheme from Seeds'),
+          title: Builder(builder: (BuildContext context) {
+            return Text(AppData.title(context));
+          }),
           actions: <Widget>[
+            const AboutIconButton(),
             IconButton(
               icon: useMaterial3
                   ? const Icon(Icons.filter_3)
@@ -243,14 +249,21 @@ class _MyAppState extends State<MyApp> {
               child: ShowColorSchemeColors(),
             ),
             const SizedBox(height: 16),
+            const Divider(),
             const Text(
-              'You have pushed the button this many times:',
+              'You have pushed the (+) button this many times:',
               textAlign: TextAlign.center,
             ),
             Text(
               '$counter',
               style: const TextStyle(fontSize: 30),
               textAlign: TextAlign.center,
+            ),
+            const Divider(),
+            const ListTile(title: Text('Widget Showcase')),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: ThemeShowcase(),
             ),
           ],
         ),

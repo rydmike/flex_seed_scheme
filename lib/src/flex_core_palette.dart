@@ -6,12 +6,13 @@ import 'package:meta/meta.dart' show immutable;
 // ignore_for_file: comment_references
 
 // Background: Why make custom versions of CorePalette and TonalPalette?
-// (Mostly so author will remember it later)
+// (Mostly written down so author will remember it later)
 //
 // The FlexCorePalette and FlexTonalPalette below are used to create custom
-// versions of material_color_utilities CorePalette and TonalPalette.
+// versions of material_color_utilities CorePalette and TonalPalette classes.
+//
 // FlexCorePalette has an additional [fromSeeds] factory that is a bit more
-// efficient than a version that would extend from CorePalette, via reduced
+// efficient than a version that would extend from CorePalette is, via reduced
 // interface overhead. More reminder ramblings below.
 //
 // The conversion of TonalPalettes to a list of ints, and having super
@@ -25,7 +26,7 @@ import 'package:meta/meta.dart' show immutable;
 // The [CorePalette] in Material Color Utilities is a convenience wrapper for
 // the needed [TonalPalette]s, that is used by an additional upper layer
 // called [Scheme] that [ColorScheme.fromSeed] uses to create
-// a [ColorScheme] from a seed color. To in make a ColorScheme "fromSeeds"
+// a [ColorScheme] from a seed color. To make a ColorScheme "fromSeeds"
 // version, we need to make a slightly modified version of [Scheme]
 // too. The usage of [CorePalette.of] is hard coded into it, so we
 // cannot plug-in our version of FlexCorePalette in it anyway.
@@ -33,6 +34,7 @@ import 'package:meta/meta.dart' show immutable;
 // Considering we need a custom version [Scheme] and [TonalPalette] it seemed
 // we might as well make modified re-implementation version of [CorePalette] as
 // well instead of extending from [CorePalette] and name it [FlexCorePalette].
+//
 // Downside, it does not share parent with [CorePalette], like an earlier
 // implementation did when this class was a part of FlexColorScheme package,
 // but this is not really needed, it is just color utility class.
@@ -40,16 +42,18 @@ import 'package:meta/meta.dart' show immutable;
 // Regarding the custom version of TonalPalette, named FlexTonalPalette, there
 // was just no convenient way to add the desired tones 5 and 98 to it without
 // making our own version of it. Future version of [TonalPalette] in package
-// material_color_utilities might add tone 98, as it exists in Web tool, but
-// not in M3 guide, so who knows. We liked tone 98 for more light tone options.
-// Likewise tone 5, for more fidelity in the dark tones.
+// material_color_utilities may add tone 98, as it briefly existed in M3 Web
+// tool, but not in M3 guide, so who knows, but last I checked tone 98 was gone
+// in the web tool. We liked tone 98 for more light tone options.
+// Likewise tone 5, for more fidelity in the dark tones. So here we offer them
+// as well.
 
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
 ///
 /// This is a modification of package material_color_utilities [TonalPalette]
-/// made to include the tone 98, that the Web based Material 3 theme builder
-/// has, as well as an additional custom tone, 5.
+/// made to also include the tones 98 and tone 5. This gives additional fidelity
+/// and expression possibilities when using tones close to black and white.
 ///
 /// This class can be instantiated in two ways:
 ///
@@ -61,7 +65,7 @@ import 'package:meta/meta.dart' show immutable;
 @immutable
 class FlexTonalPalette {
   // If modifying commonTones length, update commonSize to equal
-  // commonTones.length. There is a test and assert that fails if you did not.
+  // commonTones.length. There is both a test and assert that fails if not done.
 
   /// Commonly-used tone values in a [FlexTonalPalette].
   ///
@@ -249,6 +253,8 @@ class FlexCorePalette {
   /// TonalPalette error colors getter, returns given final _error parameter,
   /// but if null falls to M3 default value FlexTonalPalette.of(25, 84).
   ///
+  /// The error color hue is 25 and chroma 84.
+  ///
   /// This pattern allows const constructor, even if default for error is not.
   FlexTonalPalette get error => _error ?? FlexTonalPalette.of(25, 84);
 
@@ -310,31 +316,95 @@ class FlexCorePalette {
   /// [FlexTonalPalette] compared to [TonalPalette].
   factory FlexCorePalette.fromSeeds({
     /// Integer ARGB value of seed color used for primary tonal palette.
+    /// calculation.
     ///
     /// By default a minimum of Cam16 chroma 48 is used to ensure a bright
     /// palette. If chroma of the provided color is higher than 48, it is
-    /// used. A chroma value can also be specified via [primaryChroma],
-    /// if it, then the passed chroma value is used.
+    /// used.
+    ///
+    /// A fixed chroma value can also be specified via [primaryChroma], if it
+    /// is, then the given chroma value is used. Alternatively a
+    /// [primaryMinChroma] can, be specified, then chroma in [primary] is used
+    /// when it is higher than [primaryMinChroma]. If both [primaryChroma] and
+    /// [primaryMinChroma] are specified, the higher value is used for chroma.
     required int primary,
 
-    /// Integer ARGB value of seed color used for secondary tonal palette.
-    /// If not provided, the palette is based on [primary] with Cam16 chroma
-    /// at 16.
+    /// Integer ARGB value of seed color used for secondary tonal palette
+    /// calculation.
     ///
-    /// A chroma value can also be specified via [secondaryChroma].
+    /// If not provided, the palette is based on [primary] with Cam16 chroma
+    /// fixed at 16.
+    ///
+    /// A fixed chroma value can also be specified via [secondaryChroma], if it
+    /// is, then the given chroma value is used. Alternatively a
+    /// [secondaryMinChroma] can, be specified, then chroma in [secondary] is
+    /// used when it is higher than [secondaryMinChroma]. If both
+    /// [secondaryChroma] and [secondaryMinChroma] are specified, the higher
+    /// value is used for chroma.
     int? secondary,
 
-    /// Integer ARGB value of seed color used for tertiary tonal palette.
+    /// Integer ARGB value of seed color used for tertiary tonal palette
+    /// calculation.
+    ///
     /// Cam16 chroma is capped at 48 if provided. If not provided, the palette
     /// is based on [primary] with Cam16 hue + 60 degrees (default value for
     /// [tertiaryHueRotation]) and chroma at 24.
     ///
-    /// A chroma value can also be specified via [tertiaryChroma].
+    /// A fixed chroma value can also be specified via [tertiaryChroma], if it
+    /// is, then the given chroma value is used. Alternatively a
+    /// [tertiaryMinChroma] can, be specified, then chroma in [tertiary] is
+    /// used when it is higher than [tertiaryMinChroma]. If both
+    /// [tertiaryChroma] and [tertiaryMinChroma] are specified, the higher
+    /// value is used for chroma.
     int? tertiary,
 
-    // TODO(rydmike): Consider adding neutrals and error ARGB parameters.
+    /// Integer ARGB value of seed color used for error tonal palette.
+    ///
+    /// If not provided, the palette will be based on Material 3 default
+    /// `FlexTonalPalette.of(25, 84)`. The error color hue is 25 and chroma 84.
+    /// Typically you should stick to this, but if your theme uses a primary
+    /// red color that clashes badly with the default M3 error color, you can
+    /// specify a new error seed color here with a different hue and also
+    /// chroma limit or fixed one.
+    ///
+    /// A fixed chroma value can also be specified via [errorChroma], if it
+    /// is, then the given chroma value is used. Alternatively a
+    /// [errorMinChroma] can, be specified, then chroma in [error] is
+    /// used when it is higher than [errorMinChroma]. If both
+    /// [errorChroma] and [errorMinChroma] are specified, the higher
+    /// value is used for chroma.
+    int? error,
 
-    /// Cam16 chroma value to use for primary colors [TonalPalette} generation.
+    /// Integer ARGB value of seed color used for neutral tonal palette
+    /// calculation.
+    ///
+    /// If not provided, the palette is based on [primary] with Cam16 chroma
+    /// fixed at 16.
+    ///
+    /// A fixed chroma value can also be specified via [neutralChroma], if it
+    /// is, then the given chroma value is used. Alternatively a
+    /// [neutralMinChroma] can, be specified, then chroma in [neutral] is
+    /// used when it is higher than [neutralMinChroma]. If both
+    /// [neutralChroma] and [neutralMinChroma] are specified, the higher
+    /// value is used for chroma.
+    int? neutral,
+
+    /// Integer ARGB value of seed color used for neutralVariant tonal palette
+    /// calculation.
+    ///
+    /// If not provided, the palette is based on [primary] with Cam16 chroma
+    /// fixed at 16.
+    ///
+    /// A fixed chroma value can also be specified via [neutralVariantChroma],
+    /// if it is, then the given chroma value is used. Alternatively a
+    /// [neutralVariantMinChroma] can, be specified, then chroma in
+    /// [neutralVariant] is used when it is higher than
+    /// [neutralVariantMinChroma]. If both [neutralVariantChroma] and
+    /// [neutralVariantMinChroma] are specified, the higher value is used
+    /// for chroma.
+    int? neutralVariant,
+
+    /// Cam16 chroma value to use for primary colors tonal palette generation.
     ///
     /// If null, the chroma value from the used [primary] seed key color is
     /// used, if it is larger than [primaryMinChroma].
@@ -343,7 +413,7 @@ class FlexCorePalette {
     /// [primaryMinChroma] set to 48, so the chroma from the key color is used
     /// when above 48, but never lower than 48. This keeps primary color in
     /// resulting tonal palette reasonably vivid and usable regardless of
-    /// uses seed color.
+    /// used seed color.
     ///
     /// To use chroma value from [primary] seed color, keep [primaryChroma] null
     /// and [primaryMinChroma] at desired threshold for target min colorfulness.
@@ -360,7 +430,7 @@ class FlexCorePalette {
     /// Flutter SDK uses 48 via a hard coded value and design.
     final double primaryMinChroma = 48,
 
-    /// Cam16 chroma value to use for secondary colors [TonalPalette}
+    /// Cam16 chroma value to use for secondary colors tonal palette
     /// generation.
     ///
     /// If null, the chroma value from the used [secondary] seed key color is
@@ -371,8 +441,9 @@ class FlexCorePalette {
     ///
     /// Defaults to null, set it to 16 for Material 3 standard result.
     ///
-    /// The Flutter default produces quite soft and muted and earthy tones as
-    /// secondary tonal palette at the mid-point tones of the palette.
+    /// The Flutter's and M3 default value produces quite soft, muted and earthy
+    /// tones as secondary tonal palette at its mid-point tones of the palette.
+    /// This is a design choice, but you can modify it here.
     ///
     /// To use chroma value from [secondary] seed color, keep [secondaryChroma]
     /// null and [secondaryMinChroma] at desired threshold for target min
@@ -392,7 +463,7 @@ class FlexCorePalette {
     /// value is always locked to 16.
     final double secondaryMinChroma = 0,
 
-    /// Cam16 chroma value to use for tertiary colors [TonalPalette} generation.
+    /// Cam16 chroma value to use for tertiary colors tonal palette generation.
     ///
     /// If null, the chroma value from the used [tertiary] seed key color is
     /// used, if it is larger than [tertiaryMinChroma].
@@ -424,38 +495,103 @@ class FlexCorePalette {
     /// always locked to 24.
     final double tertiaryMinChroma = 0,
 
-    /// The number of degrees to rotate Hue to use to get hue from primary
-    /// color's Hue, used as base with rotated amount of degrees provided.
+    /// The number of degrees to rotate the hue in [primary] key color to get
+    /// the used Hue for the tertiary color.
     ///
     /// This is only used when [tertiary] ARGB key color is null and we have
-    /// no specified Hue input for tertiary key color.
+    /// not specified an own key color for [tertiary] with its onw hue.
+    ///
+    /// If you set this value to 0, or very close to it, you can make seed
+    /// generated color schemes where all color are "like" the primary color
+    /// but with subtle tone and shade variations.
     final double tertiaryHueRotation = 60,
 
-    // TODO(rydmike): Consider adding neutrals and error chroma parameters.
-
-    /// Cam16 chroma value to use for neutral colors [TonalPalette} generation.
+    /// Cam16 chroma value to use for neutral colors tonal palette generation.
     ///
-    /// Always uses chroma from the [primary] key color, but you can vary the
-    /// amount of chroma from primary key color that is used to generate
+    /// Uses chroma from the [neutral] key color, but you can vary the
+    /// amount of chroma from neutral key color that is used to generate
     /// the tonal palette
     ///
     /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded to 4.
     ///
     /// Defaults to 4.
-    final double neutralChroma = 4,
+    ///
+    /// To force the chroma in [neutral] key color to be used, set this to null
+    /// and keep [neutralMinChroma] at 0. Typically you want to use very low
+    /// chroma on the neutral colors. If you set this to null, the provided
+    /// ARGB value in [neutral] should have a very low chroma value itself.
+    final double? neutralChroma = 4,
+
+    /// The minimum used chroma value for neutral palette.
+    ///
+    /// If chroma in provided [neutral] key color is below this value, or if a
+    /// fixed [neutralChroma] is provided that is lower than
+    /// [neutralMinChroma] then the [neutralMinChroma] value is used.
+    ///
+    /// Defaults to 0.
+    ///
+    /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
+    /// concept of minimum level for neutral tonal palettes as its chroma
+    /// value is always locked to 16.
+    final double neutralMinChroma = 0,
 
     /// Cam16 chroma value to use for neutralVariant colors
-    /// [TonalPalette} generation.
+    /// tonal palette generation.
     ///
-    /// Always uses chroma from the [primary] key color, but you can vary the
-    /// amount of chroma from primary key color that is used to generate
-    /// the tonal palette
+    /// Uses chroma from the [neutralVariant] key color, but you can vary
+    /// the amount of chroma from neutral variant key color that is used to
+    /// generate the tonal palette
     ///
     /// Flutter SDK [ColorScheme.fromSeed] uses [neutralVariantChroma] hard
     /// coded to 8.
     ///
     /// Defaults to 8.
-    final double neutralVariantChroma = 8,
+    ///
+    /// To force the chroma in [neutralVariant] key color to be used, set this
+    /// to null and keep [neutralVariantMinChroma] at 0. Typically you want to
+    /// use very low chroma on the neutral colors. If you set this to null, the
+    /// provided ARGB value in [neutralVariant] should have a very low chroma
+    /// value itself.
+    final double? neutralVariantChroma = 8,
+
+    /// The minimum used chroma value for neutral variant palette.
+    ///
+    /// If chroma in provided [neutralVariant] key color is below this value,
+    /// or if a fixed [neutralVariantChroma] is provided that is lower than
+    /// [neutralVariantMinChroma] then the [neutralVariantMinChroma] value
+    /// is used.
+    ///
+    /// Defaults to 0.
+    ///
+    /// Flutter SDK only uses [neutralVariantMinChroma] hard coded to 4, and
+    /// has no concept of minimum level for neutral variant tonal palettes as
+    /// its chroma value is always locked to 8.
+    final double neutralVariantMinChroma = 0,
+
+    /// Cam16 chroma value to use for error colors tonal palette generation.
+    ///
+    /// If null, the chroma value from the used [error] seed key color is
+    /// used, if it is larger than [errorMinChroma].
+    ///
+    /// Defaults to null. Set it to 84 for M3 default also on custom hues.
+    ///
+    /// To use chroma value from [error] seed color, keep [errorChroma]
+    /// null and [errorMinChroma] at desired threshold for target min
+    /// colorfulness.
+    final double? errorChroma,
+
+    /// The minimum used chroma value for error palette.
+    ///
+    /// If chroma in provided [error] key color is below this value, or if a
+    /// fixed [errorChroma] is provided that is lower than
+    /// [errorMinChroma] then the [errorMinChroma] value is used.
+    ///
+    /// Defaults to 0.
+    ///
+    /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
+    /// concept of minimum level for error tonal palettes, as its value is
+    /// always locked to 84.
+    final double errorMinChroma = 0,
   }) {
     // Primary TonalPalette calculation.
     //
@@ -499,22 +635,54 @@ class FlexCorePalette {
         effectiveTertiaryHue,
         math.max(tertiaryMinChroma, effectiveTertiaryChroma));
 
-    // Neutral TonalPalettes are made from primary, typically only with a small
-    // amount of its chroma.
-    final FlexTonalPalette tonalNeutral =
-        FlexTonalPalette.of(camPrimary.hue, neutralChroma);
-    final FlexTonalPalette tonalNeutralVariant =
-        FlexTonalPalette.of(camPrimary.hue, neutralVariantChroma);
-    // The TonalPalette for error color has a hard coded default in unnamed
-    // constructor, is added automatically to created [FlexCorePalette] as:
-    // final TonalPalette error = TonalPalette.of(25, 84).
-    // A future update of fromSeed may add modifying the error palette as well.
+    // Neutral TonalPalette calculation.
+    //
+    // Provided key color may be null, then we use primary as key color.
+    final Cam16 camNeutral =
+        neutral == null ? camPrimary : Cam16.fromInt(neutral);
+    // If a fixed chroma value was given we use it instead.
+    final double effectiveNeutralChroma = neutralChroma ?? camNeutral.chroma;
+    // We use the effectiveChroma, but only if it is over the min level.
+    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(
+        camNeutral.hue, math.max(neutralMinChroma, effectiveNeutralChroma));
+
+    // NeutralVariant TonalPalette calculation.
+    //
+    // Provided key color may be null, then we use primary as key color.
+    final Cam16 camNeutralVariant =
+        neutralVariant == null ? camPrimary : Cam16.fromInt(neutralVariant);
+    // If a fixed chroma value was given we use it instead.
+    final double effectiveNeutralVariantChroma =
+        neutralVariantChroma ?? camNeutralVariant.chroma;
+    // We use the effectiveChroma, but only if it is over the min level.
+    final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
+        camNeutralVariant.hue,
+        math.max(neutralVariantMinChroma, effectiveNeutralVariantChroma));
+
+    // Error TonalPalette calculation.
+    //
+    // Provided key color may be null, then we use M3 default value.
+    // The M3 magic seed color error red ARGB in hex is #FFDE3730.
+    final Cam16 camError =
+        error == null ? Cam16.fromInt(0xFFDE3730) : Cam16.fromInt(error);
+    // If a fixed chroma value was given we use it instead.
+    final double effectiveErrorChroma = errorChroma ?? camError.chroma;
+    // We use the effectiveChroma, but only if it is over the min level.
+    //
+    // If the passed in error and error chroma were both null, we use null as
+    // tonal error palette to ensure we get default FlexTonalPalette.of(25, 84).
+    final FlexTonalPalette? tonalError = (error == null && errorChroma == null)
+        ? null
+        : FlexTonalPalette.of(
+            camError.hue, math.max(errorMinChroma, effectiveErrorChroma));
+
     return FlexCorePalette(
       primary: tonalPrimary,
       secondary: tonalSecondary,
       tertiary: tonalTertiary,
       neutral: tonalNeutral,
       neutralVariant: tonalNeutralVariant,
+      error: tonalError,
     );
   }
 

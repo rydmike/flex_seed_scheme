@@ -8,31 +8,32 @@ import 'flex_tones.dart';
 
 /// This class is the same concept as Flutter's [ColorScheme] class.
 ///
-/// It is used used to generate a scheme based on a modified version of
-/// [CorePalette] found in package material_color_utilities. It is a simple
-/// modification of [Scheme] found in same "material_color_utilities" package.
+/// It is used used to generate a [ColorScheme] based on a modified version of
+/// [CorePalette] found in package material_color_utilities. It is a rewrite
+/// of [Scheme] found in same "material_color_utilities" package.
 ///
-/// It uses two changes that makes it more flexible:
+/// It has two enhancements to makes it more flexible and powerful:
 ///
-/// 1) Three seed colors instead of just one.
+/// 1) Six seed colors instead of just one.
 ///
 /// Instead of [CorePalette] it uses custom version called [FlexCorePalette]
-/// that enables using 1, 2 or 3 seed colors for more degrees
-/// of freedom in seeded ColorScheme, using defined seed colors for
-/// primary, secondary and tertiary colors. The custom [FlexCorePalette]
+/// that enables using up to six seed colors for more degrees
+/// of freedom in seeded ColorScheme. Using defined seed colors for
+/// primary, secondary and tertiary colors, as well as error color, surface
+/// and surface variant color. The custom [FlexCorePalette]
 /// version also allows for adjusting chroma usage and levels that are
 /// hard coded into M3 design [CorePalette].
 ///
-/// 2) Configurable tone to ColorScheme mapping.
+/// 2) Configurable tonal palette tone mappings to ColorScheme colors.
 ///
 /// Which tones to use for what color in the [ColorScheme] is not hard coded
-/// like it is in material_color_utilities [Scheme] class. It also
+/// like it is in material_color_utilities [Scheme] class. This version
 /// accepts an optional [FlexTones] class that can be used to configure
 /// all the tone mapping from [FlexTonalPalette] to [ColorScheme], including
-/// passing all the extra min chroma and fixed level parameters it should
-/// use when it makes the [FlexCorePalette].
+/// passing the extra min chroma and fixed level parameters it should
+/// use when computing the [FlexCorePalette].
 ///
-/// Keeping this helper class internal for now in [FlexSeedScheme] package,
+/// This helper class is internal for now in [FlexSeedScheme] package,
 /// if there ever is a need for using it via the library, post an issue and
 /// we will consider it.
 @immutable
@@ -114,9 +115,6 @@ class FlexSeedScheme {
 
   /// A utility color that creates boundaries for decorative elements when a
   /// 3:1 contrast isn’t required, such as for dividers or decorative elements.
-  ///
-  /// This color is not yet available in Flutter 3.3.0 an earlier, is in latest
-  /// master. It will have no function until it lands in Flutter stable channel.
   final int outlineVariant;
 
   /// A color use to paint the drop shadows of elevated components.
@@ -145,8 +143,8 @@ class FlexSeedScheme {
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
   /// internally to create a seeded [ColorScheme] via its static method
-  /// [FlexSeedScheme.fromSeeds] from one, two or three seed
-  /// colors, and with customizable [FlexTones] tone mapping to [ColorScheme].
+  /// [FlexSeedScheme.fromSeeds] from one to six seed colors, and optionally
+  /// using customizable [FlexTones] tone mapping to [ColorScheme].
   const FlexSeedScheme._({
     required this.primary,
     required this.onPrimary,
@@ -185,18 +183,24 @@ class FlexSeedScheme {
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
   /// internally to create a seeded [ColorScheme] via its static extension
-  /// [SeedColorScheme.fromSeeds] from one, two or three seed
-  /// colors, and with customizable [FlexTones] tone mapping to [ColorScheme].
+  /// [SeedColorScheme.fromSeeds] from one to six seed colors, and with
+  /// customizable [FlexTones] tone mapping to [ColorScheme].
   factory FlexSeedScheme._tones({
     required int primaryKey,
     int? secondaryKey,
     int? tertiaryKey,
+    int? errorKey,
+    int? neutralKey,
+    int? neutralVariantKey,
     required FlexTones tones,
   }) {
     final FlexCorePalette core = FlexCorePalette.fromSeeds(
       primary: primaryKey,
       secondary: secondaryKey,
       tertiary: tertiaryKey,
+      error: errorKey,
+      neutral: neutralKey,
+      neutralVariant: neutralVariantKey,
       primaryChroma: tones.primaryChroma,
       primaryMinChroma: tones.primaryMinChroma,
       secondaryChroma: tones.secondaryChroma,
@@ -204,8 +208,12 @@ class FlexSeedScheme {
       tertiaryChroma: tones.tertiaryChroma,
       tertiaryMinChroma: tones.tertiaryMinChroma,
       tertiaryHueRotation: tones.tertiaryHueRotation,
+      errorChroma: tones.errorChroma,
+      errorMinChroma: tones.errorMinChroma,
       neutralChroma: tones.neutralChroma,
+      neutralMinChroma: tones.neutralMinChroma,
       neutralVariantChroma: tones.neutralVariantChroma,
+      neutralVariantMinChroma: tones.neutralVariantMinChroma,
     );
     return FlexSeedScheme._(
       primary: core.primary.get(tones.primaryTone),
@@ -246,17 +254,24 @@ class FlexSeedScheme {
 /// Flutter's Material 3 [ColorScheme.fromSeed].
 ///
 /// Use this extension to make a seeded [ColorScheme] using separate key colors
-/// for primary, secondary and tertiary color groups in [ColorScheme].
+/// for primary, secondary, tertiary, error, neutral and neutral variant
+/// color groups in [ColorScheme].
 ///
 /// By providing a [FlexTones] you can also customize tone mapping from
 /// tonal palettes to [ColorScheme] color and key color chroma usage per key
-/// color, used by the Material 3 tonal palette creation HCT color space
-/// algorithm.
+/// color, used by the Material 3 tonal palette creation HCT (Hue-Chroma-Tone)
+/// color space algorithm.
+///
+/// As with [ColorScheme.fromSeed], prefer using same key colors when seed
+/// generating your light and dark [ColorScheme] to create a balanced and
+/// matching light and dark scheme.
 extension SeedColorScheme on ColorScheme {
-  /// Returns a [ColorScheme] from seed keys [primaryKey], [secondaryKey] and
-  /// [tertiaryKey] colors. Use [FlexTones] configuration to customize mapping
-  /// from tonal palettes to [ColorScheme] color and key color chroma usage per
-  /// key color for the tonal palette creation.
+  /// Returns a [ColorScheme] from seed keys [primaryKey], [secondaryKey],
+  /// [tertiaryKey], [errorKey], [neutralKey] and [neutralVariantKey] colors.
+  ///
+  /// Use [FlexTones] configuration to customize tone mapping from tonal
+  /// palettes to [ColorScheme] color and key color chroma usage, per key
+  /// color for the tonal palette creation.
   ///
   /// Any seed produced [ColorScheme] color can be overridden by providing it a
   /// given [Color] value.
@@ -273,10 +288,13 @@ extension SeedColorScheme on ColorScheme {
     ///
     /// The default is the same here. However, if colors are provided for
     /// [secondaryKey] and [tertiaryKey] their tonal palettes will be seeded
-    /// from their own key color.
+    /// from their own key color. Likewise for [errorKey], [neutralKey] and
+    /// the [neutralVariantKey] colors. It is however uncommon and seldom
+    /// needed to customize them, but to create very custom an unique looking
+    /// apps, it is possible to do so.
     ///
     /// As in [ColorScheme.fromSeed], there is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
+    /// color, used as seed, ends up as the corresponding main color in the
     /// produced [ColorScheme] for the palette in question. In this case
     /// [primaryKey] will typically not become your [ColorScheme.primary] color.
     /// It will only be of the same hue. If you used a color intended for light
@@ -306,6 +324,40 @@ extension SeedColorScheme on ColorScheme {
     /// for the light theme with the same color value as your [tertiaryKey].
     Color? tertiaryKey,
 
+    /// Optional key color used to seed the error tonal palette.
+    ///
+    /// There is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [errorKey] will typically not become your [ColorScheme.error]
+    /// color. It will only be of the same hue. If you used a color intended
+    /// for light theme mode as [errorKey], consider overriding [error]
+    /// for the light theme with the same color value as your [errorKey].
+    Color? errorKey,
+
+    /// Optional key color used to seed the neutral tonal palette.
+    ///
+    /// There is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [neutralKey] will typically not become your [ColorScheme.surface]
+    /// color. It will only be of the same hue. If you used a color intended
+    /// for light theme mode as [neutralKey], consider overriding [surface]
+    /// for the light theme with the same color value as your [neutralKey].
+    Color? neutralKey,
+
+    /// Optional key color used to seed the neutral variant tonal palette.
+    ///
+    /// There is no guarantee that the used key
+    /// color used as seed, ends up as the corresponding main color in the
+    /// produced [ColorScheme] for the palette in question. In this case
+    /// [neutralVariantKey] will typically not become your
+    /// [ColorScheme.surfaceVariant] color. It will only be of the same hue.
+    /// If you used a color intended for light theme mode as
+    /// [neutralVariantKey], consider overriding [surfaceVariant] for the light
+    /// theme with the same color value as your [neutralVariantKey].
+    Color? neutralVariantKey,
+
     /// Tonal palette chroma usage configuration and mapping to [ColorScheme].
     ///
     /// Optional mapping configuration for how tonal palette tones are mapped
@@ -314,7 +366,11 @@ extension SeedColorScheme on ColorScheme {
     /// Can also configure how chroma is limited or fixed from the provided
     /// key colors when generating each tonal palette.
     ///
-    /// If not provided, a setup matching the Material 3 Color System is used.
+    /// If not provided, a setup matching the Material 3 Color System
+    /// specification is used. To create seed generated [ColorScheme] with
+    /// different chroma limits and tonal mappings provide a custom [FlexTones],
+    /// or use a predefined one like [FlexTones.jolly], [FlexTones.vivid] or
+    /// [FlexTones.highContrast].
     FlexTones? tones,
 
     /// Override color for the seed generated [primary] color.
@@ -390,18 +446,12 @@ extension SeedColorScheme on ColorScheme {
     Color? outline,
 
     /// Override color for the seed generated [outlineVariant] color.
-    ///
-    /// This property has no function in Flutter 3.3 or earlier versions.
-    /// It will be enabled in a future release.
     Color? outlineVariant,
 
     /// Override color for the seed generated [shadow] color.
     Color? shadow,
 
     /// Override color for the seed generated [scrim] color.
-    ///
-    /// This property has no function in Flutter 3.3 or earlier versions.
-    /// It will be enabled in a future release.
     Color? scrim,
 
     /// Override color for the seed generated [inverseSurface] color.
@@ -421,12 +471,18 @@ extension SeedColorScheme on ColorScheme {
             primaryKey: primaryKey.value,
             secondaryKey: secondaryKey?.value,
             tertiaryKey: tertiaryKey?.value,
+            errorKey: errorKey?.value,
+            neutralKey: neutralKey?.value,
+            neutralVariantKey: neutralVariantKey?.value,
             tones: tones ?? FlexTones.material(Brightness.light),
           )
         : FlexSeedScheme._tones(
             primaryKey: primaryKey.value,
             secondaryKey: secondaryKey?.value,
             tertiaryKey: tertiaryKey?.value,
+            errorKey: errorKey?.value,
+            neutralKey: neutralKey?.value,
+            neutralVariantKey: neutralVariantKey?.value,
             tones: tones ?? FlexTones.material(Brightness.dark),
           );
     return ColorScheme(
@@ -457,11 +513,9 @@ extension SeedColorScheme on ColorScheme {
       surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
       onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
       outline: outline ?? Color(scheme.outline),
-      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
-      // outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
+      outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
       shadow: shadow ?? Color(scheme.shadow),
-      // TODO(rydmike): Temporarily removed, not yet available in Flutter 3.3.
-      // scrim: scrim ?? Color(scheme.scrim),
+      scrim: scrim ?? Color(scheme.scrim),
       inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
       onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
       inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
