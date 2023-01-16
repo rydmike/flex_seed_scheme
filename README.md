@@ -9,7 +9,7 @@ Use this package like `ColorScheme.fromSeed` with the following additional capab
 * Use separate key colors to generate seed based tonal palettes for primary and optionally 
   secondary, tertiary as well as error, neutral and neutral variant colors in `ColorScheme`.
 * Change the chroma limits and values used in the Material 3 default strategy for tonal palette 
-  generation in the new Google HCT (Hue-Chroma.Tone) color space.
+  generation in the new Google HCT (Hue-Chroma-Tone) color space.
 * Change which tones in the generated core tonal palettes are used by which `ColorScheme` color.
   Changes are limited to the tones from correct core palette for each `ColorScheme` color, but
   any tone from it can be used. Going up or down one tone is often usable, in some cases even two.
