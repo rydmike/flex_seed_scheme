@@ -2,9 +2,15 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.1
+
+**Jan 25, 2023**
+
+- Fix date on 1.2.0 changelog.
+- 
 ## 1.2.0
 
-**Dec 23, 2022**
+**Jan 25, 2023**
 
 Requires minimum Flutter 3.7.0. Now support `outlineVariant` and `scrim` colors in `ColorScheme` in Flutter stable 3.7.0 and later.
 
