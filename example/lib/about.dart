@@ -70,7 +70,7 @@ void showAppAboutDialog(BuildContext context) {
               ),
               TextSpan(
                 style: footerStyle,
-                text: 'Built with Flutter ${AppData.flutterVersion}, '
+                text: 'Built with Flutter ${AppData.flutterVersion},\n'
                     'using ${AppData.packageName} '
                     '${AppData.packageVersion}\n'
                     'Media size (w:${width.toStringAsFixed(0)}, '

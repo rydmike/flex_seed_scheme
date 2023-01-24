@@ -2,6 +2,27 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.0
+
+**Dec 23, 2022**
+
+Requires minimum Flutter 3.7.0. Now support `outlineVariant` and `scrim` colors in `ColorScheme` in Flutter stable 3.7.0 and later.
+
+This release also adds new features to allow customization of seed generation of error, neutral and neutral variant tonal palettes. All listed features are unchanged from the previous dev pre-release 1.2.0-dev.1.
+
+**NEW**
+
+* Adds support for `outlineVariant` and `scrim` colors in `ColorScheme`.
+* Added support for customizing seed generation for error, neutral and neutral variant tonal palettes.
+
+
+* To support the new features the `SeedColorScheme.fromSeeds` got the following new `Color` properties `errorKey`, `neutralKey` and `neutralVariantKey`.
+* The `FlexTones` class got the following new `double` properties
+  `errorChroma`, `errorMinChroma`, `neutralMinChroma` and `neutralVariantMinChroma`
+* The `FlexCorePalette.fromSeeds` factory got the following new `int` properties `error`, `neutral`, `neutralVariant` and `neutralVariantMinChroma`. As well as new `double` properties `errorChroma`, `errorMinChroma`, `neutralChroma`, `neutralMinChroma`, `neutralVariantChroma` and `neutralVariantMinChroma`.
+
+* The demo application got an **About** dialog. The demo app also shows the `ColorScheme` applied on common **Material** components.
+
 ## 1.2.0-dev.1
 
 **Dec 23, 2022**

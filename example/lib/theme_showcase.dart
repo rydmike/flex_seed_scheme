@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Theme showcase for the current theme.
 ///
@@ -25,6 +26,10 @@ class ThemeShowcase extends StatelessWidget {
       children: <Widget>[
         const SizedBox(height: 8),
         const TextInputField(),
+        const SizedBox(height: 8),
+        const DropDownButtonFormField(),
+        const SizedBox(height: 8),
+        const DropDownMenuShowcase(),
         const Divider(),
         const ElevatedButtonShowcase(),
         const SizedBox(height: 8),
@@ -37,19 +42,30 @@ class ThemeShowcase extends StatelessWidget {
         const TextButtonShowcase(),
         const SizedBox(height: 8),
         const ToggleButtonsShowcase(),
+        const SizedBox(height: 8),
+        const SegmentedButtonShowcase(),
         const Divider(),
         const FabShowcase(),
         const SizedBox(height: 16),
         const ChipShowcase(),
         const Divider(),
         const SizedBox(height: 8),
-        const PopupMenuButtonShowcase(),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: const <Widget>[
+            PopupMenuButtonShowcase(),
+            SizedBox(width: 8),
+            PopupMenuButtonTilesShowcase(),
+          ],
+        ),
         const SizedBox(height: 8),
         const Divider(),
         const SizedBox(height: 8),
         const TooltipShowcase(),
         const SizedBox(height: 16),
         const IconButtonCircleAvatarDropdownShowcase(),
+        const ProgressIndicatorShowcase(),
         const Divider(),
         const SwitchShowcase(),
         const CheckboxShowcase(),
@@ -58,10 +74,14 @@ class ThemeShowcase extends StatelessWidget {
         const Divider(),
         const SliderShowcase(),
         const SizedBox(height: 8),
+        const RangeSliderShowcase(),
+        const SizedBox(height: 8),
         const Divider(),
         const ListTileShowcase(),
         const Divider(),
         const AppBarShowcase(),
+        const Divider(),
+        const BottomAppBarShowcase(),
         const Divider(),
         const TabBarForAppBarShowcase(),
         const SizedBox(height: 8),
@@ -72,16 +92,28 @@ class ThemeShowcase extends StatelessWidget {
         const BottomNavigationBarShowcase(),
         const SizedBox(height: 8),
         const Divider(),
+        const Shortcuts(shortcuts: <ShortcutActivator, Intent>{
+          SingleActivator(LogicalKeyboardKey.keyT, control: true):
+              VoidCallbackIntent(debugDumpApp),
+        }, child: MenuBarShowcase()),
+        const SizedBox(height: 8),
+        const MenuAnchorShowcase(),
+        const SizedBox(height: 8),
         const NavigationBarShowcase(),
         const SizedBox(height: 8),
         const Divider(),
         const NavigationRailShowcase(),
+        const SizedBox(height: 8),
+        const NavigationDrawerShowcase(),
+        const DrawerShowcase(),
         const SizedBox(height: 8),
         const Divider(),
         const AlertDialogShowcase(),
         const TimePickerDialogShowcase(),
         const DatePickerDialogShowcase(),
         const BottomSheetShowcase(),
+        const SizedBox(height: 16),
+        const BottomSheetModalShowcase(),
         const SizedBox(height: 32),
         const MaterialBannerSnackBarShowcase(),
         const Divider(height: 32),
@@ -196,16 +228,16 @@ class FilledButtonTonalShowcase extends StatelessWidget {
       children: <Widget>[
         FilledButton.tonal(
           onPressed: () {},
-          child: const Text('Tonal button'),
+          child: const Text('Filled tonal button'),
         ),
         FilledButton.tonalIcon(
           onPressed: () {},
           icon: const Icon(Icons.add),
-          label: const Text('Tonal icon'),
+          label: const Text('Filled tonal icon'),
         ),
         const FilledButton.tonal(
           onPressed: null,
-          child: Text('Tonal button'),
+          child: Text('Filled tonal button'),
         ),
       ],
     );
@@ -269,8 +301,8 @@ class TextButtonShowcase extends StatelessWidget {
 }
 
 class ToggleButtonsShowcase extends StatefulWidget {
-  const ToggleButtonsShowcase({this.showOutlinedButton, super.key});
-  final bool? showOutlinedButton;
+  const ToggleButtonsShowcase({this.compareButtons, super.key});
+  final bool? compareButtons;
 
   @override
   State<ToggleButtonsShowcase> createState() => _ToggleButtonsShowcaseState();
@@ -284,7 +316,7 @@ class _ToggleButtonsShowcaseState extends State<ToggleButtonsShowcase> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 8,
-      runSpacing: 4,
+      runSpacing: 8,
       children: <Widget>[
         ToggleButtons(
           isSelected: selected,
@@ -299,10 +331,15 @@ class _ToggleButtonsShowcaseState extends State<ToggleButtonsShowcase> {
             Icon(Icons.account_circle),
           ],
         ),
-        if (widget.showOutlinedButton ?? false)
+        if (widget.compareButtons ?? false)
           OutlinedButton(
             onPressed: () {},
             child: const Text('Outlined'),
+          ),
+        if (widget.compareButtons ?? false)
+          FilledButton(
+            onPressed: () {},
+            child: const Text('Filled'),
           ),
         ToggleButtons(
           isSelected: const <bool>[true, false, false],
@@ -313,11 +350,127 @@ class _ToggleButtonsShowcaseState extends State<ToggleButtonsShowcase> {
             Icon(Icons.account_circle),
           ],
         ),
-        if (widget.showOutlinedButton ?? false)
+        if (widget.compareButtons ?? false)
           const OutlinedButton(
             onPressed: null,
             child: Text('Outlined'),
           ),
+      ],
+    );
+  }
+}
+
+class SegmentedButtonShowcase extends StatefulWidget {
+  const SegmentedButtonShowcase({this.showOutlinedButton, super.key});
+  final bool? showOutlinedButton;
+
+  @override
+  State<SegmentedButtonShowcase> createState() =>
+      _SegmentedButtonShowcaseState();
+}
+
+enum Calendar { day, week, month, year }
+
+class _SegmentedButtonShowcaseState extends State<SegmentedButtonShowcase> {
+  List<bool> selected = <bool>[true, false, false];
+  Calendar _selected = Calendar.day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 8,
+      runSpacing: 8,
+      children: <Widget>[
+        SegmentedButton<Calendar>(
+          showSelectedIcon: false,
+          segments: const <ButtonSegment<Calendar>>[
+            ButtonSegment<Calendar>(
+              value: Calendar.day,
+              label: Text('Day'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.week,
+              label: Text('Week'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.month,
+              label: Text('Month'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.year,
+              label: Text('Year'),
+            ),
+          ],
+          selected: <Calendar>{_selected},
+          onSelectionChanged: (Set<Calendar> selected) {
+            setState(() {
+              _selected = selected.first;
+            });
+          },
+        ),
+        SegmentedButton<Calendar>(
+          segments: const <ButtonSegment<Calendar>>[
+            ButtonSegment<Calendar>(
+              value: Calendar.day,
+              label: Text('Day'),
+              icon: Icon(Icons.calendar_view_day),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.week,
+              icon: Icon(Icons.calendar_view_week),
+              label: Text('Week'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.month,
+              icon: Icon(Icons.calendar_view_month),
+              label: Text('Month'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.year,
+              icon: Icon(Icons.calendar_today),
+              label: Text('Year'),
+            ),
+          ],
+          selected: <Calendar>{_selected},
+          onSelectionChanged: (Set<Calendar> selected) {
+            setState(() {
+              _selected = selected.first;
+            });
+          },
+        ),
+        SegmentedButton<Calendar>(
+          segments: const <ButtonSegment<Calendar>>[
+            ButtonSegment<Calendar>(
+              value: Calendar.day,
+              label: Text('Day'),
+              icon: Icon(Icons.calendar_view_day),
+              enabled: false,
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.week,
+              icon: Icon(Icons.calendar_view_week),
+              label: Text('Week'),
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.month,
+              icon: Icon(Icons.calendar_view_month),
+              label: Text('Month'),
+              enabled: false,
+            ),
+            ButtonSegment<Calendar>(
+              value: Calendar.year,
+              icon: Icon(Icons.calendar_today),
+              label: Text('Year'),
+            ),
+          ],
+          selected: <Calendar>{_selected},
+          onSelectionChanged: (Set<Calendar> selected) {
+            setState(() {
+              _selected = selected.first;
+            });
+          },
+        ),
       ],
     );
   }
@@ -331,7 +484,7 @@ class FabShowcase extends StatelessWidget {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 8,
-      runSpacing: 4,
+      runSpacing: 8,
       children: <Widget>[
         FloatingActionButton.small(
           heroTag: 'FAB small',
@@ -388,7 +541,7 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 8,
-      runSpacing: 4,
+      runSpacing: 8,
       children: <Widget>[
         Switch(
           value: isOn1,
@@ -398,23 +551,22 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
             });
           },
         ),
-        // TODO(rydmike): New M3 Switch features, only master. Add later.
-        // Switch(
-        //   thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
-        //       (Set<MaterialState> states) {
-        //     if (states.contains(MaterialState.selected)) {
-        //       return const Icon(Icons.check);
-        //     }
-        //     return const Icon(Icons
-        //         .close); // All other states will use the default thumbIcon.
-        //   }),
-        //   value: isOn,
-        //   onChanged: (bool value) {
-        //     setState(() {
-        //       isOn = value;
-        //     });
-        //   },
-        // ),
+        Switch(
+          thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return const Icon(Icons.check);
+            }
+            // All other states will use the default thumbIcon.
+            return const Icon(Icons.close);
+          }),
+          value: isOn1,
+          onChanged: (bool value) {
+            setState(() {
+              isOn1 = value;
+            });
+          },
+        ),
         Switch(
           value: isOn2,
           onChanged: (bool value) {
@@ -452,7 +604,7 @@ class _CheckboxShowcaseState extends State<CheckboxShowcase> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 8,
-      runSpacing: 4,
+      runSpacing: 8,
       children: <Widget>[
         Checkbox(
           value: isSelected1,
@@ -508,7 +660,7 @@ class _RadioShowcaseState extends State<RadioShowcase> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 8,
-      runSpacing: 4,
+      runSpacing: 8,
       children: <Widget>[
         Radio<bool>(
           value: true,
@@ -551,7 +703,7 @@ class SliderShowcase extends StatefulWidget {
 }
 
 class _SliderShowcaseState extends State<SliderShowcase> {
-  double value1 = 5;
+  double value = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -559,51 +711,149 @@ class _SliderShowcaseState extends State<SliderShowcase> {
       children: <Widget>[
         ListTile(
           dense: true,
-          title: Text('Slider stepped (${value1.toStringAsFixed(0)})'),
+          title: Text('Slider stepped (${value.toStringAsFixed(0)})'),
           subtitle: Slider(
             max: 30,
             divisions: 31,
-            label: value1.toStringAsFixed(0),
-            value: value1,
+            label: value.toStringAsFixed(0),
+            value: value,
             onChanged: (double newValue) {
               setState(() {
-                value1 = newValue.roundToDouble();
+                value = newValue.roundToDouble();
               });
             },
           ),
         ),
         ListTile(
           dense: true,
-          title: Text('Slider continuous (${value1.toStringAsFixed(2)})'),
+          title: Text('Slider continuous (${value.toStringAsFixed(2)})'),
           subtitle: Slider(
             max: 30,
-            label: value1.toStringAsFixed(2),
-            value: value1,
+            label: value.toStringAsFixed(0),
+            value: value,
             onChanged: (double newValue) {
               setState(() {
-                value1 = newValue;
+                value = newValue;
               });
             },
           ),
         ),
         ListTile(
           dense: true,
-          title: Text('Slider stepped disabled (${22.toStringAsFixed(0)})'),
+          title: Text('Slider stepped disabled (${value.toStringAsFixed(0)})'),
           subtitle: Slider(
             max: 30,
             divisions: 31,
-            label: 22.toStringAsFixed(0),
-            value: 22,
+            label: value.toStringAsFixed(0),
+            value: value,
             onChanged: null,
           ),
         ),
         ListTile(
           dense: true,
-          title: Text('Slider continuous disabled (${14.toStringAsFixed(2)})'),
+          title:
+              Text('Slider continuous disabled (${value.toStringAsFixed(2)})'),
           subtitle: Slider(
             max: 30,
-            label: 14.toStringAsFixed(2),
-            value: 14,
+            label: value.toStringAsFixed(0),
+            value: value,
+            onChanged: null,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RangeSliderShowcase extends StatefulWidget {
+  const RangeSliderShowcase({super.key});
+
+  @override
+  State<RangeSliderShowcase> createState() => _RangeSliderShowcaseState();
+}
+
+class _RangeSliderShowcaseState extends State<RangeSliderShowcase> {
+  RangeValues values = const RangeValues(5, 12);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          dense: true,
+          title: Text('RangeSlider stepped (${RangeLabels(
+            values.start.toStringAsFixed(0),
+            values.end.toStringAsFixed(0),
+          )})'),
+          subtitle: RangeSlider(
+            max: 30,
+            divisions: 31,
+            labels: RangeLabels(
+              values.start.toStringAsFixed(0),
+              values.end.toStringAsFixed(0),
+            ),
+            values: values,
+            onChanged: (RangeValues newValues) {
+              setState(() {
+                values = RangeValues(
+                  newValues.start.roundToDouble(),
+                  newValues.end.roundToDouble(),
+                );
+              });
+            },
+          ),
+        ),
+        ListTile(
+          dense: true,
+          title: Text('RangeSlider continuous (${RangeLabels(
+            values.start.toStringAsFixed(2),
+            values.end.toStringAsFixed(2),
+          )})'),
+          subtitle: RangeSlider(
+            max: 30,
+            labels: RangeLabels(
+              values.start.toStringAsFixed(2),
+              values.end.toStringAsFixed(2),
+            ),
+            values: values,
+            onChanged: (RangeValues newValues) {
+              setState(() {
+                values = newValues;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          dense: true,
+          title: Text('RangeSlider stepped disabled (${RangeLabels(
+            values.start.toStringAsFixed(0),
+            values.end.toStringAsFixed(0),
+          )})'),
+          subtitle: RangeSlider(
+            max: 30,
+            divisions: 31,
+            labels: RangeLabels(
+              values.start.toStringAsFixed(0),
+              values.end.toStringAsFixed(0),
+            ),
+            values: values,
+            onChanged: null,
+          ),
+        ),
+        ListTile(
+          dense: true,
+          title: Text('RangeSlider continuous disabled (${RangeLabels(
+            values.start.toStringAsFixed(2),
+            values.end.toStringAsFixed(2),
+          )})'),
+          subtitle: RangeSlider(
+            max: 30,
+            divisions: 31,
+            labels: RangeLabels(
+              values.start.toStringAsFixed(2),
+              values.end.toStringAsFixed(2),
+            ),
+            values: values,
             onChanged: null,
           ),
         ),
@@ -643,7 +893,57 @@ class PopupMenuButtonShowcase extends StatelessWidget {
           ),
           onPressed: () {},
           icon: const Icon(Icons.expand_more_outlined),
-          label: const Text('Show menu'),
+          label: const Text('Show PopupMenu'),
+        ),
+      ),
+    );
+  }
+}
+
+class PopupMenuButtonTilesShowcase extends StatelessWidget {
+  const PopupMenuButtonTilesShowcase({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme scheme = theme.colorScheme;
+    return PopupMenuButton<int>(
+      onSelected: (_) {},
+      tooltip: 'Show menu',
+      position: PopupMenuPosition.under,
+      itemBuilder: (BuildContext context) => const <PopupMenuItem<int>>[
+        PopupMenuItem<int>(
+            value: 1,
+            child: ListTile(leading: Icon(Icons.alarm), title: Text('Alarm'))),
+        PopupMenuItem<int>(
+            value: 2,
+            child: ListTile(
+                leading: Icon(Icons.cabin), title: Text('Wood cabin'))),
+        PopupMenuItem<int>(
+            value: 3,
+            child: ListTile(
+                leading: Icon(Icons.camera_outdoor_rounded),
+                title: Text('Surveillance'))),
+        PopupMenuItem<int>(
+            value: 4,
+            child: ListTile(
+                leading: Icon(Icons.water_damage),
+                title: Text('Water damage'))),
+      ],
+      child: AbsorbPointer(
+        child: TextButton.icon(
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            backgroundColor: scheme.primary,
+            foregroundColor: scheme.onPrimary,
+            disabledForegroundColor: scheme.onSurface,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+          ),
+          onPressed: () {},
+          icon: const Icon(Icons.expand_more_outlined),
+          label: const Text('ListTile PopupMenu'),
         ),
       ),
     );
@@ -687,37 +987,81 @@ class _DropDownButtonState extends State<_DropDownButton> {
   }
 }
 
-class _DropDownButtonFormField extends StatefulWidget {
-  const _DropDownButtonFormField();
+class DropDownButtonFormField extends StatefulWidget {
+  const DropDownButtonFormField({super.key});
 
   @override
-  State<_DropDownButtonFormField> createState() =>
+  State<DropDownButtonFormField> createState() =>
       _DropDownButtonFormFieldState();
 }
 
-class _DropDownButtonFormFieldState extends State<_DropDownButtonFormField> {
-  String selectedItem = 'Dropdown button form field 1';
+class _DropDownButtonFormFieldState extends State<DropDownButtonFormField> {
+  String selectedItem = 'DropDownButtonFormField - Option 1';
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: selectedItem,
       onChanged: (String? value) {
         setState(() {
-          selectedItem = value ?? 'Dropdown button form field 1';
+          selectedItem = value ?? 'DropDownButtonFormField - Option 1';
         });
       },
       items: <String>[
-        'Dropdown button form field 1',
-        'Dropdown button form field 2',
-        'Dropdown button form field 3',
-        'Dropdown button form field 4',
-        'Dropdown button form field 5'
+        'DropDownButtonFormField - Option 1',
+        'DropDownButtonFormField - Option 2',
+        'DropDownButtonFormField - Option 3',
+        'DropDownButtonFormField - Option 4',
+        'DropDownButtonFormField - Option 5',
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
         );
       }).toList(),
+    );
+  }
+}
+
+class DropDownMenuShowcase extends StatefulWidget {
+  const DropDownMenuShowcase({super.key});
+
+  @override
+  State<DropDownMenuShowcase> createState() => _DropDownMenuShowcaseState();
+}
+
+class _DropDownMenuShowcaseState extends State<DropDownMenuShowcase> {
+  String selectedItem = 'one';
+  @override
+  Widget build(BuildContext context) {
+    return DropdownMenu<String>(
+      initialSelection: selectedItem,
+      onSelected: (String? value) {
+        setState(() {
+          selectedItem = value ?? 'one';
+        });
+      },
+      dropdownMenuEntries: const <DropdownMenuEntry<String>>[
+        DropdownMenuEntry<String>(
+          label: 'Alarm settings',
+          leadingIcon: Icon(Icons.alarm),
+          value: 'one',
+        ),
+        DropdownMenuEntry<String>(
+          label: 'Cabin overview',
+          leadingIcon: Icon(Icons.cabin),
+          value: 'two',
+        ),
+        DropdownMenuEntry<String>(
+          label: 'Surveillance view',
+          leadingIcon: Icon(Icons.camera_outdoor_rounded),
+          value: 'three',
+        ),
+        DropdownMenuEntry<String>(
+          label: 'Water alert',
+          leadingIcon: Icon(Icons.water_damage),
+          value: 'four',
+        ),
+      ],
     );
   }
 }
@@ -798,6 +1142,27 @@ class _IconButtonCircleAvatarDropdownShowcaseState
           ),
         ),
         const _DropDownButton(),
+      ],
+    );
+  }
+}
+
+class ProgressIndicatorShowcase extends StatelessWidget {
+  const ProgressIndicatorShowcase({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 16,
+      runSpacing: 16,
+      children: const <Widget>[
+        SizedBox(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(),
+        ),
+        SizedBox(width: 200, child: LinearProgressIndicator()),
       ],
     );
   }
@@ -901,8 +1266,7 @@ class ChipShowcase extends StatelessWidget {
 }
 
 class TextInputField extends StatefulWidget {
-  const TextInputField({this.filled, super.key});
-  final bool? filled;
+  const TextInputField({super.key});
 
   @override
   State<TextInputField> createState() => _TextInputFieldState();
@@ -911,20 +1275,27 @@ class TextInputField extends StatefulWidget {
 class _TextInputFieldState extends State<TextInputField> {
   late TextEditingController _textController1;
   late TextEditingController _textController2;
+  late TextEditingController _textController3;
+  late TextEditingController _textController4;
   bool _errorState1 = false;
   bool _errorState2 = false;
+  bool _errorState3 = false;
 
   @override
   void initState() {
     super.initState();
     _textController1 = TextEditingController();
     _textController2 = TextEditingController();
+    _textController3 = TextEditingController();
+    _textController4 = TextEditingController();
   }
 
   @override
   void dispose() {
     _textController1.dispose();
     _textController2.dispose();
+    _textController3.dispose();
+    _textController4.dispose();
     super.dispose();
   }
 
@@ -945,15 +1316,14 @@ class _TextInputFieldState extends State<TextInputField> {
           key: const Key('TextField1'),
           controller: _textController1,
           decoration: InputDecoration(
-            filled: widget.filled ?? true,
-            hintText: 'Write something...',
-            labelText: 'TextField - Underline border, if not defined',
+            hintText: 'Hint: Write something...',
+            labelText: 'Label: Underline border by default if not defined',
             errorText: _errorState1
                 ? "Any entry without an 'a' will trigger this error"
                 : null,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         TextField(
           onChanged: (String text) {
             setState(() {
@@ -967,26 +1337,65 @@ class _TextInputFieldState extends State<TextInputField> {
           key: const Key('TextField2'),
           controller: _textController2,
           decoration: InputDecoration(
-            filled: widget.filled ?? true,
-            border: const OutlineInputBorder(),
-            hintText: 'Write something...',
-            labelText: 'TextField - Outline border, if not defined',
-            prefixIcon: const Icon(Icons.search),
-            suffixIcon: const Icon(Icons.info),
+            filled: true,
+            hintText: 'Hint: Write something...',
+            labelText: 'Label: Underline border by default if not defined, '
+                'filled set true by Widget',
             errorText: _errorState2
                 ? "Any entry without an 'a' will trigger this error"
                 : null,
           ),
         ),
-        const SizedBox(height: 8),
-        const TextField(
-          enabled: false,
+        const SizedBox(height: 16),
+        TextField(
+          onChanged: (String text) {
+            setState(() {
+              if (text.contains('a') | text.isEmpty) {
+                _errorState3 = false;
+              } else {
+                _errorState3 = true;
+              }
+            });
+          },
+          key: const Key('TextField3'),
+          controller: _textController3,
           decoration: InputDecoration(
-            labelText: 'TextField - Disabled',
+            border: const OutlineInputBorder(),
+            hintText: 'Hint: Write something...',
+            labelText: 'Label: Outline border set by Widget if not defined',
+            prefixIcon: const Icon(Icons.search),
+            suffixIcon: const Icon(Icons.info),
+            errorText: _errorState3
+                ? "Any entry without an 'a' will trigger this error"
+                : null,
           ),
         ),
-        const SizedBox(height: 8),
-        const _DropDownButtonFormField(),
+        const SizedBox(height: 16),
+        TextField(
+          key: const Key('TextField4'),
+          controller: _textController4,
+          decoration: const InputDecoration.collapsed(
+            hintText: 'Hint: Collapsed TextField...',
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: TextEditingController(),
+          enabled: false,
+          decoration: const InputDecoration(
+            labelText: 'TextField - Disabled label',
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: TextEditingController(text: 'Disabled with text entry'),
+          enabled: false,
+          decoration: const InputDecoration(
+            labelText: 'TextField - Disabled label',
+            prefixIcon: Icon(Icons.search),
+            suffixIcon: Icon(Icons.info),
+          ),
+        ),
       ],
     );
   }
@@ -1111,16 +1520,83 @@ class _BehindAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-        const Text('Behind AppBar'),
-        const CircleAvatar(child: Text('AV')),
-        InputChip(
-          showCheckmark: true,
-          selected: true,
-          label: const Text('Chip check'),
-          onSelected: (bool value) {},
-        ),
-      ]),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: <Widget>[
+          const Text('Behind AppBar'),
+          const CircleAvatar(child: Text('AV')),
+          InputChip(
+            showCheckmark: true,
+            selected: true,
+            label: const Text('Chip check'),
+            onSelected: (bool value) {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomAppBarShowcase extends StatelessWidget {
+  const BottomAppBarShowcase({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
+      fontSize: 13,
+    );
+    final TextStyle denseBody = theme.textTheme.bodyMedium!
+        .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+    return MediaQuery.removePadding(
+      context: context,
+      removeBottom: true,
+      removeTop: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          BottomAppBar(
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  tooltip: 'Open navigation menu',
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {},
+                ),
+                const Spacer(),
+                IconButton(
+                  tooltip: 'Search',
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  tooltip: 'Favorite',
+                  icon: const Icon(Icons.favorite),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: Text(
+              'BottomAppBar',
+              style: denseHeader,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'Flutter M2 past default color is ThemeData.bottomAppBarColor '
+              '(deprecated) now colorScheme.surface and elevation 8. '
+              'In M3 it defaults to to colorScheme.surface color, elevation 3, '
+              'no shadow, but with surface elevation tint.',
+              style: denseBody,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -1132,10 +1608,15 @@ class TabBarForAppBarShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final bool isDark = theme.brightness == Brightness.dark;
+    final bool useM3 = theme.useMaterial3;
     final ColorScheme colorScheme = theme.colorScheme;
 
     final Color effectiveTabBackground = theme.appBarTheme.backgroundColor ??
-        (isDark ? colorScheme.surface : colorScheme.primary);
+        (isDark
+            ? colorScheme.surface
+            : useM3
+                ? colorScheme.surface
+                : colorScheme.primary);
     final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
       fontSize: 13,
     );
@@ -1155,7 +1636,10 @@ class TabBarForAppBarShowcase extends StatelessWidget {
                 tabs: <Widget>[
                   Tab(
                     text: 'Chat',
-                    icon: Icon(Icons.chat_bubble),
+                    icon: Badge(
+                      label: Text('18'),
+                      child: Icon(Icons.chat_bubble),
+                    ),
                   ),
                   Tab(
                     text: 'Tasks',
@@ -1213,7 +1697,10 @@ class TabBarForBackgroundShowcase extends StatelessWidget {
               tabs: <Widget>[
                 Tab(
                   text: 'Chat',
-                  icon: Icon(Icons.chat_bubble),
+                  icon: Badge(
+                    label: Text('+99'),
+                    child: Icon(Icons.chat_bubble),
+                  ),
                 ),
                 Tab(
                   text: 'Tasks',
@@ -1280,20 +1767,24 @@ class _BottomNavigationBarShowcaseState
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-                  const Text('Behind Bottom'),
-                  FloatingActionButton.small(
-                    heroTag: 'Behind Bottom',
-                    onPressed: () {},
-                    child: const Icon(Icons.add),
-                  ),
-                  InputChip(
-                    showCheckmark: true,
-                    selected: true,
-                    label: const Text('Chip check'),
-                    onSelected: (bool value) {},
-                  ),
-                ]),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    const Text('Behind Bottom'),
+                    FloatingActionButton.small(
+                      heroTag: 'Behind Bottom',
+                      onPressed: () {},
+                      child: const Icon(Icons.add),
+                    ),
+                    InputChip(
+                      showCheckmark: true,
+                      selected: true,
+                      label: const Text('Chip check'),
+                      onSelected: (bool value) {},
+                    ),
+                  ],
+                ),
               ),
               BottomNavigationBar(
                 currentIndex: buttonIndex,
@@ -1304,7 +1795,10 @@ class _BottomNavigationBarShowcaseState
                 },
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.chat_bubble),
+                    icon: Badge(
+                      label: Text('3'),
+                      child: Icon(Icons.chat_bubble),
+                    ),
                     label: 'Chat',
                     // title: Text('Item 1'),
                   ),
@@ -1333,9 +1827,9 @@ class _BottomNavigationBarShowcaseState
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: Text(
-            'Default SDK background color is theme canvasColor via Material, '
-            'and canvasColor is set to color scheme background, elevation '
-            'is 8. FCS sub-theme default is color scheme background and '
+            'Default SDK background color is theme canvasColor via Material. '
+            'The canvasColor is typically colorScheme.background, elevation '
+            'is 8. FCS sub-theme default is colorScheme.background and '
             'elevation 0.',
             style: denseBody,
           ),
@@ -1375,20 +1869,24 @@ class _NavigationBarShowcaseState extends State<NavigationBarShowcase> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-                  const Text('Behind NavBar'),
-                  FloatingActionButton.small(
-                    heroTag: 'Behind NavBar',
-                    onPressed: () {},
-                    child: const Icon(Icons.add),
-                  ),
-                  InputChip(
-                    showCheckmark: true,
-                    selected: true,
-                    label: const Text('Chip check'),
-                    onSelected: (bool value) {},
-                  ),
-                ]),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: <Widget>[
+                    const Text('Behind NavBar'),
+                    FloatingActionButton.small(
+                      heroTag: 'Behind NavBar',
+                      onPressed: () {},
+                      child: const Icon(Icons.add),
+                    ),
+                    InputChip(
+                      showCheckmark: true,
+                      selected: true,
+                      label: const Text('Chip check'),
+                      onSelected: (bool value) {},
+                    ),
+                  ],
+                ),
               ),
               NavigationBar(
                 selectedIndex: buttonIndex,
@@ -1399,7 +1897,10 @@ class _NavigationBarShowcaseState extends State<NavigationBarShowcase> {
                 },
                 destinations: const <NavigationDestination>[
                   NavigationDestination(
-                    icon: Icon(Icons.chat_bubble),
+                    icon: Badge(
+                      label: Text('12'),
+                      child: Icon(Icons.chat_bubble),
+                    ),
                     label: 'Chat',
                   ),
                   NavigationDestination(
@@ -1517,7 +2018,10 @@ class _NavigationRailShowcaseState extends State<NavigationRailShowcase> {
                       },
                       destinations: const <NavigationRailDestination>[
                         NavigationRailDestination(
-                          icon: Icon(Icons.chat_bubble),
+                          icon: Badge(
+                            label: Text('5'),
+                            child: Icon(Icons.chat_bubble),
+                          ),
                           label: Text('Chat'),
                         ),
                         NavigationRailDestination(
@@ -1565,6 +2069,541 @@ class _NavigationRailShowcaseState extends State<NavigationRailShowcase> {
   }
 }
 
+class MenuBarShowcase extends StatelessWidget {
+  const MenuBarShowcase({super.key, this.explainUsage = true});
+  final bool explainUsage;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
+      fontSize: 13,
+    );
+    final TextStyle denseBody = theme.textTheme.bodyMedium!
+        .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        if (explainUsage)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(
+              'MenuBar',
+              style: denseHeader,
+            ),
+          ),
+        if (explainUsage)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'The new M3 menus can be used in a MenuBar via SubMenuButton and '
+              'its MenuItemButton, but they can also be used in a '
+              'MenuAnchor anywhere.',
+              style: denseBody,
+            ),
+          ),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: MenuBar(
+                children: <Widget>[
+                  SubmenuButton(
+                    menuChildren: <Widget>[
+                      MenuItemButton(
+                        onPressed: () {
+                          showAboutDialog(
+                            context: context,
+                            applicationName: 'MenuBar Demo',
+                            applicationVersion: '1.0.0',
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&About'),
+                      ),
+                      SubmenuButton(
+                        menuChildren: <Widget>[
+                          MenuItemButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Saved!'),
+                                ),
+                              );
+                            },
+                            child: const MenuAcceleratorLabel('&Save now'),
+                          ),
+                          MenuItemButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Load!'),
+                                ),
+                              );
+                            },
+                            child: const MenuAcceleratorLabel('&Load now'),
+                          ),
+                        ],
+                        child: const Text('File'),
+                      ),
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Quit!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&Quit'),
+                      ),
+                    ],
+                    child: const MenuAcceleratorLabel('&File'),
+                  ),
+                  SubmenuButton(
+                    menuChildren: <Widget>[
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Bold!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&Bold'),
+                      ),
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Italic!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&Italic'),
+                      ),
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Underline!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&Underline'),
+                      ),
+                    ],
+                    child: const MenuAcceleratorLabel('&Style'),
+                  ),
+                  SubmenuButton(
+                    menuChildren: <Widget>[
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Magnify!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('&Magnify'),
+                      ),
+                      MenuItemButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Minify!'),
+                            ),
+                          );
+                        },
+                        child: const MenuAcceleratorLabel('Mi&nify'),
+                      ),
+                    ],
+                    child: const MenuAcceleratorLabel('&View'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class MenuAnchorShowcase extends StatelessWidget {
+  const MenuAnchorShowcase({super.key, this.explainUsage = true});
+  final bool explainUsage;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
+      fontSize: 13,
+    );
+    final TextStyle denseBody = theme.textTheme.bodyMedium!
+        .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        if (explainUsage)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(
+              'MenuAnchor',
+              style: denseHeader,
+            ),
+          ),
+        if (explainUsage)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'The M3 MenuAnchor used on a Container as a context menu.',
+              style: denseBody,
+            ),
+          ),
+        Row(
+          children: const <Widget>[
+            Expanded(
+              child: MyContextMenu(message: 'The new M3 MenuAnchor is cool!'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// An enhanced enum to define the available menus and their shortcuts.
+///
+/// Using an enum for menu definition is not required, but this illustrates how
+/// they could be used for simple menu systems.
+enum MenuEntry {
+  about('About'),
+  showMessage(
+      'Show Message', SingleActivator(LogicalKeyboardKey.keyS, control: true)),
+  hideMessage(
+      'Hide Message', SingleActivator(LogicalKeyboardKey.keyS, control: true)),
+  colorMenu('Color Menu'),
+  colorRed('Red', SingleActivator(LogicalKeyboardKey.keyR, control: true)),
+  colorGreen('Green', SingleActivator(LogicalKeyboardKey.keyG, control: true)),
+  colorBlue('Blue', SingleActivator(LogicalKeyboardKey.keyB, control: true));
+
+  const MenuEntry(this.label, [this.shortcut]);
+  final String label;
+  final MenuSerializableShortcut? shortcut;
+}
+
+class MyContextMenu extends StatefulWidget {
+  const MyContextMenu({super.key, required this.message});
+
+  final String message;
+
+  @override
+  State<MyContextMenu> createState() => _MyContextMenuState();
+}
+
+class _MyContextMenuState extends State<MyContextMenu> {
+  MenuEntry? _lastSelection;
+  final FocusNode _buttonFocusNode = FocusNode(debugLabel: 'Menu Button');
+  final MenuController _menuController = MenuController();
+  ShortcutRegistryEntry? _shortcutsEntry;
+  bool get showingMessage => _showingMessage;
+  bool _showingMessage = false;
+  set showingMessage(bool value) {
+    if (_showingMessage != value) {
+      setState(() {
+        _showingMessage = value;
+      });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Dispose of any previously registered shortcuts, since they are about to
+    // be replaced.
+    _shortcutsEntry?.dispose();
+    // Collect the shortcuts from the different menu selections so that they can
+    // be registered to apply to the entire app. Menus don't register their
+    // shortcuts, they only display the shortcut hint text.
+    final Map<ShortcutActivator, Intent> shortcuts =
+        <ShortcutActivator, Intent>{
+      for (final MenuEntry item in MenuEntry.values)
+        if (item.shortcut != null)
+          item.shortcut!: VoidCallbackIntent(() => _activate(item)),
+    };
+    // Register the shortcuts with the ShortcutRegistry so that they are
+    // available to the entire application.
+    _shortcutsEntry = ShortcutRegistry.of(context).addAll(shortcuts);
+  }
+
+  @override
+  void dispose() {
+    _shortcutsEntry?.dispose();
+    _buttonFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return GestureDetector(
+      onTapDown: _handleTapDown,
+      child: MenuAnchor(
+        controller: _menuController,
+        anchorTapClosesMenu: true,
+        menuChildren: <Widget>[
+          MenuItemButton(
+            child: Text(MenuEntry.about.label),
+            onPressed: () => _activate(MenuEntry.about),
+          ),
+          if (_showingMessage)
+            MenuItemButton(
+              onPressed: () => _activate(MenuEntry.hideMessage),
+              shortcut: MenuEntry.hideMessage.shortcut,
+              child: Text(MenuEntry.hideMessage.label),
+            ),
+          if (!_showingMessage)
+            MenuItemButton(
+              onPressed: () => _activate(MenuEntry.showMessage),
+              shortcut: MenuEntry.showMessage.shortcut,
+              child: Text(MenuEntry.showMessage.label),
+            ),
+          SubmenuButton(
+            menuChildren: <Widget>[
+              MenuItemButton(
+                onPressed: () => _activate(MenuEntry.colorRed),
+                shortcut: MenuEntry.colorRed.shortcut,
+                child: Text(MenuEntry.colorRed.label),
+              ),
+              MenuItemButton(
+                onPressed: () => _activate(MenuEntry.colorGreen),
+                shortcut: MenuEntry.colorGreen.shortcut,
+                child: Text(MenuEntry.colorGreen.label),
+              ),
+              MenuItemButton(
+                onPressed: () => _activate(MenuEntry.colorBlue),
+                shortcut: MenuEntry.colorBlue.shortcut,
+                child: Text(MenuEntry.colorBlue.label),
+              ),
+            ],
+            child: const Text('Color'),
+          ),
+        ],
+        child: Card(
+          shadowColor: Colors.transparent,
+          elevation: 12,
+          // alignment: Alignment.center,
+          color: theme.colorScheme.surfaceVariant,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('Click anywhere on this container to show the '
+                    'MenuAnchor context menu.'),
+                const Text('Menu keyboard shortcuts also work.'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    showingMessage ? widget.message : '',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                ),
+                Text(_lastSelection != null
+                    ? 'Last Selected: ${_lastSelection!.label}'
+                    : ''),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _activate(MenuEntry selection) {
+    setState(() {
+      _lastSelection = selection;
+    });
+    switch (selection) {
+      case MenuEntry.about:
+        showAboutDialog(
+          context: context,
+          applicationName: 'MenuAnchor Demo',
+          applicationVersion: '1.0.0',
+        );
+        break;
+      case MenuEntry.showMessage:
+      case MenuEntry.hideMessage:
+        showingMessage = !showingMessage;
+        break;
+      case MenuEntry.colorMenu:
+        break;
+      case MenuEntry.colorRed:
+        break;
+      case MenuEntry.colorGreen:
+        break;
+      case MenuEntry.colorBlue:
+        break;
+    }
+  }
+
+  void _handleTapDown(TapDownDetails details) {
+    // If you want control CLICK for context menu, uncomment this.
+    // if (!HardwareKeyboard.instance.logicalKeysPressed
+    //         .contains(LogicalKeyboardKey.controlLeft) &&
+    //     !HardwareKeyboard.instance.logicalKeysPressed
+    //         .contains(LogicalKeyboardKey.controlRight)) {
+    //   return;
+    // }
+    _menuController.open(position: details.localPosition);
+  }
+}
+
+class DrawerShowcase extends StatelessWidget {
+  const DrawerShowcase({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
+      fontSize: 13,
+    );
+    final TextStyle denseBody = theme.textTheme.bodyMedium!
+        .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text(
+            'Drawer',
+            style: denseHeader,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: Text(
+            'Default SDK background color in M3 is colorScheme.surface, '
+            'with elevation tint and no shadow. In M2 it has shadow and color '
+            'theme.canvasColor, that is set to colorScheme.background.',
+            style: denseBody,
+          ),
+        ),
+        SizedBox(
+          height: 280,
+          child: Row(
+            children: <Widget>[
+              MediaQuery.removePadding(
+                context: context,
+                removeBottom: true,
+                removeTop: true,
+                child: const Drawer(
+                  child: Center(
+                    child: Text('Drawer'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class NavigationDrawerShowcase extends StatefulWidget {
+  const NavigationDrawerShowcase({
+    super.key,
+  });
+
+  @override
+  State<NavigationDrawerShowcase> createState() =>
+      _NavigationDrawerShowcaseState();
+}
+
+class _NavigationDrawerShowcaseState extends State<NavigationDrawerShowcase> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
+      fontSize: 13,
+    );
+    final TextStyle denseBody = theme.textTheme.bodyMedium!
+        .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Text(
+            'NavigationDrawer',
+            style: denseHeader,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: Text(
+            'Default SDK background color is colorScheme.surface, '
+            'with elevation tint in M3.',
+            style: denseBody,
+          ),
+        ),
+        SizedBox(
+          height: 280,
+          child: Row(
+            children: <Widget>[
+              MediaQuery.removePadding(
+                context: context,
+                removeBottom: true,
+                removeTop: true,
+                child: NavigationDrawer(
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (int value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  },
+                  children: const <Widget>[
+                    SizedBox(height: 16),
+                    NavigationDrawerDestination(
+                      icon: Badge(
+                        label: Text('26'),
+                        child: Icon(Icons.chat_bubble),
+                      ),
+                      label: Text('Chat'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.beenhere),
+                      label: Text('Tasks'),
+                    ),
+                    Divider(),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.create_new_folder),
+                      label: Text('Folder'),
+                    ),
+                    NavigationDrawerDestination(
+                      icon: Icon(Icons.logout),
+                      label: Text('Logout'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class ListTileShowcase extends StatelessWidget {
   const ListTileShowcase({super.key});
 
@@ -1587,6 +2626,14 @@ class ListTileShowcase extends StatelessWidget {
           selected: true,
           onTap: () {},
         ),
+        ListTile(
+          enabled: false,
+          leading: const Icon(Icons.info),
+          title: const Text('ListTile disabled'),
+          subtitle: const Text('Selected list tile sub title'),
+          trailing: const Text('Trailing'),
+          onTap: () {},
+        ),
         const Divider(height: 1),
         SwitchListTile(
           secondary: const Icon(Icons.info),
@@ -1601,6 +2648,13 @@ class ListTileShowcase extends StatelessWidget {
           subtitle: const Text('The switch list tile is ON'),
           value: true,
           onChanged: (bool value) {},
+        ),
+        const SwitchListTile(
+          secondary: Icon(Icons.info),
+          title: Text('SwitchListTile disabled'),
+          subtitle: Text('The switch list tile is ON'),
+          value: true,
+          onChanged: null,
         ),
         const Divider(height: 1),
         CheckboxListTile(
@@ -1623,6 +2677,14 @@ class ListTileShowcase extends StatelessWidget {
           subtitle: const Text('The checkbox list tile is null in tristate'),
           tristate: true,
           value: null,
+          onChanged: (bool? value) {},
+        ),
+        CheckboxListTile(
+          enabled: false,
+          secondary: const Icon(Icons.info),
+          title: const Text('CheckboxListTile disabled'),
+          subtitle: const Text('The checkbox list tile is checked'),
+          value: true,
           onChanged: (bool? value) {},
         ),
         const Divider(height: 1),
@@ -1649,6 +2711,14 @@ class ListTileShowcase extends StatelessWidget {
           value: 1,
           selected: true,
           onChanged: (_) {},
+          groupValue: 1,
+        ),
+        const RadioListTile<int>(
+          secondary: Icon(Icons.info),
+          title: Text('RadioListTile disabled'),
+          subtitle: Text('The radio option is selected'),
+          value: 1,
+          onChanged: null,
           groupValue: 1,
         ),
       ],
@@ -1714,67 +2784,71 @@ class BottomSheetShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        AbsorbPointer(
-          child: BottomSheet(
-            enableDrag: false,
-            elevation: theme.bottomSheetTheme.elevation,
-            backgroundColor: theme.bottomSheetTheme.backgroundColor,
-            onClosing: () {},
-            builder: (final BuildContext context) => SizedBox(
-              height: 150,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Material BottomSheet',
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    Text(
-                      'Uses Material of type canvas as default background.\n'
-                      'ColorScheme background in M2, but surface in M3.',
-                      style: theme.textTheme.bodySmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+    return AbsorbPointer(
+      child: BottomSheet(
+        enableDrag: false,
+        elevation: theme.bottomSheetTheme.elevation,
+        backgroundColor: theme.bottomSheetTheme.backgroundColor,
+        onClosing: () {},
+        builder: (final BuildContext context) => SizedBox(
+          height: 150,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Material BottomSheet',
+                  style: theme.textTheme.titleMedium,
                 ),
-              ),
+                Text(
+                  'Uses Material of type canvas as default background.\n'
+                  'ColorScheme background in M2, but surface in M3.',
+                  style: theme.textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ),
-        const SizedBox(height: 16),
-        AbsorbPointer(
-          child: BottomSheet(
-            elevation: theme.bottomSheetTheme.modalElevation,
-            backgroundColor: theme.bottomSheetTheme.modalBackgroundColor,
-            enableDrag: false,
-            onClosing: () {},
-            builder: (final BuildContext context) => SizedBox(
-              height: 150,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Material Modal BottomSheet',
-                      style: theme.textTheme.titleMedium,
-                    ),
-                    Text(
-                      'Uses Material of type canvas as default background.\n'
-                      'ColorScheme background in M2, but surface in M3.',
-                      style: theme.textTheme.bodySmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+      ),
+    );
+  }
+}
+
+class BottomSheetModalShowcase extends StatelessWidget {
+  const BottomSheetModalShowcase({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return AbsorbPointer(
+      child: BottomSheet(
+        elevation: theme.bottomSheetTheme.modalElevation,
+        backgroundColor: theme.bottomSheetTheme.modalBackgroundColor,
+        enableDrag: false,
+        onClosing: () {},
+        builder: (final BuildContext context) => SizedBox(
+          height: 150,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Material Modal BottomSheet',
+                  style: theme.textTheme.titleMedium,
                 ),
-              ),
+                Text(
+                  'Uses Material of type canvas as default background.\n'
+                  'ColorScheme background in M2, but surface in M3.',
+                  style: theme.textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -1862,10 +2936,8 @@ class MaterialShowcase extends StatelessWidget {
       children: <Widget>[
         Text('Material elevation and tint', style: denseHeader),
         Text(
-          'When useMaterial3 is true, Material gets no elevation, '
-          'unless its shadowColor is also specified, which is not needed when '
-          'it is false and using M2. To in M3 give it surface elevated '
-          'tint, also specify its surfaceTint color.',
+          'Material can also specify surfaceTintColor, which is applied when '
+          'Material is elevated and useMaterial3 is true. ',
           style: denseBody,
         ),
         const SizedBox(height: 12),
@@ -1876,40 +2948,37 @@ class MaterialShowcase extends StatelessWidget {
           'color canvasColor is going to be deprecated in Flutter SDK',
           style: denseBody,
         ),
-        const Divider(),
         const SizedBox(height: 8),
-        const Material(
+        Material(
           type: MaterialType.canvas,
           elevation: 0,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type canvas, elevation 0, '
-                  'default',
+                  'Material type canvas, elevation 0, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        const Divider(),
-        const SizedBox(height: 8),
-        const Material(
+        const SizedBox(height: 16),
+        Material(
           type: MaterialType.canvas,
           elevation: 1,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type canvas, elevation 1, '
-                  'default',
+                  'Material type canvas, elevation 1, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -1920,6 +2989,7 @@ class MaterialShowcase extends StatelessWidget {
           type: MaterialType.canvas,
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
+          shadowColor: Colors.transparent,
           child: const SizedBox(
             height: 60,
             child: Padding(
@@ -1927,7 +2997,7 @@ class MaterialShowcase extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Material type canvas, elevation 1, '
-                  'with surfaceTint, no shadow',
+                  'with surfaceTint and no shadow',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -1940,80 +3010,82 @@ class MaterialShowcase extends StatelessWidget {
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type canvas, elevation 1, '
                   'with surfaceTint, and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        const Divider(),
-        const SizedBox(height: 8),
-        const Material(
+        const SizedBox(height: 16),
+        Material(
           type: MaterialType.canvas,
           elevation: 6,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type canvas, elevation 6, '
-                  'default',
+                  'Material type canvas, elevation 6, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Material(
           type: MaterialType.canvas,
           elevation: 6,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          shadowColor: Colors.transparent,
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type canvas, elevation 6, '
-                  'with surfaceTint, no shadow',
+                  'with surfaceTint and no shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Material(
           type: MaterialType.canvas,
           elevation: 6,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type canvas, elevation 6, '
-                  'with surfaceTint, and shadow',
+                  'with surfaceTint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         const Divider(),
         const SizedBox(height: 8),
         Text('Material type card', style: denseHeader),
@@ -2023,40 +3095,37 @@ class MaterialShowcase extends StatelessWidget {
           'color cardColor is going to be deprecated in Flutter SDK',
           style: denseBody,
         ),
-        const Divider(),
         const SizedBox(height: 8),
-        const Material(
+        Material(
           type: MaterialType.card,
           elevation: 0,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type card, elevation 0, '
-                  'default',
+                  'Material type card, elevation 0, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        const Divider(),
-        const SizedBox(height: 8),
-        const Material(
+        const SizedBox(height: 16),
+        Material(
           type: MaterialType.card,
           elevation: 1,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type card, elevation 1, '
-                  'default',
+                  'Material type card, elevation 1, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2067,15 +3136,17 @@ class MaterialShowcase extends StatelessWidget {
           type: MaterialType.card,
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          shadowColor: Colors.transparent,
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type card, elevation 1, '
-                  'with surfaceTint, no shadow',
+                  'with surfaceTint and no shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2087,74 +3158,76 @@ class MaterialShowcase extends StatelessWidget {
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type card, elevation 1, '
-                  'with surfaceTint, and shadow',
+                  'with surfaceTint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
-        const Divider(),
-        const SizedBox(height: 8),
-        const Material(
+        const SizedBox(height: 16),
+        Material(
           type: MaterialType.card,
           elevation: 6,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Material type card, elevation 6, '
-                  'default',
+                  'Material type card, elevation 6, default tint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Material(
           type: MaterialType.card,
           elevation: 6,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          shadowColor: Colors.transparent,
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type card, elevation 6, '
-                  'with surfaceTint, no shadow',
+                  'with surfaceTint and no shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Material(
           type: MaterialType.card,
           elevation: 6,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: colorScheme.shadow,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Material type card, elevation 6, '
-                  'with surfaceTint, and shadow',
+                  'with surfaceTint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2199,30 +3272,32 @@ class CardShowcase extends StatelessWidget {
         Card(
           elevation: 0,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Card, elevation 0',
+                  'Card, elevation 0, with surfaceTint and default shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
         const SizedBox(height: 10),
-        const Card(
+        Card(
           elevation: 1,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                   child: Text(
                 'Card, elevation 1, default surfaceTint and shadow',
                 textAlign: TextAlign.center,
+                style: denseHeader,
               )),
             ),
           ),
@@ -2231,14 +3306,15 @@ class CardShowcase extends StatelessWidget {
         Card(
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Card, elevation 1, with surfaceTint, default shadow',
+                  'Card, elevation 1, with surfaceTint and default shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2249,31 +3325,33 @@ class CardShowcase extends StatelessWidget {
           elevation: 1,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: Colors.transparent,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Card, elevation 1,  with surfaceTint, '
+                  'Card, elevation 1, with surfaceTint and '
                   'transparent shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
         const Divider(),
-        const Card(
+        Card(
           elevation: 4,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Card, elevation 4, default surfaceTint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2283,12 +3361,13 @@ class CardShowcase extends StatelessWidget {
         Card(
           elevation: 4,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Center(
               child: Text(
-                'Card, elevation 4, with surfaceTint, default shadow',
+                'Card, elevation 4, with surfaceTint and default shadow',
                 textAlign: TextAlign.center,
+                style: denseHeader,
               ),
             ),
           ),
@@ -2298,31 +3377,33 @@ class CardShowcase extends StatelessWidget {
           elevation: 4,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: Colors.transparent,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Card, elevation 4, with surfaceTint, '
+                  'Card, elevation 4, with surfaceTint and '
                   'transparent shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
           ),
         ),
         const Divider(),
-        const Card(
+        Card(
           elevation: 10,
           child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
                   'Card, elevation 10, default surfaceTint and shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2332,14 +3413,15 @@ class CardShowcase extends StatelessWidget {
         Card(
           elevation: 10,
           surfaceTintColor: colorScheme.surfaceTint,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  'Card, elevation 10, with surfaceTint',
+                  'Card, elevation 10, with surfaceTint and default shadow',
                   textAlign: TextAlign.center,
+                  style: denseHeader,
                 ),
               ),
             ),
@@ -2350,15 +3432,16 @@ class CardShowcase extends StatelessWidget {
           elevation: 10,
           surfaceTintColor: colorScheme.surfaceTint,
           shadowColor: Colors.transparent,
-          child: const SizedBox(
+          child: SizedBox(
             height: 60,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Center(
                   child: Text(
-                'Card, elevation 10, with surfaceTint, '
+                'Card, elevation 10, with surfaceTint and '
                 'transparent shadow',
                 textAlign: TextAlign.center,
+                style: denseHeader,
               )),
             ),
           ),
