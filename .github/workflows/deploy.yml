@@ -36,11 +36,11 @@ jobs:
     name: "Analyze and test package, then build and deploy web demo"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Flutter and Dart SDK
-        uses: subosito/flutter-action@v1.5.3
+        uses: subosito/flutter-action@v2
         with:
-          channel: "stable"
+          channel: 'stable'
       - name: "Show Dart SDK version"
         run: dart --version
       - name: "Show Flutter SDK version"
