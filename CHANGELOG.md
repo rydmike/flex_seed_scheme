@@ -2,12 +2,18 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.2
+
+**Jan 30, 2023**
+
+- Add example screenshots to pubspec.yaml.
+
 ## 1.2.1
 
 **Jan 25, 2023**
 
 - Fix date on 1.2.0 changelog.
-- 
+ 
 ## 1.2.0
 
 **Jan 25, 2023**

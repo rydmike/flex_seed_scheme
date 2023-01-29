@@ -1,10 +1,19 @@
 name: flex_seed_scheme
 description: A more flexible version of Flutter's ColorScheme.fromSeed, use multiple seed colors, custom chroma and tone mapping.
-version: 1.2.1
+version: 1.2.2
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
 documentation: https://github.com/rydmike/flex_seed_scheme/blob/master/README.md
+screenshots:
+  - description: 'Using 3 seed colors to make an M3 ColorScheme with M3 default chroma'
+    path: example/screenshots/three_seeds_with_m3_chroma.png
+  - description: 'Using 3 seed colors to make an M3 ColorScheme with custom chroma limits and tone mapping'
+    path: example/screenshots/three_seeds_with_custom_chroma_and_tones.png
+  - description: 'Using 3 seed colors to make a high-contrast M3 ColorScheme'
+    path: example/screenshots/dark_three_seeds_high_contrast.png
+  - description: 'Using 3 seed colors to make an ultra high-contrast M3 ColorScheme'
+    path: example/screenshots/dark_three_seeds_ultra_high_contrast.png
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -29,4 +38,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test:
-
