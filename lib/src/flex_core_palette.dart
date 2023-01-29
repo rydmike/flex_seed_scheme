@@ -70,11 +70,14 @@ class FlexTonalPalette {
   /// Commonly-used tone values in a [FlexTonalPalette].
   ///
   /// Contains custom tones 5 and 98, in addition to the 13 tones included
-  /// in the Material 3 guide tonal palette. The tone 98 also exists in the
+  /// in the Material 3 guide tonal palette. The tone 98 used to exist in the
   /// [Web Material Theme Builder app](https://m3.material.io/theme-builder#/custom),
-  /// but not in Flutter or
+  /// but no longer does. It never existed in Flutter or
   /// [Material Color Utilities package](https://pub.dev/packages/material_color_utilities).
   /// Tone 5 is custom addition used in e.g. in [FlexTones.ultraContrast].
+  ///
+  /// Tone 98 provides optional tonal fidelity in the light and white end of the
+  /// palette and tone 5 a more dark tone in the black end of the palette.
   static const List<int> commonTones = <int>[
     0,
     5,

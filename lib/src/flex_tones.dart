@@ -106,7 +106,7 @@ class FlexTones with Diagnosticable {
     required this.neutralVariantMinChroma,
   });
 
-  /// Create a M3 standard light tonal palette tones extraction setup.
+  /// Create an M3 standard light tonal palette tones extraction setup.
   ///
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses

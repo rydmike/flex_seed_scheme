@@ -29,12 +29,12 @@ import 'flex_tones.dart';
 /// Which tones to use for what color in the [ColorScheme] is not hard coded
 /// like it is in material_color_utilities [Scheme] class. This version
 /// accepts an optional [FlexTones] class that can be used to configure
-/// all the tone mapping from [FlexTonalPalette] to [ColorScheme], including
+/// the tone mapping from [FlexTonalPalette] to [ColorScheme], including
 /// passing the extra min chroma and fixed level parameters it should
 /// use when computing the [FlexCorePalette].
 ///
-/// This helper class is internal for now in [FlexSeedScheme] package,
-/// if there ever is a need for using it via the library, post an issue and
+/// This helper class is internal for now in [FlexSeedScheme] package.
+/// If there ever is a need for using it via the library, post an issue and
 /// we will consider it.
 @immutable
 @internal
@@ -389,6 +389,17 @@ extension SeedColorScheme on ColorScheme {
     Color? onPrimaryContainer,
 
     /// Override color for the seed generated [secondary] color.
+    ///
+    /// You may sometimes want to assign the [secondaryKey] to this color in
+    /// light brightness mode, if it is also your secondary brand or design
+    /// color.
+    ///
+    /// If you only have two brand or design colors, consider using it as key
+    /// color and override for the tertiary color instead, as the M3 color
+    /// system calls for a secondary color that is same or close in hue to the
+    /// primary color but with less chroma. Your secondary brand or design color
+    /// may not fit well with that constraint. The tertiary color in M3 color
+    /// system does not have this preference.
     Color? secondary,
 
     /// Override color for the seed generated [onSecondary] color.
@@ -401,6 +412,17 @@ extension SeedColorScheme on ColorScheme {
     Color? onSecondaryContainer,
 
     /// Override color for the seed generated [tertiary] color.
+    ///
+    /// You may sometimes want to assign the [tertiaryKey] to this color in
+    /// light brightness mode, if it is also your secondary or tertiary brand
+    /// or design color.
+    ///
+    /// If you only have two brand or design colors, consider using it as
+    /// key color and override for the tertiary color, as the M3 color
+    /// system calls for a secondary color that is same or close in hue to the
+    /// primary color but with less chroma. Your secondary brand or design color
+    /// may not fit well with that constraint. The tertiary color in M3 color
+    /// system does not have this preference.
     Color? tertiary,
 
     /// Override color for the seed generated [onTertiary] color.
