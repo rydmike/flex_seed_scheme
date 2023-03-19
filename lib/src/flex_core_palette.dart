@@ -428,10 +428,10 @@ class FlexCorePalette {
     /// fixed [primaryChroma] is provided that is lower than [primaryMinChroma]
     /// then the [primaryMinChroma] value is used.
     ///
-    /// Defaults to 48.
+    /// If not defined, defaults to 48.
     ///
     /// Flutter SDK uses 48 via a hard coded value and design.
-    final double primaryMinChroma = 48,
+    final double? primaryMinChroma,
 
     /// Cam16 chroma value to use for secondary colors tonal palette
     /// generation.
@@ -459,12 +459,12 @@ class FlexCorePalette {
     /// fixed [secondaryChroma] is provided that is lower than
     /// [secondaryMinChroma] then the [secondaryMinChroma] value is used.
     ///
-    /// Defaults to 0.
+    /// If not defined, defaults to 0.
     ///
     /// Flutter SDK only uses [secondaryChroma] hard coded to 16, and has no
     /// concept of minimum level for secondary tonal palettes as its chroma
     /// value is always locked to 16.
-    final double secondaryMinChroma = 0,
+    final double? secondaryMinChroma,
 
     /// Cam16 chroma value to use for tertiary colors tonal palette generation.
     ///
@@ -491,12 +491,12 @@ class FlexCorePalette {
     /// fixed [tertiaryChroma] is provided that is lower than
     /// [tertiaryMinChroma] then the [tertiaryMinChroma] value is used.
     ///
-    /// Defaults to 0.
+    /// If not defined, defaults to 0.
     ///
     /// Flutter SDK only uses [tertiaryChroma] hard coded to 24, and has no
     /// concept of minimum level for tertiary tonal palettes, as its value is
     /// always locked to 24.
-    final double tertiaryMinChroma = 0,
+    final double? tertiaryMinChroma,
 
     /// The number of degrees to rotate the hue in [primary] key color to get
     /// the used Hue for the tertiary color.
@@ -507,7 +507,9 @@ class FlexCorePalette {
     /// If you set this value to 0, or very close to it, you can make seed
     /// generated color schemes where all color are "like" the primary color
     /// but with subtle tone and shade variations.
-    final double tertiaryHueRotation = 60,
+    ///
+    /// If not defined, default 60.
+    final double? tertiaryHueRotation,
 
     /// Cam16 chroma value to use for neutral colors tonal palette generation.
     ///
@@ -517,7 +519,7 @@ class FlexCorePalette {
     ///
     /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded to 4.
     ///
-    /// Defaults to 4.
+    /// If not defined, defaults to 4.
     ///
     /// To force the chroma in [neutral] key color to be used, set this to null
     /// and keep [neutralMinChroma] at 0. Typically you want to use very low
@@ -531,12 +533,12 @@ class FlexCorePalette {
     /// fixed [neutralChroma] is provided that is lower than
     /// [neutralMinChroma] then the [neutralMinChroma] value is used.
     ///
-    /// Defaults to 0.
+    /// If not defined, defaults to 0.
     ///
     /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
     /// concept of minimum level for neutral tonal palettes as its chroma
     /// value is always locked to 16.
-    final double neutralMinChroma = 0,
+    final double? neutralMinChroma,
 
     /// Cam16 chroma value to use for neutralVariant colors
     /// tonal palette generation.
@@ -564,12 +566,12 @@ class FlexCorePalette {
     /// [neutralVariantMinChroma] then the [neutralVariantMinChroma] value
     /// is used.
     ///
-    /// Defaults to 0.
+    /// If not defined, defaults to 0.
     ///
     /// Flutter SDK only uses [neutralVariantMinChroma] hard coded to 4, and
     /// has no concept of minimum level for neutral variant tonal palettes as
     /// its chroma value is always locked to 8.
-    final double neutralVariantMinChroma = 0,
+    final double? neutralVariantMinChroma,
 
     /// Cam16 chroma value to use for error colors tonal palette generation.
     ///
@@ -589,12 +591,12 @@ class FlexCorePalette {
     /// fixed [errorChroma] is provided that is lower than
     /// [errorMinChroma] then the [errorMinChroma] value is used.
     ///
-    /// Defaults to 0.
+    /// If not defined, defaults to 0.
     ///
     /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
     /// concept of minimum level for error tonal palettes, as its value is
     /// always locked to 84.
-    final double errorMinChroma = 0,
+    final double? errorMinChroma,
   }) {
     // Primary TonalPalette calculation.
     //
@@ -603,8 +605,8 @@ class FlexCorePalette {
     // If a fixed chroma was given we use it instead of chroma in primary.
     final double effectivePrimaryChroma = primaryChroma ?? camPrimary.chroma;
     // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(
-        camPrimary.hue, math.max(primaryMinChroma, effectivePrimaryChroma));
+    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(camPrimary.hue,
+        math.max(primaryMinChroma ?? 48, effectivePrimaryChroma));
 
     // Secondary TonalPalette calculation.
     //
@@ -617,7 +619,7 @@ class FlexCorePalette {
     // We use the effectiveChroma, but only if it is over the min level.
     final FlexTonalPalette tonalSecondary = FlexTonalPalette.of(
         camSecondary.hue,
-        math.max(secondaryMinChroma, effectiveSecondaryChroma));
+        math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma));
 
     // Tertiary TonalPalette calculation.
     //
@@ -630,13 +632,13 @@ class FlexCorePalette {
     // directly, we add 60 degrees to it, this is the M3 way to shift hue from a
     // single key.
     final double effectiveTertiaryHue = tertiary == null
-        ? camPrimary.hue + tertiaryHueRotation
+        ? camPrimary.hue + (tertiaryHueRotation ?? 60)
         : camTertiary.hue;
     // We use the effective hue and the effectiveChroma, but chroma
     // only if it is over the min level.
     final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(
         effectiveTertiaryHue,
-        math.max(tertiaryMinChroma, effectiveTertiaryChroma));
+        math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma));
 
     // Neutral TonalPalette calculation.
     //
@@ -646,8 +648,8 @@ class FlexCorePalette {
     // If a fixed chroma value was given we use it instead.
     final double effectiveNeutralChroma = neutralChroma ?? camNeutral.chroma;
     // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(
-        camNeutral.hue, math.max(neutralMinChroma, effectiveNeutralChroma));
+    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(camNeutral.hue,
+        math.max(neutralMinChroma ?? 0, effectiveNeutralChroma));
 
     // NeutralVariant TonalPalette calculation.
     //
@@ -660,7 +662,7 @@ class FlexCorePalette {
     // We use the effectiveChroma, but only if it is over the min level.
     final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
         camNeutralVariant.hue,
-        math.max(neutralVariantMinChroma, effectiveNeutralVariantChroma));
+        math.max(neutralVariantMinChroma ?? 0, effectiveNeutralVariantChroma));
 
     // Error TonalPalette calculation.
     //
@@ -677,7 +679,7 @@ class FlexCorePalette {
     final FlexTonalPalette? tonalError = (error == null && errorChroma == null)
         ? null
         : FlexTonalPalette.of(
-            camError.hue, math.max(errorMinChroma, effectiveErrorChroma));
+            camError.hue, math.max(errorMinChroma ?? 0, effectiveErrorChroma));
 
     return FlexCorePalette(
       primary: tonalPrimary,

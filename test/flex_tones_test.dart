@@ -43,23 +43,23 @@ void main() {
       inversePrimaryTone: 80,
       surfaceTintTone: 40,
       primaryChroma: null,
-      primaryMinChroma: 48,
+      primaryMinChroma: null,
       secondaryChroma: null,
-      secondaryMinChroma: 0,
+      secondaryMinChroma: null,
       tertiaryChroma: null,
-      tertiaryMinChroma: 0,
-      tertiaryHueRotation: 60,
+      tertiaryMinChroma: null,
+      tertiaryHueRotation: null,
       errorChroma: null,
-      errorMinChroma: 0,
+      errorMinChroma: null,
       neutralChroma: 4,
-      neutralMinChroma: 0,
+      neutralMinChroma: null,
       neutralVariantChroma: 8,
-      neutralVariantMinChroma: 0,
+      neutralVariantMinChroma: null,
     );
     // m2, has same definition as m1, but via default values
     const FlexTones m2 = FlexTones.light();
     // m3, has same definition as m1, but one value is different.
-    const FlexTones m3 = FlexTones.light(neutralMinChroma: 8);
+    const FlexTones m3 = FlexTones.light(surfaceTintTone: 80);
     // m4, has all values different from m1
     const FlexTones m4 = FlexTones.dark();
     // Do identity tests
@@ -108,7 +108,7 @@ void main() {
         'an unequal object when made equal with copyWith.', () {
       expect(
         m3.copyWith(
-          neutralMinChroma: 0,
+          surfaceTintTone: 40,
         ),
         equals(m1),
       );
@@ -157,17 +157,17 @@ void main() {
           inversePrimaryTone: 80,
           surfaceTintTone: 40,
           primaryChroma: null,
-          primaryMinChroma: 48,
+          primaryMinChroma: null,
           secondaryChroma: null,
-          secondaryMinChroma: 0,
+          secondaryMinChroma: null,
           tertiaryChroma: null,
-          tertiaryMinChroma: 0,
+          tertiaryMinChroma: null,
           errorChroma: null,
-          errorMinChroma: 0,
+          errorMinChroma: null,
           neutralChroma: 4,
-          neutralMinChroma: 0,
+          neutralMinChroma: null,
           neutralVariantChroma: 8,
-          neutralVariantMinChroma: 0,
+          neutralVariantMinChroma: null,
         ),
         equals(m1),
       );
@@ -187,7 +187,7 @@ void main() {
           //
           equalsIgnoringHashCodes(
               // ignore: lines_longer_than_80_chars
-              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, backgroundTone: 99, onBackgroundTone: 10, surfaceTone: 99, onSurfaceTone: 10, surfaceVariantTone: 90, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: 48.0, secondaryChroma: null, secondaryMinChroma: 0.0, tertiaryChroma: null, tertiaryHueRotation: 60.0, tertiaryMinChroma: 0.0, errorChroma: null, errorMinChroma: 0.0, neutralChroma: 4.0, neutralMinChroma: 0.0, neutralVariantChroma: 8.0, neutralVariantMinChroma: 0.0)'));
+              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, backgroundTone: 99, onBackgroundTone: 10, surfaceTone: 99, onSurfaceTone: 10, surfaceVariantTone: 90, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 4.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null)'));
     });
     test(
         'FTO1.11: Test toStringShort implemented via debugFillProperties '
@@ -246,18 +246,18 @@ void main() {
             inversePrimaryTone: 80,
             surfaceTintTone: 40,
             primaryChroma: null,
-            primaryMinChroma: 48,
+            primaryMinChroma: null,
             secondaryChroma: null,
-            secondaryMinChroma: 0,
+            secondaryMinChroma: null,
             tertiaryChroma: null,
-            tertiaryMinChroma: 0,
-            tertiaryHueRotation: 60,
+            tertiaryMinChroma: null,
+            tertiaryHueRotation: null,
             errorChroma: null,
-            errorMinChroma: 0,
+            errorMinChroma: null,
             neutralChroma: 4,
-            neutralMinChroma: 0,
+            neutralMinChroma: null,
             neutralVariantChroma: 8,
-            neutralVariantMinChroma: 0,
+            neutralVariantMinChroma: null,
           ),
         ),
       );
@@ -298,18 +298,18 @@ void main() {
             inversePrimaryTone: 40,
             surfaceTintTone: 80,
             primaryChroma: null,
-            primaryMinChroma: 48,
+            primaryMinChroma: null,
             secondaryChroma: null,
-            secondaryMinChroma: 0,
+            secondaryMinChroma: null,
             tertiaryChroma: null,
-            tertiaryMinChroma: 0,
-            tertiaryHueRotation: 60,
+            tertiaryMinChroma: null,
+            tertiaryHueRotation: null,
             errorChroma: null,
-            errorMinChroma: 0,
+            errorMinChroma: null,
             neutralChroma: 4,
-            neutralMinChroma: 0,
+            neutralMinChroma: null,
             neutralVariantChroma: 8,
-            neutralVariantMinChroma: 0,
+            neutralVariantMinChroma: null,
           ),
         ),
       );
@@ -668,6 +668,224 @@ void main() {
             secondaryChroma: 26,
             tertiaryChroma: 36,
             tertiaryHueRotation: 0,
+          ),
+        ),
+      );
+    });
+  });
+  group(
+      'FTO2: Test 1.10 APi with 1.20, 1.21 and 1.22 of FlexTones '
+      'that unintentionally broke 1.x API.', () {
+    // m1, is the baseline for FlexTones tests
+    const FlexTones m1 = FlexTones(
+      primaryTone: 40,
+      onPrimaryTone: 100,
+      primaryContainerTone: 90,
+      onPrimaryContainerTone: 10,
+      secondaryTone: 40,
+      onSecondaryTone: 100,
+      secondaryContainerTone: 90,
+      onSecondaryContainerTone: 10,
+      tertiaryTone: 40,
+      onTertiaryTone: 100,
+      tertiaryContainerTone: 90,
+      onTertiaryContainerTone: 10,
+      errorTone: 40,
+      onErrorTone: 100,
+      errorContainerTone: 90,
+      onErrorContainerTone: 10,
+      backgroundTone: 99,
+      onBackgroundTone: 10,
+      surfaceTone: 99,
+      onSurfaceTone: 10,
+      surfaceVariantTone: 90,
+      onSurfaceVariantTone: 30,
+      outlineTone: 50,
+      outlineVariantTone: 80,
+      shadowTone: 0,
+      scrimTone: 0,
+      inverseSurfaceTone: 20,
+      onInverseSurfaceTone: 95,
+      inversePrimaryTone: 80,
+      surfaceTintTone: 40,
+      primaryChroma: null,
+      primaryMinChroma: 48,
+      secondaryChroma: null,
+      secondaryMinChroma: 0,
+      tertiaryChroma: null,
+      tertiaryMinChroma: 0,
+      tertiaryHueRotation: 60,
+      neutralChroma: 4,
+      neutralVariantChroma: 8,
+    );
+    // m2, has same definition as m1, but via default values
+    const FlexTones m2 = FlexTones.light(
+      primaryChroma: null,
+      primaryMinChroma: 48,
+      secondaryChroma: null,
+      secondaryMinChroma: 0,
+      tertiaryChroma: null,
+      tertiaryMinChroma: 0,
+      tertiaryHueRotation: 60,
+      neutralChroma: 4,
+      neutralVariantChroma: 8,
+    );
+    // m3, has same definition as m1, but one value is different.
+    const FlexTones m3 = FlexTones.light(
+      primaryChroma: null,
+      primaryMinChroma: 48,
+      secondaryChroma: null,
+      secondaryMinChroma: 0,
+      tertiaryChroma: null,
+      tertiaryMinChroma: 0,
+      tertiaryHueRotation: 60,
+      neutralChroma: 4,
+      neutralVariantChroma: 10,
+    );
+    // Do identity tests
+    test(
+        'FTO1.01a: GIVEN same FlexTones objects '
+        'EXPECT them to be equal', () {
+      expect(m1, equals(m1));
+    });
+    test(
+        'FTO1.01b: GIVEN same FlexTones objects '
+        'EXPECT them to have identity', () {
+      expect(identical(m1, m1), true);
+    });
+    test(
+        'FTO1.01c: GIVEN two equal FlexTones objects '
+        'EXPECT them to have equality', () {
+      expect(m1, equals(m2));
+    });
+    test(
+        'FTO1.01d: GIVEN two equal FlexTones objects '
+        'EXPECT them to have identity', () {
+      expect(identical(m1, m2), true);
+    });
+    test(
+        'FTO1.01c: GIVEN two equal FlexTones objects '
+        'EXPECT them to have equality with operator', () {
+      expect(m1 == m2, true);
+    });
+    test(
+        'FTO1.02a: GIVEN none equal FlexTones objects '
+        'EXPECT them to be unequal', () {
+      expect(m1, isNot(m3));
+    });
+    test(
+        'FTO1.02b: GIVEN none equal FlexTones objects '
+        'EXPECT them to be unequal with operator', () {
+      expect(m1 != m3, true);
+    });
+    test('FTO1.015: Verify v1.1x FlexTones.light definition. ', () {
+      expect(
+        const FlexTones.light(
+          primaryChroma: null,
+          primaryMinChroma: 48,
+          secondaryChroma: null,
+          secondaryMinChroma: 0,
+          tertiaryChroma: null,
+          tertiaryMinChroma: 0,
+          tertiaryHueRotation: 60,
+        ),
+        equals(
+          const FlexTones(
+            primaryTone: 40,
+            onPrimaryTone: 100,
+            primaryContainerTone: 90,
+            onPrimaryContainerTone: 10,
+            secondaryTone: 40,
+            onSecondaryTone: 100,
+            secondaryContainerTone: 90,
+            onSecondaryContainerTone: 10,
+            tertiaryTone: 40,
+            onTertiaryTone: 100,
+            tertiaryContainerTone: 90,
+            onTertiaryContainerTone: 10,
+            errorTone: 40,
+            onErrorTone: 100,
+            errorContainerTone: 90,
+            onErrorContainerTone: 10,
+            backgroundTone: 99,
+            onBackgroundTone: 10,
+            surfaceTone: 99,
+            onSurfaceTone: 10,
+            surfaceVariantTone: 90,
+            onSurfaceVariantTone: 30,
+            outlineTone: 50,
+            outlineVariantTone: 80,
+            shadowTone: 0,
+            scrimTone: 0,
+            inverseSurfaceTone: 20,
+            onInverseSurfaceTone: 95,
+            inversePrimaryTone: 80,
+            surfaceTintTone: 40,
+            primaryChroma: null,
+            primaryMinChroma: 48,
+            secondaryChroma: null,
+            secondaryMinChroma: 0,
+            tertiaryChroma: null,
+            tertiaryMinChroma: 0,
+            tertiaryHueRotation: 60,
+            neutralChroma: 4,
+            neutralVariantChroma: 8,
+          ),
+        ),
+      );
+    });
+    test('FTO1.016: Verify v1.1x FlexTones.dark definition. ', () {
+      expect(
+        const FlexTones.dark(
+          primaryChroma: null,
+          primaryMinChroma: 48,
+          secondaryChroma: null,
+          secondaryMinChroma: 0,
+          tertiaryChroma: null,
+          tertiaryMinChroma: 0,
+          tertiaryHueRotation: 60,
+        ),
+        equals(
+          const FlexTones(
+            primaryTone: 80,
+            onPrimaryTone: 20,
+            primaryContainerTone: 30,
+            onPrimaryContainerTone: 90,
+            secondaryTone: 80,
+            onSecondaryTone: 20,
+            secondaryContainerTone: 30,
+            onSecondaryContainerTone: 90,
+            tertiaryTone: 80,
+            onTertiaryTone: 20,
+            tertiaryContainerTone: 30,
+            onTertiaryContainerTone: 90,
+            errorTone: 80,
+            onErrorTone: 20,
+            errorContainerTone: 30,
+            onErrorContainerTone: 80,
+            backgroundTone: 10,
+            onBackgroundTone: 90,
+            surfaceTone: 10,
+            onSurfaceTone: 90,
+            surfaceVariantTone: 30,
+            onSurfaceVariantTone: 80,
+            outlineTone: 60,
+            outlineVariantTone: 30,
+            shadowTone: 0,
+            scrimTone: 0,
+            inverseSurfaceTone: 90,
+            onInverseSurfaceTone: 20,
+            inversePrimaryTone: 40,
+            surfaceTintTone: 80,
+            primaryChroma: null,
+            primaryMinChroma: 48,
+            secondaryChroma: null,
+            secondaryMinChroma: 0,
+            tertiaryChroma: null,
+            tertiaryMinChroma: 0,
+            tertiaryHueRotation: 60,
+            neutralChroma: 4,
+            neutralVariantChroma: 8,
           ),
         ),
       );

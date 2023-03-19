@@ -7,7 +7,7 @@ import 'flex_tones_enum.dart';
 import 'flex_tones_popup_menu.dart';
 import 'show_color_scheme_colors.dart';
 import 'show_key_colors.dart';
-import 'theme_showcase.dart';
+import 'showcase_material.dart';
 
 // Define your seed colors.
 const Color primarySeedColor = Color(0xFF6750A4);
@@ -263,7 +263,7 @@ class _MyAppState extends State<MyApp> {
             const ListTile(title: Text('Widget Showcase')),
             const Padding(
               padding: EdgeInsets.all(16.0),
-              child: ThemeShowcase(),
+              child: ShowcaseMaterial(),
             ),
           ],
         ),

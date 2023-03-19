@@ -92,18 +92,18 @@ class FlexTones with Diagnosticable {
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
     this.primaryChroma,
-    required this.primaryMinChroma,
+    this.primaryMinChroma,
     this.secondaryChroma,
-    required this.secondaryMinChroma,
+    this.secondaryMinChroma,
     this.tertiaryChroma,
-    required this.tertiaryMinChroma,
-    required this.tertiaryHueRotation,
+    this.tertiaryMinChroma,
+    this.tertiaryHueRotation,
     this.errorChroma,
-    required this.errorMinChroma,
+    this.errorMinChroma,
     this.neutralChroma,
-    required this.neutralMinChroma,
+    this.neutralMinChroma,
     this.neutralVariantChroma,
-    required this.neutralVariantMinChroma,
+    this.neutralVariantMinChroma,
   });
 
   /// Create an M3 standard light tonal palette tones extraction setup.
@@ -163,27 +163,19 @@ class FlexTones with Diagnosticable {
     this.onInverseSurfaceTone = 95,
     this.inversePrimaryTone = 80,
     this.surfaceTintTone = 40,
-    // Defaults to null, chroma in key color is used, if over primaryMinChroma.
     this.primaryChroma,
-    this.primaryMinChroma = 48,
-    // Defaults to null, chroma in key is used, if over secondaryMinChroma.
+    this.primaryMinChroma,
     this.secondaryChroma,
-    this.secondaryMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over tertiaryMinChroma.
+    this.secondaryMinChroma,
     this.tertiaryChroma,
-    this.tertiaryMinChroma = 0,
-    // Default M3 hue rotation from primary, when now key with own hue given.
-    this.tertiaryHueRotation = 60,
-    // Defaults to null, chroma in key color is used, if over errorMinChroma and
-    // a chroma key is given.
+    this.tertiaryMinChroma,
+    this.tertiaryHueRotation,
     this.errorChroma,
-    this.errorMinChroma = 0,
-    // Defaults to 4, chroma in key color is not used, fixed to 4.
+    this.errorMinChroma,
     this.neutralChroma = 4,
-    this.neutralMinChroma = 0,
-    // Defaults to 8, chroma in key color is not used, fixed to 8.
+    this.neutralMinChroma,
     this.neutralVariantChroma = 8,
-    this.neutralVariantMinChroma = 0,
+    this.neutralVariantMinChroma,
   });
 
   /// Create a M3 standard dark tonal palette tones extraction setup.
@@ -243,27 +235,19 @@ class FlexTones with Diagnosticable {
     this.onInverseSurfaceTone = 20,
     this.inversePrimaryTone = 40,
     this.surfaceTintTone = 80,
-    // Defaults to null, chroma in key color is used, if over primaryMinChroma.
     this.primaryChroma,
-    this.primaryMinChroma = 48,
-    // Defaults to null, chroma in key is used, if over secondaryMinChroma.
+    this.primaryMinChroma,
     this.secondaryChroma,
-    this.secondaryMinChroma = 0,
-    // Defaults to null, chroma in key color is used, if over tertiaryMinChroma.
+    this.secondaryMinChroma,
     this.tertiaryChroma,
-    this.tertiaryMinChroma = 0,
-    // Default M3 hue rotation from primary, when now key with own hue given.
-    this.tertiaryHueRotation = 60,
-    // Defaults to null, chroma in key color is used, if over errorMinChroma.
+    this.tertiaryMinChroma,
+    this.tertiaryHueRotation,
     this.errorChroma,
-    this.errorMinChroma = 0,
-    // Defaults to 4, chroma in key color is not used, fixed to 4.
+    this.errorMinChroma,
     this.neutralChroma = 4,
-    this.neutralMinChroma = 0,
-    // Defaults to 4, chroma in key color is not used, fixed to 8.
-    // neutralVariantMinChroma.
+    this.neutralMinChroma,
     this.neutralVariantChroma = 8,
-    this.neutralVariantMinChroma = 0,
+    this.neutralVariantMinChroma,
   });
 
   /// Create a M3 standard tonal palette tones extraction and CAM16
@@ -762,6 +746,9 @@ class FlexTones with Diagnosticable {
   /// set to 48, so the chroma from the key color is used when above 48, but
   /// never lower than 48. This keeps primary color at the used tonal values
   /// reasonably vivid and usable regardless of uses primary key color.
+  ///
+  /// Defaults to null, and chroma from primary seed key is used for chroma,
+  /// if it is over [primaryMinChroma].
   final double? primaryChroma;
 
   /// The minimum used chroma value.
@@ -771,7 +758,9 @@ class FlexTones with Diagnosticable {
   /// then the [primaryMinChroma] value is used.
   ///
   /// Flutter SDK uses 48 via a hard coded value and design.
-  final double primaryMinChroma;
+  ///
+  /// If not defined, defaults to 48.
+  final double? primaryMinChroma;
 
   /// Cam16 chroma value to use for secondary colors [FlexTonalPalette]
   /// generation.
@@ -803,7 +792,9 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK only uses [secondaryChroma] hard coded to 16, and has no
   /// concept of minimum level for secondary tonal palettes as its value is
   /// always locked to 16.
-  final double secondaryMinChroma;
+  ///
+  /// If not defined, defaults to 16.
+  final double? secondaryMinChroma;
 
   /// Cam16 chroma value to use for tertiary colors [FlexTonalPalette]
   /// generation.
@@ -831,14 +822,18 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK only uses [tertiaryChroma] hard coded to 24, and has no
   /// concept of minimum level for tertiary tonal palettes as its value is
   /// always locked to 24.
-  final double tertiaryMinChroma;
+  ///
+  /// If not defined, defaults to 24.
+  final double? tertiaryMinChroma;
 
   /// The number of degrees to rotate Hue to use to get hue from primary
   /// color's Hue, used as base with rotated amount of degrees provided.
   ///
   /// This is only used when [tertiary] ARGB key color is null and we have
   /// no specified Hue input for tertiary key color.
-  final double tertiaryHueRotation;
+  ///
+  /// When used and if not defined, defaults to 60 degrees.
+  final double? tertiaryHueRotation;
 
   /// Cam16 chroma value to use for error colors [FlexTonalPalette]
   /// generation.
@@ -862,7 +857,9 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
   /// concept of minimum level for error tonal palettes as its value is
   /// always locked to 84.
-  final double errorMinChroma;
+  ///
+  /// If not defined defaults to 0, and chroma in [errorChroma] is used.
+  final double? errorMinChroma;
 
   /// Cam16 chroma value to use for neutral colors [FlexTonalPalette]
   /// generation.
@@ -872,6 +869,8 @@ class FlexTones with Diagnosticable {
   ///
   /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded
   /// and locked to 4.
+  ///
+  /// If not defined, defaults to 4.
   final double? neutralChroma;
 
   /// The minimum used neutral chroma value.
@@ -883,7 +882,9 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
   /// concept of minimum level for neutral tonal palettes as its value is
   /// always locked to 4.
-  final double neutralMinChroma;
+  ///
+  /// If not defined defaults to 0, and chroma in [neutralChroma] is used.
+  final double? neutralMinChroma;
 
   /// Cam16 chroma value to use for neutral colors [FlexTonalPalette]
   /// generation.
@@ -905,7 +906,9 @@ class FlexTones with Diagnosticable {
   /// Flutter SDK only uses [neutralVariantChroma] hard coded to 8, and has no
   /// concept of minimum level for neutral variant tonal palettes as its value
   /// is always locked to 8.
-  final double neutralVariantMinChroma;
+  ///
+  /// If not defined defaults to 0, chroma in [neutralVariantChroma] is used.
+  final double? neutralVariantMinChroma;
 
   /// Copy the object with one or more provided properties changed.
   FlexTones copyWith({

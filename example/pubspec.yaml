@@ -1,6 +1,6 @@
 name: flex_seed_scheme_example
 description: Example that demonstrate how to use the FlexSeedScheme package.
-version: 1.2.2
+version: 1.2.3
 publish_to: 'none'
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -23,7 +23,7 @@ dependencies:
 
   # Used for launching a WEB URL, by Google flutter.dev.
   # https://pub.dev/packages/url_launcher
-  url_launcher: ^6.1.8
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,12 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.3
+
+**Mar 19, 2023**
+
+- FIX: Version 1.2.0 unintentionally introduced a lower level breaking API from version 1.1.0. This release relaxes the API and fixes the breakage.
+
 ## 1.2.2
 
 **Jan 30, 2023**
