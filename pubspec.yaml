@@ -1,6 +1,6 @@
 name: flex_seed_scheme
 description: A more flexible version of Flutter's ColorScheme.fromSeed, use multiple seed colors, custom chroma and tone mapping.
-version: 1.2.3
+version: 1.2.4
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
@@ -16,7 +16,7 @@ screenshots:
     path: example/screenshots/dark_three_seeds_ultra_high_contrast.png
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.19.0 <4.0.0'
   flutter: '>=3.7.0'
 
 dependencies:
@@ -24,8 +24,18 @@ dependencies:
     sdk: flutter
 
   # Color utilities by Google (material.io).
+  #
   # Used to compute and create Tonal Palette theme colors.
-  material_color_utilities: ^0.2.0
+  #
+  # Flutter SDK from 2.10.0 stable also depends on this package.
+  #
+  # Flutter stable 3.7 uses 0.2.0, and Flutter beta 3.10.x and master are
+  # locked to version 0.3.0. Since it is using 0-ver, it does not upgrade with
+  # constraint ^0.2.0 to 0.3.x, only to 0.2.x. We must use this deviant constraint
+  # to be able to use it with Flutter stable, beta and master. It works well because
+  # version 0.3.0 is actually not breaking any 0.2.0 APIs, it only contains new
+  # features and fixes.
+  material_color_utilities: '>=0.2.0 <0.4.0'
 
   # Annotations used to express developer intentions that can't otherwise be deduced by
   # statically analyzing source code. Package is from Google dart.dev team.

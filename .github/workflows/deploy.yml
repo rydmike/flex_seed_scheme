@@ -16,10 +16,10 @@
 #    - Flutter clean.
 #    - Flutter build web app, in release mode and with CanvasKit renderer.#
 #    - Deploy each built Web App to GitHub pages.
-name: Deploy Web
+name: Deploy
 on:
   push:
-    branches: [master]
+    branches: [none]
     paths-ignore:
      - "**.md"
   pull_request:
@@ -29,8 +29,7 @@ on:
   release:
     branches: [master]
     types: [publish]
-    paths-ignore:
-      - "**.md"
+
 jobs:
   flutter_tests:
     name: "Analyze and test package, then build and deploy web demo"

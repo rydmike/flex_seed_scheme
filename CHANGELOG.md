@@ -2,6 +2,15 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.4
+
+**Apr 16, 2023**
+
+- Bumped Flutter sdk version constraint to `>=2.19.0 <4.0.0` (from `>=2.18.0 <3.0.0`)
+- Changed `material_color_utilities` version constraint to `>=0.2.0 <0.4.0` from `^0.2.0`.
+
+These changes enable the package to be used on current Flutter **stable** 3.7 versions, as well as the latest 3.10.x versions on channels **beta** and **master**. It will also work with the next stable Flutter release after 3.7. 
+
 ## 1.2.3
 
 **Mar 19, 2023**
