@@ -86,6 +86,8 @@ class ShowcaseMaterial extends StatelessWidget {
         const Divider(),
         const AppBarShowcase(),
         const Divider(),
+        const SearchBarShowcase(),
+        const Divider(),
         const BottomAppBarShowcase(),
         const Divider(),
         const TabBarForAppBarShowcase(),
@@ -1199,29 +1201,23 @@ class _IconButtonCircleAvatarDropdownShowcaseState
             message: 'This is\nan Icon',
             child: Icon(Icons.flutter_dash),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: IconButton(
-              icon: const Icon(Icons.accessibility),
-              tooltip: 'This is an\nIconButton',
-              onPressed: () {},
-            ),
+          IconButton(
+            icon: const Icon(Icons.accessibility),
+            tooltip: 'This is an\nIconButton',
+            onPressed: () {},
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: IconButton(
-              icon: const Icon(Icons.lock_outlined),
-              selectedIcon: const Icon(Icons.lock_open_outlined),
-              tooltip: isLockOpen
-                  ? 'This is an IconButton\nIn M3 tap to close lock'
-                  : 'This is an IconButton\nIn M3 tap to open lock',
-              isSelected: isLockOpen,
-              onPressed: () {
-                setState(() {
-                  isLockOpen = !isLockOpen;
-                });
-              },
-            ),
+          IconButton(
+            icon: const Icon(Icons.lock_outlined),
+            selectedIcon: const Icon(Icons.lock_open_outlined),
+            tooltip: isLockOpen
+                ? 'This is an IconButton\nIn M3 tap to close lock'
+                : 'This is an IconButton\nIn M3 tap to open lock',
+            isSelected: isLockOpen,
+            onPressed: () {
+              setState(() {
+                isLockOpen = !isLockOpen;
+              });
+            },
           ),
           const Tooltip(
             message: 'This is a\nCircleAvatar',
@@ -1238,7 +1234,6 @@ class _IconButtonCircleAvatarDropdownShowcaseState
 
 class IconButtonShowcase extends StatelessWidget {
   const IconButtonShowcase({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const RepaintBoundary(
@@ -1250,62 +1245,64 @@ class IconButtonShowcase extends StatelessWidget {
           Column(
             // Standard IconButton
             children: <Widget>[
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Standard',
+                variant: _IconButtonVariant.standard,
               ),
               SizedBox(height: 8),
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: false,
                 tooltip: 'Standard (disabled)',
+                variant: _IconButtonVariant.standard,
               ),
             ],
           ),
           Column(
             children: <Widget>[
               // Filled IconButton
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Filled',
-                getDefaultStyle: enabledFilledButtonStyle,
+                variant: _IconButtonVariant.filled,
               ),
               SizedBox(height: 8),
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: false,
                 tooltip: 'Filled (disabled)',
-                getDefaultStyle: disabledFilledButtonStyle,
+                variant: _IconButtonVariant.filled,
               ),
             ],
           ),
           Column(
             children: <Widget>[
               // Filled Tonal IconButton
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Filled tonal',
-                getDefaultStyle: enabledFilledTonalButtonStyle,
+                variant: _IconButtonVariant.filledTonal,
               ),
               SizedBox(height: 8),
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: false,
                 tooltip: 'Filled tonal (disabled)',
-                getDefaultStyle: disabledFilledTonalButtonStyle,
+                variant: _IconButtonVariant.filledTonal,
               ),
             ],
           ),
           Column(
             children: <Widget>[
               // Outlined IconButton
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Outlined',
-                getDefaultStyle: enabledOutlinedButtonStyle,
+                variant: _IconButtonVariant.outlined,
               ),
               SizedBox(height: 8),
-              IconToggleButton(
+              _IconToggleButton(
                 isEnabled: false,
                 tooltip: 'Outlined (disabled)',
-                getDefaultStyle: disabledOutlinedButtonStyle,
+                variant: _IconButtonVariant.outlined,
               ),
             ],
           ),
@@ -1315,28 +1312,28 @@ class IconButtonShowcase extends StatelessWidget {
   }
 }
 
-class IconToggleButton extends StatefulWidget {
-  const IconToggleButton({
+enum _IconButtonVariant { standard, filled, filledTonal, outlined }
+
+class _IconToggleButton extends StatefulWidget {
+  const _IconToggleButton({
     required this.isEnabled,
     required this.tooltip,
-    this.getDefaultStyle,
-    super.key,
+    required this.variant,
   });
 
   final bool isEnabled;
   final String tooltip;
-  final ButtonStyle? Function(bool, ColorScheme)? getDefaultStyle;
+  final _IconButtonVariant variant;
 
   @override
-  State<IconToggleButton> createState() => _IconToggleButtonState();
+  State<_IconToggleButton> createState() => _IconToggleButtonState();
 }
 
-class _IconToggleButtonState extends State<IconToggleButton> {
+class _IconToggleButtonState extends State<_IconToggleButton> {
   bool selected = false;
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colors = Theme.of(context).colorScheme;
     final VoidCallback? onPressed = widget.isEnabled
         ? () {
             setState(() {
@@ -1344,104 +1341,50 @@ class _IconToggleButtonState extends State<IconToggleButton> {
             });
           }
         : null;
-    final ButtonStyle? style = widget.getDefaultStyle?.call(selected, colors);
 
-    return IconButton(
-      visualDensity: VisualDensity.standard,
-      isSelected: selected,
-      tooltip: widget.tooltip,
-      icon: const Icon(Icons.settings_outlined),
-      selectedIcon: const Icon(Icons.settings),
-      onPressed: onPressed,
-      style: style,
-    );
+    switch (widget.variant) {
+      case _IconButtonVariant.standard:
+        {
+          return IconButton(
+            isSelected: selected,
+            tooltip: widget.tooltip,
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            onPressed: onPressed,
+          );
+        }
+      case _IconButtonVariant.filled:
+        {
+          return IconButton.filled(
+            isSelected: selected,
+            tooltip: widget.tooltip,
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            onPressed: onPressed,
+          );
+        }
+      case _IconButtonVariant.filledTonal:
+        {
+          return IconButton.filledTonal(
+            isSelected: selected,
+            tooltip: widget.tooltip,
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            onPressed: onPressed,
+          );
+        }
+      case _IconButtonVariant.outlined:
+        {
+          return IconButton.outlined(
+            isSelected: selected,
+            tooltip: widget.tooltip,
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            onPressed: onPressed,
+          );
+        }
+    }
   }
-}
-
-ButtonStyle enabledFilledButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    foregroundColor: selected ? colors.onPrimary : colors.primary,
-    backgroundColor: selected ? colors.primary : colors.surfaceVariant,
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-    hoverColor: selected
-        ? colors.onPrimary.withOpacity(0.08)
-        : colors.primary.withOpacity(0.08),
-    focusColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
-    highlightColor: selected
-        ? colors.onPrimary.withOpacity(0.12)
-        : colors.primary.withOpacity(0.12),
-  );
-}
-
-ButtonStyle disabledFilledButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-  );
-}
-
-ButtonStyle enabledFilledTonalButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    foregroundColor:
-        selected ? colors.onSecondaryContainer : colors.onSurfaceVariant,
-    backgroundColor:
-        selected ? colors.secondaryContainer : colors.surfaceVariant,
-    hoverColor: selected
-        ? colors.onSecondaryContainer.withOpacity(0.08)
-        : colors.onSurfaceVariant.withOpacity(0.08),
-    focusColor: selected
-        ? colors.onSecondaryContainer.withOpacity(0.12)
-        : colors.onSurfaceVariant.withOpacity(0.12),
-    highlightColor: selected
-        ? colors.onSecondaryContainer.withOpacity(0.12)
-        : colors.onSurfaceVariant.withOpacity(0.12),
-  );
-}
-
-ButtonStyle disabledFilledTonalButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-  );
-}
-
-ButtonStyle enabledOutlinedButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    backgroundColor: selected ? colors.inverseSurface : null,
-    hoverColor: selected
-        ? colors.onInverseSurface.withOpacity(0.08)
-        : colors.onSurfaceVariant.withOpacity(0.08),
-    focusColor: selected
-        ? colors.onInverseSurface.withOpacity(0.12)
-        : colors.onSurfaceVariant.withOpacity(0.12),
-    highlightColor: selected
-        ? colors.onInverseSurface.withOpacity(0.12)
-        : colors.onSurface.withOpacity(0.12),
-    side: BorderSide(color: colors.outline),
-  ).copyWith(
-    foregroundColor:
-        MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return colors.onInverseSurface;
-      }
-      if (states.contains(MaterialState.pressed)) {
-        return colors.onSurface;
-      }
-      return null;
-    }),
-  );
-}
-
-ButtonStyle disabledOutlinedButtonStyle(bool selected, ColorScheme colors) {
-  return IconButton.styleFrom(
-    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-    disabledBackgroundColor:
-        selected ? colors.onSurface.withOpacity(0.12) : null,
-    side: selected ? null : BorderSide(color: colors.outline.withOpacity(0.12)),
-  );
 }
 
 class ProgressIndicatorShowcase extends StatefulWidget {
@@ -1760,6 +1703,7 @@ class AppBarShowcase extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
             // A bit nasty usage of CustomScrollViews and Slivers and
             // shrinkWraps, to show what the SliverAppBars look like, don't
             // do this in a production app. With just a few widgets,
@@ -1788,6 +1732,7 @@ class AppBarShowcase extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
             Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
@@ -1850,7 +1795,7 @@ class _BehindAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Wrap(
         spacing: 8,
         runSpacing: 8,
@@ -1869,8 +1814,90 @@ class _BehindAppBar extends StatelessWidget {
   }
 }
 
+class SearchBarShowcase extends StatefulWidget {
+  const SearchBarShowcase({super.key});
+
+  @override
+  State<SearchBarShowcase> createState() => _SearchBarShowcaseState();
+}
+
+class _SearchBarShowcaseState extends State<SearchBarShowcase> {
+  bool isMicOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        inputDecorationTheme: const InputDecorationTheme(
+          // border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          // enabledBorder: InputBorder.none,
+          // disabledBorder: InputBorder.none,
+          // errorBorder: InputBorder.none,
+          // focusedErrorBorder: InputBorder.none,
+          filled: false,
+        ),
+      ),
+      child: Builder(builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SearchAnchor(
+              builder: (BuildContext context, SearchController controller) {
+            return SearchBar(
+              controller: controller,
+              hintText: 'Search using SearchBar',
+              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                  EdgeInsets.symmetric(horizontal: 16.0)),
+              onTap: () {
+                controller.openView();
+              },
+              onChanged: (_) {
+                controller.openView();
+              },
+              leading: const Icon(Icons.search),
+              trailing: <Widget>[
+                Tooltip(
+                  message: 'Voice search',
+                  child: IconButton(
+                    isSelected: isMicOn,
+                    onPressed: () {
+                      setState(() {
+                        isMicOn = !isMicOn;
+                      });
+                    },
+                    icon: const Icon(Icons.mic_off),
+                    selectedIcon: const Icon(Icons.mic),
+                  ),
+                )
+              ],
+            );
+          }, suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+            return List<ListTile>.generate(7, (int index) {
+              final String item = 'item $index';
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  setState(() {
+                    controller.closeView(item);
+                  });
+                },
+              );
+            });
+          }),
+        );
+      }),
+    );
+  }
+}
+
 class BottomAppBarShowcase extends StatelessWidget {
-  const BottomAppBarShowcase({super.key});
+  const BottomAppBarShowcase({
+    super.key,
+    this.explain = true,
+  });
+
+  final bool explain;
 
   @override
   Widget build(BuildContext context) {
@@ -1910,24 +1937,27 @@ class BottomAppBarShowcase extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: Text(
-                'BottomAppBar',
-                style: denseHeader,
+            if (explain)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                child: Text(
+                  'BottomAppBar',
+                  style: denseHeader,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: Text(
-                'Flutter M2 past default color is ThemeData.bottomAppBarColor '
-                '(deprecated in Flutter 3.7) now colorScheme.surface and '
-                'elevation 8. In M3 it defaults to to colorScheme.surface '
-                'color, elevation 3, no shadow, but with surface elevation '
-                'tint.',
-                style: denseBody,
+            if (explain)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: Text(
+                  'Flutter M2 past default color was '
+                  'ThemeData.bottomAppBarColor. It was deprecated in '
+                  'Flutter 3.7. New default is colorScheme.surface and '
+                  'elevation 8. In M3 it defaults to colorScheme.surface '
+                  'color, elevation 3, no shadow, but with surface elevation '
+                  'tint.',
+                  style: denseBody,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -2028,26 +2058,29 @@ class TabBarForBackgroundShowcase extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const SizedBox(
-              height: 70,
-              child: TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    text: 'Chat',
-                    icon: Badge(
-                      label: Text('+99'),
-                      child: Icon(Icons.chat_bubble),
+            Material(
+              color: theme.colorScheme.surface,
+              child: const SizedBox(
+                height: 70,
+                child: TabBar(
+                  tabs: <Widget>[
+                    Tab(
+                      text: 'Chat',
+                      icon: Badge(
+                        label: Text('+99'),
+                        child: Icon(Icons.chat_bubble),
+                      ),
                     ),
-                  ),
-                  Tab(
-                    text: 'Tasks',
-                    icon: Icon(Icons.beenhere),
-                  ),
-                  Tab(
-                    text: 'Folder',
-                    icon: Icon(Icons.create_new_folder),
-                  ),
-                ],
+                    Tab(
+                      text: 'Tasks',
+                      icon: Icon(Icons.beenhere),
+                    ),
+                    Tab(
+                      text: 'Folder',
+                      icon: Icon(Icons.create_new_folder),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -2074,7 +2107,9 @@ class TabBarForBackgroundShowcase extends StatelessWidget {
 }
 
 class BottomNavigationBarShowcase extends StatefulWidget {
-  const BottomNavigationBarShowcase({super.key});
+  const BottomNavigationBarShowcase({super.key, this.explain = true});
+
+  final bool explain;
 
   @override
   State<BottomNavigationBarShowcase> createState() =>
@@ -2156,23 +2191,25 @@ class _BottomNavigationBarShowcaseState
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-            child: Text(
-              'BottomNavigationBar (Material 2)',
-              style: denseHeader,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text(
+                'BottomNavigationBar (Material 2)',
+                style: denseHeader,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: Text(
-              'Default SDK background color is theme canvasColor via Material. '
-              'The canvasColor is typically colorScheme.background, elevation '
-              'is 8. FCS sub-theme default is colorScheme.background and '
-              'elevation 0.',
-              style: denseBody,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Text(
+                'Default SDK background color is theme canvasColor via '
+                'Material. The canvasColor is typically '
+                'colorScheme.background, elevation is 8. FCS sub-theme default '
+                'is colorScheme.background and elevation 0.',
+                style: denseBody,
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -2180,7 +2217,8 @@ class _BottomNavigationBarShowcaseState
 }
 
 class NavigationBarShowcase extends StatefulWidget {
-  const NavigationBarShowcase({super.key});
+  const NavigationBarShowcase({super.key, this.explain = true});
+  final bool explain;
 
   @override
   State<NavigationBarShowcase> createState() => _NavigationBarShowcaseState();
@@ -2257,23 +2295,25 @@ class _NavigationBarShowcaseState extends State<NavigationBarShowcase> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-            child: Text(
-              'NavigationBar (Material 3)',
-              style: denseHeader,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text(
+                'NavigationBar (Material 3)',
+                style: denseHeader,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: Text(
-              'Default background color is surface with an onSurface overlay '
-              'color in M2, and primary in M3, with elevation 3. '
-              'FlexColorScheme component theme default is color scheme '
-              'background, with used surface blend and elevation 0.',
-              style: denseBody,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Text(
+                'Default background color is surface with an onSurface overlay '
+                'color in M2, and primary in M3, with elevation 3. '
+                'FlexColorScheme component theme default is color scheme '
+                'background, with used surface blend and elevation 0.',
+                style: denseBody,
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -2285,6 +2325,7 @@ class NavigationRailShowcase extends StatefulWidget {
     super.key,
     this.child,
     this.height = 400,
+    this.explain = true,
   });
 
   /// A child widget that we can use to place controls on the
@@ -2293,6 +2334,8 @@ class NavigationRailShowcase extends StatefulWidget {
 
   /// The vertical space for the navigation bar.
   final double height;
+
+  final bool explain;
 
   @override
   State<NavigationRailShowcase> createState() => _NavigationRailShowcaseState();
@@ -2315,21 +2358,23 @@ class _NavigationRailShowcaseState extends State<NavigationRailShowcase> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Text(
-              'NavigationRail',
-              style: denseHeader,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: Text(
+                'NavigationRail',
+                style: denseHeader,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: Text(
-              'Default SDK background color is theme.colorScheme.surface. '
-              'FlexColorScheme sub-theme default is colorScheme.background.',
-              style: denseBody,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Text(
+                'Flutter default background color is colorScheme.surface. '
+                'FlexColorScheme sub-theme default is colorScheme.background.',
+                style: denseBody,
+              ),
             ),
-          ),
           const Divider(height: 1),
           SizedBox(
             height: widget.height,
@@ -2691,16 +2736,17 @@ class _MenuAnchorContextMenuState extends State<MenuAnchorContextMenu> {
     // available to the entire application.
     final Map<ShortcutActivator, Intent>? entries =
         ShortcutRegistry.maybeOf(context)?.shortcuts;
-    // Hack to avoid issue of entries being added multiple times, the dispose
-    // of them does not seem to work all the time. This widget is in this app
-    // potentially shown in many places, the only shortcut entries we should
-    // have are the same ones, if it exists and has not been disposed when
-    // this is called we can add it, if it exists it is the one we want already.
-    // We could also check for the specific entries, but for this workaround
-    // this works.
-    // The ShortcutRegistry is intended to be used as one global setting in the
-    // app, it should be higher up in the tree, then we would not have this
-    // issue.
+    // TODO(rydmike): Potential issue with ShortcutRegistry? Investigate.
+    // Workaround to avoid issue of entries being added multiple times, the
+    // dispose of them does not seem to work all the time. This widget is in
+    // this app potentially shown in many places, the only shortcut entries we
+    // should have are the same ones, if it exists and has not been disposed
+    // when this is called we can add it, if it exists it is the one we want
+    // already. We could also check for the specific entries, but for this case
+    // this workaround is enough.
+    // The ShortcutRegistry is perhaps intended to be used as one global
+    // setting in the app, it should be higher up in the tree, then we would
+    // not have this issue, still dispose and create new ones should work.
     if (entries?.isEmpty ?? false) {
       _shortcutsEntry = ShortcutRegistry.of(context).addAll(shortcuts);
     }
@@ -2842,9 +2888,8 @@ class _MenuAnchorContextMenuState extends State<MenuAnchorContextMenu> {
 }
 
 class DrawerShowcase extends StatelessWidget {
-  const DrawerShowcase({
-    super.key,
-  });
+  const DrawerShowcase({super.key, this.explain = true});
+  final bool explain;
 
   @override
   Widget build(BuildContext context) {
@@ -2858,37 +2903,36 @@ class DrawerShowcase extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-          child: Text(
-            'Drawer',
-            style: denseHeader,
+        if (explain)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(
+              'Drawer',
+              style: denseHeader,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: Text(
-            'Default SDK background color in M3 is colorScheme.surface, '
-            'with elevation tint and no shadow. In M2 it has shadow and color '
-            'theme.canvasColor, that is set to colorScheme.background.',
-            style: denseBody,
+        if (explain)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: Text(
+              'Default Flutter background color in M3 is colorScheme.surface, '
+              'with elevation tint and no shadow. In M2 it has shadow and '
+              'uses color theme.canvasColor, that is typically set '
+              'to colorScheme.background.',
+              style: denseBody,
+            ),
           ),
-        ),
         SizedBox(
           height: 280,
-          child: Row(
-            children: <Widget>[
-              MediaQuery.removePadding(
-                context: context,
-                removeBottom: true,
-                removeTop: true,
-                child: const Drawer(
-                  child: Center(
-                    child: Text('Drawer'),
-                  ),
-                ),
+          child: MediaQuery.removePadding(
+            context: context,
+            removeBottom: true,
+            removeTop: true,
+            child: const Drawer(
+              child: Center(
+                child: Text('Drawer'),
               ),
-            ],
+            ),
           ),
         ),
       ],
@@ -2897,9 +2941,9 @@ class DrawerShowcase extends StatelessWidget {
 }
 
 class NavigationDrawerShowcase extends StatefulWidget {
-  const NavigationDrawerShowcase({
-    super.key,
-  });
+  const NavigationDrawerShowcase({super.key, this.explain = true});
+
+  final bool explain;
 
   @override
   State<NavigationDrawerShowcase> createState() =>
@@ -2923,21 +2967,23 @@ class _NavigationDrawerShowcaseState extends State<NavigationDrawerShowcase> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Text(
-              'NavigationDrawer',
-              style: denseHeader,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: Text(
+                'NavigationDrawer',
+                style: denseHeader,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: Text(
-              'Default SDK background color is colorScheme.surface, '
-              'with elevation tint in M3.',
-              style: denseBody,
+          if (widget.explain)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: Text(
+                'Default Flutter background color is colorScheme.surface, '
+                'with addition of elevation tint in Material 3 mode.',
+                style: denseBody,
+              ),
             ),
-          ),
           MediaQuery.removePadding(
             context: context,
             removeBottom: true,
@@ -3658,7 +3704,8 @@ class MaterialBannerShowcase extends StatelessWidget {
 }
 
 class MaterialShowcase extends StatelessWidget {
-  const MaterialShowcase({super.key});
+  const MaterialShowcase({super.key, this.explain = true});
+  final bool explain;
 
   @override
   Widget build(BuildContext context) {
@@ -3674,18 +3721,21 @@ class MaterialShowcase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Material elevation and tint', style: denseHeader),
-          Text(
-            'Material can also specify surfaceTintColor, which is applied when '
-            'Material is elevated and useMaterial3 is true. ',
-            style: denseBody,
-          ),
-          const SizedBox(height: 12),
+          if (explain) ...<Widget>[
+            Text('Material elevation and tint', style: denseHeader),
+            Text(
+              'Material can also specify surfaceTint color, '
+              'which is applied when Material is elevated, but only in '
+              'Material 3 mode.',
+              style: denseBody,
+            ),
+            const SizedBox(height: 12),
+          ],
           Text('Material type canvas', style: denseHeader),
           Text(
             'Default background color is theme canvasColor, and '
             'theme canvasColor is set to theme colorScheme background. The '
-            'color canvasColor is going to be deprecated in Flutter SDK',
+            'color canvasColor is going to be deprecated in Flutter.',
             style: denseBody,
           ),
           const SizedBox(height: 8),
@@ -3833,7 +3883,7 @@ class MaterialShowcase extends StatelessWidget {
           Text(
             'Default background color is theme cardColor, and '
             'theme cardColor is set to theme colorScheme surface. The '
-            'color cardColor is going to be deprecated in Flutter SDK',
+            'color cardColor is going to be deprecated in Flutter.',
             style: denseBody,
           ),
           const SizedBox(height: 8),
@@ -3982,7 +4032,8 @@ class MaterialShowcase extends StatelessWidget {
 }
 
 class CardShowcase extends StatelessWidget {
-  const CardShowcase({super.key});
+  const CardShowcase({super.key, this.explain = true});
+  final bool explain;
 
   @override
   Widget build(BuildContext context) {
@@ -3997,21 +4048,23 @@ class CardShowcase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text('Card', style: denseHeader),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'Default background color comes from Material of type card, '
-              'which by default is set to theme colorScheme surface. '
-              'When useMaterial3 is true, Card gets elevation based '
-              'surfaceTint. When it is false, surfaceTint has no '
-              'effect even if specified.',
-              style: denseBody,
+          if (explain)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text('Card', style: denseHeader),
             ),
-          ),
+          if (explain)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Default background color comes from Material of type card, '
+                'which by default is set to theme colorScheme surface. '
+                'When useMaterial3 is true, Card gets elevation based '
+                'surfaceTint. When it is false, surfaceTint has no '
+                'effect even if specified.',
+                style: denseBody,
+              ),
+            ),
           Card(
             elevation: 0,
             surfaceTintColor: colorScheme.surfaceTint,

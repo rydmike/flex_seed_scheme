@@ -401,9 +401,6 @@ class DynamicColor {
     final double requiredDelta = constraint.delta;
     final double keepAwayTone = toneToDistanceFrom(constraint.keepAway);
     final double delta = (tone - keepAwayTone).abs();
-    // TODO(rydmike): Remove commented debug test prints.
-    // print('delta = $delta');
-    // print('requiredDelta = $requiredDelta');
     if (delta > requiredDelta) {
       return tone;
     }

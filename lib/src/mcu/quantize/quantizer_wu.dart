@@ -67,7 +67,6 @@ class QuantizerWu implements Quantizer {
     computeMoments();
     final CreateBoxesResult createBoxesResult = createBoxes(colorCount);
     final List<int> results = createResult(createBoxesResult.resultCount);
-    // TODO(rydmike): Added map type, is it right?
     return QuantizerResult(
       Map<int, int>.fromEntries(
         results.map(

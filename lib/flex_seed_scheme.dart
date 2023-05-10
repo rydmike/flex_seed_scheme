@@ -17,5 +17,13 @@ export 'src/flex_seed_scheme.dart' show SeedColorScheme;
 /// generating the tonal palettes.
 export 'src/flex_tones.dart';
 
-/// From Material Color utilities export and show Cam16.
-export 'src/mcu/material_color_utilities.dart' show Cam16;
+/// From Material Color Utilities (MCU) export and show:
+///
+/// * Blend
+/// * Cam16
+/// * CorePalette
+/// * TonalPalette
+///
+/// More API from MCU may be exported later.
+export 'src/mcu/material_color_utilities.dart'
+    show Blend, Cam16, CorePalette, TonalPalette;
