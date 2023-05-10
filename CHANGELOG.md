@@ -2,6 +2,20 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.2.5
+
+**May 10, 2023**
+
+- Removed the Material Color Utilities (MCU) dependency. 
+  - It is now included and maintained as a separate forked code base in FSS, while keeping MCUs original license in place for its part. 
+  - The included MCU library is only modified to abide with the much stricter lint rules used in FSS. 
+  - Some more unit tests for better test coverage was added MCU as well. 
+  - Why is MCU included as a forked version in FSS? 
+    
+    The constant changes in MCU, with e.g. recent 3 different breaking-pinned zero-ver versions used in Flutter stable, beta and master channels, just made it hopeless to depend on this package anymore. Using it causes repeated version conflicts with Flutter's own pinned dependency on different versions of it in different Flutter channels. This package needs to be able to work across all Flutter channels without constant hassle caused by MCU.
+  - The included forked version will be kept in sync with the original and updated when needed. Current included MCU version is 0.5.0.
+  - If the MCU package stabilizes and improves its constant breaking changes, FSS may again change to depend on the original package. Until then it embeds the code for it, in its own package to avoid the version conflict hassles it causes repeatedly.
+
 ## 1.2.4
 
 **Apr 16, 2023**

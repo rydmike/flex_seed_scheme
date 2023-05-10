@@ -917,8 +917,8 @@ class PopupMenuButtonsShowcase extends StatelessWidget {
                 style: denseBody,
               ),
             ),
-          Row(
-            children: const <Widget>[
+          const Row(
+            children: <Widget>[
               PopupMenuButtonShowcase(),
               SizedBox(width: 16),
               PopupMenuButtonTilesShowcase(),
@@ -1146,12 +1146,12 @@ class TooltipShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
+    return const RepaintBoundary(
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 16,
         runSpacing: 4,
-        children: const <Widget>[
+        children: <Widget>[
           Tooltip(
             message: 'Current tooltip theme',
             child: Text('Text with tooltip'),
@@ -1241,7 +1241,7 @@ class IconButtonShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
+    return const RepaintBoundary(
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 16,
@@ -1249,7 +1249,7 @@ class IconButtonShowcase extends StatelessWidget {
         children: <Widget>[
           Column(
             // Standard IconButton
-            children: const <Widget>[
+            children: <Widget>[
               IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Standard',
@@ -1262,7 +1262,7 @@ class IconButtonShowcase extends StatelessWidget {
             ],
           ),
           Column(
-            children: const <Widget>[
+            children: <Widget>[
               // Filled IconButton
               IconToggleButton(
                 isEnabled: true,
@@ -1278,7 +1278,7 @@ class IconButtonShowcase extends StatelessWidget {
             ],
           ),
           Column(
-            children: const <Widget>[
+            children: <Widget>[
               // Filled Tonal IconButton
               IconToggleButton(
                 isEnabled: true,
@@ -1294,7 +1294,7 @@ class IconButtonShowcase extends StatelessWidget {
             ],
           ),
           Column(
-            children: const <Widget>[
+            children: <Widget>[
               // Outlined IconButton
               IconToggleButton(
                 isEnabled: true,
@@ -2614,8 +2614,8 @@ class MenuAnchorShowcase extends StatelessWidget {
               style: denseBody,
             ),
           ),
-        Row(
-          children: const <Widget>[
+        const Row(
+          children: <Widget>[
             Expanded(
               child: MenuAnchorContextMenu(
                 message: 'The new M3 MenuAnchor is cool!',
@@ -2691,7 +2691,6 @@ class _MenuAnchorContextMenuState extends State<MenuAnchorContextMenu> {
     // available to the entire application.
     final Map<ShortcutActivator, Intent>? entries =
         ShortcutRegistry.maybeOf(context)?.shortcuts;
-    // TODO(rydmike): Potential issue with ShortcutRegistry? Investigate.
     // Hack to avoid issue of entries being added multiple times, the dispose
     // of them does not seem to work all the time. This widget is in this app
     // potentially shown in many places, the only shortcut entries we should
@@ -2991,8 +2990,8 @@ class ListTileAllShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
+    return const Column(
+      children: <Widget>[
         ListTileShowcase(),
         Divider(height: 1),
         SwitchTileShowcase(),
@@ -3506,9 +3505,9 @@ class MaterialBannerSnackBarShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
+      children: <Widget>[
         SnackBarShowcase(),
         SizedBox(height: 16),
         MaterialBannerShowcase(),

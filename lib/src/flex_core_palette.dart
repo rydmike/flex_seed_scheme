@@ -1,7 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:meta/meta.dart' show immutable;
+
+import 'mcu/material_color_utilities.dart';
 
 // ignore_for_file: comment_references
 

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:material_color_utilities/material_color_utilities.dart';
 
 void main() {
   //
