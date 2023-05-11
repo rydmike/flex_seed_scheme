@@ -2,6 +2,26 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.3.0
+
+**May 11, 2023**
+
+**INTERNAL CHANGE**
+ 
+- Removed the **Material Color Utilities** (MCU) dependency. 
+  - It is now included and maintained as a separate forked code base in **FSS**, while keeping **MCU**'s original license in place for its parts. The included **MCU** library was only modified to abide by the much stricter lint rules used in **FSS**. More unit tests for better test coverage of **MCU** were added as well. 
+  - Why is **MCU** included as a forked version baked into **FSS**? 
+    
+    The constant changes in **MCU**, with e.g. recent 3 different breaking-pinned zero-ver versions used in **Flutter** **stable**, **beta** and **master** channels, made it hopeless to depend on **MCU**. Using it caused repeated version conflicts with Flutter's own pinned dependency on different breaking versions of it, in different **Flutter** channels. **FSS** needs to be able to work across all Flutter channels without constant hassle caused by **MCU** and which exact version of it different version of **Flutter** repo itself is pinned to. 
+  - The included forked version will be kept in sync with the original and updated when needed. Currently included **MCU** version is 0.5.0, the latest one, which is what **Flutter master** channel currently uses. However, new **Flutter stable** 3.10 is still using **MCU** 0.2.0. If the **MCU** package stabilizes and improves its constant breaking changes, **FSS** may later again be changed to depend on the original package. Until then, it embeds the code for it in its package to avoid the version conflict hassles it has repeatedly caused. These changes are all internal to the **FSS** package and do not affect how it works.
+
+**NEW**
+
+- Exposed `Blend`, `CorePalette` and `TonalPalette` from **MCU**. Previously only `Cam16` was exposed. These APIs from **MCU** are exposed because [FlexColorScheme (FCS)](https://pub.dev/packages/flex_color_scheme) uses them. By exposing these APIs from the included **MCU** in **FSS**, it also no longer has any dependency on the **MCU** package that Flutter depends on. This makes it easier for the latest release of **FCS** to also work on all current Flutter channels.
+
+
+Future versions of **FSS** may expose a few more APIs from **MCU**, but more likely it will offer a few new alternative ones with its own twist. Like it is for example, doing with `SeedColorScheme.fromSeeds`.
+
 ## 1.2.4
 
 **Apr 16, 2023**
