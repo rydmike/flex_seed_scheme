@@ -19,8 +19,6 @@ import 'package:test/test.dart';
 const int red = 0xffff0000;
 const int green = 0xff00ff00;
 const int blue = 0xff0000ff;
-const int white = 0xffffffff;
-const int random = 0xff426088;
 const int maxColors = 256;
 
 void main() {

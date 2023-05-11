@@ -32,8 +32,6 @@ class _Pair {
   _Pair(this.fgName, this.bgName);
 }
 
-final Hct red = Hct.fromInt(0xFFFF0000);
-
 final Map<String, DynamicColor> _colors = <String, DynamicColor>{
   'background': MaterialDynamicColors.background,
   'onBackground': MaterialDynamicColors.onBackground,
