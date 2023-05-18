@@ -1,9 +1,9 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
-import 'color_scheme_box.dart';
-import 'flex_color_extension.dart';
-import 'flex_tones_enum.dart';
+import '../../../core/utils/flex_color_extension.dart';
+import '../../../core/views/universal/color_scheme_box.dart';
+import '../../../theme/model/flex_tones_enum.dart';
 
 /// Widget used to select used [FlexTones] with a popup menu.
 ///

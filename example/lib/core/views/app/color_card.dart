@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'app_data.dart';
+import '../../constants/app_data.dart';
+import '../../utils/flex_color_extension.dart';
+import 'copy_color_to_clipboard.dart';
 
 /// This is just simple SizedBox in a Card, with a passed in label, background
 /// and text label color. Used to show the colors of a theme or scheme
@@ -64,56 +65,5 @@ class ColorCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// Copy the color value as a String to the Clipboard in Flutter Dart format.
-///
-/// Notify with snack bar that it was copied.
-Future<void> copyColorToClipboard(BuildContext context, Color color) async {
-  final ClipboardData data = ClipboardData(text: '0x${color.hexCode}');
-  await Clipboard.setData(data);
-  // Show a snack bar with the copy message.
-  // ignore: use_build_context_synchronously
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Row(
-        children: <Widget>[
-          Card(
-            color: color,
-            elevation: 0.5,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text('#${color.hexCode}',
-                  style: TextStyle(
-                      color: ThemeData.estimateBrightnessForColor(color) ==
-                              Brightness.light
-                          ? Colors.black
-                          : Colors.white)),
-            ),
-          ),
-          const SizedBox(width: 8),
-          const Expanded(
-            child: Text('copied color to the clipboard'),
-          ),
-        ],
-      ),
-      duration: const Duration(milliseconds: 2000),
-    ),
-  );
-}
-
-/// Extensions on [Color].
-extension FlexColorExtensions on Color {
-  /// Return uppercase Flutter style hex code string of the color.
-  String get hexCode {
-    return value.toRadixString(16).toUpperCase().padLeft(8, '0');
-  }
-
-  /// Return uppercase RGB hex code string, with # and no alpha value.
-  /// This format is often used in APIs and in CSS color values..
-  String get hex {
-    // ignore: lines_longer_than_80_chars
-    return '#${value.toRadixString(16).toUpperCase().padLeft(8, '0').substring(2)}';
   }
 }

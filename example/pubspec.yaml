@@ -12,6 +12,11 @@ dependencies:
   # https://pub.dev/packages/cupertino_icons
   cupertino_icons: ^1.0.5
 
+  # Color picker package, by Mike Rydstrom, rydmike.com (@rydmike).
+  # Used for color selection in the Playground to make customized color schemes.
+  # https://pub.dev/packages/flex_color_picker
+  flex_color_picker: ^3.2.2
+
   # FlexSeedScheme package, by Mike Rydstrom, rydmike.com (@rydmike).
   # https://pub.dev/packages/flex_seed_scheme
   flex_seed_scheme:
@@ -31,3 +36,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+dependency_overrides:
+  # FlexSeedScheme package, by Mike Rydstrom, rydmike.com (@rydmike).
+  # https://pub.dev/packages/flex_seed_scheme
+  flex_seed_scheme:
+    path: ../

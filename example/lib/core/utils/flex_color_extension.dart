@@ -51,4 +51,16 @@ extension FlexColorExtensions on Color {
         .withLightness(math.min(1, math.max(0, hsl.lightness - amount / 100)))
         .toColor();
   }
+
+  /// Return uppercase Flutter style hex code string of the color.
+  String get hexCode {
+    return value.toRadixString(16).toUpperCase().padLeft(8, '0');
+  }
+
+  /// Return uppercase RGB hex code string, with # and no alpha value.
+  /// This format is often used in APIs and in CSS color values..
+  String get hex {
+    // ignore: lines_longer_than_80_chars
+    return '#${value.toRadixString(16).toUpperCase().padLeft(8, '0').substring(2)}';
+  }
 }
