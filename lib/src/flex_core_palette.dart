@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:collection/collection.dart' show ListEquality;
 import 'package:meta/meta.dart' show immutable;
 
 import 'mcu/material_color_utilities.dart';
@@ -173,18 +174,27 @@ class FlexTonalPalette {
   @override
   bool operator ==(Object other) {
     if (other is FlexTonalPalette) {
-      if (_hue != null && _chroma != null) {
+      if (_hue != null &&
+          _chroma != null &&
+          other._hue != null &&
+          other._chroma != null) {
+        // Both created with .of or .fromHct
         return _hue == other._hue && _chroma == other._chroma;
       } else {
-        return _cache.values.toSet().containsAll(other._cache.values);
+        return const ListEquality<int>().equals(asList, other.asList);
       }
     }
     return false;
   }
 
   @override
-  int get hashCode =>
-      Object.hash(_hue, _chroma) ^ Object.hashAll(_cache.values);
+  int get hashCode {
+    if (_hue != null && _chroma != null) {
+      return Object.hash(_hue, _chroma);
+    } else {
+      return Object.hashAll(asList);
+    }
+  }
 
   @override
   String toString() {
