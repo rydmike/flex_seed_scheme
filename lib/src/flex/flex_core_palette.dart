@@ -62,14 +62,17 @@ import 'flex_tonal_palette.dart';
 ///
 /// This implementation also has an unnamed constructor for the five main final
 /// [FlexTonalPalette] properties. Exposes the original version's private
-/// constructor [FlaxCorePalette.fromHueChroma], that is used by
+/// constructor [FlexCorePalette.fromHueChroma], that is used by
 /// [FlexCorePalette.of].
 ///
 /// It adds a [FlexCorePalette.fromSeeds] constructor
 /// to enable creating the [FlexTonalPalette]s for primary, secondary and
 /// tertiary color groups using optional ARGB seed colors, for secondary and
-/// tertiary [FlexTonalPalette]s, instead of tying them down to same seed ARGB
+/// tertiary [FlexTonalPalette]s, instead of tying them down to same ARGB
 /// seed color used for the primary color group.
+///
+/// The core produced tonal palettes are [primary], [secondary], [tertiary],
+/// [neutral], [neutralVariant] and [error].
 @immutable
 class FlexCorePalette {
   /// Creates a [FlexCorePalette] by providing [FlexTonalPalette]s for each

@@ -28,7 +28,7 @@
 //     final FlexSchemeColor colors = FlexSchemeColor.effective(
 //       scheme.light,
 //       controller.usedColors,
-//       swapLegacy: controller.swapLegacyColors && scheme.light.swapOnMaterial3,
+//     swapLegacy: controller.swapLegacyColors && scheme.light.swapOnMaterial3,
 //       swapColors: (isLight && controller.swapLightColors) ||
 //           (!isLight && controller.swapDarkColors),
 //       brightness: Brightness.light,
@@ -53,22 +53,22 @@
 //           : controller.surfaceTintDark?.value,
 //       // Tone config details we get from active FlexTones.
 //       primaryChroma: controller.useKeyColors ? tones.primaryChroma : 0,
-//       primaryMinChroma: controller.useKeyColors ? tones.primaryMinChroma : 0,
+//     primaryMinChroma: controller.useKeyColors ? tones.primaryMinChroma : 0,
 //       secondaryChroma: controller.useKeyColors ? tones.secondaryChroma : 0,
 //       secondaryMinChroma:
 //           controller.useKeyColors ? tones.secondaryMinChroma : 0,
 //       tertiaryChroma: controller.useKeyColors ? tones.tertiaryChroma : 0,
-//       tertiaryMinChroma: controller.useKeyColors ? tones.tertiaryMinChroma : 0,
+//     tertiaryMinChroma: controller.useKeyColors ? tones.tertiaryMinChroma : 0,
 //       tertiaryHueRotation:
 //           controller.useKeyColors ? tones.tertiaryHueRotation : 0,
 //       neutralChroma: controller.useKeyColors ? tones.neutralChroma : 0,
 //       neutralVariantChroma:
 //           controller.useKeyColors ? tones.neutralVariantChroma : 0,
 //     );
-//     // TODO(rydmike): Removed tone hover indication feature 16.3.2023.
-//     // For some reason tone hover feature started causing issues in WEB release
-//     // mode builds, but only in WEB release mode on both SKIA and HTML. No idea
-//     // why that happens only on web release mode and not in its debug mode or
+//    // TODO(rydmike): Removed tone hover indication feature 16.3.2023.
+//   // For some reason tone hover feature started causing issues in WEB release
+//   // mode builds, but only in WEB release mode on both SKIA and HTML. No idea
+//    // why that happens only on web release mode and not in its debug mode or
 //     // any mode VM mode build.
 //     // Removal of this feature has removed commented code in:
 //     // - theme_controller.dart
@@ -122,7 +122,7 @@
 //           name: 'Neutral variant',
 //           tonalPalette: palettes.neutralVariant.asList,
 //           // selectedColor: controller.useKeyColors &&
-//           //       controller.hoverTonalPalette == TonalPalettes.neutralVariant
+//         //       controller.hoverTonalPalette == TonalPalettes.neutralVariant
 //           //     ? controller.hoverColor
 //           //     : null,
 //         ),

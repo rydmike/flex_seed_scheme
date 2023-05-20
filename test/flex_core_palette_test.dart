@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flex_seed_scheme/src/flex/flex_tonal_palette.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

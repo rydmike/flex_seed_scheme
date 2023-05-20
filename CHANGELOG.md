@@ -2,6 +2,18 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.4.0
+
+**May 18, 2023**
+
+WIP
+
+* Refactor example for new features
+
+TODO
+
+* New dynamic Scheme support
+
 ## 1.3.0
 
 **May 11, 2023**

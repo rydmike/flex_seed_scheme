@@ -5,6 +5,8 @@ import 'package:meta/meta.dart' show immutable;
 
 import '../mcu/material_color_utilities.dart';
 
+// ignore_for_file: comment_references
+
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
 ///
