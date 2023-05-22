@@ -4,7 +4,11 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 1.4.0
 
-**May 18, 2023**
+**May 22, 2023**
+
+* CHORE: MCU updates from its Dart version.
+  * PR: 11.5.2023 Align color score implementation.
+  * PR: 15.5.2023 Update to latest Dynamic colors.
 
 WIP
 

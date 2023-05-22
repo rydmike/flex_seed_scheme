@@ -135,7 +135,7 @@ class MaterialDynamicColors {
   /// outline color.
   static DynamicColor outline = DynamicColor.fromPalette(
     palette: (DynamicScheme s) => s.neutralVariantPalette,
-    tone: (DynamicScheme s) => 50,
+    tone: (DynamicScheme s) => s.isDark ? 60 : 50,
     background: highestSurface,
   );
 

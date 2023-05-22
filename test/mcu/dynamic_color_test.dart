@@ -281,7 +281,7 @@ void main() {
     );
     expect(
       MaterialDynamicColors.outline.getHct(scheme).tone,
-      closeTo(50.0, 2.0),
+      closeTo(60.0, 2.0),
     );
   });
 

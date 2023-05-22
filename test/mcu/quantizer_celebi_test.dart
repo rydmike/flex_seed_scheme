@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
-import 'package:flutter/foundation.dart';
 import 'package:test/test.dart';
 
 const int red = 0xffff0000;
@@ -60,9 +59,6 @@ void main() {
     final QuantizerResult result =
         await celebi.quantize(<int>[red, green, blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    if (kDebugMode) {
-      print('1r 1g 1b colors: $colors');
-    }
 
     expect(Set<int>.from(colors).length, equals(3));
     expect(colors[0], blue);
@@ -75,9 +71,6 @@ void main() {
     final QuantizerResult result =
         await celebi.quantize(<int>[red, red, green, green, green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    if (kDebugMode) {
-      print('2r 3g colors: $colors');
-    }
     expect(Set<int>.from(colors).length, equals(2));
 
     expect(colors[0], green);
