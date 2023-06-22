@@ -54,8 +54,8 @@ void showAppAboutDialog(BuildContext context) {
               TextSpan(
                 style: aboutTextStyle,
                 text: 'The ${AppData.title(context)} application demonstrates '
-                    'features of the ${AppData.packageName} Flutter theming '
-                    'package.\n\n'
+                    'features of the ${AppData.packageName} custom key colors '
+                    'ColorScheme generation package.\n\n'
                     'To learn more, check out the package on ',
               ),
               LinkTextSpan(

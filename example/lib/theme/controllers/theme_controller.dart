@@ -62,7 +62,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  FlexTonesEnum _usedTone = FlexTonesEnum.custom;
+  FlexTonesEnum _usedTone = FlexTonesEnum.material;
   FlexTonesEnum get usedTone => _usedTone;
   void setUsedTone(FlexTonesEnum? value, [bool notify = true]) {
     if (value == null) return;
@@ -96,5 +96,18 @@ class ThemeController with ChangeNotifier {
     if (value == _tertiarySeedColor) return;
     _tertiarySeedColor = value;
     if (notify) notifyListeners();
+  }
+
+  // Recently used colors, we keep the list of recently used colors in the
+  // color picker for custom colors only during the session we don't persist it.
+  // It is of course possible to persist, but not needed in this app.
+  //
+  // This is OK to be in ThemeController, these colors change as we change
+  // custom colors for the theme, that needs to update the entire app anyway.
+  List<Color> _recentColors = <Color>[];
+  List<Color> get recentColors => _recentColors;
+  // ignore: use_setters_to_change_properties
+  void setRecentColors(final List<Color> colors) {
+    _recentColors = colors;
   }
 }

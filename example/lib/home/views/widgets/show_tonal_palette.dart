@@ -21,7 +21,7 @@ class ShowTonalPalette extends StatelessWidget {
     // Compute all the FlexCoreTonalPalette tones.
     final FlexCorePalette palettes = FlexCorePalette.fromSeeds(
       primary: controller.primarySeedColor.value,
-      // Pass in null if set to not secondary or tertiary seed keys.
+      // Pass in null if set to not use secondary or tertiary seed keys.
       secondary: controller.useSecondaryKey
           ? controller.secondarySeedColor.value
           : null,

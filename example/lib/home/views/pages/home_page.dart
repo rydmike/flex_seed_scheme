@@ -6,7 +6,7 @@ import '../../../core/views/universal/showcase_material.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import '../widgets/flex_tones_popup_menu.dart';
 import '../widgets/show_color_scheme_colors.dart';
-import '../widgets/show_key_colors.dart';
+import '../widgets/show_input_colors.dart';
 import '../widgets/show_tonal_palette.dart';
 
 /// The home page of this custom seed generated color scheme demo.
@@ -62,14 +62,18 @@ class HomePage extends StatelessWidget {
                 ' FlexTones setup has CAM16 chroma:'),
             subtitle: Text('${controller.usedTone.setup}\n'),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 16),
+          //   child: ShowKeyColors(controller: controller),
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ShowKeyColors(controller: controller),
+            child: ShowInputColors(controller: controller),
           ),
           const ListTile(
               dense: true,
               title: Text('Primary key color is always used to seed the '
-                  'ColorScheme')),
+                  'ColorScheme. Tap to change colors.')),
           const Divider(),
           SwitchListTile(
             dense: true,
@@ -110,9 +114,10 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const Divider(),
-          const ListTile(title: Text('Widget Showcase')),
+          const ListTile(
+              title: Text('Widget Showcase - Using Material Defaults')),
           const Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: ShowcaseMaterial(),
           ),
         ],
