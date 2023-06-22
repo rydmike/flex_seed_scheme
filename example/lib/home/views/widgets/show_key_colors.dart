@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/views/app/color_card.dart';
+import '../../../theme/controllers/theme_controller.dart';
 
 /// Draw a number of boxes showing the colors of key theme color properties
 /// in the ColorScheme of the inherited ThemeData and its color properties.
 class ShowKeyColors extends StatelessWidget {
   const ShowKeyColors({
     super.key,
-    required this.primaryKey,
-    required this.secondaryKey,
-    required this.tertiaryKey,
+    required this.controller,
   });
 
-  final Color primaryKey;
-  final Color secondaryKey;
-  final Color tertiaryKey;
+  final ThemeController controller;
 
   // Return true if the color is light, meaning it needs dark text for contrast.
   static bool _isLight(final Color color) =>
@@ -26,7 +23,12 @@ class ShowKeyColors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color primaryKey = controller.primarySeedColor;
+    final Color secondaryKey = controller.secondarySeedColor;
+    final Color tertiaryKey = controller.tertiarySeedColor;
+
     final ThemeData theme = Theme.of(context);
+    final Color surface = theme.colorScheme.surface;
     final bool useMaterial3 = theme.useMaterial3;
     const double spacing = 6;
 
@@ -65,7 +67,7 @@ class ShowKeyColors extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'Seed Key Colors',
+              'Seed Colors',
               style: theme.textTheme.titleMedium,
             ),
           ),
@@ -81,13 +83,17 @@ class ShowKeyColors extends StatelessWidget {
               ),
               ColorCard(
                 label: 'Secondary\nKey',
-                color: secondaryKey,
-                textColor: _onColor(secondaryKey, background),
+                color: controller.useSecondaryKey ? secondaryKey : surface,
+                textColor: controller.useSecondaryKey
+                    ? _onColor(secondaryKey, background)
+                    : surface,
               ),
               ColorCard(
                 label: 'Tertiary\nKey',
-                color: tertiaryKey,
-                textColor: _onColor(tertiaryKey, background),
+                color: controller.useTertiaryKey ? tertiaryKey : surface,
+                textColor: controller.useTertiaryKey
+                    ? _onColor(tertiaryKey, background)
+                    : surface,
               ),
             ],
           ),

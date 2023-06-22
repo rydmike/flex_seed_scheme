@@ -44,16 +44,20 @@ class ColorCard extends StatelessWidget {
       height: effectiveSize.height,
       child: Tooltip(
         waitDuration: const Duration(milliseconds: 700),
-        message: 'Color #${color.hexCode}.'
-            '\nTap box to copy RGB value to Clipboard.',
+        message: color != textColor
+            ? 'Color #${color.hexCode}.'
+                '\nTap box to copy RGB value to Clipboard.'
+            : '',
         child: Card(
           margin: EdgeInsets.zero,
           clipBehavior: Clip.antiAlias,
           color: color,
           child: InkWell(
-            onTap: () {
-              unawaited(copyColorToClipboard(context, color));
-            },
+            onTap: color != textColor
+                ? () {
+                    unawaited(copyColorToClipboard(context, color));
+                  }
+                : null,
             child: Center(
               child: Text(
                 label,

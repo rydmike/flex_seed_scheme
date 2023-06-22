@@ -15,7 +15,7 @@ import 'custom_tones.dart';
 enum FlexTonesEnum {
   custom(
     toneLabel: 'Custom',
-    describe: 'A custom mapping and chroma made for this example.',
+    describe: 'A custom mapping and chroma config made for this example.',
     setup: 'Primary - Chroma from key color, but min 55, tone 30/70\n'
         'Secondary - Chroma from key color, but min 25\n'
         'Tertiary - Chroma from key color, but min 40\n'

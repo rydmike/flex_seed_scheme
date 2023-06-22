@@ -4,19 +4,23 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 1.4.0
 
-**May 22, 2023**
+**June 22, 2023**
 
 * CHORE: MCU updates from its Dart version.
   * PR: 11.5.2023 Align color score implementation.
   * PR: 15.5.2023 Update to latest Dynamic colors.
 
-WIP
+* Refactor the example
+  * Use a theme controller and ListenableBuilder to rebuild the app when theme changes.
+  * Add showing generated tonal palettes to the example
+  * Separate controls for making on Main and on Surface colors black and white.
 
-* Refactor example for new features
-
-TODO
+**TODO**
 
 * New dynamic Scheme support
+* Add more MCU updates
+* Example: Change seed colors in the app with Color picker.
+* Example: Lock seed colors as brand colors in light mode.
 
 ## 1.3.0
 

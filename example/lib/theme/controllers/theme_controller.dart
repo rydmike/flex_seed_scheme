@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants/app_colors.dart';
 import '../model/flex_tones_enum.dart';
 
-/// A ChangeNotifier controller used to control input that configures
-/// ThemeData and ThemeMode.
+/// A ChangeNotifier controller used to control inputs that configures the
+/// ColorScheme in ThemeData and ThemeMode.
 class ThemeController with ChangeNotifier {
   ThemeController();
 
@@ -13,6 +14,15 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _useMaterial3) return;
     _useMaterial3 = value;
+    if (notify) notifyListeners();
+  }
+
+  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode get themeMode => _themeMode;
+  void setThemeMode(ThemeMode? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _themeMode) return;
+    _themeMode = value;
     if (notify) notifyListeners();
   }
 
@@ -34,12 +44,21 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  bool _keepAllOnColorsBW = false;
-  bool get keepAllOnColorsBW => _keepAllOnColorsBW;
-  void setKeepAllOnColorsBW(bool? value, [bool notify = true]) {
+  bool _keepMainOnColorsBW = false;
+  bool get keepMainOnColorsBW => _keepMainOnColorsBW;
+  void setKeepMainOnColorsBW(bool? value, [bool notify = true]) {
     if (value == null) return;
-    if (value == _keepAllOnColorsBW) return;
-    _keepAllOnColorsBW = value;
+    if (value == _keepMainOnColorsBW) return;
+    _keepMainOnColorsBW = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _keepSurfaceOnColorsBW = false;
+  bool get keepSurfaceOnColorsBW => _keepSurfaceOnColorsBW;
+  void setKeepSurfaceOnColorsBW(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _keepSurfaceOnColorsBW) return;
+    _keepSurfaceOnColorsBW = value;
     if (notify) notifyListeners();
   }
 
@@ -52,7 +71,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  Color _primarySeedColor = const Color(0xFF6750A4);
+  Color _primarySeedColor = AppColor.primary;
   Color get primarySeedColor => _primarySeedColor;
   void setPrimarySeedColor(Color? value, [bool notify = true]) {
     if (value == null) return;
@@ -61,7 +80,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  Color _secondarySeedColor = const Color(0xFF3871BB);
+  Color _secondarySeedColor = AppColor.secondary;
   Color get secondarySeedColor => _secondarySeedColor;
   void setSecondarySeedColor(Color? value, [bool notify = true]) {
     if (value == null) return;
@@ -70,7 +89,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  Color _tertiarySeedColor = const Color(0xFF6CA450);
+  Color _tertiarySeedColor = AppColor.tertiary;
   Color get tertiarySeedColor => _tertiarySeedColor;
   void setTertiarySeedColor(Color? value, [bool notify = true]) {
     if (value == null) return;
