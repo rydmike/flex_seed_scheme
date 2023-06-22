@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -440,7 +442,7 @@ class _SegmentedButtonShowcaseState extends State<SegmentedButtonShowcase> {
               ButtonSegment<Calendar>(
                 value: Calendar.month,
                 icon: Icon(Icons.calendar_view_month),
-                label: Text('Month'),
+                label: Text('Mont'),
               ),
               ButtonSegment<Calendar>(
                 value: Calendar.year,
@@ -471,7 +473,7 @@ class _SegmentedButtonShowcaseState extends State<SegmentedButtonShowcase> {
               ButtonSegment<Calendar>(
                 value: Calendar.month,
                 icon: Icon(Icons.calendar_view_month),
-                label: Text('Month'),
+                label: Text('Mont'),
                 enabled: false,
               ),
               ButtonSegment<Calendar>(
@@ -1239,15 +1241,28 @@ class IconButtonShowcase extends StatelessWidget {
     return const RepaintBoundary(
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 16,
+        spacing: 0,
         runSpacing: 4,
         children: <Widget>[
           Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             // Standard IconButton
             children: <Widget>[
+              SizedBox(
+                  width: 65,
+                  child: Text('Default', textAlign: TextAlign.center)),
+              SizedBox(height: 4),
               _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Standard',
+                variant: _IconButtonVariant.standard,
+                toggleable: false,
+              ),
+              SizedBox(height: 8),
+              _IconToggleButton(
+                isEnabled: true,
+                tooltip: 'Standard toggleable',
                 variant: _IconButtonVariant.standard,
               ),
               SizedBox(height: 8),
@@ -1260,10 +1275,21 @@ class IconButtonShowcase extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
+              SizedBox(
+                  width: 65,
+                  child: Text('Filled', textAlign: TextAlign.center)),
+              SizedBox(height: 4),
               // Filled IconButton
               _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Filled',
+                variant: _IconButtonVariant.filled,
+                toggleable: false,
+              ),
+              SizedBox(height: 8),
+              _IconToggleButton(
+                isEnabled: true,
+                tooltip: 'Filled toggleable',
                 variant: _IconButtonVariant.filled,
               ),
               SizedBox(height: 8),
@@ -1276,10 +1302,20 @@ class IconButtonShowcase extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
+              SizedBox(
+                  width: 65, child: Text('Tonal', textAlign: TextAlign.center)),
+              SizedBox(height: 4),
               // Filled Tonal IconButton
               _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Filled tonal',
+                variant: _IconButtonVariant.filledTonal,
+                toggleable: false,
+              ),
+              SizedBox(height: 8),
+              _IconToggleButton(
+                isEnabled: true,
+                tooltip: 'Filled tonal toggleable',
                 variant: _IconButtonVariant.filledTonal,
               ),
               SizedBox(height: 8),
@@ -1292,10 +1328,21 @@ class IconButtonShowcase extends StatelessWidget {
           ),
           Column(
             children: <Widget>[
+              SizedBox(
+                  width: 65,
+                  child: Text('Outlined', textAlign: TextAlign.center)),
+              SizedBox(height: 4),
               // Outlined IconButton
               _IconToggleButton(
                 isEnabled: true,
                 tooltip: 'Outlined',
+                variant: _IconButtonVariant.outlined,
+                toggleable: false,
+              ),
+              SizedBox(height: 8),
+              _IconToggleButton(
+                isEnabled: true,
+                tooltip: 'Outlined toggleable',
                 variant: _IconButtonVariant.outlined,
               ),
               SizedBox(height: 8),
@@ -1319,11 +1366,13 @@ class _IconToggleButton extends StatefulWidget {
     required this.isEnabled,
     required this.tooltip,
     required this.variant,
+    this.toggleable = true,
   });
 
   final bool isEnabled;
   final String tooltip;
   final _IconButtonVariant variant;
+  final bool toggleable;
 
   @override
   State<_IconToggleButton> createState() => _IconToggleButtonState();
@@ -1346,7 +1395,7 @@ class _IconToggleButtonState extends State<_IconToggleButton> {
       case _IconButtonVariant.standard:
         {
           return IconButton(
-            isSelected: selected,
+            isSelected: selected & widget.toggleable,
             tooltip: widget.tooltip,
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
@@ -1356,7 +1405,7 @@ class _IconToggleButtonState extends State<_IconToggleButton> {
       case _IconButtonVariant.filled:
         {
           return IconButton.filled(
-            isSelected: selected,
+            isSelected: selected & widget.toggleable,
             tooltip: widget.tooltip,
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
@@ -1366,7 +1415,7 @@ class _IconToggleButtonState extends State<_IconToggleButton> {
       case _IconButtonVariant.filledTonal:
         {
           return IconButton.filledTonal(
-            isSelected: selected,
+            isSelected: selected & widget.toggleable,
             tooltip: widget.tooltip,
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
@@ -1376,7 +1425,7 @@ class _IconToggleButtonState extends State<_IconToggleButton> {
       case _IconButtonVariant.outlined:
         {
           return IconButton.outlined(
-            isSelected: selected,
+            isSelected: selected & widget.toggleable,
             tooltip: widget.tooltip,
             icon: const Icon(Icons.settings_outlined),
             selectedIcon: const Icon(Icons.settings),
@@ -2859,11 +2908,9 @@ class _MenuAnchorContextMenuState extends State<MenuAnchorContextMenu> {
           applicationName: 'MenuAnchor Demo',
           applicationVersion: '1.0.0',
         );
-        break;
       case MenuEntry.showMessage:
       case MenuEntry.hideMessage:
         showingMessage = !showingMessage;
-        break;
       case MenuEntry.colorMenu:
         break;
       case MenuEntry.colorRed:
@@ -3563,8 +3610,32 @@ class MaterialBannerSnackBarShowcase extends StatelessWidget {
   }
 }
 
-class SnackBarShowcase extends StatelessWidget {
+class SnackBarShowcase extends StatefulWidget {
   const SnackBarShowcase({super.key});
+
+  @override
+  State<SnackBarShowcase> createState() => _SnackBarShowcaseState();
+}
+
+class _SnackBarShowcaseState extends State<SnackBarShowcase> {
+  int fixedCount = 0;
+  int pinnedCount = 0;
+
+  Future<void> _showDemoSnackBar(
+      BuildContext context, SnackBarBehavior style, String message) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: style,
+        showCloseIcon: true,
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {},
+        ),
+        duration: const Duration(milliseconds: 3000),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -3634,12 +3705,26 @@ class SnackBarShowcase extends StatelessWidget {
                       const SizedBox(width: 24),
                       Text('A floating SnackBar', style: snackStyle),
                       const Spacer(),
-                      Text('Close', style: snackActionStyle),
+                      Text('Undo', style: snackActionStyle),
                       const SizedBox(width: 24),
                     ],
                   ),
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Center(
+            child: TextButton(
+              child: const Text(
+                'Show floating SnackBar',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                pinnedCount++;
+                unawaited(_showDemoSnackBar(context, SnackBarBehavior.floating,
+                    'A floating SnackBar ($pinnedCount)'));
+              },
             ),
           ),
           const SizedBox(height: 16),
@@ -3658,11 +3743,25 @@ class SnackBarShowcase extends StatelessWidget {
                     const SizedBox(width: 24),
                     Text('A fixed SnackBar', style: snackStyle),
                     const Spacer(),
-                    Text('Close', style: snackActionStyle),
+                    Text('Undo', style: snackActionStyle),
                     const SizedBox(width: 24),
                   ],
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Center(
+            child: TextButton(
+              child: const Text(
+                'Show fixed SnackBar',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                fixedCount++;
+                unawaited(_showDemoSnackBar(context, SnackBarBehavior.fixed,
+                    'A fixed SnackBar ($fixedCount)'));
+              },
             ),
           ),
         ],
@@ -4252,115 +4351,198 @@ class CardShowcase extends StatelessWidget {
 }
 
 class TextThemeShowcase extends StatelessWidget {
-  const TextThemeShowcase({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextThemeColumnShowcase(textTheme: Theme.of(context).textTheme);
-  }
-}
-
-class PrimaryTextThemeShowcase extends StatelessWidget {
-  const PrimaryTextThemeShowcase({super.key});
+  const TextThemeShowcase({super.key, this.showDetails = false});
+  final bool showDetails;
 
   @override
   Widget build(BuildContext context) {
     return TextThemeColumnShowcase(
-        textTheme: Theme.of(context).primaryTextTheme);
+      textTheme: Theme.of(context).textTheme,
+      showDetails: showDetails,
+    );
+  }
+}
+
+class PrimaryTextThemeShowcase extends StatelessWidget {
+  const PrimaryTextThemeShowcase({super.key, this.showDetails = false});
+  final bool showDetails;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextThemeColumnShowcase(
+      textTheme: Theme.of(context).primaryTextTheme,
+      showDetails: showDetails,
+    );
   }
 }
 
 class TextThemeColumnShowcase extends StatelessWidget {
-  const TextThemeColumnShowcase({super.key, required this.textTheme});
+  const TextThemeColumnShowcase({
+    super.key,
+    required this.textTheme,
+    this.showDetails = false,
+  });
   final TextTheme textTheme;
+  final bool showDetails;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Font: ${textTheme.titleSmall!.fontFamily}',
+        Text('Font: ${textTheme.bodyMedium!.fontFamily}',
             style:
                 textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
-        Text(
+        _ShowTextStyle(
           'Display Large '
           '(${textTheme.displayLarge!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.displayLarge,
+          style: textTheme.displayLarge!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Display Medium '
           '(${textTheme.displayMedium!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.displayMedium,
+          style: textTheme.displayMedium!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Display Small '
           '(${textTheme.displaySmall!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.displaySmall,
+          style: textTheme.displaySmall!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
         const SizedBox(height: 12),
-        Text(
+        _ShowTextStyle(
           'Headline Large '
           '(${textTheme.headlineLarge!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.headlineLarge,
+          style: textTheme.headlineLarge!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Headline Medium '
           '(${textTheme.headlineMedium!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.headlineMedium,
+          style: textTheme.headlineMedium!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Headline Small '
           '(${textTheme.headlineSmall!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.headlineSmall,
+          style: textTheme.headlineSmall!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
         const SizedBox(height: 12),
-        Text(
+        _ShowTextStyle(
           'Title Large '
           '(${textTheme.titleLarge!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.titleLarge,
+          style: textTheme.titleLarge!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Title Medium '
           '(${textTheme.titleMedium!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.titleMedium,
+          style: textTheme.titleMedium!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Title Small '
           '(${textTheme.titleSmall!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.titleSmall,
+          style: textTheme.titleSmall!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
         const SizedBox(height: 12),
-        Text(
+        _ShowTextStyle(
           'Body Large '
           '(${textTheme.bodyLarge!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.bodyLarge,
+          style: textTheme.bodyLarge!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Body Medium '
           '(${textTheme.bodyMedium!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.bodyMedium,
+          style: textTheme.bodyMedium!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Body Small '
           '(${textTheme.bodySmall!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.bodySmall,
+          style: textTheme.bodySmall!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
         const SizedBox(height: 12),
-        Text(
+        _ShowTextStyle(
           'Label Large '
           '(${textTheme.labelLarge!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.labelLarge,
+          style: textTheme.labelLarge!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Label Medium '
           '(${textTheme.labelMedium!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.labelMedium,
+          style: textTheme.labelMedium!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
-        Text(
+        _ShowTextStyle(
           'Label Small '
           '(${textTheme.labelSmall!.fontSize!.toStringAsFixed(0)})',
-          style: textTheme.labelSmall,
+          style: textTheme.labelSmall!,
+          infoStyle: textTheme.labelSmall!,
+          showDetails: showDetails,
         ),
+      ],
+    );
+  }
+}
+
+class _ShowTextStyle extends StatelessWidget {
+  const _ShowTextStyle(
+    this.label, {
+    required this.style,
+    required this.infoStyle,
+    this.showDetails = false,
+  });
+
+  final String label;
+  final TextStyle style;
+  final TextStyle infoStyle;
+  final bool showDetails;
+
+  @override
+  Widget build(BuildContext context) {
+    final String font = style.fontFamily ?? '';
+    final String size = style.fontSize!.toStringAsFixed(1);
+    final String fontWeight = style.fontWeight!.toString();
+    final String color = style.color!.toString();
+    final String spacing = style.letterSpacing!.toStringAsFixed(2);
+    final String height = style.height != null
+        ? ' height: ${style.height!.toStringAsFixed(2)}'
+        : '';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(label, style: style),
+        if (showDetails) ...<Widget>[
+          const SizedBox(height: 4),
+          Text(
+              '$font $size pt, $fontWeight $color '
+              'Letter spacing: $spacing$height',
+              style: infoStyle),
+          const SizedBox(height: 4),
+        ],
       ],
     );
   }

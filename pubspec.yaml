@@ -22,6 +22,7 @@ environment:
 dependencies:
   # Used by mcu: tonal_palette.dart
   # Require at least 1.15.0, the first stable version for null-safety.
+  # https://pub.dev/packages/collection
   collection: ^1.15.0
 
   flutter:
@@ -30,14 +31,15 @@ dependencies:
   # Annotations used to express developer intentions that can't otherwise be deduced by
   # statically analyzing source code. Package is from Google dart.dev team.
   #
-  # Flutter does not expose the "@internal" annotation via foundation, to use it we need to
-  # import the package.
+  # Flutter does not expose the "@internal" annotation via foundation, to use it we need to import the package.
+  # Version 1.9.1 is first with constraint Update SDK constraints to >=2.12.0 <4.0.0.
+  # https://pub.dev/packages/meta
   meta: ^1.8.0
 
 dev_dependencies:
 
   flutter_test:
     sdk: flutter
-  # used by color_matcher.dart
+  # Used by color_matcher.dart in tests.
   matcher: ^0.12.0
   test:
