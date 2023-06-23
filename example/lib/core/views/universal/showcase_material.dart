@@ -388,7 +388,6 @@ class SegmentedButtonShowcase extends StatefulWidget {
 enum Calendar { day, week, month, year }
 
 class _SegmentedButtonShowcaseState extends State<SegmentedButtonShowcase> {
-  List<bool> selected = <bool>[true, false, false, true];
   Calendar _selected = Calendar.day;
 
   @override

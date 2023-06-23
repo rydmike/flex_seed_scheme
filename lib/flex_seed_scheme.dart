@@ -34,13 +34,13 @@ export 'src/flex/flex_tonal_palette.dart';
 /// generating the tonal palettes.
 export 'src/flex/flex_tones.dart';
 
-/// From Material Color Utilities (MCU) export and show:
+/// From internal version of Material Color Utilities (MCU) export and show:
 ///
 /// * Blend
 /// * Cam16
 /// * CorePalette
 /// * TonalPalette
 ///
-/// More API from MCU may be exported later.
+/// More APIs from MCU may be exported later if needed.
 export 'src/mcu/material_color_utilities.dart'
     show Blend, Cam16, CorePalette, TonalPalette;

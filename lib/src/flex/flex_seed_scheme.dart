@@ -214,6 +214,7 @@ class FlexSeedScheme {
       neutralMinChroma: tones.neutralMinChroma,
       neutralVariantChroma: tones.neutralVariantChroma,
       neutralVariantMinChroma: tones.neutralVariantMinChroma,
+      paletteType: tones.paletteType,
     );
     return FlexSeedScheme._(
       primary: core.primary.get(tones.primaryTone),

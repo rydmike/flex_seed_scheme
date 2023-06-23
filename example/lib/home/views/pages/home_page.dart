@@ -62,10 +62,6 @@ class HomePage extends StatelessWidget {
                 ' FlexTones setup has CAM16 chroma:'),
             subtitle: Text('${controller.usedTone.setup}\n'),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 16),
-          //   child: ShowKeyColors(controller: controller),
-          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowInputColors(controller: controller),

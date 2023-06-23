@@ -4,22 +4,43 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 1.4.0
 
-**June 22, 2023**
+**June 23, 2023**
 
-* **CHORE**: MCU updates from its Dart version.
+* **NEW** 
+  * Added support for new HCT tones used by updated Material3 color system, that were added during first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
+  * The change and additions are none breaking. APIs that want and can use the extended tones can pass in an optional `paletteType` of `FlexPaletteType` and set it to `FlexPaletteType.extended`, by default its values `FlexPaletteType.common` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]` being produced as before.
+  * The complete list of the 24 extended tones are `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100]`.
+  * None breaking Changed APIs that now support using `paletteType` of `FlexPaletteType`are: 
+    * `FlexTonalPalette.of`
+    * `FlexTonalPalette.fromList`
+    * `FlexCorePalette.of`
+    * `FlexCorePalette.fromHueChroma`
+    * `FlexCorePalette.fromList`
+    * `FlexCorePalette.fromSeeds`
+    * `FlexTones`
+  * Flutter 3.10 and earlier do not yet use these new tones in its standard `ColorScheme`, but since they are in the Material 3 spec, they will arrive at some later point.
+
+
+* **CHANGE**
+  * **Minor style breaking**: To correct and improve produced themes, the tones `primaryContainerTone` and `secondaryContainerTone` for light mode `FlexTones.highContrast` and `FlexTones.ultraContrast` were both changed from 95 to 90. This produced brighter and more punchy themes for these high-contrast themes in light mode.
+
+
+* **CHORE**: Add MCU updates from its Dart version to the internal bundled version.
   * PR: 11.5.2023 Align color score implementation.
   * PR: 15.5.2023 Update to latest Dynamic colors.
 
 
 * **EXAMPLE**
   * Refactored the example.
-  * Use a theme controller and ListenableBuilder to rebuild the app theme when controller changes.
+  * Use a theme controller and ListenableBuilder to rebuild the app theme when the theme controller changes.
   * Feature: Add showing generated tonal palettes to the example.
   * Feature: Separate controls for making on Main and on Surface colors black and white.
   * Feature: Change seed colors in the app with Color picker.
+  * Feature: Add switching between showing common tones and extended tones.
 
 
 * **TODO**
+  * Test for extended tones.
   * New dynamic Scheme support.
   * Add more MCU updates.
   * Example: Lock seed colors as brand colors in light mode.

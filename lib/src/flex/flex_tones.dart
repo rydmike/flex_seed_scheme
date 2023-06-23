@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../../flex_seed_scheme.dart';
+
 // ignore_for_file: comment_references
 
 /// Configuration data class that defines which tone to use from each
@@ -104,6 +106,7 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma,
     this.neutralVariantMinChroma,
+    this.paletteType = FlexPaletteType.common,
   });
 
   /// Create an M3 standard light tonal palette tones extraction setup.
@@ -176,6 +179,7 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
+    this.paletteType = FlexPaletteType.common,
   });
 
   /// Create a M3 standard dark tonal palette tones extraction setup.
@@ -248,6 +252,7 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
+    this.paletteType = FlexPaletteType.common,
   });
 
   /// Create a M3 standard tonal palette tones extraction and CAM16
@@ -417,8 +422,6 @@ class FlexTones with Diagnosticable {
           ? const FlexTones.light(
               primaryTone: 30,
               tertiaryTone: 30,
-              primaryContainerTone: 95,
-              secondaryContainerTone: 95,
               tertiaryContainerTone: 95,
               errorContainerTone: 95,
               surfaceTintTone: 30,
@@ -452,8 +455,6 @@ class FlexTones with Diagnosticable {
               tertiaryTone: 30,
               onBackgroundTone: 0,
               onSurfaceTone: 0,
-              primaryContainerTone: 95,
-              secondaryContainerTone: 95,
               tertiaryContainerTone: 95,
               errorContainerTone: 95,
               onPrimaryContainerTone: 5,
@@ -910,6 +911,26 @@ class FlexTones with Diagnosticable {
   /// If not defined defaults to 0, chroma in [neutralVariantChroma] is used.
   final double? neutralVariantMinChroma;
 
+  /// Defines what [FlexPaletteType] this [FlexTones] uses.
+  ///
+  /// The default is [FlexPaletteType.common] with 15 tones or optionally use
+  /// the extended [FlexPaletteType.extended] with 24 tones.
+  ///
+  /// To make color schemes with new Material3 mappings for light and dark
+  /// surface colors, using the extended tone set is needed.
+  ///
+  /// In Flutter 3.10 and earlier the new [ColorScheme] surface colors that
+  /// need the new tones are not yet available.
+  ///
+  /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
+  /// revised Material 3 dark surface colors. Likewise added tones
+  /// 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
+  /// color system. For more information, see:
+  /// https://m3.material.io/styles/color/the-color-system/color-roles
+  /// The additional tones in the Material 3 specification appeared during later
+  /// pert of first half of 2023.
+  final FlexPaletteType paletteType;
+
   /// Copy the object with one or more provided properties changed.
   FlexTones copyWith({
     int? primaryTone,
@@ -955,6 +976,7 @@ class FlexTones with Diagnosticable {
     double? neutralMinChroma,
     double? neutralVariantChroma,
     double? neutralVariantMinChroma,
+    FlexPaletteType? paletteType,
   }) {
     return FlexTones(
       primaryTone: primaryTone ?? this.primaryTone,
@@ -1006,6 +1028,7 @@ class FlexTones with Diagnosticable {
       neutralVariantChroma: neutralVariantChroma ?? this.neutralVariantChroma,
       neutralVariantMinChroma:
           neutralVariantMinChroma ?? this.neutralVariantMinChroma,
+      paletteType: paletteType ?? this.paletteType,
     );
   }
 
@@ -1057,7 +1080,8 @@ class FlexTones with Diagnosticable {
         other.neutralChroma == neutralChroma &&
         other.neutralMinChroma == neutralMinChroma &&
         other.neutralVariantChroma == neutralVariantChroma &&
-        other.neutralVariantMinChroma == neutralVariantMinChroma;
+        other.neutralVariantMinChroma == neutralVariantMinChroma &&
+        other.paletteType == paletteType;
   }
 
   /// Override for hashcode, dart.ui Jenkins based.
@@ -1106,6 +1130,7 @@ class FlexTones with Diagnosticable {
         neutralMinChroma,
         neutralVariantChroma,
         neutralVariantMinChroma,
+        paletteType,
       ]);
 
   /// Flutter debug properties override, includes toString.
@@ -1181,5 +1206,6 @@ class FlexTones with Diagnosticable {
         'neutralVariantChroma', neutralVariantChroma));
     properties.add(DiagnosticsProperty<double>(
         'neutralVariantMinChroma', neutralVariantMinChroma));
+    properties.add(EnumProperty<FlexPaletteType>('paletteType', paletteType));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
@@ -23,6 +24,15 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _themeMode) return;
     _themeMode = value;
+    if (notify) notifyListeners();
+  }
+
+  FlexPaletteType _paletteType = FlexPaletteType.common;
+  FlexPaletteType get paletteType => _paletteType;
+  void setPaletteType(FlexPaletteType? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _paletteType) return;
+    _paletteType = value;
     if (notify) notifyListeners();
   }
 

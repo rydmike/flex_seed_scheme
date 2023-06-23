@@ -187,7 +187,7 @@ void main() {
           //
           equalsIgnoringHashCodes(
               // ignore: lines_longer_than_80_chars
-              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, backgroundTone: 99, onBackgroundTone: 10, surfaceTone: 99, onSurfaceTone: 10, surfaceVariantTone: 90, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 4.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null)'));
+              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, backgroundTone: 99, onBackgroundTone: 10, surfaceTone: 99, onSurfaceTone: 10, surfaceVariantTone: 90, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 4.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: common)'));
     });
     test(
         'FTO1.11: Test toStringShort implemented via debugFillProperties '
@@ -479,8 +479,8 @@ void main() {
             secondaryTone: 40,
             tertiaryTone: 30,
             errorTone: 40,
-            primaryContainerTone: 95,
-            secondaryContainerTone: 95,
+            primaryContainerTone: 90,
+            secondaryContainerTone: 90,
             tertiaryContainerTone: 95,
             errorContainerTone: 95,
             surfaceTintTone: 30,
@@ -532,8 +532,8 @@ void main() {
             tertiaryTone: 30,
             onBackgroundTone: 0,
             onSurfaceTone: 0,
-            primaryContainerTone: 95,
-            secondaryContainerTone: 95,
+            primaryContainerTone: 90,
+            secondaryContainerTone: 90,
             tertiaryContainerTone: 95,
             errorContainerTone: 95,
             onPrimaryContainerTone: 5,
