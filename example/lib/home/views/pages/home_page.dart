@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLight = Theme.of(context).brightness == Brightness.light;
     return Scaffold(
       appBar: AppBar(
         title: Builder(builder: (BuildContext context) {
@@ -53,13 +54,13 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           FlexTonesPopupMenu(
-            title: 'Used FlexTones setup:',
+            title: 'Used FlexTones seed strategy:',
             tone: controller.usedTone,
             onChanged: controller.setUsedTone,
           ),
           ListTile(
             title: Text('${controller.usedTone.toneLabel}'
-                ' FlexTones setup has CAM16 chroma:'),
+                ' FlexTones uses:'),
             subtitle: Text('${controller.usedTone.setup}\n'),
           ),
           Padding(
@@ -99,6 +100,22 @@ class HomePage extends StatelessWidget {
             value: controller.keepSurfaceOnColorsBW,
             onChanged: controller.setKeepSurfaceOnColorsBW,
           ),
+          if (isLight)
+            SwitchListTile(
+              dense: true,
+              title: const Text('Keep surface and background white in seeded '
+                  'light ColorScheme'),
+              value: controller.keepLightSurfaceColorsWhite,
+              onChanged: controller.setKeepLightSurfaceColorsWhite,
+            )
+          else
+            SwitchListTile(
+              dense: true,
+              title: const Text('Keep surface and background black in seeded '
+                  'dark ColorScheme'),
+              value: controller.keepDarkSurfaceColorsBlack,
+              onChanged: controller.setKeepDarkSurfaceColorsBlack,
+            ),
           const Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

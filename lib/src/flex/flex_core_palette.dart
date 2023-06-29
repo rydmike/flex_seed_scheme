@@ -55,7 +55,7 @@ import 'flex_tonal_palette.dart';
 /// error palette if not provided.
 ///
 /// This is a modification of package:material_color_utilities [CorePalette],
-/// to make it possible to create Material 3 seeded ColorScheme using tonal
+/// to make it possible to create Material-3 seeded ColorScheme using tonal
 /// palettes created from 3 different ARGB seed colors, where 2 are optional.
 /// As an addition to using only one as provided via material_color_utilities
 /// version [CorePalette.of] and here also via [FlexCorePalette.of].
@@ -86,6 +86,8 @@ class FlexCorePalette {
   /// [FlexTonalPalette]s. They default to [FlexPaletteType.common], but if you
   /// use [FlexPaletteType.extended] you must also provide the [error] tonal
   /// palette and set its [paletteType] to [FlexPaletteType.extended] as well.
+  /// The input for the default M3 error color palette using the extended tones
+  /// would be `FlexTonalPalette.of(25, 84, FlexPaletteType.extended)`.
   ///
   /// Prefer using [FlexCorePalette.of], [FlexCorePalette.fromHueChroma] or
   /// [FlexCorePalette.fromSeeds] to make a [FlexCorePalette].
@@ -597,42 +599,54 @@ class FlexCorePalette {
                 (colors.length == size * FlexTonalPalette.extendedSize &&
                     paletteType == FlexPaletteType.extended),
             'Incorrect size.'),
-        primary = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            0,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize)),
-        secondary = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            1,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize)),
-        tertiary = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            2,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize)),
-        neutral = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            3,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize)),
-        neutralVariant = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            4,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize)),
-        _error = FlexTonalPalette.fromList(_getPartition(
-            colors,
-            5,
-            paletteType == FlexPaletteType.common
-                ? FlexTonalPalette.commonSize
-                : FlexTonalPalette.extendedSize));
+        primary = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                0,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType),
+        secondary = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                1,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType),
+        tertiary = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                2,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType),
+        neutral = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                3,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType),
+        neutralVariant = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                4,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType),
+        _error = FlexTonalPalette.fromList(
+            _getPartition(
+                colors,
+                5,
+                paletteType == FlexPaletteType.common
+                    ? FlexTonalPalette.commonSize
+                    : FlexTonalPalette.extendedSize),
+            paletteType);
 
   /// Returns a list of ARGB color [int]s from concatenated tonal palettes.
   ///

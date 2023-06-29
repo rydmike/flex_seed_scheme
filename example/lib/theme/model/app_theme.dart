@@ -34,9 +34,11 @@ class AppTheme {
       tones: controller.usedTone
           .tones(Brightness.light)
           .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW),
+          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+          .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
     );
 
+    // Light mode theme
     return ThemeData(
       colorScheme: colorScheme,
       // Fix the divider color.
@@ -48,7 +50,11 @@ class AppTheme {
 
   /// Function to build our example dark theme.
   ///
-  /// Same input seed colors mode, but with brightness set to dark
+  /// Same input seed colors mode, but with brightness set to dark and using
+  /// own dark mode property for surfacesUseBW, just as an example and because
+  /// usually you may not want to use this feature in dark mode, but you
+  /// may often want it in light mode for un-tinted white backgrounds with
+  /// any seed strategy.
   static ThemeData dark(ThemeController controller) {
     final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
@@ -60,9 +66,11 @@ class AppTheme {
       tones: controller.usedTone
           .tones(Brightness.dark)
           .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW),
+          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+          .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
     );
 
+    // Dark mode theme
     return ThemeData(
       colorScheme: colorScheme,
       // Fix the divider color.
@@ -107,7 +115,8 @@ class AppTheme {
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       tones: FlexTones.highContrast(Brightness.light)
           .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW),
+          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+          .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
     );
 
     return ThemeData(
@@ -119,7 +128,7 @@ class AppTheme {
     );
   }
 
-  // Factory to build our example high contrast dark theme.
+  // Factory to build our example ultra high contrast dark theme.
   //
   // In this example we use FlexTones.ultraContrast.
   // Same input seed colors mode, but with brightness set to dark
@@ -133,13 +142,15 @@ class AppTheme {
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       tones: FlexTones.ultraContrast(Brightness.dark)
           .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW),
+          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+          .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
     );
 
     return ThemeData(
       colorScheme: colorScheme,
       // Fix the divider color.
       dividerColor: colorScheme.outlineVariant,
+      // Toggle M2/M3 mode.
       useMaterial3: controller.useMaterial3,
     );
   }

@@ -217,5 +217,281 @@ void main() {
         throwsArgumentError,
       );
     });
+    //
+    //****************************************************************************
+    // Extended palette tests
+    //****************************************************************************
+    //
+    group('FTP2: WITH FlexTonalPalette extended palette ', () {
+      test(
+          'FTP2.U00: GIVEN the value of extendedSize '
+          'EXPECT it to be equal to extendedTones.length', () {
+        expect(
+          FlexTonalPalette.extendedSize,
+          equals(FlexTonalPalette.extendedTones.length),
+        );
+      });
+
+      // m1, is tonal palettes using FlexTonalPalette.
+      final FlexTonalPalette m1 =
+          FlexTonalPalette.of(40, 55, FlexPaletteType.extended);
+      final FlexTonalPalette m2 =
+          FlexTonalPalette.of(40, 55, FlexPaletteType.extended);
+      // m3, is tonal palettes using TonalPalette.
+      final TonalPalette m3 = TonalPalette.of(40, 55);
+      // m4, is tonal palette from list
+      final FlexTonalPalette m4 = FlexTonalPalette.fromList(const <int>[
+        4278190080,
+        4280354304,
+        4280616704,
+        4280879360,
+        4281798144,
+        4282257664,
+        4283373568,
+        4284095488,
+        4284555008,
+        4286524160,
+        4288692500,
+        4290795563,
+        4292964674,
+        4294937692,
+        4294948249,
+        4294955198,
+        4294958030,
+        4294959832,
+        4294961634,
+        4294962663,
+        4294963692,
+        4294964465,
+        4294965494,
+        4294966271,
+        4294967295,
+      ], FlexPaletteType.extended);
+      // m5, is tonal palette from list, same as m4
+      final FlexTonalPalette m5 = FlexTonalPalette.fromList(const <int>[
+        4278190080,
+        4280354304,
+        4280616704,
+        4280879360,
+        4281798144,
+        4282257664,
+        4283373568,
+        4284095488,
+        4284555008,
+        4286524160,
+        4288692500,
+        4290795563,
+        4292964674,
+        4294937692,
+        4294948249,
+        4294955198,
+        4294958030,
+        4294959832,
+        4294961634,
+        4294962663,
+        4294963692,
+        4294964465,
+        4294965494,
+        4294966271,
+        4294967295,
+      ], FlexPaletteType.extended);
+
+      test(
+          'FTP2.U01a: GIVEN to identical FlexTonalPalette.of extended '
+          'EXPECT them to be equal', () {
+        expect(
+          m1,
+          equals(m2),
+        );
+      });
+      test(
+          'FTP2.U01b: GIVEN two identical FlexTonalPalette.of extended '
+          'EXPECT them to have identity', () {
+        expect(identical(m1, m1), true);
+      });
+      test(
+          'FTP2.U01c: GIVEN to identical FlexTonalPalette.of extended '
+          'EXPECT them to have equality with operator', () {
+        expect(m1 == m2, true);
+      });
+      test('FTP2.U01d: Test lexTonalPalette.of extended hashCode has value.',
+          () {
+        expect(m1.hashCode, isNotNull);
+      });
+      test(
+          'FTP2.U02a: GIVEN to identical FlexTonalPalette.fromList extended '
+          'EXPECT them to be equal', () {
+        expect(
+          m4,
+          equals(m5),
+        );
+      });
+      test(
+          'FTP2.U02b: GIVEN two identical FlexTonalPalette.fromList extended '
+          'EXPECT them to have identity', () {
+        expect(identical(m4, m4), true);
+      });
+      test(
+          'FTP2.U02c: GIVEN to identical FlexTonalPalette.fromList extended '
+          'EXPECT them to have equality with operator', () {
+        expect(m4 == m5, true);
+      });
+      test(
+          'FTP2.U02d: Test lexTonalPalette.fromList extended '
+          'hashCode has value.', () {
+        expect(m4.hashCode, isNotNull);
+      });
+      test(
+          'FTP2.U03: GIVEN to identical FlexTonalPalette extended '
+          'EXPECT their asList to be equal', () {
+        expect(
+          m1.asList,
+          equals(m2.asList),
+        );
+      });
+      test(
+          'FTP2.U04: GIVEN a '
+          'FlexTonalPalette.of(40.0, 55.0, FlexPaletteType.extended) '
+          'EXPECT its toString to be '
+          'FlexTonalPalette.of(40.0, 55.0, FlexPaletteType.extended)', () {
+        expect(
+          m1.toString(),
+          equals('FlexTonalPalette.of(40.0, 55.0, FlexPaletteType.extended)'),
+        );
+      });
+      test(
+          'FTP2.U05: GIVEN same FlexTonalPalette.of extended and '
+          'TonalPalette.of extendedTones using same input color '
+          'EXPECT palette lists to be equal without extended tones', () {
+        // If we remove the extended tones that MaterialColorUtilities
+        // CorePalette.of does not include, extended tones list should be equal.
+        final List<int> m1List = m1.asList;
+        final List<int> m1NoCustomTonesList = <int>[];
+        for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
+          if (FlexTonalPalette.extendedTones[i] != 4 &&
+              FlexTonalPalette.extendedTones[i] != 5 &&
+              FlexTonalPalette.extendedTones[i] != 6 &&
+              FlexTonalPalette.extendedTones[i] != 12 &&
+              FlexTonalPalette.extendedTones[i] != 17 &&
+              FlexTonalPalette.extendedTones[i] != 22 &&
+              FlexTonalPalette.extendedTones[i] != 87 &&
+              FlexTonalPalette.extendedTones[i] != 92 &&
+              FlexTonalPalette.extendedTones[i] != 94 &&
+              FlexTonalPalette.extendedTones[i] != 96 &&
+              FlexTonalPalette.extendedTones[i] != 97 &&
+              FlexTonalPalette.extendedTones[i] != 98) {
+            m1NoCustomTonesList.add(m1List[i]);
+          }
+        }
+        expect(
+          m1NoCustomTonesList,
+          equals(m3.asList),
+        );
+      });
+      test(
+          'FTP2.U06: GIVEN to FlexTonalPalette fromList extended '
+          'EXPECT it to be equal to same created '
+          'with FlexTonalPalette.of extended ', () {
+        expect(
+          m1,
+          equals(m4),
+        );
+      });
+      test(
+          'FCP2.U07: GIVEN a FlexTonalPalette.fromList extended '
+          'EXPECT its toString to be '
+          '"FlexTonalPalette.fromList(...extended)"', () {
+        // ignore: lines_longer_than_80_chars
+        expect(
+          m4.toString(),
+          equals(
+              // ignore: lines_longer_than_80_chars
+              'FlexTonalPalette.fromList({0: 4278190080, 4: 4280354304, 5: 4280616704, 6: 4280879360, 10: 4281798144, 12: 4282257664, 17: 4283373568, 20: 4284095488, 22: 4284555008, 30: 4286524160, 40: 4288692500, 50: 4290795563, 60: 4292964674, 70: 4294937692, 80: 4294948249, 87: 4294955198, 90: 4294958030, 92: 4294959832, 94: 4294961634, 95: 4294962663, 96: 4294963692, 97: 4294964465, 98: 4294965494, 99: 4294966271, 100: 4294967295}, FlexPaletteType.extended)'),
+        );
+      });
+      test(
+          'FTP2.U08: GIVEN same FlexTonalPalette.of extended '
+          'EXPECT each of its tones to match output asList via get', () {
+        const List<int> m1List = <int>[
+          4278190080,
+          4280354304,
+          4280616704,
+          4280879360,
+          4281798144,
+          4282257664,
+          4283373568,
+          4284095488,
+          4284555008,
+          4286524160,
+          4288692500,
+          4290795563,
+          4292964674,
+          4294937692,
+          4294948249,
+          4294955198,
+          4294958030,
+          4294959832,
+          4294961634,
+          4294962663,
+          4294963692,
+          4294964465,
+          4294965494,
+          4294966271,
+          4294967295,
+        ];
+        for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
+          expect(
+            m1.get(FlexTonalPalette.extendedTones[i]),
+            equals(m1List[i]),
+          );
+        }
+      });
+      test(
+          'FTP2.U09: GIVEN same FlexTonalPalette.fromList extended '
+          'EXPECT each of its tones to match output asList via get', () {
+        const List<int> m5List = <int>[
+          4278190080,
+          4280354304,
+          4280616704,
+          4280879360,
+          4281798144,
+          4282257664,
+          4283373568,
+          4284095488,
+          4284555008,
+          4286524160,
+          4288692500,
+          4290795563,
+          4292964674,
+          4294937692,
+          4294948249,
+          4294955198,
+          4294958030,
+          4294959832,
+          4294961634,
+          4294962663,
+          4294963692,
+          4294964465,
+          4294965494,
+          4294966271,
+          4294967295,
+        ];
+        for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
+          expect(
+            m5.get(FlexTonalPalette.extendedTones[i]),
+            equals(m5List[i]),
+          );
+        }
+      });
+      test(
+          'FTP2.U10: GIVEN a FlexTonalPalette.fromList extended '
+          'EXPECT accessing none existing to tone to throw argument error', () {
+        expect(
+          () => m5.get(7),
+          throwsArgumentError,
+        );
+      });
+    });
+    //
   });
 }

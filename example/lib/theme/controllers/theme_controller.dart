@@ -72,6 +72,24 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _keepLightSurfaceColorsWhite = false;
+  bool get keepLightSurfaceColorsWhite => _keepLightSurfaceColorsWhite;
+  void setKeepLightSurfaceColorsWhite(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _keepLightSurfaceColorsWhite) return;
+    _keepLightSurfaceColorsWhite = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _keepDarkSurfaceColorsBlack = false;
+  bool get keepDarkSurfaceColorsBlack => _keepDarkSurfaceColorsBlack;
+  void setKeepDarkSurfaceColorsBlack(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _keepDarkSurfaceColorsBlack) return;
+    _keepDarkSurfaceColorsBlack = value;
+    if (notify) notifyListeners();
+  }
+
   FlexTonesEnum _usedTone = FlexTonesEnum.material;
   FlexTonesEnum get usedTone => _usedTone;
   void setUsedTone(FlexTonesEnum? value, [bool notify = true]) {

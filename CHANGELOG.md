@@ -4,22 +4,25 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 1.4.0
 
-**June 23, 2023**
+**June 30, 2023**
 
 * **NEW** 
-  * Added support for new HCT tones used by updated Material3 color system, that were added during first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
-  * The change and additions are none breaking. APIs that want and can use the extended tones can pass in an optional `paletteType` of `FlexPaletteType` and set it to `FlexPaletteType.extended`, by default its values `FlexPaletteType.common` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]` being produced as before.
-  * The complete list of the 24 extended tones are `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 98, 99, 100]`.
-  * None breaking Changed APIs that now support using `paletteType` of `FlexPaletteType`are: 
-    * `FlexTonalPalette.of`
-    * `FlexTonalPalette.fromList`
-    * `FlexCorePalette.of`
-    * `FlexCorePalette.fromHueChroma`
-    * `FlexCorePalette.fromList`
-    * `FlexCorePalette.fromSeeds`
-    * `FlexTones`
-  * Flutter 3.10 and earlier do not yet use these new tones in its standard `ColorScheme`, but since they are in the Material 3 spec, they will arrive at some later point.
-
+  * Added support for new HCT tones used by updated Material3 color system, that were added during the first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
+    * The change and additions are none breaking. APIs that want and can use the extended tones can pass in an optional `paletteType` of `FlexPaletteType` and set it to `FlexPaletteType.extended`, by default its values `FlexPaletteType.common` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]` being produced as before.
+    * The complete list of the 25 extended tones are `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
+    * None breaking Changed APIs that now support using `paletteType` of `FlexPaletteType`are: 
+      * `FlexTonalPalette.of`
+      * `FlexTonalPalette.fromList`
+      * `FlexCorePalette.of`
+      * `FlexCorePalette.fromHueChroma`
+      * `FlexCorePalette.fromList`
+      * `FlexCorePalette.fromSeeds`
+      * `FlexTones`
+    * Flutter 3.10 and earlier do not yet use these new tones in its standard `ColorScheme`, but since they are in the Material 3 spec, they will arrive at some later point.
+    * `FlexTonalPalette`, like MCU `TonalPalette`, caps chroma for tones higher than or equal to 90, to maximum chroma value of 40. In `FlexTonalPalette` this still applies when using `FlexPaletteType.common`, when you use the `FlexPaletteType.extended`, there is no chroma max cap on high tones, it uses fidelity mode for high tones. When using type `FlexPaletteType.common` the chroma of high tones (>= 90), is limited to maximum 40. This keeps the chromacity of tones 90 to 100, lower than 40. If the source uses has more chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow strict M3's original palette design.
+    * When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used.
+  * Added two new pre-configured `FlexTones`, `candyPop` and `chroma`, they use the new `FlexPaletteType.extended` tonal palette.
+  
 
 * **CHANGE**
   * **Minor style breaking**: To correct and improve produced themes, the tones `primaryContainerTone` and `secondaryContainerTone` for light mode `FlexTones.highContrast` and `FlexTones.ultraContrast` were both changed from 95 to 90. This produced brighter and more punchy themes for these high-contrast themes in light mode.
@@ -40,10 +43,12 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 
 * **TODO**
-  * Test for extended tones.
   * New dynamic Scheme support.
   * Add more MCU updates.
-  * Example: Lock seed colors as brand colors in light mode.
+  * Readme: Review and update (Round one done, double check it)
+  * Readme: Update screenshots.
+  * Pubspec: Update screenshots.
+
 
 ## 1.3.0
 

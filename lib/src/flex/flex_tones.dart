@@ -29,6 +29,16 @@ import '../../flex_seed_scheme.dart';
 ///   60 degrees as with the all the other tone mapping to create the tertiary
 ///   hue when a key for it is not provided, the primary hue is used. We can
 ///   thus create a color scheme that uses only one hue.
+/// * [FlexTones.candyPop] for a high contrast, candy popping theme. It has
+///   tone 100, which is white surface and background in light mode and very
+///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
+///   [FlexPaletteType.extended], for additional tone fidelity.
+/// * [FlexTones.chroma] for a theme where the chroma in each seed color is used
+///   as is with any min limitation. Chroma in passed in color can even be zero,
+///   producing a greyscale tonal palette as the palette. It has
+///   tone 100, which is white surface and background in light mode and very
+///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
+///   [FlexPaletteType.extended], for additional tone fidelity.
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
@@ -55,7 +65,7 @@ import '../../flex_seed_scheme.dart';
 /// in the [ColorScheme] it concerns, mapping can typically be changed one step
 /// in either direction for a slightly different result. In some cases two
 /// tone steps can also be used. Three steps is rarely a good idea, but doable
-/// in a few select cases. Avoid going any further than that with any default
+/// in a few select cases. Avoid going much further than that with any default
 /// tone mapping adjustments.
 @immutable
 class FlexTones with Diagnosticable {
@@ -152,6 +162,7 @@ class FlexTones with Diagnosticable {
     this.onErrorTone = 100,
     this.errorContainerTone = 90,
     this.onErrorContainerTone = 10,
+    //
     this.backgroundTone = 99,
     this.onBackgroundTone = 10,
     this.surfaceTone = 99,
@@ -166,6 +177,7 @@ class FlexTones with Diagnosticable {
     this.onInverseSurfaceTone = 95,
     this.inversePrimaryTone = 80,
     this.surfaceTintTone = 40,
+    //
     this.primaryChroma,
     this.primaryMinChroma,
     this.secondaryChroma,
@@ -225,6 +237,7 @@ class FlexTones with Diagnosticable {
     this.onErrorTone = 20,
     this.errorContainerTone = 30,
     this.onErrorContainerTone = 80,
+    //
     this.backgroundTone = 10,
     this.onBackgroundTone = 90,
     this.surfaceTone = 10,
@@ -239,6 +252,7 @@ class FlexTones with Diagnosticable {
     this.onInverseSurfaceTone = 20,
     this.inversePrimaryTone = 40,
     this.surfaceTintTone = 80,
+    //
     this.primaryChroma,
     this.primaryMinChroma,
     this.secondaryChroma,
@@ -452,15 +466,16 @@ class FlexTones with Diagnosticable {
       brightness == Brightness.light
           ? const FlexTones.light(
               primaryTone: 20,
-              tertiaryTone: 30,
-              onBackgroundTone: 0,
-              onSurfaceTone: 0,
-              tertiaryContainerTone: 95,
-              errorContainerTone: 95,
               onPrimaryContainerTone: 5,
               onSecondaryContainerTone: 5,
+              tertiaryTone: 30,
+              tertiaryContainerTone: 95,
               onTertiaryContainerTone: 5,
+              errorContainerTone: 95,
               onErrorContainerTone: 5,
+              //
+              onBackgroundTone: 0,
+              onSurfaceTone: 0,
               surfaceVariantTone: 95,
               onSurfaceVariantTone: 10,
               onInverseSurfaceTone: 99,
@@ -477,20 +492,20 @@ class FlexTones with Diagnosticable {
             )
           : const FlexTones.dark(
               primaryTone: 90,
-              secondaryTone: 95,
-              tertiaryTone: 95,
               onPrimaryTone: 5,
-              onSecondaryTone: 5,
-              onTertiaryTone: 5,
-              onErrorTone: 5,
               onPrimaryContainerTone: 98,
+              secondaryTone: 95,
+              onSecondaryTone: 5,
               onSecondaryContainerTone: 98,
+              tertiaryTone: 95,
+              onTertiaryTone: 5,
               onTertiaryContainerTone: 98,
+              onErrorTone: 5,
               onErrorContainerTone: 98,
               //
-              surfaceTone: 5,
               backgroundTone: 5,
               onBackgroundTone: 99,
+              surfaceTone: 5,
               onSurfaceTone: 99,
               surfaceVariantTone: 20,
               onSurfaceVariantTone: 95,
@@ -512,12 +527,12 @@ class FlexTones with Diagnosticable {
       brightness == Brightness.light
           ? const FlexTones.light(
               primaryTone: 30,
-              secondaryTone: 50,
               onPrimaryTone: 99,
+              secondaryTone: 50,
               onSecondaryTone: 99,
+              secondaryContainerTone: 95,
               onTertiaryTone: 99,
               onErrorTone: 99,
-              secondaryContainerTone: 95,
               surfaceTintTone: 30,
               //
               tertiaryChroma: 40,
@@ -527,10 +542,10 @@ class FlexTones with Diagnosticable {
               neutralVariantChroma: 10,
             )
           : const FlexTones.dark(
-              secondaryTone: 90,
-              secondaryContainerTone: 20,
               onPrimaryTone: 10,
+              secondaryTone: 90,
               onSecondaryTone: 10,
+              secondaryContainerTone: 20,
               onTertiaryTone: 10,
               onErrorTone: 10,
               //
@@ -572,6 +587,154 @@ class FlexTones with Diagnosticable {
               secondaryChroma: 26,
               tertiaryChroma: 36,
               tertiaryHueRotation: 0,
+            );
+
+  /// Creates a tonal palette setup that results in a high contrast colorful
+  /// candy pop like theme.
+  ///
+  /// It has white surface and background (tone 100) in light mode and
+  /// low chroma on neutrals (2 and 4). Dark mode uses dark
+  /// surface and background tone 6.
+  ///
+  /// The [FlexPaletteType.extended] is used as palette type for more
+  /// fidelity in high tones and for more tones options.
+  factory FlexTones.candyPop(Brightness brightness) =>
+      brightness == Brightness.light
+          ? const FlexTones.light(
+              primaryTone: 40,
+              primaryContainerTone: 80,
+              onPrimaryContainerTone: 4,
+              secondaryTone: 60,
+              secondaryContainerTone: 92,
+              onSecondaryContainerTone: 10,
+              tertiaryTone: 50,
+              tertiaryContainerTone: 95,
+              onTertiaryContainerTone: 6,
+              //
+              backgroundTone: 100,
+              onBackgroundTone: 6,
+              surfaceTone: 100,
+              onSurfaceTone: 6,
+              surfaceVariantTone: 92,
+              onSurfaceVariantTone: 10,
+              onInverseSurfaceTone: 98,
+              inversePrimaryTone: 90,
+              outlineTone: 30,
+              outlineVariantTone: 70,
+              surfaceTintTone: 30,
+              //
+              primaryMinChroma: 60,
+              secondaryMinChroma: 44,
+              tertiaryMinChroma: 50,
+              neutralChroma: 2,
+              neutralVariantChroma: 4,
+              paletteType: FlexPaletteType.extended,
+            )
+          : const FlexTones.dark(
+              primaryTone: 90,
+              onPrimaryTone: 12,
+              primaryContainerTone: 40,
+              onPrimaryContainerTone: 94,
+              secondaryTone: 80,
+              onSecondaryTone: 6,
+              secondaryContainerTone: 50,
+              onSecondaryContainerTone: 96,
+              tertiaryTone: 87,
+              onTertiaryTone: 5,
+              onTertiaryContainerTone: 92,
+              onErrorTone: 6,
+              onErrorContainerTone: 95,
+              //
+              backgroundTone: 6,
+              onBackgroundTone: 95,
+              surfaceTone: 6,
+              onSurfaceTone: 95,
+              surfaceVariantTone: 20,
+              onSurfaceVariantTone: 90,
+              onInverseSurfaceTone: 10,
+              outlineTone: 60,
+              outlineVariantTone: 40,
+              surfaceTintTone: 95,
+              //
+              primaryMinChroma: 60,
+              secondaryMinChroma: 44,
+              tertiaryMinChroma: 50,
+              neutralChroma: 2,
+              neutralVariantChroma: 4,
+              paletteType: FlexPaletteType.extended,
+            );
+
+  /// Creates a tonal palette setup that results in a high contrast colorful
+  /// theme with background and surface tone 98, in light mode and very low
+  /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
+  /// (3 and 6). Dark mode uses dark surface and background tone 6.
+  ///
+  /// The [FlexPaletteType.extended] is used as palette type for more
+  /// fidelity in high tones and for more tones options.
+  factory FlexTones.chroma(Brightness brightness) =>
+      brightness == Brightness.light
+          ? const FlexTones.light(
+              primaryTone: 40,
+              primaryContainerTone: 80,
+              onPrimaryContainerTone: 4,
+              secondaryTone: 60,
+              secondaryContainerTone: 92,
+              onSecondaryContainerTone: 10,
+              tertiaryTone: 50,
+              tertiaryContainerTone: 95,
+              onTertiaryContainerTone: 6,
+              //
+              backgroundTone: 98,
+              onBackgroundTone: 6,
+              surfaceTone: 98,
+              onSurfaceTone: 6,
+              surfaceVariantTone: 92,
+              onSurfaceVariantTone: 10,
+              onInverseSurfaceTone: 98,
+              inversePrimaryTone: 90,
+              outlineTone: 30,
+              outlineVariantTone: 70,
+              surfaceTintTone: 30,
+              //
+              primaryMinChroma: 0,
+              secondaryMinChroma: 0,
+              tertiaryMinChroma: 0,
+              neutralChroma: 2,
+              neutralVariantChroma: 4,
+              paletteType: FlexPaletteType.extended,
+            )
+          : const FlexTones.dark(
+              primaryTone: 90,
+              onPrimaryTone: 12,
+              primaryContainerTone: 50,
+              onPrimaryContainerTone: 94,
+              secondaryTone: 80,
+              onSecondaryTone: 6,
+              secondaryContainerTone: 40,
+              onSecondaryContainerTone: 92,
+              tertiaryTone: 87,
+              onTertiaryTone: 5,
+              onTertiaryContainerTone: 96,
+              onErrorTone: 6,
+              onErrorContainerTone: 95,
+              //
+              backgroundTone: 6,
+              onBackgroundTone: 95,
+              surfaceTone: 6,
+              onSurfaceTone: 95,
+              surfaceVariantTone: 20,
+              onSurfaceVariantTone: 90,
+              onInverseSurfaceTone: 10,
+              outlineTone: 60,
+              outlineVariantTone: 40,
+              surfaceTintTone: 95,
+              //
+              primaryMinChroma: 0,
+              secondaryMinChroma: 0,
+              tertiaryMinChroma: 0,
+              neutralChroma: 3,
+              neutralVariantChroma: 6,
+              paletteType: FlexPaletteType.extended,
             );
 
   /// Returns a new [FlexTones] instance where on colors tones for all main on
@@ -630,6 +793,29 @@ class FlexTones with Diagnosticable {
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
       onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
       onInverseSurfaceTone: inverseSurfaceTone <= 60 ? 100 : 0,
+    );
+  }
+
+  /// Returns a new [FlexTones] instance where the tones for surface and
+  /// background are set 0 (black) if it was <= 60 and to 100 (white) if > 60.
+  ///
+  /// This will make the seeded on colors for [background] and [surface] pure
+  /// black or white, depending on if they are dark or light
+  ///
+  /// This is a modifier, using copyWith, that can be used to change any
+  /// existing or pre-made [FlexTones] config to not have any color tint in
+  /// their seeded [surface] and [background] colors.
+  ///
+  /// The [useBW] flag is true by default, making the function effective.
+  /// If set to false, the function is a no op and just returns the [FlexTones]
+  /// object unmodified. This is typically used to control applying the tint
+  /// removal via a controller.
+  FlexTones surfacesUseBW([bool useBW = true]) {
+    // ignore: avoid_returning_this
+    if (!useBW) return this;
+    return copyWith(
+      backgroundTone: backgroundTone <= 60 ? 0 : 100,
+      surfaceTone: surfaceTone <= 60 ? 0 : 100,
     );
   }
 

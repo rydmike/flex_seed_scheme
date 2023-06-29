@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,13 +28,6 @@ class ShowcaseMaterial extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        const SizedBox(height: 8),
-        const TextInputField(),
-        const SizedBox(height: 8),
-        const DropDownButtonFormField(),
-        const SizedBox(height: 8),
-        const DropDownMenuShowcase(),
-        const Divider(),
         const ElevatedButtonShowcase(),
         const SizedBox(height: 8),
         const FilledButtonShowcase(),
@@ -52,13 +46,9 @@ class ShowcaseMaterial extends StatelessWidget {
         const SizedBox(height: 16),
         const ChipShowcase(),
         const Divider(),
-        const SizedBox(height: 8),
-        const PopupMenuButtonsShowcase(),
-        const SizedBox(height: 8),
-        const Divider(),
-        const DropDownMenuShowcase(explainUsage: true),
-        const MenuBarShowcase(),
-        const MenuAnchorShowcase(),
+        const SwitchShowcase(showCupertinoSwitches: false),
+        const CheckboxShowcase(),
+        const RadioShowcase(),
         const SizedBox(height: 8),
         const Divider(),
         const SizedBox(height: 8),
@@ -70,9 +60,17 @@ class ShowcaseMaterial extends StatelessWidget {
         const SizedBox(height: 16),
         const ProgressIndicatorShowcase(),
         const Divider(),
-        const SwitchShowcase(),
-        const CheckboxShowcase(),
-        const RadioShowcase(),
+        const SizedBox(height: 8),
+        const TextInputField(),
+        const SizedBox(height: 8),
+        const DropDownButtonFormField(),
+        const SizedBox(height: 8),
+        const PopupMenuButtonsShowcase(),
+        const SizedBox(height: 8),
+        const Divider(),
+        const DropDownMenuShowcase(explainUsage: true),
+        const MenuBarShowcase(),
+        const MenuAnchorShowcase(),
         const SizedBox(height: 8),
         const Divider(),
         const SliderShowcase(),
@@ -120,7 +118,6 @@ class ShowcaseMaterial extends StatelessWidget {
         const BottomSheetModalShowcase(),
         const SizedBox(height: 32),
         const MaterialBannerSnackBarShowcase(),
-        const Divider(height: 32),
         const MaterialShowcase(),
         const Divider(height: 32),
         const CardShowcase(),
@@ -541,7 +538,8 @@ class FabShowcase extends StatelessWidget {
 }
 
 class SwitchShowcase extends StatefulWidget {
-  const SwitchShowcase({super.key});
+  const SwitchShowcase({super.key, this.showCupertinoSwitches = false});
+  final bool showCupertinoSwitches;
 
   @override
   State<SwitchShowcase> createState() => _SwitchShowcaseState();
@@ -549,16 +547,18 @@ class SwitchShowcase extends StatefulWidget {
 
 class _SwitchShowcaseState extends State<SwitchShowcase> {
   bool isOn1 = true;
-  bool isOn2 = false;
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final bool isLight = Theme.of(context).brightness == Brightness.light;
     return RepaintBoundary(
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
+          if (widget.showCupertinoSwitches) const Text('M3:'),
           Switch(
             value: isOn1,
             onChanged: (bool value) {
@@ -571,10 +571,12 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
             thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
                 (Set<MaterialState> states) {
               if (states.contains(MaterialState.selected)) {
-                return const Icon(Icons.check);
+                return Icon(Icons.check,
+                    color:
+                        isLight ? colorScheme.primary : colorScheme.onPrimary);
               }
               // All other states will use the default thumbIcon.
-              return const Icon(Icons.close);
+              return Icon(Icons.close, color: colorScheme.onPrimary);
             }),
             value: isOn1,
             onChanged: (bool value) {
@@ -584,21 +586,52 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
             },
           ),
           Switch(
-            value: isOn2,
+            value: isOn1,
+            onChanged: null,
+          ),
+          Switch(
+            value: !isOn1,
             onChanged: (bool value) {
               setState(() {
-                isOn2 = value;
+                isOn1 = !value;
               });
             },
           ),
-          const Switch(
-            value: true,
+          Switch(
+            value: !isOn1,
             onChanged: null,
           ),
-          const Switch(
-            value: false,
-            onChanged: null,
-          ),
+          if (widget.showCupertinoSwitches) ...<Widget>[
+            const Text('iOS:'),
+            CupertinoSwitch(
+              activeColor: colorScheme.primary,
+              value: isOn1,
+              onChanged: (bool value) {
+                setState(() {
+                  isOn1 = value;
+                });
+              },
+            ),
+            CupertinoSwitch(
+              activeColor: colorScheme.primary,
+              value: isOn1,
+              onChanged: null,
+            ),
+            CupertinoSwitch(
+              activeColor: colorScheme.primary,
+              value: !isOn1,
+              onChanged: (bool value) {
+                setState(() {
+                  isOn1 = !value;
+                });
+              },
+            ),
+            CupertinoSwitch(
+              activeColor: colorScheme.primary,
+              value: !isOn1,
+              onChanged: null,
+            ),
+          ],
         ],
       ),
     );

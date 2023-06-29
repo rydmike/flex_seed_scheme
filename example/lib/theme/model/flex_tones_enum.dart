@@ -19,8 +19,9 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 55, tone 30/70\n'
         'Secondary - Chroma from key color, but min 25\n'
         'Tertiary - Chroma from key color, but min 40\n'
-        'Neutral - Chroma set to 7\n'
-        'Neutral variant - Chroma set to 14\n',
+        'Neutral - Chroma set to 5 (L), 7 (D)\n'
+        'Neutral variant - Chroma set to 10 (L), 14 (D)\n'
+        'Tonal palette - Extended',
     icon: Icons.texture_outlined,
     shade: 1,
   ),
@@ -31,7 +32,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma set to 16\n'
         'Tertiary - Chroma set to 24\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8',
+        'Neutral variant - Chroma set to 8\n'
+        'Tonal palette - Common',
     icon: Icons.blur_circular,
     shade: -5,
   ),
@@ -42,7 +44,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma set to 14\n'
         'Tertiary - Chroma set to 20\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8',
+        'Neutral variant - Chroma set to 8\n'
+        'Tonal palette - Common',
     icon: Icons.blur_on,
     shade: 2,
   ),
@@ -53,7 +56,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8',
+        'Neutral variant - Chroma set to 8\n'
+        'Tonal palette - Common',
     icon: Icons.tonality,
     shade: 6,
   ),
@@ -66,7 +70,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
         'Neutral - Chroma set to 5\n'
-        'Neutral variant - Chroma set to 10',
+        'Neutral variant - Chroma set to 10\n'
+        'Tonal palette - Common',
     icon: Icons.radio_button_checked,
     shade: 10,
   ),
@@ -77,7 +82,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color, but min 55\n'
         'Tertiary - Chroma from key color, but min 55\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8',
+        'Neutral variant - Chroma set to 8\n'
+        'Tonal palette - Common',
     icon: Icons.contrast,
     shade: 14,
   ),
@@ -89,7 +95,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color, but min 70\n'
         'Tertiary - Chroma from key color, but min 65\n'
         'Neutral - Chroma set to 3\n'
-        'Neutral variant - Chroma set to 6',
+        'Neutral variant - Chroma set to 6\n'
+        'Tonal palette - Common',
     icon: Icons.lens,
     shade: 20,
   ),
@@ -100,7 +107,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color, but min 40\n'
         'Tertiary - Chroma set to 40\n'
         'Neutral - Chroma set to 6\n'
-        'Neutral variant - Chroma set to 10',
+        'Neutral variant - Chroma set to 10\n'
+        'Tonal palette - Common',
     icon: Icons.sunny,
     shade: 8,
   ),
@@ -112,7 +120,8 @@ enum FlexTonesEnum {
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
         'Neutral - Chroma set to 5\n'
-        'Neutral variant - Chroma set to 10',
+        'Neutral variant - Chroma set to 10\n'
+        'Tonal palette - Common',
     icon: Icons.panorama_wide_angle_select_rounded,
     shade: 10,
   ),
@@ -123,9 +132,40 @@ enum FlexTonesEnum {
         'Secondary - Chroma set to 26\n'
         'Tertiary - Chroma set to 36, no Hue rotation\n'
         'Neutral - Chroma set to 4\n'
-        'Neutral variant - Chroma set to 8',
+        'Neutral variant - Chroma set to 8\n'
+        'Tonal palette - Common',
     icon: Icons.looks_one_rounded,
     shade: 7,
+  ),
+  candyPop(
+    toneLabel: 'Candy pop',
+    describe: 'A high contrast color scheme, useful for accessible themes, '
+        'with colors that pop like candy. Keeps the background and surface '
+        'white in light mode, and only a slight tint in dark mode. Neutrals '
+        'have very low chroma.',
+    setup: 'Primary - Chroma from key color, but min 60\n'
+        'Secondary - Chroma from key color, but min 44\n'
+        'Tertiary - Chroma from key color, but min 50\n'
+        'Neutral - Chroma set to 2\n'
+        'Neutral variant - Chroma set to 4\n'
+        'Tonal palette - Extended',
+    icon: Icons.join_left_outlined,
+    shade: 9,
+  ),
+  chroma(
+    toneLabel: 'Chroma',
+    describe:
+        'A color scheme that follows chroma of each used seed color. Useful '
+        'for manual control of pop or low chromacity. It uses low '
+        'surface tint and neutrals with medium chroma.',
+    setup: 'Primary - Chroma from key color, min 0\n'
+        'Secondary - Chroma from key color, min 0\n'
+        'Tertiary - Chroma from key color, min 0\n'
+        'Neutral - Chroma set to 2 (L), 3 (D)\n'
+        'Neutral variant - Chroma set to 4 (L), 6 (D)\n'
+        'Tonal palette - Extended',
+    icon: Icons.lens_outlined,
+    shade: 3,
   );
 
   const FlexTonesEnum({
@@ -164,6 +204,10 @@ enum FlexTonesEnum {
         return FlexTones.vividBackground(brightness);
       case FlexTonesEnum.oneHue:
         return FlexTones.oneHue(brightness);
+      case FlexTonesEnum.candyPop:
+        return FlexTones.candyPop(brightness);
+      case FlexTonesEnum.chroma:
+        return FlexTones.chroma(brightness);
     }
   }
 }

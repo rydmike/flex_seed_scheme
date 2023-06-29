@@ -655,7 +655,7 @@ void main() {
         ),
       );
     });
-    test('FTO1.030: Verify FlexTones.oneHue(Brightness.dark).', () {
+    test('FTO1.031: Verify FlexTones.oneHue(Brightness.dark).', () {
       expect(
         FlexTones.oneHue(Brightness.dark),
         equals(
@@ -668,6 +668,162 @@ void main() {
             secondaryChroma: 26,
             tertiaryChroma: 36,
             tertiaryHueRotation: 0,
+          ),
+        ),
+      );
+    });
+    //
+    test('FTO1.031: Verify FlexTones.candyPop(Brightness.light).', () {
+      expect(
+        FlexTones.candyPop(Brightness.light),
+        equals(
+          const FlexTones.light(
+            primaryTone: 40,
+            primaryContainerTone: 80,
+            onPrimaryContainerTone: 4,
+            secondaryTone: 60,
+            secondaryContainerTone: 92,
+            onSecondaryContainerTone: 10,
+            tertiaryTone: 50,
+            tertiaryContainerTone: 95,
+            onTertiaryContainerTone: 6,
+            //
+            backgroundTone: 100,
+            onBackgroundTone: 6,
+            surfaceTone: 100,
+            onSurfaceTone: 6,
+            surfaceVariantTone: 92,
+            onSurfaceVariantTone: 10,
+            onInverseSurfaceTone: 98,
+            inversePrimaryTone: 90,
+            outlineTone: 30,
+            outlineVariantTone: 70,
+            surfaceTintTone: 30,
+            //
+            primaryMinChroma: 60,
+            secondaryMinChroma: 44,
+            tertiaryMinChroma: 50,
+            neutralChroma: 2,
+            neutralVariantChroma: 4,
+            paletteType: FlexPaletteType.extended,
+          ),
+        ),
+      );
+    });
+    test('FTO1.032: Verify FlexTones.candyPop(Brightness.dark).', () {
+      expect(
+        FlexTones.candyPop(Brightness.dark),
+        equals(
+          const FlexTones.dark(
+            primaryTone: 90,
+            onPrimaryTone: 12,
+            primaryContainerTone: 40,
+            onPrimaryContainerTone: 94,
+            secondaryTone: 80,
+            onSecondaryTone: 6,
+            secondaryContainerTone: 50,
+            onSecondaryContainerTone: 96,
+            tertiaryTone: 87,
+            onTertiaryTone: 5,
+            onTertiaryContainerTone: 92,
+            onErrorTone: 6,
+            onErrorContainerTone: 95,
+            //
+            backgroundTone: 6,
+            onBackgroundTone: 95,
+            surfaceTone: 6,
+            onSurfaceTone: 95,
+            surfaceVariantTone: 20,
+            onSurfaceVariantTone: 90,
+            onInverseSurfaceTone: 10,
+            outlineTone: 60,
+            outlineVariantTone: 40,
+            surfaceTintTone: 95,
+            //
+            primaryMinChroma: 60,
+            secondaryMinChroma: 44,
+            tertiaryMinChroma: 50,
+            neutralChroma: 2,
+            neutralVariantChroma: 4,
+            paletteType: FlexPaletteType.extended,
+          ),
+        ),
+      );
+    });
+    //
+    test('FTO1.033: Verify FlexTones.oneHue(Brightness.light).', () {
+      expect(
+        FlexTones.chroma(Brightness.light),
+        equals(
+          const FlexTones.light(
+            primaryTone: 40,
+            primaryContainerTone: 80,
+            onPrimaryContainerTone: 4,
+            secondaryTone: 60,
+            secondaryContainerTone: 92,
+            onSecondaryContainerTone: 10,
+            tertiaryTone: 50,
+            tertiaryContainerTone: 95,
+            onTertiaryContainerTone: 6,
+            //
+            backgroundTone: 98,
+            onBackgroundTone: 6,
+            surfaceTone: 98,
+            onSurfaceTone: 6,
+            surfaceVariantTone: 92,
+            onSurfaceVariantTone: 10,
+            onInverseSurfaceTone: 98,
+            inversePrimaryTone: 90,
+            outlineTone: 30,
+            outlineVariantTone: 70,
+            surfaceTintTone: 30,
+            //
+            primaryMinChroma: 0,
+            secondaryMinChroma: 0,
+            tertiaryMinChroma: 0,
+            neutralChroma: 2,
+            neutralVariantChroma: 4,
+            paletteType: FlexPaletteType.extended,
+          ),
+        ),
+      );
+    });
+    test('FTO1.034: Verify FlexTones.oneHue(Brightness.dark).', () {
+      expect(
+        FlexTones.chroma(Brightness.dark),
+        equals(
+          const FlexTones.dark(
+            primaryTone: 90,
+            onPrimaryTone: 12,
+            primaryContainerTone: 50,
+            onPrimaryContainerTone: 94,
+            secondaryTone: 80,
+            onSecondaryTone: 6,
+            secondaryContainerTone: 40,
+            onSecondaryContainerTone: 92,
+            tertiaryTone: 87,
+            onTertiaryTone: 5,
+            onTertiaryContainerTone: 96,
+            onErrorTone: 6,
+            onErrorContainerTone: 95,
+            //
+            backgroundTone: 6,
+            onBackgroundTone: 95,
+            surfaceTone: 6,
+            onSurfaceTone: 95,
+            surfaceVariantTone: 20,
+            onSurfaceVariantTone: 90,
+            onInverseSurfaceTone: 10,
+            outlineTone: 60,
+            outlineVariantTone: 40,
+            surfaceTintTone: 95,
+            //
+            primaryMinChroma: 0,
+            secondaryMinChroma: 0,
+            tertiaryMinChroma: 0,
+            neutralChroma: 3,
+            neutralVariantChroma: 6,
+            paletteType: FlexPaletteType.extended,
           ),
         ),
       );

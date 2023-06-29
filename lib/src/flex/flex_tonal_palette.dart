@@ -8,6 +8,19 @@ import '../mcu/material_color_utilities.dart';
 // ignore_for_file: comment_references
 
 /// Enum used to select tones included in produced FlexTonalPalette.
+///
+/// When using type [FlexPaletteType.common] the chroma of high tones, >= 90,
+/// is limited to maximum 40. This keeps the chromacity of tones 90 to 100,
+/// lower than 40.
+/// If the source color use more chromacity than 40, there may be a sudden jump
+/// in chroma reduction at tone 90. This is the standard behavior for the
+/// original Material 3 tonal palette computation. The [FlexPaletteType.common]
+/// is intended  to be used when there is a need to follow strict M3's
+/// original palette design.
+///
+/// When using the [FlexPaletteType.extended] type tones, there are not only
+/// the new tones, but the chroma limit of tones >= 90 is also removed.
+/// This increases fidelity of higher tone when high chromacity is used.
 enum FlexPaletteType {
   /// Default common tones consisting of the 15 tones originally used in
   /// FlexSeedScheme.
@@ -105,11 +118,15 @@ class FlexTonalPalette {
   ///
   /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
-  /// 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
+  /// 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
   /// color system. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   /// The additional tones in the Material 3 specification appeared during later
   /// pert of first half of 2023.
+  ///
+  /// Tones 5, 97, and 98 are not in old or new M3 spec, but FlexSeedScheme
+  /// includes them to enable even more fidelity in dark and even more so in
+  /// the light tones.
   ///
   /// Tone 98 provides optional tonal fidelity in the light and white end of the
   /// palette and tone 5 a more dark tone in the black end of the palette.
@@ -135,6 +152,7 @@ class FlexTonalPalette {
     94,
     95,
     96,
+    97,
     98,
     99,
     100,
@@ -150,8 +168,8 @@ class FlexTonalPalette {
   /// to [TonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 24.
-  static const int extendedSize = 24;
+  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 25.
+  static const int extendedSize = 25;
 
   final double? _hue;
   final double? _chroma;
@@ -196,8 +214,8 @@ class FlexTonalPalette {
                 paletteType == FlexPaletteType.common) ||
             (colors.length == extendedSize &&
                 paletteType == FlexPaletteType.extended),
-        'Length must be $commonSize when using paletteType common OR '
-        'length must be $extendedSize when using paletteType extended.');
+        'Length must be $commonSize when using FlexPaletteType.common OR '
+        'length must be $extendedSize when using FlexPaletteType.extended.');
     Map<int, int> cache;
     cache = <int, int>{};
     switch (paletteType) {
@@ -242,7 +260,14 @@ class FlexTonalPalette {
         return _cache[tone]!;
       }
     }
-    final double chroma = (tone >= 90.0) ? math.min(_chroma!, 40.0) : _chroma!;
+
+    // If we are using `common` tonal palette type and the tone is larger or
+    // equal to 90, allow maximum chroma value of 90, in other cases
+    // use the actual chroma value.
+    final double chroma =
+        (tone >= 90.0) && _paletteType == FlexPaletteType.common
+            ? math.min(_chroma!, 40.0)
+            : _chroma!;
     return _cache.putIfAbsent(
         tone, () => Hct.from(_hue!, chroma, tone.toDouble()).toInt());
   }
