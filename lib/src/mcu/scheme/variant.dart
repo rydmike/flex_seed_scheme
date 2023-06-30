@@ -67,7 +67,15 @@ enum Variant {
           'For example, if source color is black, it is lightened '
           "so it doesn't match surfaces in dark mode.\n"
           '\n'
-          'Tertiary palette is complement of source color.');
+          'Tertiary palette is complement of source color.'),
+
+  /// A playful rainbow theme.
+  rainbow('rainbow',
+      "A playful theme - the source color's hue does not appear in the theme."),
+
+  /// A playful fruit sallad theme.
+  fruitSalad('fruit salad',
+      "A playful theme - the source color's hue does not appear in the theme.");
 
   /// Label for the dynamic color variant.
   final String label;

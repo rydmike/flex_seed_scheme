@@ -30,9 +30,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 
 * **CHORE**
-  * Add MCU updates from its Dart version to the internal bundled version.
-    * PR: 11.5.2023 Align color score implementation.
-    * PR: 15.5.2023 Update to latest Dynamic colors.
+  * Add all MCU updates from its Dart version to the internal bundled version. Includes all PRs until PR: 28.6.2023 Change var back to double in Java. Including not yet published Pub version 0.8.0 June 22, 2023, with two new schemes fruit salad and rainbow.
 
 
 * **EXAMPLE**

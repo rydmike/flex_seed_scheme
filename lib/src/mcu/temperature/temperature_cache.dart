@@ -15,8 +15,6 @@
 import 'dart:math' as math;
 
 import '../material_color_utilities.dart';
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
 
 /// Design utilities using color temperature theory.
 ///

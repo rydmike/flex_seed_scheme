@@ -17,8 +17,6 @@
 import 'dart:math';
 
 import '../material_color_utilities.dart';
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
 
 /// Functions for blending in HCT and CAM16.
 class Blend {

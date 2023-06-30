@@ -27,7 +27,7 @@ import '../material_color_utilities.dart';
 /// 2. [fromList] From a fixed-size ([TonalPalette.commonSize]) list of ints
 /// representing ARBG colors. Correctness (constant hue and chroma) of the input
 /// is not enforced. [get] will only return the input colors, corresponding to
-/// [commonTones].
+/// [commonTones]. This also initializes the key color to black.
 @immutable
 class TonalPalette {
   /// Commonly-used tone values.
@@ -47,28 +47,40 @@ class TonalPalette {
     100,
   ];
 
-  /// commonSize
+  /// Amount of tone in standard Material3 tonal palette.
   static final int commonSize = commonTones.length;
 
+  final Hct? _keyColor;
+
+  /// Get the keyColor used to make this [TonalPalette].
+  Hct get keyColor => _keyColor ?? Hct.from(0.0, 0.0, 0.0);
   final double? _hue;
 
-  /// Get the hue.
+  /// Get the Hue value for this [TonalPalette].
   double get hue => _hue ?? 0.0;
   final double? _chroma;
 
-  /// Get the chroma.
+  /// Get the chroma value for this [TonalPalette].
   double get chroma => _chroma ?? 0.0;
   final Map<int, int> _cache;
+
+  TonalPalette._fromHct(Hct hct)
+      : _cache = <int, int>{},
+        _hue = hct.hue,
+        _chroma = hct.chroma,
+        _keyColor = hct;
 
   TonalPalette._fromHueAndChroma(double hue, double chroma)
       : _cache = <int, int>{},
         _hue = hue,
-        _chroma = chroma;
+        _chroma = chroma,
+        _keyColor = createKeyColor(hue, chroma);
 
   const TonalPalette._fromCache(Map<int, int> cache)
       : _cache = cache,
         _hue = null,
-        _chroma = null;
+        _chroma = null,
+        _keyColor = null;
 
   /// Create colors using [hue] and [chroma].
   static TonalPalette of(double hue, double chroma) {
@@ -77,25 +89,66 @@ class TonalPalette {
 
   /// Create a Tonal Palette from hue and chroma of [hct].
   static TonalPalette fromHct(Hct hct) {
-    return TonalPalette._fromHueAndChroma(hct.hue, hct.chroma);
+    return TonalPalette._fromHct(hct);
   }
 
   /// Create colors from a fixed-size list of ARGB color ints.
   ///
   /// Inverse of [TonalPalette.asList].
   static TonalPalette fromList(List<int> colors) {
-    assert(colors.length == commonSize, 'Colors length must be $commonSize');
+    assert(colors.length == commonSize, 'Length of list must be $commonSize');
     final Map<int, int> cache = <int, int>{};
     commonTones.asMap().forEach(
         (int index, int toneValue) => cache[toneValue] = colors[index]);
     return TonalPalette._fromCache(cache);
   }
 
+  /// Key color [Hct].
+  ///
+  /// Creates a key color from a [hue] and a [chroma].
+  /// The key color is the first tone, starting from T50, matching the given hue
+  /// and chroma.
+  static Hct createKeyColor(double hue, double chroma) {
+    const double startTone = 50.0;
+    Hct smallestDeltaHct = Hct.from(hue, chroma, startTone);
+    double smallestDelta = (smallestDeltaHct.chroma - chroma).abs();
+    // Starting from T50, check T+/-delta to see if they match the requested
+    // chroma.
+    //
+    // Starts from T50 because T50 has the most chroma available, on
+    // average. Thus it is most likely to have a direct answer and minimize
+    // iteration.
+    for (double delta = 1.0; delta < 50.0; delta += 1.0) {
+      // Termination condition rounding instead of minimizing delta to avoid
+      // case where requested chroma is 16.51, and the closest chroma is 16.49.
+      // Error is minimized, but when rounded and displayed, requested chroma
+      // is 17, key color's chroma is 16.
+      if (chroma.round() == smallestDeltaHct.chroma.round()) {
+        return smallestDeltaHct;
+      }
+
+      final Hct hctAdd = Hct.from(hue, chroma, startTone + delta);
+      final double hctAddDelta = (hctAdd.chroma - chroma).abs();
+      if (hctAddDelta < smallestDelta) {
+        smallestDelta = hctAddDelta;
+        smallestDeltaHct = hctAdd;
+      }
+
+      final Hct hctSubtract = Hct.from(hue, chroma, startTone - delta);
+      final double hctSubtractDelta = (hctSubtract.chroma - chroma).abs();
+      if (hctSubtractDelta < smallestDelta) {
+        smallestDelta = hctSubtractDelta;
+        smallestDeltaHct = hctSubtract;
+      }
+    }
+
+    return smallestDeltaHct;
+  }
+
   /// Returns a fixed-size list of ARGB color ints for common tone values.
   ///
   /// Inverse of [fromList].
-  // ignore: unnecessary_lambdas
-  List<int> get asList => commonTones.map((int tone) => get(tone)).toList();
+  List<int> get asList => commonTones.map(get).toList();
 
   /// Returns the ARGB representation of an HCT color.
   ///
@@ -121,9 +174,8 @@ class TonalPalette {
         tone, () => Hct.from(_hue!, chroma, tone.toDouble()).toInt());
   }
 
-  /// getHct.
+  /// Get the HCT color for a given tone.
   Hct getHct(double tone) {
-    // coverage:ignore-start
     if (_hue == null || _chroma == null) {
       if (!_cache.containsKey(tone)) {
         throw ArgumentError.value(
@@ -133,7 +185,6 @@ class TonalPalette {
               '$commonTones',
         );
       }
-      // coverage:ignore-end
     }
     return Hct.from(_hue!, _chroma!, tone);
   }

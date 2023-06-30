@@ -19,8 +19,6 @@
 import 'dart:math';
 
 import '../../material_color_utilities.dart';
-import '../../utils/color_utils.dart';
-import '../../utils/math_utils.dart';
 
 /// A class that solves the HCT equation.
 class HctSolver {

@@ -14,7 +14,6 @@
 import 'package:collection/collection.dart';
 
 import '../material_color_utilities.dart';
-import '../utils/math_utils.dart';
 
 class _ScoredHCT implements Comparable<_ScoredHCT> {
   Hct hct;

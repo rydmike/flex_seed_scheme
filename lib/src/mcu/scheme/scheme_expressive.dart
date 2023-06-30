@@ -12,14 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// import 'package:material_color_utilities/hct/hct.dart';
-// import 'package:material_color_utilities/palettes/tonal_palette.dart';
-// import 'package:material_color_utilities/utils/math_utils.dart';
-// import 'dynamic_scheme.dart';
-// import 'variant.dart';
-
 import '../material_color_utilities.dart';
-import '../utils/math_utils.dart';
 
 /// A Dynamic Color theme that is intentionally detached from the input color.
 class SchemeExpressive extends DynamicScheme {
@@ -34,7 +27,7 @@ class SchemeExpressive extends DynamicScheme {
     191,
     271,
     321,
-    360,
+    360
   ];
 
   /// Hue rotations of the Secondary [TonalPalette], corresponding to the
@@ -48,7 +41,7 @@ class SchemeExpressive extends DynamicScheme {
     90,
     45,
     45,
-    45,
+    45
   ];
 
   /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
@@ -62,10 +55,10 @@ class SchemeExpressive extends DynamicScheme {
     15,
     20,
     120,
-    120,
+    120
   ];
 
-  /// SchemeExpressive.
+  /// SchemeExpressive default constructor.
   SchemeExpressive({
     required Hct sourceColorHct,
     required super.isDark,
@@ -74,7 +67,7 @@ class SchemeExpressive extends DynamicScheme {
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.expressive,
           primaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 120.0),
+            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240.0),
             40.0,
           ),
           secondaryPalette: TonalPalette.of(
@@ -87,7 +80,8 @@ class SchemeExpressive extends DynamicScheme {
                 sourceColorHct, hues, tertiaryRotations),
             32.0,
           ),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 8.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 12.0),
+          neutralPalette: TonalPalette.of(sourceColorHct.hue + 15.0, 8.0),
+          neutralVariantPalette:
+              TonalPalette.of(sourceColorHct.hue + 15.0, 12.0),
         );
 }
