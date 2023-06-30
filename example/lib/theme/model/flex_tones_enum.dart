@@ -19,6 +19,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 55, tone 30/70\n'
         'Secondary - Chroma from key color, but min 25\n'
         'Tertiary - Chroma from key color, but min 40\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5 (L), 7 (D)\n'
         'Neutral variant - Chroma set to 10 (L), 14 (D)\n'
         'Tonal palette - Extended',
@@ -31,6 +32,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 48\n'
         'Secondary - Chroma set to 16\n'
         'Tertiary - Chroma set to 24\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
         'Tonal palette - Common',
@@ -43,6 +45,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma set to 30\n'
         'Secondary - Chroma set to 14\n'
         'Tertiary - Chroma set to 20\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
         'Tonal palette - Common',
@@ -55,6 +58,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
         'Tonal palette - Common',
@@ -69,6 +73,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
         'Tonal palette - Common',
@@ -81,6 +86,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 65\n'
         'Secondary - Chroma from key color, but min 55\n'
         'Tertiary - Chroma from key color, but min 55\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
         'Tonal palette - Common',
@@ -94,6 +100,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 60\n'
         'Secondary - Chroma from key color, but min 70\n'
         'Tertiary - Chroma from key color, but min 65\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 3\n'
         'Neutral variant - Chroma set to 6\n'
         'Tonal palette - Common',
@@ -106,6 +113,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 55\n'
         'Secondary - Chroma from key color, but min 40\n'
         'Tertiary - Chroma set to 40\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 10\n'
         'Tonal palette - Common',
@@ -119,6 +127,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
         'Tertiary - Chroma from key color\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
         'Tonal palette - Common',
@@ -131,6 +140,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 55\n'
         'Secondary - Chroma set to 26\n'
         'Tertiary - Chroma set to 36, no Hue rotation\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
         'Tonal palette - Common',
@@ -146,6 +156,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, but min 60\n'
         'Secondary - Chroma from key color, but min 44\n'
         'Tertiary - Chroma from key color, but min 50\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2\n'
         'Neutral variant - Chroma set to 4\n'
         'Tonal palette - Extended',
@@ -161,6 +172,7 @@ enum FlexTonesEnum {
     setup: 'Primary - Chroma from key color, min 0\n'
         'Secondary - Chroma from key color, min 0\n'
         'Tertiary - Chroma from key color, min 0\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2 (L), 3 (D)\n'
         'Neutral variant - Chroma set to 4 (L), 6 (D)\n'
         'Tonal palette - Extended',

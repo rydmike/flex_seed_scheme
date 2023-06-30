@@ -558,20 +558,21 @@ class FlexCorePalette {
 
     // Error TonalPalette calculation.
     //
-    // Provided key color may be null, then we use M3 default value.
-    // The M3 magic seed color error red ARGB in hex is #FFDE3730.
-    final Cam16 camError =
-        error == null ? Cam16.fromInt(0xFFDE3730) : Cam16.fromInt(error);
-    // If a fixed chroma value was given we use it instead.
-    final double effectiveErrorChroma = errorChroma ?? camError.chroma;
+    // Input error color maybe null, but if it is not we make a Cam16 from it.
+    final Cam16? camError = error == null ? null : Cam16.fromInt(error);
+
+    // If a fixed error chroma value was given we will use it instead as
+    // effective chroma value, if not and if input error color was given, we use
+    // its chroma, if one was not given we fall back to M3 default chroma 84.
+    final double effectiveErrorChroma = errorChroma ?? camError?.chroma ?? 84;
+
+    // If an error color was given, we use its hue, if none was given we fall
+    // back to hue 25, the Material 3 default.
+    final double effectiveErrorHue = camError?.hue ?? 25;
+
     // We use the effectiveChroma, but only if it is over the min level.
-    //
-    // If the passed in error and error chroma were both null, we use
-    // default FlexTonalPalette.of(25, 84) with used paletteType.
-    final FlexTonalPalette tonalError = (error == null && errorChroma == null)
-        ? FlexTonalPalette.of(25, 84, paletteType)
-        : FlexTonalPalette.of(camError.hue,
-            math.max(errorMinChroma ?? 0, effectiveErrorChroma), paletteType);
+    final FlexTonalPalette tonalError = FlexTonalPalette.of(effectiveErrorHue,
+        math.max(errorMinChroma ?? 0, effectiveErrorChroma), paletteType);
 
     return FlexCorePalette(
       primary: tonalPrimary,

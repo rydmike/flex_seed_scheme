@@ -6,7 +6,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **June 30, 2023**
 
-* **NEW** 
+* **NEW FEATURES** 
   * Added support for new HCT tones used by updated Material3 color system, that were added during the first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
     * The change and additions are none breaking. APIs that want and can use the extended tones can pass in an optional `paletteType` of `FlexPaletteType` and set it to `FlexPaletteType.extended`, by default its values `FlexPaletteType.common` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]` being produced as before.
     * The complete list of the 25 extended tones are `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
@@ -22,30 +22,33 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
     * `FlexTonalPalette`, like MCU `TonalPalette`, caps chroma for tones higher than or equal to 90, to maximum chroma value of 40. In `FlexTonalPalette` this still applies when using `FlexPaletteType.common`, when you use the `FlexPaletteType.extended`, there is no chroma max cap on high tones, it uses fidelity mode for high tones. When using type `FlexPaletteType.common` the chroma of high tones (>= 90), is limited to maximum 40. This keeps the chromacity of tones 90 to 100, lower than 40. If the source uses has more chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow strict M3's original palette design.
     * When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used.
   * Added two new pre-configured `FlexTones`, `candyPop` and `chroma`, they use the new `FlexPaletteType.extended` tonal palette.
-  
+  * Added new `FlexTones` modifier `surfacesUseBW()`. It can be used as a modifier to force any `FlexTones` seed strategy to use tone 100 (white) or tone 0 (black) as `background` and `surface` colors, depending on if they are dark or light
+
 
 * **CHANGE**
-  * **Minor style breaking**: To correct and improve produced themes, the tones `primaryContainerTone` and `secondaryContainerTone` for light mode `FlexTones.highContrast` and `FlexTones.ultraContrast` were both changed from 95 to 90. This produced brighter and more punchy themes for these high-contrast themes in light mode.
+  * **Minor style breaking**: To correct and improve produced themes, the tones `primaryContainerTone` and `secondaryContainerTone` for light mode `FlexTones.highContrast` and `FlexTones.ultraContrast` were both changed from 95 to 90. This produces brighter and more punchy themes for these two high-contrast themes in light mode.
 
 
-* **CHORE**: Add MCU updates from its Dart version to the internal bundled version.
-  * PR: 11.5.2023 Align color score implementation.
-  * PR: 15.5.2023 Update to latest Dynamic colors.
+* **CHORE**
+  * Add MCU updates from its Dart version to the internal bundled version.
+    * PR: 11.5.2023 Align color score implementation.
+    * PR: 15.5.2023 Update to latest Dynamic colors.
 
 
 * **EXAMPLE**
-  * Refactored the example.
+  * Major refactoring of the example app.
   * Use a theme controller and ListenableBuilder to rebuild the app theme when the theme controller changes.
   * Feature: Add showing generated tonal palettes to the example.
   * Feature: Separate controls for making on Main and on Surface colors black and white.
   * Feature: Change seed colors in the app with Color picker.
   * Feature: Add switching between showing common tones and extended tones.
+  * Feature: Add selecting a custom color as key color for error palette.
 
 
 * **TODO**
   * New dynamic Scheme support.
   * Add more MCU updates.
-  * Readme: Review and update (Round one done, double check it)
+  * Readme: Review and update. Round one done, double-check it!
   * Readme: Update screenshots.
   * Pubspec: Update screenshots.
 

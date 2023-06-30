@@ -54,6 +54,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _useErrorKey = false;
+  bool get useErrorKey => _useErrorKey;
+  void setUseErrorKey(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _useErrorKey) return;
+    _useErrorKey = value;
+    if (notify) notifyListeners();
+  }
+
   bool _keepMainOnColorsBW = false;
   bool get keepMainOnColorsBW => _keepMainOnColorsBW;
   void setKeepMainOnColorsBW(bool? value, [bool notify = true]) {
@@ -123,6 +132,15 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _tertiarySeedColor) return;
     _tertiarySeedColor = value;
+    if (notify) notifyListeners();
+  }
+
+  Color _errorSeedColor = AppColor.error;
+  Color get errorSeedColor => _errorSeedColor;
+  void setErrorSeedColor(Color? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _errorSeedColor) return;
+    _errorSeedColor = value;
     if (notify) notifyListeners();
   }
 

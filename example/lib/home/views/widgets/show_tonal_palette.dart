@@ -31,6 +31,7 @@ class ShowTonalPalette extends StatelessWidget {
           : null,
       tertiary:
           controller.useTertiaryKey ? controller.tertiarySeedColor.value : null,
+      error: controller.useErrorKey ? controller.errorSeedColor.value : null,
       // Tone config details we get from active FlexTones.
       primaryChroma: tones.primaryChroma,
       primaryMinChroma: tones.primaryMinChroma,

@@ -631,12 +631,12 @@ class FlexTones with Diagnosticable {
               paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
-              primaryTone: 90,
+              primaryTone: 80,
               onPrimaryTone: 12,
               primaryContainerTone: 40,
-              onPrimaryContainerTone: 94,
-              secondaryTone: 80,
-              onSecondaryTone: 6,
+              onPrimaryContainerTone: 97,
+              secondaryTone: 70,
+              onSecondaryTone: 4,
               secondaryContainerTone: 50,
               onSecondaryContainerTone: 96,
               tertiaryTone: 87,
@@ -704,17 +704,17 @@ class FlexTones with Diagnosticable {
               paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
-              primaryTone: 90,
+              primaryTone: 80,
               onPrimaryTone: 12,
-              primaryContainerTone: 50,
-              onPrimaryContainerTone: 94,
-              secondaryTone: 80,
-              onSecondaryTone: 6,
-              secondaryContainerTone: 40,
-              onSecondaryContainerTone: 92,
+              primaryContainerTone: 40,
+              onPrimaryContainerTone: 97,
+              secondaryTone: 70,
+              onSecondaryTone: 4,
+              secondaryContainerTone: 50,
+              onSecondaryContainerTone: 96,
               tertiaryTone: 87,
               onTertiaryTone: 5,
-              onTertiaryContainerTone: 96,
+              onTertiaryContainerTone: 92,
               onErrorTone: 6,
               onErrorContainerTone: 95,
               //
@@ -799,7 +799,7 @@ class FlexTones with Diagnosticable {
   /// Returns a new [FlexTones] instance where the tones for surface and
   /// background are set 0 (black) if it was <= 60 and to 100 (white) if > 60.
   ///
-  /// This will make the seeded on colors for [background] and [surface] pure
+  /// This will make the seeded colors for [background] and [surface] pure
   /// black or white, depending on if they are dark or light
   ///
   /// This is a modifier, using copyWith, that can be used to change any

@@ -43,6 +43,8 @@ class ShowInputColors extends StatelessWidget {
     final Color onSecondary = _onColor(secondary);
     final Color tertiary = controller.tertiarySeedColor;
     final Color onTertiary = _onColor(tertiary);
+    final Color error = controller.errorSeedColor;
+    final Color onError = _onColor(error);
     final Color background = colorScheme.background;
 
     // Grab the card border from the theme card shape
@@ -83,7 +85,7 @@ class ShowInputColors extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'Seed Colors',
+              'Seed key colors',
               style: theme.textTheme.titleMedium,
             ),
           ),
@@ -203,6 +205,43 @@ class ShowInputColors extends StatelessWidget {
                               ? onTertiary
                               : background,
                           label: 'tertiary',
+                          showInputColor: false,
+                          showMaterialName: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Error color
+              RepaintBoundary(
+                key: const ValueKey<String>('input_error'),
+                child: SizedBox(
+                  width: boxWidth,
+                  height: boxHeight,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    elevation: 0,
+                    clipBehavior: Clip.hardEdge,
+                    child: Material(
+                      color: controller.useErrorKey ? error : background,
+                      child: ColorPickerInkWellDialog(
+                        color: controller.useErrorKey ? error : background,
+                        onChanged: controller.setErrorSeedColor,
+                        recentColors: controller.recentColors,
+                        onRecentColorsChanged: controller.setRecentColors,
+                        wasCancelled: (bool cancelled) {
+                          if (cancelled) {
+                            controller.setErrorSeedColor(error);
+                          }
+                        },
+                        enabled: controller.useErrorKey,
+                        child: ColorNameValue(
+                          key: ValueKey<String>('ipc error $error'),
+                          color: controller.useErrorKey ? error : background,
+                          textColor:
+                              controller.useErrorKey ? onError : background,
+                          label: 'error',
                           showInputColor: false,
                           showMaterialName: true,
                         ),

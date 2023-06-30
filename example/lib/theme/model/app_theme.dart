@@ -25,6 +25,7 @@ class AppTheme {
           controller.useSecondaryKey ? controller.secondarySeedColor : null,
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
       // Tone chroma config and tone mapping is optional. If you do not add it
       // you get a config matching Flutter's Material 3 ColorScheme.fromSeed.
       //

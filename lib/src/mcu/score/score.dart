@@ -61,7 +61,7 @@ class Score {
   /// first item, the least suitable is the last. There will always be at least
   /// one color returned. If all the input colors were not suitable for a theme,
   /// a default fallback color will be provided, Google Blue. The default
-  /// number of colors returned is 4, simply because thats the # of colors
+  /// number of colors returned is 4, simply because that is the # of colors
   /// display in Android 12's wallpaper picker.
   static List<int> score(Map<int, int> colorsToPopulation,
       {int desired = 4,

@@ -85,6 +85,13 @@ class HomePage extends StatelessWidget {
             value: controller.useTertiaryKey,
             onChanged: controller.setUseTertiaryKey,
           ),
+          SwitchListTile(
+            dense: true,
+            title: const Text(
+                'Use custom error key color to seed the ColorScheme'),
+            value: controller.useErrorKey,
+            onChanged: controller.setUseErrorKey,
+          ),
           const Divider(),
           SwitchListTile(
             dense: true,
@@ -128,7 +135,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 16),
           const Divider(),
           const ListTile(
-              title: Text('Widget Showcase - Using Material Defaults')),
+              title: Text('Widget showcase, using Material default styles')),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: ShowcaseMaterial(),
