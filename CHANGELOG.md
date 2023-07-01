@@ -30,6 +30,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 
 * **CHORE**
+  * Bump Dart SDK to >= 3.0.0 and Flutter SDK to >= 3.10.0. Fix lints for the bump. 
   * Add all MCU updates from its Dart version to the internal bundled version. Includes all PRs until PR: 28.6.2023 Change var back to double in Java. Including not yet published Pub version 0.8.0 June 22, 2023, with two new schemes fruit salad and rainbow.
 
 
