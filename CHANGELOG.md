@@ -48,8 +48,6 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 
 * **TODO**
-  * New dynamic Scheme support.
-  * Readme: Update screenshots.
   * Pubspec: Update screenshots.
 
 
