@@ -184,6 +184,8 @@ class TonalPalette {
           'When a TonalPalette is created with fromList, tone must be one of '
               '$commonTones',
         );
+      } else {
+        return Hct.fromInt(_cache[tone]!);
       }
     }
     return Hct.from(_hue!, _chroma!, tone);

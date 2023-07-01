@@ -129,18 +129,18 @@ bottom:
 * Neutral tonal palette
 * Neutral variant tonal palette
 
-<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/corepalettes.png?raw=true?" alt="palettes"/>
+<img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/corepalettes.png" alt="palettes"/>
 
 The color tones in the above palettes are then mapped to `ColorScheme` colors. Mapping is
 different for light and dark theme mode in order to create a color scheme with suitable contrast.
 With the example `FlexTones.vivid` setup used in `tones`, the light `ColorScheme` is mapped as
 shown below:
 
-<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme.png?raw=true?" alt="colorscheme"/>
+<img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/colorscheme.png" alt="colorscheme"/>
 
 And the dark `ColorScheme` becomes:
 
-<img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/colorscheme_dark.png?raw=true?" alt="colorscheme_dark"/>
+<img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/colorscheme_dark.png" alt="colorscheme_dark"/>
 
 We can, for example, see that in light mode, the primary tone 30, is assigned to `ColorScheme.primary`
 color and tone 90 to `primaryContainer`. In dark mode they get tones 80 and 20. Similar assignments
@@ -443,6 +443,8 @@ The included example application uses above color seeding and custom
 tone mapping. You can also choose any of the built-in pre-configured tone mappings as used 
 seeding strategy. When you select seeding strategy, basic info about is displayed.
 
+You can try a web version of this example [**here**](https://rydmike.com/flexseedscheme/demo-v1).
+
 You can choose to use secondary and primary seed colors as additional keys to generate the color schemes.
 You can also toggle keeping contrasting onColors black & white, or force background and surface
 colors to be white in light mode and true black in dark mode. You can change the seed colors with 
@@ -467,13 +469,48 @@ Only `FlexTones.candyPop` and `chroma`, as well as the custom mappings used in t
 `FlexTones` in the example app, use the extended tones. More schemes might use the extended tones later
 when Flutter SDK also starts using them.
 
+### Example Schemes
+
+Below some example color scheme made withe FlexSeedScheme using `SeedColorScheme.fromSeed`
+
+#### Default Material-3 Theme
+
+This example shows how to recreate the default Material-3 theme using a single primary seed color.
+
+| Light from single seed - Material 3 tones                                                                                     | Dark from single seed - Material 3 tones                                                                                    |
+|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/light_app_m3.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/dark_app_m3.png" alt="dark_app_m3"/> |
+
+
+#### Candy Pop Theme with One Seed Color
+
+This example shows the difference when using the same single seed color, as in the above case with the default Material-3 seed strategy, compared to the **CandyPop** seed strategy. We can observe that the colors are much brighter and contrast higher.
+
+| Light from single seed - Candy pop tones                                                                                                | Dark from single seed - Candy pop tones                                                                                               |
+|-----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_1.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_1.png" alt="candy pop dark 1"/> |
+
+#### Candy Pop Theme with Four Seed Colors
+
+This example shows how to use four seeds colors, including custom error seed, using the **CandyPop** seed strategy.
+
+| Light from four seeds - Candy pop tones                                                                                                 | Dark from four seeds - Candy pop tones                                                                                                |
+|-----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_4.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_4.png" alt="candy pop dark 4"/> |
+
+Below also an example of Material widgets using the theme created with
+
+| Light from four seeds - Candy pop tones Widgets                                                                                                         | Dark from four seeds - Candy pop tones Widget                                                                                                         |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_4_widgets.png" alt="candy pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_4_widgets.png" alt="candy pop dark 4 widgets"/> |
+
+
+#### Example Schemes - Custom scheme
+
+This shows the light and dark version of the custom scheme we defined above and in the example.
 
 | Light from seeds - Custom tones                                                                                         | Dark from seeds - Custom tones                                                                                        |
 |-------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app.png?raw=true?" alt="light_app"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app.png?raw=true?" alt="dark_app"/> |
 
-| Light from single seed - Material 3 tones                                                                                     | Dark from single seed - Material 3 tones                                                                                    |
-|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/light_app_m3.png?raw=true?" alt="light_app_m3"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/master/doc_assets/dark_app_m3.png?raw=true?" alt="dark_app_m3"/> |
 
-You can try a web version of this example [**here**](https://rydmike.com/flexseedscheme/demo-v1).

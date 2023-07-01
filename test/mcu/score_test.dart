@@ -290,4 +290,20 @@ void main() {
     expect(ranked[2], isColor(0xffff0000));
     expect(ranked[3], isColor(0xff00aaff));
   });
+
+  // RydMike extra coverage hit
+  test('Get empty, gets fallback #4285F4', () async {
+    final Map<int, int> colorsToPopulation = <int, int>{};
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 1);
+    expect(ranked.length, equals(1));
+    expect(ranked[0], isColor(0xff4285F4));
+  });
+  test('Get only white, gets fallback #4285F4', () async {
+    final Map<int, int> colorsToPopulation = <int, int>{
+      0xffffffff: 5,
+    };
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 1);
+    expect(ranked.length, equals(1));
+    expect(ranked[0], isColor(0xff4285F4));
+  });
 }

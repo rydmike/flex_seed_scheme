@@ -256,6 +256,14 @@ void main() {
       closeTo(6.0, 1.0),
     );
     expect(
+      MaterialDynamicColors.surfaceVariant.getHct(scheme).tone,
+      closeTo(30.0, 1.0),
+    );
+    expect(
+      MaterialDynamicColors.onSurfaceVariant.getHct(scheme).tone,
+      closeTo(80.0, 1.0),
+    );
+    expect(
       MaterialDynamicColors.surfaceBright.getHct(scheme).tone,
       closeTo(24.0, 1.0),
     );
@@ -352,6 +360,14 @@ void main() {
       closeTo(98.0, 1.0),
     );
     expect(
+      MaterialDynamicColors.surfaceVariant.getHct(scheme).tone,
+      closeTo(90.0, 1.0),
+    );
+    expect(
+      MaterialDynamicColors.onSurfaceVariant.getHct(scheme).tone,
+      closeTo(30.0, 1.0),
+    );
+    expect(
       MaterialDynamicColors.surfaceContainerLowest.getHct(scheme).tone,
       closeTo(100.0, 1.0),
     );
@@ -435,40 +451,30 @@ void main() {
   });
 
   //
-  // RydMike - Raw usage DynamicColor statics
+  // RydMike - Raw usage DynamicColor tests
   //
-  // group('DynamicColor Test', () {
-  //   test('fixed toneMinContrastDefault', () {
-  //     final SchemeExpressive scheme = SchemeExpressive(
-  //         sourceColorHct: Hct.fromInt(0xff0000ff),
-  //         isDark: false,
-  //         contrastLevel: -1.0);
-  //     final double contrast = DynamicColor.toneMinContrastDefault(
-  //         (DynamicScheme p0) => 5,
-  //         (DynamicScheme p0) => MaterialDynamicColors.background,
-  //         scheme,
-  //         (DynamicScheme p0) => ToneDeltaConstraint(
-  //             delta: 50,
-  //             keepAway: MaterialDynamicColors.secondaryContainer,
-  //             keepAwayPolarity: TonePolarity.noPreference));
-  //     expect(contrast, equals(40.0));
-  //   });
-  //   test('fixed censureToneDelta', () {
-  //     final SchemeExpressive scheme = SchemeExpressive(
-  //         sourceColorHct: Hct.fromInt(0xff0000ff),
-  //         isDark: false,
-  //         contrastLevel: -1.0);
-  //     final double delta = DynamicColor.ensureToneDelta(
-  //       tone: 30,
-  //       toneStandard: 20,
-  //       scheme: scheme,
-  //       constraintProvider: (DynamicScheme p0) => ToneDeltaConstraint(
-  //           delta: 30,
-  //           keepAway: MaterialDynamicColors.surfaceVariant,
-  //           keepAwayPolarity: TonePolarity.noPreference),
-  //       toneToDistanceFrom: (DynamicColor c0) => 10,
-  //     );
-  //     expect(delta, equals(20.0));
-  //   });
-  // });
+  group('DynamicColor Test', () {
+    test('Raw  DynamicColor', () {
+      final SchemeExpressive scheme = SchemeExpressive(
+          sourceColorHct: Hct.fromInt(0xff0000ff),
+          isDark: false,
+          contrastLevel: -1.0);
+
+      // TODO(rydmike): Figure out missing testcases for DynamicColor
+      final DynamicColor dScheme = DynamicColor(
+        name: 'name',
+        palette: (DynamicScheme s) => TonalPalette.of(55, 55),
+        tone: (DynamicScheme s) => s.isDark ? 6 : 87,
+        isBackground: true,
+        background: null,
+        secondBackground: null,
+        contrastCurve: null,
+        toneDeltaPair: null,
+      );
+
+      expect(dScheme.getHct(scheme).toInt(), Hct.fromInt(4294955442).toInt());
+      expect(dScheme.getArgb(scheme), Hct.fromInt(4294955442).toInt());
+      expect(dScheme.getTone(scheme), 87);
+    });
+  });
 }

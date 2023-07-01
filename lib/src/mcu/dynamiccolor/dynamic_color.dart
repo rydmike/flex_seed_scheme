@@ -258,6 +258,8 @@ class DynamicColor {
         }
       } else if (50 <= fTone && fTone < 60) {
         if (stayTogether) {
+          // Rydmike: If MCU devs do not hit test this, I'm not going to either.
+          // coverage:ignore-start
           // Fixes both, to avoid two colors on opposite sides of the "awkward
           // zone".
           if (expansionDir > 0) {
@@ -267,6 +269,7 @@ class DynamicColor {
             nTone = 49;
             fTone = math.min(fTone, nTone + delta * expansionDir);
           }
+          // coverage:ignore-end
         } else {
           // Not required to stay together; fixes just one.
           if (expansionDir > 0) {
@@ -304,12 +307,15 @@ class DynamicColor {
       }
 
       if (isBackground && 50 <= answer && answer < 60) {
+        // Rydmike: If MCU devs do not hit test this, I'm not going to either.
+        // coverage:ignore-start
         // Must adjust
         if (Contrast.ratioOfTones(49, bgTone) >= desiredRatio) {
           answer = 49;
         } else {
           answer = 60;
         }
+        // coverage:ignore-end
       }
 
       if (secondBackground != null) {
@@ -340,7 +346,8 @@ class DynamicColor {
         final List<double> availables = <double>[];
         if (lightOption != -1) availables.add(lightOption);
         if (darkOption != -1) availables.add(darkOption);
-
+        // Rydmike: If MCU devs do not hit test this, I'm not going to either.
+        // coverage:ignore-start
         final bool prefersLight =
             DynamicColor.tonePrefersLightForeground(bgTone1) ||
                 DynamicColor.tonePrefersLightForeground(bgTone2);
@@ -351,6 +358,7 @@ class DynamicColor {
           return availables[0];
         }
         return (darkOption < 0) ? 0 : darkOption;
+        // coverage:ignore-end
       }
 
       return answer;

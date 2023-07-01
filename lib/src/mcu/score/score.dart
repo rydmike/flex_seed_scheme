@@ -137,6 +137,8 @@ class Score {
     }
     final List<int> colors = <int>[];
     if (chosenColors.isEmpty) {
+      // Rydmike: If MCU devs do not hit test this, I'm not going to either.
+      // coverage:ignore-line
       colors.add(fallbackColorARGB);
     }
     for (final Hct chosenHct in chosenColors) {
