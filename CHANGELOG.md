@@ -21,7 +21,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
     * Flutter 3.10 and earlier do not yet use these new tones in its standard `ColorScheme`, but since they are in the Material 3 spec, they will arrive at some later point.
     * `FlexTonalPalette`, like MCU `TonalPalette`, caps chroma for tones higher than or equal to 90, to maximum chroma value of 40. In `FlexTonalPalette` this still applies when using `FlexPaletteType.common`, when you use the `FlexPaletteType.extended`, there is no chroma max cap on high tones, it uses fidelity mode for high tones. When using type `FlexPaletteType.common` the chroma of high tones (>= 90), is limited to maximum 40. This keeps the chromacity of tones 90 to 100, lower than 40. If the source uses has more chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow strict M3's original palette design.
     * When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used.
-  * Added two new pre-configured `FlexTones`, `candyPop` and `chroma`, they use the new `FlexPaletteType.extended` tonal palette.
+  * Added two new pre-configured `FlexTones`s, `candyPop` and `chroma`, they use the new `FlexPaletteType.extended` tonal palette.
   * Added new `FlexTones` modifier `surfacesUseBW()`. It can be used as a modifier to force any `FlexTones` seed strategy to use tone 100 (white) or tone 0 (black) as `background` and `surface` colors, depending on if they are dark or light
 
 
@@ -31,7 +31,10 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * **CHORE**
   * Bump Dart SDK to >= 3.0.0 and Flutter SDK to >= 3.10.0. Fix lints for the bump. 
-  * Add all MCU updates from its Dart version to the internal bundled version. Includes all PRs until PR: 28.6.2023 Change var back to double in Java. Including not yet published Pub version 0.8.0 June 22, 2023, with two new schemes fruit salad and rainbow.
+  * Add all Material Color Utilities (MCU) updates from its Dart version to the internal bundled version. 
+    * This includes all PRs up to and including "PR: 28.6.2023 Change var back to double in Java." This equals Dart version 0.8.0 published on June 29, 2023, with its two new schemes fruit salad and rainbow. 
+    * At this time, Flutter master was using MCU version 0.5.0 and Flutter stable 3.10.0 still used the MCU version 0.2.0. 
+    * Since MCU is using zero semver and Flutter SDK, depends on it, any minor version number change is breaking and cannot be resolved across Flutter channels if a package also uses MCU. This is the reason why (FSS) for now does not use MCU directly. It bundles its own version of it for now. This also means FSS may sometimes use a newer version of MCU than Flutter stable, beta, and master. FSS may stop bundling MCU when it stops getting so many frequent breaking updates that cause dependency hell for a package that needs to depend on MCU and work on all Flutter channels.
 
 
 * **EXAMPLE**
@@ -46,8 +49,6 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * **TODO**
   * New dynamic Scheme support.
-  * Add more MCU updates.
-  * Readme: Review and update. Round one done, double-check it!
   * Readme: Update screenshots.
   * Pubspec: Update screenshots.
 
