@@ -222,11 +222,9 @@ class FlexTonalPalette {
       case FlexPaletteType.common:
         commonTones.asMap().forEach(
             (int index, int toneValue) => cache[toneValue] = colors[index]);
-        break;
       case FlexPaletteType.extended:
         extendedTones.asMap().forEach(
             (int index, int toneValue) => cache[toneValue] = colors[index]);
-        break;
     }
     return FlexTonalPalette._fromCache(cache, paletteType);
   }
