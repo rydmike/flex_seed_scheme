@@ -73,7 +73,7 @@ enum Variant {
   rainbow('rainbow',
       "A playful theme - the source color's hue does not appear in the theme."),
 
-  /// A playful fruit sallad theme.
+  /// A playful fruit salad theme.
   fruitSalad('fruit salad',
       "A playful theme - the source color's hue does not appear in the theme.");
 

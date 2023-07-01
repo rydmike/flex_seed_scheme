@@ -514,6 +514,117 @@ void main() {
         ])),
       );
     });
+    // Custom Error tests
+    final FlexCorePalette mError01 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+    );
+    test('FCP1.Err01: GIVEN no error input EXPECT DEFAULT (25, 84)', () {
+      expect(
+        mError01.error,
+        FlexTonalPalette.of(25, 84),
+      );
+    });
+    final FlexCorePalette mError02 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      errorChroma: 60,
+    );
+    test('FCP1.Err02: GIVEN error Chroma 60 EXPECT (25, 60)', () {
+      expect(
+        mError02.error,
+        FlexTonalPalette.of(25, 60),
+      );
+    });
+    final FlexCorePalette mError03 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      errorChroma: 62,
+      errorMinChroma: 75,
+    );
+    test('FCP1.Err03: GIVEN error Chroma 62, min 75 EXPECT (25, 75)', () {
+      expect(
+        mError03.error,
+        FlexTonalPalette.of(25, 75),
+      );
+    });
+    final FlexCorePalette mError04 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+    );
+    test(
+        'FCP1.Err04: GIVEN error Color #CC1839 EXPECT '
+        '(17.23982263982711, 87.83137466032304)', () {
+      expect(
+        mError04.error,
+        FlexTonalPalette.of(17.23982263982711, 87.83137466032304),
+      );
+    });
+    final FlexCorePalette mError05 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorChroma: 62,
+    );
+    test(
+        'FCP1.Err05: GIVEN error Color #CC1839, chroma 62 EXPECT '
+        '(17.23982263982711, 62)', () {
+      expect(
+        mError05.error,
+        FlexTonalPalette.of(17.23982263982711, 62),
+      );
+    });
+    final FlexCorePalette mError06 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorMinChroma: 82,
+    );
+    test(
+        'FCP1.Err06: GIVEN error Color #CC1839, min chroma 82 EXPECT '
+        '(17.23982263982711, 62)', () {
+      expect(
+        mError06.error,
+        FlexTonalPalette.of(17.23982263982711, 87.83137466032304),
+      );
+    });
+    final FlexCorePalette mError07 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorChroma: 62,
+    );
+    test(
+        'FCP1.Err07: GIVEN error Color #CC1839, chroma 62 EXPECT '
+        '(17.23982263982711, 62)', () {
+      expect(
+        mError07.error,
+        FlexTonalPalette.of(17.23982263982711, 62),
+      );
+    });
+    final FlexCorePalette mError08 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorChroma: 62,
+      errorMinChroma: 45,
+    );
+    test(
+        'FCP1.Err08: GIVEN error Color #CC1839, chroma 62. min 45 EXPECT '
+        '(17.23982263982711, 62)', () {
+      expect(
+        mError08.error,
+        FlexTonalPalette.of(17.23982263982711, 62),
+      );
+    });
+    final FlexCorePalette mError09 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorChroma: 62,
+      errorMinChroma: 72,
+    );
+    test(
+        'FCP1.Err09: GIVEN error Color #CC1839, chroma 62. min 72 EXPECT '
+        '(17.23982263982711, 72)', () {
+      expect(
+        mError09.error,
+        FlexTonalPalette.of(17.23982263982711, 72),
+      );
+    });
+
     //
   });
 
