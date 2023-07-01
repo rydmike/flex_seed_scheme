@@ -18,7 +18,7 @@ import './utils/color_matcher.dart';
 
 void main() {
   test('keyColors', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 0.0);
@@ -36,7 +36,7 @@ void main() {
   });
 
   test('lightTheme_minContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: -1.0);
@@ -44,7 +44,7 @@ void main() {
   });
 
   test('lightTheme_standardContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 0);
@@ -52,7 +52,7 @@ void main() {
   });
 
   test('lightTheme_maxContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 1);
@@ -60,7 +60,7 @@ void main() {
   });
 
   test('lightTheme_minContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: -1);
@@ -69,7 +69,7 @@ void main() {
   });
 
   test('lightTheme_standardContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 0);
@@ -78,7 +78,7 @@ void main() {
   });
 
   test('lightTheme_maxContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 1);
@@ -87,7 +87,7 @@ void main() {
   });
 
   test('lightTheme_minContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: -1);
@@ -96,7 +96,7 @@ void main() {
   });
 
   test('lightTheme_standardContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 0);
@@ -105,7 +105,7 @@ void main() {
   });
 
   test('lightTheme_maxContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 1);
@@ -114,7 +114,7 @@ void main() {
   });
 
   test('lightTheme_minContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: -1);
@@ -122,7 +122,7 @@ void main() {
   });
 
   test('lightTheme_standardContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 0.0);
@@ -130,7 +130,7 @@ void main() {
   });
 
   test('lightTheme_maxContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 1.0);
@@ -138,7 +138,7 @@ void main() {
   });
 
   test('darkTheme_minContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: -1.0);
@@ -146,7 +146,7 @@ void main() {
   });
 
   test('darkTheme_standardContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 0.0);
@@ -154,7 +154,7 @@ void main() {
   });
 
   test('darkTheme_maxContrast_primary', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
@@ -162,7 +162,7 @@ void main() {
   });
 
   test('darkTheme_minContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: -1.0);
@@ -171,7 +171,7 @@ void main() {
   });
 
   test('darkTheme_standardContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 0.0);
@@ -180,7 +180,7 @@ void main() {
   });
 
   test('darkTheme_maxContrast_primaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
@@ -189,7 +189,7 @@ void main() {
   });
 
   test('darkTheme_minContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: -1.0);
@@ -198,7 +198,7 @@ void main() {
   });
 
   test('darkTheme_standardContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 0.0);
@@ -207,7 +207,7 @@ void main() {
   });
 
   test('darkTheme_maxContrast_onPrimaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
@@ -216,7 +216,7 @@ void main() {
   });
 
   test('darkTheme_minContrast_onTertiaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: -1.0);
@@ -225,7 +225,7 @@ void main() {
   });
 
   test('darkTheme_standardContrast_onTertiaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 0.0);
@@ -234,7 +234,7 @@ void main() {
   });
 
   test('darkTheme_maxContrast_onTertiaryContainer', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
@@ -243,7 +243,7 @@ void main() {
   });
 
   test('darkTheme_minContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: -1.0);
@@ -251,7 +251,7 @@ void main() {
   });
 
   test('darkTheme_standardContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 0.0);
@@ -259,7 +259,7 @@ void main() {
   });
 
   test('darkTheme_maxContrast_surface', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
@@ -267,7 +267,7 @@ void main() {
   });
 
   test('darkTheme_monochromeSpec', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
       sourceColorHct: Hct.fromInt(0xff0000ff),
       isDark: true,
       contrastLevel: 0.0,
@@ -323,7 +323,7 @@ void main() {
   });
 
   test('lightTheme_monochromeSpec', () {
-    final scheme = SchemeMonochrome(
+    final SchemeMonochrome scheme = SchemeMonochrome(
       sourceColorHct: Hct.fromInt(0xff0000ff),
       isDark: false,
       contrastLevel: 0.0,

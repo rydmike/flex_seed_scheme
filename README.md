@@ -2,7 +2,7 @@
 
 # FlexSeedScheme
 
-A more flexible version of Flutter's ColorScheme.fromSeed.
+A more flexible and powerful version of Flutter's ColorScheme.fromSeed.
 
 Use this package like `ColorScheme.fromSeed` with the following additional capabilities:
 
