@@ -274,7 +274,7 @@ const FlexTones myDarkTones = FlexTones.dark(
 
 ```
 
-### Extended Palette
+## Extended Palette
 
 By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access new color tones that exists in the late 2022 revised `ColorScheme` for surface colors and even more colors for **fixed** and **fixedDim** main colors that are coming to Material-3 design, potentially during later half of 2023. 
 
@@ -290,7 +290,7 @@ Traditionally and for backwards compatibility, when using type `FlexPaletteType.
   
 When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used. Of the pre-made `FlexTones` only `candyPop` and `chroma` use the new `FlexPaletteType.extended` tonal palette to produce their `ColorScheme`s. All other that were defined in `FlexSeedScheme` before `FlexPaletteType.extended` was introduced, continue to use `FlexTones.common` for backwards compatibility. 
 
-### Accessibility
+## Accessibility
 
 You can use `FlexTones` to create a seed generated `ColorScheme`, that is based on same colors
 as your standard theme's light and dark scheme colors, but uses a chroma configuration and tone 
@@ -439,7 +439,7 @@ tones: FlexTones.material(Brightness.light)
 );
 ```
 
-### [Example Application](https://rydmike.com/flexseedscheme/demo-v1)
+## [Example Application](https://rydmike.com/flexseedscheme/demo-v1)
 
 The included example application uses above color seeding and custom 
 tone mapping. You can also choose any of the built-in pre-configured tone mappings as used 
@@ -471,20 +471,20 @@ Only `FlexTones.candyPop` and `chroma`, as well as the custom mappings used in t
 `FlexTones` in the example app, use the extended tones. More schemes might use the extended tones later
 when Flutter SDK also starts using them.
 
-### Different Scheme Generation Strategies
+## Scheme Generation Strategies
 
 Below some example color schemes made with FlexSeedScheme using `SeedColorScheme.fromSeed` using different `FlexTones` seed generation strategies.
 
-#### Default Strategy Material-3 Theme
+### Default Strategy Material-3 Theme
 
 This example shows how to recreate the default Material-3 theme using a single primary seed color and the default `tones` strategy `FlexTones.material`. This is no different from using Flutter's default `ColorScheme.fromSeed`, it is shown here for comparison. In the package, there are also tests to ensure that this strategy produces the same result.
 
-| Light from single seed - Material 3 tones                                                                                       | Dark from single seed - Material 3 tones                                                                                      |
-|---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/light_app_m3.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/dark_app_m3.png" alt="dark_app_m3"/> |
+| Light from single seed - Material 3 tones                                                                                         | Dark from single seed - Material 3 tones                                                                                        |
+|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/light_app_m3_1.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/dark_app_m3_1.png" alt="dark_app_m3"/> |
 
 
-#### Candy Pop Strategy with One Seed Color
+### Candy Pop Strategy with One Seed Color
 
 This example using `tones` strategy `FlexTones.candyPop` shows the difference when using the same single seed color, as in the above case with the default Material-3 seed strategy. We can observe that the colors are brighter and more candy like.
 
@@ -492,7 +492,7 @@ This example using `tones` strategy `FlexTones.candyPop` shows the difference wh
 |-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_light_1.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_dark_1.png" alt="candy pop dark 1"/> |
 
-#### Candy Pop Strategy with Four Seed Colors
+### Candy Pop Strategy with Four Seed Colors
 
 This example shows how to use four seeds colors, including a custom error seed color, using the same **CandyPop** seed strategy.
 
@@ -500,25 +500,26 @@ This example shows how to use four seeds colors, including a custom error seed c
 |-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_light_4.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_dark_4.png" alt="candy pop dark 4"/> |
 
-Below an example of Material widgets using the theme created using the above `tones` strategy `FlexTones.candyPop` with four seed colors.
 
-| Light from four seeds - Candy pop tones Widgets                                                                                                           | Dark from four seeds - Candy pop tones Widget                                                                                                           |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_light_4_widgets.png" alt="candy pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_dark_4_widgets.png" alt="candy pop dark 4 widgets"/> |
+### Custom Strategy
 
+This shows the light and dark version of the `tones` strategy with the custom `FlexTones` we defined earlier in  `myLightTones` and `myDarkTones` in the example.
 
-#### Custom Strategy
+| Light from seeds - Custom tones                                                                                                | Dark from seeds - Custom tones                                                                                               |
+|--------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/custom_light_4.png" alt="light_app"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/custom_dark_4.png" alt="dark_app"/> |
 
-This shows the light and dark version of the custom tones scheme generation strategy we defined above and in the example.
+## Comparing Styles
 
-| Light from seeds - Custom tones                                                                                           | Dark from seeds - Custom tones                                                                                          |
-|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://github.com/rydmike/flex_seed_scheme/blob/next-gen/doc_assets/light_app.png?raw=true?" alt="light_app"/> | <img src="https://github.com/rydmike/flex_seed_scheme/blob/next-gen/doc_assets/dark_app.png?raw=true?" alt="dark_app"/> |
-
-Below an example of Material widgets using the theme created using the above `tones` strategy using the custom `FlexTones` we defined earlier `myLightTones` and `myDarkTones`.
+Below an example of Material widgets using the theme created using the `tones` strategy with the custom `FlexTones` we defined.
 
 | Light from seeds - Custom tones Widget                                                                                                                  | Dark from seeds - Custom tones Widget                                                                                                                 |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/custom_light_4_widgets.png" alt="custom pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/custom_dark_4_widgets.png" alt="custom pop dark 4 widgets"/> |
 
+Here we can compare it to an example of Material widgets using the theme created using the earlier above `tones` strategy `FlexTones.candyPop` with four seed colors.
+
+| Light from four seeds - Candy pop tones Widgets                                                                                                           | Dark from four seeds - Candy pop tones Widget                                                                                                           |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_light_4_widgets.png" alt="candy pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/next-gen/doc_assets/candy_pop_dark_4_widgets.png" alt="candy pop dark 4 widgets"/> |
 
