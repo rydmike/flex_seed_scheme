@@ -78,8 +78,14 @@ void main() {
         expect(tones.get(99), 0xfffffbff);
         expect(tones.get(100), 0xffffffff);
 
-        /// Tone not in [TonalPalette.commonTones]
+        // Tone not in [TonalPalette.commonTones]
         expect(tones.get(3), 0xff00003c);
+
+        // RydMike Extra tests
+        //
+        // Verify example HCT tones
+        expect(tones.getHct(0), Hct.from(0, 0, 0));
+        expect(tones.getHct(100), Hct.from(0, 0, 100));
       });
 
       test('asList', () {
@@ -140,6 +146,14 @@ void main() {
 
         /// Tone not in [TonalPalette.commonTones]
         expect(() => tones.get(3), throwsA(isA<ArgumentError>()));
+
+        // RydMike Extra tests
+        //
+        // Verify example HCT tones.
+        expect(tones.getHct(0).toInt(), 0);
+        expect(tones.getHct(50).toInt(), 5);
+        expect(tones.getHct(100).toInt(), 12);
+        expect(() => tones.getHct(3), throwsA(isA<ArgumentError>()));
       });
 
       test('asList', () {

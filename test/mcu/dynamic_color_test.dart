@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/tone_delta_constraint.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
@@ -34,56 +33,57 @@ class _Pair {
 
 final Map<String, DynamicColor> _colors = <String, DynamicColor>{
   'background': MaterialDynamicColors.background,
-  'onBackground': MaterialDynamicColors.onBackground,
+  'on_background': MaterialDynamicColors.onBackground,
   'surface': MaterialDynamicColors.surface,
-  'surfaceDim': MaterialDynamicColors.surfaceDim,
-  'surfaceBright': MaterialDynamicColors.surfaceBright,
-  'surfaceContainerLowest': MaterialDynamicColors.surfaceContainerLowest,
-  'surfaceContainerLow': MaterialDynamicColors.surfaceContainerLow,
-  'surfaceContainer': MaterialDynamicColors.surfaceContainer,
-  'surfaceContainerHigh': MaterialDynamicColors.surfaceContainerHigh,
-  'surfaceContainerHighest': MaterialDynamicColors.surfaceContainerHighest,
-  'onSurface': MaterialDynamicColors.onSurface,
-  'surfaceVariant': MaterialDynamicColors.surfaceVariant,
-  'onSurfaceVariant': MaterialDynamicColors.onSurfaceVariant,
-  'inverseSurface': MaterialDynamicColors.inverseSurface,
-  'inverseOnSurface': MaterialDynamicColors.inverseOnSurface,
+  'surface_dim': MaterialDynamicColors.surfaceDim,
+  'surface_bright': MaterialDynamicColors.surfaceBright,
+  'surface_container_lowest': MaterialDynamicColors.surfaceContainerLowest,
+  'surface_container_low': MaterialDynamicColors.surfaceContainerLow,
+  'surface_container': MaterialDynamicColors.surfaceContainer,
+  'surface_container_high': MaterialDynamicColors.surfaceContainerHigh,
+  'surface_container_highest': MaterialDynamicColors.surfaceContainerHighest,
+  'on_surface': MaterialDynamicColors.onSurface,
+  'surface_variant': MaterialDynamicColors.surfaceVariant,
+  'on_surface_variant': MaterialDynamicColors.onSurfaceVariant,
+  'inverse_surface': MaterialDynamicColors.inverseSurface,
+  'inverse_on_surface': MaterialDynamicColors.inverseOnSurface,
   'outline': MaterialDynamicColors.outline,
-  'outlineVariant': MaterialDynamicColors.outlineVariant,
+  'outline_variant': MaterialDynamicColors.outlineVariant,
   'shadow': MaterialDynamicColors.shadow,
   'scrim': MaterialDynamicColors.scrim,
-  'surfaceTint': MaterialDynamicColors.surfaceTint,
+  'surface_tint': MaterialDynamicColors.surfaceTint,
   'primary': MaterialDynamicColors.primary,
-  'onPrimary': MaterialDynamicColors.onPrimary,
-  'primaryContainer': MaterialDynamicColors.primaryContainer,
-  'onPrimaryContainer': MaterialDynamicColors.onPrimaryContainer,
-  'inversePrimary': MaterialDynamicColors.inversePrimary,
+  'on_primary': MaterialDynamicColors.onPrimary,
+  'primary_container': MaterialDynamicColors.primaryContainer,
+  'on_primary_container': MaterialDynamicColors.onPrimaryContainer,
+  'inverse_primary': MaterialDynamicColors.inversePrimary,
   'secondary': MaterialDynamicColors.secondary,
-  'onSecondary': MaterialDynamicColors.onSecondary,
-  'secondaryContainer': MaterialDynamicColors.secondaryContainer,
-  'onSecondaryContainer': MaterialDynamicColors.onSecondaryContainer,
+  'on_secondary': MaterialDynamicColors.onSecondary,
+  'secondary_container': MaterialDynamicColors.secondaryContainer,
+  'on_secondary_container': MaterialDynamicColors.onSecondaryContainer,
   'tertiary': MaterialDynamicColors.tertiary,
-  'onTertiary': MaterialDynamicColors.onTertiary,
-  'tertiaryContainer': MaterialDynamicColors.tertiaryContainer,
-  'onTertiaryContainer': MaterialDynamicColors.onTertiaryContainer,
+  'on_tertiary': MaterialDynamicColors.onTertiary,
+  'tertiary_container': MaterialDynamicColors.tertiaryContainer,
+  'on_tertiary_container': MaterialDynamicColors.onTertiaryContainer,
   'error': MaterialDynamicColors.error,
-  'onError': MaterialDynamicColors.onError,
-  'errorContainer': MaterialDynamicColors.errorContainer,
-  'onErrorContainer': MaterialDynamicColors.onErrorContainer,
+  'on_error': MaterialDynamicColors.onError,
+  'error_container': MaterialDynamicColors.errorContainer,
+  'on_error_container': MaterialDynamicColors.onErrorContainer,
 };
 
 final List<_Pair> _textSurfacePairs = <_Pair>[
-  _Pair('onPrimary', 'primary'),
-  _Pair('onPrimaryContainer', 'primaryContainer'),
-  _Pair('onSecondary', 'secondary'),
-  _Pair('onSecondaryContainer', 'secondaryContainer'),
-  _Pair('onTertiary', 'tertiary'),
-  _Pair('onTertiaryContainer', 'tertiaryContainer'),
-  _Pair('onError', 'error'),
-  _Pair('onErrorContainer', 'errorContainer'),
-  _Pair('onBackground', 'background'),
-  _Pair('onSurfaceVariant', 'surfaceVariant'),
-  _Pair('inverseOnSurface', 'inverseSurface'),
+  _Pair('on_primary', 'primary'),
+  _Pair('on_primary_container', 'primary_container'),
+  _Pair('on_secondary', 'secondary'),
+  _Pair('on_secondary_container', 'secondary_container'),
+  _Pair('on_tertiary', 'tertiary'),
+  _Pair('on_tertiary_container', 'tertiary_container'),
+  _Pair('on_error', 'error'),
+  _Pair('on_error_container', 'error_container'),
+  _Pair('on_background', 'background'),
+  _Pair('on_surface_variant', 'surface_bright'),
+  _Pair('on_surface_variant', 'surface_dim'),
+  _Pair('inverse_on_surface', 'inverse_surface'),
 ];
 
 void main() {
@@ -94,7 +94,7 @@ void main() {
         isDark: false,
         contrastLevel: 0.5,
       )),
-      equals(0xFFFFE5E1),
+      equals(0xFFFFFFFF),
     );
     expect(
       MaterialDynamicColors.onSecondaryContainer.getArgb(SchemeContent(
@@ -102,7 +102,7 @@ void main() {
         isDark: false,
         contrastLevel: 0.5,
       )),
-      equals(0xFFFFFCFF),
+      equals(0xFFFFFFFF),
     );
     expect(
       MaterialDynamicColors.onTertiaryContainer.getArgb(SchemeContent(
@@ -110,7 +110,7 @@ void main() {
         isDark: true,
         contrastLevel: -0.5,
       )),
-      equals(0xFF616600),
+      equals(0xffbac040),
     );
     expect(
       MaterialDynamicColors.inverseSurface.getArgb(SchemeContent(
@@ -124,7 +124,7 @@ void main() {
           sourceColorHct: Hct.fromInt(0xFFFF0000),
           isDark: false,
           contrastLevel: -0.5)),
-      equals(0xFFFF907F),
+      equals(0xffff422f),
     );
     expect(
       MaterialDynamicColors.outlineVariant.getArgb(SchemeContent(
@@ -256,6 +256,14 @@ void main() {
       closeTo(6.0, 1.0),
     );
     expect(
+      MaterialDynamicColors.surfaceVariant.getHct(scheme).tone,
+      closeTo(30.0, 1.0),
+    );
+    expect(
+      MaterialDynamicColors.onSurfaceVariant.getHct(scheme).tone,
+      closeTo(80.0, 1.0),
+    );
+    expect(
       MaterialDynamicColors.surfaceBright.getHct(scheme).tone,
       closeTo(24.0, 1.0),
     );
@@ -281,7 +289,7 @@ void main() {
     );
     expect(
       MaterialDynamicColors.outline.getHct(scheme).tone,
-      closeTo(50.0, 2.0),
+      closeTo(60.0, 2.0),
     );
   });
 
@@ -294,19 +302,19 @@ void main() {
 
     expect(
       MaterialDynamicColors.primaryFixed.getHct(scheme).tone,
-      closeTo(10.0, 1.0),
+      closeTo(40.0, 1.0),
     );
     expect(
       MaterialDynamicColors.primaryFixedDim.getHct(scheme).tone,
-      closeTo(20.0, 1.0),
+      closeTo(30.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onPrimaryFixed.getHct(scheme).tone,
-      closeTo(90.0, 1.0),
+      closeTo(100.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onPrimaryFixedVariant.getHct(scheme).tone,
-      closeTo(70.0, 1.0),
+      closeTo(90.0, 1.0),
     );
     expect(
       MaterialDynamicColors.secondaryFixed.getHct(scheme).tone,
@@ -334,11 +342,11 @@ void main() {
     );
     expect(
       MaterialDynamicColors.onTertiaryFixed.getHct(scheme).tone,
-      closeTo(90.0, 1.0),
+      closeTo(100.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onTertiaryFixedVariant.getHct(scheme).tone,
-      closeTo(70.0, 1.0),
+      closeTo(90.0, 1.0),
     );
     //
     // Rydmike extra coverage tests
@@ -350,6 +358,14 @@ void main() {
     expect(
       MaterialDynamicColors.surfaceBright.getHct(scheme).tone,
       closeTo(98.0, 1.0),
+    );
+    expect(
+      MaterialDynamicColors.surfaceVariant.getHct(scheme).tone,
+      closeTo(90.0, 1.0),
+    );
+    expect(
+      MaterialDynamicColors.onSurfaceVariant.getHct(scheme).tone,
+      closeTo(30.0, 1.0),
     );
     expect(
       MaterialDynamicColors.surfaceContainerLowest.getHct(scheme).tone,
@@ -386,19 +402,19 @@ void main() {
 
     expect(
       MaterialDynamicColors.primaryFixed.getHct(scheme).tone,
-      closeTo(100.0, 1.0),
+      closeTo(40.0, 1.0),
     );
     expect(
       MaterialDynamicColors.primaryFixedDim.getHct(scheme).tone,
-      closeTo(90.0, 1.0),
+      closeTo(30.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onPrimaryFixed.getHct(scheme).tone,
-      closeTo(10.0, 1.0),
+      closeTo(100.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onPrimaryFixedVariant.getHct(scheme).tone,
-      closeTo(30.0, 1.0),
+      closeTo(90.0, 1.0),
     );
     expect(
       MaterialDynamicColors.secondaryFixed.getHct(scheme).tone,
@@ -426,48 +442,39 @@ void main() {
     );
     expect(
       MaterialDynamicColors.onTertiaryFixed.getHct(scheme).tone,
-      closeTo(90.0, 1.0),
+      closeTo(100.0, 1.0),
     );
     expect(
       MaterialDynamicColors.onTertiaryFixedVariant.getHct(scheme).tone,
-      closeTo(70.0, 1.0),
+      closeTo(90.0, 1.0),
     );
   });
+
   //
-  // RydMike - Raw usage DynamicColor statics
+  // RydMike - Raw usage DynamicColor tests
   //
   group('DynamicColor Test', () {
-    test('fixed toneMinContrastDefault', () {
+    test('Raw  DynamicColor', () {
       final SchemeExpressive scheme = SchemeExpressive(
           sourceColorHct: Hct.fromInt(0xff0000ff),
           isDark: false,
           contrastLevel: -1.0);
-      final double contrast = DynamicColor.toneMinContrastDefault(
-          (DynamicScheme p0) => 5,
-          (DynamicScheme p0) => MaterialDynamicColors.background,
-          scheme,
-          (DynamicScheme p0) => ToneDeltaConstraint(
-              delta: 50,
-              keepAway: MaterialDynamicColors.secondaryContainer,
-              keepAwayPolarity: TonePolarity.noPreference));
-      expect(contrast, equals(40.0));
-    });
-    test('fixed censureToneDelta', () {
-      final SchemeExpressive scheme = SchemeExpressive(
-          sourceColorHct: Hct.fromInt(0xff0000ff),
-          isDark: false,
-          contrastLevel: -1.0);
-      final double delta = DynamicColor.ensureToneDelta(
-        tone: 30,
-        toneStandard: 20,
-        scheme: scheme,
-        constraintProvider: (DynamicScheme p0) => ToneDeltaConstraint(
-            delta: 30,
-            keepAway: MaterialDynamicColors.surfaceVariant,
-            keepAwayPolarity: TonePolarity.noPreference),
-        toneToDistanceFrom: (DynamicColor c0) => 10,
+
+      // TODO(rydmike): Figure out missing testcases for DynamicColor
+      final DynamicColor dScheme = DynamicColor(
+        name: 'name',
+        palette: (DynamicScheme s) => TonalPalette.of(55, 55),
+        tone: (DynamicScheme s) => s.isDark ? 6 : 87,
+        isBackground: true,
+        background: null,
+        secondBackground: null,
+        contrastCurve: null,
+        toneDeltaPair: null,
       );
-      expect(delta, equals(20.0));
+
+      expect(dScheme.getHct(scheme).toInt(), Hct.fromInt(4294955442).toInt());
+      expect(dScheme.getArgb(scheme), Hct.fromInt(4294955442).toInt());
+      expect(dScheme.getTone(scheme), 87);
     });
   });
 }

@@ -11,14 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 import '../material_color_utilities.dart';
-import '../utils/math_utils.dart';
 
 /// A Dynamic Color theme with low to medium colorfulness and a Tertiary
 /// [TonalPalette] with a hue related to the source color. The default
 /// Material You theme on Android 12 and 13.
 class SchemeTonalSpot extends DynamicScheme {
-  /// Default SchemeTonalSpot constructor.
+  /// SchemeTonalSpot default constructor.
   SchemeTonalSpot({
     required Hct sourceColorHct,
     required super.isDark,
@@ -26,7 +26,7 @@ class SchemeTonalSpot extends DynamicScheme {
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.tonalSpot,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue, 40.0),
+          primaryPalette: TonalPalette.of(sourceColorHct.hue, 36.0),
           secondaryPalette: TonalPalette.of(sourceColorHct.hue, 16.0),
           tertiaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),

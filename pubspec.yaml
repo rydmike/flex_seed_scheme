@@ -1,27 +1,34 @@
 name: flex_seed_scheme
 description: A more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping.
-version: 1.3.0
+version: 1.4.0
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
 documentation: https://github.com/rydmike/flex_seed_scheme/blob/master/README.md
 screenshots:
-  - description: 'Using 3 seed colors to make an M3 ColorScheme with M3 default chroma'
-    path: example/screenshots/three_seeds_with_m3_chroma.png
-  - description: 'Using 3 seed colors to make an M3 ColorScheme with custom chroma limits and tone mapping'
-    path: example/screenshots/three_seeds_with_custom_chroma_and_tones.png
-  - description: 'Using 3 seed colors to make a high-contrast M3 ColorScheme'
-    path: example/screenshots/dark_three_seeds_high_contrast.png
-  - description: 'Using 3 seed colors to make an ultra high-contrast M3 ColorScheme'
-    path: example/screenshots/dark_three_seeds_ultra_high_contrast.png
+  - description: 'Using 1 seed colors to make M3 ColorScheme with candy pop strategy'
+    path: example/screenshots/candy_pop_light_1.png
+  - description: 'Using 4 seed colors to make M3 ColorScheme with candy pop strategy'
+    path: example/screenshots/candy_pop_light_4.png
+  - description: 'Using 4 seed colors to make M3 ColorScheme with custom seed strategy'
+    path: example/screenshots/custom_light_4.png
+  - description: 'Example of light mode widgets with the custom seed strategy'
+    path: example/screenshots/custom_light_4_widgets.png
+  - description: 'Example of light mode widgets with the candy pop seed strategy'
+    path: example/screenshots/candy_pop_light_4_widgets.png
+  - description: 'Example of dark mode widgets with the custom seed strategy'
+    path: example/screenshots/custom_dark_4_widgets.png
+  - description: 'Example of dark mode widgets with the candy pop seed strategy'
+    path: example/screenshots/candy_pop_dark_4_widgets.png
 
 environment:
-  sdk: '>=2.19.0 <4.0.0'
-  flutter: '>=3.7.0'
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
 
 dependencies:
   # Used by mcu: tonal_palette.dart
   # Require at least 1.15.0, the first stable version for null-safety.
+  # https://pub.dev/packages/collection
   collection: ^1.15.0
 
   flutter:
@@ -30,14 +37,15 @@ dependencies:
   # Annotations used to express developer intentions that can't otherwise be deduced by
   # statically analyzing source code. Package is from Google dart.dev team.
   #
-  # Flutter does not expose the "@internal" annotation via foundation, to use it we need to
-  # import the package.
+  # Flutter does not expose the "@internal" annotation via foundation, to use it we need to import the package.
+  # Version 1.9.1 is first with updated SDK constraints to >=2.12.0 <4.0.0.
+  # https://pub.dev/packages/meta
   meta: ^1.8.0
 
 dev_dependencies:
 
   flutter_test:
     sdk: flutter
-  # used by color_matcher.dart
+  # Used by color_matcher.dart in tests.
   matcher: ^0.12.0
   test:

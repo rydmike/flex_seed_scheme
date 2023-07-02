@@ -127,7 +127,7 @@ void main() {
         ).toString(minLevel: DiagnosticLevel.fine),
         equalsIgnoringHashCodes(
           // ignore: lines_longer_than_80_chars
-          'ColorScheme#00000(brightness: Brightness.light, primary: Color(0xff3a0a8c), onPrimary: Color(0xffffffff), primaryContainer: Color(0xfff6eeff), onPrimaryContainer: Color(0xff160041), secondary: Color(0xff005eb2), onSecondary: Color(0xffffffff), secondaryContainer: Color(0xffebf1ff), onSecondaryContainer: Color(0xff001129), tertiary: Color(0xff1b5200), onTertiary: Color(0xffffffff), tertiaryContainer: Color(0xffceffb2), onTertiaryContainer: Color(0xff031500), error: Color(0xffba1a1a), onError: Color(0xffffffff), errorContainer: Color(0xffffedea), onErrorContainer: Color(0xff2d0001), background: Color(0xfffffbff), onBackground: Color(0xff000000), surface: Color(0xfffffbff), onSurface: Color(0xff000000), surfaceVariant: Color(0xfff5eff7), onSurfaceVariant: Color(0xff1d1b20), outline: Color(0xff605d64), outlineVariant: Color(0xffaea9b1), shadow: Color(0xff000000), scrim: Color(0xff000000), inverseSurface: Color(0xff313032), onInverseSurface: Color(0xfffffbff), inversePrimary: Color(0xffe9ddff), primaryVariant: Color(0xff3a0a8c), secondaryVariant: Color(0xff005eb2), surfaceTint: Color(0xff3a0a8c))',
+          'ColorScheme#00000(brightness: Brightness.light, primary: Color(0xff3a0a8c), onPrimary: Color(0xffffffff), primaryContainer: Color(0xffe9ddff), onPrimaryContainer: Color(0xff160041), secondary: Color(0xff005eb2), onSecondary: Color(0xffffffff), secondaryContainer: Color(0xffd5e3ff), onSecondaryContainer: Color(0xff001129), tertiary: Color(0xff1b5200), onTertiary: Color(0xffffffff), tertiaryContainer: Color(0xffceffb2), onTertiaryContainer: Color(0xff031500), error: Color(0xffba1a1a), onError: Color(0xffffffff), errorContainer: Color(0xffffedea), onErrorContainer: Color(0xff2d0001), background: Color(0xfffffbff), onBackground: Color(0xff000000), surface: Color(0xfffffbff), onSurface: Color(0xff000000), surfaceVariant: Color(0xfff5eff7), onSurfaceVariant: Color(0xff1d1b20), outline: Color(0xff605d64), outlineVariant: Color(0xffaea9b1), shadow: Color(0xff000000), scrim: Color(0xff000000), inverseSurface: Color(0xff313032), onInverseSurface: Color(0xfffffbff), inversePrimary: Color(0xffe9ddff), primaryVariant: Color(0xff3a0a8c), secondaryVariant: Color(0xff005eb2), surfaceTint: Color(0xff3a0a8c))',
         ),
       );
     });
@@ -152,7 +152,7 @@ void main() {
     //
     test(
         'FCS7.005-a: GIVEN a SeedColorScheme.fromSeeds using three seeds '
-        'and tones map FlexTones.jolly for a light scheme with noOnTint '
+        'and tones map FlexTones.jolly for a light scheme with onMainsUseBW '
         'EXPECT on colors to be pure black and white contrast colors', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -172,7 +172,7 @@ void main() {
     });
     test(
         'FCS7.005-a-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
-        'and tones map FlexTones.jolly for a light scheme with noOnTint '
+        'and tones map FlexTones.jolly for a light scheme with onMainsUseBW '
         ' false '
         'EXPECT no change', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
@@ -193,7 +193,7 @@ void main() {
     });
     test(
         'FCS7.005-b: GIVEN a SeedColorScheme.fromSeeds using three seeds '
-        'and tones map FlexTones.jolly for a dark scheme with noOnTint '
+        'and tones map FlexTones.jolly for a dark scheme with onMainsUseBW '
         'EXPECT on colors to be pure black and white contrast colors', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
@@ -213,7 +213,7 @@ void main() {
     });
     test(
         'FCS7.005-b-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
-        'and tones map FlexTones.jolly for a dark scheme with noOnTint '
+        'and tones map FlexTones.jolly for a dark scheme with onMainsUseBW '
         'false '
         'EXPECT no change', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
@@ -237,7 +237,7 @@ void main() {
     test(
         'FCS7.006-a: GIVEN a SeedColorScheme.fromSeeds using three seeds '
         'and tones map FlexTones.jolly for a light scheme with '
-        'noOnSurfaceTint '
+        'onSurfacesUseBW '
         'EXPECT on colors to be pure black and white contrast colors', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -254,7 +254,7 @@ void main() {
     test(
         'FCS7.006-a-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
         'and tones map FlexTones.jolly for a light scheme with '
-        'noOnSurfaceTint false '
+        'onSurfacesUseBW false '
         'EXPECT no change', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
@@ -275,7 +275,7 @@ void main() {
     test(
         'FCS7.006-b: GIVEN a SeedColorScheme.fromSeeds using three seeds '
         'and tones map FlexTones.jolly for a dark scheme with '
-        'noOnSurfaceTint '
+        'onSurfacesUseBW '
         'EXPECT on colors to be pure black and white contrast colors', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
@@ -292,7 +292,80 @@ void main() {
     test(
         'FCS7.006-b-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
         'and tones map FlexTones.jolly for a dark scheme with '
+        'onSurfacesUseBW false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).onSurfacesUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark),
+      );
+      expect(scheme, equals(scheme2));
+    });
+    //
+    test(
+        'FCS7.006-c: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with '
+        'surfacesUseBW '
+        'EXPECT surface and background colors to be white.', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).surfacesUseBW(),
+      );
+      expect(scheme.background, Colors.white);
+      expect(scheme.surface, Colors.white);
+    });
+    test(
+        'FCS7.006-c-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a light scheme with '
         'noOnSurfaceTint false '
+        'EXPECT no change', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light).surfacesUseBW(false),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.light),
+      );
+      expect(scheme, equals(scheme2));
+    });
+    test(
+        'FCS7.006-c: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with '
+        'surfacesUseBW '
+        'EXPECT surface and background colors to be black.', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.jolly(Brightness.dark).surfacesUseBW(),
+      );
+      expect(scheme.background, Colors.black);
+      expect(scheme.surface, Colors.black);
+    });
+    test(
+        'FCS7.006-c-noOp: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and tones map FlexTones.jolly for a dark scheme with '
+        'surfacesUseBW false '
         'EXPECT no change', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import '../material_color_utilities.dart';
-import '../utils/color_utils.dart';
 import 'src/hct_solver.dart';
 
 /// HCT, hue, chroma, and tone. A color system that provides a perceptually

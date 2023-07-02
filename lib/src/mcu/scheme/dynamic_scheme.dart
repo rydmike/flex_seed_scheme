@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import '../material_color_utilities.dart';
-import '../utils/math_utils.dart';
 
 /// Constructed by a set of values representing the current UI state (such as
 /// whether or not its dark theme, what the theme style is, etc.), and

@@ -11,18 +11,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../material_color_utilities.dart';
-import '../utils/math_utils.dart';
+import 'package:collection/collection.dart';
 
-class _ArgbAndScore implements Comparable<_ArgbAndScore> {
-  int argb;
+import '../material_color_utilities.dart';
+
+class _ScoredHCT implements Comparable<_ScoredHCT> {
+  Hct hct;
   double score;
 
-  _ArgbAndScore(this.argb, this.score);
+  _ScoredHCT(this.hct, this.score);
 
   @override
-  int compareTo(_ArgbAndScore other) {
-    // coverage:ignore-start
+  int compareTo(_ScoredHCT other) {
     if (score > other.score) {
       return -1;
     } else if (score == other.score) {
@@ -30,7 +30,6 @@ class _ArgbAndScore implements Comparable<_ArgbAndScore> {
     } else {
       return 1;
     }
-    // coverage:ignore-end
   }
 }
 
@@ -41,7 +40,7 @@ class _ArgbAndScore implements Comparable<_ArgbAndScore> {
 /// colors aren't muddied, while curating the high cluster count to a much
 ///  smaller number of appropriate choices.
 class Score {
-  static const double _targetChroma = 48.0;
+  static const double _targetChroma = 48.0; // A1 Chroma
   static const double _weightProportion = 0.7;
   static const double _weightChromaAbove = 0.3;
   static const double _weightChromaBelow = 0.1;
@@ -53,171 +52,99 @@ class Score {
   ///
   /// [colorsToPopulation] is a map with keys of colors and values of often the
   /// color appears, usually from a source image.
+  /// [desired] max count of colors to be returned in the list.
+  /// [fallbackColorARGB] color to be returned if no other options available.
+  /// [filter] whether to filter out undesireable combinations.
   ///
   /// The list returned is of length <= [desired]. The recommended color is the
   /// first item, the least suitable is the last. There will always be at least
   /// one color returned. If all the input colors were not suitable for a theme,
   /// a default fallback color will be provided, Google Blue. The default
-  /// number of colors returned is 4, simply because thats the # of colors
+  /// number of colors returned is 4, simply because that is the # of colors
   /// display in Android 12's wallpaper picker.
   static List<int> score(Map<int, int> colorsToPopulation,
-      {int desired = 4, bool filter = true}) {
-    double populationSum = 0.0;
-    for (final int population in colorsToPopulation.values) {
+      {int desired = 4,
+      int fallbackColorARGB = 0xff4285F4,
+      bool filter = true}) {
+    // Get the HCT color for each Argb value, while finding the per hue count
+    // and total count.
+    final List<Hct> colorsHct = <Hct>[];
+    final List<int> huePopulation = List<int>.filled(360, 0);
+    int populationSum = 0;
+    for (final MapEntry<int, int> entry in colorsToPopulation.entries) {
+      final int argb = entry.key;
+      final int population = entry.value;
+      final Hct hct = Hct.fromInt(argb);
+      colorsHct.add(hct);
+      final int hue = hct.hue.floor();
+      huePopulation[hue] += population;
       populationSum += population;
     }
 
-    // Turn the count of each color into a proportion by dividing by the total
-    // count. Also, fill a cache of CAM16 colors representing each color, and
-    // record the proportion of colors for each CAM16 hue.
-    final Map<int, double> argbToRawProportion = <int, double>{};
-    final Map<int, Hct> argbToHct = <int, Hct>{};
-    final List<double> hueProportions = List<double>.filled(360, 0.0);
-    for (final int color in colorsToPopulation.keys) {
-      final int population = colorsToPopulation[color]!;
-      final double proportion = population / populationSum;
-      argbToRawProportion[color] = proportion;
-
-      final Hct hct = Hct.fromInt(color);
-      argbToHct[color] = hct;
-
-      final int hue = hct.hue.floor();
-      hueProportions[hue] += proportion;
-    }
-
-    // Determine the proportion of the colors around each color, by summing the
-    // proportions around each color's hue.
-    final Map<int, double> argbToHueProportion = <int, double>{};
-    for (final MapEntry<int, Hct> entry in argbToHct.entries) {
-      final int color = entry.key;
-      final Hct cam = entry.value;
-      final int hue = cam.hue.round();
-
-      double excitedProportion = 0.0;
-      for (int i = hue - 15; i < hue + 15; i++) {
+    // Hues with more usage in neighboring 30 degree slice get a larger number.
+    final List<double> hueExcitedProportions = List<double>.filled(360, 0.0);
+    for (int hue = 0; hue < 360; hue++) {
+      final double proportion = huePopulation[hue] / populationSum;
+      for (int i = hue - 14; i < hue + 16; i++) {
         final int neighborHue = MathUtils.sanitizeDegreesInt(i);
-        excitedProportion += hueProportions[neighborHue];
+        hueExcitedProportions[neighborHue] += proportion;
       }
-      argbToHueProportion[color] = excitedProportion;
     }
 
-    // Remove colors that are unsuitable, ex. very dark or unchromatic colors.
-    // Also, remove colors that are very similar in hue.
-    final List<int> filteredColors = filter
-        ? _filter(argbToHueProportion, argbToHct)
-        : argbToHueProportion.keys.toList();
-
-    // Score the colors by their proportion, as well as how chromatic they are.
-    final Map<int, double> argbToScore = <int, double>{};
-    for (final int color in filteredColors) {
-      final Hct cam = argbToHct[color]!;
-      final double proportion = argbToHueProportion[color]!;
+    // Scores each HCT color based on usage and chroma, while optionally
+    // filtering out values that do not have enough chroma or usage.
+    final List<_ScoredHCT> scoredHcts = <_ScoredHCT>[];
+    for (final Hct hct in colorsHct) {
+      final int hue = MathUtils.sanitizeDegreesInt(hct.hue.round());
+      final double proportion = hueExcitedProportions[hue];
+      if (filter &&
+          (hct.chroma < _cutoffChroma ||
+              proportion <= _cutoffExcitedProportion)) {
+        continue;
+      }
 
       final double proportionScore = proportion * 100.0 * _weightProportion;
-
       final double chromaWeight =
-          cam.chroma < _targetChroma ? _weightChromaBelow : _weightChromaAbove;
-      final double chromaScore = (cam.chroma - _targetChroma) * chromaWeight;
-
+          hct.chroma < _targetChroma ? _weightChromaBelow : _weightChromaAbove;
+      final double chromaScore = (hct.chroma - _targetChroma) * chromaWeight;
       final double score = proportionScore + chromaScore;
-      argbToScore[color] = score;
+      scoredHcts.add(_ScoredHCT(hct, score));
     }
+    // Sorted so that colors with higher scores come first.
+    scoredHcts.sort();
 
-    final List<List<num>> argbAndScoreSorted = argbToScore.entries
-        .map((MapEntry<int, double> entry) => <num>[entry.key, entry.value])
-        .toList(growable: false);
-    argbAndScoreSorted
-        .sort((List<num> a, List<num> b) => a[1].compareTo(b[1]) * -1);
-    final List<num> argbsScoreSorted =
-        argbAndScoreSorted.map((List<num> e) => e[0]).toList(growable: false);
-    final Map<num, double> finalColorsToScore = <num, double>{};
-    for (double differenceDegrees = 90.0;
-        differenceDegrees >= 15.0;
+    // Iterates through potential hue differences in degrees in order to select
+    // the colors with the largest distribution of hues possible. Starting at
+    // 90 degrees(maximum difference for 4 colors) then decreasing down to a
+    // 15 degree minimum.
+    final List<Hct> chosenColors = <Hct>[];
+    for (int differenceDegrees = 90;
+        differenceDegrees >= 15;
         differenceDegrees--) {
-      finalColorsToScore.clear();
-      for (final num color in argbsScoreSorted) {
-        bool duplicateHue = false;
-        final Hct cam = argbToHct[color]!;
-        for (final num alreadyChosenColor in finalColorsToScore.keys) {
-          final Hct alreadyChosenCam = argbToHct[alreadyChosenColor]!;
-          if (MathUtils.differenceDegrees(cam.hue, alreadyChosenCam.hue) <
-              differenceDegrees) {
-            duplicateHue = true;
-            break;
-          }
+      chosenColors.clear();
+      for (final _ScoredHCT entry in scoredHcts) {
+        final Hct hct = entry.hct;
+        final Hct? duplicateHue = chosenColors.firstWhereOrNull(
+            (Hct chosenHct) =>
+                MathUtils.differenceDegrees(hct.hue, chosenHct.hue) <
+                differenceDegrees);
+        if (duplicateHue == null) {
+          chosenColors.add(hct);
         }
-        if (!duplicateHue) {
-          finalColorsToScore[color] = argbToScore[color]!;
-        }
+        if (chosenColors.length >= desired) break;
       }
-      if (finalColorsToScore.length >= desired) {
-        break;
-      }
+      if (chosenColors.length >= desired) break;
     }
-
-    // Ensure the list of colors returned is sorted such that the first in the
-    // list is the most suitable, and the last is the least suitable.
-    final List<_ArgbAndScore> colorsByScoreDescending = finalColorsToScore
-        .entries
-        .map((MapEntry<num, double> entry) =>
-            _ArgbAndScore(entry.key.toInt(), entry.value))
-        .toList();
-    colorsByScoreDescending.sort();
-
-    // Ensure that at least one color is returned.
-    if (colorsByScoreDescending.isEmpty) {
-      return <int>[0xff4285F4]; // Google Blue
+    final List<int> colors = <int>[];
+    // Rydmike: If MCU devs do not hit test this, I'm not going to either.
+    // coverage:ignore-start
+    if (chosenColors.isEmpty) {
+      colors.add(fallbackColorARGB);
     }
-    return colorsByScoreDescending.map((_ArgbAndScore e) => e.argb).toList();
-  }
-
-  /// Remove any colors that are completely inappropriate choices for a theme
-  /// colors, colors that are virtually grayscale, or whose hue represents
-  /// a very small portion of the image.
-  static List<int> _filter(
-      Map<int, double> colorsToExcitedProportion, Map<int, Hct> argbToHct) {
-    final List<int> filtered = <int>[];
-    for (final MapEntry<int, Hct> entry in argbToHct.entries) {
-      final int color = entry.key;
-      final Hct cam = entry.value;
-      final double proportion = colorsToExcitedProportion[color]!;
-
-      if (cam.chroma >= _cutoffChroma &&
-          proportion > _cutoffExcitedProportion) {
-        filtered.add(color);
-      }
+    // coverage:ignore-end
+    for (final Hct chosenHct in chosenColors) {
+      colors.add(chosenHct.toInt());
     }
-    return filtered;
-  }
-
-  /// argbToProportion.
-  static Map<int, double> argbToProportion(Map<int, int> argbToCount) {
-    final double totalPopulation =
-        argbToCount.values.reduce((int a, int b) => a + b).floorToDouble();
-    final Map<int, Hct> argbToHct = argbToCount
-        .map((int key, int value) => MapEntry<int, Hct>(key, Hct.fromInt(key)));
-    final List<double> hueProportions = List<double>.filled(360, 0.0);
-    for (final int argb in argbToHct.keys) {
-      final Hct cam = argbToHct[argb]!;
-      final int hue = cam.hue.floor();
-      hueProportions[hue] += argbToCount[argb]! / totalPopulation;
-    }
-
-    // Determine the proportion of the colors around each color, by summing the
-    // proportions around each color's hue.
-    final Map<int, double> intToProportion = <int, double>{};
-    for (final MapEntry<int, Hct> entry in argbToHct.entries) {
-      final int argb = entry.key;
-      final Hct cam = entry.value;
-      final int hue = cam.hue.round();
-
-      double excitedProportion = 0.0;
-      for (int i = hue - 15; i < hue + 15; i++) {
-        final int neighborHue = MathUtils.sanitizeDegreesInt(i);
-        excitedProportion += hueProportions[neighborHue];
-      }
-      intToProportion[argb] = excitedProportion;
-    }
-    return intToProportion;
+    return colors;
   }
 }

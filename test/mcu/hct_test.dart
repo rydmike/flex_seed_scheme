@@ -16,8 +16,6 @@ import 'dart:ui';
 
 import 'package:flex_seed_scheme/src/mcu/hct/src/hct_solver.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
-import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
-import 'package:flex_seed_scheme/src/mcu/utils/string_utils.dart';
 import 'package:test/test.dart';
 
 import './utils/color_matcher.dart';
