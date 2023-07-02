@@ -20,6 +20,12 @@ screenshots:
     path: example/screenshots/custom_dark_4_widgets.png
   - description: 'Example of dark mode widgets with the candy pop seed strategy'
     path: example/screenshots/candy_pop_dark_4_widgets.png
+topics:
+  - theme
+  - colorscheme
+  - material3
+  - color
+  - materialdesign
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
