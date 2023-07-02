@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 1.4.0
 
-**June 30, 2023**
+**July 2, 2023**
 
 * **NEW FEATURES** 
   * Added support for new HCT tones used by updated Material3 color system, that were added during the first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
@@ -45,10 +45,6 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
   * Feature: Change seed colors in the app with Color picker.
   * Feature: Add switching between showing common tones and extended tones.
   * Feature: Add selecting a custom color as key color for error palette.
-
-
-* **TODO**
-  * Pubspec: Update screenshots.
 
 
 ## 1.3.0
