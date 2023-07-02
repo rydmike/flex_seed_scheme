@@ -22,7 +22,7 @@ Use this package like `ColorScheme.fromSeed` with the following additional capab
   tones and excludes tone 98. With **FlexSeedScheme** you can use **fifteen** tones, including 98 and 5.
 * For even more tones use `FlexPaletteType.extened` that gives access to all the new tones that
   are used in the revised Material design 3 for surfaces and fixed main color. These are not yet
-  supported by the `ColorScheme` in Flutter 3.10, but are expected to arrive in later versions.
+  supported by the standard `ColorScheme` in Flutter 3.10, but are expected to arrive in later versions.
 
 ## Background
 
@@ -147,7 +147,7 @@ color and tone 90 to `primaryContainer`. In dark mode they get tones 80 and 20. 
 are repeated for secondary, tertiary, error colors and all the surface and background colors.
 It is this mapping that `FlexTones` gives you control over.
 
-### Define ThemeData
+## Define ThemeData
 
 In your `MaterialApp` you then define your light and dark mode themes using the seed 
 generated `ColorScheme`s just as you would with any other `ColorScheme`. For example:
@@ -172,7 +172,7 @@ generated `ColorScheme`s just as you would with any other `ColorScheme`. For exa
   }
 ```
 
-### Override Color Values
+## Override Color Values
 
 All colors in the seed produced `ColorScheme` can be overridden by providing each `ColorScheme`
 color property in `SeedColorScheme.fromSeeds` a given color value. This feature is equivalent to
@@ -220,10 +220,10 @@ If there is a spec that calls for completely different main colors in dark mode,
 hues, then seeding from them and also setting `primary`, `secondary` and `tertiary` to these 
 color values is appropriate.
 
-### Customize Tones and Chroma
+## ColorScheme Generation Strategy
 
-In the above example, we used a predefined tone mapping and chroma setup called `FlexTones.vivid`.
-There are currently nine predefined configurations available:
+In the above example, we used a predefined tone mapping and chroma setup `ColorScheme` generation strategy 
+called `FlexTones.vivid`. There are currently **eleven** predefined configurations available:
 
 * `FlexTones.material`, default and same as Flutter SDK M3 setup.
 * `FlexTones.soft`, softer and earthier tones than M3 FlexTones.material.
@@ -237,7 +237,7 @@ There are currently nine predefined configurations available:
 * `FlexTones.canyPop`, A high contrast color scheme, useful for accessible themes, with colors that pop like candy. Keeps the background and surface white in light mode, and only a slight tint in dark mode. Neutrals have very low chroma.
 * `FlexTones.chroma`, use it to create a color scheme that follows chroma of each used seed color. Useful for manual control of pop or low chromacity. It uses low surface tint and neutrals with medium chroma.
 
-You can define custom tones mapping and chroma limitation setups with `FlexTones`. Prefer using
+You can also define custom tones mapping and chroma limitation setups with `FlexTones`. Prefer using
 the `FlexTones.light` and `FlexTones.dark` constructors as base for custom definitions. By using
 them, you only need to override defaults that you want to change.
 
@@ -276,17 +276,19 @@ const FlexTones myDarkTones = FlexTones.dark(
 
 ### Extended Palette
 
-By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access new color tones that exists in the late 2022 revised `ColorScheme` for surface colors and even more colors for **fixed** and **fixedDim** main colors that are coming to Material-3 design, potentially during later half of 2023. The `ColorScheme` colors that use these new tones are not yet available in Flutter 3.10 or earlier. The new colors may not even arrive in the next stable version after 3.10. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
+By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access new color tones that exists in the late 2022 revised `ColorScheme` for surface colors and even more colors for **fixed** and **fixedDim** main colors that are coming to Material-3 design, potentially during later half of 2023. 
 
-The new tones used by updated Material-3 color system added tones `[4, 6, 12, 17, 22]`. They are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 97]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.common` is used. It produces the classic M3 tones with its own two additions `[5]` and `[98]` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. 
+The `ColorScheme` colors that use these new tones are not yet available in Flutter 3.10 or earlier. The new colors may not even arrive in the next stable version after 3.10. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
 
-To enable support for the tones in updated specification and also adding one more custom tone `[97]`, use `paletteType` with value `FlexPaletteType.extended`. The extended type produces 25 tones `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
+The updated Material-3 color system adds tones `[4, 6, 12, 17, 22]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 97]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.common` is used. It produces the classic M3 tones with its own two additions `[5]` and `[98]` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. 
+
+To enable support for the tones in the updated specification and also adding one more custom tone `[97]`, use `paletteType` with value `FlexPaletteType.extended`. The extended palette type produces 25 tones `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
 
 Flutter 3.10 and earlier do not yet use these new tones in its standard `ColorScheme`, but since they are in the Material-3 specification, they will arrive at some later point.
 
-Traditionally and for backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, higher or equal to 90, is limited to maximum 40. This keeps the chromacity of tones 90 to 100, lower than 40. If the source seed color use more chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original palette design. 
+Traditionally and for backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, meaning higher or equal to 90, are limited to maximum chroma of 40. This keeps the chromacity of tones 90 to 100 lower than or equal to 40. If the source seed color has higher chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original palette design. 
   
-When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used. Of the pre-made `FlexTones` only `candyPop` and `chroma` use the new `FlexPaletteType.extended` tonal palette to produce their `ColorScheme`s. All other that were defined in `FlexSeedScheme` before `FlexPaletteType.extended` was introduced continue to use `FlexTones.common` for backwards compatibility. 
+When using the `FlexPaletteType.extended` type tones, there are not only the new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used. Of the pre-made `FlexTones` only `candyPop` and `chroma` use the new `FlexPaletteType.extended` tonal palette to produce their `ColorScheme`s. All other that were defined in `FlexSeedScheme` before `FlexPaletteType.extended` was introduced, continue to use `FlexTones.common` for backwards compatibility. 
 
 ### Accessibility
 
@@ -437,7 +439,7 @@ tones: FlexTones.material(Brightness.light)
 );
 ```
 
-### Example Application
+### [Example Application](https://rydmike.com/flexseedscheme/demo-v1)
 
 The included example application uses above color seeding and custom 
 tone mapping. You can also choose any of the built-in pre-configured tone mappings as used 

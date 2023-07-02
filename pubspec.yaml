@@ -11,7 +11,7 @@ screenshots:
   - description: 'Using 4 seed colors to make M3 ColorScheme with candy pop strategy'
     path: example/screenshots/candy_pop_light_4.png
   - description: 'Using 4 seed colors to make M3 ColorScheme with custom seed strategy'
-    path: example/screenshots/light_app.png
+    path: example/screenshots/custom_light_4.png
   - description: 'Example of light mode widgets with the custom seed strategy'
     path: example/screenshots/custom_light_4_widgets.png
   - description: 'Example of light mode widgets with the candy pop seed strategy'
