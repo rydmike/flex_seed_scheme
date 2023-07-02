@@ -6,14 +6,20 @@ repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
 documentation: https://github.com/rydmike/flex_seed_scheme/blob/master/README.md
 screenshots:
-  - description: 'Using 3 seed colors to make an M3 ColorScheme with M3 default chroma'
-    path: example/screenshots/three_seeds_with_m3_chroma.png
-  - description: 'Using 3 seed colors to make an M3 ColorScheme with custom chroma limits and tone mapping'
-    path: example/screenshots/three_seeds_with_custom_chroma_and_tones.png
-  - description: 'Using 3 seed colors to make a high-contrast M3 ColorScheme'
-    path: example/screenshots/dark_three_seeds_high_contrast.png
-  - description: 'Using 3 seed colors to make an ultra high-contrast M3 ColorScheme'
-    path: example/screenshots/dark_three_seeds_ultra_high_contrast.png
+  - description: 'Using 1 seed colors to make M3 ColorScheme with candy pop strategy'
+    path: example/screenshots/candy_pop_light_1.png
+  - description: 'Using 4 seed colors to make M3 ColorScheme with candy pop strategy'
+    path: example/screenshots/candy_pop_light_4.png
+  - description: 'Using 4 seed colors to make M3 ColorScheme with custom seed strategy'
+    path: example/screenshots/light_app.png
+  - description: 'Example of light mode widgets with the custom seed strategy'
+    path: example/screenshots/custom_light_4_widgets.png
+  - description: 'Example of light mode widgets with the candy pop seed strategy'
+    path: example/screenshots/candy_pop_light_4_widgets.png
+  - description: 'Example of dark mode widgets with the custom seed strategy'
+    path: example/screenshots/custom_dark_4_widgets.png
+  - description: 'Example of dark mode widgets with the candy pop seed strategy'
+    path: example/screenshots/candy_pop_dark_4_widgets.png
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
