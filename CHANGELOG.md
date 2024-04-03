@@ -7,7 +7,8 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 **April 3, 2024**
 
 * **NEW**
-  * Exposed [Hct] and [ViewingConditions] from underlying Material Color Utilities (MCU) library. They are exposed for convenience, you no longer have to add and import (MCU) to use them. 
+  * Exposed `Hct` and `ViewingConditions`] from the underlying Material Color Utilities (MCU) library. They are exposed for convenience, you no longer have to add and import (MCU) to use them. 
+  * Add `CODE_OF_CONDUCT.md` and `CONTRIBUTING.md` files for guidance on contributing to the package.
 
 ## 1.4.0
 
