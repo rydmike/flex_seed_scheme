@@ -2847,7 +2847,7 @@ class _MenuAnchorContextMenuState extends State<MenuAnchorContextMenu> {
       onTapDown: _handleTapDown,
       child: MenuAnchor(
         controller: _menuController,
-        anchorTapClosesMenu: true,
+        consumeOutsideTap: true,
         menuChildren: <Widget>[
           MenuItemButton(
             child: Text(MenuEntry.about.label),
