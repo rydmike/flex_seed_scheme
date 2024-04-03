@@ -238,7 +238,7 @@ class TemperatureCache {
     }
     final List<Hct> allHcts = List<Hct>.from(hctsByHue)..add(input);
     final Map<Hct, double> temperaturesByHct = <Hct, double>{
-      for (Hct e in allHcts) e: rawTemperature(e)
+      for (final Hct e in allHcts) e: rawTemperature(e)
     };
     // False positive, this is not doable, we need to update private cache.
     // ignore: join_return_with_assignment

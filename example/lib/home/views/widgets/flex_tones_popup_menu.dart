@@ -34,7 +34,7 @@ class FlexTonesPopupMenu extends StatelessWidget {
         onChanged?.call(tone);
       },
       itemBuilder: (BuildContext context) => <PopupMenuItem<FlexTonesEnum>>[
-        for (FlexTonesEnum tone in FlexTonesEnum.values)
+        for (final FlexTonesEnum tone in FlexTonesEnum.values)
           PopupMenuItem<FlexTonesEnum>(
             value: tone,
             child: ListTile(

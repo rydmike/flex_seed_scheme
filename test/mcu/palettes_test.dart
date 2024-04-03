@@ -151,7 +151,17 @@ void main() {
         //
         // Verify example HCT tones.
         expect(tones.getHct(0).toInt(), 0);
+        expect(tones.getHct(10).toInt(), 1);
+        expect(tones.getHct(20).toInt(), 2);
+        expect(tones.getHct(30).toInt(), 3);
+        expect(tones.getHct(40).toInt(), 4);
         expect(tones.getHct(50).toInt(), 5);
+        expect(tones.getHct(60).toInt(), 6);
+        expect(tones.getHct(70).toInt(), 7);
+        expect(tones.getHct(80).toInt(), 8);
+        expect(tones.getHct(90).toInt(), 9);
+        expect(tones.getHct(95).toInt(), 10);
+        expect(tones.getHct(99).toInt(), 11);
         expect(tones.getHct(100).toInt(), 12);
         expect(() => tones.getHct(3), throwsA(isA<ArgumentError>()));
       });
