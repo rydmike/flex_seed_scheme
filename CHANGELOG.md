@@ -2,6 +2,16 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 2.0.0-dev.1
+
+**April 3, 2024**
+
+This release adds support for the revised Material-3 ColorScheme and new features in Material Color Utilities (MCU) library version 0.11.1.
+
+* **NEW**
+  * Support revised Material-3 ColorScheme with colors like...
+
+
 ## 1.5.0
 
 **April 3, 2024**
