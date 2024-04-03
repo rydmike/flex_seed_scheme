@@ -2,11 +2,18 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 1.5.0
+
+**April 3, 2024**
+
+* **NEW**
+  * Exposed [Hct] and [ViewingConditions] from underlying Material Color Utilities (MCU) library. They are exposed for convenience, you no longer have to add and import (MCU) to use them. 
+
 ## 1.4.0
 
 **July 2, 2023**
 
-* **NEW FEATURES** 
+* **NEW** 
   * Added support for new HCT tones used by updated Material3 color system, that were added during the first half of 2023 to the Material 3 color system specification. The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in revised Material 3 dark surface colors. Likewise, added tones 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3 color system. For more information, see: https://m3.material.io/styles/color/the-color-system/color-roles.
     * The change and additions are none breaking. APIs that want and can use the extended tones can pass in an optional `paletteType` of `FlexPaletteType` and set it to `FlexPaletteType.extended`, by default its values `FlexPaletteType.common` resulting in the 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]` being produced as before.
     * The complete list of the 25 extended tones are `[0, 4, 5, 6, 10, 12, 17, 20, 22, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
