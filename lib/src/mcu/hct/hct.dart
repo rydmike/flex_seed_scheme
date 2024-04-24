@@ -11,8 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../material_color_utilities.dart';
+
+import '../utils/color_utils.dart';
+import 'cam16.dart';
 import 'src/hct_solver.dart';
+import 'viewing_conditions.dart';
 
 /// HCT, hue, chroma, and tone. A color system that provides a perceptually
 /// accurate color measurement system that can also accurately render what
@@ -33,23 +36,24 @@ class Hct {
     return Hct._(argb);
   }
 
+  /// Operator == override
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! Hct) {
+  bool operator ==(Object o) {
+    if (o is! Hct) {
       return false;
     }
-    return other._argb == _argb;
+    return o._argb == _argb;
   }
 
+  /// The hash code for this object.
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => _argb.hashCode;
 
   @override
   String toString() {
-    return 'H${hue.round()} '
-        'C${chroma.round()} T${tone.round()}';
+    return 'H${hue.round()} C${chroma.round()} T${tone.round()}';
   }
 
   /// HCT representation of [argb].
@@ -57,7 +61,7 @@ class Hct {
     return Hct._(argb);
   }
 
-  /// Return HCT as int ARGB value.
+  /// The color as an integer.
   int toInt() {
     return _argb;
   }

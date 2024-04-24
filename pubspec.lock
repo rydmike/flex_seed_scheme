@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: args
-      sha256: eef6c46b622e0494a36c5a12d10d77fb4e855501a91c1b9ef9339326e58f0596
+      sha256: "7cf60b9f0cc88203c5a190b4cd62a99feea42759a7fa695010eb5de1c0b2252a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.5.0"
   async:
     dependency: transitive
     description:
@@ -119,10 +119,10 @@ packages:
     dependency: transitive
     description:
       name: frontend_server_client
-      sha256: "408e3ca148b31c20282ad6f37ebfa6f4bdc8fede5b74bc2f08d9d92b55db3612"
+      sha256: f64a0333a82f30b0cca061bc3d143813a486dc086b574bfb233b7c1372427694
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "4.0.0"
   glob:
     dependency: transitive
     description:
@@ -159,10 +159,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7"
+    version: "0.7.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -404,10 +404,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: a2662fb1f114f4296cf3f5a50786a2d888268d7776cf681aa17d660ffa23b246
+      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
       url: "https://pub.dev"
     source: hosted
-    version: "14.0.0"
+    version: "14.2.1"
   watcher:
     dependency: transitive
     description:
@@ -420,18 +420,18 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: "4188706108906f002b3a293509234588823c8c979dc83304e229ff400c996b05"
+      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.2"
+    version: "0.5.1"
   web_socket_channel:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: "939ab60734a4f8fa95feacb55804fa278de28bdeef38e616dc08e44a84adea23"
+      sha256: "58c6666b342a38816b2e7e50ed0f1e261959630becd4c879c4f26bfa14aa5a42"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.5"
   webkit_inspection_protocol:
     dependency: transitive
     description:
@@ -449,5 +449,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0-0 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  dart: ">=3.3.0 <4.0.0"
+  flutter: ">=3.22.0-0.2.pre"

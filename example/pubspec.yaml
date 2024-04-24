@@ -4,7 +4,7 @@ version: 2.0.0-dev.1
 publish_to: 'none'
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.22.0-4.0.pre.18'
+  flutter: '>=3.22.0-0.2.pre'
 
 dependencies:
   # Adds the Cupertino Icons font to your application. Used by the
@@ -28,7 +28,7 @@ dependencies:
 
   # Used for launching a WEB URL, by Google flutter.dev.
   # https://pub.dev/packages/url_launcher
-  url_launcher: ^6.2.5
+  url_launcher: ^6.2.6
 
 dev_dependencies:
   flutter_test:

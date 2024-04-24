@@ -44,12 +44,12 @@ class ContrastCurve {
   /// [high] Contrast requirement for contrast level 1.0
   final double high;
 
-  /// Returns the contrast ratio at a given contrast level.
+  /// Returns the value at a given contrast level.
   ///
   /// [contrastLevel] The contrast level. 0.0 is the default (normal);
   /// -1.0 is the lowest; 1.0 is the highest.
-  /// Returns The contrast ratio, a number between 1.0 and 21.0.
-  double getContrast(double contrastLevel) {
+  /// Returns the value. For contrast ratios, a number between 1.0 and 21.0.
+  double get(double contrastLevel) {
     if (contrastLevel <= -1.0) {
       return low;
     } else if (contrastLevel < 0.0) {

@@ -13,10 +13,13 @@
 // limitations under the License.
 import 'dart:math' as math;
 
-import '../material_color_utilities.dart';
-
-// import 'dynamic_scheme.dart';
-// import 'variant.dart';
+import '../dislike/dislike_analyzer.dart';
+import '../dynamiccolor/dynamic_scheme.dart';
+import '../dynamiccolor/variant.dart';
+import '../hct/hct.dart';
+import '../palettes/tonal_palette.dart';
+import '../temperature/temperature_cache.dart';
+import 'scheme.dart';
 
 /// A scheme that places the source color in [Scheme.primaryContainer].
 ///
@@ -28,7 +31,7 @@ import '../material_color_utilities.dart';
 /// color wheel divided into 6, and the precise analog is the one found by
 /// increasing hue. It also maintains constant appearance.
 class SchemeContent extends DynamicScheme {
-  /// Default SchemeContent constructor.
+  /// Create a [SchemeContent] from a source color.
   SchemeContent({
     required Hct sourceColorHct,
     required super.isDark,

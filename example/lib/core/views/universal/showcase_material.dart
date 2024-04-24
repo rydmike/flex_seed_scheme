@@ -568,9 +568,9 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
             },
           ),
           Switch(
-            thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
+            thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return Icon(Icons.check,
                     color:
                         isLight ? colorScheme.primary : colorScheme.onPrimary);
@@ -1927,7 +1927,7 @@ class _SearchBarShowcaseState extends State<SearchBarShowcase> {
             return SearchBar(
               controller: controller,
               hintText: 'Search using SearchBar',
-              padding: const MaterialStatePropertyAll<EdgeInsets>(
+              padding: const WidgetStatePropertyAll<EdgeInsets>(
                   EdgeInsets.symmetric(horizontal: 16.0)),
               onTap: () {
                 controller.openView();
