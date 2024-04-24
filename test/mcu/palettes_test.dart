@@ -51,9 +51,8 @@ void main() {
         expect(
           c1.toString(),
           equals(
-            'TonalPalette.fromList({0: 123, 10: 123, 20: 123, 30: 123, '
-            '40: 123, 50: 123, 60: 123, 70: 123, 80: 123, 90: 123, '
-            '95: 123, 99: 123, 100: 123})',
+            'TonalPalette.fromList([123, 123, 123, 123, 123, 123, '
+            '123, 123, 123, 123, 123, 123, 123])',
           ),
         );
       });
@@ -145,7 +144,9 @@ void main() {
         expect(tones.get(0), 0);
 
         /// Tone not in [TonalPalette.commonTones]
-        expect(() => tones.get(3), throwsA(isA<ArgumentError>()));
+        /// Before version 2.0.0 this would have thrown an exception.
+        /// but now we can get any tone.
+        expect(tones.get(3), 4278716699);
 
         // RydMike Extra tests
         //
@@ -163,7 +164,11 @@ void main() {
         expect(tones.getHct(95).toInt(), 10);
         expect(tones.getHct(99).toInt(), 11);
         expect(tones.getHct(100).toInt(), 12);
-        expect(() => tones.getHct(3), throwsA(isA<ArgumentError>()));
+
+        /// Tone not in [TonalPalette.commonTones]
+        /// Before version 2.0.0 this would have thrown an exception.
+        /// but now we can get any tone.
+        expect(tones.getHct(3).toInt(), 4278716699);
       });
 
       test('asList', () {
