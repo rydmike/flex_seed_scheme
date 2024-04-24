@@ -11,6 +11,8 @@ This release adds support for the revised Material-3 `ColorScheme` released in F
 * **CHANGE**
   * Bring the internal MCU library to parity with version 0.11.1.
 
+   * extendedTones got one new tone 24, now has 26 tones.
+
 * **NEW**
   * Support revised Material-3 `ColorScheme` with the new colors primaryFixed, primaryFixedDim, onPrimaryFixed, onPrimaryFixedVariant, secondaryFixed, secondaryFixedDim, onSecondaryFixed, onSecondaryFixedVariant, tertiaryFixed, tertiaryFixedDim, onTertiaryFixed, onTertiaryFixedVariant, surfaceDim, surfaceBright, surfaceContainerLowest, surfaceContainerLow, surfaceContainer, surfaceContainerHigh and surfaceContainerHighest.
 

@@ -77,24 +77,45 @@ class FlexTones with Diagnosticable {
     required this.onPrimaryTone,
     required this.primaryContainerTone,
     required this.onPrimaryContainerTone,
+    required this.primaryFixedTone,
+    required this.primaryFixedDimTone,
+    required this.onPrimaryFixedTone,
+    required this.onPrimaryFixedVariantTone,
+    //
     required this.secondaryTone,
     required this.onSecondaryTone,
     required this.secondaryContainerTone,
     required this.onSecondaryContainerTone,
+    required this.secondaryFixedTone,
+    required this.secondaryFixedDimTone,
+    required this.onSecondaryFixedTone,
+    required this.onSecondaryFixedVariantTone,
+    //
     required this.tertiaryTone,
     required this.onTertiaryTone,
     required this.tertiaryContainerTone,
     required this.onTertiaryContainerTone,
+    required this.tertiaryFixedTone,
+    required this.tertiaryFixedDimTone,
+    required this.onTertiaryFixedTone,
+    required this.onTertiaryFixedVariantTone,
+    //
     required this.errorTone,
     required this.onErrorTone,
     required this.errorContainerTone,
     required this.onErrorContainerTone,
-    required this.backgroundTone,
-    required this.onBackgroundTone,
+    //
     required this.surfaceTone,
+    required this.surfaceDimTone,
+    required this.surfaceBrightTone,
+    required this.surfaceContainerLowestTone,
+    required this.surfaceContainerLowTone,
+    required this.surfaceContainerTone,
+    required this.surfaceContainerHighTone,
+    required this.surfaceContainerHighestTone,
     required this.onSurfaceTone,
-    required this.surfaceVariantTone,
     required this.onSurfaceVariantTone,
+    //
     required this.outlineTone,
     required this.outlineVariantTone,
     required this.shadowTone,
@@ -103,6 +124,12 @@ class FlexTones with Diagnosticable {
     required this.onInverseSurfaceTone,
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
+    // Deprecated color tones
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
+    this.surfaceVariantTone,
+    //
     this.primaryChroma,
     this.primaryMinChroma,
     this.secondaryChroma,
@@ -150,33 +177,57 @@ class FlexTones with Diagnosticable {
     this.onPrimaryTone = 100,
     this.primaryContainerTone = 90,
     this.onPrimaryContainerTone = 10,
+    this.primaryFixedTone = 90,
+    this.primaryFixedDimTone = 80,
+    this.onPrimaryFixedTone = 10,
+    this.onPrimaryFixedVariantTone = 30,
+    this.inversePrimaryTone = 80,
+    //
     this.secondaryTone = 40,
     this.onSecondaryTone = 100,
     this.secondaryContainerTone = 90,
     this.onSecondaryContainerTone = 10,
+    this.secondaryFixedTone = 90,
+    this.secondaryFixedDimTone = 80,
+    this.onSecondaryFixedTone = 10,
+    this.onSecondaryFixedVariantTone = 30,
+    //
     this.tertiaryTone = 40,
     this.onTertiaryTone = 100,
     this.tertiaryContainerTone = 90,
     this.onTertiaryContainerTone = 10,
+    this.tertiaryFixedTone = 90,
+    this.tertiaryFixedDimTone = 80,
+    this.onTertiaryFixedTone = 10,
+    this.onTertiaryFixedVariantTone = 30,
+    //
     this.errorTone = 40,
     this.onErrorTone = 100,
     this.errorContainerTone = 90,
     this.onErrorContainerTone = 10,
     //
-    this.backgroundTone = 99,
-    this.onBackgroundTone = 10,
-    this.surfaceTone = 99,
+    this.surfaceTone = 98,
+    this.surfaceContainerLowestTone = 100,
+    this.surfaceContainerLowTone = 96,
+    this.surfaceContainerTone = 94,
+    this.surfaceContainerHighTone = 92,
+    this.surfaceContainerHighestTone = 90,
+    this.surfaceDimTone = 87,
+    this.surfaceBrightTone = 98,
     this.onSurfaceTone = 10,
-    this.surfaceVariantTone = 90,
     this.onSurfaceVariantTone = 30,
+    this.inverseSurfaceTone = 20,
+    this.onInverseSurfaceTone = 95,
+    this.surfaceTintTone = 40,
+    //
     this.outlineTone = 50,
     this.outlineVariantTone = 80,
     this.shadowTone = 0,
     this.scrimTone = 0,
-    this.inverseSurfaceTone = 20,
-    this.onInverseSurfaceTone = 95,
-    this.inversePrimaryTone = 80,
-    this.surfaceTintTone = 40,
+    // Deprecated tones
+    this.backgroundTone = 98,
+    this.onBackgroundTone = 10,
+    this.surfaceVariantTone = 90,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -225,33 +276,60 @@ class FlexTones with Diagnosticable {
     this.onPrimaryTone = 20,
     this.primaryContainerTone = 30,
     this.onPrimaryContainerTone = 90,
+    this.primaryFixedTone = 90,
+    this.primaryFixedDimTone = 80,
+    this.onPrimaryFixedTone = 10,
+    this.onPrimaryFixedVariantTone = 30,
+    this.inversePrimaryTone = 40,
+    //
     this.secondaryTone = 80,
     this.onSecondaryTone = 20,
     this.secondaryContainerTone = 30,
     this.onSecondaryContainerTone = 90,
+    this.secondaryFixedTone = 90,
+    this.secondaryFixedDimTone = 80,
+    this.onSecondaryFixedTone = 10,
+    this.onSecondaryFixedVariantTone = 30,
+    //
     this.tertiaryTone = 80,
     this.onTertiaryTone = 20,
     this.tertiaryContainerTone = 30,
     this.onTertiaryContainerTone = 90,
+    this.tertiaryFixedTone = 90,
+    this.tertiaryFixedDimTone = 80,
+    this.onTertiaryFixedTone = 10,
+    this.onTertiaryFixedVariantTone = 30,
+    //
     this.errorTone = 80,
     this.onErrorTone = 20,
     this.errorContainerTone = 30,
     this.onErrorContainerTone = 80,
     //
-    this.backgroundTone = 10,
-    this.onBackgroundTone = 90,
+
     this.surfaceTone = 10,
+    //
+    this.surfaceContainerLowestTone = 4,
+    this.surfaceContainerLowTone = 10,
+    this.surfaceContainerTone = 12,
+    this.surfaceContainerHighTone = 17,
+    this.surfaceContainerHighestTone = 22,
+    this.surfaceDimTone = 6,
+    this.surfaceBrightTone = 24,
+    //
     this.onSurfaceTone = 90,
-    this.surfaceVariantTone = 30,
     this.onSurfaceVariantTone = 80,
+    this.inverseSurfaceTone = 90,
+    this.onInverseSurfaceTone = 20,
+    this.surfaceTintTone = 80,
+    //
     this.outlineTone = 60,
     this.outlineVariantTone = 30,
     this.shadowTone = 0,
     this.scrimTone = 0,
-    this.inverseSurfaceTone = 90,
-    this.onInverseSurfaceTone = 20,
-    this.inversePrimaryTone = 40,
-    this.surfaceTintTone = 80,
+    // Deprecated tones
+    this.backgroundTone = 10,
+    this.onBackgroundTone = 90,
+    this.surfaceVariantTone = 30,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -789,9 +867,9 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
+      // onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
-      onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
+      // onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
       onInverseSurfaceTone: inverseSurfaceTone <= 60 ? 100 : 0,
     );
   }
@@ -814,7 +892,7 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      backgroundTone: backgroundTone <= 60 ? 0 : 100,
+      // backgroundTone: backgroundTone <= 60 ? 0 : 100,
       surfaceTone: surfaceTone <= 60 ? 0 : 100,
     );
   }
@@ -833,6 +911,21 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onPrimaryContainerTone;
 
+  /// Tone used for [ColorScheme.primaryFixed] from primary [FlexTonalPalette].
+  final int primaryFixedTone;
+
+  /// Tone used for [ColorScheme.primaryFixedDim] from primary
+  /// [FlexTonalPalette].
+  final int primaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.onPrimaryFixed] from primary
+  /// [FlexTonalPalette].
+  final int onPrimaryFixedTone;
+
+  /// Tone used for [ColorScheme.onPrimaryFixedVariant] from primary
+  /// [FlexTonalPalette].
+  final int onPrimaryFixedVariantTone;
+
   /// Tone used for [ColorScheme.secondary] from secondary [FlexTonalPalette].
   final int secondaryTone;
 
@@ -846,6 +939,22 @@ class FlexTones with Diagnosticable {
   /// Tone used for [ColorScheme.onSecondaryContainer] from secondary
   /// [FlexTonalPalette].
   final int onSecondaryContainerTone;
+
+  /// Tone used for [ColorScheme.secondaryFixed] from secondary
+  /// [FlexTonalPalette].
+  final int secondaryFixedTone;
+
+  /// Tone used for [ColorScheme.secondaryFixedDim] from secondary
+  /// [FlexTonalPalette].
+  final int secondaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.secondaryFixed] from secondary
+  /// [FlexTonalPalette].
+  final int onSecondaryFixedTone;
+
+  /// Tone used for [ColorScheme.onSecondaryFixedVariant] from secondary
+  /// [FlexTonalPalette].
+  final int onSecondaryFixedVariantTone;
 
   /// Tone used for [ColorScheme.tertiary] from tertiary [FlexTonalPalette].
   final int tertiaryTone;
@@ -861,6 +970,22 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onTertiaryContainerTone;
 
+  /// Tone used for [ColorScheme.tertiaryFixed] from tertiary
+  /// [FlexTonalPalette].
+  final int tertiaryFixedTone;
+
+  /// Tone used for [ColorScheme.tertiaryFixedDim] from tertiary
+  /// [FlexTonalPalette].
+  final int tertiaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.onTertiaryFixed] from tertiary
+  /// [FlexTonalPalette].
+  final int onTertiaryFixedTone;
+
+  /// Tone used for [ColorScheme.onTertiaryFixedVariant] from tertiary
+  /// [FlexTonalPalette].
+  final int onTertiaryFixedVariantTone;
+
   /// Tone used for [ColorScheme.error] from error [FlexTonalPalette].
   final int errorTone;
 
@@ -874,21 +999,37 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onErrorContainerTone;
 
-  /// Tone used for [ColorScheme.background] from neutral [FlexTonalPalette].
-  final int backgroundTone;
-
-  /// Tone used for [ColorScheme.onBackground] from neutral [FlexTonalPalette].
-  final int onBackgroundTone;
-
   /// Tone used for [ColorScheme.surface] from neutral [FlexTonalPalette].
   final int surfaceTone;
 
+  /// Tone used for [ColorScheme.surfaceDim] from neutral [FlexTonalPalette].
+  final int surfaceDimTone;
+
+  /// Tone used for [ColorScheme.surfaceBright] from neutral [FlexTonalPalette].
+  final int surfaceBrightTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerLowest] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerLowestTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerLow] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerLowTone;
+
+  /// Tone used for [ColorScheme.surfaceContainer] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerHigh] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerHighTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerHighest] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerHighestTone;
+
   /// Tone used for [ColorScheme.onSurface] from neutral [FlexTonalPalette].
   final int onSurfaceTone;
-
-  /// Tone used for [ColorScheme.surfaceVariant] from neutralVariant
-  /// [FlexTonalPalette].
-  final int surfaceVariantTone;
 
   /// Tone used for [ColorScheme.onSurfaceVariant] from neutralVariant
   /// [FlexTonalPalette].
@@ -922,6 +1063,21 @@ class FlexTones with Diagnosticable {
 
   /// Tone used for [ColorScheme.surfaceTint] from primary [FlexTonalPalette].
   final int surfaceTintTone;
+
+  // Deprecated colors.
+
+  /// Tone used for ColorScheme background from neutral [FlexTonalPalette].
+  @Deprecated('Use surfaceTone instead.')
+  final int? backgroundTone;
+
+  /// Tone used for ColorScheme onBackground from neutral [FlexTonalPalette].
+  @Deprecated('Use onSurfaceTone instead.')
+  final int? onBackgroundTone;
+
+  /// Tone used for ColorScheme surfaceVariant from neutralVariant
+  /// [FlexTonalPalette].
+  @Deprecated('Use surfaceContainerHighestTone instead.')
+  final int? surfaceVariantTone;
 
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
   /// generation.
@@ -1108,7 +1264,7 @@ class FlexTones with Diagnosticable {
   /// In Flutter 3.10 and earlier the new [ColorScheme] surface colors that
   /// need the new tones are not yet available.
   ///
-  /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
+  /// The added tones 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
   /// 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
   /// color system. For more information, see:
@@ -1123,24 +1279,45 @@ class FlexTones with Diagnosticable {
     int? onPrimaryTone,
     int? primaryContainerTone,
     int? onPrimaryContainerTone,
+    int? primaryFixedTone,
+    int? primaryFixedDimTone,
+    int? onPrimaryFixedTone,
+    int? onPrimaryFixedVariantTone,
+    //
     int? secondaryTone,
     int? onSecondaryTone,
     int? secondaryContainerTone,
     int? onSecondaryContainerTone,
+    int? secondaryFixedTone,
+    int? secondaryFixedDimTone,
+    int? onSecondaryFixedTone,
+    int? onSecondaryFixedVariantTone,
+    //
     int? tertiaryTone,
     int? onTertiaryTone,
     int? tertiaryContainerTone,
     int? onTertiaryContainerTone,
+    int? tertiaryFixedTone,
+    int? tertiaryFixedDimTone,
+    int? onTertiaryFixedTone,
+    int? onTertiaryFixedVariantTone,
+    //
     int? errorTone,
     int? onErrorTone,
     int? errorContainerTone,
     int? onErrorContainerTone,
-    int? backgroundTone,
-    int? onBackgroundTone,
+    //
     int? surfaceTone,
+    int? surfaceDimTone,
+    int? surfaceBrightTone,
+    int? surfaceContainerLowestTone,
+    int? surfaceContainerLowTone,
+    int? surfaceContainerTone,
+    int? surfaceContainerHighTone,
+    int? surfaceContainerHighestTone,
     int? onSurfaceTone,
-    int? surfaceVariantTone,
     int? onSurfaceVariantTone,
+    //
     int? outlineTone,
     int? outlineVariantTone,
     int? shadowTone,
@@ -1149,6 +1326,11 @@ class FlexTones with Diagnosticable {
     int? onInverseSurfaceTone,
     int? inversePrimaryTone,
     int? surfaceTintTone,
+    // Deprecated color tones.
+    int? backgroundTone,
+    int? onBackgroundTone,
+    int? surfaceVariantTone,
+    //
     double? primaryChroma,
     double? primaryMinChroma,
     double? secondaryChroma,
@@ -1170,28 +1352,57 @@ class FlexTones with Diagnosticable {
       primaryContainerTone: primaryContainerTone ?? this.primaryContainerTone,
       onPrimaryContainerTone:
           onPrimaryContainerTone ?? this.onPrimaryContainerTone,
+      primaryFixedTone: primaryFixedTone ?? this.primaryFixedTone,
+      primaryFixedDimTone: primaryFixedDimTone ?? this.primaryFixedDimTone,
+      onPrimaryFixedTone: onPrimaryFixedTone ?? this.onPrimaryFixedTone,
+      onPrimaryFixedVariantTone:
+          onPrimaryFixedVariantTone ?? this.onPrimaryFixedVariantTone,
+      //
       secondaryTone: secondaryTone ?? this.secondaryTone,
       onSecondaryTone: onSecondaryTone ?? this.onSecondaryTone,
       secondaryContainerTone:
           secondaryContainerTone ?? this.secondaryContainerTone,
       onSecondaryContainerTone:
           onSecondaryContainerTone ?? this.onSecondaryContainerTone,
+      secondaryFixedTone: secondaryFixedTone ?? this.secondaryFixedTone,
+      secondaryFixedDimTone:
+          secondaryFixedDimTone ?? this.secondaryFixedDimTone,
+      onSecondaryFixedTone: onSecondaryFixedTone ?? this.onSecondaryFixedTone,
+      onSecondaryFixedVariantTone:
+          onSecondaryFixedVariantTone ?? this.onSecondaryFixedVariantTone,
+      //
       tertiaryTone: tertiaryTone ?? this.tertiaryTone,
       onTertiaryTone: onTertiaryTone ?? this.onTertiaryTone,
       tertiaryContainerTone:
           tertiaryContainerTone ?? this.tertiaryContainerTone,
       onTertiaryContainerTone:
           onTertiaryContainerTone ?? this.onTertiaryContainerTone,
+      tertiaryFixedTone: tertiaryFixedTone ?? this.tertiaryFixedTone,
+      tertiaryFixedDimTone: tertiaryFixedDimTone ?? this.tertiaryFixedDimTone,
+      onTertiaryFixedTone: onTertiaryFixedTone ?? this.onTertiaryFixedTone,
+      onTertiaryFixedVariantTone:
+          onTertiaryFixedVariantTone ?? this.onTertiaryFixedVariantTone,
+      //
       errorTone: errorTone ?? this.errorTone,
       onErrorTone: onErrorTone ?? this.onErrorTone,
       errorContainerTone: errorContainerTone ?? this.errorContainerTone,
       onErrorContainerTone: onErrorContainerTone ?? this.onErrorContainerTone,
-      backgroundTone: backgroundTone ?? this.backgroundTone,
-      onBackgroundTone: onBackgroundTone ?? this.onBackgroundTone,
+      //
       surfaceTone: surfaceTone ?? this.surfaceTone,
+      surfaceDimTone: surfaceDimTone ?? this.surfaceDimTone,
+      surfaceBrightTone: surfaceBrightTone ?? this.surfaceBrightTone,
+      surfaceContainerLowestTone:
+          surfaceContainerLowestTone ?? this.surfaceContainerLowestTone,
+      surfaceContainerLowTone:
+          surfaceContainerLowTone ?? this.surfaceContainerLowTone,
+      surfaceContainerTone: surfaceContainerTone ?? this.surfaceContainerTone,
+      surfaceContainerHighTone:
+          surfaceContainerHighTone ?? this.surfaceContainerHighTone,
+      surfaceContainerHighestTone:
+          surfaceContainerHighestTone ?? this.surfaceContainerHighestTone,
       onSurfaceTone: onSurfaceTone ?? this.onSurfaceTone,
-      surfaceVariantTone: surfaceVariantTone ?? this.surfaceVariantTone,
       onSurfaceVariantTone: onSurfaceVariantTone ?? this.onSurfaceVariantTone,
+      //
       outlineTone: outlineTone ?? this.outlineTone,
       outlineVariantTone: outlineVariantTone ?? this.outlineVariantTone,
       shadowTone: shadowTone ?? this.shadowTone,
@@ -1200,6 +1411,11 @@ class FlexTones with Diagnosticable {
       onInverseSurfaceTone: onInverseSurfaceTone ?? this.onInverseSurfaceTone,
       inversePrimaryTone: inversePrimaryTone ?? this.inversePrimaryTone,
       surfaceTintTone: surfaceTintTone ?? this.surfaceTintTone,
+      // Deprecated color tones.
+      backgroundTone: backgroundTone ?? this.backgroundTone,
+      onBackgroundTone: onBackgroundTone ?? this.onBackgroundTone,
+      surfaceVariantTone: surfaceVariantTone ?? this.surfaceVariantTone,
+      //
       primaryChroma: primaryChroma ?? this.primaryChroma,
       primaryMinChroma: primaryMinChroma ?? this.primaryMinChroma,
       secondaryChroma: secondaryChroma ?? this.secondaryChroma,
@@ -1228,24 +1444,45 @@ class FlexTones with Diagnosticable {
         other.onPrimaryTone == onPrimaryTone &&
         other.primaryContainerTone == primaryContainerTone &&
         other.onPrimaryContainerTone == onPrimaryContainerTone &&
+        other.primaryFixedTone == primaryFixedTone &&
+        other.primaryFixedDimTone == primaryFixedDimTone &&
+        other.onPrimaryFixedTone == onPrimaryFixedTone &&
+        other.onPrimaryFixedVariantTone == onPrimaryFixedVariantTone &&
+        //
         other.secondaryTone == secondaryTone &&
         other.onSecondaryTone == onSecondaryTone &&
         other.secondaryContainerTone == secondaryContainerTone &&
         other.onSecondaryContainerTone == onSecondaryContainerTone &&
+        other.secondaryFixedTone == secondaryFixedTone &&
+        other.secondaryFixedDimTone == secondaryFixedDimTone &&
+        other.onSecondaryFixedTone == onSecondaryFixedTone &&
+        other.onSecondaryFixedVariantTone == onSecondaryFixedVariantTone &&
+        //
         other.tertiaryTone == tertiaryTone &&
         other.onTertiaryTone == onTertiaryTone &&
         other.tertiaryContainerTone == tertiaryContainerTone &&
         other.onTertiaryContainerTone == onTertiaryContainerTone &&
+        other.tertiaryFixedTone == tertiaryFixedTone &&
+        other.tertiaryFixedDimTone == tertiaryFixedDimTone &&
+        other.onTertiaryFixedTone == onTertiaryFixedTone &&
+        other.onTertiaryFixedVariantTone == onTertiaryFixedVariantTone &&
+        //
         other.errorTone == errorTone &&
         other.onErrorTone == onErrorTone &&
         other.errorContainerTone == errorContainerTone &&
         other.onErrorContainerTone == onErrorContainerTone &&
-        other.backgroundTone == backgroundTone &&
-        other.onBackgroundTone == onBackgroundTone &&
+        //
         other.surfaceTone == surfaceTone &&
+        other.surfaceDimTone == surfaceDimTone &&
+        other.surfaceBrightTone == surfaceBrightTone &&
+        other.surfaceContainerLowestTone == surfaceContainerLowestTone &&
+        other.surfaceContainerLowTone == surfaceContainerLowTone &&
+        other.surfaceContainerTone == surfaceContainerTone &&
+        other.surfaceContainerHighTone == surfaceContainerHighTone &&
+        other.surfaceContainerHighestTone == surfaceContainerHighestTone &&
         other.onSurfaceTone == onSurfaceTone &&
-        other.surfaceVariantTone == surfaceVariantTone &&
         other.onSurfaceVariantTone == onSurfaceVariantTone &&
+        //
         other.outlineTone == outlineTone &&
         other.outlineVariantTone == outlineVariantTone &&
         other.shadowTone == shadowTone &&
@@ -1254,6 +1491,11 @@ class FlexTones with Diagnosticable {
         other.onInverseSurfaceTone == onInverseSurfaceTone &&
         other.inversePrimaryTone == inversePrimaryTone &&
         other.surfaceTintTone == surfaceTintTone &&
+        // Deprecated color tones.
+        other.backgroundTone == backgroundTone &&
+        other.onBackgroundTone == onBackgroundTone &&
+        other.surfaceVariantTone == surfaceVariantTone &&
+        //
         other.primaryChroma == primaryChroma &&
         other.primaryMinChroma == primaryMinChroma &&
         other.secondaryChroma == secondaryChroma &&
@@ -1277,24 +1519,45 @@ class FlexTones with Diagnosticable {
         onPrimaryTone,
         primaryContainerTone,
         onPrimaryContainerTone,
+        primaryFixedTone,
+        primaryFixedDimTone,
+        onPrimaryFixedTone,
+        onPrimaryFixedVariantTone,
+        //
         secondaryTone,
         onSecondaryTone,
         secondaryContainerTone,
         onSecondaryContainerTone,
+        secondaryFixedTone,
+        secondaryFixedDimTone,
+        onSecondaryFixedTone,
+        onSecondaryFixedVariantTone,
+        //
         tertiaryTone,
         onTertiaryTone,
         tertiaryContainerTone,
         onTertiaryContainerTone,
+        tertiaryFixedTone,
+        tertiaryFixedDimTone,
+        onTertiaryFixedTone,
+        onTertiaryFixedVariantTone,
+        //
         errorTone,
         onErrorTone,
         errorContainerTone,
         onErrorContainerTone,
-        backgroundTone,
-        onBackgroundTone,
+        //
         surfaceTone,
+        surfaceDimTone,
+        surfaceBrightTone,
+        surfaceContainerLowestTone,
+        surfaceContainerLowTone,
+        surfaceContainerTone,
+        surfaceContainerHighTone,
+        surfaceContainerHighestTone,
         onSurfaceTone,
-        surfaceVariantTone,
         onSurfaceVariantTone,
+        //
         outlineTone,
         outlineVariantTone,
         shadowTone,
@@ -1303,6 +1566,11 @@ class FlexTones with Diagnosticable {
         onInverseSurfaceTone,
         inversePrimaryTone,
         surfaceTintTone,
+        // Deprecated color tones.
+        backgroundTone,
+        onBackgroundTone,
+        surfaceVariantTone,
+        //
         primaryChroma,
         primaryMinChroma,
         secondaryChroma,
@@ -1329,6 +1597,15 @@ class FlexTones with Diagnosticable {
         DiagnosticsProperty<int>('primaryContainerTone', primaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onPrimaryContainerTone', onPrimaryContainerTone));
+    properties
+        .add(DiagnosticsProperty<int>('primaryFixedTone', primaryFixedTone));
+    properties.add(
+        DiagnosticsProperty<int>('primaryFixedDimTone', primaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onPrimaryFixedTone', onPrimaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onPrimaryFixedVariantTone', onPrimaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('secondaryTone', secondaryTone));
     properties
         .add(DiagnosticsProperty<int>('onSecondaryTone', onSecondaryTone));
@@ -1336,26 +1613,55 @@ class FlexTones with Diagnosticable {
         'secondaryContainerTone', secondaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onSecondaryContainerTone', onSecondaryContainerTone));
+    properties.add(
+        DiagnosticsProperty<int>('secondaryFixedTone', secondaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'secondaryFixedDimTone', secondaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onSecondaryFixedTone', onSecondaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onSecondaryFixedVariantTone', onSecondaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('tertiaryTone', tertiaryTone));
     properties.add(DiagnosticsProperty<int>('onTertiaryTone', onTertiaryTone));
     properties.add(DiagnosticsProperty<int>(
         'tertiaryContainerTone', tertiaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onTertiaryContainerTone', onTertiaryContainerTone));
+    properties
+        .add(DiagnosticsProperty<int>('tertiaryFixedTone', tertiaryFixedTone));
+    properties.add(
+        DiagnosticsProperty<int>('tertiaryFixedDimTone', tertiaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onTertiaryFixedTone', onTertiaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onTertiaryFixedVariantTone', onTertiaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('errorTone', errorTone));
     properties.add(
         DiagnosticsProperty<int>('errorContainerTone', errorContainerTone));
     properties.add(
         DiagnosticsProperty<int>('onErrorContainerTone', onErrorContainerTone));
-    properties.add(DiagnosticsProperty<int>('backgroundTone', backgroundTone));
-    properties
-        .add(DiagnosticsProperty<int>('onBackgroundTone', onBackgroundTone));
+    //
     properties.add(DiagnosticsProperty<int>('surfaceTone', surfaceTone));
+    properties.add(DiagnosticsProperty<int>('surfaceDimTone', surfaceDimTone));
+    properties
+        .add(DiagnosticsProperty<int>('surfaceBrightTone', surfaceBrightTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerLowestTone', surfaceContainerLowestTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerLowTone', surfaceContainerLowTone));
+    properties.add(
+        DiagnosticsProperty<int>('surfaceContainerTone', surfaceContainerTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerHighTone', surfaceContainerHighTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerHighestTone', surfaceContainerHighestTone));
+
     properties.add(DiagnosticsProperty<int>('onSurfaceTone', onSurfaceTone));
     properties.add(
-        DiagnosticsProperty<int>('surfaceVariantTone', surfaceVariantTone));
-    properties.add(
         DiagnosticsProperty<int>('onSurfaceVariantTone', onSurfaceVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('outlineTone', outlineTone));
     properties.add(
         DiagnosticsProperty<int>('outlineVariantTone', outlineVariantTone));
@@ -1369,6 +1675,13 @@ class FlexTones with Diagnosticable {
         DiagnosticsProperty<int>('inversePrimaryTone', inversePrimaryTone));
     properties
         .add(DiagnosticsProperty<int>('surfaceTintTone', surfaceTintTone));
+    // Deprecated color tones.
+    properties.add(DiagnosticsProperty<int>('backgroundTone', backgroundTone));
+    properties
+        .add(DiagnosticsProperty<int>('onBackgroundTone', onBackgroundTone));
+    properties.add(
+        DiagnosticsProperty<int>('surfaceVariantTone', surfaceVariantTone));
+    //
     properties.add(DiagnosticsProperty<double>('primaryChroma', primaryChroma));
     properties
         .add(DiagnosticsProperty<double>('primaryMinChroma', primaryMinChroma));

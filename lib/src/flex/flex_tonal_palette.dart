@@ -116,7 +116,7 @@ class FlexTonalPalette {
   /// [Material Color Utilities package](https://pub.dev/packages/material_color_utilities).
   /// Tone 5 is custom addition used in e.g. in [FlexTones.ultraContrast].
   ///
-  /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
+  /// The added tones 4, 6, 12, 17, 22 and 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
   /// 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
   /// color system. For more information, see:
@@ -140,6 +140,7 @@ class FlexTonalPalette {
     17,
     20,
     22,
+    24,
     30,
     40,
     50,
@@ -168,8 +169,8 @@ class FlexTonalPalette {
   /// to [TonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 25.
-  static const int extendedSize = 25;
+  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 26.
+  static const int extendedSize = 26;
 
   final double? _hue;
   final double? _chroma;
