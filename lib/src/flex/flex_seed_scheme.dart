@@ -51,6 +51,21 @@ class FlexSeedScheme {
   /// A color that's clearly legible when drawn on [primaryContainer].
   final int onPrimaryContainer;
 
+  /// A substitute for [primaryContainer] that's the same color for the dark
+  /// and light themes.
+  final int primaryFixed;
+
+  /// A color used for elements needing more emphasis than [primaryFixed].
+  final int primaryFixedDim;
+
+  /// A color that is used for text and icons that exist on top of elements
+  /// having [primaryFixed] color.
+  final int onPrimaryFixed;
+
+  /// A color that provides a lower-emphasis option for text and icons than
+  /// [onPrimaryFixed].
+  final int onPrimaryFixedVariant;
+
   /// An accent color used for less prominent components in the UI, such as
   /// filter chips, while expanding the opportunity for color expression.
   final int secondary;
@@ -63,6 +78,21 @@ class FlexSeedScheme {
 
   /// A color that's clearly legible when drawn on [secondaryContainer].
   final int onSecondaryContainer;
+
+  /// A substitute for [secondaryContainer] that's the same color for the dark
+  /// and light themes.
+  final int secondaryFixed;
+
+  /// A color used for elements needing more emphasis than [secondaryFixed].
+  final int secondaryFixedDim;
+
+  /// A color that is used for text and icons that exist on top of elements
+  /// having [secondaryFixed] color.
+  final int onSecondaryFixed;
+
+  /// A color that provides a lower-emphasis option for text and icons than
+  /// [onSecondaryFixed].
+  final int onSecondaryFixedVariant;
 
   /// A color used as a contrasting accent that can balance [primary]
   /// and [secondary] colors or bring heightened attention to an element,
@@ -78,6 +108,21 @@ class FlexSeedScheme {
   /// A color that's clearly legible when drawn on [tertiaryContainer].
   final int onTertiaryContainer;
 
+  /// A substitute for [tertiaryContainer] that's the same color for dark
+  /// and light themes.
+  final int tertiaryFixed;
+
+  /// A color used for elements needing more emphasis than [tertiaryFixed].
+  final int tertiaryFixedDim;
+
+  /// A color that is used for text and icons that exist on top of elements
+  /// having [tertiaryFixed] color.
+  final int onTertiaryFixed;
+
+  /// A color that provides a lower-emphasis option for text and icons than
+  /// [onTertiaryFixed].
+  final int onTertiaryFixedVariant;
+
   /// The color to use for input validation errors, e.g. for
   /// [InputDecoration.errorText].
   final int error;
@@ -91,21 +136,45 @@ class FlexSeedScheme {
   /// A color that's clearly legible when drawn on [errorContainer].
   final int onErrorContainer;
 
-  /// A color that typically appears behind scrollable content.
-  final int background;
-
-  /// A color that's clearly legible when drawn on [background].
-  final int onBackground;
-
   /// The background color for widgets like [Card].
   final int surface;
 
+  /// A color that's always darkest in the dark or light theme.
+  final int surfaceDim;
+
+  /// A color that's always the lightest in the dark or light theme.
+  final int surfaceBright;
+
+  /// A surface container color with the lightest tone and the least emphasis
+  /// relative to the surface.
+  final int surfaceContainerLowest;
+
+  /// A surface container color with a lighter tone that creates less emphasis
+  /// than [surfaceContainer] but more emphasis than [surfaceContainerLowest].
+  final int surfaceContainerLow;
+
+  /// A recommended color role for a distinct area within the surface.
+  ///
+  /// Surface container color roles are independent of elevation. They replace
+  /// the old opacity-based model which applied a tinted overlay on top of
+  /// surfaces based on their elevation.
+  ///
+  /// Surface container colors include [surfaceContainerLowest],
+  /// [surfaceContainerLow], [surfaceContainer], [surfaceContainerHigh] and
+  /// [surfaceContainerHighest].
+  final int surfaceContainer;
+
+  /// A surface container color with a darker tone. It is used to create more
+  /// emphasis than [surfaceContainer] but less emphasis than
+  /// [surfaceContainerHighest].
+  final int surfaceContainerHigh;
+
+  /// A surface container color with the darkest tone. It is used to create the
+  /// most emphasis against the surface.
+  final int surfaceContainerHighest;
+
   /// A color that's clearly legible when drawn on [surface].
   final int onSurface;
-
-  /// A color variant of [surface] that can be used for differentiation against
-  /// a component using [surface].
-  final int surfaceVariant;
 
   /// A color that's clearly legible when drawn on [surfaceVariant].
   final int onSurfaceVariant;
@@ -139,6 +208,19 @@ class FlexSeedScheme {
   /// elevation.
   final int surfaceTint;
 
+  /// A color that typically appears behind scrollable content.
+  @Deprecated('Use surface instead.')
+  final int background;
+
+  /// A color that's clearly legible when drawn on [background].
+  @Deprecated('Use onSurface instead.')
+  final int onBackground;
+
+  /// A color variant of [surface] that can be used for differentiation against
+  /// a component using [surface].
+  @Deprecated('Use surfaceContainerHighest instead.')
+  final int surfaceVariant;
+
   /// Private constructor requiring all int color values.
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
@@ -150,24 +232,45 @@ class FlexSeedScheme {
     required this.onPrimary,
     required this.primaryContainer,
     required this.onPrimaryContainer,
+    required this.primaryFixed,
+    required this.primaryFixedDim,
+    required this.onPrimaryFixed,
+    required this.onPrimaryFixedVariant,
+    //
     required this.secondary,
     required this.onSecondary,
     required this.secondaryContainer,
     required this.onSecondaryContainer,
+    required this.secondaryFixed,
+    required this.secondaryFixedDim,
+    required this.onSecondaryFixed,
+    required this.onSecondaryFixedVariant,
+    //
     required this.tertiary,
     required this.onTertiary,
     required this.tertiaryContainer,
     required this.onTertiaryContainer,
+    required this.tertiaryFixed,
+    required this.tertiaryFixedDim,
+    required this.onTertiaryFixed,
+    required this.onTertiaryFixedVariant,
+    //
     required this.error,
     required this.onError,
     required this.errorContainer,
     required this.onErrorContainer,
-    required this.background,
-    required this.onBackground,
+    //
     required this.surface,
+    required this.surfaceDim,
+    required this.surfaceBright,
+    required this.surfaceContainerLowest,
+    required this.surfaceContainerLow,
+    required this.surfaceContainer,
+    required this.surfaceContainerHigh,
+    required this.surfaceContainerHighest,
     required this.onSurface,
-    required this.surfaceVariant,
     required this.onSurfaceVariant,
+    //
     required this.outline,
     required this.outlineVariant,
     required this.shadow,
@@ -176,6 +279,11 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
+    //
+    @Deprecated('Use surface instead.') required this.background,
+    @Deprecated('Use onSurface instead.') required this.onBackground,
+    @Deprecated('Use surfaceContainerHighest instead.')
+    required this.surfaceVariant,
   });
 
   /// Factory that creates a [FlexSeedScheme] based on seed keys and FlexTones
@@ -221,24 +329,49 @@ class FlexSeedScheme {
       onPrimary: core.primary.get(tones.onPrimaryTone),
       primaryContainer: core.primary.get(tones.primaryContainerTone),
       onPrimaryContainer: core.primary.get(tones.onPrimaryContainerTone),
+      primaryFixed: core.primary.get(tones.primaryFixedTone),
+      primaryFixedDim: core.primary.get(tones.primaryFixedDimTone),
+      onPrimaryFixed: core.primary.get(tones.onPrimaryFixedTone),
+      onPrimaryFixedVariant: core.primary.get(tones.onPrimaryFixedVariantTone),
+      //
       secondary: core.secondary.get(tones.secondaryTone),
       onSecondary: core.secondary.get(tones.onSecondaryTone),
       secondaryContainer: core.secondary.get(tones.secondaryContainerTone),
       onSecondaryContainer: core.secondary.get(tones.onSecondaryContainerTone),
+      secondaryFixed: core.secondary.get(tones.secondaryFixedTone),
+      secondaryFixedDim: core.secondary.get(tones.secondaryFixedDimTone),
+      onSecondaryFixed: core.secondary.get(tones.onSecondaryFixedTone),
+      onSecondaryFixedVariant:
+          core.secondary.get(tones.onSecondaryFixedVariantTone),
+      //
       tertiary: core.tertiary.get(tones.tertiaryTone),
       onTertiary: core.tertiary.get(tones.onTertiaryTone),
       tertiaryContainer: core.tertiary.get(tones.tertiaryContainerTone),
       onTertiaryContainer: core.tertiary.get(tones.onTertiaryContainerTone),
+      tertiaryFixed: core.tertiary.get(tones.tertiaryFixedTone),
+      tertiaryFixedDim: core.tertiary.get(tones.tertiaryFixedDimTone),
+      onTertiaryFixed: core.tertiary.get(tones.onTertiaryFixedTone),
+      onTertiaryFixedVariant:
+          core.tertiary.get(tones.onTertiaryFixedVariantTone),
+      //
       error: core.error.get(tones.errorTone),
       onError: core.error.get(tones.onErrorTone),
       errorContainer: core.error.get(tones.errorContainerTone),
       onErrorContainer: core.error.get(tones.onErrorContainerTone),
-      background: core.neutral.get(tones.backgroundTone),
-      onBackground: core.neutral.get(tones.onBackgroundTone),
+      //
       surface: core.neutral.get(tones.surfaceTone),
+      surfaceDim: core.neutral.get(tones.surfaceDimTone),
+      surfaceBright: core.neutral.get(tones.surfaceBrightTone),
+      surfaceContainerLowest:
+          core.neutral.get(tones.surfaceContainerLowestTone),
+      surfaceContainerLow: core.neutral.get(tones.surfaceContainerLowTone),
+      surfaceContainer: core.neutral.get(tones.surfaceContainerTone),
+      surfaceContainerHigh: core.neutral.get(tones.surfaceContainerHighTone),
+      surfaceContainerHighest:
+          core.neutral.get(tones.surfaceContainerHighestTone),
       onSurface: core.neutral.get(tones.onSurfaceTone),
-      surfaceVariant: core.neutralVariant.get(tones.surfaceVariantTone),
       onSurfaceVariant: core.neutralVariant.get(tones.onSurfaceVariantTone),
+      //
       outline: core.neutralVariant.get(tones.outlineTone),
       outlineVariant: core.neutralVariant.get(tones.outlineVariantTone),
       shadow: core.neutral.get(tones.shadowTone),
@@ -247,6 +380,10 @@ class FlexSeedScheme {
       onInverseSurface: core.neutral.get(tones.onInverseSurfaceTone),
       inversePrimary: core.primary.get(tones.inversePrimaryTone),
       surfaceTint: core.primary.get(tones.surfaceTintTone),
+      // Deprecated colors
+      background: core.neutral.get(tones.backgroundTone),
+      onBackground: core.neutral.get(tones.onBackgroundTone),
+      surfaceVariant: core.neutralVariant.get(tones.surfaceVariantTone),
     );
   }
 }
@@ -389,6 +526,18 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [onPrimaryContainer] color.
     Color? onPrimaryContainer,
 
+    /// Override color for the seed generated [primaryFixed] color.
+    Color? primaryFixed,
+
+    /// Override color for the seed generated [primaryFixedDim] color.
+    Color? primaryFixedDim,
+
+    /// Override color for the seed generated [onPrimaryFixed] color.
+    Color? onPrimaryFixed,
+
+    /// Override color for the seed generated [onPrimaryFixedVariant] color.
+    Color? onPrimaryFixedVariant,
+
     /// Override color for the seed generated [secondary] color.
     ///
     /// You may sometimes want to assign the [secondaryKey] to this color in
@@ -411,6 +560,18 @@ extension SeedColorScheme on ColorScheme {
 
     /// Override color for the seed generated [onSecondaryContainer] color.
     Color? onSecondaryContainer,
+
+    /// Override color for the seed generated [secondaryFixed] color.
+    Color? secondaryFixed,
+
+    /// Override color for the seed generated [secondaryFixedDim] color.
+    Color? secondaryFixedDim,
+
+    /// Override color for the seed generated [onSecondaryFixed] color.
+    Color? onSecondaryFixed,
+
+    /// Override color for the seed generated [onSecondaryFixedVariant] color.
+    Color? onSecondaryFixedVariant,
 
     /// Override color for the seed generated [tertiary] color.
     ///
@@ -435,6 +596,18 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [onTertiaryContainer] color.
     Color? onTertiaryContainer,
 
+    /// Override color for the seed generated [tertiaryFixed] color.
+    Color? tertiaryFixed,
+
+    /// Override color for the seed generated [tertiaryFixedDim] color.
+    Color? tertiaryFixedDim,
+
+    /// Override color for the seed generated [onTertiaryFixed] color.
+    Color? onTertiaryFixed,
+
+    /// Override color for the seed generated [onTertiaryFixedVariant] color.
+    Color? onTertiaryFixedVariant,
+
     /// Override color for the seed generated [error] color.
     Color? error,
 
@@ -447,20 +620,32 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [onErrorContainer] color.
     Color? onErrorContainer,
 
-    /// Override color for the seed generated [background] color.
-    Color? background,
-
-    /// Override color for the seed generated [onBackground] color.
-    Color? onBackground,
-
     /// Override color for the seed generated [surface] color.
     Color? surface,
 
+    /// Override color for the seed generated [surfaceDim] color.
+    Color? surfaceDim,
+
+    /// Override color for the seed generated [surfaceBright] color.
+    Color? surfaceBright,
+
+    /// Override color for the seed generated [surfaceContainerLowest] color.
+    Color? surfaceContainerLowest,
+
+    /// Override color for the seed generated [surfaceContainerLow] color.
+    Color? surfaceContainerLow,
+
+    /// Override color for the seed generated [surfaceContainer] color.
+    Color? surfaceContainer,
+
+    /// Override color for the seed generated [surfaceContainerHigh] color.
+    Color? surfaceContainerHigh,
+
+    /// Override color for the seed generated [surfaceContainerHighest] color.
+    Color? surfaceContainerHighest,
+
     /// Override color for the seed generated [onSurface] color.
     Color? onSurface,
-
-    /// Override color for the seed generated [surfaceVariant] color.
-    Color? surfaceVariant,
 
     /// Override color for the seed generated [onSurfaceVariant] color.
     Color? onSurfaceVariant,
@@ -488,6 +673,15 @@ extension SeedColorScheme on ColorScheme {
 
     /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
+
+    /// Override color for the seed generated [background] color.
+    @Deprecated('Use surface instead.') Color? background,
+
+    /// Override color for the seed generated [onBackground] color.
+    @Deprecated('Use onSurface instead.') Color? onBackground,
+
+    /// Override color for the seed generated [surfaceVariant] color.
+    @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
     final FlexSeedScheme scheme = brightness == Brightness.light
         ? FlexSeedScheme._tones(
@@ -514,27 +708,55 @@ extension SeedColorScheme on ColorScheme {
       primaryContainer: primaryContainer ?? Color(scheme.primaryContainer),
       onPrimaryContainer:
           onPrimaryContainer ?? Color(scheme.onPrimaryContainer),
+      primaryFixed: primaryFixed ?? Color(scheme.primaryFixed),
+      primaryFixedDim: primaryFixedDim ?? Color(scheme.primaryFixedDim),
+      onPrimaryFixed: onPrimaryFixed ?? Color(scheme.onPrimaryFixed),
+      onPrimaryFixedVariant:
+          onPrimaryFixedVariant ?? Color(scheme.onPrimaryFixedVariant),
+      //
       secondary: secondary ?? Color(scheme.secondary),
       onSecondary: onSecondary ?? Color(scheme.onSecondary),
       secondaryContainer:
           secondaryContainer ?? Color(scheme.secondaryContainer),
       onSecondaryContainer:
           onSecondaryContainer ?? Color(scheme.onSecondaryContainer),
+      secondaryFixed: secondaryFixed ?? Color(scheme.secondaryFixed),
+      secondaryFixedDim: secondaryFixedDim ?? Color(scheme.secondaryFixedDim),
+      onSecondaryFixed: onSecondaryFixed ?? Color(scheme.onSecondaryFixed),
+      onSecondaryFixedVariant:
+          onSecondaryFixedVariant ?? Color(scheme.onSecondaryFixedVariant),
+      //
       tertiary: tertiary ?? Color(scheme.tertiary),
       onTertiary: onTertiary ?? Color(scheme.onTertiary),
       tertiaryContainer: tertiaryContainer ?? Color(scheme.tertiaryContainer),
       onTertiaryContainer:
           onTertiaryContainer ?? Color(scheme.onTertiaryContainer),
+      tertiaryFixed: tertiaryFixed ?? Color(scheme.tertiaryFixed),
+      tertiaryFixedDim: tertiaryFixedDim ?? Color(scheme.tertiaryFixedDim),
+      onTertiaryFixed: onTertiaryFixed ?? Color(scheme.onTertiaryFixed),
+      onTertiaryFixedVariant:
+          onTertiaryFixedVariant ?? Color(scheme.onTertiaryFixedVariant),
+      //
       error: error ?? Color(scheme.error),
       onError: onError ?? Color(scheme.onError),
       errorContainer: errorContainer ?? Color(scheme.errorContainer),
       onErrorContainer: onErrorContainer ?? Color(scheme.onErrorContainer),
-      background: background ?? Color(scheme.background),
-      onBackground: onBackground ?? Color(scheme.onBackground),
+      //
       surface: surface ?? Color(scheme.surface),
+      surfaceDim: surfaceDim ?? Color(scheme.surfaceDim),
+      surfaceBright: surfaceBright ?? Color(scheme.surfaceBright),
+      surfaceContainerLowest:
+          surfaceContainerLowest ?? Color(scheme.surfaceContainerLowest),
+      surfaceContainerLow:
+          surfaceContainerLow ?? Color(scheme.surfaceContainerLow),
+      surfaceContainer: surfaceContainer ?? Color(scheme.surfaceContainer),
+      surfaceContainerHigh:
+          surfaceContainerHigh ?? Color(scheme.surfaceContainerHigh),
+      surfaceContainerHighest:
+          surfaceContainerHighest ?? Color(scheme.surfaceContainerHighest),
       onSurface: onSurface ?? Color(scheme.onSurface),
-      surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
       onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
+      //
       outline: outline ?? Color(scheme.outline),
       outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
       shadow: shadow ?? Color(scheme.shadow),
@@ -543,6 +765,11 @@ extension SeedColorScheme on ColorScheme {
       onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
       inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
       surfaceTint: surfaceTint ?? Color(scheme.primary),
+      // Deprecated colors
+      background: background ?? Color(scheme.background),
+      onBackground: onBackground ?? Color(scheme.onBackground),
+      surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
+      //
       brightness: brightness,
     );
   }
