@@ -658,6 +658,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -688,6 +689,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -717,6 +719,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -746,6 +749,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -775,6 +779,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -804,6 +809,7 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 12 &&
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
+            FlexTonalPalette.extendedTones[i] != 24 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -840,6 +846,7 @@ void main() {
         4281407084,
         4281867890,
         4282131319,
+        4282460284,
         4283381642,
         4284960932,
         4286605759,
@@ -865,6 +872,7 @@ void main() {
         4281149242,
         4281544001,
         4281872965,
+        4282136138,
         4283057240,
         4284636016,
         4286280842,
@@ -890,6 +898,7 @@ void main() {
         4282523436,
         4283049266,
         4283377974,
+        4283706939,
         4284693320,
         4286468704,
         4288244345,
@@ -915,6 +924,7 @@ void main() {
         4281018669,
         4281413683,
         4281742392,
+        4282005564,
         4282926666,
         4284505442,
         4286150266,
@@ -940,6 +950,7 @@ void main() {
         4281018673,
         4281478968,
         4281742140,
+        4282071104,
         4282991950,
         4284570982,
         4286215551,
@@ -965,6 +976,7 @@ void main() {
         4284219396,
         4285071365,
         4285595653,
+        4286119942,
         4287823882,
         4290386458,
         4292753200,
@@ -1009,6 +1021,7 @@ void main() {
           4281407084,
           4281867890,
           4282131319,
+          4282460284,
           4283381642,
           4284960932,
           4286605759,
@@ -1034,6 +1047,7 @@ void main() {
           4281149242,
           4281544001,
           4281872966,
+          4282136138,
           4283056984,
           4284636017,
           4286280586,
@@ -1059,6 +1073,7 @@ void main() {
           4282523436,
           4282983730,
           4283312438,
+          4283641403,
           4284693320,
           4286403168,
           4288178809,
@@ -1084,6 +1099,7 @@ void main() {
           4281018669,
           4281413683,
           4281742392,
+          4282005564,
           4282926666,
           4284505442,
           4286150266,
@@ -1109,6 +1125,7 @@ void main() {
           4281018673,
           4281478968,
           4281742140,
+          4282071104,
           4282991950,
           4284570982,
           4286215551,
@@ -1134,6 +1151,7 @@ void main() {
           4284219396,
           4285071365,
           4285595653,
+          4286119942,
           4287823882,
           4290386458,
           4292753200,
@@ -1246,6 +1264,7 @@ void main() {
             4281407084,
             4281867890,
             4282131319,
+            4282460284,
             4283381642,
             4284960932,
             4286605759,
@@ -1271,6 +1290,7 @@ void main() {
             4281149242,
             4281544001,
             4281872965,
+            4282136138,
             4283057240,
             4284636016,
             4286280842,
@@ -1296,6 +1316,7 @@ void main() {
             4282523436,
             4283049266,
             4283377974,
+            4283706939,
             4284693320,
             4286468704,
             4288244345,
@@ -1321,6 +1342,7 @@ void main() {
             4281018669,
             4281413683,
             4281742392,
+            4282005564,
             4282926666,
             4284505442,
             4286150266,
@@ -1346,6 +1368,7 @@ void main() {
             4281018673,
             4281478968,
             4281742140,
+            4282071104,
             4282991950,
             4284570982,
             4286215551,
@@ -1371,6 +1394,7 @@ void main() {
             4284219396,
             4285071365,
             4285595653,
+            4286119942,
             4287823882,
             4290386458,
             4292753200,
