@@ -374,6 +374,7 @@ void main() {
               FlexTonalPalette.extendedTones[i] != 12 &&
               FlexTonalPalette.extendedTones[i] != 17 &&
               FlexTonalPalette.extendedTones[i] != 22 &&
+              FlexTonalPalette.extendedTones[i] != 24 &&
               FlexTonalPalette.extendedTones[i] != 87 &&
               FlexTonalPalette.extendedTones[i] != 92 &&
               FlexTonalPalette.extendedTones[i] != 94 &&
