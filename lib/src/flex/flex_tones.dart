@@ -869,9 +869,9 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      // onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
+      onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
-      // onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
+      onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
       onInverseSurfaceTone: inverseSurfaceTone <= 60 ? 100 : 0,
     );
   }
