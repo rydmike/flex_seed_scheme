@@ -125,10 +125,10 @@ class FlexTones with Diagnosticable {
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
     // Deprecated color tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
+    @Deprecated('Use surfaceTone instead.') required this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') required this.onBackgroundTone,
     @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone,
+    required this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -181,7 +181,7 @@ class FlexTones with Diagnosticable {
     this.primaryFixedDimTone = 80,
     this.onPrimaryFixedTone = 10,
     this.onPrimaryFixedVariantTone = 30,
-    this.inversePrimaryTone = 80,
+
     //
     this.secondaryTone = 40,
     this.onSecondaryTone = 100,
@@ -207,17 +207,19 @@ class FlexTones with Diagnosticable {
     this.onErrorContainerTone = 10,
     //
     this.surfaceTone = 98,
+    this.surfaceDimTone = 87,
+    this.surfaceBrightTone = 98,
     this.surfaceContainerLowestTone = 100,
     this.surfaceContainerLowTone = 96,
     this.surfaceContainerTone = 94,
     this.surfaceContainerHighTone = 92,
     this.surfaceContainerHighestTone = 90,
-    this.surfaceDimTone = 87,
-    this.surfaceBrightTone = 98,
     this.onSurfaceTone = 10,
     this.onSurfaceVariantTone = 30,
+    //
     this.inverseSurfaceTone = 20,
     this.onInverseSurfaceTone = 95,
+    this.inversePrimaryTone = 80,
     this.surfaceTintTone = 40,
     //
     this.outlineTone = 50,
@@ -225,8 +227,9 @@ class FlexTones with Diagnosticable {
     this.shadowTone = 0,
     this.scrimTone = 0,
     // Deprecated tones
-    this.backgroundTone = 98,
-    this.onBackgroundTone = 10,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 98,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 10,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
     this.surfaceVariantTone = 90,
     //
     this.primaryChroma,
@@ -238,7 +241,7 @@ class FlexTones with Diagnosticable {
     this.tertiaryHueRotation,
     this.errorChroma,
     this.errorMinChroma,
-    this.neutralChroma = 4,
+    this.neutralChroma = 6,
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
@@ -280,7 +283,6 @@ class FlexTones with Diagnosticable {
     this.primaryFixedDimTone = 80,
     this.onPrimaryFixedTone = 10,
     this.onPrimaryFixedVariantTone = 30,
-    this.inversePrimaryTone = 40,
     //
     this.secondaryTone = 80,
     this.onSecondaryTone = 20,
@@ -305,21 +307,20 @@ class FlexTones with Diagnosticable {
     this.errorContainerTone = 30,
     this.onErrorContainerTone = 80,
     //
-
     this.surfaceTone = 10,
-    //
+    this.surfaceDimTone = 6,
+    this.surfaceBrightTone = 24,
     this.surfaceContainerLowestTone = 4,
     this.surfaceContainerLowTone = 10,
     this.surfaceContainerTone = 12,
     this.surfaceContainerHighTone = 17,
     this.surfaceContainerHighestTone = 22,
-    this.surfaceDimTone = 6,
-    this.surfaceBrightTone = 24,
-    //
     this.onSurfaceTone = 90,
     this.onSurfaceVariantTone = 80,
+    //
     this.inverseSurfaceTone = 90,
     this.onInverseSurfaceTone = 20,
+    this.inversePrimaryTone = 40,
     this.surfaceTintTone = 80,
     //
     this.outlineTone = 60,
@@ -327,8 +328,9 @@ class FlexTones with Diagnosticable {
     this.shadowTone = 0,
     this.scrimTone = 0,
     // Deprecated tones
-    this.backgroundTone = 10,
-    this.onBackgroundTone = 90,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 10,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 90,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
     this.surfaceVariantTone = 30,
     //
     this.primaryChroma,
@@ -340,7 +342,7 @@ class FlexTones with Diagnosticable {
     this.tertiaryHueRotation,
     this.errorChroma,
     this.errorMinChroma,
-    this.neutralChroma = 4,
+    this.neutralChroma = 6,
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
@@ -892,7 +894,7 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      // backgroundTone: backgroundTone <= 60 ? 0 : 100,
+      backgroundTone: backgroundTone <= 60 ? 0 : 100,
       surfaceTone: surfaceTone <= 60 ? 0 : 100,
     );
   }
@@ -1068,16 +1070,16 @@ class FlexTones with Diagnosticable {
 
   /// Tone used for ColorScheme background from neutral [FlexTonalPalette].
   @Deprecated('Use surfaceTone instead.')
-  final int? backgroundTone;
+  final int backgroundTone;
 
   /// Tone used for ColorScheme onBackground from neutral [FlexTonalPalette].
   @Deprecated('Use onSurfaceTone instead.')
-  final int? onBackgroundTone;
+  final int onBackgroundTone;
 
   /// Tone used for ColorScheme surfaceVariant from neutralVariant
   /// [FlexTonalPalette].
   @Deprecated('Use surfaceContainerHighestTone instead.')
-  final int? surfaceVariantTone;
+  final int surfaceVariantTone;
 
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
   /// generation.
