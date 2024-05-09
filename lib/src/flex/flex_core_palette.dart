@@ -486,92 +486,185 @@ class FlexCorePalette {
     /// The default [FlexPaletteType.common] with 15 tones or the extended
     /// [FlexPaletteType.extended] with 24 tones.
     final FlexPaletteType paletteType = FlexPaletteType.common,
+
+    /// If true, the CAM16 color space is used to define the HCT color, if
+    /// false simpler and faster HCT from int is used.
+    ///
+    /// Prior to version 2.0.0 of this package, the CAM16 color space was always
+    /// used. However, in Flutter 3.22 the HCT vanilla HCT.fromInt is used
+    /// for its seeded scheme colors.It is used here by the Material3
+    /// style seeded color schemes as well, while the FSS ones continues to use
+    /// Cam16.
+    final bool useCam16 = true,
   }) {
     // Primary TonalPalette calculation.
-    //
-    // Key color is required, we can use it.
-    final Cam16 camPrimary = Cam16.fromInt(primary);
+    late final double primaryComputedChroma;
+    late final double primaryComputedHue;
+    if (useCam16) {
+      final Cam16 camPrimary = Cam16.fromInt(primary);
+      primaryComputedHue = camPrimary.hue;
+      primaryComputedChroma = camPrimary.chroma;
+    } else {
+      final Hct hctPrimary = Hct.fromInt(primary);
+      primaryComputedHue = hctPrimary.hue;
+      primaryComputedChroma = hctPrimary.chroma;
+    }
+    // final Cam16 camPrimary = Cam16.fromInt(primary);
+
     // If a fixed chroma was given we use it instead of chroma in primary.
-    final double effectivePrimaryChroma = primaryChroma ?? camPrimary.chroma;
+    final double effectivePrimaryChroma =
+        primaryChroma ?? primaryComputedChroma;
     // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(camPrimary.hue,
-        math.max(primaryMinChroma ?? 48, effectivePrimaryChroma), paletteType);
+    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(
+        primaryComputedHue,
+        math.max(primaryMinChroma ?? 48, effectivePrimaryChroma),
+        paletteType);
 
     // Secondary TonalPalette calculation.
     //
     // Provided key color may be null, then we use primary as key color.
-    final Cam16 camSecondary =
-        secondary == null ? camPrimary : Cam16.fromInt(secondary);
+    late final double secondaryComputedChroma;
+    late final double secondaryComputedHue;
+    if (secondary == null) {
+      secondaryComputedHue = primaryComputedHue;
+      secondaryComputedChroma = primaryComputedChroma;
+    } else {
+      if (useCam16) {
+        final Cam16 camSecondary = Cam16.fromInt(secondary);
+        secondaryComputedHue = camSecondary.hue;
+        secondaryComputedChroma = camSecondary.chroma;
+      } else {
+        final Hct hctSecondary = Hct.fromInt(secondary);
+        secondaryComputedHue = hctSecondary.hue;
+        secondaryComputedChroma = hctSecondary.chroma;
+      }
+    }
     // If a fixed chroma value was given we use it instead.
     final double effectiveSecondaryChroma =
-        secondaryChroma ?? camSecondary.chroma;
+        secondaryChroma ?? secondaryComputedChroma;
     // We use the effectiveChroma, but only if it is over the min level.
     final FlexTonalPalette tonalSecondary = FlexTonalPalette.of(
-        camSecondary.hue,
+        secondaryComputedHue,
         math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma),
         paletteType);
 
     // Tertiary TonalPalette calculation.
     //
     // Provided key color may be null, then we use primary as key color.
-    final Cam16 camTertiary =
-        tertiary == null ? camPrimary : Cam16.fromInt(tertiary);
+    late final double tertiaryComputedChroma;
+    late final double tertiaryComputedHue;
+    if (tertiary == null) {
+      // If we had no tertiary keyColor, we won't use primary key's hue
+      // directly, we add 60 degrees to it, this is the M3 way to shift hue
+      // from a single key.
+      tertiaryComputedHue = MathUtils.sanitizeDegreesDouble(
+          primaryComputedHue + (tertiaryHueRotation ?? 60));
+      tertiaryComputedChroma = primaryComputedChroma;
+    } else {
+      if (useCam16) {
+        final Cam16 camTertiary = Cam16.fromInt(tertiary);
+        tertiaryComputedHue = camTertiary.hue;
+        tertiaryComputedChroma = camTertiary.chroma;
+      } else {
+        final Hct hctTertiary = Hct.fromInt(tertiary);
+        tertiaryComputedHue = hctTertiary.hue;
+        tertiaryComputedChroma = hctTertiary.chroma;
+      }
+    }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveTertiaryChroma = tertiaryChroma ?? camTertiary.chroma;
-    // If we had no tertiary keyColor, we won't use primary key's hue
-    // directly, we add 60 degrees to it, this is the M3 way to shift hue from a
-    // single key.
-    final double effectiveTertiaryHue = tertiary == null
-        ? camPrimary.hue + (tertiaryHueRotation ?? 60)
-        : camTertiary.hue;
+    final double effectiveTertiaryChroma =
+        tertiaryChroma ?? tertiaryComputedChroma;
     // We use the effective hue and the effectiveChroma, but chroma
     // only if it is over the min level.
     final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(
-        effectiveTertiaryHue,
+        tertiaryComputedHue,
         math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma),
         paletteType);
 
     // Neutral TonalPalette calculation.
     //
     // Provided key color may be null, then we use primary as key color.
-    final Cam16 camNeutral =
-        neutral == null ? camPrimary : Cam16.fromInt(neutral);
+    late final double neutralComputedChroma;
+    late final double neutralComputedHue;
+    if (neutral == null) {
+      neutralComputedHue = primaryComputedHue;
+      neutralComputedChroma = primaryComputedChroma;
+    } else {
+      if (useCam16) {
+        final Cam16 camNeutral = Cam16.fromInt(neutral);
+        neutralComputedHue = camNeutral.hue;
+        neutralComputedChroma = camNeutral.chroma;
+      } else {
+        final Hct hctNeutral = Hct.fromInt(neutral);
+        neutralComputedHue = hctNeutral.hue;
+        neutralComputedChroma = hctNeutral.chroma;
+      }
+    }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveNeutralChroma = neutralChroma ?? camNeutral.chroma;
+    final double effectiveNeutralChroma =
+        neutralChroma ?? neutralComputedChroma;
     // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(camNeutral.hue,
-        math.max(neutralMinChroma ?? 0, effectiveNeutralChroma), paletteType);
+    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(
+        neutralComputedHue,
+        math.max(neutralMinChroma ?? 0, effectiveNeutralChroma),
+        paletteType);
 
     // NeutralVariant TonalPalette calculation.
     //
     // Provided key color may be null, then we use primary as key color.
-    final Cam16 camNeutralVariant =
-        neutralVariant == null ? camPrimary : Cam16.fromInt(neutralVariant);
+    late final double neutralVariantComputedChroma;
+    late final double neutralVariantComputedHue;
+    if (neutralVariant == null) {
+      neutralVariantComputedHue = primaryComputedHue;
+      neutralVariantComputedChroma = primaryComputedChroma;
+    } else {
+      if (useCam16) {
+        final Cam16 camNeutralVariant = Cam16.fromInt(neutralVariant);
+        neutralVariantComputedHue = camNeutralVariant.hue;
+        neutralVariantComputedChroma = camNeutralVariant.chroma;
+      } else {
+        final Hct hctNeutralVariant = Hct.fromInt(neutralVariant);
+        neutralVariantComputedHue = hctNeutralVariant.hue;
+        neutralVariantComputedChroma = hctNeutralVariant.chroma;
+      }
+    }
     // If a fixed chroma value was given we use it instead.
     final double effectiveNeutralVariantChroma =
-        neutralVariantChroma ?? camNeutralVariant.chroma;
+        neutralVariantChroma ?? neutralVariantComputedChroma;
     // We use the effectiveChroma, but only if it is over the min level.
     final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
-        camNeutralVariant.hue,
+        neutralVariantComputedHue,
         math.max(neutralVariantMinChroma ?? 0, effectiveNeutralVariantChroma),
         paletteType);
 
     // Error TonalPalette calculation.
     //
     // Input error color maybe null, but if it is not we make a Cam16 from it.
-    final Cam16? camError = error == null ? null : Cam16.fromInt(error);
-
+    late final double errorComputedChroma;
+    late final double errorComputedHue;
+    // If no error color was given, we use M3 default error color, hue 25 and
+    // chroma 84.
+    if (error == null) {
+      errorComputedHue = 25;
+      errorComputedChroma = 84;
+    } else {
+      // If an error color was given, we use its hue and chroma from Cam or Hct.
+      if (useCam16) {
+        final Cam16 camError = Cam16.fromInt(error);
+        errorComputedHue = camError.hue;
+        errorComputedChroma = camError.chroma;
+      } else {
+        final Hct hctError = Hct.fromInt(error);
+        errorComputedHue = hctError.hue;
+        errorComputedChroma = hctError.chroma;
+      }
+    }
     // If a fixed error chroma value was given we will use it instead as
     // effective chroma value, if not and if input error color was given, we use
     // its chroma, if one was not given we fall back to M3 default chroma 84.
-    final double effectiveErrorChroma = errorChroma ?? camError?.chroma ?? 84;
-
-    // If an error color was given, we use its hue, if none was given we fall
-    // back to hue 25, the Material 3 default.
-    final double effectiveErrorHue = camError?.hue ?? 25;
-
+    final double effectiveErrorChroma = errorChroma ?? errorComputedChroma;
     // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalError = FlexTonalPalette.of(effectiveErrorHue,
+    final FlexTonalPalette tonalError = FlexTonalPalette.of(errorComputedHue,
         math.max(errorMinChroma ?? 0, effectiveErrorChroma), paletteType);
 
     return FlexCorePalette(

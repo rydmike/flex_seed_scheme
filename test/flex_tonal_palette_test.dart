@@ -152,7 +152,7 @@ void main() {
         m4.toString(),
         equals(
             // ignore: lines_longer_than_80_chars
-            'FlexTonalPalette.fromList({0: 4278190080, 5: 4280616704, 10: 4281798144, 20: 4284095488, 30: 4286524160, 40: 4288692500, 50: 4290795563, 60: 4292964674, 70: 4294937692, 80: 4294948249, 90: 4294958030, 95: 4294962663, 98: 4294965494, 99: 4294966271, 100: 4294967295}, FlexPaletteType.common)'),
+            'FlexTonalPalette.fromList([4278190080, 4280616704, 4281798144, 4284095488, 4286524160, 4288692500, 4290795563, 4292964674, 4294937692, 4294948249, 4294958030, 4294962663, 4294965494, 4294966271, 4294967295], FlexPaletteType.common)'),
       );
     });
     test(
@@ -211,10 +211,11 @@ void main() {
     });
     test(
         'FTP1.U10: GIVEN a FlexTonalPalette.fromList '
-        'EXPECT accessing none existing to tone to throw argument error', () {
+        'EXPECT accessing none existing to tone to return a computed implied '
+        'tone value', () {
       expect(
-        () => m5.get(7),
-        throwsArgumentError,
+        m5.get(7),
+        4281141760,
       );
     });
     //
@@ -409,7 +410,7 @@ void main() {
           m4.toString(),
           equals(
               // ignore: lines_longer_than_80_chars
-              'FlexTonalPalette.fromList({0: 4278190080, 4: 4280354304, 5: 4280616704, 6: 4280879360, 10: 4281798144, 12: 4282257664, 17: 4283373568, 20: 4284095488, 22: 4284555008, 24: 4285014528, 30: 4286524160, 40: 4288692500, 50: 4290795563, 60: 4292964674, 70: 4294937692, 80: 4294948249, 87: 4294955198, 90: 4294958030, 92: 4294959832, 94: 4294961634, 95: 4294962663, 96: 4294963692, 97: 4294964465, 98: 4294965494, 99: 4294966271, 100: 4294967295}, FlexPaletteType.extended)'),
+              'FlexTonalPalette.fromList([4278190080, 4280354304, 4280616704, 4280879360, 4281798144, 4282257664, 4283373568, 4284095488, 4284555008, 4285014528, 4286524160, 4288692500, 4290795563, 4292964674, 4294937692, 4294948249, 4294955198, 4294958030, 4294959832, 4294961634, 4294962663, 4294963692, 4294964465, 4294965494, 4294966271, 4294967295], FlexPaletteType.extended)'),
         );
       });
       test(
@@ -490,10 +491,11 @@ void main() {
       });
       test(
           'FTP2.U10: GIVEN a FlexTonalPalette.fromList extended '
-          'EXPECT accessing none existing to tone to throw argument error', () {
+          'EXPECT accessing none existing tone to return implied computed '
+          'tone value', () {
         expect(
-          () => m5.get(7),
-          throwsArgumentError,
+          m5.get(7),
+          4281141760,
         );
       });
     });

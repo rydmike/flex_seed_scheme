@@ -29,7 +29,7 @@ topics:
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.22.0-0.2.pre'
+  flutter: '>=3.22.0-0.3.pre'
 
 dependencies:
   # Used by mcu: tonal_palette.dart

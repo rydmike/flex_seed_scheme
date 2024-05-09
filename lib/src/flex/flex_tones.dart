@@ -31,14 +31,17 @@ import '../../flex_seed_scheme.dart';
 ///   thus create a color scheme that uses only one hue.
 /// * [FlexTones.candyPop] for a high contrast, candy popping theme. It has
 ///   tone 100, which is white surface and background in light mode and very
-///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
-///   [FlexPaletteType.extended], for additional tone fidelity.
+///   dark tone 6, dark mode.
 /// * [FlexTones.chroma] for a theme where the chroma in each seed color is used
 ///   as is with any min limitation. Chroma in passed in color can even be zero,
 ///   producing a greyscale tonal palette as the palette. It has
 ///   tone 100, which is white surface and background in light mode and very
-///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
-///   [FlexPaletteType.extended], for additional tone fidelity.
+///   dark tone 6, dark mode.
+///
+/// * In version 2.0.0 and later all built-in [FlexTones] use the [paletteType]
+///   extended via [FlexPaletteType.extended], for additional tone fidelity.
+///   This is needed for compatibility with Flutter 3.22 and its revised
+///   [ColorScheme].
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
@@ -143,7 +146,8 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
   /// Create an M3 standard light tonal palette tones extraction setup.
@@ -161,7 +165,7 @@ class FlexTones with Diagnosticable {
   /// [FlexTones] configuration.
   ///
   /// The default chroma limits for neutral and neutral variant key colors are
-  /// set to 4 and 8 as in Material 3 design. You can create a
+  /// set to 6 and 8 as in Material-3 design. You can create a
   /// [FlexTones.light] where you set [neutralChroma] and [neutralVariantChroma]
   /// to use the effective chroma values in their seed key values as the actual
   /// chroma value for the neutral and neutral tonal palette generation.
@@ -245,7 +249,8 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
   /// Create a M3 standard dark tonal palette tones extraction setup.
@@ -305,9 +310,9 @@ class FlexTones with Diagnosticable {
     this.errorTone = 80,
     this.onErrorTone = 20,
     this.errorContainerTone = 30,
-    this.onErrorContainerTone = 80,
+    this.onErrorContainerTone = 90,
     //
-    this.surfaceTone = 10,
+    this.surfaceTone = 6,
     this.surfaceDimTone = 6,
     this.surfaceBrightTone = 24,
     this.surfaceContainerLowestTone = 4,
@@ -328,7 +333,7 @@ class FlexTones with Diagnosticable {
     this.shadowTone = 0,
     this.scrimTone = 0,
     // Deprecated tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 10,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 6,
     @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 90,
     @Deprecated('Use surfaceContainerHighestTone instead.')
     this.surfaceVariantTone = 30,
@@ -346,7 +351,8 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
   /// Create a M3 standard tonal palette tones extraction and CAM16
@@ -358,12 +364,18 @@ class FlexTones with Diagnosticable {
   factory FlexTones.material(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
+              primaryChroma: 36,
+              primaryMinChroma: 0,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              useCam16: false,
             )
           : const FlexTones.dark(
+              primaryChroma: 36,
+              primaryMinChroma: 0,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              useCam16: false,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
@@ -675,9 +687,6 @@ class FlexTones with Diagnosticable {
   /// It has white surface and background (tone 100) in light mode and
   /// low chroma on neutrals (2 and 4). Dark mode uses dark
   /// surface and background tone 6.
-  ///
-  /// The [FlexPaletteType.extended] is used as palette type for more
-  /// fidelity in high tones and for more tones options.
   factory FlexTones.candyPop(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -708,7 +717,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 50,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
               primaryTone: 80,
@@ -741,16 +749,12 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 50,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             );
 
   /// Creates a tonal palette setup that results in a high contrast colorful
   /// theme with background and surface tone 98, in light mode and very low
   /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
   /// (3 and 6). Dark mode uses dark surface and background tone 6.
-  ///
-  /// The [FlexPaletteType.extended] is used as palette type for more
-  /// fidelity in high tones and for more tones options.
   factory FlexTones.chroma(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -781,7 +785,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 0,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
               primaryTone: 80,
@@ -814,7 +817,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 0,
               neutralChroma: 3,
               neutralVariantChroma: 6,
-              paletteType: FlexPaletteType.extended,
             );
 
   /// Returns a new [FlexTones] instance where on colors tones for all main on
@@ -1257,14 +1259,18 @@ class FlexTones with Diagnosticable {
 
   /// Defines what [FlexPaletteType] this [FlexTones] uses.
   ///
-  /// The default is [FlexPaletteType.common] with 15 tones or optionally use
-  /// the extended [FlexPaletteType.extended] with 24 tones.
+  /// The default is [FlexPaletteType.extended] with 26 tones or optionally use
+  /// the legacy [FlexPaletteType.common] with 15 tones.
   ///
   /// To make color schemes with new Material3 mappings for light and dark
   /// surface colors, using the extended tone set is needed.
   ///
-  /// In Flutter 3.10 and earlier the new [ColorScheme] surface colors that
-  /// need the new tones are not yet available.
+  /// In Flutter 3.19 and earlier the [ColorScheme] surface colors that
+  /// need the new tones are not yet available. In Flutter 3.22 and later the
+  /// new surface colors are available and the new tones are used. Due to this
+  /// the [FlexPaletteType.extended] is now the new default. The
+  /// [FlexPaletteType.common] may even be considered deprecated in the future,
+  /// but is kept around for backwards code compatibility for a while.
   ///
   /// The added tones 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
@@ -1272,8 +1278,20 @@ class FlexTones with Diagnosticable {
   /// color system. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   /// The additional tones in the Material 3 specification appeared during later
-  /// pert of first half of 2023.
+  /// part of first half of 2023, and in Flutter 3.22.
   final FlexPaletteType paletteType;
+
+  /// If true, the CAM16 color space is used to define the HCT color, if
+  /// false simpler and faster HCT from int is used.
+  ///
+  /// Prior to version 2.0.0 of this package, the CAM16 color space was always
+  /// used. However, in Flutter 3.22 the HCT vanilla HCT.fromInt is used
+  /// for its seeded scheme colors.It is used here by the Material3
+  /// style seeded color schemes as well, while the FSS ones continues to use
+  /// Cam16.
+  ///
+  /// Defaults to true.
+  final bool useCam16;
 
   /// Copy the object with one or more provided properties changed.
   FlexTones copyWith({

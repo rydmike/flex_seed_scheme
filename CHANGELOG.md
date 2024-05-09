@@ -4,21 +4,22 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 2.0.0-dev.1
 
-**April 24, 2024**
+**May 9, 2024**
 
 This release adds support for the revised Material-3 `ColorScheme` released in Flutter version 3.22.
 
 * **CHANGE**
   * Bring the internal MCU library to parity with version 0.11.1.
-
-   * extendedTones got one new tone 24, now has 26 tones.
+   * extendedTones got one new tone 24, it now has 26 tones.
+  
 
 * **NEW**
   * Support revised Material-3 `ColorScheme` with the new colors primaryFixed, primaryFixedDim, onPrimaryFixed, onPrimaryFixedVariant, secondaryFixed, secondaryFixedDim, onSecondaryFixed, onSecondaryFixedVariant, tertiaryFixed, tertiaryFixedDim, onTertiaryFixed, onTertiaryFixedVariant, surfaceDim, surfaceBright, surfaceContainerLowest, surfaceContainerLow, surfaceContainer, surfaceContainerHigh and surfaceContainerHighest.
 
 * **BREAKING**
   * The Material-3 `ColorScheme` colors `background`, `onBackground` and `surfaceVariant` have been deprecated since they are also deprecated in Flutter 3.22.
-
+  * All built-in `FlexTones` now use the `paletteType` extended via `FlexPaletteType.extended` as default for additional tone fidelity. This is needed for compatibility with Flutter 3.22 and its revised `ColorScheme`.
+  * The default tones for the built-in `FlexTones` have been adjusted to match the new Material-3 `ColorScheme` in Flutter 3.22. The new tones and default styles are marginally different but also better than in previous Flutter versions.
 
 ## 1.5.0
 

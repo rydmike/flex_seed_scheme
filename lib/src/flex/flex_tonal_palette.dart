@@ -1,9 +1,21 @@
-import 'dart:math' as math;
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'package:collection/collection.dart' show ListEquality;
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart';
 
-import '../mcu/material_color_utilities.dart';
+import '../mcu/hct/hct.dart';
 
 // ignore_for_file: comment_references
 
@@ -47,35 +59,15 @@ enum FlexPaletteType {
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
 ///
-/// This is a modification of package material_color_utilities [TonalPalette]
-/// made to also include the tones 98 and tone 5. This gives additional fidelity
-/// and expression possibilities when using tones close to black and white.
-///
 /// This class can be instantiated in two ways:
-///
 /// 1. [of] From hue and chroma. (preferred)
-/// 2. [fromList] From a fixed-size [FlexTonalPalette.commonSize] or
-///    [FlexTonalPalette.extendedSize] list of int representing ARBG colors,
-///    depending on if [FlexPaletteType.common] paletteType
-///    [FlexPaletteType.extended]. Correctness (constant hue and chroma) of
-///    the input is not enforced. [get] will only return the input colors,
-///    corresponding to [commonTones] or [extendedTones].
+/// 2. [fromList] From a fixed-size ([FlexTonalPalette.commonSize]) list of ints
+/// representing ARBG colors. Correctness (constant hue and chroma) of the input
+/// is not enforced. [get] will only return the input colors, corresponding to
+/// [commonTones]. This also initializes the key color to black.
 @immutable
 class FlexTonalPalette {
-  // If modifying commonTones length, update commonSize to equal
-  // commonTones.length. There is both a test and assert that fails if not done.
-
-  /// Commonly-used tone values in a [FlexTonalPalette].
-  ///
-  /// Contains custom tones 5 and 98, in addition to the 13 tones included
-  /// in the Material 3 guide tonal palette. The tone 98 used to exist in the
-  /// [Web Material Theme Builder app](https://m3.material.io/theme-builder#/custom),
-  /// but no longer does. It never existed in Flutter or
-  /// [Material Color Utilities package](https://pub.dev/packages/material_color_utilities).
-  /// Tone 5 is custom addition used in e.g. in [FlexTones.ultraContrast].
-  ///
-  /// Tone 98 provides optional tonal fidelity in the light and white end of the
-  /// palette and tone 5 a more dark tone in the black end of the palette.
+  /// Commonly-used tone values.
   static const List<int> commonTones = <int>[
     0,
     5,
@@ -101,10 +93,11 @@ class FlexTonalPalette {
   ///
   /// In original implementation package material_color_utilities this is
   /// defined as well, presumably for improved efficiency, there it is set to
-  /// [TonalPalette.commonTones.length]. Here we instead manually set it
+  /// [FlexTonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 common tones and [FlexTonalPalette] 15.
+  /// Flutter SDK [FlexTonalPalette] has 13 common tones and
+  /// [FlexTonalPalette] 15.
   static const int commonSize = 15;
 
   /// Extended one values in a [FlexTonalPalette].
@@ -166,33 +159,59 @@ class FlexTonalPalette {
   ///
   /// In original implementation package material_color_utilities this is
   /// defined as well, presumably for improved efficiency, but there it is set
-  /// to [TonalPalette.commonTones.length]. Here we instead manually set it
+  /// to [FlexTonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 26.
+  /// Flutter SDK [FlexTonalPalette] has 13 tones,
+  /// [FlexTonalPalette] extended 26.
   static const int extendedSize = 26;
 
-  final double? _hue;
-  final double? _chroma;
-  final FlexPaletteType _paletteType;
-  final Map<int, int> _cache;
+  /// The hue of the palette.
+  final double hue;
 
-  FlexTonalPalette._fromHueAndChroma(
-    double hue,
-    double chroma, [
+  /// The chroma of the palette.
+  final double chroma;
+
+  /// The used palette type.
+  final FlexPaletteType _paletteType;
+
+  /// The key color of the palette.
+  final Hct keyColor;
+
+  /// A cache containing keys-value pairs where:
+  /// - keys are integers that represent tones, and
+  /// - values are colors in ARGB format.
+  final Map<int, int> _cache;
+  final bool _isFromCache;
+
+  FlexTonalPalette._fromHct(
+    Hct hct, [
     FlexPaletteType paletteType = FlexPaletteType.common,
   ])  : _cache = <int, int>{},
-        _hue = hue,
-        _chroma = chroma,
-        _paletteType = paletteType;
+        _paletteType = paletteType,
+        hue = hct.hue,
+        chroma = hct.chroma,
+        keyColor = hct,
+        _isFromCache = false;
 
-  const FlexTonalPalette._fromCache(
-    Map<int, int> cache, [
+  FlexTonalPalette._fromHueAndChroma(
+    this.hue,
+    this.chroma, [
+    FlexPaletteType paletteType = FlexPaletteType.common,
+  ])  : _cache = <int, int>{},
+        _paletteType = paletteType,
+        keyColor = createKeyColor(hue, chroma),
+        _isFromCache = false;
+
+  FlexTonalPalette._fromCache(
+    Map<int, int> cache,
+    this.hue,
+    this.chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
   ])  : _cache = cache,
-        _hue = null,
-        _chroma = null,
-        _paletteType = paletteType;
+        _paletteType = paletteType,
+        keyColor = createKeyColor(hue, chroma),
+        _isFromCache = true;
 
   /// Create colors using [hue] and [chroma].
   static FlexTonalPalette of(
@@ -201,6 +220,14 @@ class FlexTonalPalette {
     FlexPaletteType paletteType = FlexPaletteType.common,
   ]) {
     return FlexTonalPalette._fromHueAndChroma(hue, chroma, paletteType);
+  }
+
+  /// Create a Tonal Palette from hue and chroma of [hct].
+  static FlexTonalPalette fromHct(
+    Hct hct, [
+    FlexPaletteType paletteType = FlexPaletteType.common,
+  ]) {
+    return FlexTonalPalette._fromHct(hct, paletteType);
   }
 
   /// Create colors from a fixed-size list of ARGB color ints.
@@ -217,8 +244,7 @@ class FlexTonalPalette {
                 paletteType == FlexPaletteType.extended),
         'Length must be $commonSize when using FlexPaletteType.common OR '
         'length must be $extendedSize when using FlexPaletteType.extended.');
-    Map<int, int> cache;
-    cache = <int, int>{};
+    final Map<int, int> cache = <int, int>{};
     switch (paletteType) {
       case FlexPaletteType.common:
         commonTones.asMap().forEach(
@@ -227,7 +253,66 @@ class FlexTonalPalette {
         extendedTones.asMap().forEach(
             (int index, int toneValue) => cache[toneValue] = colors[index]);
     }
-    return FlexTonalPalette._fromCache(cache, paletteType);
+
+    // Approximately deduces the original hue and chroma that generated this
+    // list of colors.
+    // Uses the hue and chroma of the provided color with the highest chroma.
+    double bestHue = 0.0;
+    double bestChroma = 0.0;
+    for (final int argb in colors) {
+      final Hct hct = Hct.fromInt(argb);
+
+      // If the color is too close to white, its chroma may have been
+      // affected by a known issue, so we ignore it.
+      // https://github.com/material-foundation/material-color-utilities/issues/140
+      if (hct.tone > 98.0) continue;
+
+      if (hct.chroma > bestChroma) {
+        bestHue = hct.hue;
+        bestChroma = hct.chroma;
+      }
+    }
+    return FlexTonalPalette._fromCache(cache, bestHue, bestChroma, paletteType);
+  }
+
+  /// Creates a key color from a [hue] and a [chroma].
+  /// The key color is the first tone, starting from T50, matching the
+  /// given hue and chroma. Key color [Hct].
+  static Hct createKeyColor(double hue, double chroma) {
+    const double startTone = 50.0;
+    Hct smallestDeltaHct = Hct.from(hue, chroma, startTone);
+    double smallestDelta = (smallestDeltaHct.chroma - chroma).abs();
+    // Starting from T50, check T+/-delta to see if they match the requested
+    // chroma.
+    //
+    // Starts from T50 because T50 has the most chroma available, on
+    // average. Thus it is most likely to have a direct answer and minimize
+    // iteration.
+    for (double delta = 1.0; delta < 50.0; delta += 1.0) {
+      // Termination condition rounding instead of minimizing delta to avoid
+      // case where requested chroma is 16.51, and the closest chroma is 16.49.
+      // Error is minimized, but when rounded and displayed, requested chroma
+      // is 17, key color's chroma is 16.
+      if (chroma.round() == smallestDeltaHct.chroma.round()) {
+        return smallestDeltaHct;
+      }
+
+      final Hct hctAdd = Hct.from(hue, chroma, startTone + delta);
+      final double hctAddDelta = (hctAdd.chroma - chroma).abs();
+      if (hctAddDelta < smallestDelta) {
+        smallestDelta = hctAddDelta;
+        smallestDeltaHct = hctAdd;
+      }
+
+      final Hct hctSubtract = Hct.from(hue, chroma, startTone - delta);
+      final double hctSubtractDelta = (hctSubtract.chroma - chroma).abs();
+      if (hctSubtractDelta < smallestDelta) {
+        smallestDelta = hctSubtractDelta;
+        smallestDeltaHct = hctSubtract;
+      }
+    }
+
+    return smallestDeltaHct;
   }
 
   /// Returns a fixed-size list of ARGB color ints for common tone values.
@@ -237,50 +322,46 @@ class FlexTonalPalette {
       ? commonTones.map(get).toList()
       : extendedTones.map(get).toList();
 
-  /// Returns the ARGB representation of an HCT color.
+  /// Returns the ARGB representation of an HCT color at the given [tone].
   ///
-  /// If the class was instantiated from [_hue] and [_chroma], will return the
-  /// color with corresponding [tone].
-  /// If the class was instantiated from a fixed-size list of color ints, [tone]
-  /// must be in [commonTones] if palette type is [FlexPaletteType.common] and
-  /// in [extendedTones] if palette type is [FlexPaletteType.extended].
+  /// If the palette is constructed from a list of colors
+  /// (i.e. using [fromList]), the color provided at construction is returned
+  /// if possible; otherwise the result is generated from the deduced
+  /// [hue] and [chroma].
+  ///
+  /// If the palette is constructed from a hue and chroma (i.e. using [of] or
+  /// [fromHct]), the result is generated from the given [hue] and [chroma].
   int get(int tone) {
-    if (_hue == null || _chroma == null) {
-      if (!_cache.containsKey(tone)) {
-        throw ArgumentError.value(
-          tone,
-          'tone',
-          'When a FlexTonalPalette is created with fromList using '
-              '$_paletteType, tone must be one of '
-              // ignore: lines_longer_than_80_chars
-              '${_paletteType == FlexPaletteType.common ? commonTones : extendedTones}.',
-        );
-      } else {
-        return _cache[tone]!;
-      }
-    }
-
-    // If we are using `common` tonal palette type and the tone is larger or
-    // equal to 90, allow maximum chroma value of 90, in other cases
-    // use the actual chroma value.
-    final double chroma =
-        (tone >= 90.0) && _paletteType == FlexPaletteType.common
-            ? math.min(_chroma!, 40.0)
-            : _chroma!;
     return _cache.putIfAbsent(
-        tone, () => Hct.from(_hue!, chroma, tone.toDouble()).toInt());
+      tone,
+      () => Hct.from(hue, chroma, tone.toDouble()).toInt(),
+    );
+  }
+
+  /// Returns the HCT color at the given [tone].
+  ///
+  /// If the palette is constructed from a list of colors
+  /// (i.e. using [fromList]), the color provided at construction is returned
+  /// if possible; otherwise the result is generated from the deduced
+  /// [hue] and [chroma].
+  ///
+  /// If the palette is constructed from a hue and chroma (i.e. using [of] or
+  /// [fromHct]), the result is generated from the given [hue] and [chroma].
+  Hct getHct(double tone) {
+    if (_cache.containsKey(tone)) {
+      return Hct.fromInt(_cache[tone]!);
+    } else {
+      return Hct.from(hue, chroma, tone);
+    }
   }
 
   @override
   bool operator ==(Object other) {
     if (other is FlexTonalPalette) {
-      if (_hue != null &&
-          _chroma != null &&
-          other._hue != null &&
-          other._chroma != null) {
+      if (!_isFromCache && !other._isFromCache) {
         // Both created with .of or .fromHct
-        return _hue == other._hue &&
-            _chroma == other._chroma &&
+        return hue == other.hue &&
+            chroma == other.chroma &&
             _paletteType == other._paletteType;
       } else {
         return const ListEquality<int>().equals(asList, other.asList);
@@ -291,8 +372,8 @@ class FlexTonalPalette {
 
   @override
   int get hashCode {
-    if (_hue != null && _chroma != null) {
-      return Object.hash(_hue, _chroma, _paletteType);
+    if (!_isFromCache) {
+      return Object.hash(hue, chroma, _paletteType);
     } else {
       return Object.hashAll(asList);
     }
@@ -300,10 +381,10 @@ class FlexTonalPalette {
 
   @override
   String toString() {
-    if (_hue != null && _chroma != null) {
-      return 'FlexTonalPalette.of($_hue, $_chroma, $_paletteType)';
+    if (!_isFromCache) {
+      return 'FlexTonalPalette.of($hue, $chroma, $_paletteType)';
     } else {
-      return 'FlexTonalPalette.fromList($_cache, $_paletteType)';
+      return 'FlexTonalPalette.fromList($asList, $_paletteType)';
     }
   }
 }

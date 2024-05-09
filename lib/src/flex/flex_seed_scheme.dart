@@ -323,6 +323,7 @@ class FlexSeedScheme {
       neutralVariantChroma: tones.neutralVariantChroma,
       neutralVariantMinChroma: tones.neutralVariantMinChroma,
       paletteType: tones.paletteType,
+      useCam16: tones.useCam16,
     );
     return FlexSeedScheme._(
       primary: core.primary.get(tones.primaryTone),
@@ -490,10 +491,15 @@ extension SeedColorScheme on ColorScheme {
     /// color used as seed, ends up as the corresponding main color in the
     /// produced [ColorScheme] for the palette in question. In this case
     /// [neutralVariantKey] will typically not become your
-    /// [ColorScheme.surfaceVariant] color. It will only be of the same hue.
+    /// [ColorScheme] variant colors. It will only be of the same hue.
     /// If you used a color intended for light theme mode as
-    /// [neutralVariantKey], consider overriding [surfaceVariant] for the light
-    /// theme with the same color value as your [neutralVariantKey].
+    /// [neutralVariantKey], consider overriding one of the variant theme colors
+    /// with the same color value as your [neutralVariantKey].
+    ///
+    /// The variant palette is only used by the [ColorScheme] variant colors
+    /// [onSurfaceVariant], [outline] and [outlineVariant], the
+    /// main color that used it prior to Flutter 3.22 surfaceVariant has been
+    /// deprecated.
     Color? neutralVariantKey,
 
     /// Tonal palette chroma usage configuration and mapping to [ColorScheme].
