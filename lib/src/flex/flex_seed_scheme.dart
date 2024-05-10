@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart' show internal;
 
+import '../mcu/material_color_utilities.dart';
 import 'flex_core_palette.dart';
+import 'flex_scheme_variant.dart';
 import 'flex_tones.dart';
 
 // ignore_for_file: comment_references
@@ -515,7 +517,38 @@ extension SeedColorScheme on ColorScheme {
     /// different chroma limits and tonal mappings provide a custom [FlexTones],
     /// or use a predefined one like [FlexTones.jolly], [FlexTones.vivid] or
     /// [FlexTones.highContrast].
+    ///
+    /// Starting with version 2.0.0 you can also use [variant] as an optional
+    /// way to select a predefined seed generation configuration, instead of
+    /// providing a [FlexTones] configuration. The [variant] API is also used
+    /// to provide access to the DynamicSchemeVariant that are available
+    /// in Flutter 3.23.0 and later. With FSS you can use them in Flutter 3.22
+    /// already.
     FlexTones? tones,
+
+    /// An optional way to select the used algorithm for seeded [ColorScheme]
+    /// generation, can be used instead of a [FlexTones] provided in [tones].
+    ///
+    /// If used and a non null value is given, any seed generation configuration
+    /// provided via [tones] is ignored and the [variant] is used to select
+    /// a predefined seed generation configuration.
+    ///
+    /// The [variant] selections includes all the Flutter SDK defined options
+    /// that will be available in the future in Flutter Stable after 3.22.x,
+    /// that are available in master channel now but did not land in Flutter
+    /// 3.22. Variant options that are identical to the Flutter SDK options
+    /// have [FlexSchemeVariant.value], [isFlutterScheme] set to true. These
+    /// enum  options will not respect and use any other seed generation key
+    /// than the [primaryKey], as they only support using one seed color.
+    ///
+    /// The [FlexSchemeVariant] also includes quick selections for all the
+    /// predefined [FlexTones] configurations. However, with [variant] you can
+    /// only select one of the predefined configurations, and not make custom
+    /// configurations like you can with [FlexTones]. Additionally you can not
+    /// use the [FlexTones] modifiers [onMainsUseBW], [onSurfacesUseBW] and
+    /// [surfacesUseBW], since the only operate on the [FlexTones]
+    /// configurations passed in to [tones].
+    FlexSchemeVariant? variant,
 
     /// Override color for the seed generated [primary] color.
     ///
@@ -689,94 +722,241 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [surfaceVariant] color.
     @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
-    final FlexSeedScheme scheme = brightness == Brightness.light
-        ? FlexSeedScheme._tones(
-            primaryKey: primaryKey.value,
-            secondaryKey: secondaryKey?.value,
-            tertiaryKey: tertiaryKey?.value,
-            errorKey: errorKey?.value,
-            neutralKey: neutralKey?.value,
-            neutralVariantKey: neutralVariantKey?.value,
-            tones: tones ?? FlexTones.material(Brightness.light),
-          )
-        : FlexSeedScheme._tones(
-            primaryKey: primaryKey.value,
-            secondaryKey: secondaryKey?.value,
-            tertiaryKey: tertiaryKey?.value,
-            errorKey: errorKey?.value,
-            neutralKey: neutralKey?.value,
-            neutralVariantKey: neutralVariantKey?.value,
-            tones: tones ?? FlexTones.material(Brightness.dark),
-          );
-    return ColorScheme(
-      primary: primary ?? Color(scheme.primary),
-      onPrimary: onPrimary ?? Color(scheme.onPrimary),
-      primaryContainer: primaryContainer ?? Color(scheme.primaryContainer),
-      onPrimaryContainer:
-          onPrimaryContainer ?? Color(scheme.onPrimaryContainer),
-      primaryFixed: primaryFixed ?? Color(scheme.primaryFixed),
-      primaryFixedDim: primaryFixedDim ?? Color(scheme.primaryFixedDim),
-      onPrimaryFixed: onPrimaryFixed ?? Color(scheme.onPrimaryFixed),
-      onPrimaryFixedVariant:
-          onPrimaryFixedVariant ?? Color(scheme.onPrimaryFixedVariant),
-      //
-      secondary: secondary ?? Color(scheme.secondary),
-      onSecondary: onSecondary ?? Color(scheme.onSecondary),
-      secondaryContainer:
-          secondaryContainer ?? Color(scheme.secondaryContainer),
-      onSecondaryContainer:
-          onSecondaryContainer ?? Color(scheme.onSecondaryContainer),
-      secondaryFixed: secondaryFixed ?? Color(scheme.secondaryFixed),
-      secondaryFixedDim: secondaryFixedDim ?? Color(scheme.secondaryFixedDim),
-      onSecondaryFixed: onSecondaryFixed ?? Color(scheme.onSecondaryFixed),
-      onSecondaryFixedVariant:
-          onSecondaryFixedVariant ?? Color(scheme.onSecondaryFixedVariant),
-      //
-      tertiary: tertiary ?? Color(scheme.tertiary),
-      onTertiary: onTertiary ?? Color(scheme.onTertiary),
-      tertiaryContainer: tertiaryContainer ?? Color(scheme.tertiaryContainer),
-      onTertiaryContainer:
-          onTertiaryContainer ?? Color(scheme.onTertiaryContainer),
-      tertiaryFixed: tertiaryFixed ?? Color(scheme.tertiaryFixed),
-      tertiaryFixedDim: tertiaryFixedDim ?? Color(scheme.tertiaryFixedDim),
-      onTertiaryFixed: onTertiaryFixed ?? Color(scheme.onTertiaryFixed),
-      onTertiaryFixedVariant:
-          onTertiaryFixedVariant ?? Color(scheme.onTertiaryFixedVariant),
-      //
-      error: error ?? Color(scheme.error),
-      onError: onError ?? Color(scheme.onError),
-      errorContainer: errorContainer ?? Color(scheme.errorContainer),
-      onErrorContainer: onErrorContainer ?? Color(scheme.onErrorContainer),
-      //
-      surface: surface ?? Color(scheme.surface),
-      surfaceDim: surfaceDim ?? Color(scheme.surfaceDim),
-      surfaceBright: surfaceBright ?? Color(scheme.surfaceBright),
-      surfaceContainerLowest:
-          surfaceContainerLowest ?? Color(scheme.surfaceContainerLowest),
-      surfaceContainerLow:
-          surfaceContainerLow ?? Color(scheme.surfaceContainerLow),
-      surfaceContainer: surfaceContainer ?? Color(scheme.surfaceContainer),
-      surfaceContainerHigh:
-          surfaceContainerHigh ?? Color(scheme.surfaceContainerHigh),
-      surfaceContainerHighest:
-          surfaceContainerHighest ?? Color(scheme.surfaceContainerHighest),
-      onSurface: onSurface ?? Color(scheme.onSurface),
-      onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
-      //
-      outline: outline ?? Color(scheme.outline),
-      outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
-      shadow: shadow ?? Color(scheme.shadow),
-      scrim: scrim ?? Color(scheme.scrim),
-      inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
-      onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
-      inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
-      surfaceTint: surfaceTint ?? Color(scheme.primary),
-      // Deprecated colors
-      background: background ?? Color(scheme.background),
-      onBackground: onBackground ?? Color(scheme.onBackground),
-      surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
-      //
-      brightness: brightness,
-    );
+    // Assert that a none null value has not been assign to tones and variant
+    // at the same time, since they are mutually exclusive, both can be null.
+    assert(tones == null || variant == null,
+        'Only one of tones or variant can be provided, not both.');
+
+    if (variant != null && variant.isFlutterScheme) {
+      final DynamicScheme scheme =
+          _buildDynamicScheme(brightness, primaryKey, variant);
+      return ColorScheme(
+        primary:
+            primary ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
+        onPrimary:
+            onPrimary ?? Color(MaterialDynamicColors.onPrimary.getArgb(scheme)),
+        primaryContainer: primaryContainer ??
+            Color(MaterialDynamicColors.primaryContainer.getArgb(scheme)),
+        onPrimaryContainer: onPrimaryContainer ??
+            Color(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme)),
+        primaryFixed: primaryFixed ??
+            Color(MaterialDynamicColors.primaryFixed.getArgb(scheme)),
+        primaryFixedDim: primaryFixedDim ??
+            Color(MaterialDynamicColors.primaryFixedDim.getArgb(scheme)),
+        onPrimaryFixed: onPrimaryFixed ??
+            Color(MaterialDynamicColors.onPrimaryFixed.getArgb(scheme)),
+        onPrimaryFixedVariant: onPrimaryFixedVariant ??
+            Color(MaterialDynamicColors.onPrimaryFixedVariant.getArgb(scheme)),
+        secondary:
+            secondary ?? Color(MaterialDynamicColors.secondary.getArgb(scheme)),
+        onSecondary: onSecondary ??
+            Color(MaterialDynamicColors.onSecondary.getArgb(scheme)),
+        secondaryContainer: secondaryContainer ??
+            Color(MaterialDynamicColors.secondaryContainer.getArgb(scheme)),
+        onSecondaryContainer: onSecondaryContainer ??
+            Color(MaterialDynamicColors.onSecondaryContainer.getArgb(scheme)),
+        secondaryFixed: secondaryFixed ??
+            Color(MaterialDynamicColors.secondaryFixed.getArgb(scheme)),
+        secondaryFixedDim: secondaryFixedDim ??
+            Color(MaterialDynamicColors.secondaryFixedDim.getArgb(scheme)),
+        onSecondaryFixed: onSecondaryFixed ??
+            Color(MaterialDynamicColors.onSecondaryFixed.getArgb(scheme)),
+        onSecondaryFixedVariant: onSecondaryFixedVariant ??
+            Color(
+                MaterialDynamicColors.onSecondaryFixedVariant.getArgb(scheme)),
+        tertiary:
+            tertiary ?? Color(MaterialDynamicColors.tertiary.getArgb(scheme)),
+        onTertiary: onTertiary ??
+            Color(MaterialDynamicColors.onTertiary.getArgb(scheme)),
+        tertiaryContainer: tertiaryContainer ??
+            Color(MaterialDynamicColors.tertiaryContainer.getArgb(scheme)),
+        onTertiaryContainer: onTertiaryContainer ??
+            Color(MaterialDynamicColors.onTertiaryContainer.getArgb(scheme)),
+        tertiaryFixed: tertiaryFixed ??
+            Color(MaterialDynamicColors.tertiaryFixed.getArgb(scheme)),
+        tertiaryFixedDim: tertiaryFixedDim ??
+            Color(MaterialDynamicColors.tertiaryFixedDim.getArgb(scheme)),
+        onTertiaryFixed: onTertiaryFixed ??
+            Color(MaterialDynamicColors.onTertiaryFixed.getArgb(scheme)),
+        onTertiaryFixedVariant: onTertiaryFixedVariant ??
+            Color(MaterialDynamicColors.onTertiaryFixedVariant.getArgb(scheme)),
+        error: error ?? Color(MaterialDynamicColors.error.getArgb(scheme)),
+        onError:
+            onError ?? Color(MaterialDynamicColors.onError.getArgb(scheme)),
+        errorContainer: errorContainer ??
+            Color(MaterialDynamicColors.errorContainer.getArgb(scheme)),
+        onErrorContainer: onErrorContainer ??
+            Color(MaterialDynamicColors.onErrorContainer.getArgb(scheme)),
+        outline:
+            outline ?? Color(MaterialDynamicColors.outline.getArgb(scheme)),
+        outlineVariant: outlineVariant ??
+            Color(MaterialDynamicColors.outlineVariant.getArgb(scheme)),
+        surface:
+            surface ?? Color(MaterialDynamicColors.surface.getArgb(scheme)),
+        surfaceDim: surfaceDim ??
+            Color(MaterialDynamicColors.surfaceDim.getArgb(scheme)),
+        surfaceBright: surfaceBright ??
+            Color(MaterialDynamicColors.surfaceBright.getArgb(scheme)),
+        surfaceContainerLowest: surfaceContainerLowest ??
+            Color(MaterialDynamicColors.surfaceContainerLowest.getArgb(scheme)),
+        surfaceContainerLow: surfaceContainerLow ??
+            Color(MaterialDynamicColors.surfaceContainerLow.getArgb(scheme)),
+        surfaceContainer: surfaceContainer ??
+            Color(MaterialDynamicColors.surfaceContainer.getArgb(scheme)),
+        surfaceContainerHigh: surfaceContainerHigh ??
+            Color(MaterialDynamicColors.surfaceContainerHigh.getArgb(scheme)),
+        surfaceContainerHighest: surfaceContainerHighest ??
+            Color(
+                MaterialDynamicColors.surfaceContainerHighest.getArgb(scheme)),
+        onSurface:
+            onSurface ?? Color(MaterialDynamicColors.onSurface.getArgb(scheme)),
+        onSurfaceVariant: onSurfaceVariant ??
+            Color(MaterialDynamicColors.onSurfaceVariant.getArgb(scheme)),
+        inverseSurface: inverseSurface ??
+            Color(MaterialDynamicColors.inverseSurface.getArgb(scheme)),
+        onInverseSurface: onInverseSurface ??
+            Color(MaterialDynamicColors.inverseOnSurface.getArgb(scheme)),
+        inversePrimary: inversePrimary ??
+            Color(MaterialDynamicColors.inversePrimary.getArgb(scheme)),
+        shadow: shadow ?? Color(MaterialDynamicColors.shadow.getArgb(scheme)),
+        scrim: scrim ?? Color(MaterialDynamicColors.scrim.getArgb(scheme)),
+        surfaceTint:
+            surfaceTint ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
+        brightness: brightness,
+        // DEPRECATED (newest deprecations at the bottom)
+        background: background ??
+            Color(MaterialDynamicColors.background.getArgb(scheme)),
+        onBackground: onBackground ??
+            Color(MaterialDynamicColors.onBackground.getArgb(scheme)),
+        surfaceVariant: surfaceVariant ??
+            Color(MaterialDynamicColors.surfaceVariant.getArgb(scheme)),
+      );
+    } else {
+      FlexTones? variantTones;
+      // If a variant is selected, use its tones.
+      if (variant != null) {
+        variantTones = variant.tones(brightness);
+      }
+      final FlexSeedScheme scheme = FlexSeedScheme._tones(
+        primaryKey: primaryKey.value,
+        secondaryKey: secondaryKey?.value,
+        tertiaryKey: tertiaryKey?.value,
+        errorKey: errorKey?.value,
+        neutralKey: neutralKey?.value,
+        neutralVariantKey: neutralVariantKey?.value,
+        tones: tones ?? variantTones ?? FlexTones.material(brightness),
+      );
+
+      return ColorScheme(
+        primary: primary ?? Color(scheme.primary),
+        onPrimary: onPrimary ?? Color(scheme.onPrimary),
+        primaryContainer: primaryContainer ?? Color(scheme.primaryContainer),
+        onPrimaryContainer:
+            onPrimaryContainer ?? Color(scheme.onPrimaryContainer),
+        primaryFixed: primaryFixed ?? Color(scheme.primaryFixed),
+        primaryFixedDim: primaryFixedDim ?? Color(scheme.primaryFixedDim),
+        onPrimaryFixed: onPrimaryFixed ?? Color(scheme.onPrimaryFixed),
+        onPrimaryFixedVariant:
+            onPrimaryFixedVariant ?? Color(scheme.onPrimaryFixedVariant),
+        //
+        secondary: secondary ?? Color(scheme.secondary),
+        onSecondary: onSecondary ?? Color(scheme.onSecondary),
+        secondaryContainer:
+            secondaryContainer ?? Color(scheme.secondaryContainer),
+        onSecondaryContainer:
+            onSecondaryContainer ?? Color(scheme.onSecondaryContainer),
+        secondaryFixed: secondaryFixed ?? Color(scheme.secondaryFixed),
+        secondaryFixedDim: secondaryFixedDim ?? Color(scheme.secondaryFixedDim),
+        onSecondaryFixed: onSecondaryFixed ?? Color(scheme.onSecondaryFixed),
+        onSecondaryFixedVariant:
+            onSecondaryFixedVariant ?? Color(scheme.onSecondaryFixedVariant),
+        //
+        tertiary: tertiary ?? Color(scheme.tertiary),
+        onTertiary: onTertiary ?? Color(scheme.onTertiary),
+        tertiaryContainer: tertiaryContainer ?? Color(scheme.tertiaryContainer),
+        onTertiaryContainer:
+            onTertiaryContainer ?? Color(scheme.onTertiaryContainer),
+        tertiaryFixed: tertiaryFixed ?? Color(scheme.tertiaryFixed),
+        tertiaryFixedDim: tertiaryFixedDim ?? Color(scheme.tertiaryFixedDim),
+        onTertiaryFixed: onTertiaryFixed ?? Color(scheme.onTertiaryFixed),
+        onTertiaryFixedVariant:
+            onTertiaryFixedVariant ?? Color(scheme.onTertiaryFixedVariant),
+        //
+        error: error ?? Color(scheme.error),
+        onError: onError ?? Color(scheme.onError),
+        errorContainer: errorContainer ?? Color(scheme.errorContainer),
+        onErrorContainer: onErrorContainer ?? Color(scheme.onErrorContainer),
+        //
+        surface: surface ?? Color(scheme.surface),
+        surfaceDim: surfaceDim ?? Color(scheme.surfaceDim),
+        surfaceBright: surfaceBright ?? Color(scheme.surfaceBright),
+        surfaceContainerLowest:
+            surfaceContainerLowest ?? Color(scheme.surfaceContainerLowest),
+        surfaceContainerLow:
+            surfaceContainerLow ?? Color(scheme.surfaceContainerLow),
+        surfaceContainer: surfaceContainer ?? Color(scheme.surfaceContainer),
+        surfaceContainerHigh:
+            surfaceContainerHigh ?? Color(scheme.surfaceContainerHigh),
+        surfaceContainerHighest:
+            surfaceContainerHighest ?? Color(scheme.surfaceContainerHighest),
+        onSurface: onSurface ?? Color(scheme.onSurface),
+        onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
+        //
+        outline: outline ?? Color(scheme.outline),
+        outlineVariant: outlineVariant ?? Color(scheme.outlineVariant),
+        shadow: shadow ?? Color(scheme.shadow),
+        scrim: scrim ?? Color(scheme.scrim),
+        inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
+        onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
+        inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
+        surfaceTint: surfaceTint ?? Color(scheme.primary),
+        // Deprecated colors
+        background: background ?? Color(scheme.background),
+        onBackground: onBackground ?? Color(scheme.onBackground),
+        surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
+        //
+        brightness: brightness,
+      );
+    }
+  }
+
+  static DynamicScheme _buildDynamicScheme(
+      Brightness brightness, Color seedColor, FlexSchemeVariant variant) {
+    final bool isDark = brightness == Brightness.dark;
+    final Hct sourceColor = Hct.fromInt(seedColor.value);
+    return switch (variant) {
+      FlexSchemeVariant.disabled ||
+      FlexSchemeVariant.material ||
+      FlexSchemeVariant.material3Legacy ||
+      FlexSchemeVariant.soft ||
+      FlexSchemeVariant.vivid ||
+      FlexSchemeVariant.vividSurfaces ||
+      FlexSchemeVariant.highContrast ||
+      FlexSchemeVariant.ultraContrast ||
+      FlexSchemeVariant.jolly ||
+      FlexSchemeVariant.vividBackground ||
+      FlexSchemeVariant.oneHue ||
+      FlexSchemeVariant.candyPop ||
+      FlexSchemeVariant.chroma ||
+      FlexSchemeVariant.tonalSpot =>
+        SchemeTonalSpot(
+            sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.fidelity => SchemeFidelity(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.content => SchemeContent(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.monochrome => SchemeMonochrome(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.neutral => SchemeNeutral(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.vibrant => SchemeVibrant(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.expressive => SchemeExpressive(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.rainbow => SchemeRainbow(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+      FlexSchemeVariant.fruitSalad => SchemeFruitSalad(
+          sourceColorHct: sourceColor, isDark: isDark, contrastLevel: 0.0),
+    };
   }
 }

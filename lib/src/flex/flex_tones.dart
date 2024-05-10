@@ -14,7 +14,10 @@ import '../../flex_seed_scheme.dart';
 /// usage and limits with [SeedColorScheme.fromSeeds], you can pass in one of
 /// the predefined configs below, to its [tones] property:
 ///
-/// * [FlexTones.material], default and same as Flutter SDK M3 setup.
+/// * [FlexTones.material], default and same as Flutter SDK M3 setup used in
+///   Flutter 3.22 and later.
+/// * [FlexTones.material3Legacy], the same as Flutter SDK M3 setup used in
+///   Flutter 3.19 and earlier.
 /// * [FlexTones.soft], softer and earthier tones than M3 [FlexTones.material].
 /// * [FlexTones.vivid], more vivid colors, uses chroma from all key colors.
 /// * [FlexTones.vividSurfaces], like [vivid], but with more colors in surfaces.
@@ -150,7 +153,7 @@ class FlexTones with Diagnosticable {
     this.useCam16 = true,
   });
 
-  /// Create an M3 standard light tonal palette tones extraction setup.
+  /// Create an M3 light theme mode tonal palette tones extraction setup.
   ///
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
@@ -158,9 +161,9 @@ class FlexTones with Diagnosticable {
   /// that it does not lock the chroma values for primary, secondary and
   /// tertiary to a specific chroma value, but uses actual chroma of specified
   /// key color, as long as it is over the minimum value.
-  /// The minimum values match the Material 3 defaults.
+  /// The minimum values match the Material-3 defaults.
   ///
-  /// To get the an exact matching setup as used by Material 3
+  /// To get the an exact matching setup as used by Material-3
   /// [ColorScheme.fromSeed] use the [FlexTones.material] factory as the
   /// [FlexTones] configuration.
   ///
@@ -355,12 +358,28 @@ class FlexTones with Diagnosticable {
     this.useCam16 = true,
   });
 
-  /// Create a M3 standard tonal palette tones extraction and CAM16
-  /// chroma setup.
+  /// Create a Material-3 standard tonal palette tones extraction using HCT
+  /// based chroma.
   ///
   /// This setup will if only one seed color is used, produce the same result
-  /// with [FlexColorPalette] as [Scheme.light] or [Scheme.dark] depending on
-  /// used [brightness], does when Flutter SDK uses [ColorPalette.of].
+  /// as Flutter SDK does when using [ColorScheme.fromSeed] in
+  /// Flutter version 3.22 and later.
+  ///
+  /// Prior to Flutter 3.22 the [paletteType] was [FlexPaletteType.common]
+  /// and the [useCam16] was true, primaryChroma was 48 (now 36) and neutral
+  /// chroma 8 (now 6). These changed value match the new Material-3 defaults
+  /// in Flutter 3.22 and later.
+  ///
+  /// It should be noted that the Material-3 implementation in Flutter uses
+  /// DynamicSchemeVariant tonalSpot as default for the Material-3 design
+  /// seed generated ColorScheme. There might be some slight differences in
+  /// its results and using this selection in some edge cases, but none have
+  /// been observed in normal use cases. If an exact match is critical, use
+  /// [tonalSpot] as used in the Flutter SDK 3.22 and later.
+  ///
+  /// If you want to use multiple seed colors to generate a ColorScheme, you
+  /// will need to use [FlexTones] based configurations, the ones based on
+  /// Flutter SDK DynamicSchemeVariant and MCU do not provide that feature-set.
   factory FlexTones.material(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -378,8 +397,39 @@ class FlexTones with Diagnosticable {
               useCam16: false,
             );
 
+  /// Create a Material-3 standard tonal palette tones extraction using Cam16
+  /// based chroma.
+  ///
+  /// This setup will when only one seed color is used, produce the same result
+  /// as Flutter SDK does when using [ColorScheme.fromSeed] in
+  /// Flutter version 3.19 and earlier.
+  ///
+  /// Prior to FlexSeedScheme 2.0.0, this was the default setup used by the
+  /// [FlexTones.material] configuration. However, [FlexTones.material] was in
+  /// FSS version 2.0.0 modified to match the new actual and revised Material-3
+  /// configuration in Flutter 3.22 and later. This factory is provided if you
+  /// need and want to use the older Material-3 seed generation setup used in
+  /// Flutter 3.19 and earlier versions.
+  factory FlexTones.material3Legacy(Brightness brightness) =>
+      brightness == Brightness.light
+          ? const FlexTones.light(
+              primaryChroma: 48,
+              primaryMinChroma: 0,
+              secondaryChroma: 16,
+              tertiaryChroma: 24,
+            )
+          : const FlexTones.dark(
+              surfaceTone: 8,
+              backgroundTone: 8,
+              onErrorContainerTone: 90,
+              primaryChroma: 48,
+              primaryMinChroma: 0,
+              secondaryChroma: 16,
+              tertiaryChroma: 24,
+            );
+
   /// Creates a tonal palette extraction setup that results in M3 like
-  /// ColorsSchemes with softer colors than Material 3 defaults.
+  /// ColorsSchemes with softer colors than Material-3 defaults.
   ///
   /// Primary chroma is 30, secondary 14 and tertiary 20. Tones are same as
   /// in Material 3 default setup.
@@ -648,8 +698,9 @@ class FlexTones with Diagnosticable {
               neutralVariantChroma: 10,
             );
 
-  /// Create a M3 tonal palette tones extraction, but with no hue rotation
-  /// from primary if no ARGB key color is provided for tertiary palette.
+  /// Create a Material-3 tonal palette tones extraction, but with no hue
+  /// rotation from primary if no ARGB key color is provided for tertiary
+  /// palette.
   ///
   /// This setup will if only one seed color is used, produce a slightly more
   /// chromatic color set than [FlexTones.material], since it does not rotate
@@ -751,8 +802,12 @@ class FlexTones with Diagnosticable {
               neutralVariantChroma: 4,
             );
 
-  /// Creates a tonal palette setup that results in a high contrast colorful
-  /// theme with background and surface tone 98, in light mode and very low
+  /// Creates a tonal palette setup that result in a color scheme that follows
+  /// chroma of each used seed color. Useful for manual control of pop or low
+  /// chromacity.
+  ///
+  /// Uses low surface tint and neutrals with medium chroma.
+  /// Theme with background and surface tone 98, in light mode and very low
   /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
   /// (3 and 6). Dark mode uses dark surface and background tone 6.
   factory FlexTones.chroma(Brightness brightness) =>
