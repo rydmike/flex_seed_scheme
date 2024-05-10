@@ -7,12 +7,14 @@ import '../../utils/flex_color_extension.dart';
 /// Copy the color value as a String to the Clipboard in Flutter Dart format.
 ///
 /// Notify with [SnackBar] that it was copied.
-Future<void> copyColorToClipboard(BuildContext context, Color color) async {
+Future<void> copyColorToClipboard(BuildContext context, Color color,
+    [String label = '']) async {
   final ClipboardData data = ClipboardData(text: '0x${color.hexAlpha}');
   await Clipboard.setData(data);
   final String materialName = ColorTools.materialName(color);
   final String nameThatColor = ColorTools.nameThatColor(color);
   final String space = materialName == '' ? '' : ' ';
+  final String spaceLabel = label == '' ? '' : ' ';
   // Show a snack bar with the copy message.
   if (context.mounted) {
     final double? width = MediaQuery.of(context).size.width > 800 ? 700 : null;
@@ -38,8 +40,8 @@ Future<void> copyColorToClipboard(BuildContext context, Color color) async {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                'Copied color $nameThatColor $materialName${space}to '
-                'the clipboard',
+                'Copied color $label$spaceLabel$nameThatColor '
+                '$materialName${space}to the clipboard',
               ),
             ),
           ],

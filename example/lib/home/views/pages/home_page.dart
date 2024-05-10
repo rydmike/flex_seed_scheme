@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../about/views/about.dart';
 import '../../../core/constants/app_data.dart';
+import '../../../core/views/universal/color_scheme_view.dart';
 import '../../../core/views/universal/showcase_material.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import '../widgets/flex_tones_popup_menu.dart';
-import '../widgets/show_color_scheme_colors.dart';
 import '../widgets/show_input_colors.dart';
 import '../widgets/show_tonal_palette.dart';
 
@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: ShowColorSchemeColors(),
+            child: ColorSchemeView(),
           ),
           const SizedBox(height: 16),
           const Divider(),
