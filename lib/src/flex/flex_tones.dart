@@ -879,9 +879,12 @@ class FlexTones with Diagnosticable {
   /// what is appropriate contrast for its color pair.
   ///
   /// This will make the seeded on colors for [onPrimary], [onPrimaryContainer],
-  /// [onSecondary], [onSecondaryContainer], [onTertiary],
-  /// [onTertiaryContainer], [onError] and [onErrorContainer] pure black or
-  /// white, depending on need contrast, instead of tinted black and white.
+  /// [onPrimaryFixed], [onPrimaryFixedVariant], [onSecondary],
+  /// [onSecondaryContainer], [onSecondaryFixed], [onSecondaryFixedVariant],
+  /// [onTertiary], [onTertiaryContainer], [onTertiaryFixed],
+  /// [onTertiaryFixedVariant] as well as [onError] and [onErrorContainer] pure
+  /// black or white, depending on need contrast, instead of the its chroma
+  /// tinted black and white versions.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
@@ -897,10 +900,16 @@ class FlexTones with Diagnosticable {
     return copyWith(
       onPrimaryTone: primaryTone <= 60 ? 100 : 0,
       onPrimaryContainerTone: primaryContainerTone <= 60 ? 100 : 0,
+      onPrimaryFixedTone: primaryFixedTone <= 60 ? 100 : 0,
+      onPrimaryFixedVariantTone: primaryFixedDimTone <= 60 ? 100 : 0,
       onSecondaryTone: secondaryTone <= 60 ? 100 : 0,
       onSecondaryContainerTone: secondaryContainerTone <= 60 ? 100 : 0,
+      onSecondaryFixedTone: secondaryFixedTone <= 60 ? 100 : 0,
+      onSecondaryFixedVariantTone: secondaryFixedDimTone <= 60 ? 100 : 0,
       onTertiaryTone: tertiaryTone <= 60 ? 100 : 0,
       onTertiaryContainerTone: tertiaryContainerTone <= 60 ? 100 : 0,
+      onTertiaryFixedTone: tertiaryFixedTone <= 60 ? 100 : 0,
+      onTertiaryFixedVariantTone: tertiaryFixedDimTone <= 60 ? 100 : 0,
       onErrorTone: errorTone <= 60 ? 100 : 0,
       onErrorContainerTone: errorContainerTone <= 60 ? 100 : 0,
     );
