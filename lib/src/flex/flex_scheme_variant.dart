@@ -48,29 +48,52 @@ import 'flex_tones.dart';
 /// just use the enum values as input and use them to build your own UI
 /// for selecting and describing a scheme variant.
 enum FlexSchemeVariant {
-  /// Default for Material theme colors. Builds pastel palettes with a low
-  /// chroma.
+  /// A Dynamic Color theme with low to medium colorfulness and a Tertiary
+  /// Tonal Palette]with a hue related to the source color. The default
+  /// Material You theme on Android 12 and 13.
   ///
   /// This is the default seed generation used by Flutter SDK starting from
-  /// Flutter 3.22. The styles used before
+  /// Flutter 3.22. The tonal palette used before Flutter 3.22 was slightly
+  /// different and can be selected with [material3Legacy].
+  ///
+  /// This modified palette uses chroma 36 on primary palette, previous one used
+  /// 48. It uses chroma 6 on neutral palette, where the previous one used 4.
   tonalSpot(
     variantName: 'Tonal spot',
-    description: 'Default for Material theme colors. Builds pastel palettes '
-        'with a low chroma.',
-    configDetails: '',
-    icon: Icons.filter_3,
-    shade: 0,
+    description: 'Default for Material-3 theme colors. Results in pastel '
+        'palettes with low chroma.',
+    configDetails: 'Primary - Chroma from key color, but min 36\n'
+        'Secondary - Chroma set to 16\n'
+        'Tertiary - Chroma set to 24\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma set to 6\n'
+        'Neutral variant - Chroma set to 8\n'
+        'Flutter SDK style: YES',
+    icon: Icons.looks_3_outlined,
+    shade: -6,
     isFlutterScheme: true,
   ),
 
-  /// The resulting color palettes match seed color, even if the seed color
-  /// is very bright (high chroma).
+  /// A scheme that places the source color in Scheme primaryContainer.
+  ///
+  /// Primary Container is the source color, adjusted for color relativity.
+  /// It maintains constant appearance in light mode and dark mode.
+  /// This adds ~5 tone in light mode, and subtracts ~5 tone in dark mode.
+  ///
+  /// Tertiary Container is the complement to the source color, using
+  /// TemperatureCache. It also maintains constant appearance.
   fidelity(
     variantName: 'Fidelity',
     description: 'The resulting color palettes match seed color, also when '
-        'the seed color is very bright, using high chroma.',
-    configDetails: '',
-    icon: Icons.blur_circular,
+        'the seed color is very bright and using high chroma.',
+    configDetails: 'Primary - Chroma from key color\n'
+        'Secondary - Max of: chroma from key -32 or *0.5\n'
+        'Tertiary - TemperatureCache complement\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma from key /8\n'
+        'Neutral variant - Chroma from key /8 +4\n'
+        'Flutter SDK style: YES',
+    icon: Icons.grain_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
@@ -79,56 +102,98 @@ enum FlexSchemeVariant {
   monochrome(
     variantName: 'Monochrome',
     description: 'All colors are grayscale, with no chroma.',
-    configDetails: '',
-    icon: Icons.blur_circular,
-    shade: 0,
+    configDetails: 'Primary - Chroma 0\n'
+        'Secondary - Chroma 0\n'
+        'Tertiary - Chroma 0\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma 0\n'
+        'Neutral variant - Chroma 0\n'
+        'Flutter SDK style: YES',
+    icon: Icons.filter_b_and_w_outlined,
+    shade: 10,
     isFlutterScheme: true,
   ),
 
-  /// Close to grayscale, a hint of chroma.
+  /// A scheme that is near grayscale.
   neutral(
     variantName: 'Neutral',
     description: 'Close to grayscale, but with a hint of chroma.',
-    configDetails: '',
-    icon: Icons.blur_circular,
-    shade: 0,
+    configDetails: 'Primary - Chroma 12\n'
+        'Secondary - Chroma 8\n'
+        'Tertiary - Chroma 16\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma 2\n'
+        'Neutral variant - Chroma 2\n'
+        'Flutter SDK style: YES',
+    icon: Icons.gradient_outlined,
+    shade: -10,
     isFlutterScheme: true,
   ),
 
-  /// Pastel colors, high chroma palettes. The primary palette's chroma is at
-  /// maximum. Use `fidelity` instead if tokens should alter their tone to match
-  /// the palette vibrancy.
+  /// A scheme that maxes out colorfulness at each position in the
+  /// Primary TonalPalette.
+  ///
+  /// The primary palette's chroma is at maximum. Use `fidelity` instead if
+  /// tokens should alter their tone to match the palette vibrancy.
   vibrant(
     variantName: 'Vibrant',
-    description: 'Pastel colors, high chroma palettes. '
-        'The primary palette chroma is at maximum.',
-    configDetails: '',
-    icon: Icons.blur_circular,
+    description: 'Maxed out colorfulness at each position in the primary '
+        'palette',
+    configDetails: 'Primary - Chroma 200\n'
+        'Secondary - Chroma 24\n'
+        'Tertiary - Chroma 32\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma 10\n'
+        'Neutral variant - Chroma 12\n'
+        'Flutter SDK style: YES',
+    icon: Icons.flare_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
 
-  /// Pastel colors, medium chroma palettes. The primary palette's hue is
-  /// different from the seed color, for variety.
+  /// A scheme that is intentionally detached from the input color.
+  /// The primary palette's hue is different from the seed color, for variety.
   expressive(
     variantName: 'Expressive',
-    description: 'Pastel colors, medium chroma palettes. The primary palette '
-        'hue is different from the seed color, for variety.',
-    configDetails: '',
-    icon: Icons.blur_circular,
+    description: 'Primary palette hue is intentionally different from the '
+        'seed color.',
+    configDetails: 'Primary - Hue+240, Chroma 40\n'
+        'Secondary - Hue rotations, Chroma 24\n'
+        'Tertiary - Hue rotations, Chroma 32\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Hue +15, Chroma 8\n'
+        'Neutral variant - Hue +15, Chroma 12\n'
+        'Flutter SDK style: YES',
+    icon: Icons.shuffle_on_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
 
   /// Almost identical to `fidelity`. Tokens and palettes match the seed color.
+  ///
   /// [ColorScheme.primaryContainer] is the seed color, adjusted to ensure
   /// contrast with surfaces. The tertiary palette is analogue of the seed
   /// color.
+  ///
+  /// Primary Container is the source color, adjusted for color relativity.
+  /// It maintains constant appearance in light mode and dark mode.
+  /// This adds ~5 tone in light mode, and subtracts ~5 tone in dark mode.
+  ///
+  /// Tertiary Container is an analogous color, specifically, the analog of a
+  /// color wheel divided into 6, and the precise analog is the one found by
+  /// increasing hue. It also maintains constant appearance.
   content(
-    variantName: '',
-    description: '',
-    configDetails: '',
-    icon: Icons.blur_circular,
+    variantName: 'Content',
+    description: 'Tokens and palettes match the seed color. Good for image '
+        'color extracted seed color.',
+    configDetails: 'Primary - Chroma from key color\n'
+        'Secondary - Max of: chroma from key -32 or *0.5\n'
+        'Tertiary - TemperatureCache analogous last\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma from key /8\n'
+        'Neutral variant - Chroma from key /8 +4\n'
+        'Flutter SDK style: YES',
+    icon: Icons.image_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
@@ -136,10 +201,17 @@ enum FlexSchemeVariant {
   /// A playful theme - the seed color's hue does not appear in the theme.
   rainbow(
     variantName: 'Rainbow',
+    // TODO(rydmike): But it does, but this is what MCU and SDK says, so...
     description: "A playful theme. The seed color's hue does not appear in "
         'the theme.',
-    configDetails: '',
-    icon: Icons.blur_circular,
+    configDetails: 'Primary - Chroma 48\n'
+        'Secondary - Chroma 16\n'
+        'Tertiary - Hue +60, Chroma 24\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma 0\n'
+        'Neutral variant - Chroma 0\n'
+        'Flutter SDK style: YES',
+    icon: Icons.looks_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
@@ -149,8 +221,14 @@ enum FlexSchemeVariant {
     variantName: 'Fruit salad',
     description: "A playful theme. The seed color's hue does not appear in "
         'the theme.',
-    configDetails: '',
-    icon: Icons.blur_circular,
+    configDetails: 'Primary - Hue -50, Chroma 12\n'
+        'Secondary - Hue -50, Chroma 36\n'
+        'Tertiary - Chroma 36\n'
+        'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
+        'Neutral - Chroma 10\n'
+        'Neutral variant - Chroma 16\n'
+        'Flutter SDK style: YES',
+    icon: Icons.filter_vintage_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
@@ -181,9 +259,9 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 8\n'
-        'Tonal palette - Common',
-    icon: Icons.blur_circular,
-    shade: -5,
+        'Flutter SDK style: NO',
+    icon: Icons.looks_3_outlined,
+    shade: -6,
     isFlutterScheme: false,
   ),
 
@@ -210,8 +288,8 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Tonal palette - Common',
-    icon: Icons.blur_circular,
+        'Flutter SDK style: NO',
+    icon: Icons.filter_3,
     shade: -5,
     isFlutterScheme: false,
   ),
@@ -230,7 +308,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.blur_on,
     shade: 2,
     isFlutterScheme: false,
@@ -253,7 +331,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.tonality,
     shade: 6,
     isFlutterScheme: false,
@@ -287,7 +365,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.radio_button_checked,
     shade: 10,
     isFlutterScheme: false,
@@ -336,7 +414,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 3\n'
         'Neutral variant - Chroma set to 6\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.lens,
     shade: 20,
     isFlutterScheme: false,
@@ -353,7 +431,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 10\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.sunny,
     shade: 8,
     isFlutterScheme: false,
@@ -372,7 +450,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.panorama_wide_angle_select_rounded,
     shade: 10,
     isFlutterScheme: false,
@@ -397,7 +475,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Tonal palette - Common',
+        'Flutter SDK style: NO',
     icon: Icons.looks_one_rounded,
     shade: 7,
     isFlutterScheme: false,
@@ -421,7 +499,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2\n'
         'Neutral variant - Chroma set to 4\n'
-        'Tonal palette - Extended',
+        'Flutter SDK style: NO',
     icon: Icons.join_left_outlined,
     shade: 9,
     isFlutterScheme: false,
@@ -447,7 +525,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2 (L), 3 (D)\n'
         'Neutral variant - Chroma set to 4 (L), 6 (D)\n'
-        'Tonal palette - Extended',
+        'Flutter SDK style: NO',
     icon: Icons.lens_outlined,
     shade: 3,
     isFlutterScheme: false,
