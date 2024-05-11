@@ -10,7 +10,7 @@ This release adds support for the revised Material-3 `ColorScheme` released in F
 
 * **CHANGE**
   * Bring the internal Material Color Utilities (MCU) library version to parity with its latest package release 0.11.1. Flutter SDK stable 3.22 still uses MCU 0.8.0, but the Flutter master channel is using MCU 0.11.1.
-  * The `FlexPaletteType.extended` tones got a new tone added, tone 24. It now has 26 tones.
+  * The `FlexPaletteType.extended` tones got two new tones added, tone 2, and 24. It now has 27 tones.
   
 
 * **NEW**
