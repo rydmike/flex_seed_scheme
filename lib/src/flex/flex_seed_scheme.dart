@@ -925,7 +925,6 @@ extension SeedColorScheme on ColorScheme {
     final bool isDark = brightness == Brightness.dark;
     final Hct sourceColor = Hct.fromInt(seedColor.value);
     return switch (variant) {
-      FlexSchemeVariant.disabled ||
       FlexSchemeVariant.material ||
       FlexSchemeVariant.material3Legacy ||
       FlexSchemeVariant.soft ||

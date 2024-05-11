@@ -58,7 +58,7 @@ enum FlexSchemeVariant {
     description: 'Default for Material theme colors. Builds pastel palettes '
         'with a low chroma.',
     configDetails: '',
-    icon: Icons.blur_circular,
+    icon: Icons.filter_3,
     shade: 0,
     isFlutterScheme: true,
   ),
@@ -122,7 +122,8 @@ enum FlexSchemeVariant {
 
   /// Almost identical to `fidelity`. Tokens and palettes match the seed color.
   /// [ColorScheme.primaryContainer] is the seed color, adjusted to ensure
-  /// contrast with surfaces. The tertiary palette is analogue of the seed color.
+  /// contrast with surfaces. The tertiary palette is analogue of the seed
+  /// color.
   content(
     variantName: '',
     description: '',
@@ -154,26 +155,10 @@ enum FlexSchemeVariant {
     isFlutterScheme: true,
   ),
 
-  /// A scheme variant that can be used to indicate and describe that a seed
-  /// generated ColorScheme is not used in user interfaces.
-  ///
-  /// If actually selected and used to generate a ColorScheme, it will result
-  /// in same result as [tonalSpot].
-  disabled(
-    variantName: 'None',
-    description: 'Tonal palettes are not in use',
-    configDetails: 'Key color based tonal palettes are not used.\n'
-        'Enable at least one key color to seed the palettes.\n'
-        'Primary color must always be included as a key color.',
-    icon: Icons.texture_outlined,
-    shade: -5,
-    isFlutterScheme: true,
-  ),
-
   /// A Material-3 standard tonal palette tones extraction using HCT
   /// based chroma.
   ///
-  /// This setup will if only one seed color is used, produce the same result
+  /// This setup will when only one seed color is used, produce the same result
   /// as Flutter SDK does when using [ColorScheme.fromSeed] in
   /// Flutter version 3.22 and later.
   ///
@@ -515,7 +500,6 @@ enum FlexSchemeVariant {
       case FlexSchemeVariant.content:
       case FlexSchemeVariant.rainbow:
       case FlexSchemeVariant.fruitSalad:
-      case FlexSchemeVariant.disabled:
       case FlexSchemeVariant.material:
         return FlexTones.material(brightness);
       case FlexSchemeVariant.material3Legacy:
