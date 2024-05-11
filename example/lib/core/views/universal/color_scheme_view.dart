@@ -354,6 +354,8 @@ class ColorSchemeView extends StatelessWidget {
                   ),
                 ],
               ),
+              // TODO(rydmike): Remove deprecated colors in Flutter 3.25.
+              // Show the deprecated colors.
               ColorGroup(
                 children: <Widget>[
                   ColorChip(

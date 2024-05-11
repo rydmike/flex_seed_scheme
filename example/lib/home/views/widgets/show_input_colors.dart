@@ -45,7 +45,7 @@ class ShowInputColors extends StatelessWidget {
     final Color onTertiary = _onColor(tertiary);
     final Color error = controller.errorSeedColor;
     final Color onError = _onColor(error);
-    final Color background = colorScheme.background;
+    final Color surface = colorScheme.surface;
 
     // Grab the card border from the theme card shape
     ShapeBorder? border = theme.cardTheme.shape;
@@ -142,8 +142,7 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color:
-                          controller.useSecondaryKey ? secondary : background,
+                      color: controller.useSecondaryKey ? secondary : surface,
                       child: ColorPickerInkWellDialog(
                         color: secondary,
                         onChanged: controller.setSecondarySeedColor,
@@ -157,12 +156,11 @@ class ShowInputColors extends StatelessWidget {
                         enabled: controller.useSecondaryKey,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc secondary $secondary'),
-                          color: controller.useSecondaryKey
-                              ? secondary
-                              : background,
+                          color:
+                              controller.useSecondaryKey ? secondary : surface,
                           textColor: controller.useSecondaryKey
                               ? onSecondary
-                              : background,
+                              : surface,
                           showInputColor: false,
                           label: 'secondary',
                           showMaterialName: true,
@@ -184,10 +182,9 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color: controller.useTertiaryKey ? tertiary : background,
+                      color: controller.useTertiaryKey ? tertiary : surface,
                       child: ColorPickerInkWellDialog(
-                        color:
-                            controller.useTertiaryKey ? tertiary : background,
+                        color: controller.useTertiaryKey ? tertiary : surface,
                         onChanged: controller.setTertiarySeedColor,
                         recentColors: controller.recentColors,
                         onRecentColorsChanged: controller.setRecentColors,
@@ -199,11 +196,9 @@ class ShowInputColors extends StatelessWidget {
                         enabled: controller.useTertiaryKey,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc tertiary $tertiary'),
-                          color:
-                              controller.useTertiaryKey ? tertiary : background,
-                          textColor: controller.useTertiaryKey
-                              ? onTertiary
-                              : background,
+                          color: controller.useTertiaryKey ? tertiary : surface,
+                          textColor:
+                              controller.useTertiaryKey ? onTertiary : surface,
                           label: 'tertiary',
                           showInputColor: false,
                           showMaterialName: true,
@@ -224,9 +219,9 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color: controller.useErrorKey ? error : background,
+                      color: controller.useErrorKey ? error : surface,
                       child: ColorPickerInkWellDialog(
-                        color: controller.useErrorKey ? error : background,
+                        color: controller.useErrorKey ? error : surface,
                         onChanged: controller.setErrorSeedColor,
                         recentColors: controller.recentColors,
                         onRecentColorsChanged: controller.setRecentColors,
@@ -238,9 +233,8 @@ class ShowInputColors extends StatelessWidget {
                         enabled: controller.useErrorKey,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc error $error'),
-                          color: controller.useErrorKey ? error : background,
-                          textColor:
-                              controller.useErrorKey ? onError : background,
+                          color: controller.useErrorKey ? error : surface,
+                          textColor: controller.useErrorKey ? onError : surface,
                           label: 'error',
                           showInputColor: false,
                           showMaterialName: true,
