@@ -18,7 +18,7 @@ class ShowTonalPalette extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final Brightness brightness = theme.brightness;
     // Get the FlexTones setup
-    final FlexTones tones = controller.usedTone.tones(brightness);
+    final FlexTones tones = controller.usedVariant.tones(brightness);
     // Type of palette to show.
     final FlexPaletteType paletteType = controller.paletteType;
 

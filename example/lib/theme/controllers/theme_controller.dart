@@ -2,7 +2,7 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../model/flex_tones_enum.dart';
+// import '../model/flex_tones_enum.dart';
 
 /// A ChangeNotifier controller used to control inputs that configures the
 /// ColorScheme in ThemeData and ThemeMode.
@@ -99,12 +99,12 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  FlexTonesEnum _usedTone = FlexTonesEnum.material;
-  FlexTonesEnum get usedTone => _usedTone;
-  void setUsedTone(FlexTonesEnum? value, [bool notify = true]) {
+  FlexSchemeVariant _usedVariant = FlexSchemeVariant.tonalSpot;
+  FlexSchemeVariant get usedVariant => _usedVariant;
+  void setUsedTone(FlexSchemeVariant? value, [bool notify = true]) {
     if (value == null) return;
-    if (value == _usedTone) return;
-    _usedTone = value;
+    if (value == _usedVariant) return;
+    _usedVariant = value;
     if (notify) notifyListeners();
   }
 

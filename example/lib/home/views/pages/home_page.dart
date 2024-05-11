@@ -54,14 +54,14 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           FlexTonesPopupMenu(
-            title: 'Used FlexTones seed strategy:',
-            tone: controller.usedTone,
+            title: 'Selected scheme variant:',
+            variant: controller.usedVariant,
             onChanged: controller.setUsedTone,
           ),
           ListTile(
-            title: Text('${controller.usedTone.toneLabel}'
-                ' FlexTones uses:'),
-            subtitle: Text('${controller.usedTone.setup}\n'),
+            title: Text('${controller.usedVariant.variantName}'
+                ' scheme variant configuration info:'),
+            subtitle: Text('${controller.usedVariant.configDetails}\n'),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
