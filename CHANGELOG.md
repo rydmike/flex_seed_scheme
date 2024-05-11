@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 2.0.0-dev.1
 
-**May 10, 2024**
+**May 11, 2024**
 
 This release adds support for the revised Material-3 `ColorScheme` released in Flutter version 3.22.
 
