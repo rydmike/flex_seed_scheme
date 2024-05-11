@@ -96,35 +96,27 @@ class FlexTonalPalette {
   /// [FlexTonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [FlexTonalPalette] has 13 common tones and
-  /// [FlexTonalPalette] 15.
+  /// Flutter SDK [TonalPalette] has 13 common tones and [FlexTonalPalette] 15.
   static const int commonSize = 15;
 
   /// Extended one values in a [FlexTonalPalette].
   ///
-  /// Contains custom tones 5 and 98, in addition to the 13 tones included
-  /// in the Material 3 guide tonal palette. The tone 98 used to exist in the
-  /// [Web Material Theme Builder app](https://m3.material.io/theme-builder#/custom),
-  /// but no longer does. It never existed in Flutter or
-  /// [Material Color Utilities package](https://pub.dev/packages/material_color_utilities).
-  /// Tone 5 is custom addition used in e.g. in [FlexTones.ultraContrast].
+  /// Contains custom tones 2, 5 and 97 in addition to the 13 tones included
+  /// in the Material 3 guide tonal palette.
   ///
-  /// The added tones 4, 6, 12, 17, 22 and 24 are for new dark mode surfaces in
-  /// revised Material 3 dark surface colors. Likewise added tones
-  /// 97, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
+  /// The added tones 4, 6, 12, 17, 22 and 24 are for new dark mode surfaces
+  /// in revised Material 3 dark surface colors. Likewise added tones
+  /// 98, 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
   /// color system. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   /// The additional tones in the Material 3 specification appeared during later
-  /// pert of first half of 2023.
+  /// part of first half of 2023.
   ///
-  /// Tones 5, 97, and 98 are not in old or new M3 spec, but FlexSeedScheme
-  /// includes them to enable even more fidelity in dark and even more so in
-  /// the light tones.
-  ///
-  /// Tone 98 provides optional tonal fidelity in the light and white end of the
-  /// palette and tone 5 a more dark tone in the black end of the palette.
+  /// Tones 2, 5, and 97 are not in old or new M3 spec, but FlexSeedScheme
+  /// includes them to enable even more fidelity in dark and light tones.
   static const List<int> extendedTones = <int>[
     0,
+    2,
     4,
     5,
     6,
@@ -162,9 +154,8 @@ class FlexTonalPalette {
   /// to [FlexTonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [FlexTonalPalette] has 13 tones,
-  /// [FlexTonalPalette] extended 26.
-  static const int extendedSize = 26;
+  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 27.
+  static const int extendedSize = 27;
 
   /// The hue of the palette.
   final double hue;
