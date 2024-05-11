@@ -652,7 +652,8 @@ void main() {
       final List<int> m1List = m1.primary.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -678,12 +679,13 @@ void main() {
         'CorePalette.of using same input color '
         'EXPECT secondary palette lists to be equal without extended tones',
         () {
-      // If we remove the tones 5 and 98 that MaterialColorUtilities
+      // If we remove the tones that MaterialColorUtilities
       // CorePalette.of does not include, our custom tones list should be equal.
       final List<int> m1List = m1.secondary.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -708,12 +710,13 @@ void main() {
         'FCP2.03: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT tertiary palette lists to be equal without extended tones', () {
-      // If we remove the tones 5 and 98 that MaterialColorUtilities
+      // If we remove the tones that MaterialColorUtilities
       // CorePalette.of does not include, our custom tones list should be equal.
       final List<int> m1List = m1.tertiary.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -743,7 +746,8 @@ void main() {
       final List<int> m1List = m1.error.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -768,12 +772,13 @@ void main() {
         'FCP2.05: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT neutral palette lists to be equal without extended tones', () {
-      // If we remove the tones 5 and 98 that MaterialColorUtilities
+      // If we remove the tones that MaterialColorUtilities
       // CorePalette.of does not include, our custom tones list should be equal.
       final List<int> m1List = m1.neutral.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -798,12 +803,13 @@ void main() {
         'FCP2.06: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT neutralVariant palette lists equal without extended tones', () {
-      // If we remove the tones 5 and 98 that MaterialColorUtilities
+      // If we remove the tones that MaterialColorUtilities
       // CorePalette.of does not include, our custom tones list should be equal.
       final List<int> m1List = m1.neutralVariant.asList;
       final List<int> m1NoCustomTonesList = <int>[];
       for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-        if (FlexTonalPalette.extendedTones[i] != 4 &&
+        if (FlexTonalPalette.extendedTones[i] != 2 &&
+            FlexTonalPalette.extendedTones[i] != 4 &&
             FlexTonalPalette.extendedTones[i] != 5 &&
             FlexTonalPalette.extendedTones[i] != 6 &&
             FlexTonalPalette.extendedTones[i] != 12 &&
@@ -838,6 +844,7 @@ void main() {
         'EXPECT a given list result', () {
       expect(m3.asList(), <int>[
         4278190080,
+        4278845480,
         4279435322,
         4279631937,
         4279828552,
@@ -864,6 +871,7 @@ void main() {
         4294966271,
         4294967295,
         4278190080,
+        4278781205,
         4279241501,
         4279438880,
         4279570466,
@@ -890,6 +898,7 @@ void main() {
         4294966271,
         4294967295,
         4278190080,
+        4279697673,
         4280353808,
         4280550930,
         4280748053,
@@ -916,6 +925,7 @@ void main() {
         4294966271,
         4294967295,
         4278190080,
+        4278716170,
         4279176721,
         4279373844,
         4279505686,
@@ -942,6 +952,7 @@ void main() {
         4294966271,
         4294967295,
         4278190080,
+        4278715917,
         4279176468,
         4279373847,
         4279505434,
@@ -968,6 +979,7 @@ void main() {
         4294966271,
         4294967295,
         4278190080,
+        4279894016,
         4280811521,
         4281139201,
         4281401345,
@@ -1013,6 +1025,7 @@ void main() {
         m4.asList(),
         <int>[
           4278190080,
+          4278845480,
           4279435322,
           4279631937,
           4279828552,
@@ -1039,6 +1052,7 @@ void main() {
           4294966271,
           4294967295,
           4278190080,
+          4278781206,
           4279241501,
           4279438880,
           4279636003,
@@ -1065,6 +1079,7 @@ void main() {
           4294966271,
           4294967295,
           4278190080,
+          4279697673,
           4280288272,
           4280550930,
           4280748309,
@@ -1091,6 +1106,7 @@ void main() {
           4294966271,
           4294967295,
           4278190080,
+          4278716170,
           4279176721,
           4279373844,
           4279505686,
@@ -1117,6 +1133,7 @@ void main() {
           4294966271,
           4294967295,
           4278190080,
+          4278715917,
           4279176468,
           4279373847,
           4279505434,
@@ -1143,6 +1160,7 @@ void main() {
           4294966271,
           4294967295,
           4278190080,
+          4279894016,
           4280811521,
           4281139201,
           4281401345,
@@ -1256,6 +1274,7 @@ void main() {
         equals(
           FlexCorePalette.fromList(const <int>[
             4278190080,
+            4278845480,
             4279435322,
             4279631937,
             4279828552,
@@ -1282,6 +1301,7 @@ void main() {
             4294966271,
             4294967295,
             4278190080,
+            4278781205,
             4279241501,
             4279438880,
             4279570466,
@@ -1308,6 +1328,7 @@ void main() {
             4294966271,
             4294967295,
             4278190080,
+            4279697673,
             4280353808,
             4280550930,
             4280748053,
@@ -1334,6 +1355,7 @@ void main() {
             4294966271,
             4294967295,
             4278190080,
+            4278716170,
             4279176721,
             4279373844,
             4279505686,
@@ -1360,6 +1382,7 @@ void main() {
             4294966271,
             4294967295,
             4278190080,
+            4278715917,
             4279176468,
             4279373847,
             4279505434,
@@ -1386,6 +1409,7 @@ void main() {
             4294966271,
             4294967295,
             4278190080,
+            4279894016,
             4280811521,
             4281139201,
             4281401345,

@@ -243,6 +243,7 @@ void main() {
       // m4, is tonal palette from list
       final FlexTonalPalette m4 = FlexTonalPalette.fromList(const <int>[
         4278190080,
+        4279567104,
         4280354304,
         4280616704,
         4280879360,
@@ -272,6 +273,7 @@ void main() {
       // m5, is tonal palette from list, same as m4
       final FlexTonalPalette m5 = FlexTonalPalette.fromList(const <int>[
         4278190080,
+        4279567104,
         4280354304,
         4280616704,
         4280879360,
@@ -371,7 +373,8 @@ void main() {
         final List<int> m1List = m1.asList;
         final List<int> m1NoCustomTonesList = <int>[];
         for (int i = 0; i <= FlexTonalPalette.extendedTones.length - 1; i++) {
-          if (FlexTonalPalette.extendedTones[i] != 4 &&
+          if (FlexTonalPalette.extendedTones[i] != 2 &&
+              FlexTonalPalette.extendedTones[i] != 4 &&
               FlexTonalPalette.extendedTones[i] != 5 &&
               FlexTonalPalette.extendedTones[i] != 6 &&
               FlexTonalPalette.extendedTones[i] != 12 &&
@@ -396,6 +399,7 @@ void main() {
           'FTP2.U06: GIVEN to FlexTonalPalette fromList extended '
           'EXPECT it to be equal to same created '
           'with FlexTonalPalette.of extended ', () {
+        print(m1.asList);
         expect(
           m1,
           equals(m4),
@@ -410,7 +414,7 @@ void main() {
           m4.toString(),
           equals(
               // ignore: lines_longer_than_80_chars
-              'FlexTonalPalette.fromList([4278190080, 4280354304, 4280616704, 4280879360, 4281798144, 4282257664, 4283373568, 4284095488, 4284555008, 4285014528, 4286524160, 4288692500, 4290795563, 4292964674, 4294937692, 4294948249, 4294955198, 4294958030, 4294959832, 4294961634, 4294962663, 4294963692, 4294964465, 4294965494, 4294966271, 4294967295], FlexPaletteType.extended)'),
+              'FlexTonalPalette.fromList([4278190080, 4279567104, 4280354304, 4280616704, 4280879360, 4281798144, 4282257664, 4283373568, 4284095488, 4284555008, 4285014528, 4286524160, 4288692500, 4290795563, 4292964674, 4294937692, 4294948249, 4294955198, 4294958030, 4294959832, 4294961634, 4294962663, 4294963692, 4294964465, 4294965494, 4294966271, 4294967295], FlexPaletteType.extended)'),
         );
       });
       test(
@@ -418,6 +422,7 @@ void main() {
           'EXPECT each of its tones to match output asList via get', () {
         const List<int> m1List = <int>[
           4278190080,
+          4279567104,
           4280354304,
           4280616704,
           4280879360,
@@ -456,6 +461,7 @@ void main() {
           'EXPECT each of its tones to match output asList via get', () {
         const List<int> m5List = <int>[
           4278190080,
+          4279567104,
           4280354304,
           4280616704,
           4280879360,
