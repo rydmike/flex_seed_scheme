@@ -585,14 +585,12 @@ void main() {
         equals(
           const FlexTones.light(
             primaryTone: 30,
-            secondaryTone: 40,
             tertiaryTone: 30,
-            errorTone: 40,
-            primaryContainerTone: 90,
-            secondaryContainerTone: 90,
             tertiaryContainerTone: 95,
             errorContainerTone: 95,
             surfaceTintTone: 30,
+            surfaceTone: 99,
+            backgroundTone: 99,
             primaryChroma: null,
             secondaryChroma: null,
             tertiaryChroma: null,
@@ -608,10 +606,6 @@ void main() {
         FlexTones.highContrast(Brightness.dark),
         equals(
           const FlexTones.dark(
-            primaryTone: 80,
-            secondaryTone: 80,
-            tertiaryTone: 80,
-            errorTone: 80,
             onPrimaryTone: 10,
             onSecondaryTone: 10,
             onTertiaryTone: 10,
@@ -621,7 +615,12 @@ void main() {
             tertiaryContainerTone: 20,
             errorContainerTone: 20,
             onErrorContainerTone: 90,
-            surfaceTintTone: 80,
+            backgroundTone: 4,
+            onBackgroundTone: 96,
+            surfaceTone: 4,
+            onSurfaceTone: 96,
+            surfaceContainerLowestTone: 0,
+            surfaceContainerLowTone: 6,
             primaryChroma: null,
             secondaryChroma: null,
             tertiaryChroma: null,
@@ -638,19 +637,22 @@ void main() {
         equals(
           const FlexTones.light(
             primaryTone: 20,
-            tertiaryTone: 30,
-            onBackgroundTone: 0,
-            onSurfaceTone: 0,
-            primaryContainerTone: 90,
-            secondaryContainerTone: 90,
-            tertiaryContainerTone: 95,
-            errorContainerTone: 95,
             onPrimaryContainerTone: 5,
             onSecondaryContainerTone: 5,
+            tertiaryTone: 30,
+            tertiaryContainerTone: 95,
             onTertiaryContainerTone: 5,
+            errorContainerTone: 95,
             onErrorContainerTone: 5,
-            surfaceVariantTone: 95,
-            onSurfaceVariantTone: 10,
+            //
+            surfaceTone: 100,
+            backgroundTone: 100,
+            surfaceContainerLowTone: 98,
+            surfaceContainerTone: 96,
+            onBackgroundTone: 0,
+            onSurfaceTone: 0,
+            surfaceVariantTone: 96,
+            onSurfaceVariantTone: 6,
             onInverseSurfaceTone: 99,
             inversePrimaryTone: 90,
             outlineTone: 40,
@@ -672,20 +674,22 @@ void main() {
         equals(
           const FlexTones.dark(
             primaryTone: 90,
-            secondaryTone: 95,
-            tertiaryTone: 95,
-            onPrimaryTone: 5,
-            onSecondaryTone: 5,
-            onTertiaryTone: 5,
-            onErrorTone: 5,
+            onPrimaryTone: 2,
             onPrimaryContainerTone: 98,
+            secondaryTone: 95,
+            onSecondaryTone: 2,
             onSecondaryContainerTone: 98,
+            tertiaryTone: 95,
+            onTertiaryTone: 2,
             onTertiaryContainerTone: 98,
+            onErrorTone: 2,
             onErrorContainerTone: 98,
             //
-            surfaceTone: 5,
-            backgroundTone: 5,
+            backgroundTone: 2,
             onBackgroundTone: 99,
+            surfaceTone: 2,
+            surfaceContainerLowestTone: 0,
+            surfaceContainerLowTone: 6,
             onSurfaceTone: 99,
             surfaceVariantTone: 20,
             onSurfaceVariantTone: 95,
@@ -860,7 +864,7 @@ void main() {
       );
     });
     //
-    test('FTO1.033: Verify FlexTones.oneHue(Brightness.light).', () {
+    test('FTO1.033: Verify FlexTones.chroma(Brightness.light).', () {
       expect(
         FlexTones.chroma(Brightness.light),
         equals(
@@ -875,10 +879,10 @@ void main() {
             tertiaryContainerTone: 95,
             onTertiaryContainerTone: 6,
             //
-            backgroundTone: 98,
-            onBackgroundTone: 6,
-            surfaceTone: 98,
-            onSurfaceTone: 6,
+            backgroundTone: 99,
+            onBackgroundTone: 4,
+            surfaceTone: 99,
+            onSurfaceTone: 4,
             surfaceVariantTone: 92,
             onSurfaceVariantTone: 10,
             onInverseSurfaceTone: 98,
@@ -897,7 +901,7 @@ void main() {
         ),
       );
     });
-    test('FTO1.034: Verify FlexTones.oneHue(Brightness.dark).', () {
+    test('FTO1.034: Verify FlexTones.chroma(Brightness.dark).', () {
       expect(
         FlexTones.chroma(Brightness.dark),
         equals(
@@ -916,9 +920,11 @@ void main() {
             onErrorTone: 6,
             onErrorContainerTone: 95,
             //
-            backgroundTone: 6,
+            backgroundTone: 4,
             onBackgroundTone: 95,
-            surfaceTone: 6,
+            surfaceTone: 4,
+            surfaceContainerLowestTone: 2,
+            surfaceContainerLowTone: 6,
             onSurfaceTone: 95,
             surfaceVariantTone: 20,
             onSurfaceVariantTone: 90,

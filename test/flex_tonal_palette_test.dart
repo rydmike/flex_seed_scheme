@@ -399,7 +399,6 @@ void main() {
           'FTP2.U06: GIVEN to FlexTonalPalette fromList extended '
           'EXPECT it to be equal to same created '
           'with FlexTonalPalette.of extended ', () {
-        print(m1.asList);
         expect(
           m1,
           equals(m4),
