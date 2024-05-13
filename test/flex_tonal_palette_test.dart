@@ -1,4 +1,5 @@
 import 'package:flex_seed_scheme/src/flex/flex_tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
 import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -207,12 +208,20 @@ void main() {
           m5.get(FlexTonalPalette.commonTones[i]),
           equals(m5List[i]),
         );
+        expect(
+          m5.getHct(FlexTonalPalette.commonTones[i].toDouble()).toInt(),
+          equals(m5List[i]),
+        );
       }
     });
     test(
         'FTP1.U10: GIVEN a FlexTonalPalette.fromList '
         'EXPECT accessing none existing to tone to return a computed implied '
         'tone value', () {
+      expect(
+        m5.getHct(7).toInt(),
+        4281141760,
+      );
       expect(
         m5.get(7),
         4281141760,
@@ -501,6 +510,32 @@ void main() {
         expect(
           m5.get(7),
           4281141760,
+        );
+      });
+
+      ///
+      test(
+          'FTP1.U11: GIVEN a FlexTonalPalette of and from HCT common tones '
+          'EXPECT equal tonal palettes', () {
+        final Hct hct = Hct.fromInt(4294961634);
+        final FlexTonalPalette tonal = FlexTonalPalette.of(hct.hue, hct.chroma);
+        final FlexTonalPalette tonalHct = FlexTonalPalette.fromHct(hct);
+        expect(
+          tonal,
+          tonalHct,
+        );
+      });
+      test(
+          'FTP1.U12: GIVEN a FlexTonalPalette of and from HCT extended tones '
+          'EXPECT equal tonal palettes', () {
+        final Hct hct = Hct.fromInt(4294961634);
+        final FlexTonalPalette tonal =
+            FlexTonalPalette.of(hct.hue, hct.chroma, FlexPaletteType.extended);
+        final FlexTonalPalette tonalHct =
+            FlexTonalPalette.fromHct(hct, FlexPaletteType.extended);
+        expect(
+          tonal,
+          tonalHct,
         );
       });
     });

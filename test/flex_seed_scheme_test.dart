@@ -1,4 +1,5 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/material_dynamic_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -717,6 +718,159 @@ void main() {
         tones: null,
       );
       expect(scheme, equals(scheme2));
+    });
+    test(
+        'FCS7.013: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and variant vivid '
+        'EXPECT same as when null assigned to variant and tones '
+        'using FlexTones.vivid.', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        variant: FlexSchemeVariant.vivid,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        tones: FlexTones.vivid(Brightness.dark),
+      );
+      expect(scheme, equals(scheme2));
+    });
+
+    // ColorScheme test with DynamicScheme
+
+    test(
+        'FCS7.013: GIVEN Color values in SeedColorScheme.fromSeeds with '
+        'different variants EXPECT that it matches color values in '
+        'DynamicScheme when Flutter SDK scheme is used', () {
+      const Color seedColor = Colors.orange;
+      for (final FlexSchemeVariant schemeVariant in FlexSchemeVariant.values) {
+        final DynamicScheme dynamicScheme = SeedColorScheme.buildDynamicScheme(
+            Brightness.light, seedColor, schemeVariant);
+        final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
+          primaryKey: seedColor,
+          variant: schemeVariant,
+        );
+
+        if (schemeVariant.isFlutterScheme) {
+          expect(colorScheme.primary.value,
+              MaterialDynamicColors.primary.getArgb(dynamicScheme));
+          expect(colorScheme.onPrimary.value,
+              MaterialDynamicColors.onPrimary.getArgb(dynamicScheme));
+          expect(colorScheme.primaryContainer.value,
+              MaterialDynamicColors.primaryContainer.getArgb(dynamicScheme));
+          expect(colorScheme.onPrimaryContainer.value,
+              MaterialDynamicColors.onPrimaryContainer.getArgb(dynamicScheme));
+          expect(colorScheme.primaryFixed.value,
+              MaterialDynamicColors.primaryFixed.getArgb(dynamicScheme));
+          expect(colorScheme.primaryFixedDim.value,
+              MaterialDynamicColors.primaryFixedDim.getArgb(dynamicScheme));
+          expect(colorScheme.onPrimaryFixed.value,
+              MaterialDynamicColors.onPrimaryFixed.getArgb(dynamicScheme));
+          expect(
+              colorScheme.onPrimaryFixedVariant.value,
+              MaterialDynamicColors.onPrimaryFixedVariant
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.secondary.value,
+              MaterialDynamicColors.secondary.getArgb(dynamicScheme));
+          expect(colorScheme.onSecondary.value,
+              MaterialDynamicColors.onSecondary.getArgb(dynamicScheme));
+          expect(colorScheme.secondaryContainer.value,
+              MaterialDynamicColors.secondaryContainer.getArgb(dynamicScheme));
+          expect(
+              colorScheme.onSecondaryContainer.value,
+              MaterialDynamicColors.onSecondaryContainer
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.secondaryFixed.value,
+              MaterialDynamicColors.secondaryFixed.getArgb(dynamicScheme));
+          expect(colorScheme.secondaryFixedDim.value,
+              MaterialDynamicColors.secondaryFixedDim.getArgb(dynamicScheme));
+          expect(colorScheme.onSecondaryFixed.value,
+              MaterialDynamicColors.onSecondaryFixed.getArgb(dynamicScheme));
+          expect(
+              colorScheme.onSecondaryFixedVariant.value,
+              MaterialDynamicColors.onSecondaryFixedVariant
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.tertiary.value,
+              MaterialDynamicColors.tertiary.getArgb(dynamicScheme));
+          expect(colorScheme.onTertiary.value,
+              MaterialDynamicColors.onTertiary.getArgb(dynamicScheme));
+          expect(colorScheme.tertiaryContainer.value,
+              MaterialDynamicColors.tertiaryContainer.getArgb(dynamicScheme));
+          expect(colorScheme.onTertiaryContainer.value,
+              MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
+          expect(colorScheme.tertiaryFixed.value,
+              MaterialDynamicColors.tertiaryFixed.getArgb(dynamicScheme));
+          expect(colorScheme.tertiaryFixedDim.value,
+              MaterialDynamicColors.tertiaryFixedDim.getArgb(dynamicScheme));
+          expect(colorScheme.onTertiaryFixed.value,
+              MaterialDynamicColors.onTertiaryFixed.getArgb(dynamicScheme));
+          expect(
+              colorScheme.onTertiaryFixedVariant.value,
+              MaterialDynamicColors.onTertiaryFixedVariant
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.error.value,
+              MaterialDynamicColors.error.getArgb(dynamicScheme));
+          expect(colorScheme.onError.value,
+              MaterialDynamicColors.onError.getArgb(dynamicScheme));
+          expect(colorScheme.errorContainer.value,
+              MaterialDynamicColors.errorContainer.getArgb(dynamicScheme));
+          expect(colorScheme.onErrorContainer.value,
+              MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
+          expect(colorScheme.background.value,
+              MaterialDynamicColors.background.getArgb(dynamicScheme));
+          expect(colorScheme.onBackground.value,
+              MaterialDynamicColors.onBackground.getArgb(dynamicScheme));
+          expect(colorScheme.surface.value,
+              MaterialDynamicColors.surface.getArgb(dynamicScheme));
+          expect(colorScheme.surfaceDim.value,
+              MaterialDynamicColors.surfaceDim.getArgb(dynamicScheme));
+          expect(colorScheme.surfaceBright.value,
+              MaterialDynamicColors.surfaceBright.getArgb(dynamicScheme));
+          expect(
+              colorScheme.surfaceContainerLowest.value,
+              MaterialDynamicColors.surfaceContainerLowest
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.surfaceContainerLow.value,
+              MaterialDynamicColors.surfaceContainerLow.getArgb(dynamicScheme));
+          expect(colorScheme.surfaceContainer.value,
+              MaterialDynamicColors.surfaceContainer.getArgb(dynamicScheme));
+          expect(
+              colorScheme.surfaceContainerHigh.value,
+              MaterialDynamicColors.surfaceContainerHigh
+                  .getArgb(dynamicScheme));
+          expect(
+              colorScheme.surfaceContainerHighest.value,
+              MaterialDynamicColors.surfaceContainerHighest
+                  .getArgb(dynamicScheme));
+          expect(colorScheme.onSurface.value,
+              MaterialDynamicColors.onSurface.getArgb(dynamicScheme));
+          expect(colorScheme.surfaceVariant.value,
+              MaterialDynamicColors.surfaceVariant.getArgb(dynamicScheme));
+          expect(colorScheme.onSurfaceVariant.value,
+              MaterialDynamicColors.onSurfaceVariant.getArgb(dynamicScheme));
+          expect(colorScheme.outline.value,
+              MaterialDynamicColors.outline.getArgb(dynamicScheme));
+          expect(colorScheme.outlineVariant.value,
+              MaterialDynamicColors.outlineVariant.getArgb(dynamicScheme));
+          expect(colorScheme.shadow.value,
+              MaterialDynamicColors.shadow.getArgb(dynamicScheme));
+          expect(colorScheme.scrim.value,
+              MaterialDynamicColors.scrim.getArgb(dynamicScheme));
+          expect(colorScheme.inverseSurface.value,
+              MaterialDynamicColors.inverseSurface.getArgb(dynamicScheme));
+          expect(colorScheme.onInverseSurface.value,
+              MaterialDynamicColors.inverseOnSurface.getArgb(dynamicScheme));
+          expect(colorScheme.inversePrimary.value,
+              MaterialDynamicColors.inversePrimary.getArgb(dynamicScheme));
+        } else {
+          expect(true, true);
+        }
+      }
     });
   });
 }

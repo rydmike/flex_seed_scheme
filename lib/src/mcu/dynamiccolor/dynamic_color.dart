@@ -392,7 +392,7 @@ class DynamicColor {
       final bool negligibleDifference =
           (lighterRatio - darkerRatio).abs() < 0.1 &&
               lighterRatio < ratio &&
-              darkerRatio < ratio;
+              darkerRatio < ratio; // coverage:ignore-line
       return lighterRatio >= ratio ||
               lighterRatio >= darkerRatio ||
               negligibleDifference
