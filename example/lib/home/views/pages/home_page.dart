@@ -71,57 +71,91 @@ class HomePage extends StatelessWidget {
               dense: true,
               title: Text('Primary key color is always used to seed the '
                   'ColorScheme. Tap to change colors.')),
+          if (controller.usedVariant.isFlutterScheme)
+            const ListTile(
+              dense: true,
+              title: Text('Additional seed generation options are not '
+                  'available when using Flutter SDK scheme variant styles. '
+                  'Use a variant based on FlexTones for more options.'),
+            )
+          else
+            const ListTile(
+              dense: true,
+              title: Text('Additional seed generation option are available '
+                  'when using FlexTones based scheme variants.'),
+            ),
           const Divider(),
           SwitchListTile(
             dense: true,
             title:
                 const Text('Use secondary key color to seed the ColorScheme'),
-            value: controller.useSecondaryKey,
-            onChanged: controller.setUseSecondaryKey,
+            value: controller.useSecondaryKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseSecondaryKey,
           ),
           SwitchListTile(
             dense: true,
             title: const Text('Use tertiary key color to seed the ColorScheme'),
-            value: controller.useTertiaryKey,
-            onChanged: controller.setUseTertiaryKey,
+            value: controller.useTertiaryKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseTertiaryKey,
           ),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Use custom error key color to seed the ColorScheme'),
-            value: controller.useErrorKey,
-            onChanged: controller.setUseErrorKey,
+            value: controller.useErrorKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseErrorKey,
           ),
           const Divider(),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Keep main onColors in seeded ColorScheme black and white'),
-            value: controller.keepMainOnColorsBW,
-            onChanged: controller.setKeepMainOnColorsBW,
+            value: controller.keepMainOnColorsBW &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setKeepMainOnColorsBW,
           ),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Keep surface onColors in seeded ColorScheme black and white'),
-            value: controller.keepSurfaceOnColorsBW,
-            onChanged: controller.setKeepSurfaceOnColorsBW,
+            value: controller.keepSurfaceOnColorsBW &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setKeepSurfaceOnColorsBW,
           ),
           if (isLight)
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and background white in seeded '
                   'light ColorScheme'),
-              value: controller.keepLightSurfaceColorsWhite,
-              onChanged: controller.setKeepLightSurfaceColorsWhite,
+              value: controller.keepLightSurfaceColorsWhite &&
+                  !controller.usedVariant.isFlutterScheme,
+              onChanged: controller.usedVariant.isFlutterScheme
+                  ? null
+                  : controller.setKeepLightSurfaceColorsWhite,
             )
           else
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and background black in seeded '
                   'dark ColorScheme'),
-              value: controller.keepDarkSurfaceColorsBlack,
-              onChanged: controller.setKeepDarkSurfaceColorsBlack,
+              value: controller.keepDarkSurfaceColorsBlack &&
+                  !controller.usedVariant.isFlutterScheme,
+              onChanged: controller.usedVariant.isFlutterScheme
+                  ? null
+                  : controller.setKeepDarkSurfaceColorsBlack,
             ),
           const Divider(),
           Padding(

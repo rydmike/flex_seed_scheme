@@ -142,7 +142,10 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color: controller.useSecondaryKey ? secondary : surface,
+                      color: controller.useSecondaryKey &&
+                              !controller.usedVariant.isFlutterScheme
+                          ? secondary
+                          : surface,
                       child: ColorPickerInkWellDialog(
                         color: secondary,
                         onChanged: controller.setSecondarySeedColor,
@@ -153,12 +156,16 @@ class ShowInputColors extends StatelessWidget {
                             controller.setSecondarySeedColor(secondary);
                           }
                         },
-                        enabled: controller.useSecondaryKey,
+                        enabled: controller.useSecondaryKey &&
+                            !controller.usedVariant.isFlutterScheme,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc secondary $secondary'),
-                          color:
-                              controller.useSecondaryKey ? secondary : surface,
-                          textColor: controller.useSecondaryKey
+                          color: controller.useSecondaryKey &&
+                                  !controller.usedVariant.isFlutterScheme
+                              ? secondary
+                              : surface,
+                          textColor: controller.useSecondaryKey &&
+                                  !controller.usedVariant.isFlutterScheme
                               ? onSecondary
                               : surface,
                           showInputColor: false,
@@ -182,7 +189,10 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color: controller.useTertiaryKey ? tertiary : surface,
+                      color: controller.useTertiaryKey &&
+                              !controller.usedVariant.isFlutterScheme
+                          ? tertiary
+                          : surface,
                       child: ColorPickerInkWellDialog(
                         color: controller.useTertiaryKey ? tertiary : surface,
                         onChanged: controller.setTertiarySeedColor,
@@ -193,12 +203,18 @@ class ShowInputColors extends StatelessWidget {
                             controller.setTertiarySeedColor(tertiary);
                           }
                         },
-                        enabled: controller.useTertiaryKey,
+                        enabled: controller.useTertiaryKey &&
+                            !controller.usedVariant.isFlutterScheme,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc tertiary $tertiary'),
-                          color: controller.useTertiaryKey ? tertiary : surface,
-                          textColor:
-                              controller.useTertiaryKey ? onTertiary : surface,
+                          color: controller.useTertiaryKey &&
+                                  !controller.usedVariant.isFlutterScheme
+                              ? tertiary
+                              : surface,
+                          textColor: controller.useTertiaryKey &&
+                                  !controller.usedVariant.isFlutterScheme
+                              ? onTertiary
+                              : surface,
                           label: 'tertiary',
                           showInputColor: false,
                           showMaterialName: true,
@@ -219,7 +235,10 @@ class ShowInputColors extends StatelessWidget {
                     elevation: 0,
                     clipBehavior: Clip.hardEdge,
                     child: Material(
-                      color: controller.useErrorKey ? error : surface,
+                      color: controller.useErrorKey &&
+                              !controller.usedVariant.isFlutterScheme
+                          ? error
+                          : surface,
                       child: ColorPickerInkWellDialog(
                         color: controller.useErrorKey ? error : surface,
                         onChanged: controller.setErrorSeedColor,
@@ -230,11 +249,18 @@ class ShowInputColors extends StatelessWidget {
                             controller.setErrorSeedColor(error);
                           }
                         },
-                        enabled: controller.useErrorKey,
+                        enabled: controller.useErrorKey &&
+                            !controller.usedVariant.isFlutterScheme,
                         child: ColorNameValue(
                           key: ValueKey<String>('ipc error $error'),
-                          color: controller.useErrorKey ? error : surface,
-                          textColor: controller.useErrorKey ? onError : surface,
+                          color: controller.useErrorKey &&
+                                  !controller.usedVariant.isFlutterScheme
+                              ? error
+                              : surface,
+                          textColor: controller.useErrorKey &&
+                                  !controller.usedVariant.isFlutterScheme
+                              ? onError
+                              : surface,
                           label: 'error',
                           showInputColor: false,
                           showMaterialName: true,
