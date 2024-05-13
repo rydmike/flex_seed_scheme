@@ -13,7 +13,13 @@
 // limitations under the License.
 import 'dart:math' as math;
 
-import '../material_color_utilities.dart';
+import '../dislike/dislike_analyzer.dart';
+import '../dynamiccolor/dynamic_scheme.dart';
+import '../dynamiccolor/variant.dart';
+import '../hct/hct.dart';
+import '../palettes/tonal_palette.dart';
+import '../temperature/temperature_cache.dart';
+import 'scheme.dart';
 
 /// A scheme that places the source color in [Scheme.primaryContainer].
 ///

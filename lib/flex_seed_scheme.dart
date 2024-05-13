@@ -14,6 +14,10 @@ library flex_seed_scheme;
 /// [neutral], [neutralVariant] and [error].
 export 'src/flex/flex_core_palette.dart';
 
+/// Enum used to select which scheme variant algorithm to use when creating
+/// a color scheme.
+export 'src/flex/flex_scheme_variant.dart';
+
 /// Extension on `ColorScheme` to give us `SeedColorScheme.fromSeeds`.
 export 'src/flex/flex_seed_scheme.dart' show SeedColorScheme;
 
@@ -48,10 +52,18 @@ export 'src/flex/flex_tones.dart';
 /// * Blend
 /// * Cam16
 /// * CorePalette
+/// * DynamicScheme
 /// * Hct
 /// * TonalPalette
 /// * ViewingConditions
 ///
 /// More APIs from MCU may be exported later if needed.
 export 'src/mcu/material_color_utilities.dart'
-    show Blend, Cam16, CorePalette, Hct, TonalPalette, ViewingConditions;
+    show
+        Blend,
+        Cam16,
+        CorePalette,
+        DynamicScheme,
+        Hct,
+        TonalPalette,
+        ViewingConditions;

@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: comment_references
-
 import 'dart:core';
 import 'dart:math' as math;
 
-import '../material_color_utilities.dart';
+import '../utils/color_utils.dart';
+import '../utils/math_utils.dart';
+import 'viewing_conditions.dart';
 
 /// CAM16, a color appearance model. Colors are not just defined by their hex
 /// code, but rather, a hex code and viewing conditions.
@@ -155,11 +155,9 @@ class Cam16 {
     // hue
     final double atan2 = math.atan2(b, a);
     final double atanDegrees = atan2 * 180.0 / math.pi;
-    // print('atanDegrees = $atanDegrees');
     final double hue = atanDegrees < 0
         ? atanDegrees + 360.0
         : atanDegrees >= 360
-            // This should never happen, cannot hit test it, assert to catch.
             ? atanDegrees - 360 // coverage:ignore-line
             : atanDegrees;
     final double hueRadians = hue * math.pi / 180.0;
@@ -207,7 +205,7 @@ class Cam16 {
     return fromJchInViewingConditions(j, c, h, ViewingConditions.sRgb);
   }
 
-  /// Create a CAM16 color from lightness [j], chroma [c], and hue [h],
+  /// Create a CAM16 color from lightness [j], chroma [C], and hue [h],
   /// in [viewingConditions].
   static Cam16 fromJchInViewingConditions(
       double J, double C, double h, ViewingConditions viewingConditions) {

@@ -29,12 +29,10 @@ class Contrast {
   /// [toneA] Tone between 0 and 100. Values outside will be clamped.
   /// [toneB] Tone between 0 and 100. Values outside will be clamped.
   static double ratioOfTones(double toneA, double toneB) {
-    // ignore: parameter_assignments
-    toneA = MathUtils.clampDouble(0.0, 100.0, toneA);
-    // ignore: parameter_assignments
-    toneB = MathUtils.clampDouble(0.0, 100.0, toneB);
+    final double localToneA = MathUtils.clampDouble(0.0, 100.0, toneA);
+    final double localToneB = MathUtils.clampDouble(0.0, 100.0, toneB);
     return _ratioOfYs(
-        ColorUtils.yFromLstar(toneA), ColorUtils.yFromLstar(toneB));
+        ColorUtils.yFromLstar(localToneA), ColorUtils.yFromLstar(localToneB));
   }
 
   static double _ratioOfYs(double y1, double y2) {

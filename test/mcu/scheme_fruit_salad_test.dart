@@ -56,7 +56,7 @@ void main() {
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
         contrastLevel: 1.0);
-    expect(MaterialDynamicColors.primary.getArgb(scheme), isColor(0xff002635));
+    expect(MaterialDynamicColors.primary.getArgb(scheme), isColor(0xff003042));
   });
 
   test('lightTheme_minContrast_primaryContainer', () {
@@ -83,7 +83,7 @@ void main() {
         isDark: false,
         contrastLevel: 1.0);
     expect(MaterialDynamicColors.primaryContainer.getArgb(scheme),
-        isColor(0xff004862));
+        isColor(0xff004F6B));
   });
 
   test('lightTheme_minContrast_tertiaryContainer', () {
@@ -110,7 +110,7 @@ void main() {
         isDark: false,
         contrastLevel: 1.0);
     expect(MaterialDynamicColors.tertiaryContainer.getArgb(scheme),
-        isColor(0xff3a3e74));
+        isColor(0xff40447B));
   });
 
   test('lightTheme_minContrast_onPrimaryContainer', () {
@@ -203,7 +203,7 @@ void main() {
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: true,
         contrastLevel: 1.0);
-    expect(MaterialDynamicColors.primary.getArgb(scheme), isColor(0xfff7fbff));
+    expect(MaterialDynamicColors.primary.getArgb(scheme), isColor(0xffE0F3FF));
   });
 
   test('darkTheme_minContrast_primaryContainer', () {
@@ -230,7 +230,7 @@ void main() {
         isDark: true,
         contrastLevel: 1.0);
     expect(MaterialDynamicColors.primaryContainer.getArgb(scheme),
-        isColor(0xff83d5ff));
+        isColor(0xff68CEFF));
   });
 
   test('darkTheme_minContrast_onPrimaryContainer', () {

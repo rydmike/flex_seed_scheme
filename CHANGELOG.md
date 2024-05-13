@@ -2,6 +2,36 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 2.0.0-dev.1
+
+**May 13, 2024**
+
+This release adds support for the revised Material-3 `ColorScheme` released in Flutter version 3.22.
+
+* **CHANGE**
+  * Bring the internal Material Color Utilities (MCU) library version to parity with its latest package release 0.11.1. Flutter SDK stable 3.22 still uses MCU 0.8.0, but the Flutter master channel is using MCU 0.11.1.
+  * The `FlexPaletteType.extended` tones got two new tones added, tone 2, and 24. It now has 27 tones.
+  
+
+* **NEW**
+  * Support revised Material-3 `ColorScheme` with the new colors primaryFixed, primaryFixedDim, onPrimaryFixed, onPrimaryFixedVariant, secondaryFixed, secondaryFixedDim, onSecondaryFixed, onSecondaryFixedVariant, tertiaryFixed, tertiaryFixedDim, onTertiaryFixed, onTertiaryFixedVariant, surfaceDim, surfaceBright, surfaceContainerLowest, surfaceContainerLow, surfaceContainer, surfaceContainerHigh and surfaceContainerHighest.
+   
+  * New optional way to specify used seeding algorithm in `SeedColorScheme.fromSeeds` by providing new enum value `FlexSchemeVariant` to its `variant` property.  
+  
+  * In addition to supporting selection of previously built-in `FlexTones`, the `variant` property also supports using Flutter SDK scheme variants `tonalSpot`, `monochrome`, `neutral`, `vibrant`, `expressive`, `content`,`rainbow` and `fruitSalad` in property `variant` in `SeedColorScheme.fromSeeds`. In Flutter 3.22 only the default `tonalSpot` is available, but with FSS you can use any of the other variants as well already in Flutter 3.22. The other variants are not yet available in Flutter 3.22, but they are available in the `ColorScheme` API in the master channel and will be available in Flutter `ColorScheme.fromSeed` as well, in the next stable release after 3.22. With FSS you can use them already starting from Flutter 3.22.0.
+
+
+* **BREAKING**
+  * The Material-3 `ColorScheme` colors `background`, `onBackground` and `surfaceVariant` have been deprecated since they are also deprecated in Flutter 3.22.
+    * These **deprecated** colors are still supported in `SeedColorScheme.fromSeeds` and `FlexTones`, but will be removed in a future release. They are replaced by `surface` and newer colors like `surfaceDim`, `surfaceBright` and `surfaceContainerLowest` in the new Material-3 `ColorScheme` in Flutter 3.22.
+    * The fact that these deprecated colors are still referenced in the package will reduce its **pub.dev** score with 10 points, but it is kept for now to maintain compatibility with Flutter 3.22 that also still provides values for the deprecated colors. This package needs to provide the same values to be fully compatible. The `ColorScheme` colors `background`, `onBackground` and `surfaceVariant` may only be fully removed when they have been removed from the Flutter SDK stable channel. They may, if they can be removed without breaking any styles, be removed in a future release of this package, even if they are still available in the Flutter SDK stable channel.
+  
+
+* **BREAKING STYLES**
+
+  * All built-in `FlexTones` now use the `paletteType` extended via `FlexPaletteType.extended` as default for additional tone fidelity. This is needed for compatibility with Flutter 3.22 and its revised `ColorScheme`.
+  * The default tones for the built-in `FlexTones` have been adjusted to match the new Material-3 `ColorScheme` in Flutter 3.22. The new tones and default styles are marginally different but also better than in previous Flutter versions. If you need the result and style used in Flutter 3.19 and earlier, you can use the `FlexTones.material3Legacy` as `tones` in `SeedColorScheme.fromSeeds` to get the result `FlexTones.material` produced in FSS before version 2.0.0 and that was default in Flutter in version 3.19 and earlier.
+
 ## 1.5.0
 
 **April 3, 2024**

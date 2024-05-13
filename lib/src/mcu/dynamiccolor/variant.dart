@@ -16,7 +16,7 @@
 /// Instantiate the corresponding subclass, ex. SchemeTonalSpot, to create
 /// colors corresponding to the theme.
 enum Variant {
-  /// Greyscale colors.
+  /// All colors are grayscale, no chroma.
   monochrome('monochrome', 'All colors are grayscale, no chroma.'),
 
   /// Close to grayscale, a hint of chroma.
@@ -33,54 +33,49 @@ enum Variant {
       'vibrant',
       'Pastel colors, high chroma palettes. (max).\n'
           "The primary palette's chroma is at maximum.\n"
-          'Use Fidelity instead if tokens should alter their tone to '
-          'match the palette vibrancy.'),
+          'Use Fidelity instead if tokens should alter their '
+          'tone to match the palette vibrancy.'),
 
-  /// Pastel colors, medium chroma palettes
+  /// Pastel colors, medium chroma palettes.
   expressive(
       'expressive',
       'Pastel colors, medium chroma palettes.\n'
-          "The primary palette's hue is different from source "
-          'color, for variety.'),
+          "The primary palette's hue is different from source color, "
+          'for variety.'),
 
-  /// Almost identical to Fidelity, tokens and palettes match source color.
+  /// Almost identical to Fidelity.
   content(
       'content',
       'Almost identical to Fidelity.\n'
           'Tokens and palettes match source color.\n'
-          'Primary Container is source color, adjusted to ensure '
-          'contrast with surfaces.\n'
-          '\n'
-          'Tertiary palette is analogue of source color.\n'
-          'Found by dividing color wheel by 6, then finding the 2 '
-          'colors adjacent to source.\n'
+          'Primary Container is source color, adjusted to ensure contrast '
+          'with surfaces.\n\n'
+          'Tertiary palette is analogue of source color.\nFound by dividing '
+          'color wheel by 6, then finding the 2 colors adjacent to source.\n'
           'The one that increases hue is used.'),
 
   /// Tokens and palettes match source color.
-  ///
-  /// Tertiary palette is complement of source color.
   fidelity(
       'fidelity',
       'Tokens and palettes match source color.\n'
-          'Primary Container is source color, adjusted to ensure '
-          'contrast with surfaces.\n'
-          'For example, if source color is black, it is lightened '
-          "so it doesn't match surfaces in dark mode.\n"
-          '\n'
+          'Primary Container is source color, adjusted to ensure contrast '
+          'with surfaces.\n'
+          'For example, if source color is black, it is lightened so it '
+          "doesn't match surfaces in dark mode.\n\n"
           'Tertiary palette is complement of source color.'),
 
-  /// A playful rainbow theme.
+  /// A playful theme - the source color's hue does not appear in the theme.
   rainbow('rainbow',
       "A playful theme - the source color's hue does not appear in the theme."),
 
-  /// A playful fruit salad theme.
+  /// A playful theme - the source color's hue does not appear in the theme.
   fruitSalad('fruit salad',
       "A playful theme - the source color's hue does not appear in the theme.");
 
-  /// Label for the dynamic color variant.
+  /// The label of the variant color scheme.
   final String label;
 
-  /// Description of the dynamic color variant.
+  /// A description of the variant color scheme.
   final String description;
 
   const Variant(this.label, this.description);

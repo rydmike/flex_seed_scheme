@@ -26,17 +26,22 @@ class AppTheme {
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
+      variant: controller.usedVariant.isFlutterScheme
+          ? controller.usedVariant
+          : null,
       // Tone chroma config and tone mapping is optional. If you do not add it
       // you get a config matching Flutter's Material 3 ColorScheme.fromSeed.
       //
       // Use tone style and mapping, for light mode.
       // Make both main On and all On surfaces colors black and white if
       // opted in on that setting.
-      tones: controller.usedTone
-          .tones(Brightness.light)
-          .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-          .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
+      tones: controller.usedVariant.isFlutterScheme
+          ? null
+          : controller.usedVariant
+              .tones(Brightness.light)
+              .onMainsUseBW(controller.keepMainOnColorsBW)
+              .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+              .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
     );
 
     // Light mode theme
@@ -64,11 +69,16 @@ class AppTheme {
           controller.useSecondaryKey ? controller.secondarySeedColor : null,
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
-      tones: controller.usedTone
-          .tones(Brightness.dark)
-          .onMainsUseBW(controller.keepMainOnColorsBW)
-          .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-          .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
+      variant: controller.usedVariant.isFlutterScheme
+          ? controller.usedVariant
+          : null,
+      tones: controller.usedVariant.isFlutterScheme
+          ? null
+          : controller.usedVariant
+              .tones(Brightness.dark)
+              .onMainsUseBW(controller.keepMainOnColorsBW)
+              .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+              .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
     );
 
     // Dark mode theme

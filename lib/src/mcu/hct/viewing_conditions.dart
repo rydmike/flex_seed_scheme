@@ -17,9 +17,6 @@ import 'dart:math' as math;
 import '../utils/color_utils.dart';
 import '../utils/math_utils.dart';
 
-// import 'package:material_color_utilities/utils/color_utils.dart';
-// import 'package:material_color_utilities/utils/math_utils.dart';
-
 /// In traditional color spaces, a color can be identified solely by the
 /// observer's measurement of the color. Color appearance models such as CAM16
 /// also use information about the environment where the color was
@@ -137,10 +134,9 @@ class ViewingConditions {
         xyz[0] * -0.002079 + xyz[1] * 0.048952 + xyz[2] * 0.953127;
 
     // Scale input surround, domain (0, 2), to CAM16 surround, domain (0.8, 1.0)
-    assert(surround >= 0.0 && surround <= 2.0, 'surround must be >= 0 and <=2');
+    assert(surround >= 0.0 && surround <= 2.0, 'Surround must be in range 0-2');
     final double f = 0.8 + (surround / 10.0);
     // "Exponential non-linearity"
-    // print('======> f= $f');
     final double c = (f >= 0.9)
         ? MathUtils.lerp(0.59, 0.69, (f - 0.9) * 10.0)
         : MathUtils.lerp(0.525, 0.59, (f - 0.8) * 10.0);
@@ -183,8 +179,8 @@ class ViewingConditions {
     // Luminance-level adaptation factor
     final double fl = (k4 * adaptingLuminance) +
         (0.1 * k4F * k4F * math.pow(5.0 * adaptingLuminance, 1.0 / 3.0));
-    // Intermediate factor, ratio of background relative luminance to
-    // white relative luminance
+    // Intermediate factor, ratio of background relative luminance to white
+    // relative luminance
     final double n = ColorUtils.yFromLstar(backgroundLstar) / whitePoint[1];
 
     // Base exponential none linearity
@@ -196,7 +192,7 @@ class ViewingConditions {
     final double ncb = nbb;
 
     // Discounted cone responses to the white point, adjusted for
-    // post-saturationtic adaptation perceptual nonlinearities.
+    // post-saturationtic adaptation perceptual none linearity.
     final List<num> rgbAFactors = <num>[
       math.pow(fl * rgbD[0] * rW / 100.0, 0.42),
       math.pow(fl * rgbD[1] * gW / 100.0, 0.42),

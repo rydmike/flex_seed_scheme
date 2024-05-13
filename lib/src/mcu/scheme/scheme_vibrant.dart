@@ -17,7 +17,10 @@
 // import 'dynamic_scheme.dart';
 // import 'variant.dart';
 
-import '../material_color_utilities.dart';
+import '../dynamiccolor/dynamic_scheme.dart';
+import '../dynamiccolor/variant.dart';
+import '../hct/hct.dart';
+import '../palettes/tonal_palette.dart';
 
 /// A Dynamic Color theme that maxes out colorfulness at each position in the
 /// Primary [TonalPalette].

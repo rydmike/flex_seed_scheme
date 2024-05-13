@@ -20,6 +20,10 @@ import '../material_color_utilities.dart';
 
 /// Prefer [ColorScheme]. This class is the same concept as Flutter's
 /// ColorScheme class, inlined to ensure parity across languages.
+@Deprecated('The `Scheme` class is deprecated in favor of `DynamicScheme`.\n'
+    'Please see '
+    'https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md'
+    'for migration guidance.')
 class Scheme {
   /// primary color as int.
   final int primary;
@@ -109,6 +113,10 @@ class Scheme {
   final int inversePrimary;
 
   /// Default Scheme constructor.
+  @Deprecated('The `Scheme` class is deprecated in favor of `DynamicScheme`.\n'
+      'Please see '
+      'https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md'
+      'for migration guidance.')
   const Scheme({
     required this.primary,
     required this.onPrimary,

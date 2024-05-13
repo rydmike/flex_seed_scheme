@@ -14,7 +14,10 @@ import '../../flex_seed_scheme.dart';
 /// usage and limits with [SeedColorScheme.fromSeeds], you can pass in one of
 /// the predefined configs below, to its [tones] property:
 ///
-/// * [FlexTones.material], default and same as Flutter SDK M3 setup.
+/// * [FlexTones.material], default and same as Flutter SDK M3 setup used in
+///   Flutter 3.22 and later.
+/// * [FlexTones.material3Legacy], the same as Flutter SDK M3 setup used in
+///   Flutter 3.19 and earlier.
 /// * [FlexTones.soft], softer and earthier tones than M3 [FlexTones.material].
 /// * [FlexTones.vivid], more vivid colors, uses chroma from all key colors.
 /// * [FlexTones.vividSurfaces], like [vivid], but with more colors in surfaces.
@@ -31,14 +34,17 @@ import '../../flex_seed_scheme.dart';
 ///   thus create a color scheme that uses only one hue.
 /// * [FlexTones.candyPop] for a high contrast, candy popping theme. It has
 ///   tone 100, which is white surface and background in light mode and very
-///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
-///   [FlexPaletteType.extended], for additional tone fidelity.
+///   dark tone 6, dark mode.
 /// * [FlexTones.chroma] for a theme where the chroma in each seed color is used
 ///   as is with any min limitation. Chroma in passed in color can even be zero,
 ///   producing a greyscale tonal palette as the palette. It has
 ///   tone 100, which is white surface and background in light mode and very
-///   dark tone 6, dark mode. This [FlexTones] the [paletteType] extended via
-///   [FlexPaletteType.extended], for additional tone fidelity.
+///   dark tone 6, dark mode.
+///
+/// * In version 2.0.0 and later all built-in [FlexTones] use the [paletteType]
+///   extended via [FlexPaletteType.extended], for additional tone fidelity.
+///   This is needed for compatibility with Flutter 3.22 and its revised
+///   [ColorScheme].
 ///
 /// You can also easily create custom configurations by using the
 /// [FlexTones.light] and [FlexTones.dark] factories that have defaults that
@@ -77,24 +83,45 @@ class FlexTones with Diagnosticable {
     required this.onPrimaryTone,
     required this.primaryContainerTone,
     required this.onPrimaryContainerTone,
+    required this.primaryFixedTone,
+    required this.primaryFixedDimTone,
+    required this.onPrimaryFixedTone,
+    required this.onPrimaryFixedVariantTone,
+    //
     required this.secondaryTone,
     required this.onSecondaryTone,
     required this.secondaryContainerTone,
     required this.onSecondaryContainerTone,
+    required this.secondaryFixedTone,
+    required this.secondaryFixedDimTone,
+    required this.onSecondaryFixedTone,
+    required this.onSecondaryFixedVariantTone,
+    //
     required this.tertiaryTone,
     required this.onTertiaryTone,
     required this.tertiaryContainerTone,
     required this.onTertiaryContainerTone,
+    required this.tertiaryFixedTone,
+    required this.tertiaryFixedDimTone,
+    required this.onTertiaryFixedTone,
+    required this.onTertiaryFixedVariantTone,
+    //
     required this.errorTone,
     required this.onErrorTone,
     required this.errorContainerTone,
     required this.onErrorContainerTone,
-    required this.backgroundTone,
-    required this.onBackgroundTone,
+    //
     required this.surfaceTone,
+    required this.surfaceDimTone,
+    required this.surfaceBrightTone,
+    required this.surfaceContainerLowestTone,
+    required this.surfaceContainerLowTone,
+    required this.surfaceContainerTone,
+    required this.surfaceContainerHighTone,
+    required this.surfaceContainerHighestTone,
     required this.onSurfaceTone,
-    required this.surfaceVariantTone,
     required this.onSurfaceVariantTone,
+    //
     required this.outlineTone,
     required this.outlineVariantTone,
     required this.shadowTone,
@@ -103,6 +130,12 @@ class FlexTones with Diagnosticable {
     required this.onInverseSurfaceTone,
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
+    // Deprecated color tones
+    @Deprecated('Use surfaceTone instead.') required this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') required this.onBackgroundTone,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
+    required this.surfaceVariantTone,
+    //
     this.primaryChroma,
     this.primaryMinChroma,
     this.secondaryChroma,
@@ -116,10 +149,11 @@ class FlexTones with Diagnosticable {
     this.neutralMinChroma,
     this.neutralVariantChroma,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
-  /// Create an M3 standard light tonal palette tones extraction setup.
+  /// Create an M3 light theme mode tonal palette tones extraction setup.
   ///
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
@@ -127,14 +161,14 @@ class FlexTones with Diagnosticable {
   /// that it does not lock the chroma values for primary, secondary and
   /// tertiary to a specific chroma value, but uses actual chroma of specified
   /// key color, as long as it is over the minimum value.
-  /// The minimum values match the Material 3 defaults.
+  /// The minimum values match the Material-3 defaults.
   ///
-  /// To get the an exact matching setup as used by Material 3
+  /// To get the an exact matching setup as used by Material-3
   /// [ColorScheme.fromSeed] use the [FlexTones.material] factory as the
   /// [FlexTones] configuration.
   ///
   /// The default chroma limits for neutral and neutral variant key colors are
-  /// set to 4 and 8 as in Material 3 design. You can create a
+  /// set to 6 and 8 as in Material-3 design. You can create a
   /// [FlexTones.light] where you set [neutralChroma] and [neutralVariantChroma]
   /// to use the effective chroma values in their seed key values as the actual
   /// chroma value for the neutral and neutral tonal palette generation.
@@ -150,33 +184,60 @@ class FlexTones with Diagnosticable {
     this.onPrimaryTone = 100,
     this.primaryContainerTone = 90,
     this.onPrimaryContainerTone = 10,
+    this.primaryFixedTone = 90,
+    this.primaryFixedDimTone = 80,
+    this.onPrimaryFixedTone = 10,
+    this.onPrimaryFixedVariantTone = 30,
+
+    //
     this.secondaryTone = 40,
     this.onSecondaryTone = 100,
     this.secondaryContainerTone = 90,
     this.onSecondaryContainerTone = 10,
+    this.secondaryFixedTone = 90,
+    this.secondaryFixedDimTone = 80,
+    this.onSecondaryFixedTone = 10,
+    this.onSecondaryFixedVariantTone = 30,
+    //
     this.tertiaryTone = 40,
     this.onTertiaryTone = 100,
     this.tertiaryContainerTone = 90,
     this.onTertiaryContainerTone = 10,
+    this.tertiaryFixedTone = 90,
+    this.tertiaryFixedDimTone = 80,
+    this.onTertiaryFixedTone = 10,
+    this.onTertiaryFixedVariantTone = 30,
+    //
     this.errorTone = 40,
     this.onErrorTone = 100,
     this.errorContainerTone = 90,
     this.onErrorContainerTone = 10,
     //
-    this.backgroundTone = 99,
-    this.onBackgroundTone = 10,
-    this.surfaceTone = 99,
+    this.surfaceTone = 98,
+    this.surfaceDimTone = 87,
+    this.surfaceBrightTone = 98,
+    this.surfaceContainerLowestTone = 100,
+    this.surfaceContainerLowTone = 96,
+    this.surfaceContainerTone = 94,
+    this.surfaceContainerHighTone = 92,
+    this.surfaceContainerHighestTone = 90,
     this.onSurfaceTone = 10,
-    this.surfaceVariantTone = 90,
     this.onSurfaceVariantTone = 30,
-    this.outlineTone = 50,
-    this.outlineVariantTone = 80,
-    this.shadowTone = 0,
-    this.scrimTone = 0,
+    //
     this.inverseSurfaceTone = 20,
     this.onInverseSurfaceTone = 95,
     this.inversePrimaryTone = 80,
     this.surfaceTintTone = 40,
+    //
+    this.outlineTone = 50,
+    this.outlineVariantTone = 80,
+    this.shadowTone = 0,
+    this.scrimTone = 0,
+    // Deprecated tones
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 98,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 10,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
+    this.surfaceVariantTone = 90,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -187,11 +248,12 @@ class FlexTones with Diagnosticable {
     this.tertiaryHueRotation,
     this.errorChroma,
     this.errorMinChroma,
-    this.neutralChroma = 4,
+    this.neutralChroma = 6,
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
   /// Create a M3 standard dark tonal palette tones extraction setup.
@@ -225,33 +287,59 @@ class FlexTones with Diagnosticable {
     this.onPrimaryTone = 20,
     this.primaryContainerTone = 30,
     this.onPrimaryContainerTone = 90,
+    this.primaryFixedTone = 90,
+    this.primaryFixedDimTone = 80,
+    this.onPrimaryFixedTone = 10,
+    this.onPrimaryFixedVariantTone = 30,
+    //
     this.secondaryTone = 80,
     this.onSecondaryTone = 20,
     this.secondaryContainerTone = 30,
     this.onSecondaryContainerTone = 90,
+    this.secondaryFixedTone = 90,
+    this.secondaryFixedDimTone = 80,
+    this.onSecondaryFixedTone = 10,
+    this.onSecondaryFixedVariantTone = 30,
+    //
     this.tertiaryTone = 80,
     this.onTertiaryTone = 20,
     this.tertiaryContainerTone = 30,
     this.onTertiaryContainerTone = 90,
+    this.tertiaryFixedTone = 90,
+    this.tertiaryFixedDimTone = 80,
+    this.onTertiaryFixedTone = 10,
+    this.onTertiaryFixedVariantTone = 30,
+    //
     this.errorTone = 80,
     this.onErrorTone = 20,
     this.errorContainerTone = 30,
-    this.onErrorContainerTone = 80,
+    this.onErrorContainerTone = 90,
     //
-    this.backgroundTone = 10,
-    this.onBackgroundTone = 90,
-    this.surfaceTone = 10,
+    this.surfaceTone = 6,
+    this.surfaceDimTone = 6,
+    this.surfaceBrightTone = 24,
+    this.surfaceContainerLowestTone = 4,
+    this.surfaceContainerLowTone = 10,
+    this.surfaceContainerTone = 12,
+    this.surfaceContainerHighTone = 17,
+    this.surfaceContainerHighestTone = 22,
     this.onSurfaceTone = 90,
-    this.surfaceVariantTone = 30,
     this.onSurfaceVariantTone = 80,
-    this.outlineTone = 60,
-    this.outlineVariantTone = 30,
-    this.shadowTone = 0,
-    this.scrimTone = 0,
+    //
     this.inverseSurfaceTone = 90,
     this.onInverseSurfaceTone = 20,
     this.inversePrimaryTone = 40,
     this.surfaceTintTone = 80,
+    //
+    this.outlineTone = 60,
+    this.outlineVariantTone = 30,
+    this.shadowTone = 0,
+    this.scrimTone = 0,
+    // Deprecated tones
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 6,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 90,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
+    this.surfaceVariantTone = 30,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -262,32 +350,86 @@ class FlexTones with Diagnosticable {
     this.tertiaryHueRotation,
     this.errorChroma,
     this.errorMinChroma,
-    this.neutralChroma = 4,
+    this.neutralChroma = 6,
     this.neutralMinChroma,
     this.neutralVariantChroma = 8,
     this.neutralVariantMinChroma,
-    this.paletteType = FlexPaletteType.common,
+    this.paletteType = FlexPaletteType.extended,
+    this.useCam16 = true,
   });
 
-  /// Create a M3 standard tonal palette tones extraction and CAM16
-  /// chroma setup.
+  /// Create a Material-3 standard tonal palette tones extraction using HCT
+  /// based chroma.
   ///
   /// This setup will if only one seed color is used, produce the same result
-  /// with [FlexColorPalette] as [Scheme.light] or [Scheme.dark] depending on
-  /// used [brightness], does when Flutter SDK uses [ColorPalette.of].
+  /// as Flutter SDK does when using [ColorScheme.fromSeed] in
+  /// Flutter version 3.22 and later.
+  ///
+  /// Prior to Flutter 3.22 the [paletteType] was [FlexPaletteType.common]
+  /// and the [useCam16] was true, primaryChroma was 48 (now 36) and neutral
+  /// chroma 8 (now 6). These changed value match the new Material-3 defaults
+  /// in Flutter 3.22 and later.
+  ///
+  /// It should be noted that the Material-3 implementation in Flutter uses
+  /// DynamicSchemeVariant tonalSpot as default for the Material-3 design
+  /// seed generated ColorScheme. There might be some slight differences in
+  /// its results and using this selection in some edge cases, but none have
+  /// been observed in normal use cases. If an exact match is critical, use
+  /// [tonalSpot] as used in the Flutter SDK 3.22 and later.
+  ///
+  /// If you want to use multiple seed colors to generate a ColorScheme, you
+  /// will need to use [FlexTones] based configurations, the ones based on
+  /// Flutter SDK DynamicSchemeVariant and MCU do not provide that feature-set.
   factory FlexTones.material(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
+              primaryChroma: 36,
+              primaryMinChroma: 0,
+              secondaryChroma: 16,
+              tertiaryChroma: 24,
+              useCam16: false,
+            )
+          : const FlexTones.dark(
+              primaryChroma: 36,
+              primaryMinChroma: 0,
+              secondaryChroma: 16,
+              tertiaryChroma: 24,
+              useCam16: false,
+            );
+
+  /// Create a Material-3 standard tonal palette tones extraction using Cam16
+  /// based chroma.
+  ///
+  /// This setup will when only one seed color is used, produce the same result
+  /// as Flutter SDK does when using [ColorScheme.fromSeed] in
+  /// Flutter version 3.19 and earlier.
+  ///
+  /// Prior to FlexSeedScheme 2.0.0, this was the default setup used by the
+  /// [FlexTones.material] configuration. However, [FlexTones.material] was in
+  /// FSS version 2.0.0 modified to match the new actual and revised Material-3
+  /// configuration in Flutter 3.22 and later. This factory is provided if you
+  /// need and want to use the older Material-3 seed generation setup used in
+  /// Flutter 3.19 and earlier versions.
+  factory FlexTones.material3Legacy(Brightness brightness) =>
+      brightness == Brightness.light
+          ? const FlexTones.light(
+              primaryChroma: 48,
+              primaryMinChroma: 0,
               secondaryChroma: 16,
               tertiaryChroma: 24,
             )
           : const FlexTones.dark(
+              surfaceTone: 8,
+              backgroundTone: 8,
+              onErrorContainerTone: 90,
+              primaryChroma: 48,
+              primaryMinChroma: 0,
               secondaryChroma: 16,
               tertiaryChroma: 24,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
-  /// ColorsSchemes with softer colors than Material 3 defaults.
+  /// ColorsSchemes with softer colors than Material-3 defaults.
   ///
   /// Primary chroma is 30, secondary 14 and tertiary 20. Tones are same as
   /// in Material 3 default setup.
@@ -439,6 +581,8 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 95,
               errorContainerTone: 95,
               surfaceTintTone: 30,
+              surfaceTone: 99,
+              backgroundTone: 99,
               //
               primaryMinChroma: 65,
               secondaryMinChroma: 55,
@@ -454,6 +598,12 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 20,
               errorContainerTone: 20,
               onErrorContainerTone: 90,
+              backgroundTone: 4,
+              onBackgroundTone: 96,
+              surfaceTone: 4,
+              onSurfaceTone: 96,
+              surfaceContainerLowestTone: 0,
+              surfaceContainerLowTone: 6,
               //
               primaryMinChroma: 65,
               secondaryMinChroma: 55,
@@ -474,10 +624,14 @@ class FlexTones with Diagnosticable {
               errorContainerTone: 95,
               onErrorContainerTone: 5,
               //
+              surfaceTone: 100,
+              backgroundTone: 100,
+              surfaceContainerLowTone: 98,
+              surfaceContainerTone: 96,
               onBackgroundTone: 0,
               onSurfaceTone: 0,
-              surfaceVariantTone: 95,
-              onSurfaceVariantTone: 10,
+              surfaceVariantTone: 96,
+              onSurfaceVariantTone: 6,
               onInverseSurfaceTone: 99,
               inversePrimaryTone: 90,
               outlineTone: 40,
@@ -492,20 +646,22 @@ class FlexTones with Diagnosticable {
             )
           : const FlexTones.dark(
               primaryTone: 90,
-              onPrimaryTone: 5,
+              onPrimaryTone: 2,
               onPrimaryContainerTone: 98,
               secondaryTone: 95,
-              onSecondaryTone: 5,
+              onSecondaryTone: 2,
               onSecondaryContainerTone: 98,
               tertiaryTone: 95,
-              onTertiaryTone: 5,
+              onTertiaryTone: 2,
               onTertiaryContainerTone: 98,
-              onErrorTone: 5,
+              onErrorTone: 2,
               onErrorContainerTone: 98,
               //
-              backgroundTone: 5,
+              backgroundTone: 2,
               onBackgroundTone: 99,
-              surfaceTone: 5,
+              surfaceTone: 2,
+              surfaceContainerLowestTone: 0,
+              surfaceContainerLowTone: 6,
               onSurfaceTone: 99,
               surfaceVariantTone: 20,
               onSurfaceVariantTone: 95,
@@ -556,8 +712,9 @@ class FlexTones with Diagnosticable {
               neutralVariantChroma: 10,
             );
 
-  /// Create a M3 tonal palette tones extraction, but with no hue rotation
-  /// from primary if no ARGB key color is provided for tertiary palette.
+  /// Create a Material-3 tonal palette tones extraction, but with no hue
+  /// rotation from primary if no ARGB key color is provided for tertiary
+  /// palette.
   ///
   /// This setup will if only one seed color is used, produce a slightly more
   /// chromatic color set than [FlexTones.material], since it does not rotate
@@ -595,9 +752,6 @@ class FlexTones with Diagnosticable {
   /// It has white surface and background (tone 100) in light mode and
   /// low chroma on neutrals (2 and 4). Dark mode uses dark
   /// surface and background tone 6.
-  ///
-  /// The [FlexPaletteType.extended] is used as palette type for more
-  /// fidelity in high tones and for more tones options.
   factory FlexTones.candyPop(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -628,7 +782,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 50,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
               primaryTone: 80,
@@ -661,16 +814,16 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 50,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             );
 
-  /// Creates a tonal palette setup that results in a high contrast colorful
-  /// theme with background and surface tone 98, in light mode and very low
+  /// Creates a tonal palette setup that result in a color scheme that follows
+  /// chroma of each used seed color. Useful for manual control of pop or low
+  /// chromacity.
+  ///
+  /// Uses low surface tint and neutrals with medium chroma.
+  /// Theme with background and surface tone 98, in light mode and very low
   /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
   /// (3 and 6). Dark mode uses dark surface and background tone 6.
-  ///
-  /// The [FlexPaletteType.extended] is used as palette type for more
-  /// fidelity in high tones and for more tones options.
   factory FlexTones.chroma(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -684,10 +837,10 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 95,
               onTertiaryContainerTone: 6,
               //
-              backgroundTone: 98,
-              onBackgroundTone: 6,
-              surfaceTone: 98,
-              onSurfaceTone: 6,
+              backgroundTone: 99,
+              onBackgroundTone: 4,
+              surfaceTone: 99,
+              onSurfaceTone: 4,
               surfaceVariantTone: 92,
               onSurfaceVariantTone: 10,
               onInverseSurfaceTone: 98,
@@ -701,7 +854,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 0,
               neutralChroma: 2,
               neutralVariantChroma: 4,
-              paletteType: FlexPaletteType.extended,
             )
           : const FlexTones.dark(
               primaryTone: 80,
@@ -718,9 +870,11 @@ class FlexTones with Diagnosticable {
               onErrorTone: 6,
               onErrorContainerTone: 95,
               //
-              backgroundTone: 6,
+              backgroundTone: 4,
               onBackgroundTone: 95,
-              surfaceTone: 6,
+              surfaceTone: 4,
+              surfaceContainerLowestTone: 2,
+              surfaceContainerLowTone: 6,
               onSurfaceTone: 95,
               surfaceVariantTone: 20,
               onSurfaceVariantTone: 90,
@@ -734,7 +888,6 @@ class FlexTones with Diagnosticable {
               tertiaryMinChroma: 0,
               neutralChroma: 3,
               neutralVariantChroma: 6,
-              paletteType: FlexPaletteType.extended,
             );
 
   /// Returns a new [FlexTones] instance where on colors tones for all main on
@@ -742,9 +895,12 @@ class FlexTones with Diagnosticable {
   /// what is appropriate contrast for its color pair.
   ///
   /// This will make the seeded on colors for [onPrimary], [onPrimaryContainer],
-  /// [onSecondary], [onSecondaryContainer], [onTertiary],
-  /// [onTertiaryContainer], [onError] and [onErrorContainer] pure black or
-  /// white, depending on need contrast, instead of tinted black and white.
+  /// [onPrimaryFixed], [onPrimaryFixedVariant], [onSecondary],
+  /// [onSecondaryContainer], [onSecondaryFixed], [onSecondaryFixedVariant],
+  /// [onTertiary], [onTertiaryContainer], [onTertiaryFixed],
+  /// [onTertiaryFixedVariant] as well as [onError] and [onErrorContainer] pure
+  /// black or white, depending on need contrast, instead of the its chroma
+  /// tinted black and white versions.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
@@ -760,10 +916,16 @@ class FlexTones with Diagnosticable {
     return copyWith(
       onPrimaryTone: primaryTone <= 60 ? 100 : 0,
       onPrimaryContainerTone: primaryContainerTone <= 60 ? 100 : 0,
+      onPrimaryFixedTone: primaryFixedTone <= 60 ? 100 : 0,
+      onPrimaryFixedVariantTone: primaryFixedDimTone <= 60 ? 100 : 0,
       onSecondaryTone: secondaryTone <= 60 ? 100 : 0,
       onSecondaryContainerTone: secondaryContainerTone <= 60 ? 100 : 0,
+      onSecondaryFixedTone: secondaryFixedTone <= 60 ? 100 : 0,
+      onSecondaryFixedVariantTone: secondaryFixedDimTone <= 60 ? 100 : 0,
       onTertiaryTone: tertiaryTone <= 60 ? 100 : 0,
       onTertiaryContainerTone: tertiaryContainerTone <= 60 ? 100 : 0,
+      onTertiaryFixedTone: tertiaryFixedTone <= 60 ? 100 : 0,
+      onTertiaryFixedVariantTone: tertiaryFixedDimTone <= 60 ? 100 : 0,
       onErrorTone: errorTone <= 60 ? 100 : 0,
       onErrorContainerTone: errorContainerTone <= 60 ? 100 : 0,
     );
@@ -833,6 +995,21 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onPrimaryContainerTone;
 
+  /// Tone used for [ColorScheme.primaryFixed] from primary [FlexTonalPalette].
+  final int primaryFixedTone;
+
+  /// Tone used for [ColorScheme.primaryFixedDim] from primary
+  /// [FlexTonalPalette].
+  final int primaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.onPrimaryFixed] from primary
+  /// [FlexTonalPalette].
+  final int onPrimaryFixedTone;
+
+  /// Tone used for [ColorScheme.onPrimaryFixedVariant] from primary
+  /// [FlexTonalPalette].
+  final int onPrimaryFixedVariantTone;
+
   /// Tone used for [ColorScheme.secondary] from secondary [FlexTonalPalette].
   final int secondaryTone;
 
@@ -846,6 +1023,22 @@ class FlexTones with Diagnosticable {
   /// Tone used for [ColorScheme.onSecondaryContainer] from secondary
   /// [FlexTonalPalette].
   final int onSecondaryContainerTone;
+
+  /// Tone used for [ColorScheme.secondaryFixed] from secondary
+  /// [FlexTonalPalette].
+  final int secondaryFixedTone;
+
+  /// Tone used for [ColorScheme.secondaryFixedDim] from secondary
+  /// [FlexTonalPalette].
+  final int secondaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.secondaryFixed] from secondary
+  /// [FlexTonalPalette].
+  final int onSecondaryFixedTone;
+
+  /// Tone used for [ColorScheme.onSecondaryFixedVariant] from secondary
+  /// [FlexTonalPalette].
+  final int onSecondaryFixedVariantTone;
 
   /// Tone used for [ColorScheme.tertiary] from tertiary [FlexTonalPalette].
   final int tertiaryTone;
@@ -861,6 +1054,22 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onTertiaryContainerTone;
 
+  /// Tone used for [ColorScheme.tertiaryFixed] from tertiary
+  /// [FlexTonalPalette].
+  final int tertiaryFixedTone;
+
+  /// Tone used for [ColorScheme.tertiaryFixedDim] from tertiary
+  /// [FlexTonalPalette].
+  final int tertiaryFixedDimTone;
+
+  /// Tone used for [ColorScheme.onTertiaryFixed] from tertiary
+  /// [FlexTonalPalette].
+  final int onTertiaryFixedTone;
+
+  /// Tone used for [ColorScheme.onTertiaryFixedVariant] from tertiary
+  /// [FlexTonalPalette].
+  final int onTertiaryFixedVariantTone;
+
   /// Tone used for [ColorScheme.error] from error [FlexTonalPalette].
   final int errorTone;
 
@@ -874,21 +1083,37 @@ class FlexTones with Diagnosticable {
   /// [FlexTonalPalette].
   final int onErrorContainerTone;
 
-  /// Tone used for [ColorScheme.background] from neutral [FlexTonalPalette].
-  final int backgroundTone;
-
-  /// Tone used for [ColorScheme.onBackground] from neutral [FlexTonalPalette].
-  final int onBackgroundTone;
-
   /// Tone used for [ColorScheme.surface] from neutral [FlexTonalPalette].
   final int surfaceTone;
 
+  /// Tone used for [ColorScheme.surfaceDim] from neutral [FlexTonalPalette].
+  final int surfaceDimTone;
+
+  /// Tone used for [ColorScheme.surfaceBright] from neutral [FlexTonalPalette].
+  final int surfaceBrightTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerLowest] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerLowestTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerLow] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerLowTone;
+
+  /// Tone used for [ColorScheme.surfaceContainer] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerHigh] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerHighTone;
+
+  /// Tone used for [ColorScheme.surfaceContainerHighest] from neutral
+  /// [FlexTonalPalette].
+  final int surfaceContainerHighestTone;
+
   /// Tone used for [ColorScheme.onSurface] from neutral [FlexTonalPalette].
   final int onSurfaceTone;
-
-  /// Tone used for [ColorScheme.surfaceVariant] from neutralVariant
-  /// [FlexTonalPalette].
-  final int surfaceVariantTone;
 
   /// Tone used for [ColorScheme.onSurfaceVariant] from neutralVariant
   /// [FlexTonalPalette].
@@ -922,6 +1147,21 @@ class FlexTones with Diagnosticable {
 
   /// Tone used for [ColorScheme.surfaceTint] from primary [FlexTonalPalette].
   final int surfaceTintTone;
+
+  // Deprecated colors.
+
+  /// Tone used for ColorScheme background from neutral [FlexTonalPalette].
+  @Deprecated('Use surfaceTone instead.')
+  final int backgroundTone;
+
+  /// Tone used for ColorScheme onBackground from neutral [FlexTonalPalette].
+  @Deprecated('Use onSurfaceTone instead.')
+  final int onBackgroundTone;
+
+  /// Tone used for ColorScheme surfaceVariant from neutralVariant
+  /// [FlexTonalPalette].
+  @Deprecated('Use surfaceContainerHighestTone instead.')
+  final int surfaceVariantTone;
 
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
   /// generation.
@@ -1099,23 +1339,39 @@ class FlexTones with Diagnosticable {
 
   /// Defines what [FlexPaletteType] this [FlexTones] uses.
   ///
-  /// The default is [FlexPaletteType.common] with 15 tones or optionally use
-  /// the extended [FlexPaletteType.extended] with 24 tones.
+  /// The default is [FlexPaletteType.extended] with 26 tones or optionally use
+  /// the legacy [FlexPaletteType.common] with 15 tones.
   ///
   /// To make color schemes with new Material3 mappings for light and dark
   /// surface colors, using the extended tone set is needed.
   ///
-  /// In Flutter 3.10 and earlier the new [ColorScheme] surface colors that
-  /// need the new tones are not yet available.
+  /// In Flutter 3.19 and earlier the [ColorScheme] surface colors that
+  /// need the new tones are not yet available. In Flutter 3.22 and later the
+  /// new surface colors are available and the new tones are used. Due to this
+  /// the [FlexPaletteType.extended] is now the new default. The
+  /// [FlexPaletteType.common] may even be considered deprecated in the future,
+  /// but is kept around for backwards code compatibility for a while.
   ///
-  /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
+  /// The added tones 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
   /// 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
   /// color system. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   /// The additional tones in the Material 3 specification appeared during later
-  /// pert of first half of 2023.
+  /// part of first half of 2023, and in Flutter 3.22.
   final FlexPaletteType paletteType;
+
+  /// If true, the CAM16 color space is used to define the HCT color, if
+  /// false simpler and faster HCT from int is used.
+  ///
+  /// Prior to version 2.0.0 of this package, the CAM16 color space was always
+  /// used. However, in Flutter 3.22 the HCT vanilla HCT.fromInt is used
+  /// for its seeded scheme colors.It is used here by the Material3
+  /// style seeded color schemes as well, while the FSS ones continues to use
+  /// Cam16.
+  ///
+  /// Defaults to true.
+  final bool useCam16;
 
   /// Copy the object with one or more provided properties changed.
   FlexTones copyWith({
@@ -1123,24 +1379,45 @@ class FlexTones with Diagnosticable {
     int? onPrimaryTone,
     int? primaryContainerTone,
     int? onPrimaryContainerTone,
+    int? primaryFixedTone,
+    int? primaryFixedDimTone,
+    int? onPrimaryFixedTone,
+    int? onPrimaryFixedVariantTone,
+    //
     int? secondaryTone,
     int? onSecondaryTone,
     int? secondaryContainerTone,
     int? onSecondaryContainerTone,
+    int? secondaryFixedTone,
+    int? secondaryFixedDimTone,
+    int? onSecondaryFixedTone,
+    int? onSecondaryFixedVariantTone,
+    //
     int? tertiaryTone,
     int? onTertiaryTone,
     int? tertiaryContainerTone,
     int? onTertiaryContainerTone,
+    int? tertiaryFixedTone,
+    int? tertiaryFixedDimTone,
+    int? onTertiaryFixedTone,
+    int? onTertiaryFixedVariantTone,
+    //
     int? errorTone,
     int? onErrorTone,
     int? errorContainerTone,
     int? onErrorContainerTone,
-    int? backgroundTone,
-    int? onBackgroundTone,
+    //
     int? surfaceTone,
+    int? surfaceDimTone,
+    int? surfaceBrightTone,
+    int? surfaceContainerLowestTone,
+    int? surfaceContainerLowTone,
+    int? surfaceContainerTone,
+    int? surfaceContainerHighTone,
+    int? surfaceContainerHighestTone,
     int? onSurfaceTone,
-    int? surfaceVariantTone,
     int? onSurfaceVariantTone,
+    //
     int? outlineTone,
     int? outlineVariantTone,
     int? shadowTone,
@@ -1149,6 +1426,11 @@ class FlexTones with Diagnosticable {
     int? onInverseSurfaceTone,
     int? inversePrimaryTone,
     int? surfaceTintTone,
+    // Deprecated color tones.
+    int? backgroundTone,
+    int? onBackgroundTone,
+    int? surfaceVariantTone,
+    //
     double? primaryChroma,
     double? primaryMinChroma,
     double? secondaryChroma,
@@ -1170,28 +1452,57 @@ class FlexTones with Diagnosticable {
       primaryContainerTone: primaryContainerTone ?? this.primaryContainerTone,
       onPrimaryContainerTone:
           onPrimaryContainerTone ?? this.onPrimaryContainerTone,
+      primaryFixedTone: primaryFixedTone ?? this.primaryFixedTone,
+      primaryFixedDimTone: primaryFixedDimTone ?? this.primaryFixedDimTone,
+      onPrimaryFixedTone: onPrimaryFixedTone ?? this.onPrimaryFixedTone,
+      onPrimaryFixedVariantTone:
+          onPrimaryFixedVariantTone ?? this.onPrimaryFixedVariantTone,
+      //
       secondaryTone: secondaryTone ?? this.secondaryTone,
       onSecondaryTone: onSecondaryTone ?? this.onSecondaryTone,
       secondaryContainerTone:
           secondaryContainerTone ?? this.secondaryContainerTone,
       onSecondaryContainerTone:
           onSecondaryContainerTone ?? this.onSecondaryContainerTone,
+      secondaryFixedTone: secondaryFixedTone ?? this.secondaryFixedTone,
+      secondaryFixedDimTone:
+          secondaryFixedDimTone ?? this.secondaryFixedDimTone,
+      onSecondaryFixedTone: onSecondaryFixedTone ?? this.onSecondaryFixedTone,
+      onSecondaryFixedVariantTone:
+          onSecondaryFixedVariantTone ?? this.onSecondaryFixedVariantTone,
+      //
       tertiaryTone: tertiaryTone ?? this.tertiaryTone,
       onTertiaryTone: onTertiaryTone ?? this.onTertiaryTone,
       tertiaryContainerTone:
           tertiaryContainerTone ?? this.tertiaryContainerTone,
       onTertiaryContainerTone:
           onTertiaryContainerTone ?? this.onTertiaryContainerTone,
+      tertiaryFixedTone: tertiaryFixedTone ?? this.tertiaryFixedTone,
+      tertiaryFixedDimTone: tertiaryFixedDimTone ?? this.tertiaryFixedDimTone,
+      onTertiaryFixedTone: onTertiaryFixedTone ?? this.onTertiaryFixedTone,
+      onTertiaryFixedVariantTone:
+          onTertiaryFixedVariantTone ?? this.onTertiaryFixedVariantTone,
+      //
       errorTone: errorTone ?? this.errorTone,
       onErrorTone: onErrorTone ?? this.onErrorTone,
       errorContainerTone: errorContainerTone ?? this.errorContainerTone,
       onErrorContainerTone: onErrorContainerTone ?? this.onErrorContainerTone,
-      backgroundTone: backgroundTone ?? this.backgroundTone,
-      onBackgroundTone: onBackgroundTone ?? this.onBackgroundTone,
+      //
       surfaceTone: surfaceTone ?? this.surfaceTone,
+      surfaceDimTone: surfaceDimTone ?? this.surfaceDimTone,
+      surfaceBrightTone: surfaceBrightTone ?? this.surfaceBrightTone,
+      surfaceContainerLowestTone:
+          surfaceContainerLowestTone ?? this.surfaceContainerLowestTone,
+      surfaceContainerLowTone:
+          surfaceContainerLowTone ?? this.surfaceContainerLowTone,
+      surfaceContainerTone: surfaceContainerTone ?? this.surfaceContainerTone,
+      surfaceContainerHighTone:
+          surfaceContainerHighTone ?? this.surfaceContainerHighTone,
+      surfaceContainerHighestTone:
+          surfaceContainerHighestTone ?? this.surfaceContainerHighestTone,
       onSurfaceTone: onSurfaceTone ?? this.onSurfaceTone,
-      surfaceVariantTone: surfaceVariantTone ?? this.surfaceVariantTone,
       onSurfaceVariantTone: onSurfaceVariantTone ?? this.onSurfaceVariantTone,
+      //
       outlineTone: outlineTone ?? this.outlineTone,
       outlineVariantTone: outlineVariantTone ?? this.outlineVariantTone,
       shadowTone: shadowTone ?? this.shadowTone,
@@ -1200,6 +1511,11 @@ class FlexTones with Diagnosticable {
       onInverseSurfaceTone: onInverseSurfaceTone ?? this.onInverseSurfaceTone,
       inversePrimaryTone: inversePrimaryTone ?? this.inversePrimaryTone,
       surfaceTintTone: surfaceTintTone ?? this.surfaceTintTone,
+      // Deprecated color tones.
+      backgroundTone: backgroundTone ?? this.backgroundTone,
+      onBackgroundTone: onBackgroundTone ?? this.onBackgroundTone,
+      surfaceVariantTone: surfaceVariantTone ?? this.surfaceVariantTone,
+      //
       primaryChroma: primaryChroma ?? this.primaryChroma,
       primaryMinChroma: primaryMinChroma ?? this.primaryMinChroma,
       secondaryChroma: secondaryChroma ?? this.secondaryChroma,
@@ -1228,24 +1544,45 @@ class FlexTones with Diagnosticable {
         other.onPrimaryTone == onPrimaryTone &&
         other.primaryContainerTone == primaryContainerTone &&
         other.onPrimaryContainerTone == onPrimaryContainerTone &&
+        other.primaryFixedTone == primaryFixedTone &&
+        other.primaryFixedDimTone == primaryFixedDimTone &&
+        other.onPrimaryFixedTone == onPrimaryFixedTone &&
+        other.onPrimaryFixedVariantTone == onPrimaryFixedVariantTone &&
+        //
         other.secondaryTone == secondaryTone &&
         other.onSecondaryTone == onSecondaryTone &&
         other.secondaryContainerTone == secondaryContainerTone &&
         other.onSecondaryContainerTone == onSecondaryContainerTone &&
+        other.secondaryFixedTone == secondaryFixedTone &&
+        other.secondaryFixedDimTone == secondaryFixedDimTone &&
+        other.onSecondaryFixedTone == onSecondaryFixedTone &&
+        other.onSecondaryFixedVariantTone == onSecondaryFixedVariantTone &&
+        //
         other.tertiaryTone == tertiaryTone &&
         other.onTertiaryTone == onTertiaryTone &&
         other.tertiaryContainerTone == tertiaryContainerTone &&
         other.onTertiaryContainerTone == onTertiaryContainerTone &&
+        other.tertiaryFixedTone == tertiaryFixedTone &&
+        other.tertiaryFixedDimTone == tertiaryFixedDimTone &&
+        other.onTertiaryFixedTone == onTertiaryFixedTone &&
+        other.onTertiaryFixedVariantTone == onTertiaryFixedVariantTone &&
+        //
         other.errorTone == errorTone &&
         other.onErrorTone == onErrorTone &&
         other.errorContainerTone == errorContainerTone &&
         other.onErrorContainerTone == onErrorContainerTone &&
-        other.backgroundTone == backgroundTone &&
-        other.onBackgroundTone == onBackgroundTone &&
+        //
         other.surfaceTone == surfaceTone &&
+        other.surfaceDimTone == surfaceDimTone &&
+        other.surfaceBrightTone == surfaceBrightTone &&
+        other.surfaceContainerLowestTone == surfaceContainerLowestTone &&
+        other.surfaceContainerLowTone == surfaceContainerLowTone &&
+        other.surfaceContainerTone == surfaceContainerTone &&
+        other.surfaceContainerHighTone == surfaceContainerHighTone &&
+        other.surfaceContainerHighestTone == surfaceContainerHighestTone &&
         other.onSurfaceTone == onSurfaceTone &&
-        other.surfaceVariantTone == surfaceVariantTone &&
         other.onSurfaceVariantTone == onSurfaceVariantTone &&
+        //
         other.outlineTone == outlineTone &&
         other.outlineVariantTone == outlineVariantTone &&
         other.shadowTone == shadowTone &&
@@ -1254,6 +1591,11 @@ class FlexTones with Diagnosticable {
         other.onInverseSurfaceTone == onInverseSurfaceTone &&
         other.inversePrimaryTone == inversePrimaryTone &&
         other.surfaceTintTone == surfaceTintTone &&
+        // Deprecated color tones.
+        other.backgroundTone == backgroundTone &&
+        other.onBackgroundTone == onBackgroundTone &&
+        other.surfaceVariantTone == surfaceVariantTone &&
+        //
         other.primaryChroma == primaryChroma &&
         other.primaryMinChroma == primaryMinChroma &&
         other.secondaryChroma == secondaryChroma &&
@@ -1277,24 +1619,45 @@ class FlexTones with Diagnosticable {
         onPrimaryTone,
         primaryContainerTone,
         onPrimaryContainerTone,
+        primaryFixedTone,
+        primaryFixedDimTone,
+        onPrimaryFixedTone,
+        onPrimaryFixedVariantTone,
+        //
         secondaryTone,
         onSecondaryTone,
         secondaryContainerTone,
         onSecondaryContainerTone,
+        secondaryFixedTone,
+        secondaryFixedDimTone,
+        onSecondaryFixedTone,
+        onSecondaryFixedVariantTone,
+        //
         tertiaryTone,
         onTertiaryTone,
         tertiaryContainerTone,
         onTertiaryContainerTone,
+        tertiaryFixedTone,
+        tertiaryFixedDimTone,
+        onTertiaryFixedTone,
+        onTertiaryFixedVariantTone,
+        //
         errorTone,
         onErrorTone,
         errorContainerTone,
         onErrorContainerTone,
-        backgroundTone,
-        onBackgroundTone,
+        //
         surfaceTone,
+        surfaceDimTone,
+        surfaceBrightTone,
+        surfaceContainerLowestTone,
+        surfaceContainerLowTone,
+        surfaceContainerTone,
+        surfaceContainerHighTone,
+        surfaceContainerHighestTone,
         onSurfaceTone,
-        surfaceVariantTone,
         onSurfaceVariantTone,
+        //
         outlineTone,
         outlineVariantTone,
         shadowTone,
@@ -1303,6 +1666,11 @@ class FlexTones with Diagnosticable {
         onInverseSurfaceTone,
         inversePrimaryTone,
         surfaceTintTone,
+        // Deprecated color tones.
+        backgroundTone,
+        onBackgroundTone,
+        surfaceVariantTone,
+        //
         primaryChroma,
         primaryMinChroma,
         secondaryChroma,
@@ -1329,6 +1697,15 @@ class FlexTones with Diagnosticable {
         DiagnosticsProperty<int>('primaryContainerTone', primaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onPrimaryContainerTone', onPrimaryContainerTone));
+    properties
+        .add(DiagnosticsProperty<int>('primaryFixedTone', primaryFixedTone));
+    properties.add(
+        DiagnosticsProperty<int>('primaryFixedDimTone', primaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onPrimaryFixedTone', onPrimaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onPrimaryFixedVariantTone', onPrimaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('secondaryTone', secondaryTone));
     properties
         .add(DiagnosticsProperty<int>('onSecondaryTone', onSecondaryTone));
@@ -1336,26 +1713,55 @@ class FlexTones with Diagnosticable {
         'secondaryContainerTone', secondaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onSecondaryContainerTone', onSecondaryContainerTone));
+    properties.add(
+        DiagnosticsProperty<int>('secondaryFixedTone', secondaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'secondaryFixedDimTone', secondaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onSecondaryFixedTone', onSecondaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onSecondaryFixedVariantTone', onSecondaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('tertiaryTone', tertiaryTone));
     properties.add(DiagnosticsProperty<int>('onTertiaryTone', onTertiaryTone));
     properties.add(DiagnosticsProperty<int>(
         'tertiaryContainerTone', tertiaryContainerTone));
     properties.add(DiagnosticsProperty<int>(
         'onTertiaryContainerTone', onTertiaryContainerTone));
+    properties
+        .add(DiagnosticsProperty<int>('tertiaryFixedTone', tertiaryFixedTone));
+    properties.add(
+        DiagnosticsProperty<int>('tertiaryFixedDimTone', tertiaryFixedDimTone));
+    properties.add(
+        DiagnosticsProperty<int>('onTertiaryFixedTone', onTertiaryFixedTone));
+    properties.add(DiagnosticsProperty<int>(
+        'onTertiaryFixedVariantTone', onTertiaryFixedVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('errorTone', errorTone));
     properties.add(
         DiagnosticsProperty<int>('errorContainerTone', errorContainerTone));
     properties.add(
         DiagnosticsProperty<int>('onErrorContainerTone', onErrorContainerTone));
-    properties.add(DiagnosticsProperty<int>('backgroundTone', backgroundTone));
-    properties
-        .add(DiagnosticsProperty<int>('onBackgroundTone', onBackgroundTone));
+    //
     properties.add(DiagnosticsProperty<int>('surfaceTone', surfaceTone));
+    properties.add(DiagnosticsProperty<int>('surfaceDimTone', surfaceDimTone));
+    properties
+        .add(DiagnosticsProperty<int>('surfaceBrightTone', surfaceBrightTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerLowestTone', surfaceContainerLowestTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerLowTone', surfaceContainerLowTone));
+    properties.add(
+        DiagnosticsProperty<int>('surfaceContainerTone', surfaceContainerTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerHighTone', surfaceContainerHighTone));
+    properties.add(DiagnosticsProperty<int>(
+        'surfaceContainerHighestTone', surfaceContainerHighestTone));
+
     properties.add(DiagnosticsProperty<int>('onSurfaceTone', onSurfaceTone));
     properties.add(
-        DiagnosticsProperty<int>('surfaceVariantTone', surfaceVariantTone));
-    properties.add(
         DiagnosticsProperty<int>('onSurfaceVariantTone', onSurfaceVariantTone));
+    //
     properties.add(DiagnosticsProperty<int>('outlineTone', outlineTone));
     properties.add(
         DiagnosticsProperty<int>('outlineVariantTone', outlineVariantTone));
@@ -1369,6 +1775,13 @@ class FlexTones with Diagnosticable {
         DiagnosticsProperty<int>('inversePrimaryTone', inversePrimaryTone));
     properties
         .add(DiagnosticsProperty<int>('surfaceTintTone', surfaceTintTone));
+    // Deprecated color tones.
+    properties.add(DiagnosticsProperty<int>('backgroundTone', backgroundTone));
+    properties
+        .add(DiagnosticsProperty<int>('onBackgroundTone', onBackgroundTone));
+    properties.add(
+        DiagnosticsProperty<int>('surfaceVariantTone', surfaceVariantTone));
+    //
     properties.add(DiagnosticsProperty<double>('primaryChroma', primaryChroma));
     properties
         .add(DiagnosticsProperty<double>('primaryMinChroma', primaryMinChroma));

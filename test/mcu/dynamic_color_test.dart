@@ -476,5 +476,11 @@ void main() {
       expect(dScheme.getArgb(scheme), Hct.fromInt(4294955442).toInt());
       expect(dScheme.getTone(scheme), 87);
     });
+    // Rydmike: Extra tests.
+    test('Raw  DynamicColor', () {
+      expect(DynamicColor.enableLightForeground(10), 10);
+      expect(DynamicColor.enableLightForeground(90), 90);
+      expect(DynamicColor.enableLightForeground(58), 49);
+    });
   });
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../about/views/about.dart';
 import '../../../core/constants/app_data.dart';
+import '../../../core/views/universal/color_scheme_view.dart';
 import '../../../core/views/universal/showcase_material.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import '../widgets/flex_tones_popup_menu.dart';
-import '../widgets/show_color_scheme_colors.dart';
 import '../widgets/show_input_colors.dart';
 import '../widgets/show_tonal_palette.dart';
 
@@ -54,14 +54,16 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           FlexTonesPopupMenu(
-            title: 'Used FlexTones seed strategy:',
-            tone: controller.usedTone,
+            title: 'Selected scheme variant:',
+            variant: controller.usedVariant,
             onChanged: controller.setUsedTone,
+            contentPadding:
+                const EdgeInsetsDirectional.only(start: 16, end: 24),
           ),
           ListTile(
-            title: Text('${controller.usedTone.toneLabel}'
-                ' FlexTones uses:'),
-            subtitle: Text('${controller.usedTone.setup}\n'),
+            title: Text('${controller.usedVariant.variantName}'
+                ' scheme variant configuration info:'),
+            subtitle: Text('${controller.usedVariant.configDetails}\n'),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -71,57 +73,91 @@ class HomePage extends StatelessWidget {
               dense: true,
               title: Text('Primary key color is always used to seed the '
                   'ColorScheme. Tap to change colors.')),
+          if (controller.usedVariant.isFlutterScheme)
+            const ListTile(
+              dense: true,
+              title: Text('Additional seed generation options are not '
+                  'available when using Flutter SDK scheme variant styles. '
+                  'Use a variant based on FlexTones for more options.'),
+            )
+          else
+            const ListTile(
+              dense: true,
+              title: Text('Additional seed generation option are available '
+                  'when using FlexTones based scheme variants.'),
+            ),
           const Divider(),
           SwitchListTile(
             dense: true,
             title:
                 const Text('Use secondary key color to seed the ColorScheme'),
-            value: controller.useSecondaryKey,
-            onChanged: controller.setUseSecondaryKey,
+            value: controller.useSecondaryKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseSecondaryKey,
           ),
           SwitchListTile(
             dense: true,
             title: const Text('Use tertiary key color to seed the ColorScheme'),
-            value: controller.useTertiaryKey,
-            onChanged: controller.setUseTertiaryKey,
+            value: controller.useTertiaryKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseTertiaryKey,
           ),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Use custom error key color to seed the ColorScheme'),
-            value: controller.useErrorKey,
-            onChanged: controller.setUseErrorKey,
+            value: controller.useErrorKey &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseErrorKey,
           ),
           const Divider(),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Keep main onColors in seeded ColorScheme black and white'),
-            value: controller.keepMainOnColorsBW,
-            onChanged: controller.setKeepMainOnColorsBW,
+            value: controller.keepMainOnColorsBW &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setKeepMainOnColorsBW,
           ),
           SwitchListTile(
             dense: true,
             title: const Text(
                 'Keep surface onColors in seeded ColorScheme black and white'),
-            value: controller.keepSurfaceOnColorsBW,
-            onChanged: controller.setKeepSurfaceOnColorsBW,
+            value: controller.keepSurfaceOnColorsBW &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setKeepSurfaceOnColorsBW,
           ),
           if (isLight)
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and background white in seeded '
                   'light ColorScheme'),
-              value: controller.keepLightSurfaceColorsWhite,
-              onChanged: controller.setKeepLightSurfaceColorsWhite,
+              value: controller.keepLightSurfaceColorsWhite &&
+                  !controller.usedVariant.isFlutterScheme,
+              onChanged: controller.usedVariant.isFlutterScheme
+                  ? null
+                  : controller.setKeepLightSurfaceColorsWhite,
             )
           else
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and background black in seeded '
                   'dark ColorScheme'),
-              value: controller.keepDarkSurfaceColorsBlack,
-              onChanged: controller.setKeepDarkSurfaceColorsBlack,
+              value: controller.keepDarkSurfaceColorsBlack &&
+                  !controller.usedVariant.isFlutterScheme,
+              onChanged: controller.usedVariant.isFlutterScheme
+                  ? null
+                  : controller.setKeepDarkSurfaceColorsBlack,
             ),
           const Divider(),
           Padding(
@@ -130,7 +166,7 @@ class HomePage extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: ShowColorSchemeColors(),
+            child: ColorSchemeView(),
           ),
           const SizedBox(height: 16),
           const Divider(),

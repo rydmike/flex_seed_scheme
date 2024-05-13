@@ -3,21 +3,20 @@ import 'package:flutter/material.dart';
 
 import '../../../core/utils/flex_color_extension.dart';
 import '../../../core/views/universal/color_scheme_box.dart';
-import '../../../theme/model/flex_tones_enum.dart';
 
 /// Widget used to select used [FlexTones] with a popup menu.
 ///
-/// Uses enhanced enum [FlexTonesEnum] to get data for the UI.
+/// Uses enhanced enum [FlexSchemeVariant] to get data for the UI.
 class FlexTonesPopupMenu extends StatelessWidget {
   const FlexTonesPopupMenu({
     super.key,
-    required this.tone,
+    required this.variant,
     this.onChanged,
     this.title = '',
     this.contentPadding,
   });
-  final FlexTonesEnum tone;
-  final ValueChanged<FlexTonesEnum>? onChanged;
+  final FlexSchemeVariant variant;
+  final ValueChanged<FlexSchemeVariant>? onChanged;
   final String title;
   final EdgeInsetsGeometry? contentPadding; // Defaults to 16.
 
@@ -27,34 +26,44 @@ class FlexTonesPopupMenu extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextStyle txtStyle = theme.textTheme.labelLarge!;
 
-    return PopupMenuButton<FlexTonesEnum>(
+    return PopupMenuButton<FlexSchemeVariant>(
       tooltip: '',
       padding: EdgeInsets.zero,
-      onSelected: (FlexTonesEnum tone) {
-        onChanged?.call(tone);
+      onSelected: (FlexSchemeVariant variant) {
+        onChanged?.call(variant);
       },
-      itemBuilder: (BuildContext context) => <PopupMenuItem<FlexTonesEnum>>[
-        for (final FlexTonesEnum tone in FlexTonesEnum.values)
-          PopupMenuItem<FlexTonesEnum>(
-            value: tone,
+      itemBuilder: (BuildContext context) => <PopupMenuItem<FlexSchemeVariant>>[
+        for (final FlexSchemeVariant variant in FlexSchemeVariant.values)
+          PopupMenuItem<FlexSchemeVariant>(
+            value: variant,
             child: ListTile(
               dense: true,
-              leading: ColorSchemeBox(
-                optionIcon: tone.icon,
-                color: colorScheme.primary.darken(tone.shade),
+              leading: Badge(
+                label: variant.isFlutterScheme
+                    ? const Text('MCU', style: TextStyle(fontSize: 8))
+                    : const Text('FSS', style: TextStyle(fontSize: 8)),
+                child: ColorSchemeBox(
+                  optionIcon: variant.icon,
+                  color: colorScheme.primary.darken(variant.shade),
+                ),
               ),
-              title: Text(tone.toneLabel, style: txtStyle),
+              title: Text(variant.variantName, style: txtStyle),
             ),
           )
       ],
       child: ListTile(
         contentPadding:
             contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
-        title: Text('$title ${tone.toneLabel}'),
-        subtitle: Text(tone.describe),
-        trailing: ColorSchemeBox(
-          color: colorScheme.primary,
-          optionIcon: tone.icon,
+        title: Text('$title ${variant.variantName}'),
+        subtitle: Text(variant.description),
+        trailing: Badge(
+          label: variant.isFlutterScheme
+              ? const Text('MCU', style: TextStyle(fontSize: 8))
+              : const Text('FSS', style: TextStyle(fontSize: 8)),
+          child: ColorSchemeBox(
+            color: colorScheme.primary,
+            optionIcon: variant.icon,
+          ),
         ),
       ),
     );
