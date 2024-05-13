@@ -43,10 +43,12 @@ import 'flex_tones.dart';
 /// This enum also contains labels for variant names, a short description and
 /// configuration details, as well as an icon for each tone and shade value to
 /// adjust used color value on the icon. These properties can optionally be
-/// used whn building UIs that present the different scheme variants. They
-/// serve no other purpose. THey can also be ignored and you can optionally
-/// just use the enum values as input and use them to build your own UI
-/// for selecting and describing a scheme variant.
+/// used when building UIs that present the different scheme variants. They
+/// serve no other purpose. They can also be ignored and you can use the enum
+/// values as input and use them to build your own UI for selecting and
+/// describing the scheme variants. These values are used in the example app
+/// and also in the `FlexColorScheme` package example app, like the
+/// Themes Playground.
 enum FlexSchemeVariant {
   /// A Dynamic Color theme with low to medium colorfulness and a Tertiary
   /// Tonal Palette]with a hue related to the source color. The default
@@ -68,7 +70,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: Flutter SDK',
+        'Variant style: MaterialColorUtilities (MCU)',
     icon: Icons.looks_3_outlined,
     shade: -6,
     isFlutterScheme: true,
@@ -92,7 +94,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma from key /8\n'
         'Neutral variant - Chroma from key /8 +4\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.grain_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -108,7 +110,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 0\n'
         'Neutral variant - Chroma 0\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.filter_b_and_w_outlined,
     shade: 10,
     isFlutterScheme: true,
@@ -124,7 +126,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 2\n'
         'Neutral variant - Chroma 2\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.gradient_outlined,
     shade: -10,
     isFlutterScheme: true,
@@ -145,7 +147,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 10\n'
         'Neutral variant - Chroma 12\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.flare_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -163,7 +165,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Hue +15, Chroma 8\n'
         'Neutral variant - Hue +15, Chroma 12\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.shuffle_on_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -192,7 +194,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma from key /8\n'
         'Neutral variant - Chroma from key /8 +4\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.image_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -210,7 +212,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 0\n'
         'Neutral variant - Chroma 0\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.looks_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -227,7 +229,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 10\n'
         'Neutral variant - Chroma 16\n'
-        'Variant style: Flutter SDK',
+        'Variant style: Material Color Utilities (MCU)',
     icon: Icons.filter_vintage_outlined,
     shade: 0,
     isFlutterScheme: true,
@@ -259,7 +261,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.looks_3_outlined,
     shade: -6,
     isFlutterScheme: false,
@@ -288,7 +290,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.filter_3,
     shade: -5,
     isFlutterScheme: false,
@@ -308,7 +310,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.blur_on,
     shade: 2,
     isFlutterScheme: false,
@@ -331,7 +333,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.tonality,
     shade: 6,
     isFlutterScheme: false,
@@ -365,7 +367,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.radio_button_checked,
     shade: 10,
     isFlutterScheme: false,
@@ -396,7 +398,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.contrast,
     shade: 14,
     isFlutterScheme: false,
@@ -414,7 +416,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 3\n'
         'Neutral variant - Chroma set to 6\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.lens,
     shade: 20,
     isFlutterScheme: false,
@@ -431,7 +433,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 10\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.sunny,
     shade: 8,
     isFlutterScheme: false,
@@ -450,7 +452,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.panorama_wide_angle_select_rounded,
     shade: 10,
     isFlutterScheme: false,
@@ -475,7 +477,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.looks_one_rounded,
     shade: 7,
     isFlutterScheme: false,
@@ -499,7 +501,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2\n'
         'Neutral variant - Chroma set to 4\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.join_left_outlined,
     shade: 9,
     isFlutterScheme: false,
@@ -525,7 +527,7 @@ enum FlexSchemeVariant {
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2 (L), 3 (D)\n'
         'Neutral variant - Chroma set to 4 (L), 6 (D)\n'
-        'Variant style: FlexTones',
+        'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.lens_outlined,
     shade: 3,
     isFlutterScheme: false,
