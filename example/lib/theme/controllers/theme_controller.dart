@@ -2,7 +2,6 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_colors.dart';
-// import '../model/flex_tones_enum.dart';
 
 /// A ChangeNotifier controller used to control inputs that configures the
 /// ColorScheme in ThemeData and ThemeMode.
@@ -27,7 +26,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  FlexPaletteType _paletteType = FlexPaletteType.common;
+  FlexPaletteType _paletteType = FlexPaletteType.extended;
   FlexPaletteType get paletteType => _paletteType;
   void setPaletteType(FlexPaletteType? value, [bool notify = true]) {
     if (value == null) return;

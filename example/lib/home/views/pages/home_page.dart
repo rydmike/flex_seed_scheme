@@ -57,6 +57,8 @@ class HomePage extends StatelessWidget {
             title: 'Selected scheme variant:',
             variant: controller.usedVariant,
             onChanged: controller.setUsedTone,
+            contentPadding:
+                const EdgeInsetsDirectional.only(start: 16, end: 24),
           ),
           ListTile(
             title: Text('${controller.usedVariant.variantName}'

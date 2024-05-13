@@ -38,9 +38,14 @@ class FlexTonesPopupMenu extends StatelessWidget {
             value: variant,
             child: ListTile(
               dense: true,
-              leading: ColorSchemeBox(
-                optionIcon: variant.icon,
-                color: colorScheme.primary.darken(variant.shade),
+              leading: Badge(
+                label: variant.isFlutterScheme
+                    ? const Text('MCU', style: TextStyle(fontSize: 8))
+                    : const Text('FSS', style: TextStyle(fontSize: 8)),
+                child: ColorSchemeBox(
+                  optionIcon: variant.icon,
+                  color: colorScheme.primary.darken(variant.shade),
+                ),
               ),
               title: Text(variant.variantName, style: txtStyle),
             ),
@@ -51,9 +56,14 @@ class FlexTonesPopupMenu extends StatelessWidget {
             contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
         title: Text('$title ${variant.variantName}'),
         subtitle: Text(variant.description),
-        trailing: ColorSchemeBox(
-          color: colorScheme.primary,
-          optionIcon: variant.icon,
+        trailing: Badge(
+          label: variant.isFlutterScheme
+              ? const Text('MCU', style: TextStyle(fontSize: 8))
+              : const Text('FSS', style: TextStyle(fontSize: 8)),
+          child: ColorSchemeBox(
+            color: colorScheme.primary,
+            optionIcon: variant.icon,
+          ),
         ),
       ),
     );
