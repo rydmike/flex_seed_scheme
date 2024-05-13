@@ -52,10 +52,18 @@ export 'src/flex/flex_tones.dart';
 /// * Blend
 /// * Cam16
 /// * CorePalette
+/// * DynamicScheme
 /// * Hct
 /// * TonalPalette
 /// * ViewingConditions
 ///
 /// More APIs from MCU may be exported later if needed.
 export 'src/mcu/material_color_utilities.dart'
-    show Blend, Cam16, CorePalette, Hct, TonalPalette, ViewingConditions;
+    show
+        Blend,
+        Cam16,
+        CorePalette,
+        DynamicScheme,
+        Hct,
+        TonalPalette,
+        ViewingConditions;

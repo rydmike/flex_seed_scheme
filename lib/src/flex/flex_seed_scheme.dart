@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart' show internal;
 
-import '../mcu/material_color_utilities.dart';
+import '../mcu/dynamiccolor/dynamic_scheme.dart';
+import '../mcu/dynamiccolor/material_dynamic_colors.dart';
+import '../mcu/hct/hct.dart';
+import '../mcu/scheme/scheme_content.dart';
+import '../mcu/scheme/scheme_expressive.dart';
+import '../mcu/scheme/scheme_fidelity.dart';
+import '../mcu/scheme/scheme_fruit_salad.dart';
+import '../mcu/scheme/scheme_monochrome.dart';
+import '../mcu/scheme/scheme_neutral.dart';
+import '../mcu/scheme/scheme_rainbow.dart';
+import '../mcu/scheme/scheme_tonal_spot.dart';
+import '../mcu/scheme/scheme_vibrant.dart';
 import 'flex_core_palette.dart';
 import 'flex_scheme_variant.dart';
 import 'flex_tones.dart';
@@ -729,7 +740,7 @@ extension SeedColorScheme on ColorScheme {
 
     if (variant != null && variant.isFlutterScheme) {
       final DynamicScheme scheme =
-          _buildDynamicScheme(brightness, primaryKey, variant);
+          buildDynamicScheme(brightness, primaryKey, variant);
       return ColorScheme(
         primary:
             primary ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
@@ -920,7 +931,11 @@ extension SeedColorScheme on ColorScheme {
     }
   }
 
-  static DynamicScheme _buildDynamicScheme(
+  /// Build one of the Flutter SDK defined DynamicScheme variants.
+  ///
+  /// If used with a FlexTones based [FlexSchemeVariant] variant it returns
+  /// tonalSpot, the default Material-3 SDK style.
+  static DynamicScheme buildDynamicScheme(
       Brightness brightness, Color seedColor, FlexSchemeVariant variant) {
     final bool isDark = brightness == Brightness.dark;
     final Hct sourceColor = Hct.fromInt(seedColor.value);
