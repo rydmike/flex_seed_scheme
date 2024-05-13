@@ -169,6 +169,7 @@ void main() {
         /// Before version 2.0.0 this would have thrown an exception.
         /// but now we can get any tone.
         expect(tones.getHct(3).toInt(), 4278716699);
+        expect(tones.get(3), 4278716699);
       });
 
       test('asList', () {

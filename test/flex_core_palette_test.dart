@@ -624,6 +624,22 @@ void main() {
         FlexTonalPalette.of(17.23982263982711, 72),
       );
     });
+    final FlexCorePalette mError10 = FlexCorePalette.fromSeeds(
+      primary: const Color(0xFF6750A4).value,
+      error: const Color(0xFFCC1839).value,
+      errorChroma: 62,
+      errorMinChroma: 72,
+      useCam16: false,
+    );
+    test(
+        'FCP1.Err109: GIVEN error Color #CC1839, chroma 62. min 72 and '
+        'use Cam16 is false EXPECT '
+        '(17.23982263982711, 72)', () {
+      expect(
+        mError10.error,
+        FlexTonalPalette.of(17.23982263982711, 72),
+      );
+    });
 
     //
   });

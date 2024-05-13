@@ -698,5 +698,25 @@ void main() {
       );
       expect(scheme, scheme2);
     });
+    test(
+        'FCS7.012: GIVEN a SeedColorScheme.fromSeeds using three seeds '
+        'and no tones or variant '
+        'EXPECT same as when null assigned to both variant and tones', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        variant: null,
+        tones: null,
+      );
+      expect(scheme, equals(scheme2));
+    });
   });
 }

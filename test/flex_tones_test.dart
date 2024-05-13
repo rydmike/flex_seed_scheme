@@ -441,6 +441,33 @@ void main() {
         )),
       );
     });
+    test('FTO1.017legacy: Verify FlexTones.material3Legacy(Brightness.light).',
+        () {
+      expect(
+        FlexTones.material3Legacy(Brightness.light),
+        equals(const FlexTones.light(
+          primaryChroma: 48,
+          primaryMinChroma: 0,
+          secondaryChroma: 16,
+          tertiaryChroma: 24,
+        )),
+      );
+    });
+    test('FTO1.018Legacy: Verify FlexTones.material3Legacy(Brightness.dark).',
+        () {
+      expect(
+        FlexTones.material3Legacy(Brightness.dark),
+        equals(const FlexTones.dark(
+          surfaceTone: 8,
+          backgroundTone: 8,
+          onErrorContainerTone: 90,
+          primaryChroma: 48,
+          primaryMinChroma: 0,
+          secondaryChroma: 16,
+          tertiaryChroma: 24,
+        )),
+      );
+    });
     test('FTO1.019: Verify FlexTones.soft(Brightness.light).', () {
       expect(
         FlexTones.soft(Brightness.light),
