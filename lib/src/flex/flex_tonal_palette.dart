@@ -11,9 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 import 'package:collection/collection.dart' show ListEquality;
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 
 import '../mcu/hct/hct.dart';
 
@@ -33,26 +32,46 @@ import '../mcu/hct/hct.dart';
 /// When using the [FlexPaletteType.extended] type tones, there are not only
 /// the new tones, but the chroma limit of tones >= 90 is also removed.
 /// This increases fidelity of higher tone when high chromacity is used.
+///
+/// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+/// should be avoided and extended tones used instead. The common tones are
+/// kept for backwards compatibility and for cases where the original M3
+/// palette is needed. The [FlexPaletteType.extended] is the new default
+/// for all [FlexTones].
 enum FlexPaletteType {
-  /// Default common tones consisting of the 15 tones originally used in
+  /// Common tones consisting of the 15 tones originally used in
   /// FlexSeedScheme.
   ///
-  /// Original Material 3 color system included 13 tones
+  /// Original Material 3 color system included only 13 tones
   /// 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100.
+  /// These are still used as common tone in Material Color Utilities (MCU)
+  /// package TonalPalette class.
   ///
   /// FlexSeedScheme includes tones 5 and 98 in addition to these tones in its
   /// definition of common tones.
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   common,
 
   /// Extended tones used in Material 3 revision for additional fidelity
   /// in surface colors. These were added during 1st half of 2023 to the
   /// Material 3 color system specification.
   ///
-  /// The added tones 4, 6, 12, 17, 22 are for new dark mode surfaces in
+  /// The added tones 2, 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
-  /// 96, 94, 92, 87 are for light mode surfaces in the updated Material 3
-  /// color system. For more information, see:
+  /// 98, 97, 96, 94, 92, 87 are for light mode surfaces in the updated
+  /// Material-3 color system. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   extended,
 }
 
@@ -68,6 +87,12 @@ enum FlexPaletteType {
 @immutable
 class FlexTonalPalette {
   /// Commonly-used tone values.
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   static const List<int> commonTones = <int>[
     0,
     5,
@@ -97,6 +122,12 @@ class FlexTonalPalette {
   /// to compile time const of same const list length.
   ///
   /// Flutter SDK [TonalPalette] has 13 common tones and [FlexTonalPalette] 15.
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   static const int commonSize = 15;
 
   /// Extended one values in a [FlexTonalPalette].
@@ -114,6 +145,12 @@ class FlexTonalPalette {
   ///
   /// Tones 2, 5, and 97 are not in old or new M3 spec, but FlexSeedScheme
   /// includes them to enable even more fidelity in dark and light tones.
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   static const List<int> extendedTones = <int>[
     0,
     2,
@@ -155,6 +192,12 @@ class FlexTonalPalette {
   /// to compile time const of same const list length.
   ///
   /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 27.
+  ///
+  /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
+  /// should be avoided and extended tones used instead. The common tones are
+  /// kept for backwards compatibility and for cases where the original M3
+  /// palette is needed. The [FlexPaletteType.extended] is the new default
+  /// for all [FlexTones].
   static const int extendedSize = 27;
 
   /// The hue of the palette.
@@ -173,6 +216,8 @@ class FlexTonalPalette {
   /// - keys are integers that represent tones, and
   /// - values are colors in ARGB format.
   final Map<int, int> _cache;
+
+  /// Whether the palette was created from the cache or not.
   final bool _isFromCache;
 
   FlexTonalPalette._fromHct(

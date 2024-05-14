@@ -524,7 +524,8 @@ extension SeedColorScheme on ColorScheme {
     /// key colors when generating each tonal palette.
     ///
     /// If not provided, a setup matching the Material 3 Color System
-    /// specification is used. To create seed generated [ColorScheme] with
+    /// specification is used by defaulting to [FlexTones.material].
+    /// To create seed generated [ColorScheme] with
     /// different chroma limits and tonal mappings provide a custom [FlexTones],
     /// or use a predefined one like [FlexTones.jolly], [FlexTones.vivid] or
     /// [FlexTones.highContrast].
@@ -540,22 +541,21 @@ extension SeedColorScheme on ColorScheme {
     /// An optional way to select the used algorithm for seeded [ColorScheme]
     /// generation, can be used instead of a [FlexTones] provided in [tones].
     ///
-    /// If used and a non null value is given, any seed generation configuration
-    /// provided via [tones] is ignored and the [variant] is used to select
-    /// a predefined seed generation configuration.
+    /// The [variant] and [tones] are mutually exclusive, only one of them
+    /// can be used. If both are null, the default from [tones] is used.
     ///
     /// The [variant] selections includes all the Flutter SDK defined options
     /// that will be available in the future in Flutter Stable after 3.22.x,
     /// that are available in master channel now but did not land in Flutter
     /// 3.22. Variant options that are identical to the Flutter SDK options
     /// have [FlexSchemeVariant.value], [isFlutterScheme] set to true. These
-    /// enum  options will not respect and use any other seed generation key
+    /// enum  options will not respect and use any other seed generation keys
     /// than the [primaryKey], as they only support using one seed color.
     ///
     /// The [FlexSchemeVariant] also includes quick selections for all the
     /// predefined [FlexTones] configurations. However, with [variant] you can
     /// only select one of the predefined configurations, and not make custom
-    /// configurations like you can with [FlexTones]. Additionally you can not
+    /// configurations like you can with [FlexTones]. Additionally you cannot
     /// use the [FlexTones] modifiers [onMainsUseBW], [onSurfacesUseBW] and
     /// [surfacesUseBW], since the only operate on the [FlexTones]
     /// configurations passed in to [tones].

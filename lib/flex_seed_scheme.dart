@@ -21,23 +21,25 @@ export 'src/flex/flex_scheme_variant.dart';
 /// Extension on `ColorScheme` to give us `SeedColorScheme.fromSeeds`.
 export 'src/flex/flex_seed_scheme.dart' show SeedColorScheme;
 
-/// A palette with 15 tones using same Hue and Chroma.
+/// A palette with predefined tones using same Hue and Chroma.
 ///
-/// The Material default Tonal Palette includes 13 tones, FlexSeedScheme
-/// FlexTonalPalette provides 15 when using [FlexPaletteType.common].
+/// The Material Color Utilities default Tonal Palette includes 13 tones,
+/// FlexSeedScheme's FlexTonalPalette provides 15 when using
+/// [FlexPaletteType.common].
 /// The additional two tones are 5 and 98. Tone 98 provides optional tonal
 /// fidelity in the light and white end of the palette, and tone 5 a more dark
 /// tone in the black end of the palette.
 ///
-/// Available tones are [0,5,10,20,30,40,50,60,70,80,90,95,98,99,100].
+/// The [FlexPaletteType.common] tones are
+/// 0,5,10,20,30,40,50,60,70,80,90,95,98,99,100.
 ///
-/// To get even mor tones you can use [FlexPaletteType.extended] which provides
-/// 25 tones, the additional tones are [4,6,12,17,22,87,92,94,96,97] for a total
-/// of 25 tones, which are
-/// [0,4,5,6,10,12,17,20,22,30,40,50,60,70,80,87,90,92,94,95,96,97,98,99,100].
+/// To get even more tones you can use [FlexPaletteType.extended] which provides
+/// 25 tones, the additional tones are 2,4,6,12,17,22,24,87,92,94,96,97 for a
+/// total of 27 tones, which are
+/// 0,2,4,5,6,10,12,17,20,22,24,30,40,50,60,70,80,87,90,92,94,95,96,97,98,99,100
 ///
 /// The new tones are also used by the new [ColorScheme] in updated Material-3
-/// design system.
+/// design system that landed in Flutter 3.22.0.
 export 'src/flex/flex_tonal_palette.dart';
 
 /// Defines which tone to use from each tonal palette, when assigning
@@ -57,7 +59,10 @@ export 'src/flex/flex_tones.dart';
 /// * TonalPalette
 /// * ViewingConditions
 ///
-/// More APIs from MCU may be exported later if needed.
+/// More APIs from MCU can be exported if needed, let us know if needed.
+/// The ones exported here are the ones used by FlexSeedScheme, its example
+/// FlexColorPicker and FlexColorScheme and its example, like the example 5
+/// the Themes Playground.
 export 'src/mcu/material_color_utilities.dart'
     show
         Blend,
