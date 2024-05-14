@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
           else
             const ListTile(
               dense: true,
-              title: Text('Additional seed generation option are available '
+              title: Text('Additional seed generation options are available '
                   'when using FlexTones based scheme variants.'),
             ),
           const Divider(),

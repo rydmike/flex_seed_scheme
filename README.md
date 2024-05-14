@@ -2,29 +2,15 @@
 
 # FlexSeedScheme (FSS)
 
-A more flexible and powerful version of Flutter's ColorScheme.fromSeed.
+A more flexible and powerful version of Flutter's `ColorScheme.fromSeed`.
 
 Use this package like `ColorScheme.fromSeed` with the following additional capabilities:
 
-* Use separate key colors to generate seed-based tonal palettes for primary and optionally secondary, tertiary as well as error, neutral and neutral variant colors in `ColorScheme`.
+* Use separate seed key colors to generate seed-based tonal palettes for primary and optionally secondary, tertiary as well as error, neutral and neutral variant colors in `ColorScheme`.
 * Change the chroma limits and values used in the Material-3 default strategy for tonal palette generation in the new Google HCT (Hue-Chroma-Tone) color space.
-* Get access to new Material-3 design `ColorScheme` variants like `fidelity` and `monochrome` that do not yet exist in Flutter SDK (Flutter 3.22), but will arrive in later versions. 
-* Change which tones in the generated core tonal palettes are used by which `ColorScheme` color. Changes are limited to the tones from correct core palette for each `ColorScheme` color, but any tone from it can be used. Going up or down one tone is often usable, in some cases even two.
-* For more tones use `FlexPaletteType.extended`, that gives access to all the new tones that are used in revised Material-3 design for surfaces and fixed main color. These new tones are used and supported by the standard `ColorScheme` in Flutter 3.22 and later. It is recommended to use `FlexPaletteType.extended` if creating new custom FlexTones. In the package version 2.0.0 and later, `FlexPaletteType.extended` is the default palette type. The older palette type `FlexPaletteType.common` is still available for backwards compatibility, but should be avoided.
-
-## Background
-
-This package was extracted from the customizable color scheme seeding engine in the
-[**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
-
-This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
-**FlexColorScheme**, without using the FlexColorScheme package.
-Starting with **FlexColorScheme** version 6 and later, it depends on this package instead.
-
-If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to
-use its features, FlexColorScheme exports its API as well.
-If you use FlexColorScheme you typically do not even need to use FlexSeedScheme directly,
-its usage is baked in and used based on how you configure FlexColorScheme.
+* Get access to new Material-3 design `ColorScheme` variants like `fidelity` and `monochrome` that do not yet exist in Flutter SDK v3.22, but will arrive in later versions. 
+* Change which tones in the generated core tonal palettes are used by which `ColorScheme` color. 
+* Use `FlexPaletteType.extended`, that gives access to all the new tones that are used in revised Material-3 design for surfaces and fixed main color. The new tones are used and supported by the standard `ColorScheme` in Flutter 3.22 and later. It is recommended to use `FlexPaletteType.extended` if creating new custom `FlexTones`. In the package version 2.0.0 and later, `FlexPaletteType.extended` is the default palette type. The older palette type `FlexPaletteType.common` is available for backwards compatibility, but should be avoided in Flutter 3.22 and later.
 
 ## Getting Started
 
@@ -260,10 +246,10 @@ const FlexTones myLightTones = FlexTones.light(
   onSecondaryTone: 96, // Default is 100
   onTertiaryTone: 96, // Default is 100
   onErrorTone: 96, // Default is 100
-  primaryMinChroma: 55, // Default is 48
+  primaryMinChroma: 55, // Default is 36
   secondaryChroma: 25, // Default is 16
   tertiaryChroma: 40, // Default is 24
-  neutralChroma: 5, // Default is 4, avoid very high values in light mode.
+  neutralChroma: 5, // Default is 6, avoid very high values in light mode.
   neutralVariantChroma: 10, // Default is 8
   paletteType: FlexPaletteType.extended, // Use extended palette type
 );
@@ -275,10 +261,10 @@ const FlexTones myDarkTones = FlexTones.dark(
   onSecondaryTone: 6, // Default is 20
   onTertiaryTone: 6, // Default is 20
   onErrorTone: 6, // Default is 20
-  primaryMinChroma: 55, // Default is 48
+  primaryMinChroma: 55, // Default is 36
   secondaryChroma: 25, // Default is 16
   tertiaryChroma: 40, // Default is 24
-  neutralChroma: 7, // Default is 4, you can go higher in dark mode than light.
+  neutralChroma: 7, // Default is 6, you can go higher in dark mode than light.
   neutralVariantChroma: 14, // Default is 8
   paletteType: FlexPaletteType.extended, // Use extended palette type
 );
@@ -309,7 +295,7 @@ There are two high contrast `FlexTones` configuration pre-made for this. They ar
 `FlexTones.highContrast`, a colorful high-contrast version, and `FlexTones.ultraContrast`, a less 
 colorful version, a more dark on light in light theme mode, and light on dark in dark mode.
 
-The `FlexTones.canyPop` also creates **very** high contrast theme, with colors that are vibrant and pop, it can also be used for high contrast themes. Depending on seed color input values and its chroma value, `FlexTones.chroma` can also be very vibrant and high contrast. It can also be monochromatic, i.e. gray-scale, if input seed colors have chroma value zero.
+The `FlexTones.canyPop` also creates **very** high contrast theme, with colors that are vibrant and pop, it can also be used for high contrast themes. Depending on seed color input values and its chroma value, `FlexTones.chroma` can also be very vibrant and high contrast. It can also be monochromatic, i.e. gray-scale if input seed colors have chroma value zero.
 
 ```dart
 // Make a high contrast light ColorScheme from the seeds.
@@ -405,7 +391,7 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
   primaryKey: primarySeedColor,
   secondaryKey: secondarySeedColor,
   tertiaryKey: tertiarySeedColor,
-tones: FlexTones.material(Brightness.light)
+  tones: FlexTones.material(Brightness.light)
         .onMainsUseBW()
         .onSurfacesUseBW(),
 );
@@ -444,10 +430,10 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
   primaryKey: primarySeedColor,
   secondaryKey: secondarySeedColor,
   tertiaryKey: tertiarySeedColor,
-tones: FlexTones.material(Brightness.light)
-        .onMainsUseBW()
-        .onSurfacesUseBW()
-        .surfacesUseBW(), // Make light surface and background white
+  tones: FlexTones.material(Brightness.light)
+          .onMainsUseBW()
+          .onSurfacesUseBW()
+          .surfacesUseBW(), // Make light surface and background white
 );
 ```
 
@@ -457,7 +443,7 @@ The included example application uses above color seeding and custom
 tone mapping. You can also choose any of the built-in pre-configured tone mappings as used 
 seeding strategy. When you select seeding strategy, basic info about is displayed.
 
-You can try a web version of this example for version 2 of FSS [**here**](https://rydmike.com/flexseedscheme/demo-v2). The older demo for version 1 of FSS is still available [**here**](https://rydmike.com/flexseedscheme/demo-v1).
+You can try a web version of this example for version 2 of FSS [**here in V2 demo**](https://rydmike.com/flexseedscheme/demo-v2). The older demo for version 1 of FSS is still available [**here in V1 demo**](https://rydmike.com/flexseedscheme/demo-v1).
 
 You can choose to use secondary and primary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force background and surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
 
@@ -522,3 +508,17 @@ Here we can compare it to an example of Material widgets using the theme created
 |---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_4_widgets.png" alt="candy pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_4_widgets.png" alt="candy pop dark 4 widgets"/> |
 
+
+## Package Background
+
+This package was extracted from the customizable color scheme seeding engine in the
+[**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
+
+This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
+**FlexColorScheme**, without using the FlexColorScheme package.
+Starting with **FlexColorScheme** version 6 and later, it depends on this package instead.
+
+If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to
+use its features, FlexColorScheme exports its API as well.
+If you use FlexColorScheme you typically do not even need to use FlexSeedScheme directly,
+its usage is baked in and used based on how you configure FlexColorScheme.
