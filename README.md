@@ -246,10 +246,10 @@ const FlexTones myLightTones = FlexTones.light(
   onSecondaryTone: 96, // Default is 100
   onTertiaryTone: 96, // Default is 100
   onErrorTone: 96, // Default is 100
-  primaryMinChroma: 55, // Default is 48
+  primaryMinChroma: 55, // Default is 36
   secondaryChroma: 25, // Default is 16
   tertiaryChroma: 40, // Default is 24
-  neutralChroma: 5, // Default is 4, avoid very high values in light mode.
+  neutralChroma: 5, // Default is 6, avoid very high values in light mode.
   neutralVariantChroma: 10, // Default is 8
   paletteType: FlexPaletteType.extended, // Use extended palette type
 );
@@ -261,10 +261,10 @@ const FlexTones myDarkTones = FlexTones.dark(
   onSecondaryTone: 6, // Default is 20
   onTertiaryTone: 6, // Default is 20
   onErrorTone: 6, // Default is 20
-  primaryMinChroma: 55, // Default is 48
+  primaryMinChroma: 55, // Default is 36
   secondaryChroma: 25, // Default is 16
   tertiaryChroma: 40, // Default is 24
-  neutralChroma: 7, // Default is 4, you can go higher in dark mode than light.
+  neutralChroma: 7, // Default is 6, you can go higher in dark mode than light.
   neutralVariantChroma: 14, // Default is 8
   paletteType: FlexPaletteType.extended, // Use extended palette type
 );
@@ -391,7 +391,7 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
   primaryKey: primarySeedColor,
   secondaryKey: secondarySeedColor,
   tertiaryKey: tertiarySeedColor,
-tones: FlexTones.material(Brightness.light)
+  tones: FlexTones.material(Brightness.light)
         .onMainsUseBW()
         .onSurfacesUseBW(),
 );
