@@ -2,6 +2,14 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 2.1.0-dev.1
+
+This is a pre-release of FFS 2.1.0, that will be used to add and test some new preconfigured `FlexTones` with no primary chromacity in neutral palettes.
+
+**FIX**
+* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). The planned new tones are not yet included in this dev release, but it sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, that are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel. It is apart from the version constraint difference identical to the `2.0.0` release. 
+
+
 ## 2.0.0
 
 **May 14, 2024**
