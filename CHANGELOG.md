@@ -15,6 +15,11 @@ This is pre-release 2 of FFS 2.1.0.
   * Updated `MaterialDynamicColors` to use the expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 on pub. This changes the contrast curve for light/dark color and dark mode color tone for onPrimaryContainer, onSecondaryContainer, onTertiaryContainer and onErrorContainer. The dark mode tone is changed from 10 to 30, which is the correct spec. Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter 3.22.x and Flutter master still uses MCU earlier than 0.12.0 and have the wrong onColor tones. This will be corrected when Flutter updates to MCU 0.12.0.  
   * Sets Flutter constraint back to `>=3.22.0` since beta and master are now higher than `3.22.0` so it can now be done, and master and beta can use this constraint as well.
 
+
+* **FIX**
+  * EXAMPLE: The key color to seed error palette was not used in the example in dark mode.
+  
+
 ## 2.1.0-dev.1
 
 This is pre-release 1 of FFS 2.1.0.
