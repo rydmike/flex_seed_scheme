@@ -19,7 +19,7 @@ This is pre-release 2 of FFS 2.1.0.
 This is a pre-release 1 of FFS 2.1.0.
 
 **FIX**
-* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). The planned new tones are not yet included in this dev release, but it sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, that are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel. It is apart from the version constraint difference identical to the `2.0.0` release. 
+* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). Sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, that are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel. It is apart from the version constraint difference identical to the `2.0.0` release. 
 
 
 ## 2.0.0
