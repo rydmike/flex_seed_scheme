@@ -428,9 +428,61 @@ extension SeedColorScheme on ColorScheme {
   /// Any seed produced [ColorScheme] color can be overridden by providing it a
   /// given [Color] value.
   ///
-  /// The propertis [tones] and [variant] are mutually exclusive, only one of
+  /// The properties [tones] and [variant] are mutually exclusive, only one of
   /// them can be used. If both are null, the default from [tones] is used.
-
+  /// The [variant] can be used to select a predefined [FlexSchemeVariant] that
+  /// include all the [DynamicSchemeVariant]s in Flutter SDK, but also all the
+  /// predefined [FlexTones] in this package.  ///
+  ///
+  /// A [ColorScheme] is a set of 46 colors based on the
+  /// [Material spec](https://m3.material.io/styles/color/the-color-system/color-roles)
+  /// that can be used to configure the color properties of most components.
+  ///
+  /// ### Colors in Material 3
+  ///
+  /// The main accent color groups in the scheme are [primary], [secondary],
+  /// and [tertiary].
+  ///
+  /// * Primary colors are used for key components across the UI, such as the
+  ///   FAB, prominent buttons, and active states.
+  ///
+  /// * Secondary colors are used for less prominent components in the UI, such
+  ///   as filter chips, while expanding the opportunity for color expression.
+  ///
+  /// * Tertiary colors are used for contrasting accents that can be used to
+  ///   balance primary and secondary colors or bring heightened attention to
+  ///   an element, such as an input field. The tertiary colors are left
+  ///   for makers to use at their discretion and are intended to support
+  ///   broader color expression in products.
+  ///
+  /// Each accent color group (primary, secondary and tertiary) includes
+  /// '-Fixed' and '-Dim' color roles, such as [primaryFixed] and
+  /// [primaryFixedDim]. Fixed roles are appropriate to use in places where
+  /// Container roles are normally used, but they stay the same color between
+  /// light and dark themes. The '-Dim' roles provide a stronger, more
+  /// emphasized color with the same fixed behavior.
+  ///
+  /// The remaining colors of the scheme are composed of neutral colors used for
+  /// backgrounds and surfaces, as well as specific colors for errors, dividers
+  /// and shadows. Surface colors are used for backgrounds and large,
+  /// low-emphasis areas of the screen.
+  ///
+  /// Material 3 also introduces tone-based surfaces and surface containers.
+  /// They replace the old opacity-based model which applied a tinted overlay on
+  /// top of surfaces based on their elevation. These colors include:
+  /// [surfaceBright], [surfaceDim], [surfaceContainerLowest],
+  /// [surfaceContainerLow], [surfaceContainer], [surfaceContainerHigh], and
+  /// [surfaceContainerHighest].
+  ///
+  /// Many of the colors have matching 'on' colors, which are used for drawing
+  /// content on top of the matching color. For example, if something is using
+  /// [primary] for a background color, [onPrimary] would be used to paint text
+  /// and icons on top of it. For this reason, the 'on' colors should have a
+  /// contrast ratio with their matching colors of at least 4.5:1 in order to
+  /// be readable. On '-FixedVariant' roles, such as [onPrimaryFixedVariant],
+  /// also have the same color between light and dark themes, but compared
+  /// with on '-Fixed' roles, such as [onPrimaryFixed], they provide a
+  /// lower-emphasis option for text and icons.
   static ColorScheme fromSeeds({
     /// The overall brightness of this color scheme.
     Brightness brightness = Brightness.light,
@@ -569,7 +621,7 @@ extension SeedColorScheme on ColorScheme {
     /// -1.0 is the lowest; 1.0 is the highest. From Material Design guideline,
     /// the medium and high contrast correspond to 0.5 and 1.0 respectively.
     ///
-    /// The contrast level property is only used when generating the
+    /// The contrast level property is only used when seed generating the
     /// [ColorScheme] based on [variant]. When using [tones] the [contrastLevel]
     /// is ignored. With [tones] contrast level can be set as desired using
     /// custom [FlexTones] configurations. There are two
