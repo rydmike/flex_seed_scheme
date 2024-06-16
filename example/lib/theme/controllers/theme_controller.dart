@@ -62,6 +62,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _monoSurfaces = false;
+  bool get useMonoSurfaces => _monoSurfaces;
+  void setUseMonoSurfaces(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _monoSurfaces) return;
+    _monoSurfaces = value;
+    if (notify) notifyListeners();
+  }
+
   bool _keepMainOnColorsBW = false;
   bool get keepMainOnColorsBW => _keepMainOnColorsBW;
   void setKeepMainOnColorsBW(bool? value, [bool notify = true]) {

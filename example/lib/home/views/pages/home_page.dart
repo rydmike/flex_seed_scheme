@@ -120,6 +120,16 @@ class HomePage extends StatelessWidget {
           SwitchListTile(
             dense: true,
             title: const Text(
+                'Use monochrome surface colors, pure grey scale, no tint'),
+            value: controller.useMonoSurfaces &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setUseMonoSurfaces,
+          ),
+          SwitchListTile(
+            dense: true,
+            title: const Text(
                 'Keep main onColors in seeded ColorScheme black and white'),
             value: controller.keepMainOnColorsBW &&
                 !controller.usedVariant.isFlutterScheme,

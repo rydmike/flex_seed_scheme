@@ -981,6 +981,29 @@ class FlexTones with Diagnosticable {
     );
   }
 
+  // TODO(rydmike): Add tests for monochromeSurfaces.
+
+  /// Returns a new [FlexTones] instance where the neutral and neutral variant
+  /// chrome is set to 0. This will result in that regardless of the seed color
+  /// the neutral and neutral variant tonal colors will be a pure grey scale
+  /// without any chromacity in them. Resulting in surface colors with no color
+  /// tint in them.
+  ///
+  /// The [useMonochrome] flag is true by default, making the function
+  /// effective. If set to false, the function is a no op and just returns the
+  /// [FlexTones] object unmodified. This is typically used to control applying
+  /// the tint removal via a controller.
+  FlexTones monochromeSurfaces([bool useMonochrome = true]) {
+    // ignore: avoid_returning_this
+    if (!useMonochrome) return this;
+    return copyWith(
+      neutralChroma: 0,
+      neutralMinChroma: 0,
+      neutralVariantChroma: 0,
+      neutralVariantMinChroma: 0,
+    );
+  }
+
   /// Tone used for [ColorScheme.primary] from primary [FlexTonalPalette].
   final int primaryTone;
 
