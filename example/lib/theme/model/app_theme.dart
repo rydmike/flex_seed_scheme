@@ -70,6 +70,7 @@ class AppTheme {
           controller.useSecondaryKey ? controller.secondarySeedColor : null,
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
