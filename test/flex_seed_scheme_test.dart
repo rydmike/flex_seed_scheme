@@ -741,6 +741,7 @@ void main() {
       expect(scheme, equals(scheme2));
     });
 
+    // TODO(rydmike): Add tests for contrast levels?
     // ColorScheme test with DynamicScheme
 
     test(

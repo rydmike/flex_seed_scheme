@@ -30,11 +30,12 @@ class ShowTonalPalette extends StatelessWidget {
     List<int> neutralTonals = <int>[];
     List<int> neutralVariantTonals = <int>[];
 
+    // TODO(rydmike): Add usage of contrast level to demo app.
     // Are we using a Flutter SDK scheme? Otherwise use FlexTone.
     if (controller.usedVariant.isFlutterScheme) {
       // Get DynamicScheme tones if using Flutter SDK scheme.
       final DynamicScheme dynamicScheme = SeedColorScheme.buildDynamicScheme(
-          brightness, controller.primarySeedColor, controller.usedVariant);
+          brightness, controller.primarySeedColor, controller.usedVariant, 0.0);
 
       // Assign the tonals for the schemes to the int lists using tone indexes
       // from FlexTonalPalette based on used type.

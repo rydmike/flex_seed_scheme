@@ -4,15 +4,19 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 2.1.0-dev.2
 
-This is a pre-release of FFS 2.1.0, that will be used to add and test some new preconfigured `FlexTones` with no primary chromacity in neutral palettes.
+This is pre-release 2 of FFS 2.1.0.
+
+* **NEW** 
+  * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. Using `contrastLevel` has no effect when using `tones`, but with `tones` you can create custom tone for even more flexibility in seed generation with higher or less contrast.
+
 
 * **CHANGE**
-- Updated `MaterialDynamicColors` to use the expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 on pub. 
-- Sets Flutter constraint back to `>=3.22.0` since beta and master are no higher than `3.22.0` it can be done.
+  * Updated `MaterialDynamicColors` to use the expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 on pub. This changes the contrast curve for light/dark color and dark mode color tone for onPrimaryContainer, onSecondaryContainer, onTertiaryContainer and onErrorContainer. The dark mode tone is changed from 10 to 30, which is the correct spec. Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter 3.22.x and Flutter master still uses MCU earlier than 0.12.0 and have the wrong onColor tones. This will be corrected when Flutter updates to MCU 0.12.0.  
+  * Sets Flutter constraint back to `>=3.22.0` since beta and master are now higher than `3.22.0` so it can now be done, and master and beta can use this constraint as well.
 
 ## 2.1.0-dev.1
 
-This is a pre-release of FFS 2.1.0, that will be used to add and test some new preconfigured `FlexTones` with no primary chromacity in neutral palettes.
+This is a pre-release 1 of FFS 2.1.0.
 
 **FIX**
 * [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). The planned new tones are not yet included in this dev release, but it sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, that are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel. It is apart from the version constraint difference identical to the `2.0.0` release. 

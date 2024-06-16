@@ -92,7 +92,7 @@ void main() {
         isDark: false,
         contrastLevel: -1.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
-        isColor(0xff146c48));
+        isColor(0xff388862));
   });
 
   test('lightTheme_standardContrast_onPrimaryContainer', () {
@@ -101,7 +101,7 @@ void main() {
         isDark: false,
         contrastLevel: 0.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
-        isColor(0xff002112));
+        isColor(0xff005234));
   });
 
   test('lightTheme_maxContrast_onPrimaryContainer', () {
@@ -195,7 +195,7 @@ void main() {
         isDark: true,
         contrastLevel: -1.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
-        isColor(0xff64b48a));
+        isColor(0xff43936C));
   });
 
   test('darkTheme_standardContrast_onPrimaryContainer', () {
@@ -213,7 +213,7 @@ void main() {
         isDark: true,
         contrastLevel: 1.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
-        isColor(0xff000000));
+        isColor(0xff000E06));
   });
 
   test('darkTheme_minContrast_surface', () {
