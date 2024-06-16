@@ -2,6 +2,14 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 2.1.0-dev.2
+
+This is a pre-release of FFS 2.1.0, that will be used to add and test some new preconfigured `FlexTones` with no primary chromacity in neutral palettes.
+
+* **CHANGE**
+- Updated `MaterialDynamicColors` to use the expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 on pub. 
+- Sets Flutter constraint back to `>=3.22.0` since beta and master are no higher than `3.22.0` it can be done.
+
 ## 2.1.0-dev.1
 
 This is a pre-release of FFS 2.1.0, that will be used to add and test some new preconfigured `FlexTones` with no primary chromacity in neutral palettes.

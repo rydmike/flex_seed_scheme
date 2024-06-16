@@ -110,7 +110,7 @@ void main() {
         isDark: true,
         contrastLevel: -0.5,
       )),
-      equals(0xffbac040),
+      equals(0xff959b1a),
     );
     expect(
       MaterialDynamicColors.inverseSurface.getArgb(SchemeContent(
