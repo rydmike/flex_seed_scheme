@@ -7,17 +7,21 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 This is pre-release 2 of FFS 2.1.0.
 
 * **NEW** 
-  * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. Using `contrastLevel` has no effect when using `tones`, but with `tones` you can create custom tone for even more flexibility in seed generation with higher or less contrast.
-  * The `FlexTones` got a new built-in modifier `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for its tonal palettes, with no color tint from their key color or primary key seed color. 
+  * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
+    * The `contrastLevel` in Flutter SDK is not yet available in `ColorScheme.fromSeed` on Flutter stable 3.22.x, but is available on the master channel. With FSS you can use it already in Flutter 3.22.x.
+    * **NOTE:** Using `contrastLevel` has no effect when using `tones`. However, with `tones` you can create custom tones with even more flexibility in seed generation to make schemes with higher or less contrast. Two pre-configured high contrast tones exist earlier via `FlexTones.highContrast` and `FlexTones.ultraContrast`.
+  
+  * The `tones` configuration class `FlexTones` got a new built-in modifier, `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes, with no color tint from their key color or primary key seed color. 
   
 
 * **CHANGE**
-  * Updated `MaterialDynamicColors` to use the expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 on pub. This changes the contrast curve for light/dark color and dark mode color tone for onPrimaryContainer, onSecondaryContainer, onTertiaryContainer and onErrorContainer. The dark mode tone is changed from 10 to 30, which is the correct spec. Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter 3.22.x and Flutter master still uses MCU earlier than 0.12.0 and have the wrong onColor tones. This will be corrected when Flutter updates to MCU 0.12.0.  
-  * Sets Flutter constraint back to `>=3.22.0` since beta and master are now higher than `3.22.0` so it can now be done, and master and beta can use this constraint as well.
+  * Updated `MaterialDynamicColors` to use the correct expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 as published on pub. This changes the contrast curve for light/dark colors and dark mode color tone, for onPrimaryContainer, onSecondaryContainer, onTertiaryContainer and onErrorContainer. The dark mode tone is changed from 10 to 30, which is the correct spec. Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter stable 3.22.x and Flutter master still use MCU earlier than 0.12.0 and have the wrong onColor tones. This will be corrected in Flutter SDK when Flutter is updated to MCU 0.12.0 or later. With FSS 2.1.0 you get the correct spec already now.
+  
+  * Set Flutter constraint back to `>=3.22.0`. Since beta and master are now on `3.23.0` or higher, this constraint can now be used by master and beta without any issue.
 
 
 * **FIX**
-  * EXAMPLE: The key color to seed error palette was not used in the example in dark mode.
+  * SAMPLE: The key color to seed the error palette was not used in the main example in dark mode.
   
 
 ## 2.1.0-dev.1
