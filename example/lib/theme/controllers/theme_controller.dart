@@ -116,6 +116,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  double _contrastLevel = 0.0;
+  double get contrastLevel => _contrastLevel;
+  void setContrastLevel(double? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _contrastLevel) return;
+    _contrastLevel = value;
+    if (notify) notifyListeners();
+  }
+
   Color _primarySeedColor = AppColor.primary;
   Color get primarySeedColor => _primarySeedColor;
   void setPrimarySeedColor(Color? value, [bool notify = true]) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../about/views/about.dart';
 import '../../../core/constants/app_data.dart';
 import '../../../core/views/universal/color_scheme_view.dart';
+import '../../../core/views/universal/list_tile_slider.dart';
 import '../../../core/views/universal/showcase_material.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import '../widgets/flex_tones_popup_menu.dart';
@@ -60,6 +61,28 @@ class HomePage extends StatelessWidget {
             contentPadding:
                 const EdgeInsetsDirectional.only(start: 16, end: 24),
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: ColorSchemeView(),
+          ),
+          ListTileSlider(
+            dense: true,
+            title: const Text('Contrast level. Only for MCU dynamic schemes'),
+            enabled: controller.usedVariant.isFlutterScheme,
+            min: -1,
+            max: 1,
+            divisions: 8,
+            valueDecimals: 2,
+            value: controller.usedVariant.isFlutterScheme
+                ? controller.contrastLevel
+                : 0,
+            onChanged: controller.setContrastLevel,
+            sliderLabel: 'Contrast',
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ShowTonalPalette(controller: controller),
+          ),
           ListTile(
             title: Text('${controller.usedVariant.variantName}'
                 ' scheme variant configuration info:'),
@@ -73,6 +96,7 @@ class HomePage extends StatelessWidget {
               dense: true,
               title: Text('Primary key color is always used to seed the '
                   'ColorScheme. Tap to change colors.')),
+          const Divider(),
           if (controller.usedVariant.isFlutterScheme)
             const ListTile(
               dense: true,
@@ -86,7 +110,6 @@ class HomePage extends StatelessWidget {
               title: Text('Additional seed generation options are available '
                   'when using FlexTones based scheme variants.'),
             ),
-          const Divider(),
           SwitchListTile(
             dense: true,
             title:
@@ -150,8 +173,8 @@ class HomePage extends StatelessWidget {
           if (isLight)
             SwitchListTile(
               dense: true,
-              title: const Text('Keep surface and background white in seeded '
-                  'light ColorScheme'),
+              title: const Text('Keep surface and deprecated background color, '
+                  'white in seeded light ColorScheme'),
               value: controller.keepLightSurfaceColorsWhite &&
                   !controller.usedVariant.isFlutterScheme,
               onChanged: controller.usedVariant.isFlutterScheme
@@ -161,23 +184,14 @@ class HomePage extends StatelessWidget {
           else
             SwitchListTile(
               dense: true,
-              title: const Text('Keep surface and background black in seeded '
-                  'dark ColorScheme'),
+              title: const Text('Keep surface and deprecated background color, '
+                  'black in seeded dark ColorScheme'),
               value: controller.keepDarkSurfaceColorsBlack &&
                   !controller.usedVariant.isFlutterScheme,
               onChanged: controller.usedVariant.isFlutterScheme
                   ? null
                   : controller.setKeepDarkSurfaceColorsBlack,
             ),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ShowTonalPalette(controller: controller),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: ColorSchemeView(),
-          ),
           const SizedBox(height: 16),
           const Divider(),
           const ListTile(

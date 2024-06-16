@@ -29,6 +29,7 @@ class AppTheme {
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
+      contrastLevel: controller.contrastLevel,
       // Tone chroma config and tone mapping is optional. If you do not add it
       // you get a config matching Flutter's Material 3 ColorScheme.fromSeed.
       //
@@ -74,6 +75,7 @@ class AppTheme {
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
+      contrastLevel: controller.contrastLevel,
       tones: controller.usedVariant.isFlutterScheme
           ? null
           : controller.usedVariant
