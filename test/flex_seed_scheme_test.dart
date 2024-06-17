@@ -873,5 +873,36 @@ void main() {
         }
       }
     });
+    test(
+        'FCS7.014-l: GIVEN a SeedColorScheme.fromSeeds using five seeds '
+        'and tones map FlexTones.material for a light scheme with '
+        'error neutral and variant chroma set but with neutral chroma '
+        'and variant neutral chroma set to 0 '
+        'EXPECT scheme equal to using monochromeSurfaces()', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+          neutralMinChroma: 0,
+          neutralChroma: 0,
+          neutralVariantMinChroma: 0,
+          neutralVariantChroma: 0,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).monochromeSurfaces(),
+      );
+      expect(scheme, scheme2);
+    });
   });
 }
