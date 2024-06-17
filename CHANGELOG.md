@@ -2,9 +2,9 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 2.1.0-dev.2
+## 2.1.0
 
-This is pre-release 2 of FFS 2.1.0.
+**June 17, 2024**
 
 * **NEW** 
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
@@ -14,10 +14,12 @@ This is pre-release 2 of FFS 2.1.0.
   * The `tones` configuration class `FlexTones` got a new built-in modifier, `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes, with no color tint from their key color or primary key seed color. 
   
 
+* **COLOR VALUE BREAKING**
+  * Updated `MaterialDynamicColors` to use the correct expressive on-colors spec. This brings the internal Material Color Utilities (MCU) up to version 0.12.0 as published on pub. This changes the contrast curve for light/dark colors and dark mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer`. The dark mode tone is changed from 10 to 30, which is the correct spec. The mentioned colors also change slightly for light mode in some dynamic schemes due to the changed contrast curve, which was changed from `ContrastCurve(4.5, 7, 11, 21)` to `ContrastCurve(3, 4.5, 7, 11)` for the listed on container colors.
+    * Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter stable 3.22.x and Flutter master still use an MCU version lower than 0.12.0 and have the wrong on color tones in dark mode. This will be corrected in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 2.1.0 you get the correct spec already now. However, the mentioned `MaterialDynamicColors` on container colors will now differ slightly in light mode and more in dark mode, from the wrong ones that are currently produced by MCU versions before 0.12.0 that Flutter SDK still uses. When Flutter SDK bumps its version to MCU 0.12.0 r later, the mentioned FSS produced colors will again be identical to the SDK produced values.
+
 * **CHANGE**
-  * Updated `MaterialDynamicColors` to use the correct expressive on-colors spec. This brings the internal Material Color Utilities up to version 0.12.0 as published on pub. This changes the contrast curve for light/dark colors and dark mode color tone, for onPrimaryContainer, onSecondaryContainer, onTertiaryContainer and onErrorContainer. The dark mode tone is changed from 10 to 30, which is the correct spec. Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter stable 3.22.x and Flutter master still use MCU earlier than 0.12.0 and have the wrong onColor tones. This will be corrected in Flutter SDK when Flutter is updated to MCU 0.12.0 or later. With FSS 2.1.0 you get the correct spec already now.
-  
-  * Set Flutter constraint back to `>=3.22.0`. Since beta and master are now on `3.23.0` or higher, this constraint can now be used by master and beta without any issue.
+  * Revert Flutter constraint back to `>=3.22.0`. Since beta and master are now on `3.23.0` or higher, this constraint can now be used by master and beta channels without any issue.
 
 
 * **FIX**
@@ -26,10 +28,12 @@ This is pre-release 2 of FFS 2.1.0.
 
 ## 2.1.0-dev.1
 
-This is pre-release 1 of FFS 2.1.0.
+**May 21, 2024**
+
+This is a temp pre-release of FFS 2.1.0.
 
 **FIX**
-* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). Sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, that are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel. It is apart from the version constraint difference identical to the `2.0.0` release. 
+* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). Sets Flutter version constraint to flutter: '>=3.22.0-0.3.pre', so that the package can also be used on **beta** and **stable** channels, while they are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel before they have been bumped to 3.23.x. This release is apart from the version constraint difference identical to the `2.0.0` release. 
 
 
 ## 2.0.0

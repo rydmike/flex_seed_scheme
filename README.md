@@ -282,18 +282,18 @@ By using `paletteType` with value `FlexPaletteType.extended`, you can create see
 
 The `ColorScheme` colors that use these new tones are now finally also available in Flutter 3.22 or later. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
 
-The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.extended` is now used to enable support for the tones in the updated specification and also adding three more custom tone `[2, 5, 97]`. The `paletteType` with value `FlexPaletteType.extended` is now default, it produces 27 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
+The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.extended` is now used to enable support for the tones in the updated specification and also adding three more custom tones `[2, 5, 97]`. The `paletteType` with value `FlexPaletteType.extended` is now default, it produces 27 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
 
 To use the older classic setup you can still use `FlexTones.common`. It produces the legacy M3 tones with its own two additions `[5]` and `[98]` resulting in 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. Flutter versions before 3.22 do not yet use these new tones in its standard `ColorScheme`. 
 
-For backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, meaning higher or equal to 90, are limited to maximum chroma of 40. This keeps the chromacity of tones 90 to 100 lower than or equal to 40. If the source seed color has higher chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original palette design. 
+For backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, meaning higher or equal to 90, are limited to maximum chroma of 40. This keeps the chromacity of tones 90 to 100 lower than or equal to 40. If the source seed color has higher chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original, now legacy, palette design. 
   
 When using the `FlexPaletteType.extended` type tones, there are not only new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used.
 
 ## Accessibility
 
 You can use `FlexTones` to create a seed generated `ColorScheme`, that is based on same colors
-as your standard theme's light and dark scheme colors, but uses a chroma configuration and tone 
+as the standard theme's light and dark scheme colors, but uses a chroma configuration and tone 
 mapping setup that increases contrast further from standard light and dark theme setup.
 
 There are two high contrast `FlexTones` configuration pre-made for this. They are called 
@@ -322,9 +322,9 @@ final ColorScheme schemeDarkHc = SeedColorScheme.fromSeeds(
 );
 ```
 
-If you then define equivalent `ThemeData` based on those schemes as your standard `MaterialApp`,
+If you define equivalent `ThemeData` based on those schemes as your standard `MaterialApp`,
 `theme` and `darkTheme` definitions, but assign them to `highContrastTheme` and 
-`highContrastDarkTheme`, you get more accessible themed colors that are based on same colors, 
+`highContrastDarkTheme`, you get more accessible themed colors that are based on the same colors 
 but with higher contrast, that are activated when users select high-contrast theme in device
 accessibility system settings. Changing to accessibility theme based on device system setting 
 automatically, by using theme data defined on `MaterialApp` properties `highContrastTheme` and
@@ -333,7 +333,6 @@ For other platforms, you need to use a user setting and toggle themes based on i
 
 ```dart
       // Define accessibility high contrast versions using same color base.
-      //
       highContrastTheme: ThemeData(
         colorScheme: schemeLightHc,
         useMaterial3: true,
@@ -346,9 +345,9 @@ For other platforms, you need to use a user setting and toggle themes based on i
 
 ### Contrast Level
 
-When using a `variant` that is based on Flutter SDK DynamicScheme, it has `FlexSchemeVariant` property `isFlutterScheme` set to true, you can also provide a `contrastLevel` for the seed generation.
+When using a `variant` that is based on the equivalent Flutter SDK `DynamicScheme`, indicated by that it has its `FlexSchemeVariant` property `isFlutterScheme` set to true, you can also provide a `contrastLevel` for the seed generation.
 
-The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`. The value 0.0 is the default normal contrast; -1.0 is the lowest; 1.0 is the highest. From **Material Design guideline**, the medium and high contrast, correspond to 0.5 and 1.0 respectively. The `contrastLevel` is used to adjust the contrast between the primary and onPrimary colors. The `contraslLevel` must be from -1.0 to 1.0.
+The `contrastLevel` parameter is used to indicate the contrast level between color pairs, such as `primary` and `onPrimary`. The value 0.0 is the default normal contrast; -1.0 is the lowest; 1.0 is the highest. From **Material Design guideline**, the medium and high contrast, correspond to 0.5 and 1.0 respectively. The `contrastLevel` is used to adjust the contrast between the main color and its on color pair. The `contraslLevel` must be from -1.0 to 1.0.
 
 ```dart
     // Make a light high contrast ColorScheme from a seeds using variant style fidelity.
@@ -377,14 +376,11 @@ If we remove the Material-3 guide used color system's colored contrasting colors
 color accessibility and contrast on any `FlexTones` configuration. 
 
 > [!NOTE]  
-> If you use the `variant` property to the seed generated `ColorScheme` you cannot
-> use the below presented `tones` modifiers, as they are modifiers used only on the input `FlexTones` configurations provided in `tones`. In the package example app you can find a demonstration of how to instead use `tones` as input for `FlexTones` based variants and `variant` being effective only when using variants that are Flutter SDK based.
+> If you use the `variant` property to make your seed generated `ColorScheme`, you cannot use the below presented `tones` modifiers, as they are modifiers used on the input `FlexTones` configurations provided in `tones`. In the package main example app you can find a demonstration of how to use `tones` as input for `FlexTones` based variants, and `variant` being effective only when using variants that are Flutter SDK and MCU based.
 
 #### FlexTones Modifiers `onMainsUseBW()` and `onSurfacesUseBW()`
 
-We can do this with the `FlexTones` modifying methods `onMainsUseBW()`, for main on colors and 
-with `onSurfacesUseBW()` for the surface on colors. These modifiers automatically make their 
-corresponding contrasting colors black or white, depending on if the source color is light or dark.  
+We can use black and white contrasting colors with the `FlexTones` modifying methods `onMainsUseBW()`, for main on colors and with `onSurfacesUseBW()` for the surface on colors. These modifiers automatically make their corresponding contrasting colors black or white, depending on if the corresponding main color is light or dark.  
 
 The main colors are:
 * `primary`, `primaryContainer`
@@ -451,8 +447,9 @@ plain white, for backgrounds in light mode, for a more platform-agnostic design.
 
 In dark mode `surfacesUseBW()` can be used create seeded color schemes with true black 
 background and surface colors, but you may prefer to keep the primary seed color based 
-slightly primary color tinted backgrounds in dark mode.   
+slightly primary color tinted backgrounds in dark mode. 
 
+This modifier will make the `surface` color and still also the deprecated `background` color plain white in light mode and true black in dark mode.
 
 ```dart
 // Make a Material 3 seeded light ColorScheme, but with always 
@@ -472,19 +469,7 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
 
 #### FlexTones Modifier `monochromeSurfaces()`
 
-A new `FlexTones` modifier in FSS version 2.1.0 is `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make all the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes. Surface colors will then have no color tint from their own key color or from the primary key seed color. For those tired of tinted surface colors in Material-3, this is a useful helper.
-
-This modifier will make the `surface` and
-`background` colors plain white in light mode and true black in dark mode.
-
-This modifier can be used for great effect in light mode, as you can remove the colored
-background surfaces from any of the `FlexTones` seeding strategies. Some designs may prefer
-plain white, for backgrounds in light mode, for a more platform-agnostic design.
-
-In dark mode `surfacesUseBW()` can be used create seeded color schemes with true black
-background and surface colors, but you may prefer to keep the primary seed color based
-slightly primary color tinted backgrounds in dark mode.
-
+A new `FlexTones` modifier in FSS version 2.1.0 is `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make all the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes. Surface colors will then have no color tint from their own key color or from the primary seed key color. For those tired of tinted surface colors in Material-3, this is a useful helper.
 
 ```dart
 // Make a vivid Material 3 seeded light ColorScheme, where all surface colors
