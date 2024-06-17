@@ -17,6 +17,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _showColorValue = true;
+  bool get showColorValue => _showColorValue;
+  void setShowColorValue(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _showColorValue) return;
+    _showColorValue = value;
+    if (notify) notifyListeners();
+  }
+
   ThemeMode _themeMode = ThemeMode.light;
   ThemeMode get themeMode => _themeMode;
   void setThemeMode(ThemeMode? value, [bool notify = true]) {

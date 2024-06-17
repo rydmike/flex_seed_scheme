@@ -85,7 +85,7 @@ class ShowInputColors extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'Seed key colors',
+              'Key colors used to seed the ColorScheme',
               style: theme.textTheme.titleMedium,
             ),
           ),

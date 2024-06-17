@@ -15,9 +15,10 @@ const Size _equalThreeChipSize = Size(160, 57.333);
 /// It also allows copying the color values to the clipboard by tapping the
 /// scheme color.
 class ColorSchemeView extends StatelessWidget {
-  const ColorSchemeView({super.key, this.scheme});
+  const ColorSchemeView({super.key, this.scheme, this.showColorValue = false});
 
   final ColorScheme? scheme;
+  final bool showColorValue;
 
   @override
   Widget build(BuildContext context) {
@@ -70,21 +71,26 @@ class ColorSchemeView extends StatelessWidget {
                   color: colorScheme.primary,
                   onColor: colorScheme.onPrimary,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
-                    label: 'onPrimary',
-                    color: colorScheme.onPrimary,
-                    onColor: colorScheme.primary),
+                  label: 'onPrimary',
+                  color: colorScheme.onPrimary,
+                  onColor: colorScheme.primary,
+                  showValue: showColorValue,
+                ),
                 ColorChip(
                   label: 'primaryContainer',
                   color: colorScheme.primaryContainer,
                   onColor: colorScheme.onPrimaryContainer,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onPrimaryContainer',
                   color: colorScheme.onPrimaryContainer,
                   onColor: colorScheme.primaryContainer,
+                  showValue: showColorValue,
                 ),
               ]),
               ColorGroup(children: <Widget>[
@@ -93,21 +99,26 @@ class ColorSchemeView extends StatelessWidget {
                   color: colorScheme.primaryFixed,
                   onColor: colorScheme.onPrimaryFixed,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
-                    label: 'onPrimaryFixed',
-                    color: colorScheme.onPrimaryFixed,
-                    onColor: colorScheme.primaryFixed),
+                  label: 'onPrimaryFixed',
+                  color: colorScheme.onPrimaryFixed,
+                  onColor: colorScheme.primaryFixed,
+                  showValue: showColorValue,
+                ),
                 ColorChip(
                   label: 'primaryFixedDim',
                   color: colorScheme.primaryFixedDim,
                   onColor: colorScheme.onPrimaryFixedVariant,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onPrimaryFixedVariant',
                   color: colorScheme.onPrimaryFixedVariant,
                   onColor: colorScheme.primaryFixedDim,
+                  showValue: showColorValue,
                 ),
               ]),
               ColorGroup(children: <Widget>[
@@ -116,22 +127,26 @@ class ColorSchemeView extends StatelessWidget {
                   color: colorScheme.secondary,
                   onColor: colorScheme.onSecondary,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onSecondary',
                   color: colorScheme.onSecondary,
                   onColor: colorScheme.secondary,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'secondaryContainer',
                   color: colorScheme.secondaryContainer,
                   onColor: colorScheme.onSecondaryContainer,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onSecondaryContainer',
                   color: colorScheme.onSecondaryContainer,
                   onColor: colorScheme.secondaryContainer,
+                  showValue: showColorValue,
                 ),
               ]),
               ColorGroup(children: <Widget>[
@@ -140,21 +155,26 @@ class ColorSchemeView extends StatelessWidget {
                   color: colorScheme.secondaryFixed,
                   onColor: colorScheme.onSecondaryFixed,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
-                    label: 'onSecondaryFixed',
-                    color: colorScheme.onSecondaryFixed,
-                    onColor: colorScheme.secondaryFixed),
+                  label: 'onSecondaryFixed',
+                  color: colorScheme.onSecondaryFixed,
+                  onColor: colorScheme.secondaryFixed,
+                  showValue: showColorValue,
+                ),
                 ColorChip(
                   label: 'secondaryFixedDim',
                   color: colorScheme.secondaryFixedDim,
                   onColor: colorScheme.onSecondaryFixedVariant,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onSecondaryFixedVariant',
                   color: colorScheme.onSecondaryFixedVariant,
                   onColor: colorScheme.secondaryFixedDim,
+                  showValue: showColorValue,
                 ),
               ]),
               ColorGroup(
@@ -164,22 +184,26 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.tertiary,
                     onColor: colorScheme.onTertiary,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onTertiary',
                     color: colorScheme.onTertiary,
                     onColor: colorScheme.tertiary,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'tertiaryContainer',
                     color: colorScheme.tertiaryContainer,
                     onColor: colorScheme.onTertiaryContainer,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onTertiaryContainer',
                     color: colorScheme.onTertiaryContainer,
                     onColor: colorScheme.tertiaryContainer,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -189,21 +213,26 @@ class ColorSchemeView extends StatelessWidget {
                   color: colorScheme.tertiaryFixed,
                   onColor: colorScheme.onTertiaryFixed,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
-                    label: 'onTertiaryFixed',
-                    color: colorScheme.onTertiaryFixed,
-                    onColor: colorScheme.tertiaryFixed),
+                  label: 'onTertiaryFixed',
+                  color: colorScheme.onTertiaryFixed,
+                  onColor: colorScheme.tertiaryFixed,
+                  showValue: showColorValue,
+                ),
                 ColorChip(
                   label: 'tertiaryFixedDim',
                   color: colorScheme.tertiaryFixedDim,
                   onColor: colorScheme.onTertiaryFixedVariant,
                   size: _colorChipSize,
+                  showValue: showColorValue,
                 ),
                 ColorChip(
                   label: 'onTertiaryFixedVariant',
                   color: colorScheme.onTertiaryFixedVariant,
                   onColor: colorScheme.tertiaryFixedDim,
+                  showValue: showColorValue,
                 ),
               ]),
               ColorGroup(
@@ -213,22 +242,26 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.error,
                     onColor: colorScheme.onError,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onError',
                     color: colorScheme.onError,
                     onColor: colorScheme.error,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'errorContainer',
                     color: colorScheme.errorContainer,
                     onColor: colorScheme.onErrorContainer,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onErrorContainer',
                     color: colorScheme.onErrorContainer,
                     onColor: colorScheme.errorContainer,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -239,22 +272,26 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.surface,
                     onColor: colorScheme.onSurface,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onSurface',
                     color: colorScheme.onSurface,
                     onColor: colorScheme.surface,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceContainer',
                     color: colorScheme.surfaceContainer,
                     onColor: colorScheme.onSurfaceVariant,
                     size: _colorChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onSurfaceVariant',
                     color: colorScheme.onSurfaceVariant,
                     onColor: colorScheme.surfaceContainer,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -265,24 +302,28 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.surfaceContainerLowest,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceContainerLow',
                     color: colorScheme.surfaceContainerLow,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceContainerHigh',
                     color: colorScheme.surfaceContainerHigh,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceContainerHighest',
                     color: colorScheme.surfaceContainerHighest,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -293,24 +334,28 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.surfaceDim,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceBright',
                     color: colorScheme.surfaceBright,
                     onColor: colorScheme.onSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'inverseSurface',
                     color: colorScheme.inverseSurface,
                     onColor: colorScheme.onInverseSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onInverseSurface',
                     color: colorScheme.onInverseSurface,
                     onColor: colorScheme.inverseSurface,
                     size: _equalFourChipSize,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -321,16 +366,19 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.outline,
                     onColor: colorScheme.surface,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'outlineVariant',
                     color: colorScheme.outlineVariant,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'scrim',
                     color: colorScheme.scrim,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -340,17 +388,20 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'surfaceTint',
                     color: colorScheme.surfaceTint,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'inversePrimary',
                     color: colorScheme.inversePrimary,
-                    onColor: colorScheme.primary,
+                    onColor: colorScheme.inverseSurface,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'shadow',
                     color: colorScheme.shadow,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -363,18 +414,21 @@ class ColorSchemeView extends StatelessWidget {
                     color: colorScheme.background,
                     onColor: colorScheme.onBackground,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'onBackground\n(deprecated)',
                     color: colorScheme.onBackground,
                     onColor: colorScheme.background,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                   ColorChip(
                     label: 'surfaceVariant\n(deprecated)',
                     color: colorScheme.surfaceVariant,
                     onColor: colorScheme.onSurfaceVariant,
                     size: _equalThreeChipSize,
+                    showValue: showColorValue,
                   ),
                 ],
               ),
@@ -413,6 +467,7 @@ class ColorChip extends StatelessWidget {
     this.onColor,
     this.size,
     this.copyEnabled = true,
+    this.showValue = false,
   });
 
   final Color color;
@@ -420,6 +475,7 @@ class ColorChip extends StatelessWidget {
   final String label;
   final Size? size;
   final bool copyEnabled;
+  final bool showValue;
 
   static Color _contrastColor(Color color) {
     final Brightness brightness = ThemeData.estimateBrightnessForColor(color);
@@ -454,12 +510,12 @@ class ColorChip extends StatelessWidget {
                   }
                 : null,
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      label,
+                      showValue ? '$label\n#${color.hexCode}' : label,
                       style: TextStyle(color: labelColor, fontSize: 11),
                     ),
                   ),

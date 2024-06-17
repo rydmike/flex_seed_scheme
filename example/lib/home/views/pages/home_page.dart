@@ -54,16 +54,25 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ShowInputColors(controller: controller),
+          ),
+          const ListTile(
+            dense: true,
+            title: Text('At least a primary key color is always needed to '
+                'seed the ColorScheme. Tap to change colors.'),
+          ),
           FlexTonesPopupMenu(
-            title: 'Selected scheme variant:',
+            title: 'Used ColorScheme generation strategy:',
             variant: controller.usedVariant,
             onChanged: controller.setUsedTone,
             contentPadding:
                 const EdgeInsetsDirectional.only(start: 16, end: 24),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: ColorSchemeView(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ColorSchemeView(showColorValue: controller.showColorValue),
           ),
           ListTileSlider(
             dense: true,
@@ -88,14 +97,6 @@ class HomePage extends StatelessWidget {
                 ' scheme variant configuration info:'),
             subtitle: Text('${controller.usedVariant.configDetails}\n'),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ShowInputColors(controller: controller),
-          ),
-          const ListTile(
-              dense: true,
-              title: Text('Primary key color is always used to seed the '
-                  'ColorScheme. Tap to change colors.')),
           const Divider(),
           if (controller.usedVariant.isFlutterScheme)
             const ListTile(
@@ -192,7 +193,13 @@ class HomePage extends StatelessWidget {
                   ? null
                   : controller.setKeepDarkSurfaceColorsBlack,
             ),
-          const SizedBox(height: 16),
+          const Divider(),
+          SwitchListTile(
+            dense: true,
+            title: const Text('Show color value in the ColorScheme view'),
+            value: controller.showColorValue,
+            onChanged: controller.setShowColorValue,
+          ),
           const Divider(),
           const ListTile(
               title: Text('Widget showcase, using Material default styles')),
