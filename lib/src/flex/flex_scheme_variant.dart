@@ -9,11 +9,11 @@ import 'flex_tones.dart';
 /// property variant.
 ///
 /// [FlexSchemeVariant] values that use [isFlutterScheme] set to true, use the
-/// Flutter SDK algorithm to construct a [ColorScheme] identical to
-/// [ColorScheme.fromSeed], or more exactly will do in next stable after
-/// Flutter 3.22.x
+/// Flutter SDK and MCU algorithm to construct a [ColorScheme] identical to
+/// [ColorScheme.fromSeed] and its variant property that was added in
+/// Flutter 3.22.2.
 ///
-/// The [tonalSpot] is the only variant available in Flutter 3.22 and it builds
+/// The [tonalSpot] is variant is the default Flutter 3.22 and later, it builds
 /// the default Material-3 style scheme colors. These colors are mapped to light
 /// or dark tones to achieve visually accessible color pairings with sufficient
 /// contrast between foreground and background elements.
@@ -28,10 +28,9 @@ import 'flex_tones.dart';
 /// algorithm to construct a [ColorScheme] based on the provided seed colors.
 /// These variants are mapped to built-in [FlexTones] configurations that can
 /// be used to construct a [ColorScheme] with a more flexible algorithm than
-/// the Flutter SDK's [ColorScheme.fromSeed]. A key feature is that all tonal
-/// palettes can use their own seed color.
+/// the Flutter SDK's [ColorScheme.fromSeed].
 ///
-/// By using [tones] function and a given [Brightness], it will returns the
+/// By using the [tones] function and a given [Brightness], it will return the
 /// corresponding [FlexTones] made with same named [FlexTones] constructor, for
 /// cases where [isFlutterScheme] set to false.
 ///
@@ -42,13 +41,17 @@ import 'flex_tones.dart';
 ///
 /// This enum also contains labels for variant names, a short description and
 /// configuration details, as well as an icon for each tone and shade value to
-/// adjust used color value on the icon. These properties can optionally be
+/// adjust used color value on the icon.
+///
+/// These properties can optionally be
 /// used when building UIs that present the different scheme variants. They
 /// serve no other purpose. They can also be ignored and you can use the enum
 /// values as input and use them to build your own UI for selecting and
 /// describing the scheme variants. These values are used in the example app
-/// and also in the `FlexColorScheme` package example app, like the
-/// Themes Playground.
+/// and also in the `FlexColorScheme` package example apps, like the
+/// Themes Playground. Any changes in releases in the enum property values
+/// [variantName],[description], [configDetails], [icon] and [shade] are not
+/// considered breaking changes, only patches.
 enum FlexSchemeVariant {
   /// A Dynamic Color theme with low to medium colorfulness and a Tertiary
   /// Tonal Palette]with a hue related to the source color. The default
@@ -91,8 +94,8 @@ enum FlexSchemeVariant {
         'Secondary - Max of: chroma from key -32 or *0.5\n'
         'Tertiary - TemperatureCache complement hue or key hue and chroma\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Chroma from key/8\n'
-        'Neutral variant - Chroma from key/8 +4\n'
+        'Neutral - Chroma from key div 8\n'
+        'Neutral variant - Chroma from key div 8 plus 4\n'
         'Variant style: Material Color Utilities (MCU)',
     icon: Icons.grain_outlined,
     shade: 0,
