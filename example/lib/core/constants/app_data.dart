@@ -25,8 +25,8 @@ class AppData {
   static const String packageName = 'FlexSeed\u{00AD}Scheme';
   // Version of the WEB build, usually same as package, but it also has a
   // build numbers.
-  static const String versionMajor = '2';
-  static const String versionMinor = '1';
+  static const String versionMajor = '3';
+  static const String versionMinor = '0';
   static const String versionPatch = '0';
   static const String versionBuild = '01';
   static const String version = '$versionMajor.$versionMinor.$versionPatch '

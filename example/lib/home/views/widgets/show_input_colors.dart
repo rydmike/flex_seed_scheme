@@ -167,10 +167,8 @@ class ShowInputColors extends StatelessWidget {
                         elevation: 0,
                         clipBehavior: Clip.hardEdge,
                         child: Material(
-                          color: controller.useSecondaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? secondary
-                              : surface,
+                          color:
+                              controller.useSecondaryKey ? secondary : surface,
                           child: ColorPickerInkWellDialog(
                             color: secondary,
                             onChanged: controller.setSecondarySeedColor,
@@ -181,16 +179,13 @@ class ShowInputColors extends StatelessWidget {
                                 controller.setSecondarySeedColor(secondary);
                               }
                             },
-                            enabled: controller.useSecondaryKey &&
-                                !controller.usedVariant.isFlutterScheme,
+                            enabled: controller.useSecondaryKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc secondary $secondary'),
-                              color: controller.useSecondaryKey &&
-                                      !controller.usedVariant.isFlutterScheme
+                              color: controller.useSecondaryKey
                                   ? secondary
                                   : surface,
-                              textColor: controller.useSecondaryKey &&
-                                      !controller.usedVariant.isFlutterScheme
+                              textColor: controller.useSecondaryKey
                                   ? onSecondary
                                   : surface,
                               showInputColor: false,
@@ -209,11 +204,8 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Secondary'),
-                      value: controller.useSecondaryKey &&
-                          !controller.usedVariant.isFlutterScheme,
-                      onChanged: controller.usedVariant.isFlutterScheme
-                          ? null
-                          : controller.setUseSecondaryKey,
+                      value: controller.useSecondaryKey,
+                      onChanged: controller.setUseSecondaryKey,
                     ),
                   ),
                   SizedBox(
@@ -223,8 +215,7 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
-                      value: controller.pinSecondary &&
-                          !controller.usedVariant.isFlutterScheme,
+                      value: controller.pinSecondary,
                       onChanged: controller.useSecondaryKey
                           ? controller.setPinSecondary
                           : null,
@@ -246,10 +237,7 @@ class ShowInputColors extends StatelessWidget {
                         elevation: 0,
                         clipBehavior: Clip.hardEdge,
                         child: Material(
-                          color: controller.useTertiaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? tertiary
-                              : surface,
+                          color: controller.useTertiaryKey ? tertiary : surface,
                           child: ColorPickerInkWellDialog(
                             color:
                                 controller.useTertiaryKey ? tertiary : surface,
@@ -261,16 +249,13 @@ class ShowInputColors extends StatelessWidget {
                                 controller.setTertiarySeedColor(tertiary);
                               }
                             },
-                            enabled: controller.useTertiaryKey &&
-                                !controller.usedVariant.isFlutterScheme,
+                            enabled: controller.useTertiaryKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc tertiary $tertiary'),
-                              color: controller.useTertiaryKey &&
-                                      !controller.usedVariant.isFlutterScheme
+                              color: controller.useTertiaryKey
                                   ? tertiary
                                   : surface,
-                              textColor: controller.useTertiaryKey &&
-                                      !controller.usedVariant.isFlutterScheme
+                              textColor: controller.useTertiaryKey
                                   ? onTertiary
                                   : surface,
                               label: 'tertiary',
@@ -289,11 +274,8 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Tertiary'),
-                      value: controller.useTertiaryKey &&
-                          !controller.usedVariant.isFlutterScheme,
-                      onChanged: controller.usedVariant.isFlutterScheme
-                          ? null
-                          : controller.setUseTertiaryKey,
+                      value: controller.useTertiaryKey,
+                      onChanged: controller.setUseTertiaryKey,
                     ),
                   ),
                   SizedBox(
@@ -303,8 +285,7 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
-                      value: controller.pinTertiary &&
-                          !controller.usedVariant.isFlutterScheme,
+                      value: controller.pinTertiary,
                       onChanged: controller.useTertiaryKey
                           ? controller.setPinTertiary
                           : null,
@@ -325,10 +306,7 @@ class ShowInputColors extends StatelessWidget {
                         elevation: 0,
                         clipBehavior: Clip.hardEdge,
                         child: Material(
-                          color: controller.useErrorKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? error
-                              : surface,
+                          color: controller.useErrorKey ? error : surface,
                           child: ColorPickerInkWellDialog(
                             color: controller.useErrorKey ? error : surface,
                             onChanged: controller.setErrorSeedColor,
@@ -339,18 +317,12 @@ class ShowInputColors extends StatelessWidget {
                                 controller.setErrorSeedColor(error);
                               }
                             },
-                            enabled: controller.useErrorKey &&
-                                !controller.usedVariant.isFlutterScheme,
+                            enabled: controller.useErrorKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc error $error'),
-                              color: controller.useErrorKey &&
-                                      !controller.usedVariant.isFlutterScheme
-                                  ? error
-                                  : surface,
-                              textColor: controller.useErrorKey &&
-                                      !controller.usedVariant.isFlutterScheme
-                                  ? onError
-                                  : surface,
+                              color: controller.useErrorKey ? error : surface,
+                              textColor:
+                                  controller.useErrorKey ? onError : surface,
                               label: 'error',
                               showInputColor: false,
                               showMaterialName: true,
@@ -367,11 +339,8 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Error'),
-                      value: controller.useErrorKey &&
-                          !controller.usedVariant.isFlutterScheme,
-                      onChanged: controller.usedVariant.isFlutterScheme
-                          ? null
-                          : controller.setUseErrorKey,
+                      value: controller.useErrorKey,
+                      onChanged: controller.setUseErrorKey,
                     ),
                   ),
                   SizedBox(
@@ -381,8 +350,7 @@ class ShowInputColors extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
-                      value: controller.pinError &&
-                          !controller.usedVariant.isFlutterScheme,
+                      value: controller.pinError,
                       onChanged: controller.useErrorKey
                           ? controller.setPinError
                           : null,

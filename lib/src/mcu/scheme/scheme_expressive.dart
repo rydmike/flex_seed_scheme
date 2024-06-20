@@ -67,6 +67,11 @@ class SchemeExpressive extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.expressive,
@@ -76,16 +81,26 @@ class SchemeExpressive extends DynamicScheme {
           ),
           secondaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
-                sourceColorHct, hues, secondaryRotations),
+                secondarySourceColorHct ?? sourceColorHct,
+                hues,
+                secondaryRotations),
             24.0,
           ),
           tertiaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
-                sourceColorHct, hues, tertiaryRotations),
+                tertiarySourceColorHct ?? sourceColorHct,
+                hues,
+                tertiaryRotations),
             32.0,
           ),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue + 15.0, 8.0),
-          neutralVariantPalette:
-              TonalPalette.of(sourceColorHct.hue + 15.0, 12.0),
+          neutralPalette: TonalPalette.of(
+              (neutralSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0, 8.0),
+          neutralVariantPalette: TonalPalette.of(
+              (neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0,
+              12.0),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

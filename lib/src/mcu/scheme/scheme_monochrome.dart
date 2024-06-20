@@ -23,6 +23,7 @@ class SchemeMonochrome extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.monochrome,
@@ -31,5 +32,9 @@ class SchemeMonochrome extends DynamicScheme {
           tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

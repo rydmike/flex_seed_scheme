@@ -24,13 +24,26 @@ class SchemeNeutral extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.neutral,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 12.0),
-          secondaryPalette: TonalPalette.of(sourceColorHct.hue, 8.0),
-          tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 16.0),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 2.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 2.0),
+          secondaryPalette: TonalPalette.of(
+              secondarySourceColorHct?.hue ?? sourceColorHct.hue, 8.0),
+          tertiaryPalette: TonalPalette.of(
+              tertiarySourceColorHct?.hue ?? sourceColorHct.hue, 16.0),
+          neutralPalette: TonalPalette.of(
+              neutralSourceColorHct?.hue ?? sourceColorHct.hue, 2.0),
+          neutralVariantPalette: TonalPalette.of(
+              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue, 2.0),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

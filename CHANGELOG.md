@@ -2,9 +2,13 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 2.1.0
+## 3.0.0
 
 **June 20, 2024**
+
+* **BREAKING**
+  * The API for `SeedColorScheme.buildDynamicScheme` was changed to enable support for multiple seed colors on the MCU based `DynamicScheme` APIs and its extended schemes.
+
 
 * **NEW** 
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
@@ -12,6 +16,10 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
     * **NOTE:** Using `contrastLevel` has no effect when using `tones`. However, with `tones` you can create custom tones with even more flexibility in seed generation to make schemes with higher or less contrast. Two pre-configured high contrast tones exist earlier via `FlexTones.highContrast` and `FlexTones.ultraContrast`.
   
   * The `tones` configuration class `FlexTones` got a new built-in modifier, `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes, with no color tint from their key color or primary key seed color. 
+
+  * The forked internal MCU version received new features. First `DynamicScheme` can accept an optional `customErrorPalette` and then `SchemeTonalSpot`, `SchemeContent`, `SchemeFidelity`, `SchemeExpressive`, `SchemeFruitSalad`, `SchemeMonochrome`, `SchemeNeutral`, `SchemeRainbow` and `SchemeVibrant` that extend `DynamicScheme` all received properties to support individual seed colors for all tonal palettes. 
+
+  * The above addition enables `SeedColorScheme.fromSeeds` to support using all its key seed colors also when using MCU based `DynamicScheme` variants and not just for `FlexTones` based `tones` and `variants`. 
   
 
 * **COLOR VALUE BREAKING**

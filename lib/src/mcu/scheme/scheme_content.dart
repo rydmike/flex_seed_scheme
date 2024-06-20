@@ -36,6 +36,11 @@ class SchemeContent extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.content,
@@ -43,24 +48,42 @@ class SchemeContent extends DynamicScheme {
             sourceColorHct.hue,
             sourceColorHct.chroma,
           ),
-          secondaryPalette: TonalPalette.of(
-            sourceColorHct.hue,
-            math.max(sourceColorHct.chroma - 32.0, sourceColorHct.chroma * 0.5),
-          ),
-          tertiaryPalette: TonalPalette.fromHct(
-            DislikeAnalyzer.fixIfDisliked(
-              TemperatureCache(sourceColorHct)
-                  .analogous(count: 3, divisions: 6)
-                  .last,
-            ),
-          ),
+          secondaryPalette: secondarySourceColorHct != null
+              ? TonalPalette.of(
+                  secondarySourceColorHct.hue,
+                  math.max(secondarySourceColorHct.chroma - 32.0,
+                      secondarySourceColorHct.chroma * 0.5),
+                )
+              : TonalPalette.of(
+                  sourceColorHct.hue,
+                  math.max(sourceColorHct.chroma - 32.0,
+                      sourceColorHct.chroma * 0.5),
+                ),
+          tertiaryPalette: tertiarySourceColorHct != null
+              ? TonalPalette.of(
+                  tertiarySourceColorHct.hue,
+                  tertiarySourceColorHct.chroma,
+                )
+              : TonalPalette.fromHct(
+                  DislikeAnalyzer.fixIfDisliked(
+                    TemperatureCache(sourceColorHct)
+                        .analogous(count: 3, divisions: 6)
+                        .last,
+                  ),
+                ),
           neutralPalette: TonalPalette.of(
-            sourceColorHct.hue,
-            sourceColorHct.chroma / 8.0,
+            neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+            (neutralSourceColorHct?.chroma ?? sourceColorHct.chroma) / 8.0,
           ),
           neutralVariantPalette: TonalPalette.of(
-            sourceColorHct.hue,
-            (sourceColorHct.chroma / 8.0) + 4.0,
+            neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+            ((neutralVariantSourceColorHct?.chroma ?? sourceColorHct.chroma) /
+                    8.0) +
+                4.0,
           ),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

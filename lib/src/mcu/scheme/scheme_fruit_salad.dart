@@ -25,6 +25,11 @@ class SchemeFruitSalad extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.fruitSalad,
@@ -33,20 +38,25 @@ class SchemeFruitSalad extends DynamicScheme {
             48.0,
           ),
           secondaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),
+            MathUtils.sanitizeDegreesDouble(
+                (secondarySourceColorHct?.hue ?? sourceColorHct.hue) - 50.0),
             36.0,
           ),
           tertiaryPalette: TonalPalette.of(
-            sourceColorHct.hue,
+            tertiarySourceColorHct?.hue ?? sourceColorHct.hue,
             36.0,
           ),
           neutralPalette: TonalPalette.of(
-            sourceColorHct.hue,
+            neutralSourceColorHct?.hue ?? sourceColorHct.hue,
             10.0,
           ),
           neutralVariantPalette: TonalPalette.of(
-            sourceColorHct.hue,
+            neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
             16.0,
           ),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

@@ -581,6 +581,7 @@ extension SeedColorScheme on ColorScheme {
     ///
     /// If not provided, a setup matching the Material 3 Color System
     /// specification is used by defaulting to [FlexTones.material].
+    ///
     /// To create seed generated [ColorScheme] with
     /// different chroma limits and tonal mappings provide a custom [FlexTones],
     /// or use a predefined one like [FlexTones.jolly], [FlexTones.vivid] or
@@ -588,7 +589,7 @@ extension SeedColorScheme on ColorScheme {
     ///
     /// Starting with version 2.0.0 you can also use [variant] as an optional
     /// way to select a predefined seed generation configuration, instead of
-    /// providing a [FlexTones] configuration. The [variant] API is also used
+    /// providing a [FlexTones] configuration. The [variant] API is used
     /// to provide access to the DynamicSchemeVariant that are available
     /// in Flutter 3.22.2 and later. With FSS you can use them in
     /// Flutter 3.22.0 already.
@@ -603,17 +604,21 @@ extension SeedColorScheme on ColorScheme {
     /// The [variant] selections includes all the Flutter SDK defined options
     /// are available in the in Flutter Stable 3.22.2 and later. Variant options
     /// that are identical to the Flutter SDK options
-    /// have [FlexSchemeVariant.value], [isFlutterScheme] set to true. These
-    /// enum  options will not respect and use any other seed generation key
-    /// color than the [primaryKey], as they only support using one seed color.
+    /// have [FlexSchemeVariant.value], [isFlutterScheme] set to true. Starting
+    /// with FSS version 3.0.0 these enum options can also use all the seed
+    /// generation key colors, not just the [primaryKey]. The standard MCU lib
+    /// only support using one seed color. FSS includes a forked MCU library
+    /// that now enables using up to six seed colors, providing more degrees of
+    /// freedom also with MCU based scheme variants not just with FlexTones
+    /// based ones.
     ///
     /// The [FlexSchemeVariant] also includes quick selections for all the
     /// predefined [FlexTones] configurations. However, with [variant] you can
-    /// only select one of the predefined configurations, and not make custom
+    /// only use the predefined configurations, and not make custom
     /// configurations like you can with [FlexTones]. Additionally you cannot
-    /// use the [FlexTones] modifiers [onMainsUseBW], [onSurfacesUseBW] and
-    /// [surfacesUseBW], since the only operate on the [FlexTones]
-    /// configurations passed in to [tones].
+    /// use the [FlexTones] modifiers [monochromeSurfaces], [onMainsUseBW],
+    /// [onSurfacesUseBW] and [surfacesUseBW], since they operate on the
+    /// [FlexTones] configurations passed in to [tones].
     FlexSchemeVariant? variant,
 
     /// The [contrastLevel] parameter indicates the contrast level between color
@@ -809,8 +814,17 @@ extension SeedColorScheme on ColorScheme {
         'Only one of tones or variant can be provided, not both.');
 
     if (variant != null && variant.isFlutterScheme) {
-      final DynamicScheme scheme =
-          buildDynamicScheme(brightness, primaryKey, variant, contrastLevel);
+      final DynamicScheme scheme = buildDynamicScheme(
+        brightness: brightness,
+        primarySeedColor: primaryKey,
+        secondarySeedColor: secondaryKey,
+        tertiarySeedColor: tertiaryKey,
+        errorSeedColor: errorKey,
+        neutralSeedColor: neutralKey,
+        neutralVariantSeedColor: neutralVariantKey,
+        variant: variant,
+        contrastLevel: contrastLevel,
+      );
       return ColorScheme(
         primary:
             primary ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
@@ -1005,15 +1019,36 @@ extension SeedColorScheme on ColorScheme {
   ///
   /// If used with a FlexTones based [FlexSchemeVariant] variant it returns
   /// tonalSpot, the default Material-3 SDK style.
-  static DynamicScheme buildDynamicScheme(
-      Brightness brightness, Color seedColor, FlexSchemeVariant variant,
-      [double contrastLevel = 0.0]) {
+  static DynamicScheme buildDynamicScheme({
+    required Brightness brightness,
+    required FlexSchemeVariant variant,
+    required Color primarySeedColor,
+    Color? secondarySeedColor,
+    Color? tertiarySeedColor,
+    Color? errorSeedColor,
+    Color? neutralSeedColor,
+    Color? neutralVariantSeedColor,
+    double contrastLevel = 0.0,
+  }) {
     assert(
       contrastLevel >= -1.0 && contrastLevel <= 1.0,
       'contrastLevel must be between -1.0 and 1.0 inclusive.',
     );
     final bool isDark = brightness == Brightness.dark;
-    final Hct sourceColor = Hct.fromInt(seedColor.value);
+    final Hct primarySourceColor = Hct.fromInt(primarySeedColor.value);
+    final Hct? secondarySourceColor = secondarySeedColor != null
+        ? Hct.fromInt(secondarySeedColor.value)
+        : null;
+    final Hct? tertiarySourceColor =
+        tertiarySeedColor != null ? Hct.fromInt(tertiarySeedColor.value) : null;
+    final Hct? neutralSourceColor =
+        neutralSeedColor != null ? Hct.fromInt(neutralSeedColor.value) : null;
+    final Hct? neutralVariantSourceColor = neutralVariantSeedColor != null
+        ? Hct.fromInt(neutralVariantSeedColor.value)
+        : null;
+    final Hct? errorSourceColor =
+        errorSeedColor != null ? Hct.fromInt(errorSeedColor.value) : null;
+
     return switch (variant) {
       FlexSchemeVariant.material ||
       FlexSchemeVariant.material3Legacy ||
@@ -1029,39 +1064,80 @@ extension SeedColorScheme on ColorScheme {
       FlexSchemeVariant.chroma ||
       FlexSchemeVariant.tonalSpot =>
         SchemeTonalSpot(
-            sourceColorHct: sourceColor,
+            sourceColorHct: primarySourceColor,
+            secondarySourceColorHct: secondarySourceColor,
+            tertiarySourceColorHct: tertiarySourceColor,
+            neutralSourceColorHct: neutralSourceColor,
+            neutralVariantSourceColorHct: neutralVariantSourceColor,
+            errorSourceColorHct: errorSourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel),
       FlexSchemeVariant.fidelity => SchemeFidelity(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.content => SchemeContent(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.monochrome => SchemeMonochrome(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.neutral => SchemeNeutral(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.vibrant => SchemeVibrant(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.expressive => SchemeExpressive(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.rainbow => SchemeRainbow(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
       FlexSchemeVariant.fruitSalad => SchemeFruitSalad(
-          sourceColorHct: sourceColor,
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
           isDark: isDark,
           contrastLevel: contrastLevel),
     };

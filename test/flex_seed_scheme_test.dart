@@ -751,7 +751,9 @@ void main() {
       const Color seedColor = Colors.orange;
       for (final FlexSchemeVariant schemeVariant in FlexSchemeVariant.values) {
         final DynamicScheme dynamicScheme = SeedColorScheme.buildDynamicScheme(
-            Brightness.light, seedColor, schemeVariant);
+            brightness: Brightness.light,
+            primarySeedColor: seedColor,
+            variant: schemeVariant);
         final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
           primaryKey: seedColor,
           variant: schemeVariant,
