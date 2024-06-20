@@ -18,6 +18,10 @@ import '../hct/hct.dart';
 import '../palettes/tonal_palette.dart';
 import '../utils/math_utils.dart';
 
+// TODO(rydmike): The doc below is what the MCU source says and does, BUT
+// the hue actually matches the source hue, but chroma is locked to 45.
+// Not sure what is up with the orig source code, but this is how it is now.
+
 /// A playful theme - the source color's hue does not appear in the theme.
 class SchemeRainbow extends DynamicScheme {
   /// Default SchemeRainbow constructor.
