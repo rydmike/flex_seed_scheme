@@ -29,6 +29,8 @@ class AppTheme {
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
+      // The contrast level only has any effect when using above variant based
+      // scheming strategy and the variant is one where isFlutterScheme is true.
       contrastLevel: controller.contrastLevel,
       // Tone chroma config and tone mapping is optional. If you do not add it
       // you get a config matching Flutter's Material 3 ColorScheme.fromSeed.
@@ -44,6 +46,18 @@ class AppTheme {
               .onMainsUseBW(controller.keepMainOnColorsBW)
               .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
               .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
+      // Pin input seed colors in light mode to corresponding main colors
+      // when set to be pinned in the UI.
+      primary: controller.pinPrimary ? controller.primarySeedColor : null,
+      secondary: controller.pinSecondary && controller.useSecondaryKey
+          ? controller.secondarySeedColor
+          : null,
+      tertiary: controller.pinTertiary && controller.useTertiaryKey
+          ? controller.tertiarySeedColor
+          : null,
+      error: controller.pinError && controller.useErrorKey
+          ? controller.errorSeedColor
+          : null,
     );
 
     // Light mode theme
@@ -84,6 +98,23 @@ class AppTheme {
               .onMainsUseBW(controller.keepMainOnColorsBW)
               .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
               .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
+      // Pin input seed colors in dark mode to corresponding container colors
+      // when set to be pinned in the UI.
+      // Typically input seed "brand" colors have high chroma and ar dark, hence
+      // they usually will not fit on the main colors in dark mode, but often
+      // they work well on the containers. This can be used to bring a touch
+      // of the source "brand" colors to the dark mode.
+      primaryContainer:
+          controller.pinPrimary ? controller.primarySeedColor : null,
+      secondaryContainer: controller.pinSecondary && controller.useSecondaryKey
+          ? controller.secondarySeedColor
+          : null,
+      tertiaryContainer: controller.pinTertiary && controller.useTertiaryKey
+          ? controller.tertiarySeedColor
+          : null,
+      errorContainer: controller.pinError && controller.useErrorKey
+          ? controller.errorSeedColor
+          : null,
     );
 
     // Dark mode theme

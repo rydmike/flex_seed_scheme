@@ -21,6 +21,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 * **CHANGE**
   * Revert Flutter constraint back to `>=3.22.0`. Since beta and master are now on `3.23.0` or higher, this constraint can now be used by master and beta channels without any issue.
   * Updated the descriptions of `FlexSchemeVariant`. 
+  * The default example was significantly revised to include support for the new features and to show old features not demonstrated before.
 
 
 * **FIX**

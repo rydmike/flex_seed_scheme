@@ -71,6 +71,42 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _pinPrimary = false;
+  bool get pinPrimary => _pinPrimary;
+  void setPinPrimary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinPrimary) return;
+    _pinPrimary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinSecondary = false;
+  bool get pinSecondary => _pinSecondary;
+  void setPinSecondary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinSecondary) return;
+    _pinSecondary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinTertiary = false;
+  bool get pinTertiary => _pinTertiary;
+  void setPinTertiary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinTertiary) return;
+    _pinTertiary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinError = false;
+  bool get pinError => _pinError;
+  void setPinError(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinError) return;
+    _pinError = value;
+    if (notify) notifyListeners();
+  }
+
   bool _monoSurfaces = false;
   bool get useMonoSurfaces => _monoSurfaces;
   void setUseMonoSurfaces(bool? value, [bool notify = true]) {

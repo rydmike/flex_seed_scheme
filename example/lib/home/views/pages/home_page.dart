@@ -1,3 +1,4 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../about/views/about.dart';
@@ -20,7 +21,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLight = Theme.of(context).brightness == Brightness.light;
+    final Brightness brightness = Theme.of(context).brightness;
+    final bool isLight = brightness == Brightness.light;
+
+    final FlexTones tones = controller.usedVariant.isFlutterScheme
+        ? FlexTones.material(brightness)
+        : controller.usedVariant
+            .tones(brightness)
+            .monochromeSurfaces(controller.useMonoSurfaces)
+            .onMainsUseBW(controller.keepMainOnColorsBW)
+            .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+            .surfacesUseBW(controller.keepLightSurfaceColorsWhite);
+
     return Scaffold(
       appBar: AppBar(
         title: Builder(builder: (BuildContext context) {
@@ -54,17 +66,8 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ShowInputColors(controller: controller),
-          ),
-          const ListTile(
-            dense: true,
-            title: Text('At least a primary key color is always needed to '
-                'seed the ColorScheme. Tap to change colors.'),
-          ),
           FlexTonesPopupMenu(
-            title: 'Used ColorScheme generation strategy:',
+            title: 'ColorScheme seed strategy:',
             variant: controller.usedVariant,
             onChanged: controller.setUsedTone,
             contentPadding:
@@ -72,11 +75,13 @@ class HomePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ColorSchemeView(showColorValue: controller.showColorValue),
+            child: ShowInputColors(controller: controller),
           ),
           ListTileSlider(
             dense: true,
-            title: const Text('Contrast level. Only for MCU dynamic schemes'),
+            title: const Text('Contrast level'),
+            subtitle: const Text('Only available for MCU dynamic schemes.\n'
+                'Levels in M3 guide 0: Normal, 0.5: Medium, 1: High'),
             enabled: controller.usedVariant.isFlutterScheme,
             min: -1,
             max: 1,
@@ -88,63 +93,40 @@ class HomePage extends StatelessWidget {
             onChanged: controller.setContrastLevel,
             sliderLabel: 'Contrast',
           ),
+          SwitchListTile(
+            title: const Text('ColorScheme'),
+            subtitle: const Text('Show color values'),
+            value: controller.showColorValue,
+            onChanged: controller.setShowColorValue,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ColorSchemeView(
+              showColorValue: controller.showColorValue,
+              tones: tones,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowTonalPalette(controller: controller),
           ),
-          ListTile(
-            title: Text('${controller.usedVariant.variantName}'
-                ' scheme variant configuration info:'),
-            subtitle: Text('${controller.usedVariant.configDetails}\n'),
-          ),
-          const Divider(),
           if (controller.usedVariant.isFlutterScheme)
             const ListTile(
               dense: true,
               title: Text('Additional seed generation options are not '
-                  'available when using Flutter SDK scheme variant styles. '
-                  'Use a variant based on FlexTones for more options.'),
+                  'available when using Flutter MCU dynamic scheme variants. '
+                  'Use a variant based on FSS FlexTones for more options.'),
             )
           else
             const ListTile(
               dense: true,
               title: Text('Additional seed generation options are available '
-                  'when using FlexTones based scheme variants.'),
+                  'when using FSS FlexTones based scheme variants.'),
             ),
           SwitchListTile(
             dense: true,
-            title:
-                const Text('Use secondary key color to seed the ColorScheme'),
-            value: controller.useSecondaryKey &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setUseSecondaryKey,
-          ),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Use tertiary key color to seed the ColorScheme'),
-            value: controller.useTertiaryKey &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setUseTertiaryKey,
-          ),
-          SwitchListTile(
-            dense: true,
-            title: const Text(
-                'Use custom error key color to seed the ColorScheme'),
-            value: controller.useErrorKey &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setUseErrorKey,
-          ),
-          const Divider(),
-          SwitchListTile(
-            dense: true,
-            title: const Text(
-                'Use monochrome surface colors, pure grey scale, no tint'),
+            title: const Text('Monochrome surfaces, pure grey scale, no tint '),
+            subtitle: const Text('tones.monochromeSurfaces()'),
             value: controller.useMonoSurfaces &&
                 !controller.usedVariant.isFlutterScheme,
             onChanged: controller.usedVariant.isFlutterScheme
@@ -153,8 +135,8 @@ class HomePage extends StatelessWidget {
           ),
           SwitchListTile(
             dense: true,
-            title: const Text(
-                'Keep main onColors in seeded ColorScheme black and white'),
+            title: const Text('Keep main on-colors black and white'),
+            subtitle: const Text('tones.onMainsUseBW()'),
             value: controller.keepMainOnColorsBW &&
                 !controller.usedVariant.isFlutterScheme,
             onChanged: controller.usedVariant.isFlutterScheme
@@ -163,8 +145,8 @@ class HomePage extends StatelessWidget {
           ),
           SwitchListTile(
             dense: true,
-            title: const Text(
-                'Keep surface onColors in seeded ColorScheme black and white'),
+            title: const Text('Keep surface on-colors black and white'),
+            subtitle: const Text('tones.onSurfacesUseBW()'),
             value: controller.keepSurfaceOnColorsBW &&
                 !controller.usedVariant.isFlutterScheme,
             onChanged: controller.usedVariant.isFlutterScheme
@@ -175,7 +157,8 @@ class HomePage extends StatelessWidget {
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and deprecated background color, '
-                  'white in seeded light ColorScheme'),
+                  'white in light scheme'),
+              subtitle: const Text('tones.surfacesUseBW()'),
               value: controller.keepLightSurfaceColorsWhite &&
                   !controller.usedVariant.isFlutterScheme,
               onChanged: controller.usedVariant.isFlutterScheme
@@ -186,20 +169,14 @@ class HomePage extends StatelessWidget {
             SwitchListTile(
               dense: true,
               title: const Text('Keep surface and deprecated background color, '
-                  'black in seeded dark ColorScheme'),
+                  'black in dark scheme'),
+              subtitle: const Text('tones.surfacesUseBW()'),
               value: controller.keepDarkSurfaceColorsBlack &&
                   !controller.usedVariant.isFlutterScheme,
               onChanged: controller.usedVariant.isFlutterScheme
                   ? null
                   : controller.setKeepDarkSurfaceColorsBlack,
             ),
-          const Divider(),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Show color value in the ColorScheme view'),
-            value: controller.showColorValue,
-            onChanged: controller.setShowColorValue,
-          ),
           const Divider(),
           const ListTile(
               title: Text('Widget showcase, using Material default styles')),

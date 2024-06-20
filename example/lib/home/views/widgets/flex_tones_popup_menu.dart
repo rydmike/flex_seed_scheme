@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/utils/flex_color_extension.dart';
 import '../../../core/views/universal/color_scheme_box.dart';
+import '../../../core/views/universal/list_tile_reveal.dart';
 
 /// Widget used to select used [FlexTones] with a popup menu.
 ///
@@ -51,11 +52,24 @@ class FlexTonesPopupMenu extends StatelessWidget {
             ),
           )
       ],
-      child: ListTile(
+      child: ListTileReveal(
         contentPadding:
             contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
-        title: Text('$title ${variant.variantName}'),
-        subtitle: Text(variant.description),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('$title ${variant.variantName}'),
+            Text(
+              variant.description,
+              style: txtStyle,
+            ),
+          ],
+        ),
+        subtitle: ListTile(
+          title: Text('${variant.variantName}'
+              ' scheme variant configuration info:'),
+          subtitle: Text('${variant.configDetails}\n'),
+        ),
         trailing: Badge(
           label: variant.isFlutterScheme
               ? const Text('MCU', style: TextStyle(fontSize: 8))
