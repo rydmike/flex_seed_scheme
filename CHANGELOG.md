@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 2.1.0
 
-**June 17, 2024**
+**June 20, 2024**
 
 * **NEW** 
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
@@ -20,6 +20,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * **CHANGE**
   * Revert Flutter constraint back to `>=3.22.0`. Since beta and master are now on `3.23.0` or higher, this constraint can now be used by master and beta channels without any issue.
+  * Updated the descriptions of `FlexSchemeVariant`. 
 
 
 * **FIX**
