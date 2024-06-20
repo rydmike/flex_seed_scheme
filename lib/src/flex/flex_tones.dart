@@ -830,7 +830,7 @@ class FlexTones with Diagnosticable {
               primaryTone: 40,
               primaryContainerTone: 80,
               onPrimaryContainerTone: 4,
-              secondaryTone: 60,
+              secondaryTone: 50,
               secondaryContainerTone: 92,
               onSecondaryContainerTone: 10,
               tertiaryTone: 50,

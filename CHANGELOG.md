@@ -8,7 +8,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * **BREAKING**
   * The API for `SeedColorScheme.buildDynamicScheme` was changed to enable support for multiple seed colors on the MCU based `DynamicScheme` APIs and its extended schemes.
-
+  
 
 * **NEW** 
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the contrast level of the generated color scheme, when using `SeedColorScheme.fromSeeds` with the `variant` property. The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
@@ -23,6 +23,8 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
   
 
 * **COLOR VALUE BREAKING**
+  * Changed `FlexTones.chroma` tone `secondaryTone` from 60 to 50 in light mode for better chroma fidelity when using this `FlexTone`.
+  
   * Updated `MaterialDynamicColors` to use the correct expressive on-colors spec. This brings the internal Material Color Utilities (MCU) up to version 0.12.0 as published on pub. This changes the contrast curve for light/dark colors and dark mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer`. The dark mode tone is changed from 10 to 30, which is the correct spec. The mentioned colors also change slightly for light mode in some dynamic schemes due to the changed contrast curve, which was changed from `ContrastCurve(4.5, 7, 11, 21)` to `ContrastCurve(3, 4.5, 7, 11)` for the listed on container colors.
     * Prior to MCU version 0.12.0 the `MaterialDynamicColors` used the wrong spec. Flutter stable 3.22.x and Flutter master still use an MCU version lower than 0.12.0 and have the wrong on color tones in dark mode. This will be corrected in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 2.1.0 you get the correct spec already now. However, the mentioned `MaterialDynamicColors` on container colors will now differ slightly in light mode and more in dark mode, from the wrong ones that are currently produced by MCU versions before 0.12.0 that Flutter SDK still uses. When Flutter SDK bumps its version to MCU 0.12.0 r later, the mentioned FSS produced colors will again be identical to the SDK produced values.
 
