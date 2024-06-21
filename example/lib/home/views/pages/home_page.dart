@@ -32,7 +32,9 @@ class HomePage extends StatelessWidget {
             .monochromeSurfaces(controller.useMonoSurfaces)
             .onMainsUseBW(controller.keepMainOnColorsBW)
             .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-            .surfacesUseBW(controller.keepLightSurfaceColorsWhite)
+            .surfacesUseBW(isLight
+                ? controller.keepLightSurfaceColorsWhite
+                : controller.keepDarkSurfaceColorsBlack)
             .expressiveOnContainer(controller.useExpressiveOn);
 
     return Scaffold(
