@@ -44,6 +44,7 @@ class ShowTonalPalette extends StatelessWidget {
             controller.useErrorKey ? controller.errorSeedColor : null,
         variant: controller.usedVariant,
         contrastLevel: controller.contrastLevel,
+        useExpressiveOnContainerColors: controller.useExpressiveOn,
       );
 
       // Assign the tonals for the schemes to the int lists using tone indexes

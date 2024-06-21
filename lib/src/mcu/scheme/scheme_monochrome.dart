@@ -23,6 +23,7 @@ class SchemeMonochrome extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),

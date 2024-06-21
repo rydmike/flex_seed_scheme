@@ -26,12 +26,14 @@ class HomePage extends StatelessWidget {
 
     final FlexTones tones = controller.usedVariant.isFlutterScheme
         ? FlexTones.material(brightness)
+            .expressiveOnContainer(controller.useExpressiveOn)
         : controller.usedVariant
             .tones(brightness)
             .monochromeSurfaces(controller.useMonoSurfaces)
             .onMainsUseBW(controller.keepMainOnColorsBW)
             .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-            .surfacesUseBW(controller.keepLightSurfaceColorsWhite);
+            .surfacesUseBW(controller.keepLightSurfaceColorsWhite)
+            .expressiveOnContainer(controller.useExpressiveOn);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,22 +79,6 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowInputColors(controller: controller),
           ),
-          ListTileSlider(
-            dense: true,
-            title: const Text('Contrast level'),
-            subtitle: const Text('Only available for MCU dynamic schemes.\n'
-                'Levels in M3 guide 0: Normal, 0.5: Medium, 1: High'),
-            enabled: controller.usedVariant.isFlutterScheme,
-            min: -1,
-            max: 1,
-            divisions: 8,
-            valueDecimals: 2,
-            value: controller.usedVariant.isFlutterScheme
-                ? controller.contrastLevel
-                : 0,
-            onChanged: controller.setContrastLevel,
-            sliderLabel: 'Contrast',
-          ),
           SwitchListTile(
             title: const Text('ColorScheme'),
             subtitle: const Text('Show color values'),
@@ -110,6 +96,29 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowTonalPalette(controller: controller),
           ),
+          ListTileSlider(
+            dense: true,
+            title: const Text('Contrast level'),
+            subtitle: const Text('Only available for MCU dynamic schemes.\n'
+                'Levels in M3 guide 0: Normal, 0.5: Medium, 1: High'),
+            enabled: controller.usedVariant.isFlutterScheme,
+            min: -1,
+            max: 1,
+            divisions: 8,
+            valueDecimals: 2,
+            value: controller.usedVariant.isFlutterScheme
+                ? controller.contrastLevel
+                : 0,
+            onChanged: controller.setContrastLevel,
+            sliderLabel: 'Contrast',
+          ),
+          SwitchListTile(
+            dense: true,
+            title: const Text('Use expressive on-colors on light containers'),
+            value: controller.useExpressiveOn,
+            onChanged: controller.setUseExpressiveOn,
+          ),
+          const Divider(),
           if (controller.usedVariant.isFlutterScheme)
             const ListTile(
               dense: true,

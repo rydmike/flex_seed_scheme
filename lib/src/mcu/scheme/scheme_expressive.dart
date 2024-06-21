@@ -67,6 +67,7 @@ class SchemeExpressive extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    super.useExpressiveOnContainerColors,
     Hct? secondarySourceColorHct,
     Hct? tertiarySourceColorHct,
     Hct? neutralSourceColorHct,

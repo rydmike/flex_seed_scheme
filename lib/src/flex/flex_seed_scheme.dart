@@ -593,6 +593,12 @@ extension SeedColorScheme on ColorScheme {
     /// to provide access to the DynamicSchemeVariant that are available
     /// in Flutter 3.22.2 and later. With FSS you can use them in
     /// Flutter 3.22.0 already.
+    ///
+    /// An assert is used to check that a none null value has not been assign to
+    /// [tones] and [variant] at the same time, since they are mutually
+    /// exclusive. Setting both to a value throws in debug mode, if both are
+    /// set in a release build, [variant] will be used. Both can be null, in
+    /// that case default [tones] with value [FlexTones.material] will be used.
     FlexTones? tones,
 
     /// An optional way to select the used algorithm for seeded [ColorScheme]
@@ -619,12 +625,19 @@ extension SeedColorScheme on ColorScheme {
     /// use the [FlexTones] modifiers [monochromeSurfaces], [onMainsUseBW],
     /// [onSurfacesUseBW] and [surfacesUseBW], since they operate on the
     /// [FlexTones] configurations passed in to [tones].
+    ///
+    /// An assert is used to check that a none null value has not been assign to
+    /// [tones] and [variant] at the same time, since they are mutually
+    /// exclusive. Setting both to a value throws in debug mode, if both are
+    /// set in a release build, [variant] will be used. Both can be null, in
+    /// that case default [tones] with value [FlexTones.material] will be used.
     FlexSchemeVariant? variant,
 
     /// The [contrastLevel] parameter indicates the contrast level between color
-    /// pairs, such as [primary] and [onPrimary]. 0.0 is the default (normal);
-    /// -1.0 is the lowest; 1.0 is the highest. From Material Design guideline,
-    /// the medium and high contrast correspond to 0.5 and 1.0 respectively.
+    /// pairs, such as [primary] and [onPrimary]. The value 0.0 is the default
+    /// (normal) contrast; -1.0 is the lowest; 1.0 is the highest.
+    /// From Material Design guideline, the normal, medium and high contrast
+    /// options correspond to 0.0, 0.5 and 1.0 respectively.
     ///
     /// The contrast level property is only used when seed generating the
     /// [ColorScheme] based on [variant]. When using [tones] the [contrastLevel]
@@ -635,6 +648,37 @@ extension SeedColorScheme on ColorScheme {
     /// as they are or as examples on how to create your own custom high
     /// contrast tone mappings.
     double contrastLevel = 0.0,
+
+    /// Use expressive on container colors for light mode.
+    ///
+    /// This property only impacts MCU based DynamicSchemes. In FSS it means
+    /// [variant] based schemes that have [FlexSchemeVariant.isFlutterScheme]
+    /// set to true. To used the same expressive on container colors as MCU
+    /// in FSS [tones] based schemes, use the [FlexTones] modifier
+    /// [FlexTones.expressiveOnContainer].
+    ///
+    /// Material specification and MCU v0.12.0 changes the light mode on colors
+    /// for none surface containers from tone 10 to tone 30. It also sets the
+    /// min `ContrastCurve` from ContrastCurve(4.5, 7.0, 11.0, 21.0) to
+    /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
+    /// contrast 4.5 instead of past 7.0.
+    ///
+    /// This change is not yet used by Flutter and not fully documented in the
+    /// M3 guide. In the FSS MCU fork we are making this change a deliberate
+    /// opt-in feature and default to not opting in on it. This default may be
+    /// adjusted later to opt-in by default, but FSS will continue to offer
+    /// the older version with better contrast too. Any later change to opt-in
+    /// by default will only be considered color style breaking and will not
+    /// bump major version of FSS, only minor.
+    ///
+    /// Defaults to false in FSS version 3.0.0.
+    ///
+    /// The result you get with false, corresponds to used results in MCU until
+    /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
+    /// this flag to true. This is a breaking change in MCU 0.12.0 and will
+    /// change the light mode color schemes produced by all DynamicColor based
+    /// Material color schemes.
+    final bool useExpressiveOnContainerColors = false,
 
     /// Override color for the seed generated [primary] color.
     ///
@@ -809,7 +853,9 @@ extension SeedColorScheme on ColorScheme {
     @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
     // Assert that a none null value has not been assign to tones and variant
-    // at the same time, since they are mutually exclusive, both can be null.
+    // at the same time, since they are mutually exclusive, both can be null, in
+    // that case default tones will be used. Setting both throws in debug mode,
+    // if both are set used on release mode, variant will be used.
     assert(tones == null || variant == null,
         'Only one of tones or variant can be provided, not both.');
 
@@ -824,6 +870,7 @@ extension SeedColorScheme on ColorScheme {
         neutralVariantSeedColor: neutralVariantKey,
         variant: variant,
         contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
       );
       return ColorScheme(
         primary:
@@ -1029,6 +1076,7 @@ extension SeedColorScheme on ColorScheme {
     Color? neutralSeedColor,
     Color? neutralVariantSeedColor,
     double contrastLevel = 0.0,
+    bool useExpressiveOnContainerColors = false,
   }) {
     assert(
       contrastLevel >= -1.0 && contrastLevel <= 1.0,
@@ -1064,14 +1112,16 @@ extension SeedColorScheme on ColorScheme {
       FlexSchemeVariant.chroma ||
       FlexSchemeVariant.tonalSpot =>
         SchemeTonalSpot(
-            sourceColorHct: primarySourceColor,
-            secondarySourceColorHct: secondarySourceColor,
-            tertiarySourceColorHct: tertiarySourceColor,
-            neutralSourceColorHct: neutralSourceColor,
-            neutralVariantSourceColorHct: neutralVariantSourceColor,
-            errorSourceColorHct: errorSourceColor,
-            isDark: isDark,
-            contrastLevel: contrastLevel),
+          sourceColorHct: primarySourceColor,
+          secondarySourceColorHct: secondarySourceColor,
+          tertiarySourceColorHct: tertiarySourceColor,
+          neutralSourceColorHct: neutralSourceColor,
+          neutralVariantSourceColorHct: neutralVariantSourceColor,
+          errorSourceColorHct: errorSourceColor,
+          isDark: isDark,
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.fidelity => SchemeFidelity(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1080,7 +1130,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.content => SchemeContent(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1089,12 +1141,16 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.monochrome => SchemeMonochrome(
           sourceColorHct: primarySourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.neutral => SchemeNeutral(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1103,7 +1159,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.vibrant => SchemeVibrant(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1112,7 +1170,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.expressive => SchemeExpressive(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1121,7 +1181,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.rainbow => SchemeRainbow(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1130,7 +1192,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
       FlexSchemeVariant.fruitSalad => SchemeFruitSalad(
           sourceColorHct: primarySourceColor,
           secondarySourceColorHct: secondarySourceColor,
@@ -1139,7 +1203,9 @@ extension SeedColorScheme on ColorScheme {
           neutralVariantSourceColorHct: neutralVariantSourceColor,
           errorSourceColorHct: errorSourceColor,
           isDark: isDark,
-          contrastLevel: contrastLevel),
+          contrastLevel: contrastLevel,
+          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        ),
     };
   }
 }

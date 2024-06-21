@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'ColorScheme from Seeds',
+          title: 'SeedColorScheme.fromSeeds',
           themeMode: controller.themeMode,
           theme: AppTheme.light(controller),
           darkTheme: AppTheme.dark(controller),

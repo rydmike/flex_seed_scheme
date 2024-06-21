@@ -170,6 +170,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _useExpressiveOn = false;
+  bool get useExpressiveOn => _useExpressiveOn;
+  void setUseExpressiveOn(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _useExpressiveOn) return;
+    _useExpressiveOn = value;
+    if (notify) notifyListeners();
+  }
+
   Color _primarySeedColor = AppColor.primary;
   Color get primarySeedColor => _primarySeedColor;
   void setPrimarySeedColor(Color? value, [bool notify = true]) {

@@ -39,6 +39,29 @@ class DynamicScheme {
   /// standard (i.e. the design as spec'd), and 1 represents maximum contrast.
   final double contrastLevel;
 
+  /// Use expressive on container colors for light mode.
+  ///
+  /// Material spec and MCU v0.12.0 changes light mode on colors for
+  /// containers from tone 10 to tone 30 can the `ContrastCurve` from
+  /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
+  /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal 4.5
+  /// instead of past 7.0.
+  ///
+  /// This change is not yet used by Flutter and not fully documented in the
+  /// M3 guide. In this MCY fork we are making this change a deliberate opt-in
+  /// feature and default to not opting in on it. This default may be adjusted
+  /// later to opt-in by default, but FSS will continue to offer the older
+  /// version with better contrast too.
+  ///
+  /// Defaults to false in FSS version 3.0.0.
+  ///
+  /// The result you get with false, corresponds to used results in MCU until
+  /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
+  /// this flag to true. This is a breaking change in MCU 0.12.0 and will
+  /// change the light mode color schemes produced by all DynamicColor based
+  /// Material color schemes.
+  final bool useExpressiveOnContainerColors;
+
   /// Given a tone, produces a color. Hue and chroma of the color are specified
   /// in the design specification of the variant. Usually colorful.
   final TonalPalette primaryPalette;
@@ -70,6 +93,7 @@ class DynamicScheme {
     required this.sourceColorArgb,
     required this.variant,
     this.contrastLevel = 0.0,
+    this.useExpressiveOnContainerColors = false,
     required this.isDark,
     required this.primaryPalette,
     required this.secondaryPalette,

@@ -28,6 +28,9 @@ bool _isFidelity(DynamicScheme scheme) =>
 bool _isMonochrome(DynamicScheme scheme) =>
     scheme.variant == Variant.monochrome;
 
+bool _useExpressiveOnContainers(DynamicScheme scheme) =>
+    scheme.useExpressiveOnContainerColors;
+
 /// Tokens, or named colors, in the Material Design system.
 class MaterialDynamicColors {
   /// Required tone delta for content accent.
@@ -318,7 +321,11 @@ class MaterialDynamicColors {
       if (_isMonochrome(s)) {
         return s.isDark ? 0 : 100;
       }
-      return s.isDark ? 90 : 30;
+      if (_useExpressiveOnContainers(s)) {
+        return s.isDark ? 90 : 30;
+      } else {
+        return s.isDark ? 90 : 10;
+      }
     },
     background: (DynamicScheme s) => MaterialDynamicColors.primaryContainer,
     contrastCurve: ContrastCurve(3, 4.5, 7, 11),
@@ -404,7 +411,11 @@ class MaterialDynamicColors {
         return s.isDark ? 90 : 10;
       }
       if (!_isFidelity(s)) {
-        return s.isDark ? 90 : 30;
+        if (_useExpressiveOnContainers(s)) {
+          return s.isDark ? 90 : 30;
+        } else {
+          return s.isDark ? 90 : 10;
+        }
       }
       return DynamicColor.foregroundTone(
           MaterialDynamicColors.secondaryContainer.tone(s), 4.5);
@@ -482,7 +493,11 @@ class MaterialDynamicColors {
         return s.isDark ? 0 : 100;
       }
       if (!_isFidelity(s)) {
-        return s.isDark ? 90 : 30;
+        if (_useExpressiveOnContainers(s)) {
+          return s.isDark ? 90 : 30;
+        } else {
+          return s.isDark ? 90 : 10;
+        }
       }
       return DynamicColor.foregroundTone(
           MaterialDynamicColors.tertiaryContainer.tone(s), 4.5);
@@ -540,7 +555,11 @@ class MaterialDynamicColors {
       if (_isMonochrome(s)) {
         return s.isDark ? 90 : 10;
       }
-      return s.isDark ? 90 : 30;
+      if (_useExpressiveOnContainers(s)) {
+        return s.isDark ? 90 : 30;
+      } else {
+        return s.isDark ? 90 : 10;
+      }
     },
     background: (DynamicScheme s) => MaterialDynamicColors.errorContainer,
     contrastCurve: ContrastCurve(3, 4.5, 7, 11),
