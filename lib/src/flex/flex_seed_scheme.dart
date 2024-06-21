@@ -1080,7 +1080,7 @@ extension SeedColorScheme on ColorScheme {
   }) {
     assert(
       contrastLevel >= -1.0 && contrastLevel <= 1.0,
-      'contrastLevel must be between -1.0 and 1.0 inclusive.',
+      'contrastLevel must be between [-1.0 to 1.0].',
     );
     final bool isDark = brightness == Brightness.dark;
     final Hct primarySourceColor = Hct.fromInt(primarySeedColor.value);
