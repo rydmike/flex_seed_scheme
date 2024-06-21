@@ -53,6 +53,7 @@ The bundled forked version of MCU also has more tests than the original, allowin
 
 
 * **FIX**
+  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. 
   * EXAMPLE APP: The key color to seed the error palette was not used in the main example in dark mode.
   
 
