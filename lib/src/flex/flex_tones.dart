@@ -384,14 +384,14 @@ class FlexTones with Diagnosticable {
       brightness == Brightness.light
           ? const FlexTones.light(
               primaryChroma: 36,
-              primaryMinChroma: 0,
+              primaryMinChroma: 36,
               secondaryChroma: 16,
               tertiaryChroma: 24,
               useCam16: false,
             )
           : const FlexTones.dark(
               primaryChroma: 36,
-              primaryMinChroma: 0,
+              primaryMinChroma: 36,
               secondaryChroma: 16,
               tertiaryChroma: 24,
               useCam16: false,
@@ -413,19 +413,22 @@ class FlexTones with Diagnosticable {
   factory FlexTones.material3Legacy(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
+              surfaceTone: 99,
+              backgroundTone: 99,
               primaryChroma: 48,
-              primaryMinChroma: 0,
+              primaryMinChroma: 48,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              neutralChroma: 4,
             )
           : const FlexTones.dark(
-              surfaceTone: 8,
-              backgroundTone: 8,
-              onErrorContainerTone: 90,
+              surfaceTone: 10,
+              backgroundTone: 10,
               primaryChroma: 48,
-              primaryMinChroma: 0,
+              primaryMinChroma: 48,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              neutralChroma: 4,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
