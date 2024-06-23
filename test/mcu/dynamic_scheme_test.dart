@@ -122,13 +122,12 @@ void main() {
         MaterialDynamicColors.onSecondary.getArgb(dynamicScheme));
     expect(colorScheme.secondaryContainer.value,
         MaterialDynamicColors.secondaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onSecondaryContainer.value,
-    //     MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onSecondaryContainer.value, 4280883206);
-    expect(4284039724,
+    expect(colorScheme.onSecondaryContainer.value,
         MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onSecondaryContainer.value, 4280883206);
+    // expect(4284039724,
+    //     MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
     //
     expect(colorScheme.secondaryFixed.value,
         MaterialDynamicColors.secondaryFixed.getArgb(dynamicScheme));
@@ -144,13 +143,12 @@ void main() {
         MaterialDynamicColors.onTertiary.getArgb(dynamicScheme));
     expect(colorScheme.tertiaryContainer.value,
         MaterialDynamicColors.tertiaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onTertiaryContainer.value,
-    //     MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onTertiaryContainer.value, 4279639553);
-    expect(4282469156,
+    expect(colorScheme.onTertiaryContainer.value,
         MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onTertiaryContainer.value, 4279639553);
+    // expect(4282469156,
+    //     MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
     //
     expect(colorScheme.tertiaryFixed.value,
         MaterialDynamicColors.tertiaryFixed.getArgb(dynamicScheme));
@@ -166,13 +164,12 @@ void main() {
         MaterialDynamicColors.onError.getArgb(dynamicScheme));
     expect(colorScheme.errorContainer.value,
         MaterialDynamicColors.errorContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onErrorContainer.value,
-    //     MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onErrorContainer.value, 4282449922);
-    expect(4287823882,
+    expect(colorScheme.onErrorContainer.value,
         MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onErrorContainer.value, 4282449922);
+    // expect(4287823882,
+    //     MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
     //
     expect(colorScheme.background.value,
         MaterialDynamicColors.background.getArgb(dynamicScheme));
@@ -219,12 +216,11 @@ void main() {
     expect(colorScheme.primary.value, dynamicScheme.primary);
     expect(colorScheme.onPrimary.value, dynamicScheme.onPrimary);
     expect(colorScheme.primaryContainer.value, dynamicScheme.primaryContainer);
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(
-    //   colorScheme.onPrimaryContainer.value, dynamicScheme.onPrimaryContainer);
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onPrimaryContainer.value, 4281079296);
-    expect(4285086720, dynamicScheme.onPrimaryContainer);
+    expect(
+        colorScheme.onPrimaryContainer.value, dynamicScheme.onPrimaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onPrimaryContainer.value, 4281079296);
+    // expect(4285086720, dynamicScheme.onPrimaryContainer);
     //
     expect(colorScheme.primaryFixed.value, dynamicScheme.primaryFixed);
     expect(colorScheme.primaryFixedDim.value, dynamicScheme.primaryFixedDim);
@@ -235,12 +231,11 @@ void main() {
     expect(colorScheme.onSecondary.value, dynamicScheme.onSecondary);
     expect(
         colorScheme.secondaryContainer.value, dynamicScheme.secondaryContainer);
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onSecondaryContainer.value,
-    //   dynamicScheme.onSecondaryContainer);
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onSecondaryContainer.value, 4280883206);
-    expect(4284039724, dynamicScheme.onSecondaryContainer);
+    expect(colorScheme.onSecondaryContainer.value,
+        dynamicScheme.onSecondaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onSecondaryContainer.value, 4280883206);
+    // expect(4284039724, dynamicScheme.onSecondaryContainer);
     //
     expect(colorScheme.secondaryFixed.value, dynamicScheme.secondaryFixed);
     expect(
@@ -252,12 +247,11 @@ void main() {
     expect(colorScheme.onTertiary.value, dynamicScheme.onTertiary);
     expect(
         colorScheme.tertiaryContainer.value, dynamicScheme.tertiaryContainer);
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onTertiaryContainer.value,
-    //  dynamicScheme.onTertiaryContainer);
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onTertiaryContainer.value, 4279639553);
-    expect(4282469156, dynamicScheme.onTertiaryContainer);
+    expect(colorScheme.onTertiaryContainer.value,
+        dynamicScheme.onTertiaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onTertiaryContainer.value, 4279639553);
+    // expect(4282469156, dynamicScheme.onTertiaryContainer);
     //
     expect(colorScheme.tertiaryFixed.value, dynamicScheme.tertiaryFixed);
     expect(colorScheme.tertiaryFixedDim.value, dynamicScheme.tertiaryFixedDim);
@@ -267,12 +261,10 @@ void main() {
     expect(colorScheme.error.value, dynamicScheme.error);
     expect(colorScheme.onError.value, dynamicScheme.onError);
     expect(colorScheme.errorContainer.value, dynamicScheme.errorContainer);
-    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
-    // expect(colorScheme.onErrorContainer.value,
-    // dynamicScheme.onErrorContainer);
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
-    expect(colorScheme.onErrorContainer.value, 4282449922);
-    expect(4287823882, dynamicScheme.onErrorContainer);
+    expect(colorScheme.onErrorContainer.value, dynamicScheme.onErrorContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onErrorContainer.value, 4282449922);
+    // expect(4287823882, dynamicScheme.onErrorContainer);
     //
     expect(colorScheme.background.value, dynamicScheme.background);
     expect(colorScheme.onBackground.value, dynamicScheme.onBackground);

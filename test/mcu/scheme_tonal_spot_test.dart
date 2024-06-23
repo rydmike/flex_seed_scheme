@@ -100,9 +100,20 @@ void main() {
     final SchemeNeutral scheme = SchemeNeutral(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
+        useExpressiveOnContainerColors: true,
         contrastLevel: 0.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
         isColor(0xff454654));
+  });
+
+  test('lightTheme_standardContrast_onPrimaryContainer', () {
+    final SchemeNeutral scheme = SchemeNeutral(
+        sourceColorHct: Hct.fromInt(0xff0000ff),
+        isDark: false,
+        useExpressiveOnContainerColors: false,
+        contrastLevel: 0.0);
+    expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
+        isColor(0xff1A1B27));
   });
 
   test('lightTheme_maxContrast_onPrimaryContainer', () {
@@ -332,9 +343,20 @@ void main() {
     final SchemeTonalSpot scheme = SchemeTonalSpot(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
+        useExpressiveOnContainerColors: true,
         contrastLevel: 0.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
         isColor(0xff3E4278));
+  });
+
+  test('lightTheme_standardContrast_onPrimaryContainer', () {
+    final SchemeTonalSpot scheme = SchemeTonalSpot(
+        sourceColorHct: Hct.fromInt(0xff0000ff),
+        isDark: false,
+        useExpressiveOnContainerColors: false,
+        contrastLevel: 0.0);
+    expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
+        isColor(0xff11144B));
   });
 
   test('lightTheme_maxContrast_onPrimaryContainer', () {

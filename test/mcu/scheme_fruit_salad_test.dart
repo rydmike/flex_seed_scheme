@@ -126,9 +126,20 @@ void main() {
     final SchemeFruitSalad scheme = SchemeFruitSalad(
         sourceColorHct: Hct.fromInt(0xff0000ff),
         isDark: false,
+        useExpressiveOnContainerColors: true,
         contrastLevel: 0.0);
     expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
         isColor(0xff004D67));
+  });
+
+  test('lightTheme_standardContrast_onPrimaryContainer', () {
+    final SchemeFruitSalad scheme = SchemeFruitSalad(
+        sourceColorHct: Hct.fromInt(0xff0000ff),
+        isDark: false,
+        useExpressiveOnContainerColors: false,
+        contrastLevel: 0.0);
+    expect(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme),
+        isColor(0xff001E2B));
   });
 
   test('lightTheme_maxContrast_onPrimaryContainer', () {
