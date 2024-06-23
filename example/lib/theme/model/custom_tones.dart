@@ -1,5 +1,7 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 
+// TODO(rydmike): Not used in the current example app, may add it back later.
+
 // Example definition of light custom tones config.
 const FlexTones myLightTones = FlexTones.light(
   primaryTone: 30, // Default is 40.
