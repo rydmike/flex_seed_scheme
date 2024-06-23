@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.0.0
 
-**June 21, 2024**
+**June 23, 2024**
 
 Bring the bundled forked version of the package [Material Color Utilities (MCU)](https://pub.dev/packages/material_color_utilities) to feature parity with version 0.12.0 of the original package. The internal fork for the first time nw also adds features and capabilities that do not exist in the original package. Previously FSS only bundled MCU to avoid version conflicts with Flutter SDK when using different channels. Different Flutter channels typically pin incompatible versions of MCU.
 
@@ -12,13 +12,13 @@ The bundled forked version of MCU also has more tests than the original, allowin
 
 
 * **BREAKING**
-  * The API for `SeedColorScheme.buildDynamicScheme` was changed to enable support for multiple seed colors on the MCU based `DynamicScheme` APIs and its extended schemes. For most normal use cases you will not notice this, as it is quite a low-level API in FSS that end users normally do not use.
+  * The API for `SeedColorScheme.buildDynamicScheme` was changed to enable support for multiple seed colors on the MCU based `DynamicScheme` APIs and its extended schemes. For most normal use cases, you will not notice this, as it is quite a low-level API in FSS that end users normally do not use.
   
 
 * **NEW** 
-  * The forked internal MCU version received new features. First `DynamicScheme` can accept an optional `customErrorPalette` and then `SchemeTonalSpot`, `SchemeContent`, `SchemeFidelity`, `SchemeExpressive`, `SchemeFruitSalad`, `SchemeMonochrome`, `SchemeNeutral`, `SchemeRainbow` and `SchemeVibrant` that extend `DynamicScheme` all received properties to support individual seed colors for all tonal palettes.
+  * The forked internal MCU version received new features. The `DynamicScheme` can now accept an optional `customErrorPalette` and then `SchemeTonalSpot`, `SchemeContent`, `SchemeFidelity`, `SchemeExpressive`, `SchemeFruitSalad`, `SchemeMonochrome`, `SchemeNeutral`, `SchemeRainbow` and `SchemeVibrant` that extend `DynamicScheme` all received properties to support individual seed colors for all tonal palettes.
 
-  * The above addition enables `SeedColorScheme.fromSeeds` to support using all its key seed colors also when using MCU based `DynamicScheme` variants and not just for `FlexTones` based `tones` and `variants`. 
+  * The above addition enables `SeedColorScheme.fromSeeds` to support using all its key seed colors also when using MCU based `DynamicScheme` variants and not just for `FlexTones` based `tones` and `variants`. When using key seed colors with MCU variants, they still respect their original design intent.  
  
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the desired contrast level of the generated color scheme when using `SeedColorScheme.fromSeeds` with the `variant` property, for variants that are based on MCU's `DynamicScheme`. Such variants have their `isFlutterScheme` set to true. 
     * The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
@@ -53,7 +53,7 @@ The bundled forked version of MCU also has more tests than the original, allowin
 
 
 * **FIX**
-  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. 
+  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. Tests were added to check the FlexTones.material3Legacy compared to the MCU deprecated Scheme based Colors, for colors that exist in both.
   * EXAMPLE APP: The key color to seed the error palette was not used in the main example in dark mode.
   
 
