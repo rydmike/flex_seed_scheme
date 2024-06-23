@@ -120,6 +120,14 @@ class HomePage extends StatelessWidget {
             value: controller.useExpressiveOn,
             onChanged: controller.setUseExpressiveOn,
           ),
+          const ListTile(
+            dense: true,
+            title: Text('Some MCU based seed strategies, like Fidelity and '
+                'Content, dynamically adjust '
+                'tones for contrast, this also applies when using contrast '
+                'level. The shown baseline tone mappings are not always used '
+                'when using MCU dynamic schemes'),
+          ),
           const Divider(),
           if (controller.usedVariant.isFlutterScheme)
             const ListTile(

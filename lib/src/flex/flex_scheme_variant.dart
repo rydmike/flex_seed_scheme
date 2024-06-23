@@ -78,7 +78,7 @@ enum FlexSchemeVariant {
     isFlutterScheme: true,
   ),
 
-  /// A scheme that places the source color in Scheme primaryContainer.
+  /// A scheme that places the source/seed color in primaryContainer.
   ///
   /// Primary Container is the source color, adjusted for color relativity.
   /// It maintains constant appearance in light mode and dark mode.
@@ -88,8 +88,8 @@ enum FlexSchemeVariant {
   /// TemperatureCache. It also maintains constant appearance.
   fidelity(
     variantName: 'Fidelity',
-    description: 'Color palettes match the seed color, also when '
-        'it is bright and uses high chroma',
+    description: 'Color palettes match seed color, also when '
+        'it is bright and uses high chroma. Seed appears as primary container',
     configDetails: 'Primary - Chroma from key color\n'
         'Secondary - Max of: chroma from key -32 or *0.5\n'
         'Tertiary - TemperatureCache complement hue or key hue and chroma\n'
