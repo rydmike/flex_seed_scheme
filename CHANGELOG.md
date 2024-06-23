@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.0.0
 
-**June 23, 2024**
+**June 24, 2024**
 
 Bring the bundled forked version of the package [Material Color Utilities (MCU)](https://pub.dev/packages/material_color_utilities) to feature parity with version 0.12.0 of the original package. The internal fork for the first time nw also adds features and capabilities that do not exist in the original package. Previously FSS only bundled MCU to avoid version conflicts with Flutter SDK when using different channels. Different Flutter channels typically pin incompatible versions of MCU.
 
@@ -21,7 +21,7 @@ The bundled forked version of MCU also has more tests than the original, allowin
   * The above addition enables `SeedColorScheme.fromSeeds` to support using all its key seed colors also when using MCU based `DynamicScheme` variants and not just for `FlexTones` based `tones` and `variants`. When using key seed colors with MCU variants, they still respect their original design intent.  
  
   * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the desired contrast level of the generated color scheme when using `SeedColorScheme.fromSeeds` with the `variant` property, for variants that are based on MCU's `DynamicScheme`. Such variants have their `isFlutterScheme` set to true. 
-    * The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
+    * The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high-contrast correspond to 0.5 and 1.0 respectively.
     * The `contrastLevel` in Flutter SDK is not yet available in `ColorScheme.fromSeed` in Flutter stable 3.22.x, but is available on the master channel 3.23.x. With FSS you can use it already in Flutter 3.22.x.
     * **NOTE:** Using `contrastLevel` has no effect when using `tones`. However, with `tones` you can create custom tones with even more flexibility in seed generation to make schemes with higher or less contrast. Two pre-configured high contrast tones exist earlier via `FlexTones.highContrast` and `FlexTones.ultraContrast`.
    
@@ -29,7 +29,7 @@ The bundled forked version of MCU also has more tests than the original, allowin
     * This option is only available when using MCU based `DynamicScheme` variants and not when using `FlexTones` based `tones` and `variants`, plus it only applies to variants that are based on MCU's `DynamicScheme`. Such variants have their `isFlutterScheme` set to true.
     * Opting in changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from 10 to 30 making them more color expressive, but they also have less contrast.
     * The accepted min contrast curve is thus now `ContrastCurve(3, 4.5, 7, 11)` instead of `ContrastCurve(4.5, 7, 11, 21)` for the on-container colors. Meaning normal contrast of 4.5 is now accepted when it was 7 before. 
-    * Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older M3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0 you can opt in on using the new spec already now. But FSS still also defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so.
+    * Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older M3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you can opt in on using the new spec already now. But FSS still also defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so.
     * The optional usage of the expressive colors for on-container colors is also a customization of MCU features in the forked version. We see value in being able to offer both the higher contrast older version and the new more color expressive one. 
     
   * The `tones` configuration class `FlexTones` got a new built-in modifier, `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes, with no color tint from their key color or primary key seed color. 
@@ -53,7 +53,7 @@ The bundled forked version of MCU also has more tests than the original, allowin
 
 
 * **FIX**
-  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. Tests were added to check the FlexTones.material3Legacy compared to the MCU deprecated Scheme based Colors, for colors that exist in both.
+  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. Tests were added to check the FlexTones.material3Legacy compared to the MCU deprecated Scheme-based colors, for colors that exist in both.
   * EXAMPLE APP: The key color to seed the error palette was not used in the main example in dark mode.
   
 
@@ -172,7 +172,7 @@ This release adds support for the revised Material-3 `ColorScheme` released in F
   - It is now included and maintained as a separate forked code base in **FSS**, while keeping **MCU**'s original license in place for its parts. The included **MCU** library was only modified to abide by the much stricter lint rules used in **FSS**. More unit tests for better test coverage of **MCU** were added as well. 
   - Why is **MCU** included as a forked version baked into **FSS**? 
     
-    The constant changes in **MCU**, with e.g. recent 3 different breaking-pinned zero-ver versions used in **Flutter** **stable**, **beta** and **master** channels, made it hopeless to depend on **MCU**. Using it caused repeated version conflicts with Flutter's own pinned dependency on different breaking versions of it, in different **Flutter** channels. **FSS** needs to be able to work across all Flutter channels without constant hassle caused by **MCU** and which exact version of it different version of **Flutter** repo itself is pinned to. 
+    The constant changes in **MCU**, with e.g. recent three different breaking-pinned zero-ver versions used in **Flutter** **stable**, **beta** and **master** channels, made it hopeless to depend on **MCU**. Using it caused repeated version conflicts with Flutter's own pinned dependency on different breaking versions of it, in different **Flutter** channels. **FSS** needs to be able to work across all Flutter channels without constant hassle caused by **MCU** and which exact version of it different version of **Flutter** repo itself is pinned to. 
   - The included forked version will be kept in sync with the original and updated when needed. Currently included **MCU** version is 0.5.0, the latest one, which is what **Flutter master** channel currently uses. However, new **Flutter stable** 3.10 is still using **MCU** 0.2.0. If the **MCU** package stabilizes and improves its constant breaking changes, **FSS** may later again be changed to depend on the original package. Until then, it embeds the code for it in its package to avoid the version conflict hassles it has repeatedly caused. These changes are all internal to the **FSS** package and do not affect how it works.
 
 **NEW**
