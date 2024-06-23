@@ -71,6 +71,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _useNeutralKey = false;
+  bool get useNeutralKey => _useNeutralKey;
+  void setUseNeutralKey(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _useNeutralKey) return;
+    _useNeutralKey = value;
+    if (notify) notifyListeners();
+  }
+
   bool _pinPrimary = false;
   bool get pinPrimary => _pinPrimary;
   void setPinPrimary(bool? value, [bool notify = true]) {
@@ -212,6 +221,15 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _errorSeedColor) return;
     _errorSeedColor = value;
+    if (notify) notifyListeners();
+  }
+
+  Color _neutralSeedColor = AppColor.primary;
+  Color get neutralSeedColor => _neutralSeedColor;
+  void setNeutralSeedColor(Color? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _neutralSeedColor) return;
+    _neutralSeedColor = value;
     if (notify) notifyListeners();
   }
 

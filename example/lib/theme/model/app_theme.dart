@@ -26,6 +26,9 @@ class AppTheme {
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
+      neutralKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
+      neutralVariantKey:
+          controller.useNeutralKey ? controller.neutralSeedColor : null,
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
@@ -65,6 +68,8 @@ class AppTheme {
       error: controller.pinError && controller.useErrorKey
           ? controller.errorSeedColor
           : null,
+      surfaceTint:
+          controller.useNeutralKey ? controller.neutralSeedColor : null,
     );
 
     // Light mode theme
@@ -93,6 +98,9 @@ class AppTheme {
       tertiaryKey:
           controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
+      neutralKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
+      neutralVariantKey:
+          controller.useNeutralKey ? controller.neutralSeedColor : null,
       variant: controller.usedVariant.isFlutterScheme
           ? controller.usedVariant
           : null,
@@ -123,6 +131,8 @@ class AppTheme {
       errorContainer: controller.pinError && controller.useErrorKey
           ? controller.errorSeedColor
           : null,
+      surfaceTint:
+          controller.useNeutralKey ? controller.neutralSeedColor : null,
     );
 
     // Dark mode theme

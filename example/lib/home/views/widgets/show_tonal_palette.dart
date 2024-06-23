@@ -42,6 +42,10 @@ class ShowTonalPalette extends StatelessWidget {
             controller.useTertiaryKey ? controller.tertiarySeedColor : null,
         errorSeedColor:
             controller.useErrorKey ? controller.errorSeedColor : null,
+        neutralSeedColor:
+            controller.useNeutralKey ? controller.neutralSeedColor : null,
+        neutralVariantSeedColor:
+            controller.useNeutralKey ? controller.neutralSeedColor : null,
         variant: controller.usedVariant,
         contrastLevel: controller.contrastLevel,
         useExpressiveOnContainerColors: controller.useExpressiveOn,
@@ -83,6 +87,10 @@ class ShowTonalPalette extends StatelessWidget {
             ? controller.tertiarySeedColor.value
             : null,
         error: controller.useErrorKey ? controller.errorSeedColor.value : null,
+        neutral:
+            controller.useNeutralKey ? controller.neutralSeedColor.value : null,
+        neutralVariant:
+            controller.useNeutralKey ? controller.neutralSeedColor.value : null,
         // Tone config details we get from active FlexTones.
         primaryChroma: tones.primaryChroma,
         primaryMinChroma: tones.primaryMinChroma,

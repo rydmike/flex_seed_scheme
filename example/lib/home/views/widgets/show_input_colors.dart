@@ -45,6 +45,9 @@ class ShowInputColors extends StatelessWidget {
     final Color onTertiary = _onColor(tertiary);
     final Color error = controller.errorSeedColor;
     final Color onError = _onColor(error);
+    final Color neutrals = controller.neutralSeedColor;
+    final Color onNeutrals = _onColor(neutrals);
+
     final Color surface = colorScheme.surface;
 
     // Grab the card border from the theme card shape
@@ -354,6 +357,69 @@ class ShowInputColors extends StatelessWidget {
                       onChanged: controller.useErrorKey
                           ? controller.setPinError
                           : null,
+                    ),
+                  ),
+                ],
+              ),
+              // Neutral color
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_neutral'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
+                          color: controller.useNeutralKey ? neutrals : surface,
+                          child: ColorPickerInkWellDialog(
+                            color:
+                                controller.useNeutralKey ? neutrals : surface,
+                            onChanged: controller.setNeutralSeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setNeutralSeedColor(neutrals);
+                              }
+                            },
+                            enabled: controller.useNeutralKey,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc neutral $neutrals'),
+                              color:
+                                  controller.useNeutralKey ? neutrals : surface,
+                              textColor: controller.useNeutralKey
+                                  ? onNeutrals
+                                  : surface,
+                              label: 'surfaces',
+                              showInputColor: false,
+                              showMaterialName: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.outline,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Surfaces'),
+                      value: controller.useNeutralKey,
+                      onChanged: controller.setUseNeutralKey,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: boxWidth,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: Text('Also surfaceTint'),
                     ),
                   ),
                 ],
