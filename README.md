@@ -297,7 +297,7 @@ There are two high contrast `FlexTones` configuration pre-made for this. They ar
 `FlexTones.highContrast`, a colorful high-contrast version, and `FlexTones.ultraContrast`, a less 
 colorful version, a more dark on light in light theme mode, and light on dark in dark mode.
 
-The `FlexTones.canyPop` also creates high contrast theme, with colors that are vibrant and pop, it can also be used for high contrast themes. Depending on seed color input values and its chroma value, `FlexTones.chroma` can also be very vibrant and high contrast. It can also be monochromatic, i.e. gray-scale if input seed colors have chroma value zero.
+The `FlexTones.canyPop` also creates high contrast theme, with colors that are vibrant and pop, it can also be used for high contrast themes. Depending on seed color input values and its chroma value, `FlexTones.chroma` can also be very vibrant and high contrast. It can also be monochromatic, i.e., gray-scale if input seed colors have chroma value zero.
 
 ```dart
 // Make a high contrast light ColorScheme from the seeds.
@@ -488,7 +488,7 @@ Opting in changes the light mode color tone for the colors `onPrimaryContainer`,
 
 This option is only available when using MCU based `DynamicScheme` variants and not when using `FlexTones` based `tones` and `variants` based on `FlexTones`. It thus only applies to variants that are based on MCU's `DynamicScheme` and have their `isFlutterScheme` set to true.
 
-Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older M3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0 you can opt in on using the new spec already now. FSS still defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so. 
+Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older M3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you can opt in on using the new spec already now. FSS still defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so. 
 
 The optional usage of the expressive colors for on-container colors is a customization of MCU features in the forked version. We see value in being able to offer both the higher contrast older, still current, version and the new more color expressive one.
 
@@ -510,7 +510,7 @@ The optional usage of the expressive colors for on-container colors is a customi
     );
 ``` 
 
-The variants `fidelity` and `content` have their own algorithm for the on colors that `useExpressiveOnContainerColors` impacts that are already expressive. Thus the flag does nothing to their on colors. Likewise `monochrome` is excluded from the expressive on colors feature, as it is intended to be monochrome. However, even for these variants the `useExpressiveOnContainerColors` will change the `onErrorContainer` color, to be more expressive in light mode.
+The variants `fidelity` and `content` have their own algorithm for the on colors that `useExpressiveOnContainerColors` impacts that are already expressive. Thus, the flag does nothing to their on-colors. Likewise `monochrome` is excluded from the expressive on colors feature, as it is intended to be monochrome. However, even for these variants the `useExpressiveOnContainerColors` will change the `onErrorContainer` color, to be more expressive in light mode.
 
 
 ### FlexTones Modifier `expressiveOnContainer()`
@@ -554,7 +554,7 @@ You can choose to use secondary and primary seed colors as additional keys to ge
 With the app we can compare results from `SeedColorScheme.fromSeeds`, to using the single seed color 
 based `ColorScheme.fromSeed` seed generated default Material-3 `ColorScheme` available in Flutter.
 
-Both can use use a single key color as their primary seed color, but `ColorScheme.fromSeed` can only use it as its single seed color, we cannot use hues from our secondary and tertiary key colors for the seed produced tonal palettes, nor change how and its tones are mapped to the generated `ColorScheme`. 
+Both can use a single key color as their primary seed color, but `ColorScheme.fromSeed` can only use it as its single seed color, we cannot use hues from our secondary and tertiary key colors for the seed produced tonal palettes, nor change how and its tones are mapped to the generated `ColorScheme`. 
 
 With `ColorScheme.fromSeed` we can also not customize the colorfulness (chromacity) of its seed generated secondary and tertiary colors, other than using the predefined `DynamicSchemeVariant`s. With `SeedColorScheme.fromSeeds` we can use both `DynamicSchemeVariant` and `FlexTones` configurations. The tonal palette tones to `ColorScheme` color mappings can be modified with `SeedColorScheme.fromSeeds` and its different mappings in each `FlexTones` seeding strategy. You can create custom `FlexTones` configurations to create your own tonal palettes and mapping of its tones to `ColorScheme` colors.
 
@@ -564,65 +564,128 @@ The seed generated tonal palettes are also displayed in the example application.
 
 Below some example color schemes made with FlexSeedScheme using `SeedColorScheme.fromSeed` using different `FlexTones` seed generation strategies.
 
-### Default Strategy Material-3 Theme
+### Default Material-3 Themes
 
-This example shows how to recreate the default Material-3 theme using a single primary seed color and the default `tones` strategy `FlexTones.material`. This is no different from using Flutter's default `ColorScheme.fromSeed` with its default `dynamicSchemeVariant = DynamicSchemeVariant.tonalSpot`. It is shown here for comparison. In the package, there are also tests to ensure that this strategy produces the same result.
+This example shows the default Material-3 seed-based scheme, using a single primary seed color and the default `ColorScheme.fromSeed` variant `tonalSport` versus the tones strategy `FlexTones.material`. Both are the same as using Flutter's default `ColorScheme.fromSeed` with its default `dynamicSchemeVariant = DynamicSchemeVariant.tonalSpot`. We also show the same with the `FlexTones.material3Legacy` variant, which is slightly different from the default Material-3 setup in Flutter 3.22.0 and later.
 
-| Light from single seed - Material 3 tones                                                                                       | Dark from single seed - Material 3 tones                                                                                      |
+
+#### Variant `tonalSpot` based - Based on MCU's `DynamicScheme`
+
+Flutter's default seed generation in Flutter 3.22.0 and later.
+
+| Light from single seed - Material 3 default                                                                                     | Dark from single seed - Material 3 default                                                                                    |
 |---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/light_app_m3_1.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/dark_app_m3_1.png" alt="dark_app_m3"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_d.png" alt="dark_app_m3"/> |
 
+#### Variant `material` based - Based on `FlexTones.material` 
+
+Replicates the Flutter default using `FlexTones` instead of MCU `DynamicScheme`.
+
+| Light from single seed - Material 3                                                                                      | Dark from single seed - Material 3                                                                                            |
+|---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v3_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v3_d.png" alt="dark_app_m3"/> |
+
+
+#### Variant `material3Legacy` based - Based on `FlexTones.material3Legacy`
+
+Replicates the Flutter Material default as it was before Flutter 3.22. You can use this if you need the legacy M3 seed generated scheme style in Flutter used before Flutter 3.22.
+
+| Light from single seed - Material 3 legacy                                                                                                    | Dark from single seed - Material 3 legacy                                                                                                    |
+|-----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v3_l.png" alt="light_legacy_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v3_d.png" alt="dark_legacy_app_m3"/> |
 
 ### Candy Pop Strategy with One Seed Color
 
-This example using `tones` strategy `FlexTones.candyPop` shows the difference when using the same single seed color, as in the above case with the default Material-3 seed strategy. We can observe that the colors are brighter and more candy like.
+This example using `tones` strategy `FlexTones.candyPop` shows the difference when using the same single seed color, as in the above case with the default Material-3 seed strategy. We can observe that the colors are brighter and have more candy like pop to them.
 
-| Light from single seed - Candy pop tones                                                                                                | Dark from single seed - Candy pop tones                                                                                               |
-|-----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_1.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_1.png" alt="candy pop dark 1"/> |
+| Light from single seed - Candy pop tones                                                                                                | Dark from single seed - Candy pop tones                                                                                                  |
+|-----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v3_l.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v3_d.png" alt="candy pop dark 1"/> |
 
 ### Candy Pop Strategy with Four Seed Colors
 
 This example shows how to use four seeds colors, including a custom error seed color, using the same **CandyPop** seed strategy.
 
-| Light from four seeds - Candy pop tones                                                                                                 | Dark from four seeds - Candy pop tones                                                                                                |
-|-----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_4.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_4.png" alt="candy pop dark 4"/> |
+| Light from four seeds - Candy pop tones                                                                                                 | Dark from four seeds - Candy pop tones                                                                                                 |
+|-----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v3_l.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v3_d.png" alt="candy pop dark 4"/> |
 
 
-### Custom Strategy
+### One hue
 
-This shows the light and dark version of the `tones` strategy with the custom `FlexTones` we defined earlier in  `myLightTones` and `myDarkTones` in the example.
+This example shows the light and dark version of the `tones` strategy called `oneHue`.
 
-| Light from seeds - Custom tones                                                                                              | Dark from seeds - Custom tones                                                                                              |
-|------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/custom_light_4.png" alt="light_app"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/custom_dark_4.png" alt="dark_app"/>  |
+In some cases, you may want to create a color scheme based on a single brand color and pin it as your `primary` color in the seed produced light `ColorScheme`. A brand color intended for white paper is usually a good fit for the `primary` color in light mode. It can be used as both as seed and pinned to `primary` in light mode to guarantee that the brand color is present in the produced color scheme. In this example, we are using a strong blue brand color called "Governor Bay" as the seed color and when using it as override for `primary` is `SeedColorScheme.fromSeeds` in light mode. This happens when we select "Pinned" option in the demo example app. In code, you would do this:
 
-## Comparing Styles
+```dart
+    const Color brandBlue = Color(0xFF2539B0); // Governor Bay blue
+    // Make a light ColorScheme from the seeds.
+    final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
+      brightness: Brightness.light,
+      // Use a "brand" seed color as primary color and pin it to primary.
+      primaryKey: brandBlue,
+      primary: brandBlue,
+      tones: FlexTones.oneHue(Brightness.light),
+    );
+```
 
-Below an example of Material widgets using the theme created using the `tones` strategy with the custom `FlexTones` we defined.
+In dark mode, a brand color intended for use on white paper rarely fits on primary color in a dark mode scheme, but it usually works well pinned to `primaryContainer`. In this example, we use this when "Pinned" is selected in the demo app. In code, you would do this:
 
-| Light from seeds - Custom tones Widget                                                                                                                | Dark from seeds - Custom tones Widget                                                                                                               |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/custom_light_4_widgets.png" alt="custom pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/custom_dark_4_widgets.png" alt="custom pop dark 4 widgets"/> |
+```dart
+    // Make a dark ColorScheme from the seeds.
+    final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
+      brightness: Brightness.dark,
+      // Use a "brand" seed color as primary color and pin it to primary.
+      primaryKey: brandBlue,
+      primaryContainer: brandBlue,
+      tones: FlexTones.oneHue(Brightness.dark),
+    );
+```
 
-Here we can compare it to an example of Material widgets using the theme created using the earlier above `tones` strategy `FlexTones.candyPop` with four seed colors.
+You should typically use the same seed color in light and dark mode to get the same matching tonal palettes for your light and dark mode. You can often still use different token colors as pinned override color values in light and dark mode seed generation, to get your brand colors into fitting `ColorScheme` colors. Do make sure it fits with its contrasting on-color and course also with the other colors in the scheme.  
 
-| Light from four seeds - Candy pop tones Widgets                                                                                                         | Dark from four seeds - Candy pop tones Widget                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_light_4_widgets.png" alt="candy pop light 4 widgets"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_pop_dark_4_widgets.png" alt="candy pop dark 4 widgets"/> |
+A key feature with the `oneHue` seed strategy is that it does not invent any new hues for any tonal palettes, but uses the same hue as the primary seed color for all the tonal palettes. This makes it possible to create a color scheme from a single color all based on the hue in source brand color. The `oneHue` strategy is useful when you have a single brand color and want to create a color scheme based on its color, and not get any other color hues in your resulting `ColorScheme`.
+
+
+| Light from seed - One hue                                                                                              | Dark from seed - One hue                                                                                                   |
+|------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_l.png" alt="light_app"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_d.png" alt="dark_app"/> |
+
+## Comparing Flutter Default and One Hue
+
+Below an example of Material widgets using the theme created using the `oneHue` strategy versus the Flutter default one, using the same brand color seed color.
+
+| Light from brand - One hue                                                                                                              | Light from brand - Flutter default                                                                                                     |
+|-----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_comp_l.png" alt="comp widgets_oh_l"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_comp_l.png" alt="widgets_tsp_l"/> |
+
+Same for dark mode.
+
+| Dark from brand - One hue                                                                                                                | Dark from brand - Flutter default                                                                                                       |
+|------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_comp_d.png" alt="comp widgets_oh2_d"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_comp_d.png" alt="widgets_tsp2_d"/> |
+
+
+As we can see, there is more pop and colorfulness in the **One hue** version. We can also notice that most common widgets only use colors based on `primary` and `secondary` and their shades. The `tertiary` colors that get a different hue are rarely used in common widgets when using their default `ColorScheme` mappings. We can find it if we compare e.g. the `DatePicker` result.
+
+| Pickers from brand - One hue                                                                                                              | Pickers from brand - Flutter default                                                                                                            |
+|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_comp_diag_l.png" alt="one_hue_dialog"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_comp_diag_l.png" alt="tonal_spot_dialog"/> |
+
+Now we see that the `DatePicker` no longer has the pink color it got from its default `tertiaryContainer` color. Instead, it uses the same blue hue related color as the `primary` color. This is because the `oneHue` strategy uses the same hue for all tonal palettes. This makes it possible to create a color scheme from a single color all based on the hue in the source brand color, without using tedious component color scheme re-mappings.
 
 
 ## Package Background
 
 This package was extracted from the customizable color scheme seeding engine in the
-[**FlexColorScheme**](https://pub.dev/packages/flex_color_scheme) package to its own package.
+[**FlexColorScheme (FCS)**](https://pub.dev/packages/flex_color_scheme) package to its own package.
 
 This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
 **FlexColorScheme**, without using the FlexColorScheme package.
-Starting with **FlexColorScheme** version 6 and later, it depends on this package instead.
+Starting with **FlexColorScheme** version 6 and later, FCS depends on this package instead.
 
 If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to
 use its features, FlexColorScheme exports its API as well.
-If you use FlexColorScheme you typically do not even need to use FlexSeedScheme directly,
+
+If you use FlexColorScheme, you typically do not even need to use FlexSeedScheme directly,
 its usage is baked in and used based on how you configure FlexColorScheme.
