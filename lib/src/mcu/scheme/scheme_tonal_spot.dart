@@ -27,16 +27,30 @@ class SchemeTonalSpot extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    super.useExpressiveOnContainerColors,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.tonalSpot,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 36.0),
-          secondaryPalette: TonalPalette.of(sourceColorHct.hue, 16.0),
+          secondaryPalette: TonalPalette.of(
+              secondarySourceColorHct?.hue ?? sourceColorHct.hue, 16.0),
           tertiaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
+            MathUtils.sanitizeDegreesDouble(
+                tertiarySourceColorHct?.hue ?? (sourceColorHct.hue + 60.0)),
             24.0,
           ),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 6.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 8.0),
+          neutralPalette: TonalPalette.of(
+              neutralSourceColorHct?.hue ?? sourceColorHct.hue, 6.0),
+          neutralVariantPalette: TonalPalette.of(
+              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue, 8.0),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

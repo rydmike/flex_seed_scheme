@@ -45,6 +45,9 @@ class ShowInputColors extends StatelessWidget {
     final Color onTertiary = _onColor(tertiary);
     final Color error = controller.errorSeedColor;
     final Color onError = _onColor(error);
+    final Color neutrals = controller.neutralSeedColor;
+    final Color onNeutrals = _onColor(neutrals);
+
     final Color surface = colorScheme.surface;
 
     // Grab the card border from the theme card shape
@@ -85,7 +88,7 @@ class ShowInputColors extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              'Seed key colors',
+              'Key colors used to seed the ColorScheme',
               style: theme.textTheme.titleMedium,
             ),
           ),
@@ -96,179 +99,330 @@ class ShowInputColors extends StatelessWidget {
             runSpacing: 6,
             children: <Widget>[
               // Primary color
-              RepaintBoundary(
-                key: const ValueKey<String>('input_primary'),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 0,
-                    clipBehavior: Clip.hardEdge,
-                    child: Material(
-                      color: primary,
-                      child: ColorPickerInkWellDialog(
-                        color: primary,
-                        onChanged: controller.setPrimarySeedColor,
-                        recentColors: controller.recentColors,
-                        onRecentColorsChanged: controller.setRecentColors,
-                        wasCancelled: (bool cancelled) {
-                          if (cancelled) {
-                            controller.setPrimarySeedColor(primary);
-                          }
-                        },
-                        enabled: true,
-                        child: ColorNameValue(
-                          key: ValueKey<String>('ipc primary $primary'),
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_primary'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
                           color: primary,
-                          textColor: onPrimary,
-                          label: 'primary',
-                          showInputColor: false,
-                          showMaterialName: true,
+                          child: ColorPickerInkWellDialog(
+                            color: primary,
+                            onChanged: controller.setPrimarySeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setPrimarySeedColor(primary);
+                              }
+                            },
+                            enabled: true,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc primary $primary'),
+                              color: primary,
+                              textColor: onPrimary,
+                              label: 'primary',
+                              showInputColor: false,
+                              showMaterialName: true,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    width: boxWidth,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: Text('Use seed color'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.primary,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Pinned'),
+                      value: controller.pinPrimary,
+                      onChanged: controller.setPinPrimary,
+                    ),
+                  ),
+                ],
               ),
               // Secondary color
-              RepaintBoundary(
-                key: const ValueKey<String>('input_secondary'),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 0,
-                    clipBehavior: Clip.hardEdge,
-                    child: Material(
-                      color: controller.useSecondaryKey &&
-                              !controller.usedVariant.isFlutterScheme
-                          ? secondary
-                          : surface,
-                      child: ColorPickerInkWellDialog(
-                        color: secondary,
-                        onChanged: controller.setSecondarySeedColor,
-                        recentColors: controller.recentColors,
-                        onRecentColorsChanged: controller.setRecentColors,
-                        wasCancelled: (bool cancelled) {
-                          if (cancelled) {
-                            controller.setSecondarySeedColor(secondary);
-                          }
-                        },
-                        enabled: controller.useSecondaryKey &&
-                            !controller.usedVariant.isFlutterScheme,
-                        child: ColorNameValue(
-                          key: ValueKey<String>('ipc secondary $secondary'),
-                          color: controller.useSecondaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? secondary
-                              : surface,
-                          textColor: controller.useSecondaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? onSecondary
-                              : surface,
-                          showInputColor: false,
-                          label: 'secondary',
-                          showMaterialName: true,
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_secondary'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
+                          color:
+                              controller.useSecondaryKey ? secondary : surface,
+                          child: ColorPickerInkWellDialog(
+                            color: secondary,
+                            onChanged: controller.setSecondarySeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setSecondarySeedColor(secondary);
+                              }
+                            },
+                            enabled: controller.useSecondaryKey,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc secondary $secondary'),
+                              color: controller.useSecondaryKey
+                                  ? secondary
+                                  : surface,
+                              textColor: controller.useSecondaryKey
+                                  ? onSecondary
+                                  : surface,
+                              showInputColor: false,
+                              label: 'secondary',
+                              showMaterialName: true,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.secondary,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Secondary'),
+                      value: controller.useSecondaryKey,
+                      onChanged: controller.setUseSecondaryKey,
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.secondary,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Pinned'),
+                      value: controller.pinSecondary,
+                      onChanged: controller.useSecondaryKey
+                          ? controller.setPinSecondary
+                          : null,
+                    ),
+                  ),
+                ],
               ),
 
               // Tertiary color
-              RepaintBoundary(
-                key: const ValueKey<String>('input_tertiary'),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 0,
-                    clipBehavior: Clip.hardEdge,
-                    child: Material(
-                      color: controller.useTertiaryKey &&
-                              !controller.usedVariant.isFlutterScheme
-                          ? tertiary
-                          : surface,
-                      child: ColorPickerInkWellDialog(
-                        color: controller.useTertiaryKey ? tertiary : surface,
-                        onChanged: controller.setTertiarySeedColor,
-                        recentColors: controller.recentColors,
-                        onRecentColorsChanged: controller.setRecentColors,
-                        wasCancelled: (bool cancelled) {
-                          if (cancelled) {
-                            controller.setTertiarySeedColor(tertiary);
-                          }
-                        },
-                        enabled: controller.useTertiaryKey &&
-                            !controller.usedVariant.isFlutterScheme,
-                        child: ColorNameValue(
-                          key: ValueKey<String>('ipc tertiary $tertiary'),
-                          color: controller.useTertiaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? tertiary
-                              : surface,
-                          textColor: controller.useTertiaryKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? onTertiary
-                              : surface,
-                          label: 'tertiary',
-                          showInputColor: false,
-                          showMaterialName: true,
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_tertiary'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
+                          color: controller.useTertiaryKey ? tertiary : surface,
+                          child: ColorPickerInkWellDialog(
+                            color:
+                                controller.useTertiaryKey ? tertiary : surface,
+                            onChanged: controller.setTertiarySeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setTertiarySeedColor(tertiary);
+                              }
+                            },
+                            enabled: controller.useTertiaryKey,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc tertiary $tertiary'),
+                              color: controller.useTertiaryKey
+                                  ? tertiary
+                                  : surface,
+                              textColor: controller.useTertiaryKey
+                                  ? onTertiary
+                                  : surface,
+                              label: 'tertiary',
+                              showInputColor: false,
+                              showMaterialName: true,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.tertiary,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Tertiary'),
+                      value: controller.useTertiaryKey,
+                      onChanged: controller.setUseTertiaryKey,
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.tertiary,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Pinned'),
+                      value: controller.pinTertiary,
+                      onChanged: controller.useTertiaryKey
+                          ? controller.setPinTertiary
+                          : null,
+                    ),
+                  ),
+                ],
               ),
               // Error color
-              RepaintBoundary(
-                key: const ValueKey<String>('input_error'),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    elevation: 0,
-                    clipBehavior: Clip.hardEdge,
-                    child: Material(
-                      color: controller.useErrorKey &&
-                              !controller.usedVariant.isFlutterScheme
-                          ? error
-                          : surface,
-                      child: ColorPickerInkWellDialog(
-                        color: controller.useErrorKey ? error : surface,
-                        onChanged: controller.setErrorSeedColor,
-                        recentColors: controller.recentColors,
-                        onRecentColorsChanged: controller.setRecentColors,
-                        wasCancelled: (bool cancelled) {
-                          if (cancelled) {
-                            controller.setErrorSeedColor(error);
-                          }
-                        },
-                        enabled: controller.useErrorKey &&
-                            !controller.usedVariant.isFlutterScheme,
-                        child: ColorNameValue(
-                          key: ValueKey<String>('ipc error $error'),
-                          color: controller.useErrorKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? error
-                              : surface,
-                          textColor: controller.useErrorKey &&
-                                  !controller.usedVariant.isFlutterScheme
-                              ? onError
-                              : surface,
-                          label: 'error',
-                          showInputColor: false,
-                          showMaterialName: true,
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_error'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
+                          color: controller.useErrorKey ? error : surface,
+                          child: ColorPickerInkWellDialog(
+                            color: controller.useErrorKey ? error : surface,
+                            onChanged: controller.setErrorSeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setErrorSeedColor(error);
+                              }
+                            },
+                            enabled: controller.useErrorKey,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc error $error'),
+                              color: controller.useErrorKey ? error : surface,
+                              textColor:
+                                  controller.useErrorKey ? onError : surface,
+                              label: 'error',
+                              showInputColor: false,
+                              showMaterialName: true,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.error,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Error'),
+                      value: controller.useErrorKey,
+                      onChanged: controller.setUseErrorKey,
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.error,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Pinned'),
+                      value: controller.pinError,
+                      onChanged: controller.useErrorKey
+                          ? controller.setPinError
+                          : null,
+                    ),
+                  ),
+                ],
+              ),
+              // Neutral color
+              Column(
+                children: <Widget>[
+                  RepaintBoundary(
+                    key: const ValueKey<String>('input_neutral'),
+                    child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        elevation: 0,
+                        clipBehavior: Clip.hardEdge,
+                        child: Material(
+                          color: controller.useNeutralKey ? neutrals : surface,
+                          child: ColorPickerInkWellDialog(
+                            color:
+                                controller.useNeutralKey ? neutrals : surface,
+                            onChanged: controller.setNeutralSeedColor,
+                            recentColors: controller.recentColors,
+                            onRecentColorsChanged: controller.setRecentColors,
+                            wasCancelled: (bool cancelled) {
+                              if (cancelled) {
+                                controller.setNeutralSeedColor(neutrals);
+                              }
+                            },
+                            enabled: controller.useNeutralKey,
+                            child: ColorNameValue(
+                              key: ValueKey<String>('ipc neutral $neutrals'),
+                              color:
+                                  controller.useNeutralKey ? neutrals : surface,
+                              textColor: controller.useNeutralKey
+                                  ? onNeutrals
+                                  : surface,
+                              label: 'surfaces',
+                              showInputColor: false,
+                              showMaterialName: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: boxWidth,
+                    child: SwitchListTile(
+                      activeColor: colorScheme.outline,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: const Text('Surfaces'),
+                      value: controller.useNeutralKey,
+                      onChanged: controller.setUseNeutralKey,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: boxWidth,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 4),
+                      dense: true,
+                      title: Text('Also surfaceTint'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -61,17 +61,17 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_picker
-      sha256: "5c846437069fb7afdd7ade6bf37e628a71d2ab0787095ddcb1253bf9345d5f3a"
+      sha256: "31b27677d8d8400e4cff5edb3f189f606dd964d608779b6ae1b7ddad37ea48c6"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.1"
+    version: "3.5.0"
   flex_seed_scheme:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -208,18 +208,18 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "6ce1e04375be4eed30548f10a315826fd933c1e493206eab82eed01f438c8d2e"
+      sha256: "21b704ce5fa560ea9f3b525b43601c678728ba46725bab9b01187b4831377ed3"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.6"
+    version: "6.3.0"
   url_launcher_android:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "360a6ed2027f18b73c8d98e159dda67a61b7f2e0f6ec26e86c3ada33b0621775"
+      sha256: "17cd5e205ea615e2c6ea7a77323a11712dffa0720a8a90540db57a01347f9ad9"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   url_launcher_ios:
     dependency: transitive
     description:

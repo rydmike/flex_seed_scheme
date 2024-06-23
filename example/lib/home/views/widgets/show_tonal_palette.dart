@@ -34,7 +34,22 @@ class ShowTonalPalette extends StatelessWidget {
     if (controller.usedVariant.isFlutterScheme) {
       // Get DynamicScheme tones if using Flutter SDK scheme.
       final DynamicScheme dynamicScheme = SeedColorScheme.buildDynamicScheme(
-          brightness, controller.primarySeedColor, controller.usedVariant);
+        brightness: brightness,
+        primarySeedColor: controller.primarySeedColor,
+        secondarySeedColor:
+            controller.useSecondaryKey ? controller.secondarySeedColor : null,
+        tertiarySeedColor:
+            controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+        errorSeedColor:
+            controller.useErrorKey ? controller.errorSeedColor : null,
+        neutralSeedColor:
+            controller.useNeutralKey ? controller.neutralSeedColor : null,
+        neutralVariantSeedColor:
+            controller.useNeutralKey ? controller.neutralSeedColor : null,
+        variant: controller.usedVariant,
+        contrastLevel: controller.contrastLevel,
+        useExpressiveOnContainerColors: controller.useExpressiveOn,
+      );
 
       // Assign the tonals for the schemes to the int lists using tone indexes
       // from FlexTonalPalette based on used type.
@@ -72,6 +87,10 @@ class ShowTonalPalette extends StatelessWidget {
             ? controller.tertiarySeedColor.value
             : null,
         error: controller.useErrorKey ? controller.errorSeedColor.value : null,
+        neutral:
+            controller.useNeutralKey ? controller.neutralSeedColor.value : null,
+        neutralVariant:
+            controller.useNeutralKey ? controller.neutralSeedColor.value : null,
         // Tone config details we get from active FlexTones.
         primaryChroma: tones.primaryChroma,
         primaryMinChroma: tones.primaryMinChroma,
@@ -80,8 +99,9 @@ class ShowTonalPalette extends StatelessWidget {
         tertiaryChroma: tones.tertiaryChroma,
         tertiaryMinChroma: tones.tertiaryMinChroma,
         tertiaryHueRotation: tones.tertiaryHueRotation,
-        neutralChroma: tones.neutralChroma,
-        neutralVariantChroma: tones.neutralVariantChroma,
+        neutralChroma: controller.useMonoSurfaces ? 0 : tones.neutralChroma,
+        neutralVariantChroma:
+            controller.useMonoSurfaces ? 0 : tones.neutralVariantChroma,
         paletteType: paletteType,
       );
       // Assign the tonals for the schemes to the int lists.

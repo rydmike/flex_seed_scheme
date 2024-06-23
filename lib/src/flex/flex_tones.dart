@@ -384,14 +384,14 @@ class FlexTones with Diagnosticable {
       brightness == Brightness.light
           ? const FlexTones.light(
               primaryChroma: 36,
-              primaryMinChroma: 0,
+              primaryMinChroma: 36,
               secondaryChroma: 16,
               tertiaryChroma: 24,
               useCam16: false,
             )
           : const FlexTones.dark(
               primaryChroma: 36,
-              primaryMinChroma: 0,
+              primaryMinChroma: 36,
               secondaryChroma: 16,
               tertiaryChroma: 24,
               useCam16: false,
@@ -413,19 +413,22 @@ class FlexTones with Diagnosticable {
   factory FlexTones.material3Legacy(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
+              surfaceTone: 99,
+              backgroundTone: 99,
               primaryChroma: 48,
-              primaryMinChroma: 0,
+              primaryMinChroma: 48,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              neutralChroma: 4,
             )
           : const FlexTones.dark(
-              surfaceTone: 8,
-              backgroundTone: 8,
-              onErrorContainerTone: 90,
+              surfaceTone: 10,
+              backgroundTone: 10,
               primaryChroma: 48,
-              primaryMinChroma: 0,
+              primaryMinChroma: 48,
               secondaryChroma: 16,
               tertiaryChroma: 24,
+              neutralChroma: 4,
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
@@ -830,7 +833,7 @@ class FlexTones with Diagnosticable {
               primaryTone: 40,
               primaryContainerTone: 80,
               onPrimaryContainerTone: 4,
-              secondaryTone: 60,
+              secondaryTone: 50,
               secondaryContainerTone: 92,
               onSecondaryContainerTone: 10,
               tertiaryTone: 50,
@@ -910,6 +913,10 @@ class FlexTones with Diagnosticable {
   /// If set to false, the function is a no op and just returns the [FlexTones]
   /// object unmodified. This is typically used to control applying the tint
   /// removal via a controller.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
   FlexTones onMainsUseBW([bool useBW = true]) {
     // ignore: avoid_returning_this
     if (!useBW) return this;
@@ -947,6 +954,10 @@ class FlexTones with Diagnosticable {
   /// If set to false, the function is a no op and just returns the [FlexTones]
   /// object unmodified. This is typically used to control applying the tint
   /// removal via a controller.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
   FlexTones onSurfacesUseBW([bool useBW = true]) {
     // ignore: avoid_returning_this
     if (!useBW) return this;
@@ -972,12 +983,82 @@ class FlexTones with Diagnosticable {
   /// If set to false, the function is a no op and just returns the [FlexTones]
   /// object unmodified. This is typically used to control applying the tint
   /// removal via a controller.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
   FlexTones surfacesUseBW([bool useBW = true]) {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       backgroundTone: backgroundTone <= 60 ? 0 : 100,
       surfaceTone: surfaceTone <= 60 ? 0 : 100,
+    );
+  }
+
+  /// Returns a new [FlexTones] instance where the neutral and neutral variant
+  /// chrome is set to 0. This will result in that regardless of the seed color
+  /// the neutral and neutral variant tonal colors will be a pure grey scale
+  /// without any chromacity in them. Resulting in surface colors with no color
+  /// tint in them.
+  ///
+  /// The [useMonochrome] flag is true by default, making the function
+  /// effective. If set to false, the function is a no op and just returns the
+  /// [FlexTones] object unmodified. This is typically used to control applying
+  /// the tint removal via a controller.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
+  FlexTones monochromeSurfaces([bool useMonochrome = true]) {
+    // ignore: avoid_returning_this
+    if (!useMonochrome) return this;
+    return copyWith(
+      neutralChroma: 0,
+      neutralMinChroma: 0,
+      neutralVariantChroma: 0,
+      neutralVariantMinChroma: 0,
+    );
+  }
+
+  /// Returns a new [FlexTones] instance where the tones for light mode on
+  /// container tones are set to 30 for more color expressive container text
+  /// and icons on none surface containers.
+  ///
+  /// This [FlexTones] modifier only impacts none surface on-container tones
+  /// that are dark and thus only has any impact on the light theme mode
+  /// on-container colors.
+  ///
+  /// The impacted on container colors are [onPrimaryContainerTone],
+  /// [onSecondaryContainerTone], [onTertiaryContainerTone] and
+  /// [onErrorContainerTone].
+  ///
+  /// This feature brings optional light mode expressive on container colors to
+  /// any predefined or custom [FlexTones] configuration. The expressive on
+  /// color in light mode containers are a new change to Material Design 3
+  /// ColorScheme. It was introduced in Material Color Utilities (MCU)
+  /// lib v0.12.0.
+  ///
+  /// This modifier is equivalent to setting the
+  /// [SeedColorScheme.fromSeeds] and its [useExpressiveOnContainerColors] to
+  /// true when using MCU dynamic scheme variant based seeded color schemes.
+  ///
+  /// The [useExpressive] flag is true by default, making the function
+  /// effective. If set to false, the function is a no op and just returns the
+  /// [FlexTones] object unmodified. This is typically used to control applying
+  /// modifier via a controller.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
+  FlexTones expressiveOnContainer([bool useExpressive = true]) {
+    // ignore: avoid_returning_this
+    if ((!useExpressive) || (onPrimaryContainerTone > 60)) return this;
+    return copyWith(
+      onPrimaryContainerTone: 30,
+      onSecondaryContainerTone: 30,
+      onTertiaryContainerTone: 30,
+      onErrorContainerTone: 30,
     );
   }
 

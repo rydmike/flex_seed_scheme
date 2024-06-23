@@ -76,18 +76,18 @@ void main() {
     expect(dynamicScheme.getHct(surfaceHighest).toInt(),
         surfaceHighest.getArgb(dynamicScheme));
 
-    // TODO(rydmike): Add DynamicSchemeVariant when they land in Flutter.
+    // TODO(rydmike): Add DynamicSchemeVariant test when Flutter uses MCU 0.12.0
     // for (final DynamicSchemeVariant schemeVariant in DynamicSchemeVariant.values) {
     //   final DynamicScheme dynamicScheme = switch (schemeVariant) {
-    //     DynamicSchemeVariant.tonalSpot => SchemeTonalSpot(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.fidelity => SchemeFidelity(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.content => SchemeContent(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.monochrome => SchemeMonochrome(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.neutral => SchemeNeutral(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.vibrant => SchemeVibrant(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.expressive => SchemeExpressive(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.rainbow => SchemeRainbow(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
-    //     DynamicSchemeVariant.fruitSalad => SchemeFruitSalad(sourceColorHct: sourceColor, isDark: false, contrastLevel: 0.0),
+    // DynamicSchemeVariant.tonalSpot => SchemeTonalSpot(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.fidelity => SchemeFidelity(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.content => SchemeContent(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.monochrome => SchemeMonochrome(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.neutral => SchemeNeutral(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.vibrant => SchemeVibrant(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.expressive => SchemeExpressive(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.rainbow => SchemeRainbow(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
+    // DynamicSchemeVariant.fruitSalad => SchemeFruitSalad(sourceColorHct: sourceColor, isDark: isDark, contrastLevel: contrastLevel),
     //   };
 
     final ColorScheme colorScheme = ColorScheme.fromSeed(
@@ -101,8 +101,13 @@ void main() {
         MaterialDynamicColors.onPrimary.getArgb(dynamicScheme));
     expect(colorScheme.primaryContainer.value,
         MaterialDynamicColors.primaryContainer.getArgb(dynamicScheme));
-    expect(colorScheme.onPrimaryContainer.value,
-        MaterialDynamicColors.onPrimaryContainer.getArgb(dynamicScheme));
+
+    // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
+    // expect(colorScheme.onPrimaryContainer.value,
+    //     MaterialDynamicColors.onPrimaryContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Using hard coded value test until Flutter updates.
+    expect(colorScheme.onPrimaryContainer.value, 4281079296);
+    //
     expect(colorScheme.primaryFixed.value,
         MaterialDynamicColors.primaryFixed.getArgb(dynamicScheme));
     expect(colorScheme.primaryFixedDim.value,
@@ -119,6 +124,11 @@ void main() {
         MaterialDynamicColors.secondaryContainer.getArgb(dynamicScheme));
     expect(colorScheme.onSecondaryContainer.value,
         MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onSecondaryContainer.value, 4280883206);
+    // expect(4284039724,
+    //     MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
+    //
     expect(colorScheme.secondaryFixed.value,
         MaterialDynamicColors.secondaryFixed.getArgb(dynamicScheme));
     expect(colorScheme.secondaryFixedDim.value,
@@ -135,6 +145,11 @@ void main() {
         MaterialDynamicColors.tertiaryContainer.getArgb(dynamicScheme));
     expect(colorScheme.onTertiaryContainer.value,
         MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onTertiaryContainer.value, 4279639553);
+    // expect(4282469156,
+    //     MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
+    //
     expect(colorScheme.tertiaryFixed.value,
         MaterialDynamicColors.tertiaryFixed.getArgb(dynamicScheme));
     expect(colorScheme.tertiaryFixedDim.value,
@@ -151,6 +166,11 @@ void main() {
         MaterialDynamicColors.errorContainer.getArgb(dynamicScheme));
     expect(colorScheme.onErrorContainer.value,
         MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onErrorContainer.value, 4282449922);
+    // expect(4287823882,
+    //     MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
+    //
     expect(colorScheme.background.value,
         MaterialDynamicColors.background.getArgb(dynamicScheme));
     expect(colorScheme.onBackground.value,
@@ -198,6 +218,10 @@ void main() {
     expect(colorScheme.primaryContainer.value, dynamicScheme.primaryContainer);
     expect(
         colorScheme.onPrimaryContainer.value, dynamicScheme.onPrimaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onPrimaryContainer.value, 4281079296);
+    // expect(4285086720, dynamicScheme.onPrimaryContainer);
+    //
     expect(colorScheme.primaryFixed.value, dynamicScheme.primaryFixed);
     expect(colorScheme.primaryFixedDim.value, dynamicScheme.primaryFixedDim);
     expect(colorScheme.onPrimaryFixed.value, dynamicScheme.onPrimaryFixed);
@@ -209,6 +233,10 @@ void main() {
         colorScheme.secondaryContainer.value, dynamicScheme.secondaryContainer);
     expect(colorScheme.onSecondaryContainer.value,
         dynamicScheme.onSecondaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onSecondaryContainer.value, 4280883206);
+    // expect(4284039724, dynamicScheme.onSecondaryContainer);
+    //
     expect(colorScheme.secondaryFixed.value, dynamicScheme.secondaryFixed);
     expect(
         colorScheme.secondaryFixedDim.value, dynamicScheme.secondaryFixedDim);
@@ -221,6 +249,10 @@ void main() {
         colorScheme.tertiaryContainer.value, dynamicScheme.tertiaryContainer);
     expect(colorScheme.onTertiaryContainer.value,
         dynamicScheme.onTertiaryContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onTertiaryContainer.value, 4279639553);
+    // expect(4282469156, dynamicScheme.onTertiaryContainer);
+    //
     expect(colorScheme.tertiaryFixed.value, dynamicScheme.tertiaryFixed);
     expect(colorScheme.tertiaryFixedDim.value, dynamicScheme.tertiaryFixedDim);
     expect(colorScheme.onTertiaryFixed.value, dynamicScheme.onTertiaryFixed);
@@ -230,6 +262,10 @@ void main() {
     expect(colorScheme.onError.value, dynamicScheme.onError);
     expect(colorScheme.errorContainer.value, dynamicScheme.errorContainer);
     expect(colorScheme.onErrorContainer.value, dynamicScheme.onErrorContainer);
+    // TODO(rydmike): Use hard coded values to test expressive colors
+    // expect(colorScheme.onErrorContainer.value, 4282449922);
+    // expect(4287823882, dynamicScheme.onErrorContainer);
+    //
     expect(colorScheme.background.value, dynamicScheme.background);
     expect(colorScheme.onBackground.value, dynamicScheme.onBackground);
     expect(colorScheme.surface.value, dynamicScheme.surface);

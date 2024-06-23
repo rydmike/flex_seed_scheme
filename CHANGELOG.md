@@ -2,6 +2,71 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.0.0
+
+**June 23, 2024**
+
+Bring the bundled forked version of the package [Material Color Utilities (MCU)](https://pub.dev/packages/material_color_utilities) to feature parity with version 0.12.0 of the original package. The internal fork for the first time nw also adds features and capabilities that do not exist in the original package. Previously FSS only bundled MCU to avoid version conflicts with Flutter SDK when using different channels. Different Flutter channels typically pin incompatible versions of MCU.
+
+The bundled forked version of MCU also has more tests than the original, allowing us to detect when any new MCU version "silently" changes color results it produced in the past. 
+
+
+* **BREAKING**
+  * The API for `SeedColorScheme.buildDynamicScheme` was changed to enable support for multiple seed colors on the MCU based `DynamicScheme` APIs and its extended schemes. For most normal use cases, you will not notice this, as it is quite a low-level API in FSS that end users normally do not use.
+  
+
+* **NEW** 
+  * The forked internal MCU version received new features. The `DynamicScheme` can now accept an optional `customErrorPalette` and then `SchemeTonalSpot`, `SchemeContent`, `SchemeFidelity`, `SchemeExpressive`, `SchemeFruitSalad`, `SchemeMonochrome`, `SchemeNeutral`, `SchemeRainbow` and `SchemeVibrant` that extend `DynamicScheme` all received properties to support individual seed colors for all tonal palettes.
+
+  * The above addition enables `SeedColorScheme.fromSeeds` to support using all its key seed colors also when using MCU based `DynamicScheme` variants and not just for `FlexTones` based `tones` and `variants`. When using key seed colors with MCU variants, they still respect their original design intent.  
+ 
+  * Added support for `contrastLevel` to `SeedColorScheme.fromSeeds`. This allows you to set the desired contrast level of the generated color scheme when using `SeedColorScheme.fromSeeds` with the `variant` property, for variants that are based on MCU's `DynamicScheme`. Such variants have their `isFlutterScheme` set to true. 
+    * The `contrastLevel` parameter indicates the contrast level between color pairs, such as `primary` and `onPrimary`.The value 0.0 is the default (normal); -1.0 is the lowest; 1.0 is the highest. From Material Design guideline, the medium and high contrast, correspond to 0.5 and 1.0 respectively.
+    * The `contrastLevel` in Flutter SDK is not yet available in `ColorScheme.fromSeed` in Flutter stable 3.22.x, but is available on the master channel 3.23.x. With FSS you can use it already in Flutter 3.22.x.
+    * **NOTE:** Using `contrastLevel` has no effect when using `tones`. However, with `tones` you can create custom tones with even more flexibility in seed generation to make schemes with higher or less contrast. Two pre-configured high contrast tones exist earlier via `FlexTones.highContrast` and `FlexTones.ultraContrast`.
+   
+  * Updated `MaterialDynamicColors` to optionally use the new Material expressive on-colors spec for none surface on-container colors. This feature is not on by default. You can opt in on this new standard by setting `useExpressiveOnContainerColors` to true in `SeedColorScheme.fromSeeds`.
+    * This option is only available when using MCU based `DynamicScheme` variants and not when using `FlexTones` based `tones` and `variants`, plus it only applies to variants that are based on MCU's `DynamicScheme`. Such variants have their `isFlutterScheme` set to true.
+    * Opting in changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from 10 to 30 making them more color expressive, but they also have less contrast.
+    * The accepted min contrast curve is thus now `ContrastCurve(3, 4.5, 7, 11)` instead of `ContrastCurve(4.5, 7, 11, 21)` for the on-container colors. Meaning normal contrast of 4.5 is now accepted when it was 7 before. 
+    * Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older M3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed in Flutter SDK when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0 you can opt in on using the new spec already now. But FSS still also defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so.
+    * The optional usage of the expressive colors for on-container colors is also a customization of MCU features in the forked version. We see value in being able to offer both the higher contrast older version and the new more color expressive one. 
+    
+  * The `tones` configuration class `FlexTones` got a new built-in modifier, `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes, with no color tint from their key color or primary key seed color. 
+
+  * The `tones` configuration class `FlexTones` also got the new modifier, `expressiveOnContainer()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for light mode on container tones are set to 30 for more color expressive container text and icons on none surface containers.
+    * This modifier only impacts none surface on-container tones that are dark and thus only has any impact on the light theme mode on-container colors.
+    * The impacted on container colors are `onPrimaryContainerTone`,`onSecondaryContainerTone`, `onTertiaryContainerTone` and `onErrorContainerTone`.
+    * This feature brings optional light mode expressive on-container colors to any predefined or custom `FlexTones` configuration. The expressive on-color in light mode containers are a new change to Material Design 3 ColorScheme. It was introduced in Material Color Utilities (MCU) package v0.12.0.
+    * This modifier is equivalent to setting the `SeedColorScheme.fromSeeds` and its `useExpressiveOnContainerColors` to true when using MCU dynamic scheme variant based seeded color schemes.
+  
+
+* **COLOR VALUE STYLE BREAKING**
+  * Changed `FlexTones.chroma` tone `secondaryTone` from 60 to 50 in light mode for better chroma fidelity when using `FlexTone.chroma` in light mode.
+  
+
+
+* **CHANGE**
+  * Revert Flutter constraint back to `>=3.22.0` from `>=3.22.0-0.3.pre` that was only used by FSS dev release `2.1.0-dev.1`. Since beta and master are now on `3.23.0` or higher versions, the `>=3.22.0` constraint can now be used by master and beta channels without any issue.
+  * Improved the descriptions and config info strings of `FlexSchemeVariant` enum values. 
+  * The EXAMPLE APP was extensively revised to include support for all the new features and to also show some old features not demonstrated before.
+
+
+* **FIX**
+  * The `FlexTones.material3Legacy` was corrected. It had some incorrect tones and chroma in its configuration. The mistakes were fixed. Tests were added to check the FlexTones.material3Legacy compared to the MCU deprecated Scheme based Colors, for colors that exist in both.
+  * EXAMPLE APP: The key color to seed the error palette was not used in the main example in dark mode.
+  
+
+## 2.1.0-dev.1
+
+**May 21, 2024**
+
+This is a temp pre-release of FFS 2.1.0.
+
+**FIX**
+* [FIX #13](https://github.com/rydmike/flex_seed_scheme/issues/13). Sets Flutter version constraint to flutter: `>=3.22.0-0.3.pre`, so that the package can also be used on **beta** and **stable** channels, while they are still on 3.22.0-a.b.pre versions, which is considered smaller than **3.22.0**, used in the stable release of the package. You can use this version of the package if you need to use **beta** or **master** channel before they have been bumped to 3.23.x. This release is apart from the version constraint difference identical to the `2.0.0` release. 
+
+
 ## 2.0.0
 
 **May 14, 2024**

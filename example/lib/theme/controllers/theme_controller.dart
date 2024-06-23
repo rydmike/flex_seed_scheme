@@ -17,6 +17,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _showColorValue = true;
+  bool get showColorValue => _showColorValue;
+  void setShowColorValue(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _showColorValue) return;
+    _showColorValue = value;
+    if (notify) notifyListeners();
+  }
+
   ThemeMode _themeMode = ThemeMode.light;
   ThemeMode get themeMode => _themeMode;
   void setThemeMode(ThemeMode? value, [bool notify = true]) {
@@ -59,6 +68,60 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _useErrorKey) return;
     _useErrorKey = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _useNeutralKey = false;
+  bool get useNeutralKey => _useNeutralKey;
+  void setUseNeutralKey(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _useNeutralKey) return;
+    _useNeutralKey = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinPrimary = false;
+  bool get pinPrimary => _pinPrimary;
+  void setPinPrimary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinPrimary) return;
+    _pinPrimary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinSecondary = false;
+  bool get pinSecondary => _pinSecondary;
+  void setPinSecondary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinSecondary) return;
+    _pinSecondary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinTertiary = false;
+  bool get pinTertiary => _pinTertiary;
+  void setPinTertiary(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinTertiary) return;
+    _pinTertiary = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _pinError = false;
+  bool get pinError => _pinError;
+  void setPinError(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _pinError) return;
+    _pinError = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _monoSurfaces = false;
+  bool get useMonoSurfaces => _monoSurfaces;
+  void setUseMonoSurfaces(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _monoSurfaces) return;
+    _monoSurfaces = value;
     if (notify) notifyListeners();
   }
 
@@ -107,6 +170,24 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  double _contrastLevel = 0.0;
+  double get contrastLevel => _contrastLevel;
+  void setContrastLevel(double? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _contrastLevel) return;
+    _contrastLevel = value;
+    if (notify) notifyListeners();
+  }
+
+  bool _useExpressiveOn = false;
+  bool get useExpressiveOn => _useExpressiveOn;
+  void setUseExpressiveOn(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _useExpressiveOn) return;
+    _useExpressiveOn = value;
+    if (notify) notifyListeners();
+  }
+
   Color _primarySeedColor = AppColor.primary;
   Color get primarySeedColor => _primarySeedColor;
   void setPrimarySeedColor(Color? value, [bool notify = true]) {
@@ -140,6 +221,15 @@ class ThemeController with ChangeNotifier {
     if (value == null) return;
     if (value == _errorSeedColor) return;
     _errorSeedColor = value;
+    if (notify) notifyListeners();
+  }
+
+  Color _neutralSeedColor = AppColor.primary;
+  Color get neutralSeedColor => _neutralSeedColor;
+  void setNeutralSeedColor(Color? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _neutralSeedColor) return;
+    _neutralSeedColor = value;
     if (notify) notifyListeners();
   }
 

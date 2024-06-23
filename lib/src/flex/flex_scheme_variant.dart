@@ -9,11 +9,11 @@ import 'flex_tones.dart';
 /// property variant.
 ///
 /// [FlexSchemeVariant] values that use [isFlutterScheme] set to true, use the
-/// Flutter SDK algorithm to construct a [ColorScheme] identical to
-/// [ColorScheme.fromSeed], or more exactly will do in next stable after
-/// Flutter 3.22.x
+/// Flutter SDK and MCU algorithm to construct a [ColorScheme] identical to
+/// [ColorScheme.fromSeed] and its variant property that was added in
+/// Flutter 3.22.2.
 ///
-/// The [tonalSpot] is the only variant available in Flutter 3.22 and it builds
+/// The [tonalSpot] is variant is the default Flutter 3.22 and later, it builds
 /// the default Material-3 style scheme colors. These colors are mapped to light
 /// or dark tones to achieve visually accessible color pairings with sufficient
 /// contrast between foreground and background elements.
@@ -28,10 +28,9 @@ import 'flex_tones.dart';
 /// algorithm to construct a [ColorScheme] based on the provided seed colors.
 /// These variants are mapped to built-in [FlexTones] configurations that can
 /// be used to construct a [ColorScheme] with a more flexible algorithm than
-/// the Flutter SDK's [ColorScheme.fromSeed]. A key feature is that all tonal
-/// palettes can use their own seed color.
+/// the Flutter SDK's [ColorScheme.fromSeed].
 ///
-/// By using [tones] function and a given [Brightness], it will returns the
+/// By using the [tones] function and a given [Brightness], it will return the
 /// corresponding [FlexTones] made with same named [FlexTones] constructor, for
 /// cases where [isFlutterScheme] set to false.
 ///
@@ -42,13 +41,17 @@ import 'flex_tones.dart';
 ///
 /// This enum also contains labels for variant names, a short description and
 /// configuration details, as well as an icon for each tone and shade value to
-/// adjust used color value on the icon. These properties can optionally be
+/// adjust used color value on the icon.
+///
+/// These properties can optionally be
 /// used when building UIs that present the different scheme variants. They
 /// serve no other purpose. They can also be ignored and you can use the enum
 /// values as input and use them to build your own UI for selecting and
 /// describing the scheme variants. These values are used in the example app
-/// and also in the `FlexColorScheme` package example app, like the
-/// Themes Playground.
+/// and also in the `FlexColorScheme` package example apps, like the
+/// Themes Playground. Any changes in releases in the enum property values
+/// [variantName],[description], [configDetails], [icon] and [shade] are not
+/// considered breaking changes, only patches.
 enum FlexSchemeVariant {
   /// A Dynamic Color theme with low to medium colorfulness and a Tertiary
   /// Tonal Palette]with a hue related to the source color. The default
@@ -62,21 +65,20 @@ enum FlexSchemeVariant {
   /// 48. It uses chroma 6 on neutral palette, where the previous one used 4.
   tonalSpot(
     variantName: 'Tonal spot',
-    description: 'Default for Material-3 theme colors. Results in pastel '
-        'palettes with low chroma.',
+    description: 'Default Material-3 pastel colors with low chroma',
     configDetails: 'Primary - Chroma from key color, but min 36\n'
-        'Secondary - Chroma set to 16\n'
-        'Tertiary - Chroma set to 24\n'
+        'Secondary - Chroma 16\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma 24\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Chroma set to 6\n'
-        'Neutral variant - Chroma set to 8\n'
+        'Neutral - Chroma 6\n'
+        'Neutral variant - Chroma 8\n'
         'Variant style: MaterialColorUtilities (MCU)',
     icon: Icons.looks_3_outlined,
     shade: -6,
     isFlutterScheme: true,
   ),
 
-  /// A scheme that places the source color in Scheme primaryContainer.
+  /// A scheme that places the source/seed color in primaryContainer.
   ///
   /// Primary Container is the source color, adjusted for color relativity.
   /// It maintains constant appearance in light mode and dark mode.
@@ -86,14 +88,14 @@ enum FlexSchemeVariant {
   /// TemperatureCache. It also maintains constant appearance.
   fidelity(
     variantName: 'Fidelity',
-    description: 'The resulting color palettes match seed color, also when '
-        'the seed color is very bright and using high chroma.',
+    description: 'Color palettes match seed color, also when '
+        'it is bright and uses high chroma. Seed appears as primary container',
     configDetails: 'Primary - Chroma from key color\n'
         'Secondary - Max of: chroma from key -32 or *0.5\n'
-        'Tertiary - TemperatureCache complement\n'
+        'Tertiary - TemperatureCache complement hue or key hue and chroma\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Chroma from key /8\n'
-        'Neutral variant - Chroma from key /8 +4\n'
+        'Neutral - Chroma from key div 8\n'
+        'Neutral variant - Chroma from key div 8 plus 4\n'
         'Variant style: Material Color Utilities (MCU)',
     icon: Icons.grain_outlined,
     shade: 0,
@@ -103,7 +105,7 @@ enum FlexSchemeVariant {
   /// All colors are grayscale, no chroma.
   monochrome(
     variantName: 'Monochrome',
-    description: 'All colors are grayscale, with no chroma.',
+    description: 'All colors are grayscale, no chroma',
     configDetails: 'Primary - Chroma 0\n'
         'Secondary - Chroma 0\n'
         'Tertiary - Chroma 0\n'
@@ -119,7 +121,7 @@ enum FlexSchemeVariant {
   /// A scheme that is near grayscale.
   neutral(
     variantName: 'Neutral',
-    description: 'Close to grayscale, but with a hint of chroma.',
+    description: 'Close to grayscale, only a hint of chroma',
     configDetails: 'Primary - Chroma 12\n'
         'Secondary - Chroma 8\n'
         'Tertiary - Chroma 16\n'
@@ -139,11 +141,11 @@ enum FlexSchemeVariant {
   /// tokens should alter their tone to match the palette vibrancy.
   vibrant(
     variantName: 'Vibrant',
-    description: 'Maxed out colorfulness at each position in the primary '
-        'palette',
+    description: 'Maxed out colorfulness for primaries. Secondary and '
+        'tertiary hues intentionally differ from their seed colors',
     configDetails: 'Primary - Chroma 200\n'
-        'Secondary - Chroma 24\n'
-        'Tertiary - Chroma 32\n'
+        'Secondary - Chroma 24, Hue rotated 10-18 degrees\n'
+        'Tertiary - Chroma 32, Hue rotated 20-35 degrees\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 10\n'
         'Neutral variant - Chroma 12\n'
@@ -157,14 +159,14 @@ enum FlexSchemeVariant {
   /// The primary palette's hue is different from the seed color, for variety.
   expressive(
     variantName: 'Expressive',
-    description: 'Primary palette hue is intentionally different from the '
-        'seed color.',
-    configDetails: 'Primary - Hue+240, Chroma 40\n'
-        'Secondary - Hue rotations, Chroma 24\n'
-        'Tertiary - Hue rotations, Chroma 32\n'
+    description: 'Hue are intentionally different from the '
+        'seed colors',
+    configDetails: 'Primary - Hue rotated 240 degrees, Chroma 40\n'
+        'Secondary - Chroma 24, Hue rotated 20-95 degrees\n'
+        'Tertiary - Chroma 32, Hue rotated 20-120 degrees\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Hue +15, Chroma 8\n'
-        'Neutral variant - Hue +15, Chroma 12\n'
+        'Neutral - Hue rotated 15 degrees, Chroma 8\n'
+        'Neutral variant - Hue rotated 15 degrees, Chroma 12\n'
         'Variant style: Material Color Utilities (MCU)',
     icon: Icons.shuffle_on_outlined,
     shade: 0,
@@ -186,29 +188,27 @@ enum FlexSchemeVariant {
   /// increasing hue. It also maintains constant appearance.
   content(
     variantName: 'Content',
-    description: 'Tokens and palettes match the seed color. Good for image '
-        'color extracted seed color.',
+    description: 'Color palettes match seed color, use with image '
+        'extracted seed color',
     configDetails: 'Primary - Chroma from key color\n'
         'Secondary - Max of: chroma from key -32 or *0.5\n'
         'Tertiary - TemperatureCache analogous last\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Chroma from key /8\n'
-        'Neutral variant - Chroma from key /8 +4\n'
+        'Neutral - Chroma from key div 8\n'
+        'Neutral variant - Chroma from key div 8 plus 4\n'
         'Variant style: Material Color Utilities (MCU)',
     icon: Icons.image_outlined,
     shade: 0,
     isFlutterScheme: true,
   ),
 
-  /// A playful theme - the seed color's hue does not appear in the theme.
+  /// A playful theme - the seed color's chroma is fixed.
   rainbow(
     variantName: 'Rainbow',
-    // TODO(rydmike): But it does, but this is what MCU and SDK says, so...
-    description: "A playful theme. The seed color's hue does not appear in "
-        'the theme.',
+    description: "A playful theme, the seed color's chroma is fixed",
     configDetails: 'Primary - Chroma 48\n'
         'Secondary - Chroma 16\n'
-        'Tertiary - Hue +60, Chroma 24\n'
+        'Tertiary - Hue+60 or seed hue, Chroma 24\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 0\n'
         'Neutral variant - Chroma 0\n'
@@ -221,10 +221,10 @@ enum FlexSchemeVariant {
   /// A playful theme - the seed color's hue does not appear in the theme.
   fruitSalad(
     variantName: 'Fruit salad',
-    description: "A playful theme. The seed color's hue does not appear in "
-        'the theme.',
-    configDetails: 'Primary - Hue -50, Chroma 12\n'
-        'Secondary - Hue -50, Chroma 36\n'
+    description: 'A playful theme, the primary and secondary seed color hues '
+        'are not in the theme',
+    configDetails: 'Primary - Hue rotated -50 degrees, Chroma 48\n'
+        'Secondary - Hue rotated -50 degrees, Chroma 36\n'
         'Tertiary - Chroma 36\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma 10\n'
@@ -254,13 +254,13 @@ enum FlexSchemeVariant {
   /// Flutter SDK DynamicSchemeVariant and MCU do not provide that feature-set.
   material(
     variantName: 'Material-3',
-    description: 'Default Material 3 design tone map and chroma setup',
+    description: 'Material-3 design tones and chroma setup',
     configDetails: 'Primary - Chroma from key color, but min 36\n'
-        'Secondary - Chroma set to 16\n'
-        'Tertiary - Chroma set to 24\n'
+        'Secondary - Chroma 16\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma 24\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
-        'Neutral - Chroma set to 6\n'
-        'Neutral variant - Chroma set to 8\n'
+        'Neutral - Chroma 6\n'
+        'Neutral variant - Chroma 8\n'
         'Variant style: Flex Seed Scheme (FSS)',
     icon: Icons.looks_3_outlined,
     shade: -6,
@@ -281,12 +281,12 @@ enum FlexSchemeVariant {
   /// need and want to use the older Material-3 seed generation setup used in
   /// Flutter 3.19 and earlier versions.
   material3Legacy(
-    variantName: 'Material-3 Legacy',
-    description: 'Legacy Material 3 design tone map and chroma setup, used '
+    variantName: 'Material-3 legacy',
+    description: 'Legacy Material-3 tones and chroma, used '
         'before Flutter 3.22',
     configDetails: 'Primary - Chroma from key color, but min 48\n'
-        'Secondary - Chroma set to 16\n'
-        'Tertiary - Chroma set to 24\n'
+        'Secondary - Chroma 16\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma 24\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
@@ -303,10 +303,10 @@ enum FlexSchemeVariant {
   /// in Material 3 default setup.
   soft(
     variantName: 'Soft',
-    description: 'Softer and more earth like tones than Material 3 defaults',
+    description: 'Softer and more earth like tones than Material-3 defaults',
     configDetails: 'Primary - Chroma set to 30\n'
         'Secondary - Chroma set to 14\n'
-        'Tertiary - Chroma set to 20\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma set to 20\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
@@ -326,10 +326,10 @@ enum FlexSchemeVariant {
   /// to their used key colors.
   vivid(
     variantName: 'Vivid',
-    description: 'More Vivid colors than Material 3 defaults',
+    description: 'More vivid colors than Material-3 defaults',
     configDetails: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
-        'Tertiary - Chroma from key color\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma from key color\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
@@ -358,12 +358,10 @@ enum FlexSchemeVariant {
   /// backgrounds as starting points.
   vividSurfaces(
     variantName: 'Vivid surfaces',
-    description: 'Like Vivid, but with more colorful containers, onColors and '
-        'surface tones. Creates alpha blend like effect without '
-        'any blend level',
+    description: 'Like Vivid, but more colorful surfaces and containers',
     configDetails: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
-        'Tertiary - Chroma from key color\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma from key color\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
@@ -391,10 +389,11 @@ enum FlexSchemeVariant {
   /// themes as options for the high contrast accessibility themes.
   highContrast(
     variantName: 'High contrast',
-    description: 'High contrast version, may be useful for accessibility',
+    description: 'High contrast theme, useful for accessibility',
     configDetails: 'Primary - Chroma from key color, but min 65\n'
         'Secondary - Chroma from key color, but min 55\n'
-        'Tertiary - Chroma from key color, but min 55\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, '
+        'Chroma from key color, but min 55\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 4\n'
         'Neutral variant - Chroma set to 8\n'
@@ -408,11 +407,11 @@ enum FlexSchemeVariant {
   /// contrast version of selected ColorsSchemes.
   ultraContrast(
     variantName: 'Ultra contrast',
-    description: 'Ultra high contrast version, useful for accessibility, '
-        'less colorful than high contrast, especially dark mode',
+    description: 'Ultra high contrast theme, useful for accessibility',
     configDetails: 'Primary - Chroma from key color, but min 60\n'
         'Secondary - Chroma from key color, but min 70\n'
-        'Tertiary - Chroma from key color, but min 65\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, '
+        'Chroma from key color, but min 65\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 3\n'
         'Neutral variant - Chroma set to 6\n'
@@ -426,10 +425,10 @@ enum FlexSchemeVariant {
   /// colorful ColorsSchemes.
   jolly(
     variantName: 'Jolly',
-    description: 'Jolly color tones with more chroma and pop in them',
+    description: 'Jolly colors with more chroma and pop',
     configDetails: 'Primary - Chroma from key color, but min 55\n'
         'Secondary - Chroma from key color, but min 40\n'
-        'Tertiary - Chroma set to 40\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma 40\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 6\n'
         'Neutral variant - Chroma set to 10\n'
@@ -442,13 +441,16 @@ enum FlexSchemeVariant {
   /// A tonal palette extraction setup that results in M3 like
   /// ColorsSchemes with chroma like [FlexTones.vividSurfaces], but
   /// tone mapping surface and background are swapped.
+  ///
+  /// This variant and its used [FlexTones.vividBackground] will be
+  /// deprecated when Flutter SDK stops using the deprecated background color.
   vividBackground(
     variantName: 'Vivid background',
-    description: 'Like Vivid surfaces, but with tone mapping for surface '
-        'and background swapped',
+    description: 'Like Vivid surfaces, but tone mapping for surface '
+        'and deprecated background color swapped',
     configDetails: 'Primary - Chroma from key color, but min 50\n'
         'Secondary - Chroma from key color\n'
-        'Tertiary - Chroma from key color\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, Chroma from key color\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 5\n'
         'Neutral variant - Chroma set to 10\n'
@@ -462,15 +464,16 @@ enum FlexSchemeVariant {
   /// from primary if no ARGB key color is provided for tertiary palette.
   ///
   /// This setup will if only one seed color is used, produce a slightly more
-  /// chromatic color set than [FlexTones.material], since it does not rotate
-  /// hue from primary to get hue for tertiary, it will create a color
-  /// scheme using tonal palettes that are based on the same hue, but with
-  /// different chroma. In simple terms, all colors are shades of the provided
-  /// key color to seed the tonal palettes. We can get a nice one hue
-  /// toned theme with this configuration.
+  /// chromatic color set than [FlexTones.material].
+  ///
+  /// Since it does not rotate hue from primary to get hue for tertiary,
+  /// it will create a color scheme using tonal palettes that are all based on
+  /// the same hue, but with different chroma. In simple terms, all colors are
+  /// shades of the provided key color to seed the tonal palettes. With this
+  /// setup we can get a nice one color tone based theme.
   oneHue(
     variantName: 'One hue',
-    description: 'If only primary key color given, scheme uses only one hue',
+    description: 'With only a primary seed the theme has only one hue',
     configDetails: 'Primary - Chroma from key color, but min 55\n'
         'Secondary - Chroma set to 26\n'
         'Tertiary - Chroma set to 36, no Hue rotation\n'
@@ -491,13 +494,12 @@ enum FlexSchemeVariant {
   /// surface and background tone 6.
   candyPop(
     variantName: 'Candy pop',
-    description: 'A high contrast color scheme, useful for accessible themes, '
-        'with colors that pop like candy. Keeps the background and surface '
-        'white in light mode, and only a slight tint in dark mode. Neutrals '
-        'have very low chroma',
+    description: 'High contrast candy like colors. '
+        'Neutrals have low chroma',
     configDetails: 'Primary - Chroma from key color, but min 60\n'
         'Secondary - Chroma from key color, but min 44\n'
-        'Tertiary - Chroma from key color, but min 50\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, '
+        'Chroma from key color, but min 50\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2\n'
         'Neutral variant - Chroma set to 4\n'
@@ -517,13 +519,12 @@ enum FlexSchemeVariant {
   /// (3 and 6). Dark mode uses dark surface and background tone 6.
   chroma(
     variantName: 'Chroma',
-    description:
-        'A color scheme that follows chroma of each used seed color. Useful '
-        'for manual control of pop or low chromacity. It uses low '
-        'surface tint and neutrals with medium chroma',
+    description: 'Colors follow chroma of each seed color. Useful '
+        'for manual control of chromacity. Neutrals have low chroma',
     configDetails: 'Primary - Chroma from key color, min 0\n'
         'Secondary - Chroma from key color, min 0\n'
-        'Tertiary - Chroma from key color, min 0\n'
+        'Tertiary - Hue rotated 60 degrees or key hue, '
+        'Chroma from key color, min 0\n'
         'Error - Chroma from key, unbound. Default Hue 25, Chroma 84\n'
         'Neutral - Chroma set to 2 (L), 3 (D)\n'
         'Neutral variant - Chroma set to 4 (L), 6 (D)\n'

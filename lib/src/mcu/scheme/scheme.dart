@@ -213,6 +213,10 @@ class Scheme {
         error: palette.error.get(80),
         onError: palette.error.get(20),
         errorContainer: palette.error.get(30),
+        // TODO(rydmike): This tone is wrong, based on both past and current
+        //  spec it should be tone 90. MCU has always used the wrong tone here.
+        //  whereas FSS has used the one from the spec. We will skip this color
+        //  in the legacy test due to the error in the legacy Scheme.
         onErrorContainer: palette.error.get(80),
         background: palette.neutral.get(10),
         onBackground: palette.neutral.get(90),

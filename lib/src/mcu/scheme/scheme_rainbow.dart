@@ -18,6 +18,10 @@ import '../hct/hct.dart';
 import '../palettes/tonal_palette.dart';
 import '../utils/math_utils.dart';
 
+// TODO(rydmike): The doc below is what the MCU source says and does, BUT
+// the hue actually matches the source hue, but chroma is locked to 45.
+// Not sure what is up with the orig source code, but this is how it is now.
+
 /// A playful theme - the source color's hue does not appear in the theme.
 class SchemeRainbow extends DynamicScheme {
   /// Default SchemeRainbow constructor.
@@ -25,6 +29,12 @@ class SchemeRainbow extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    super.useExpressiveOnContainerColors,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.rainbow,
@@ -32,21 +42,35 @@ class SchemeRainbow extends DynamicScheme {
             sourceColorHct.hue,
             48.0,
           ),
-          secondaryPalette: TonalPalette.of(
-            sourceColorHct.hue,
-            16.0,
-          ),
-          tertiaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
-            24.0,
-          ),
+          secondaryPalette: secondarySourceColorHct != null
+              ? TonalPalette.of(
+                  secondarySourceColorHct.hue,
+                  16.0,
+                )
+              : TonalPalette.of(
+                  sourceColorHct.hue,
+                  16.0,
+                ),
+          tertiaryPalette: tertiarySourceColorHct != null
+              ? TonalPalette.of(
+                  tertiarySourceColorHct.hue,
+                  24.0,
+                )
+              : TonalPalette.of(
+                  MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
+                  24.0,
+                ),
           neutralPalette: TonalPalette.of(
-            sourceColorHct.hue,
+            neutralSourceColorHct?.hue ?? sourceColorHct.hue,
             0.0,
           ),
           neutralVariantPalette: TonalPalette.of(
-            sourceColorHct.hue,
+            neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
             0.0,
           ),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

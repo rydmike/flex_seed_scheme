@@ -72,21 +72,37 @@ class SchemeVibrant extends DynamicScheme {
     required Hct sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
+    super.useExpressiveOnContainerColors,
+    Hct? secondarySourceColorHct,
+    Hct? tertiarySourceColorHct,
+    Hct? neutralSourceColorHct,
+    Hct? neutralVariantSourceColorHct,
+    Hct? errorSourceColorHct,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.vibrant,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 200.0),
           secondaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
-                sourceColorHct, hues, secondaryRotations),
+                secondarySourceColorHct ?? sourceColorHct,
+                hues,
+                secondaryRotations),
             24.0,
           ),
           tertiaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
-                sourceColorHct, hues, tertiaryRotations),
+                tertiarySourceColorHct ?? sourceColorHct,
+                hues,
+                tertiaryRotations),
             32.0,
           ),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 10.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 12.0),
+          neutralPalette: TonalPalette.of(
+              neutralSourceColorHct?.hue ?? sourceColorHct.hue, 10.0),
+          neutralVariantPalette: TonalPalette.of(
+              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue, 12.0),
+          customErrorPalette: errorSourceColorHct == null
+              ? null
+              : TonalPalette.of(
+                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
         );
 }

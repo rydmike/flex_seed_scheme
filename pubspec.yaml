@@ -1,6 +1,6 @@
 name: flex_seed_scheme
 description: A more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping.
-version: 2.0.0
+version: 3.0.0
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues

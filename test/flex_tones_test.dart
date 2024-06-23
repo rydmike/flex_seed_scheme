@@ -424,7 +424,7 @@ void main() {
         FlexTones.material(Brightness.light),
         equals(const FlexTones.light(
           primaryChroma: 36,
-          primaryMinChroma: 0,
+          primaryMinChroma: 36,
           secondaryChroma: 16,
           tertiaryChroma: 24,
         )),
@@ -435,7 +435,7 @@ void main() {
         FlexTones.material(Brightness.dark),
         equals(const FlexTones.dark(
           primaryChroma: 36,
-          primaryMinChroma: 0,
+          primaryMinChroma: 36,
           secondaryChroma: 16,
           tertiaryChroma: 24,
         )),
@@ -446,10 +446,13 @@ void main() {
       expect(
         FlexTones.material3Legacy(Brightness.light),
         equals(const FlexTones.light(
+          surfaceTone: 99,
+          backgroundTone: 99,
           primaryChroma: 48,
-          primaryMinChroma: 0,
+          primaryMinChroma: 48,
           secondaryChroma: 16,
           tertiaryChroma: 24,
+          neutralChroma: 4,
         )),
       );
     });
@@ -458,13 +461,14 @@ void main() {
       expect(
         FlexTones.material3Legacy(Brightness.dark),
         equals(const FlexTones.dark(
-          surfaceTone: 8,
-          backgroundTone: 8,
+          surfaceTone: 10,
+          backgroundTone: 10,
           onErrorContainerTone: 90,
           primaryChroma: 48,
-          primaryMinChroma: 0,
+          primaryMinChroma: 48,
           secondaryChroma: 16,
           tertiaryChroma: 24,
+          neutralChroma: 4,
         )),
       );
     });
@@ -899,7 +903,7 @@ void main() {
             primaryTone: 40,
             primaryContainerTone: 80,
             onPrimaryContainerTone: 4,
-            secondaryTone: 60,
+            secondaryTone: 50,
             secondaryContainerTone: 92,
             onSecondaryContainerTone: 10,
             tertiaryTone: 50,
