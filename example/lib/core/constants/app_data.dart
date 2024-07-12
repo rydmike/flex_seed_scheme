@@ -6,15 +6,13 @@ import 'package:flutter/material.dart';
 /// classes that serves your application's usage. For these examples I
 /// put them all in the same class, except the colors that are in their
 /// own class.
-class AppData {
-  AppData._();
-  // Info about the app.
-
-  // Returns the title of the MaterialApp. Used to set title on pages to
-  // same one that is defined in each example as its app name. Handy as we only
-  // need to update in one place, where it belongs and no need to put it as
-  // a const somewhere and no need to pass it around via a title prop either.
-  // Also used in the About box as app name.
+sealed class AppData {
+  // Returns the title of the MaterialApp.
+  //
+  // Used to set title on pages to same one that is defined in each example
+  // as its app name. Handy as we only need to update in one place, where it
+  // belongs and no need to put it as a const somewhere and no need to pass it
+  // around via a title prop either. Also used in the About box as app name.
   static String title(BuildContext context) =>
       (context as Element).findAncestorWidgetOfExactType<MaterialApp>()!.title;
 
@@ -27,7 +25,7 @@ class AppData {
   // build numbers.
   static const String versionMajor = '3';
   static const String versionMinor = '1';
-  static const String versionPatch = '1-dev.1';
+  static const String versionPatch = '1';
   static const String versionBuild = '01';
   static const String version = '$versionMajor.$versionMinor.$versionPatch '
       'Build-$versionBuild';

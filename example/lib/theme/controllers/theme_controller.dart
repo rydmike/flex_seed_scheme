@@ -17,7 +17,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  bool _showColorValue = true;
+  bool _showColorValue = false;
   bool get showColorValue => _showColorValue;
   void setShowColorValue(bool? value, [bool notify = true]) {
     if (value == null) return;
