@@ -965,13 +965,6 @@ extension SeedColorScheme on ColorScheme {
         surfaceTint:
             surfaceTint ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
         brightness: brightness,
-        // DEPRECATED (newest deprecations at the bottom)
-        background: background ??
-            Color(MaterialDynamicColors.background.getArgb(scheme)),
-        onBackground: onBackground ??
-            Color(MaterialDynamicColors.onBackground.getArgb(scheme)),
-        surfaceVariant: surfaceVariant ??
-            Color(MaterialDynamicColors.surfaceVariant.getArgb(scheme)),
       );
     } else {
       FlexTones? variantTones;
@@ -1052,11 +1045,6 @@ extension SeedColorScheme on ColorScheme {
         onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
         inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
         surfaceTint: surfaceTint ?? Color(scheme.primary),
-        // Deprecated colors
-        background: background ?? Color(scheme.background),
-        onBackground: onBackground ?? Color(scheme.onBackground),
-        surfaceVariant: surfaceVariant ?? Color(scheme.surfaceVariant),
-        //
         brightness: brightness,
       );
     }

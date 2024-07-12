@@ -534,7 +534,7 @@ void main() {
             onSecondaryTone: 98,
             onTertiaryTone: 98,
             onErrorTone: 98,
-            surfaceTone: 95,
+            surfaceTone: 96,
             onSurfaceVariantTone: 20,
             inverseSurfaceTone: 30,
             backgroundTone: 98,
@@ -556,7 +556,7 @@ void main() {
             onSecondaryTone: 10,
             onTertiaryTone: 10,
             primaryContainerTone: 20,
-            surfaceTone: 20,
+            surfaceTone: 10,
             onSurfaceVariantTone: 95,
             inverseSurfaceTone: 95,
             //
@@ -567,7 +567,7 @@ void main() {
         ),
       );
     });
-    test('FTO1.023b: Verify FlexTones.vividSurfaces(Brightness.light).', () {
+    test('FTO1.023b: Verify FlexTones.vividBackground(Brightness.light).', () {
       expect(
         FlexTones.vividBackground(Brightness.light),
         equals(
@@ -577,7 +577,7 @@ void main() {
             onSecondaryTone: 98,
             onTertiaryTone: 98,
             onErrorTone: 98,
-            surfaceTone: 98,
+            surfaceTone: 97,
             onSurfaceVariantTone: 20,
             inverseSurfaceTone: 30,
             backgroundTone: 95,
@@ -590,7 +590,7 @@ void main() {
         ),
       );
     });
-    test('FTO1.024b: Verify FlexTones.vividSurfaces(Brightness.dark).', () {
+    test('FTO1.024b: Verify FlexTones.vividBackground(Brightness.dark).', () {
       expect(
         FlexTones.vividBackground(Brightness.dark),
         equals(
@@ -599,6 +599,7 @@ void main() {
             onSecondaryTone: 10,
             onTertiaryTone: 10,
             primaryContainerTone: 20,
+            surfaceTone: 5,
             backgroundTone: 20,
             onSurfaceVariantTone: 95,
             inverseSurfaceTone: 95,
