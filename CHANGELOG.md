@@ -30,12 +30,12 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
     * If you for some reason in Flutter 3.22.0 and later still need the deprecated colors, use FSS version 3.0.0.
 
 * To make `FlexTones.vividSurfaces` and `FlexTones.vividBackground` have some distinguishing differences when `background` color no longer has any effect or usage, the following changes were made to their tone mappings:
-*  `FlexTones.vividSurfaces`: 
-  * Light: surfaceTone 95 -> 96, 
-  * Dark: surfaceTone 20 -> 10.
-*  `FlexTones.vividBackground`:
-  * Light: surfaceTone 98 -> 97,
-  * Dark: surfaceTone 6 -> 5.
+  * `FlexTones.vividSurfaces`: 
+    * Light: surfaceTone 95 -> 96, 
+    * Dark: surfaceTone 20 -> 10.
+  * `FlexTones.vividBackground`:
+    * Light: surfaceTone 98 -> 97,
+    * Dark: surfaceTone 6 -> 5.
 
 **CHORE**
 
