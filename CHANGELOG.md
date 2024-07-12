@@ -2,6 +2,32 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.1.0
+
+**July 12, 2024**
+
+**CHANGE**
+* Removes the in Flutter 3.22.0 deprecated `ColorScheme` colors `background`, `onBackground` and `surfaceVariant` from being defined as a part of the `SeedColorScheme.fromSeeds` result. They still get color values, but they are whatever the default values the default Flutter SDK `ColorScheme()` constructor gives them. These colors were deprecated in Flutter 3.22.0 and are now removed from being defined and accessed by FSS.
+  * The removal is done to keep FSS in sync with Flutter SDK and to avoid using deprecated colors.
+  * These colors should in application usage be replaced by `surface`, `onSurface` and `surfaceContainerLowest` in Flutter 3.22.0 and later.
+    * If you for some reason in Flutter 3.22.0 and later still need the deprecated colors, use FSS version 3.0.0.
+
+* To make `FlexTones.vividSurfaces` and `FlexTones.vividBackground` have some distinguishing differences when `background` color no longer has any effect or usage, the following changes were made to their tone mappings:
+*  `FlexTones.vividSurfaces`: 
+  * Light: surfaceTone 95 -> 96, 
+  * Dark: surfaceTone 20 -> 10.
+*  `FlexTones.vividBackground`:
+  * Light: surfaceTone 98 -> 97,
+  * Dark: surfaceTone 6 -> 5.
+
+**CHORE**
+
+* Update `all_lint_rules.yaml`.
+
+**EXAMPLE**
+
+* Remove showing the deprecated colors `background`, `onBackground` and `surfaceVariant` in the example app.
+
 ## 3.0.0
 
 **June 24, 2024**

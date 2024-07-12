@@ -2,7 +2,7 @@
 
 /// A more flexible version of Flutter's ColorScheme.fromSeed, use multiple
 /// seed colors, custom chroma and tone mapping.
-library flex_seed_scheme;
+library;
 
 /// Core palettes used to make a ColorScheme.
 ///

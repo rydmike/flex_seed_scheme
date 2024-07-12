@@ -447,36 +447,6 @@ class ColorSchemeView extends StatelessWidget {
               ),
             ],
           ),
-          // TODO(rydmike): Remove deprecated colors in Flutter 3.25.
-          // Show the deprecated colors.
-          ColorGroup(
-            children: <Widget>[
-              ColorChip(
-                label: 'background\n(deprecated)',
-                color: colorScheme.background,
-                onColor: colorScheme.onBackground,
-                size: _equalThreeChipSize,
-                showValue: showColorValue,
-                tone: 'N:${tones.backgroundTone}',
-              ),
-              ColorChip(
-                label: 'onBackground\n(deprecated)',
-                color: colorScheme.onBackground,
-                onColor: colorScheme.background,
-                size: _equalThreeChipSize,
-                showValue: showColorValue,
-                tone: 'N:${tones.onBackgroundTone}',
-              ),
-              ColorChip(
-                label: 'surfaceVariant\n(deprecated)',
-                color: colorScheme.surfaceVariant,
-                onColor: colorScheme.onSurfaceVariant,
-                size: _equalThreeChipSize,
-                showValue: showColorValue,
-                tone: 'NV:${tones.surfaceVariantTone}',
-              ),
-            ],
-          ),
         ],
       ),
     );

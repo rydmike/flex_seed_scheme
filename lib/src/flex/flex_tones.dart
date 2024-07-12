@@ -179,6 +179,10 @@ class FlexTones with Diagnosticable {
   /// values for neutrals to fixed values to get good predictable surface
   /// colors. Limits from 2 to 12 are recommended, with the higher range more
   /// suitable for the neutral variant.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   const FlexTones.light({
     this.primaryTone = 40,
     this.onPrimaryTone = 100,
@@ -282,6 +286,10 @@ class FlexTones with Diagnosticable {
   /// values for neutrals to fixed values to get good predictable surface
   /// colors. Limits from 2 to 12 are recommended, with the higher range more
   /// suitable for the neutral variant.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   const FlexTones.dark({
     this.primaryTone = 80,
     this.onPrimaryTone = 20,
@@ -410,6 +418,10 @@ class FlexTones with Diagnosticable {
   /// configuration in Flutter 3.22 and later. This factory is provided if you
   /// need and want to use the older Material-3 seed generation setup used in
   /// Flutter 3.19 and earlier versions.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.material3Legacy(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -459,6 +471,10 @@ class FlexTones with Diagnosticable {
   /// value of 50. Secondary and tertiary key colors use their own chroma
   /// with no min limits, making the secondary and tertiary mid tones closer
   /// to their used key colors.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.vivid(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -478,14 +494,19 @@ class FlexTones with Diagnosticable {
 
   /// Creates a tonal palette extraction setup that results in M3 like
   /// ColorsSchemes with chroma like [FlexTones.vivid] on main colors, but
-  /// double chroma on neutrals and more color tinted surfaces and onColors.
+  /// increased chroma on neutrals and more color tinted surfaces and onColors.
+  ///
+  /// Surface color uses tone 96 instead of standard 98 in light mode and
+  /// 10 instead of 6 in dark mode.
   ///
   /// Primary tone is one tone darker than in Material 3 standard setup in light
   /// mode. As in M3 default, primary uses its own chroma, but with a minimum
   /// value of 50.  Secondary and tertiary key colors use their own chroma
   /// with no min limits, making the secondary and tertiary mid tones closer
   /// to their used key colors.
-  /// Chroma for neutral is 8 and neutralVariant 16, doubled from M3 defaults.
+  ///
+  /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
+  /// 6 and 8.
   ///
   /// The tones are modified for more colorful container, onColors color tones
   /// and for using higher tones on surfaces and backgrounds. This creates
@@ -493,6 +514,10 @@ class FlexTones with Diagnosticable {
   /// blend level in FlexColorScheme. You can apply alpha blends to this tones
   /// setup too, but it is easy to overdo it with these surfaces and
   /// backgrounds as starting points.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.vividSurfaces(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -501,7 +526,7 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 98,
               onTertiaryTone: 98,
               onErrorTone: 98,
-              surfaceTone: 95,
+              surfaceTone: 96,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
               backgroundTone: 98,
@@ -516,7 +541,7 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 10,
               onTertiaryTone: 10,
               primaryContainerTone: 20,
-              surfaceTone: 20,
+              surfaceTone: 10,
               onSurfaceVariantTone: 95,
               inverseSurfaceTone: 95,
               //
@@ -526,8 +551,24 @@ class FlexTones with Diagnosticable {
             );
 
   /// Creates a tonal palette extraction setup that results in M3 like
-  /// ColorsSchemes with chroma like [FlexTones.vividSurfaces], but
-  /// tone mapping surface and background are swapped.
+  /// ColorsSchemes with chroma like [FlexTones.vividSurfaces], but with a few
+  /// minor adjustments for increased contrast in dark mode and less tinted
+  /// surface color in light mode.
+  ///
+  /// Surface color uses tone 97 instead of standard 98 in light mode and
+  /// 5 instead of 6 in dark mode.
+  ///
+  /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
+  /// 6 and 8.
+  ///
+  /// Before version 3.10 the tone mapping surface and background are were just
+  /// swapped, but since background color is gone in Flutter 3.22 and later, we
+  /// needed to make a new setup that makes this tones setup be a bit different
+  /// from the [FlexTones.vividSurfaces] setup.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.vividBackground(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -536,7 +577,7 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 98,
               onTertiaryTone: 98,
               onErrorTone: 98,
-              surfaceTone: 98,
+              surfaceTone: 97,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
               backgroundTone: 95,
@@ -551,6 +592,7 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 10,
               onTertiaryTone: 10,
               primaryContainerTone: 20,
+              surfaceTone: 5,
               backgroundTone: 20,
               onSurfaceVariantTone: 95,
               inverseSurfaceTone: 95,
@@ -576,6 +618,10 @@ class FlexTones with Diagnosticable {
   /// the spirit of the original theme. It may still be useful to also
   /// provide purposefully designed optional extremely high contrast
   /// themes as options for the high contrast accessibility themes.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.highContrast(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -615,6 +661,10 @@ class FlexTones with Diagnosticable {
 
   /// Creates a tonal palette extraction setup that results in a very high
   /// contrast version of selected ColorsSchemes.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.ultraContrast(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -754,7 +804,11 @@ class FlexTones with Diagnosticable {
   ///
   /// It has white surface and background (tone 100) in light mode and
   /// low chroma on neutrals (2 and 4). Dark mode uses dark
-  /// surface and background tone 6.
+  /// surface and background tone 5.
+  ///
+  /// After FSS version 3.1.0 any mappings for background, onBackground and
+  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
+  /// and no longer colors that should be used.
   factory FlexTones.candyPop(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
