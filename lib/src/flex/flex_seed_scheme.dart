@@ -22,8 +22,7 @@ import 'flex_tones.dart';
 /// This class is the same concept as Flutter's [ColorScheme] class.
 ///
 /// It is used used to generate a [ColorScheme] based on a modified version of
-/// [CorePalette] found in package material_color_utilities. It is a rewrite
-/// of [Scheme] found in same "material_color_utilities" package.
+/// [CorePalette] found in package material_color_utilities.
 ///
 /// It has two enhancements to makes it more flexible and powerful:
 ///
@@ -189,7 +188,7 @@ class FlexSeedScheme {
   /// A color that's clearly legible when drawn on [surface].
   final int onSurface;
 
-  /// A color that's clearly legible when drawn on [surfaceVariant].
+  /// A alternative color that's clearly legible when drawn on [surface] colors.
   final int onSurfaceVariant;
 
   /// A utility color that creates boundaries and emphasis to improve usability.
@@ -223,16 +222,16 @@ class FlexSeedScheme {
 
   /// A color that typically appears behind scrollable content.
   @Deprecated('Use surface instead.')
-  final int background;
+  final int? background;
 
   /// A color that's clearly legible when drawn on [background].
   @Deprecated('Use onSurface instead.')
-  final int onBackground;
+  final int? onBackground;
 
   /// A color variant of [surface] that can be used for differentiation against
   /// a component using [surface].
   @Deprecated('Use surfaceContainerHighest instead.')
-  final int surfaceVariant;
+  final int? surfaceVariant;
 
   /// Private constructor requiring all int color values.
   ///
@@ -292,11 +291,12 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    //
-    @Deprecated('Use surface instead.') required this.background,
-    @Deprecated('Use onSurface instead.') required this.onBackground,
-    @Deprecated('Use surfaceContainerHighest instead.')
-    required this.surfaceVariant,
+    // ignore: unused_element
+    @Deprecated('Use surface instead.') this.background,
+    // ignore: unused_element
+    @Deprecated('Use onSurface instead.') this.onBackground,
+    // ignore: unused_element
+    @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
   });
 
   /// Factory that creates a [FlexSeedScheme] based on seed keys and FlexTones
@@ -394,10 +394,6 @@ class FlexSeedScheme {
       onInverseSurface: core.neutral.get(tones.onInverseSurfaceTone),
       inversePrimary: core.primary.get(tones.inversePrimaryTone),
       surfaceTint: core.primary.get(tones.surfaceTintTone),
-      // Deprecated colors
-      background: core.neutral.get(tones.backgroundTone),
-      onBackground: core.neutral.get(tones.onBackgroundTone),
-      surfaceVariant: core.neutralVariant.get(tones.surfaceVariantTone),
     );
   }
 }
@@ -843,13 +839,13 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
 
-    /// Override color for the seed generated [background] color.
+    /// Override color for the seed generated background color.
     @Deprecated('Use surface instead.') Color? background,
 
-    /// Override color for the seed generated [onBackground] color.
+    /// Override color for the seed generated onBackground color.
     @Deprecated('Use onSurface instead.') Color? onBackground,
 
-    /// Override color for the seed generated [surfaceVariant] color.
+    /// Override color for the seed generated surfaceVariant color.
     @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
     // Assert that a none null value has not been assign to tones and variant

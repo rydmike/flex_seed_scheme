@@ -2,6 +2,14 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.1.1-dev.1
+
+**July 12, 2024**
+
+**CHORE**
+
+* Experiment to find and remove references from the package to deprecated properties for scoring purposes. The deprecated colors are **NOT** used anymore, but pub's pana analyzer still complains. It happily ignores the "allow usage of self-deprecated members" setting. It also complains about references used in doc comments. This is the first attempt to find and fixe all things it complains about.
+
 ## 3.1.0
 
 **July 12, 2024**

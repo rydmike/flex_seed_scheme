@@ -131,10 +131,10 @@ class FlexTones with Diagnosticable {
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
     // Deprecated color tones
-    @Deprecated('Use surfaceTone instead.') required this.backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') required this.onBackgroundTone,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
     @Deprecated('Use surfaceContainerHighestTone instead.')
-    required this.surfaceVariantTone,
+    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -238,10 +238,10 @@ class FlexTones with Diagnosticable {
     this.shadowTone = 0,
     this.scrimTone = 0,
     // Deprecated tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 98,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 10,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
     @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone = 90,
+    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -344,10 +344,10 @@ class FlexTones with Diagnosticable {
     this.shadowTone = 0,
     this.scrimTone = 0,
     // Deprecated tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone = 6,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone = 90,
+    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
     @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone = 30,
+    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -418,15 +418,10 @@ class FlexTones with Diagnosticable {
   /// configuration in Flutter 3.22 and later. This factory is provided if you
   /// need and want to use the older Material-3 seed generation setup used in
   /// Flutter 3.19 and earlier versions.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.material3Legacy(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
               surfaceTone: 99,
-              backgroundTone: 99,
               primaryChroma: 48,
               primaryMinChroma: 48,
               secondaryChroma: 16,
@@ -435,7 +430,6 @@ class FlexTones with Diagnosticable {
             )
           : const FlexTones.dark(
               surfaceTone: 10,
-              backgroundTone: 10,
               primaryChroma: 48,
               primaryMinChroma: 48,
               secondaryChroma: 16,
@@ -471,10 +465,6 @@ class FlexTones with Diagnosticable {
   /// value of 50. Secondary and tertiary key colors use their own chroma
   /// with no min limits, making the secondary and tertiary mid tones closer
   /// to their used key colors.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.vivid(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -487,7 +477,6 @@ class FlexTones with Diagnosticable {
           : const FlexTones.dark(
               onPrimaryTone: 10,
               primaryContainerTone: 20,
-              backgroundTone: 5,
               //
               primaryMinChroma: 50,
             );
@@ -514,10 +503,6 @@ class FlexTones with Diagnosticable {
   /// blend level in FlexColorScheme. You can apply alpha blends to this tones
   /// setup too, but it is easy to overdo it with these surfaces and
   /// backgrounds as starting points.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.vividSurfaces(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -529,7 +514,6 @@ class FlexTones with Diagnosticable {
               surfaceTone: 96,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
-              backgroundTone: 98,
               surfaceTintTone: 30,
               //
               primaryMinChroma: 50,
@@ -561,14 +545,12 @@ class FlexTones with Diagnosticable {
   /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
   /// 6 and 8.
   ///
-  /// Before version 3.10 the tone mapping surface and background are were just
+  /// **NOTE:**
+  ///
+  /// Before version 3.10 the tone mappings of surface and background were just
   /// swapped, but since background color is gone in Flutter 3.22 and later, we
   /// needed to make a new setup that makes this tones setup be a bit different
   /// from the [FlexTones.vividSurfaces] setup.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.vividBackground(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -580,7 +562,6 @@ class FlexTones with Diagnosticable {
               surfaceTone: 97,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
-              backgroundTone: 95,
               surfaceTintTone: 30,
               //
               primaryMinChroma: 50,
@@ -593,7 +574,6 @@ class FlexTones with Diagnosticable {
               onTertiaryTone: 10,
               primaryContainerTone: 20,
               surfaceTone: 5,
-              backgroundTone: 20,
               onSurfaceVariantTone: 95,
               inverseSurfaceTone: 95,
               //
@@ -618,10 +598,6 @@ class FlexTones with Diagnosticable {
   /// the spirit of the original theme. It may still be useful to also
   /// provide purposefully designed optional extremely high contrast
   /// themes as options for the high contrast accessibility themes.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.highContrast(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -631,7 +607,6 @@ class FlexTones with Diagnosticable {
               errorContainerTone: 95,
               surfaceTintTone: 30,
               surfaceTone: 99,
-              backgroundTone: 99,
               //
               primaryMinChroma: 65,
               secondaryMinChroma: 55,
@@ -647,8 +622,6 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 20,
               errorContainerTone: 20,
               onErrorContainerTone: 90,
-              backgroundTone: 4,
-              onBackgroundTone: 96,
               surfaceTone: 4,
               onSurfaceTone: 96,
               surfaceContainerLowestTone: 0,
@@ -661,10 +634,6 @@ class FlexTones with Diagnosticable {
 
   /// Creates a tonal palette extraction setup that results in a very high
   /// contrast version of selected ColorsSchemes.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
   factory FlexTones.ultraContrast(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -678,12 +647,9 @@ class FlexTones with Diagnosticable {
               onErrorContainerTone: 5,
               //
               surfaceTone: 100,
-              backgroundTone: 100,
               surfaceContainerLowTone: 98,
               surfaceContainerTone: 96,
-              onBackgroundTone: 0,
               onSurfaceTone: 0,
-              surfaceVariantTone: 96,
               onSurfaceVariantTone: 6,
               onInverseSurfaceTone: 99,
               inversePrimaryTone: 90,
@@ -710,13 +676,10 @@ class FlexTones with Diagnosticable {
               onErrorTone: 2,
               onErrorContainerTone: 98,
               //
-              backgroundTone: 2,
-              onBackgroundTone: 99,
               surfaceTone: 2,
               surfaceContainerLowestTone: 0,
               surfaceContainerLowTone: 6,
               onSurfaceTone: 99,
-              surfaceVariantTone: 20,
               onSurfaceVariantTone: 95,
               onInverseSurfaceTone: 10,
               outlineTone: 80,
@@ -802,13 +765,8 @@ class FlexTones with Diagnosticable {
   /// Creates a tonal palette setup that results in a high contrast colorful
   /// candy pop like theme.
   ///
-  /// It has white surface and background (tone 100) in light mode and
-  /// low chroma on neutrals (2 and 4). Dark mode uses dark
-  /// surface and background tone 5.
-  ///
-  /// After FSS version 3.1.0 any mappings for background, onBackground and
-  /// surfaceVariant are ignored. The colors are deprecated in Flutter 3.22
-  /// and no longer colors that should be used.
+  /// It has white surface (tone 100) in light mode and low chroma on neutrals
+  /// (2 and 4). Dark mode uses surface tone 5.
   factory FlexTones.candyPop(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -822,11 +780,8 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 95,
               onTertiaryContainerTone: 6,
               //
-              backgroundTone: 100,
-              onBackgroundTone: 6,
               surfaceTone: 100,
               onSurfaceTone: 6,
-              surfaceVariantTone: 92,
               onSurfaceVariantTone: 10,
               onInverseSurfaceTone: 98,
               inversePrimaryTone: 90,
@@ -855,11 +810,8 @@ class FlexTones with Diagnosticable {
               onErrorTone: 6,
               onErrorContainerTone: 95,
               //
-              backgroundTone: 6,
-              onBackgroundTone: 95,
               surfaceTone: 6,
               onSurfaceTone: 95,
-              surfaceVariantTone: 20,
               onSurfaceVariantTone: 90,
               onInverseSurfaceTone: 10,
               outlineTone: 60,
@@ -878,9 +830,9 @@ class FlexTones with Diagnosticable {
   /// chromacity.
   ///
   /// Uses low surface tint and neutrals with medium chroma.
-  /// Theme with background and surface tone 98, in light mode and very low
+  /// Theme with surface tone 98, in light mode and very low
   /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
-  /// (3 and 6). Dark mode uses dark surface and background tone 6.
+  /// (3 and 6). Dark mode uses dark surface tone 6.
   factory FlexTones.chroma(Brightness brightness) =>
       brightness == Brightness.light
           ? const FlexTones.light(
@@ -894,11 +846,8 @@ class FlexTones with Diagnosticable {
               tertiaryContainerTone: 95,
               onTertiaryContainerTone: 6,
               //
-              backgroundTone: 99,
-              onBackgroundTone: 4,
               surfaceTone: 99,
               onSurfaceTone: 4,
-              surfaceVariantTone: 92,
               onSurfaceVariantTone: 10,
               onInverseSurfaceTone: 98,
               inversePrimaryTone: 90,
@@ -927,13 +876,10 @@ class FlexTones with Diagnosticable {
               onErrorTone: 6,
               onErrorContainerTone: 95,
               //
-              backgroundTone: 4,
-              onBackgroundTone: 95,
               surfaceTone: 4,
               surfaceContainerLowestTone: 2,
               surfaceContainerLowTone: 6,
               onSurfaceTone: 95,
-              surfaceVariantTone: 20,
               onSurfaceVariantTone: 90,
               onInverseSurfaceTone: 10,
               outlineTone: 60,
@@ -1016,22 +962,22 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
+      // onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
-      onSurfaceVariantTone: surfaceVariantTone <= 60 ? 100 : 0,
+      onSurfaceVariantTone: surfaceTone <= 60 ? 100 : 0,
       onInverseSurfaceTone: inverseSurfaceTone <= 60 ? 100 : 0,
     );
   }
 
-  /// Returns a new [FlexTones] instance where the tones for surface and
-  /// background are set 0 (black) if it was <= 60 and to 100 (white) if > 60.
+  /// Returns a new [FlexTones] instance where the tones for surface are
+  /// set 0 (black) if it was <= 60 and to 100 (white) if > 60.
   ///
-  /// This will make the seeded colors for [background] and [surface] pure
-  /// black or white, depending on if they are dark or light
+  /// This will make the seeded color for [surface] pure
+  /// black or white, depending on if it is dark or light theme.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
-  /// their seeded [surface] and [background] colors.
+  /// their seeded [surface] color.
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
@@ -1045,7 +991,6 @@ class FlexTones with Diagnosticable {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      backgroundTone: backgroundTone <= 60 ? 0 : 100,
       surfaceTone: surfaceTone <= 60 ? 0 : 100,
     );
   }
@@ -1287,16 +1232,16 @@ class FlexTones with Diagnosticable {
 
   /// Tone used for ColorScheme background from neutral [FlexTonalPalette].
   @Deprecated('Use surfaceTone instead.')
-  final int backgroundTone;
+  final int? backgroundTone;
 
   /// Tone used for ColorScheme onBackground from neutral [FlexTonalPalette].
   @Deprecated('Use onSurfaceTone instead.')
-  final int onBackgroundTone;
+  final int? onBackgroundTone;
 
   /// Tone used for ColorScheme surfaceVariant from neutralVariant
   /// [FlexTonalPalette].
   @Deprecated('Use surfaceContainerHighestTone instead.')
-  final int surfaceVariantTone;
+  final int? surfaceVariantTone;
 
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
   /// generation.
@@ -1561,9 +1506,9 @@ class FlexTones with Diagnosticable {
     int? onInverseSurfaceTone,
     int? inversePrimaryTone,
     int? surfaceTintTone,
-    // Deprecated color tones.
-    int? backgroundTone,
-    int? onBackgroundTone,
+    @Deprecated('Use surfaceTone instead.') int? backgroundTone,
+    @Deprecated('Use onSurfaceTone instead.') int? onBackgroundTone,
+    @Deprecated('Use surfaceContainerHighestTone instead.')
     int? surfaceVariantTone,
     //
     double? primaryChroma,
@@ -1646,10 +1591,6 @@ class FlexTones with Diagnosticable {
       onInverseSurfaceTone: onInverseSurfaceTone ?? this.onInverseSurfaceTone,
       inversePrimaryTone: inversePrimaryTone ?? this.inversePrimaryTone,
       surfaceTintTone: surfaceTintTone ?? this.surfaceTintTone,
-      // Deprecated color tones.
-      backgroundTone: backgroundTone ?? this.backgroundTone,
-      onBackgroundTone: onBackgroundTone ?? this.onBackgroundTone,
-      surfaceVariantTone: surfaceVariantTone ?? this.surfaceVariantTone,
       //
       primaryChroma: primaryChroma ?? this.primaryChroma,
       primaryMinChroma: primaryMinChroma ?? this.primaryMinChroma,
@@ -1726,10 +1667,6 @@ class FlexTones with Diagnosticable {
         other.onInverseSurfaceTone == onInverseSurfaceTone &&
         other.inversePrimaryTone == inversePrimaryTone &&
         other.surfaceTintTone == surfaceTintTone &&
-        // Deprecated color tones.
-        other.backgroundTone == backgroundTone &&
-        other.onBackgroundTone == onBackgroundTone &&
-        other.surfaceVariantTone == surfaceVariantTone &&
         //
         other.primaryChroma == primaryChroma &&
         other.primaryMinChroma == primaryMinChroma &&
@@ -1801,10 +1738,6 @@ class FlexTones with Diagnosticable {
         onInverseSurfaceTone,
         inversePrimaryTone,
         surfaceTintTone,
-        // Deprecated color tones.
-        backgroundTone,
-        onBackgroundTone,
-        surfaceVariantTone,
         //
         primaryChroma,
         primaryMinChroma,
@@ -1910,13 +1843,6 @@ class FlexTones with Diagnosticable {
         DiagnosticsProperty<int>('inversePrimaryTone', inversePrimaryTone));
     properties
         .add(DiagnosticsProperty<int>('surfaceTintTone', surfaceTintTone));
-    // Deprecated color tones.
-    properties.add(DiagnosticsProperty<int>('backgroundTone', backgroundTone));
-    properties
-        .add(DiagnosticsProperty<int>('onBackgroundTone', onBackgroundTone));
-    properties.add(
-        DiagnosticsProperty<int>('surfaceVariantTone', surfaceVariantTone));
-    //
     properties.add(DiagnosticsProperty<double>('primaryChroma', primaryChroma));
     properties
         .add(DiagnosticsProperty<double>('primaryMinChroma', primaryMinChroma));

@@ -19,9 +19,8 @@ import '../dynamiccolor/variant.dart';
 import '../hct/hct.dart';
 import '../palettes/tonal_palette.dart';
 import '../temperature/temperature_cache.dart';
-import 'scheme.dart';
 
-/// A scheme that places the source color in [Scheme.primaryContainer].
+/// A scheme that places the source color in Scheme.primaryContainer.
 ///
 /// Primary Container is the source color, adjusted for color relativity.
 /// It maintains constant appearance in light mode and dark mode.

@@ -63,10 +63,6 @@ void main() {
       onInverseSurfaceTone: 95,
       inversePrimaryTone: 80,
       surfaceTintTone: 40,
-      // Deprecated colors
-      backgroundTone: 98,
-      onBackgroundTone: 10,
-      surfaceVariantTone: 90,
       //
       primaryChroma: null,
       primaryMinChroma: null,
@@ -203,10 +199,6 @@ void main() {
           onInverseSurfaceTone: 95,
           inversePrimaryTone: 80,
           surfaceTintTone: 40,
-          // Deprecated colors
-          backgroundTone: 98,
-          onBackgroundTone: 10,
-          surfaceVariantTone: 90,
           //
           primaryChroma: null,
           primaryMinChroma: null,
@@ -240,7 +232,7 @@ void main() {
           //
           equalsIgnoringHashCodes(
               // ignore: lines_longer_than_80_chars
-              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, backgroundTone: 98, onBackgroundTone: 10, surfaceVariantTone: 90, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)'));
+              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)'));
     });
     test(
         'FTO1.11: Test toStringShort implemented via debugFillProperties '
@@ -319,10 +311,6 @@ void main() {
             onInverseSurfaceTone: 95,
             inversePrimaryTone: 80,
             surfaceTintTone: 40,
-            // Deprecated colors
-            backgroundTone: 98,
-            onBackgroundTone: 10,
-            surfaceVariantTone: 90,
             //
             primaryChroma: null,
             primaryMinChroma: null,
@@ -397,10 +385,6 @@ void main() {
             onInverseSurfaceTone: 20,
             inversePrimaryTone: 40,
             surfaceTintTone: 80,
-            // Deprecated colors
-            backgroundTone: 6,
-            onBackgroundTone: 90,
-            surfaceVariantTone: 30,
             //
             primaryChroma: null,
             primaryMinChroma: null,
@@ -447,7 +431,6 @@ void main() {
         FlexTones.material3Legacy(Brightness.light),
         equals(const FlexTones.light(
           surfaceTone: 99,
-          backgroundTone: 99,
           primaryChroma: 48,
           primaryMinChroma: 48,
           secondaryChroma: 16,
@@ -462,7 +445,6 @@ void main() {
         FlexTones.material3Legacy(Brightness.dark),
         equals(const FlexTones.dark(
           surfaceTone: 10,
-          backgroundTone: 10,
           onErrorContainerTone: 90,
           primaryChroma: 48,
           primaryMinChroma: 48,
@@ -518,7 +500,6 @@ void main() {
           const FlexTones.dark(
             onPrimaryTone: 10,
             primaryContainerTone: 20,
-            backgroundTone: 5,
             primaryMinChroma: 50,
           ),
         ),
@@ -537,7 +518,6 @@ void main() {
             surfaceTone: 96,
             onSurfaceVariantTone: 20,
             inverseSurfaceTone: 30,
-            backgroundTone: 98,
             surfaceTintTone: 30,
             //
             primaryMinChroma: 50,
@@ -580,7 +560,6 @@ void main() {
             surfaceTone: 97,
             onSurfaceVariantTone: 20,
             inverseSurfaceTone: 30,
-            backgroundTone: 95,
             surfaceTintTone: 30,
             //
             primaryMinChroma: 50,
@@ -600,7 +579,6 @@ void main() {
             onTertiaryTone: 10,
             primaryContainerTone: 20,
             surfaceTone: 5,
-            backgroundTone: 20,
             onSurfaceVariantTone: 95,
             inverseSurfaceTone: 95,
             //
@@ -622,7 +600,6 @@ void main() {
             errorContainerTone: 95,
             surfaceTintTone: 30,
             surfaceTone: 99,
-            backgroundTone: 99,
             primaryChroma: null,
             secondaryChroma: null,
             tertiaryChroma: null,
@@ -647,8 +624,6 @@ void main() {
             tertiaryContainerTone: 20,
             errorContainerTone: 20,
             onErrorContainerTone: 90,
-            backgroundTone: 4,
-            onBackgroundTone: 96,
             surfaceTone: 4,
             onSurfaceTone: 96,
             surfaceContainerLowestTone: 0,
@@ -678,12 +653,9 @@ void main() {
             onErrorContainerTone: 5,
             //
             surfaceTone: 100,
-            backgroundTone: 100,
             surfaceContainerLowTone: 98,
             surfaceContainerTone: 96,
-            onBackgroundTone: 0,
             onSurfaceTone: 0,
-            surfaceVariantTone: 96,
             onSurfaceVariantTone: 6,
             onInverseSurfaceTone: 99,
             inversePrimaryTone: 90,
@@ -717,13 +689,10 @@ void main() {
             onErrorTone: 2,
             onErrorContainerTone: 98,
             //
-            backgroundTone: 2,
-            onBackgroundTone: 99,
             surfaceTone: 2,
             surfaceContainerLowestTone: 0,
             surfaceContainerLowTone: 6,
             onSurfaceTone: 99,
-            surfaceVariantTone: 20,
             onSurfaceVariantTone: 95,
             onInverseSurfaceTone: 10,
             outlineTone: 80,
@@ -833,11 +802,8 @@ void main() {
             tertiaryContainerTone: 95,
             onTertiaryContainerTone: 6,
             //
-            backgroundTone: 100,
-            onBackgroundTone: 6,
             surfaceTone: 100,
             onSurfaceTone: 6,
-            surfaceVariantTone: 92,
             onSurfaceVariantTone: 10,
             onInverseSurfaceTone: 98,
             inversePrimaryTone: 90,
@@ -874,11 +840,8 @@ void main() {
             onErrorTone: 6,
             onErrorContainerTone: 95,
             //
-            backgroundTone: 6,
-            onBackgroundTone: 95,
             surfaceTone: 6,
             onSurfaceTone: 95,
-            surfaceVariantTone: 20,
             onSurfaceVariantTone: 90,
             onInverseSurfaceTone: 10,
             outlineTone: 60,
@@ -911,11 +874,8 @@ void main() {
             tertiaryContainerTone: 95,
             onTertiaryContainerTone: 6,
             //
-            backgroundTone: 99,
-            onBackgroundTone: 4,
             surfaceTone: 99,
             onSurfaceTone: 4,
-            surfaceVariantTone: 92,
             onSurfaceVariantTone: 10,
             onInverseSurfaceTone: 98,
             inversePrimaryTone: 90,
@@ -952,13 +912,10 @@ void main() {
             onErrorTone: 6,
             onErrorContainerTone: 95,
             //
-            backgroundTone: 4,
-            onBackgroundTone: 95,
             surfaceTone: 4,
             surfaceContainerLowestTone: 2,
             surfaceContainerLowTone: 6,
             onSurfaceTone: 95,
-            surfaceVariantTone: 20,
             onSurfaceVariantTone: 90,
             onInverseSurfaceTone: 10,
             outlineTone: 60,
@@ -1032,10 +989,6 @@ void main() {
       onInverseSurfaceTone: 95,
       inversePrimaryTone: 80,
       surfaceTintTone: 40,
-      // Deprecated colors
-      backgroundTone: 98,
-      onBackgroundTone: 10,
-      surfaceVariantTone: 90,
       //
       primaryChroma: null,
       primaryMinChroma: 48,
@@ -1175,10 +1128,6 @@ void main() {
             onInverseSurfaceTone: 95,
             inversePrimaryTone: 80,
             surfaceTintTone: 40,
-            // Deprecated colors
-            backgroundTone: 98,
-            onBackgroundTone: 10,
-            surfaceVariantTone: 90,
             //
             primaryChroma: null,
             primaryMinChroma: 48,
@@ -1257,10 +1206,6 @@ void main() {
             onInverseSurfaceTone: 20,
             inversePrimaryTone: 40,
             surfaceTintTone: 80,
-            // Deprecated colors
-            backgroundTone: 6,
-            onBackgroundTone: 90,
-            surfaceVariantTone: 30,
             //
             primaryChroma: null,
             primaryMinChroma: 48,
