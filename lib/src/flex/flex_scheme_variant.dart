@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'flex_seed_scheme.dart';
 import 'flex_tones.dart';
 
-/// Enum used to return and describes properties of the [FlexSchemeVariant]
+/// Enum used to return and describe properties of the [FlexSchemeVariant]
 /// variants to invoke different color scheme generation algorithms
 /// in [SeedColorScheme.fromSeeds], when passed to its [FlexSchemeVariant]
 /// property variant.
