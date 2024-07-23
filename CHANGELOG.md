@@ -2,6 +2,52 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.1.2
+
+**July 23, 2024**
+
+**FIX**
+
+* FIX the faulty tones for the modified `FlexTones.vividSurfaces` surface tones. They were in version 3.1.0 set to **96** for a light scheme and **10** for a dark scheme. The values need to be **98** and **6** to not clash with any other important tones used by all the surface colors and provide separation to them. Tones **98** and **6** are also the default tones in M3 design for them, there is very little wiggle room here.
+
+* FIX tone for the modified `FlexTones.vividBackground` it was in version 3.1.0 set to **97** for its light scheme, it needs to use value 100 (white) to really provide a "vivid" background mode in light mode and offer some differentiation to `FlexTones.vividSurfaces` in light mode. In dark mode it still uses tone **5**, which is already different and darker than **6** used by `FlexTones.vividSurfaces`.
+
+**INFO**
+
+* How to use legacy `FlexTones.vividSurfaces` and `FlexTones.vividBackground` tone mappings?
+  * FSS version 3.1.0 removed the deprecated colors `background`, `onBackground` and `surfaceVariant` from being defined as a part of the `SeedColorScheme.fromSeeds` result. They still get color values, but they are whatever the default values the default Flutter SDK `ColorScheme()` constructor gives them. These colors were deprecated in Flutter 3.22.0 and are now removed from being defined and accessed by FSS.
+  * FSS 3.1.0 also changed the tone mappings for `FlexTones.vividSurfaces` and `FlexTones.vividBackground` to make them have some distinguishing differences when `background` color no longer has any effect or usage, and also to adhere to new the `ColorScheme` design intent.
+  * You should prefer to map one of the new surface colors that are already of a shade close to old surface and background colors, to theme colors as needed by your design. There are **eight** different surface shades to choose from in the ColorScheme introduced in Flutter 3.22, compared to **three** before.
+  * If you really need the pre-Flutter 3.22 legacy style for `FlexTones.vividSurfaces` or `FlexTones.vividBackground` you can optionally recreate them with `copyWith` on their definitions like this:
+
+```dart
+// For light legacy FlexTones.vividSurfaces 
+final ColorScheme vividSurfacesLight = SeedColorScheme.fromSeeds(
+    brightness: Brightness.light,
+    primaryKey: mySeedColor,
+    tones: FlexTones.vividSurfaces(Brightness.light).copyWith(surfaceTone: 95),
+  );
+// For dark legacy FlexTones.vividSurfaces 
+final ColorScheme vividSurfacesDark = SeedColorScheme.fromSeeds(
+    brightness: Brightness.dark,
+    primaryKey: mySeedColor,
+    tones: FlexTones.vividSurfaces(Brightness.dark).copyWith(surfaceTone: 20),
+  );
+
+// For light legacy FlexTones.vividBackground 
+final ColorScheme vividBackgroundLight = SeedColorScheme.fromSeeds(
+  brightness: Brightness.light,
+  primaryKey: mySeedColor,
+  tones: FlexTones.vividBackground(Brightness.light).copyWith(surfaceTone: 98),
+);
+// For dark legacy FlexTones.vividBackground 
+final ColorScheme vividBackgroundDark = SeedColorScheme.fromSeeds(
+  brightness: Brightness.dark,
+  primaryKey: mySeedColor,
+  tones: FlexTones.vividBackground(Brightness.dark).copyWith(surfaceTone: 6),
+);
+```
+
 ## 3.1.1
 
 **July 13, 2024**
@@ -36,6 +82,38 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
   * `FlexTones.vividBackground`:
     * Light: surfaceTone 98 -> 97,
     * Dark: surfaceTone 6 -> 5.
+
+* How to use legacy `FlexTones.vividSurfaces` and `FlexTones.vividBackground` tone mappings?
+  * You should prefer to map one of the new surface colors that are already of a shade close to old surface and background colors, to theme colors as needed by your design. There are **eight** different surface shades to choose from in the ColorScheme introduced in Flutter 3.22, compared to **three** before.
+  * If you really need the pre-Flutter 3.22 legacy style for `FlexTones.vividSurfaces` or `FlexTones.vividBackground` you can optionally recreate them with `copyWith` on their definitions like this:
+
+```dart
+// For light legacy FlexTones.vividSurfaces 
+final ColorScheme vividSurfacesLight = SeedColorScheme.fromSeeds(
+    brightness: Brightness.light,
+    primaryKey: mySeedColor,
+    tones: FlexTones.vividSurfaces(Brightness.light).copyWith(surfaceTone: 95),
+  );
+// For dark legacy FlexTones.vividSurfaces 
+final ColorScheme vividSurfacesDark = SeedColorScheme.fromSeeds(
+    brightness: Brightness.dark,
+    primaryKey: mySeedColor,
+    tones: FlexTones.vividSurfaces(Brightness.dark).copyWith(surfaceTone: 20),
+  );
+
+// For light legacy FlexTones.vividBackground 
+final ColorScheme vividBackgroundLight = SeedColorScheme.fromSeeds(
+  brightness: Brightness.light,
+  primaryKey: mySeedColor,
+  tones: FlexTones.vividBackground(Brightness.light).copyWith(surfaceTone: 98),
+);
+// For dark legacy FlexTones.vividBackground 
+final ColorScheme vividBackgroundDark = SeedColorScheme.fromSeeds(
+  brightness: Brightness.dark,
+  primaryKey: mySeedColor,
+  tones: FlexTones.vividBackground(Brightness.dark).copyWith(surfaceTone: 6),
+);
+```
 
 **CHORE**
 

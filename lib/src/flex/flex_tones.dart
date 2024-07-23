@@ -485,9 +485,6 @@ class FlexTones with Diagnosticable {
   /// ColorsSchemes with chroma like [FlexTones.vivid] on main colors, but
   /// increased chroma on neutrals and more color tinted surfaces and onColors.
   ///
-  /// Surface color uses tone 96 instead of standard 98 in light mode and
-  /// 10 instead of 6 in dark mode.
-  ///
   /// Primary tone is one tone darker than in Material 3 standard setup in light
   /// mode. As in M3 default, primary uses its own chroma, but with a minimum
   /// value of 50.  Secondary and tertiary key colors use their own chroma
@@ -511,7 +508,6 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 98,
               onTertiaryTone: 98,
               onErrorTone: 98,
-              surfaceTone: 96,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
               surfaceTintTone: 30,
@@ -525,7 +521,6 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 10,
               onTertiaryTone: 10,
               primaryContainerTone: 20,
-              surfaceTone: 10,
               onSurfaceVariantTone: 95,
               inverseSurfaceTone: 95,
               //
@@ -536,11 +531,11 @@ class FlexTones with Diagnosticable {
 
   /// Creates a tonal palette extraction setup that results in M3 like
   /// ColorsSchemes with chroma like [FlexTones.vividSurfaces], but with a few
-  /// minor adjustments for increased contrast in dark mode and less tinted
+  /// minor adjustments for increased contrast in dark mode and no tinted
   /// surface color in light mode.
   ///
-  /// Surface color uses tone 97 instead of standard 98 in light mode and
-  /// 5 instead of 6 in dark mode.
+  /// Surface color uses tone 100 (white) instead of standard 98 in light mode
+  /// and 5 instead of 6 in dark mode, for a bit darker dark mode.
   ///
   /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
   /// 6 and 8.
@@ -559,7 +554,7 @@ class FlexTones with Diagnosticable {
               onSecondaryTone: 98,
               onTertiaryTone: 98,
               onErrorTone: 98,
-              surfaceTone: 97,
+              surfaceTone: 100,
               onSurfaceVariantTone: 20,
               inverseSurfaceTone: 30,
               surfaceTintTone: 30,
