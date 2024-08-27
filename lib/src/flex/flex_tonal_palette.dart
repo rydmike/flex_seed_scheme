@@ -130,10 +130,7 @@ class FlexTonalPalette {
   /// for all [FlexTones].
   static const int commonSize = 15;
 
-  /// Extended one values in a [FlexTonalPalette].
-  ///
-  /// Contains custom tones 2, 5 and 97 in addition to the 13 tones included
-  /// in the Material 3 guide tonal palette.
+  /// Extended tone values in a [FlexTonalPalette].
   ///
   /// The added tones 4, 6, 12, 17, 22 and 24 are for new dark mode surfaces
   /// in revised Material 3 dark surface colors. Likewise added tones
@@ -143,8 +140,9 @@ class FlexTonalPalette {
   /// The additional tones in the Material 3 specification appeared during later
   /// part of first half of 2023.
   ///
-  /// Tones 2, 5, and 97 are not in old or new M3 spec, but FlexSeedScheme
-  /// includes them to enable even more fidelity in dark and light tones.
+  /// Tones 2, 5, 65, 75, 84 and 97 are not in old or new M3 spec, but
+  /// FlexSeedScheme includes them to enable even more fidelity in dark and
+  /// light tones.
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
   /// should be avoided and extended tones used instead. The common tones are
@@ -167,8 +165,11 @@ class FlexTonalPalette {
     40,
     50,
     60,
+    65,
     70,
+    75,
     80,
+    84,
     87,
     90,
     92,
@@ -191,14 +192,14 @@ class FlexTonalPalette {
   /// to [FlexTonalPalette.commonTones.length]. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 27.
+  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 30.
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
   /// should be avoided and extended tones used instead. The common tones are
   /// kept for backwards compatibility and for cases where the original M3
   /// palette is needed. The [FlexPaletteType.extended] is the new default
   /// for all [FlexTones].
-  static const int extendedSize = 27;
+  static const int extendedSize = 30;
 
   /// The hue of the palette.
   final double hue;
