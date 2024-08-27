@@ -235,15 +235,15 @@ const FlexTones myDarkTones = FlexTones.dark(
 
 ## Extended Palette
 
-The extended palette type is the new default, if you are using Flutter 3.22, or later you should only use it. The `common` tones option is provided for backwards compatibility with older Flutter versions and older FSS versions.
+The extended palette type is the new default, it contains 30 tones. If you are using Flutter 3.22, or later you should only use it. The `common` tones option is provided for backwards compatibility with older Flutter versions and older FSS versions.
 
 By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access new color tones that exists in the late 2022 revised `ColorScheme` for surface colors and even more colors for **fixed** and **fixedDim** main colors that arrived in the Material-3 design during later half of 2023. 
 
 The `ColorScheme` colors that use these new tones are now also available in Flutter 3.22 or later. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
 
-The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.extended` is now used to enable support for the tones in the updated specification and also adding three more custom tones `[2, 5, 97]`. The `paletteType` with value `FlexPaletteType.extended` is now default, it produces 27 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 70, 80, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
+The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.extended` is now used to enable support for the tones in the updated specification and also adding six more custom tones `[2, 5, 65, 75, 84, 97]`. The `paletteType` with value `FlexPaletteType.extended` is default. It produces the following 30 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 65, 70, 75, 80, 84, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
 
-To use the older classic setup you can still use `FlexTones.common`. It produces the legacy M3 tones with its own two additions `[5]` and `[98]` resulting in 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. Flutter versions before 3.22 do not yet use these new tones in its standard `ColorScheme`. 
+To use older simpler tones setup you can still use `FlexTones.common`. It produces the legacy M3 tones with its own two additions `[5]` and `[98]` resulting in 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. Flutter versions before 3.22 do not yet use any of the extended tones in its standard `ColorScheme`. 
 
 For backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, meaning higher or equal to 90, are limited to maximum chroma of 40. This keeps the chromacity of tones 90 to 100 lower than or equal to 40. If the source seed color has higher chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original, now legacy, palette design. 
   
@@ -344,7 +344,6 @@ The surface on colors made black or white by `onSurfacesUseBW()` are:
 * `onSurface`
 * `onSurfaceVariant`
 * `onInverseSurface`
-* `onBackground` (deprecated in Flutter 3.22)
 
 Here is a usage example, using both these modifiers. You can use them individually too, and you don't have to use them in both light and dark mode.
 
@@ -379,23 +378,12 @@ final ColorScheme schemeDarkOnBW = SeedColorScheme.fromSeeds(
 
 #### FlexTones Modifier `surfacesUseBW()`
 
-Another `FlexTones` modifier is `surfacesUseBW()`. This modifier will make the `surface` and `background` colors plain white in light mode and true black in dark mode.
-
-The surface colors made black or white by `surfacesUseBW()` are:
-
-* `surface`
-* `background` (deprecated in Flutter 3.22)
-
-This modifier can be used for great effect in light mode, as you can remove the colored background surfaces from any of the `FlexTones` seeding strategies. Some designs may prefer plain white, for backgrounds in light mode, for a more platform-agnostic design.
-
-In dark mode `surfacesUseBW()` can be used create seeded color schemes with full black background and surface colors, but you may prefer to keep the primary seed color based slightly primary color tinted backgrounds in dark mode. 
-
-This modifier will make the `surface` color and still also the deprecated `background` color plain white in light mode and full black in dark mode.
+Another simple `FlexTones` modifier is `surfacesUseBW()`. This modifier will make the `surface` color plain white in light mode and full black in dark mode.
 
 ```dart
 // Make a Material 3 seeded light ColorScheme, but with always 
-// black and white contrasting onColors and ensure that background
-// and surface colors are always white.
+// black and white contrasting onColors and ensure that
+// the surface color is always white.
 final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
   brightness: Brightness.light,
   primaryKey: primarySeedColor,
@@ -410,14 +398,13 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
 
 #### FlexTones Modifier `monochromeSurfaces()`
 
-A new `FlexTones` modifier in FSS version 3.0.0 is `monochromeSurfaces()`. It can be applied to any predefined or custom `FlexTones` to make all the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes. Surface colors will then have no color tint from their own key color or from the primary seed key color. For those tired of tinted surface colors in Material-3, this is a useful helper.
+A `FlexTones` modifier available in FSS version 3.0.0 and later. It can be applied to any predefined or custom `FlexTones` to make all the surface colors monochrome and use pure greyscale for the neutral and neutral variant tonal palettes. Surface colors will then have no color tint from their own key color or from the primary seed key color. For those tired of tinted surface colors in Material-3, this is a useful helper.
 
 The surface colors made monochrome by `monochromeSurfaces()` are:
 * `surface`, `onSurface`, `surfaceContainer`, `onSurfaceVariant`
 * `surfaceContainerHighest`, `surfaceContainerHigh`, `surfaceContainerLow`, `surfaceContainerLowest`
 * `surfaceDim`,`surfaceBright`, `inverseSurface`, `onInverseSurface`
 * `outline`, `outlineVariant`
-* `background`, `onBackground`, `surfaceVariant` (deprecated in Flutter 3.22)
 
 ```dart
 // Make a vivid Material 3 seeded light ColorScheme, where all surface colors
@@ -428,6 +415,32 @@ final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
   secondaryKey: secondarySeedColor,
   tertiaryKey: tertiarySeedColor,
   tones: FlexTones.vivid(Brightness.light).monochromeSurfaces(),
+);
+```
+
+#### FlexTones Modifier `higherContrastFixed()`
+
+A `FlexTones` modifier available in FSS version 3.2.0 and later. 
+This modifier can be applied to any predefined or custom
+`FlexTones` to make a returned instance where the tones for
+the fixed colors `fixed`, `onFixed`, `fixedDim`, `onFixedVariant` are
+set to 92, 6, 84 and 12, instead Material-3 designs specified 90, 10, 80 and 30.
+
+This gives us an alternative set of fixed colors with more contrast.
+
+
+```dart
+// Make an ultraContrast seeded light ColorScheme, where all fixed colors
+// have higher contrast than the standard Material-3 design.
+//
+// It is here combined `FlexTones.ultraContrast` to make also the fixed and 
+// fixedDim colors and their on colors have higher contrast too.
+final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
+  brightness: Brightness.light,
+  primaryKey: primarySeedColor,
+  secondaryKey: secondarySeedColor,
+  tertiaryKey: tertiarySeedColor,
+  tones: FlexTones.ultraContrast(Brightness.light).higherContrastFixed(),
 );
 ```
 
