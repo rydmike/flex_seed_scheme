@@ -895,6 +895,48 @@ void main() {
     });
 
     test(
+        'FCS7.014-fixedColor-l: GIVEN a SeedColorScheme.fromSeeds using '
+        'five seeds and tones map FlexTones.material for a light scheme with '
+        'error neutral and variant chroma set but with modified fixed '
+        'tones and variant tones '
+        'EXPECT scheme equal to using higherContrastFixed()', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).copyWith(
+          primaryFixedTone: 92,
+          primaryFixedDimTone: 84,
+          onPrimaryFixedTone: 6,
+          onPrimaryFixedVariantTone: 12,
+          //
+          secondaryFixedTone: 92,
+          secondaryFixedDimTone: 84,
+          onSecondaryFixedTone: 6,
+          onSecondaryFixedVariantTone: 12,
+          //
+          tertiaryFixedTone: 92,
+          tertiaryFixedDimTone: 84,
+          onTertiaryFixedTone: 6,
+          onTertiaryFixedVariantTone: 12,
+        ),
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).higherContrastFixed(),
+      );
+      expect(scheme, scheme2);
+    });
+
+    test(
         'FCS7.015-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant tonalSpot for a light scheme '
         'EXPECT scheme equal to using tones material with same seeds', () {
@@ -1011,7 +1053,7 @@ void main() {
     test(
         'FCS7.017-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1036,7 +1078,7 @@ void main() {
     test(
         'FCS7.018-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant expressive for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1061,7 +1103,7 @@ void main() {
     test(
         'FCS7.019-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant fidelity for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1086,7 +1128,7 @@ void main() {
     test(
         'FCS7.020-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and fruitSalad content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1111,7 +1153,7 @@ void main() {
     test(
         'FCS7.021-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and monochrome content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1136,7 +1178,7 @@ void main() {
     test(
         'FCS7.022-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and neutral content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1161,7 +1203,7 @@ void main() {
     test(
         'FCS7.023-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and rainbow content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -1186,7 +1228,7 @@ void main() {
     test(
         'FCS7.024-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and vibrant content for a light scheme '
-        'EXPECT some given checked color result', () {
+        'EXPECT this given checked color result', () {
       final ColorScheme scheme = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
