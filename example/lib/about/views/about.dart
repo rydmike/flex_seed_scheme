@@ -54,7 +54,8 @@ void showAppAboutDialog(BuildContext context) {
               TextSpan(
                 style: aboutTextStyle,
                 text: 'The ${AppData.title(context)} application demonstrates '
-                    'features of the ${AppData.packageName} custom key colors '
+                    'features\n'
+                    'of the ${AppData.packageName} custom key colors '
                     'ColorScheme generation package.\n\n'
                     'To learn more, check out the package on ',
               ),
@@ -65,7 +66,7 @@ void showAppAboutDialog(BuildContext context) {
               ),
               TextSpan(
                 style: aboutTextStyle,
-                text: '. It also includes the source '
+                text: '.\nIt also includes the source '
                     'code of this application.\n\n',
               ),
               TextSpan(

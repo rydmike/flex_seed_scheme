@@ -134,6 +134,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _higherContrastFixedColors = false;
+  bool get higherContrastFixedColors => _higherContrastFixedColors;
+  void setHigherContrastFixedColors(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _higherContrastFixedColors) return;
+    _higherContrastFixedColors = value;
+    if (notify) notifyListeners();
+  }
+
   bool _keepSurfaceOnColorsBW = false;
   bool get keepSurfaceOnColorsBW => _keepSurfaceOnColorsBW;
   void setKeepSurfaceOnColorsBW(bool? value, [bool notify = true]) {
