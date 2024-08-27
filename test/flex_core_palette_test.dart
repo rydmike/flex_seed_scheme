@@ -676,6 +676,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -708,6 +711,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -739,6 +745,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -770,6 +779,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -801,6 +813,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -832,6 +847,9 @@ void main() {
             FlexTonalPalette.extendedTones[i] != 17 &&
             FlexTonalPalette.extendedTones[i] != 22 &&
             FlexTonalPalette.extendedTones[i] != 24 &&
+            FlexTonalPalette.extendedTones[i] != 65 &&
+            FlexTonalPalette.extendedTones[i] != 75 &&
+            FlexTonalPalette.extendedTones[i] != 84 &&
             FlexTonalPalette.extendedTones[i] != 87 &&
             FlexTonalPalette.extendedTones[i] != 92 &&
             FlexTonalPalette.extendedTones[i] != 94 &&
@@ -855,6 +873,7 @@ void main() {
       tertiaryChroma: 24,
       paletteType: FlexPaletteType.extended,
     );
+    // print(m3.asList());
     test(
         'FCP2.07: GIVEN FlexCorePalette.fromSeeds with 3 colors and extended '
         'EXPECT a given list result', () {
@@ -874,8 +893,11 @@ void main() {
         4284960932,
         4286605759,
         4288316379,
+        4289237225,
         4290158072,
+        4291013887,
         4291804415,
+        4292463359,
         4292989951,
         4293516799,
         4293846271,
@@ -901,8 +923,11 @@ void main() {
         4284636016,
         4286280842,
         4287991204,
+        4288846514,
         4289767359,
+        4290688461,
         4291609307,
+        4292333031,
         4292925167,
         4293451512,
         4293846270,
@@ -928,8 +953,11 @@ void main() {
         4286468704,
         4288244345,
         4290085778,
+        4291006624,
         4291993005,
+        4292913850,
         4293900488,
+        4294689747,
         4294954459,
         4294957539,
         4294959592,
@@ -955,8 +983,11 @@ void main() {
         4284505442,
         4286150266,
         4287860628,
+        4288716193,
         4289637038,
+        4290557884,
         4291478986,
+        4292202709,
         4292729053,
         4293321190,
         4293715947,
@@ -982,8 +1013,11 @@ void main() {
         4284570982,
         4286215551,
         4287926169,
+        4288781478,
         4289702324,
+        4290557889,
         4291478735,
+        4292202458,
         4292794595,
         4293386475,
         4293715697,
@@ -1009,8 +1043,11 @@ void main() {
         4290386458,
         4292753200,
         4294923337,
+        4294930788,
         4294936957,
+        4294942612,
         4294948011,
+        4294951868,
         4294954953,
         4294957782,
         4294959838,
@@ -1033,6 +1070,7 @@ void main() {
       tertiaryChroma: null,
       paletteType: FlexPaletteType.extended,
     );
+    // print(m4.asList());
     test(
         'FCP2.08: GIVEN FlexCorePalette.fromSeeds with 3 colors and using '
         'chroma from secondary and tertiary and extended palette '
@@ -1055,8 +1093,11 @@ void main() {
           4284960932,
           4286605759,
           4288316379,
+          4289237225,
           4290158072,
+          4291013887,
           4291804415,
+          4292463359,
           4292989951,
           4293516799,
           4293846271,
@@ -1082,8 +1123,11 @@ void main() {
           4284636017,
           4286280586,
           4287991205,
+          4288846514,
           4289767360,
+          4290688462,
           4291609308,
+          4292333031,
           4292925168,
           4293451513,
           4293846270,
@@ -1109,8 +1153,11 @@ void main() {
           4286403168,
           4288178809,
           4290020242,
+          4291006623,
           4291927469,
+          4292913850,
           4293834952,
+          4294624211,
           4294954459,
           4294957539,
           4294959592,
@@ -1136,8 +1183,11 @@ void main() {
           4284505442,
           4286150266,
           4287860628,
+          4288716193,
           4289637038,
+          4290557884,
           4291478986,
+          4292202709,
           4292729053,
           4293321190,
           4293715947,
@@ -1163,8 +1213,11 @@ void main() {
           4284570982,
           4286215551,
           4287926169,
+          4288781478,
           4289702324,
+          4290557889,
           4291478735,
+          4292202458,
           4292794595,
           4293386475,
           4293715697,
@@ -1190,8 +1243,11 @@ void main() {
           4290386458,
           4292753200,
           4294923337,
+          4294930788,
           4294936957,
+          4294942612,
           4294948011,
+          4294951868,
           4294954953,
           4294957782,
           4294959838,
@@ -1285,6 +1341,7 @@ void main() {
         'FCP1.U07: GIVEN a FlexCorePalette from a extended List '
         'EXPECT it to be equal to one created from same seed Based '
         'extended one', () {
+      // print(m3.asList());
       expect(
         m3,
         equals(
@@ -1304,8 +1361,11 @@ void main() {
             4284960932,
             4286605759,
             4288316379,
+            4289237225,
             4290158072,
+            4291013887,
             4291804415,
+            4292463359,
             4292989951,
             4293516799,
             4293846271,
@@ -1331,8 +1391,11 @@ void main() {
             4284636016,
             4286280842,
             4287991204,
+            4288846514,
             4289767359,
+            4290688461,
             4291609307,
+            4292333031,
             4292925167,
             4293451512,
             4293846270,
@@ -1358,8 +1421,11 @@ void main() {
             4286468704,
             4288244345,
             4290085778,
+            4291006624,
             4291993005,
+            4292913850,
             4293900488,
+            4294689747,
             4294954459,
             4294957539,
             4294959592,
@@ -1385,8 +1451,11 @@ void main() {
             4284505442,
             4286150266,
             4287860628,
+            4288716193,
             4289637038,
+            4290557884,
             4291478986,
+            4292202709,
             4292729053,
             4293321190,
             4293715947,
@@ -1412,8 +1481,11 @@ void main() {
             4284570982,
             4286215551,
             4287926169,
+            4288781478,
             4289702324,
+            4290557889,
             4291478735,
+            4292202458,
             4292794595,
             4293386475,
             4293715697,
@@ -1439,8 +1511,11 @@ void main() {
             4290386458,
             4292753200,
             4294923337,
+            4294930788,
             4294936957,
+            4294942612,
             4294948011,
+            4294951868,
             4294954953,
             4294957782,
             4294959838,

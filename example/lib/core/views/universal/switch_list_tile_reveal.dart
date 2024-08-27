@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// A custom [ListTile] that has a built-in animated custom leading action
-/// after the [leading] widget built in as a part of [title] that
-/// reveals the [subtitleReveal] when clicked.
+/// A custom [SwitchListTile] that has a built-in animated custom leading action
+/// as a part of [title] that reveals the [subtitleReveal] when clicked.
 ///
 /// This is useful when a more compact look is desired where more information
 /// is provided as an optional user based reveal action. The purpose is to make
@@ -10,14 +9,14 @@ import 'package:flutter/material.dart';
 ///
 /// This is a Flutter "Universal" Widget that only depends on the SDK and
 /// can be dropped into any application.
-class ListTileReveal extends StatefulWidget {
-  const ListTileReveal({
+class SwitchListTileReveal extends StatefulWidget {
+  const SwitchListTileReveal({
     super.key,
+    required this.value,
+    required this.onChanged,
     this.title,
-    this.leading,
     this.subtitle,
     this.subtitleReveal,
-    this.trailing,
     this.contentPadding,
     this.onTap,
     this.dense,
@@ -27,10 +26,23 @@ class ListTileReveal extends StatefulWidget {
     this.duration = const Duration(milliseconds: 200),
   });
 
-  /// A widget to display before the title.
+  /// Whether this switch is checked.
   ///
-  /// Typically an [Icon] or a [CircleAvatar] widget.
-  final Widget? leading;
+  /// This property must not be null.
+  final bool value;
+
+  /// Called when the user toggles the switch on or off.
+  ///
+  /// The switch passes the new value to the callback but does not actually
+  /// change state until the parent widget rebuilds the switch tile with the
+  /// new value.
+  ///
+  /// If null, the switch will be displayed as disabled.
+  ///
+  /// The callback provided to [onChanged] should update the state of the parent
+  /// [StatefulWidget] using the [State.setState] method, so that the parent
+  /// gets rebuilt; for example:
+  final ValueChanged<bool>? onChanged;
 
   /// The primary content of the list tile.
   ///
@@ -50,22 +62,10 @@ class ListTileReveal extends StatefulWidget {
   /// Typically a [Text] widget.
   final Widget? subtitleReveal;
 
-  /// A widget to display after the title.
+  /// The [SwitchListTileReveal]'s internal padding.
   ///
-  /// Typically an [Icon] widget.
-  ///
-  /// To show right-aligned metadata (assuming left-to-right reading order;
-  /// left-aligned for right-to-left reading order), consider using a [Row] with
-  /// [CrossAxisAlignment.baseline] alignment whose first item is [Expanded] and
-  /// whose second child is the metadata text, instead of using the [trailing]
-  /// property.
-  final Widget? trailing;
-
-  /// The [ListTileReveal]'s internal padding.
-  ///
-  /// Insets a [ListTileReveal]'s contents: its [leading], [title],
-  /// [subtitleReveal],
-  /// and [trailing] widgets.
+  /// Insets a [SwitchListTileReveal]'s contents: its [title],
+  /// [subtitleReveal] widgets.
   ///
   /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
   final EdgeInsetsGeometry? contentPadding;
@@ -100,10 +100,10 @@ class ListTileReveal extends StatefulWidget {
   final Duration duration;
 
   @override
-  State<ListTileReveal> createState() => _ListTileRevealState();
+  State<SwitchListTileReveal> createState() => _SwitchListTileRevealState();
 }
 
-class _ListTileRevealState extends State<ListTileReveal> {
+class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
   late bool _isOpen;
 
   @override
@@ -113,7 +113,7 @@ class _ListTileRevealState extends State<ListTileReveal> {
   }
 
   @override
-  void didUpdateWidget(covariant ListTileReveal oldWidget) {
+  void didUpdateWidget(covariant SwitchListTileReveal oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isOpen != oldWidget.isOpen) _isOpen = widget.isOpen ?? false;
   }
@@ -128,11 +128,11 @@ class _ListTileRevealState extends State<ListTileReveal> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ListTile(
-          enabled: widget.enabled,
-          contentPadding: widget.contentPadding,
-          leading: widget.leading,
+        SwitchListTile(
           dense: widget.dense,
+          contentPadding: widget.contentPadding,
+          value: widget.value,
+          onChanged: widget.enabled ? widget.onChanged : null,
           title: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: <Widget>[
@@ -149,8 +149,6 @@ class _ListTileRevealState extends State<ListTileReveal> {
             ],
           ),
           subtitle: widget.subtitle,
-          trailing: widget.trailing,
-          onTap: widget.enabled ? widget.onTap : null,
         ),
         AnimatedSwitcher(
           duration: widget.duration,

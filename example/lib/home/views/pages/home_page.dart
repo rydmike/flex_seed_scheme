@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
         : controller.usedVariant
             .tones(brightness)
             .monochromeSurfaces(controller.useMonoSurfaces)
+            .higherContrastFixed(controller.higherContrastFixedColors)
             .onMainsUseBW(controller.keepMainOnColorsBW)
             .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
             .surfacesUseBW(isLight
@@ -151,6 +152,16 @@ class HomePage extends StatelessWidget {
             onChanged: controller.usedVariant.isFlutterScheme
                 ? null
                 : controller.setUseMonoSurfaces,
+          ),
+          SwitchListTile(
+            dense: true,
+            title: const Text('Higher contrast fixed colors'),
+            subtitle: const Text('tones.higherContrastFixed()'),
+            value: controller.higherContrastFixedColors &&
+                !controller.usedVariant.isFlutterScheme,
+            onChanged: controller.usedVariant.isFlutterScheme
+                ? null
+                : controller.setHigherContrastFixedColors,
           ),
           SwitchListTile(
             dense: true,

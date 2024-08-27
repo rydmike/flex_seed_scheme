@@ -906,10 +906,10 @@ class FlexTones with Diagnosticable {
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
-  /// object unmodified. This is typically used to control applying the tint
-  /// removal via a controller.
+  /// object unmodified. This is typically used to control applying
+  /// modifier via a controller.
   ///
-  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones onMainsUseBW([bool useBW = true]) {
@@ -947,17 +947,16 @@ class FlexTones with Diagnosticable {
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
-  /// object unmodified. This is typically used to control applying the tint
-  /// removal via a controller.
+  /// object unmodified. This is typically used to control applying
+  /// modifier via a controller.
   ///
-  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones onSurfacesUseBW([bool useBW = true]) {
     // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
-      // onBackgroundTone: backgroundTone <= 60 ? 100 : 0,
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
       onSurfaceVariantTone: surfaceTone <= 60 ? 100 : 0,
       onInverseSurfaceTone: inverseSurfaceTone <= 60 ? 100 : 0,
@@ -976,10 +975,10 @@ class FlexTones with Diagnosticable {
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
-  /// object unmodified. This is typically used to control applying the tint
-  /// removal via a controller.
+  /// object unmodified. This is typically used to control applying
+  /// modifier via a controller.
   ///
-  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones surfacesUseBW([bool useBW = true]) {
@@ -999,9 +998,9 @@ class FlexTones with Diagnosticable {
   /// The [useMonochrome] flag is true by default, making the function
   /// effective. If set to false, the function is a no op and just returns the
   /// [FlexTones] object unmodified. This is typically used to control applying
-  /// the tint removal via a controller.
+  /// modifier via a controller.
   ///
-  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones monochromeSurfaces([bool useMonochrome = true]) {
@@ -1042,7 +1041,7 @@ class FlexTones with Diagnosticable {
   /// [FlexTones] object unmodified. This is typically used to control applying
   /// modifier via a controller.
   ///
-  /// **NOTE**: If some [FlexTones] modifiers change same properties, the uses
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones expressiveOnContainer([bool useExpressive = true]) {
@@ -1053,6 +1052,40 @@ class FlexTones with Diagnosticable {
       onSecondaryContainerTone: 30,
       onTertiaryContainerTone: 30,
       onErrorContainerTone: 30,
+    );
+  }
+
+  /// Returns a new [FlexTones] instance where the tones for all fixed colors
+  /// are modified.
+  ///
+  /// This modifier can be applied to any predefined or custom
+  /// [FlexTones] to make a returned instance where the tones for
+  /// the fixed colors `fixed`, `onFixed`, `fixedDim`, `onFixedVariant` are
+  /// set to 92, 6, 84, 12 instead Material-3 designs specified 90, 10, 80, 30.
+  ///
+  /// This gives us an alternative set of fixed colors with more contrast.
+  ///
+  /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
+  /// order in which they are applied matters. The last one applied will be
+  /// the one that is used.
+  FlexTones higherContrastFixed([bool useHigherContrast = true]) {
+    // ignore: avoid_returning_this
+    if (!useHigherContrast) return this;
+    return copyWith(
+      primaryFixedTone: 92,
+      primaryFixedDimTone: 84,
+      onPrimaryFixedTone: 6,
+      onPrimaryFixedVariantTone: 12,
+      //
+      secondaryFixedTone: 92,
+      secondaryFixedDimTone: 84,
+      onSecondaryFixedTone: 6,
+      onSecondaryFixedVariantTone: 12,
+      //
+      tertiaryFixedTone: 92,
+      tertiaryFixedDimTone: 84,
+      onTertiaryFixedTone: 6,
+      onTertiaryFixedVariantTone: 12,
     );
   }
 

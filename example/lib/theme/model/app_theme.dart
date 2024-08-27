@@ -50,6 +50,7 @@ class AppTheme {
           : controller.usedVariant
               .tones(Brightness.light)
               .monochromeSurfaces(controller.useMonoSurfaces)
+              .higherContrastFixed(controller.higherContrastFixedColors)
               .onMainsUseBW(controller.keepMainOnColorsBW)
               .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
               .surfacesUseBW(controller.keepLightSurfaceColorsWhite)
@@ -110,6 +111,7 @@ class AppTheme {
           : controller.usedVariant
               .tones(Brightness.dark)
               .monochromeSurfaces(controller.useMonoSurfaces)
+              .higherContrastFixed(controller.higherContrastFixedColors)
               .onMainsUseBW(controller.keepMainOnColorsBW)
               .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
               .surfacesUseBW(controller.keepDarkSurfaceColorsBlack)

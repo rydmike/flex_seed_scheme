@@ -27,7 +27,7 @@ on:
     paths-ignore:
       - "**.md"
   release:
-    branches: [none]
+    branches: [master]
     types: [published]
 
 jobs:

@@ -249,6 +249,7 @@ void main() {
           FlexTonalPalette.of(40, 55, FlexPaletteType.extended);
       // m3, is tonal palettes using TonalPalette.
       final TonalPalette m3 = TonalPalette.of(40, 55);
+      // print(m1.asList);
       // m4, is tonal palette from list
       final FlexTonalPalette m4 = FlexTonalPalette.fromList(const <int>[
         4278190080,
@@ -266,8 +267,11 @@ void main() {
         4288692500,
         4290795563,
         4292964674,
+        4294016333,
         4294937692,
+        4294943100,
         4294948249,
+        4294952367,
         4294955198,
         4294958030,
         4294959832,
@@ -296,8 +300,11 @@ void main() {
         4288692500,
         4290795563,
         4292964674,
+        4294016333,
         4294937692,
+        4294943100,
         4294948249,
+        4294952367,
         4294955198,
         4294958030,
         4294959832,
@@ -390,6 +397,9 @@ void main() {
               FlexTonalPalette.extendedTones[i] != 17 &&
               FlexTonalPalette.extendedTones[i] != 22 &&
               FlexTonalPalette.extendedTones[i] != 24 &&
+              FlexTonalPalette.extendedTones[i] != 65 &&
+              FlexTonalPalette.extendedTones[i] != 75 &&
+              FlexTonalPalette.extendedTones[i] != 84 &&
               FlexTonalPalette.extendedTones[i] != 87 &&
               FlexTonalPalette.extendedTones[i] != 92 &&
               FlexTonalPalette.extendedTones[i] != 94 &&
@@ -422,7 +432,7 @@ void main() {
           m4.toString(),
           equals(
               // ignore: lines_longer_than_80_chars
-              'FlexTonalPalette.fromList([4278190080, 4279567104, 4280354304, 4280616704, 4280879360, 4281798144, 4282257664, 4283373568, 4284095488, 4284555008, 4285014528, 4286524160, 4288692500, 4290795563, 4292964674, 4294937692, 4294948249, 4294955198, 4294958030, 4294959832, 4294961634, 4294962663, 4294963692, 4294964465, 4294965494, 4294966271, 4294967295], FlexPaletteType.extended)'),
+              'FlexTonalPalette.fromList([4278190080, 4279567104, 4280354304, 4280616704, 4280879360, 4281798144, 4282257664, 4283373568, 4284095488, 4284555008, 4285014528, 4286524160, 4288692500, 4290795563, 4292964674, 4294016333, 4294937692, 4294943100, 4294948249, 4294952367, 4294955198, 4294958030, 4294959832, 4294961634, 4294962663, 4294963692, 4294964465, 4294965494, 4294966271, 4294967295], FlexPaletteType.extended)'),
         );
       });
       test(
@@ -444,8 +454,11 @@ void main() {
           4288692500,
           4290795563,
           4292964674,
+          4294016333,
           4294937692,
+          4294943100,
           4294948249,
+          4294952367,
           4294955198,
           4294958030,
           4294959832,
@@ -483,8 +496,11 @@ void main() {
           4288692500,
           4290795563,
           4292964674,
+          4294016333,
           4294937692,
+          4294943100,
           4294948249,
+          4294952367,
           4294955198,
           4294958030,
           4294959832,
