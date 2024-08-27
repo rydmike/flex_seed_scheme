@@ -2,6 +2,20 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.2.0
+
+**Aug 27, 2024**
+
+
+**CHANGE**
+  
+* The `FlexPaletteType.extended` tones got three new tones, tones 65, 75 and 84. It now has 30 tones.
+  
+**NEW**
+
+* The `tones` configuration class `FlexTones` got a new modifier, `higherContrastFixed()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for the fixed colors `fixed`, `onFixed`, `fixedDim` and `onFixedVariant` are set to **92, 6, 84 and 12** instead of their Material-3 specification tones **90, 10, 80 and 30**. This for an alternative set of fixed colors with more contrast.
+
+
 ## 3.1.2
 
 **July 23, 2024**
