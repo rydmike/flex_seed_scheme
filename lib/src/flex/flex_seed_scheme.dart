@@ -635,10 +635,23 @@ extension SeedColorScheme on ColorScheme {
     /// From Material Design guideline, the normal, medium and high contrast
     /// options correspond to 0.0, 0.5 and 1.0 respectively.
     ///
-    /// The contrast level property is only used when seed generating the
-    /// [ColorScheme] based on [variant]. When using [tones] the [contrastLevel]
-    /// is ignored. With [tones] contrast level can be set as desired using
-    /// custom [FlexTones] configurations. There are two
+    /// The [contrastLevel] property is only used when seed generating a
+    /// [ColorScheme] based on [FlexSeedScheme]'s [SeedColorScheme.fromSeeds]
+    /// when a scheme [variant] is used where its [FlexSchemeVariant.value],
+    /// [isFlutterScheme] it set to true. This corresponds to all the
+    /// [DynamicSchemeVariant]s in Flutter SDK.
+    ///
+    /// This [contrastLevel] is the same as the Flutter [contrastLevel] property
+    /// available in [ColorScheme.fromSeed]. As of 1.9.2024 still only available
+    /// in the master channel. It will land in next Flutter stable released
+    /// after Flutter 3.24.
+    ///
+    /// When using [tones] based seed generated schemes or [variant] is having
+    /// its [FlexSchemeVariant.value], [isFlutterScheme] it set to false,
+    /// the [contrastLevel] value is ignored.
+    ///
+    /// With [tones] based schemes, the contrast level can instead be set as
+    /// desired using custom [FlexTones] configurations. There are two
     /// predefined higher contrast level tone mappings available as
     /// [FlexTones.highContrast] and [FlexTones.ultraContrast], you can use them
     /// as they are or as examples on how to create your own custom high
