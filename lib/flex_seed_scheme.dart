@@ -49,17 +49,21 @@ export 'src/flex/flex_tonal_palette.dart';
 /// generating the tonal palettes.
 export 'src/flex/flex_tones.dart';
 
-/// From internal version of Material Color Utilities (MCU) export and show:
+/// From internal forked version of Material Color Utilities (MCU) export
+/// and show:
 ///
 /// * Blend
 /// * Cam16
 /// * CorePalette
+/// * DynamicColor
 /// * DynamicScheme
 /// * Hct
+/// * MaterialDynamicColors
+/// * Scheme
 /// * TonalPalette
 /// * ViewingConditions
 ///
-/// More APIs from MCU can be exported if needed, let us know if needed.
+/// More APIs from forked MCU can be exported if needed, let us know if needed.
 /// The ones exported here are the ones used by FlexSeedScheme, its example
 /// FlexColorPicker and FlexColorScheme and its example, like the example 5
 /// the Themes Playground.
@@ -68,7 +72,10 @@ export 'src/mcu/material_color_utilities.dart'
         Blend,
         Cam16,
         CorePalette,
+        DynamicColor,
         DynamicScheme,
         Hct,
+        MaterialDynamicColors,
+        Scheme,
         TonalPalette,
         ViewingConditions;

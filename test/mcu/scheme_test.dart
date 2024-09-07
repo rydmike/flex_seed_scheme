@@ -95,7 +95,7 @@ void main() {
     expect(scheme.error, isColor(0xffffb4ab));
     expect(scheme.onError, isColor(0xff690005));
     expect(scheme.errorContainer, isColor(0xff93000a));
-    expect(scheme.onErrorContainer, isColor(0xffffb4ab));
+    expect(scheme.onErrorContainer, isColor(0xffffdad6));
     expect(scheme.background, isColor(0xff1f1a1d));
     expect(scheme.onBackground, isColor(0xffeae0e4));
     expect(scheme.surface, isColor(0xff1f1a1d));
@@ -161,7 +161,7 @@ void main() {
     expect(scheme.error, isColor(0xffffb4ab));
     expect(scheme.onError, isColor(0xff690005));
     expect(scheme.errorContainer, isColor(0xff93000a));
-    expect(scheme.onErrorContainer, isColor(0xffffb4ab));
+    expect(scheme.onErrorContainer, isColor(0xffffdad6));
     expect(scheme.background, isColor(0xff1f1a1d));
     expect(scheme.onBackground, isColor(0xffeae0e4));
     expect(scheme.surface, isColor(0xff1f1a1d));

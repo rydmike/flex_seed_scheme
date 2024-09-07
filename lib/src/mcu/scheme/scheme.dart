@@ -18,12 +18,31 @@
 
 import '../material_color_utilities.dart';
 
-/// Prefer [ColorScheme]. This class is the same concept as Flutter's
-/// ColorScheme class, inlined to ensure parity across languages.
-@Deprecated('The `Scheme` class is deprecated in favor of `DynamicScheme`.\n'
-    'Please see '
-    'https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md'
-    'for migration guidance.')
+/// This class is the same concept as Flutter's ColorScheme class.
+///
+/// In standard MCU the [Scheme] class is deprecated in favor of newer and more
+/// complex [DynamicScheme]. Please see
+/// https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md
+/// for migration guidance.
+///
+/// In FlexSeedScheme we keep [Scheme] available and it can be used for legacy
+/// [ColorScheme] generation if so needed. Internally FlexSeedScheme does not
+/// use it fr legacy scheme. It uses its own FlexTones based legacy version to
+/// make a ColorScheme that can be equal to this [Scheme] based one.
+///
+/// In the resurrection of this legacy Scheme version, we also added all the
+/// new fixed, fixedDim and their on colors and all the new surface colors that
+/// did not exist in the original Scheme class. This is to make it more
+/// compatible with the new [ColorScheme] in Flutter 3.22.0 and later.
+///
+/// In the resurrection the dark mode [onErrorContainer] was also corrected to
+/// use tone (90) instead of the wrong tone (80), that was used in the original
+/// [Scheme] class.
+///
+/// The [Scheme] tones of course keeps the original legacy tones for surface
+/// and background and does not change to the new tones used in Flutter 3.22.0
+/// and later. This in order to offer the legacy [Scheme] color tones as it
+/// was in the original older MCU and before Flutter 3.22.0.
 class Scheme {
   /// primary color as int.
   final int primary;
@@ -37,6 +56,18 @@ class Scheme {
   /// onPrimaryContainer color as int.
   final int onPrimaryContainer;
 
+  /// primaryFixed color as int.
+  final int primaryFixed;
+
+  /// primaryFixedDim color as int.
+  final int primaryFixedDim;
+
+  /// onPrimaryFixed color as int.
+  final int onPrimaryFixed;
+
+  /// onPrimaryFixedVariant color as int.
+  final int onPrimaryFixedVariant;
+
   /// secondary color as int.
   final int secondary;
 
@@ -49,6 +80,18 @@ class Scheme {
   /// onSecondaryContainer color as int.
   final int onSecondaryContainer;
 
+  /// secondaryFixed color as int.
+  final int secondaryFixed;
+
+  /// secondaryFixedDim color as int.
+  final int secondaryFixedDim;
+
+  /// onSecondaryFixed color as int.
+  final int onSecondaryFixed;
+
+  /// onSecondaryFixedVariant color as int.
+  final int onSecondaryFixedVariant;
+
   /// tertiary color as int.
   final int tertiary;
 
@@ -60,6 +103,18 @@ class Scheme {
 
   /// onTertiaryContainer color as int.
   final int onTertiaryContainer;
+
+  /// tertiaryFixed color as int.
+  final int tertiaryFixed;
+
+  /// tertiaryFixedDim color as int.
+  final int tertiaryFixedDim;
+
+  /// onTertiaryFixed color as int.
+  final int onTertiaryFixed;
+
+  /// onTertiaryFixedVariant color as int.
+  final int onTertiaryFixedVariant;
 
   /// error color as int.
   final int error;
@@ -81,6 +136,27 @@ class Scheme {
 
   /// surface color as int.
   final int surface;
+
+  /// surfaceDim color as int.
+  final int surfaceDim;
+
+  /// surfaceBright color as int.
+  final int surfaceBright;
+
+  /// surfaceContainerLowest color as int.
+  final int surfaceContainerLowest;
+
+  /// surfaceContainerLow color as int.
+  final int surfaceContainerLow;
+
+  /// surfaceContainer color as int.
+  final int surfaceContainer;
+
+  /// surfaceContainerHigh color as int.
+  final int surfaceContainerHigh;
+
+  /// surfaceContainerHighest color as int.
+  final int surfaceContainerHighest;
 
   /// onSurface color as int.
   final int onSurface;
@@ -113,23 +189,31 @@ class Scheme {
   final int inversePrimary;
 
   /// Default Scheme constructor.
-  @Deprecated('The `Scheme` class is deprecated in favor of `DynamicScheme`.\n'
-      'Please see '
-      'https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md'
-      'for migration guidance.')
   const Scheme({
     required this.primary,
     required this.onPrimary,
     required this.primaryContainer,
     required this.onPrimaryContainer,
+    required this.primaryFixed,
+    required this.primaryFixedDim,
+    required this.onPrimaryFixed,
+    required this.onPrimaryFixedVariant,
     required this.secondary,
     required this.onSecondary,
     required this.secondaryContainer,
     required this.onSecondaryContainer,
+    required this.secondaryFixed,
+    required this.secondaryFixedDim,
+    required this.onSecondaryFixed,
+    required this.onSecondaryFixedVariant,
     required this.tertiary,
     required this.onTertiary,
     required this.tertiaryContainer,
     required this.onTertiaryContainer,
+    required this.tertiaryFixed,
+    required this.tertiaryFixedDim,
+    required this.onTertiaryFixed,
+    required this.onTertiaryFixedVariant,
     required this.error,
     required this.onError,
     required this.errorContainer,
@@ -137,6 +221,13 @@ class Scheme {
     required this.background,
     required this.onBackground,
     required this.surface,
+    required this.surfaceDim,
+    required this.surfaceBright,
+    required this.surfaceContainerLowest,
+    required this.surfaceContainerLow,
+    required this.surfaceContainer,
+    required this.surfaceContainerHigh,
+    required this.surfaceContainerHighest,
     required this.onSurface,
     required this.surfaceVariant,
     required this.onSurfaceVariant,
@@ -169,24 +260,51 @@ class Scheme {
         onPrimary: palette.primary.get(100),
         primaryContainer: palette.primary.get(90),
         onPrimaryContainer: palette.primary.get(10),
+        primaryFixed: palette.primary.get(90),
+        primaryFixedDim: palette.primary.get(80),
+        onPrimaryFixed: palette.primary.get(10),
+        onPrimaryFixedVariant: palette.primary.get(30),
+        //
         secondary: palette.secondary.get(40),
         onSecondary: palette.secondary.get(100),
         secondaryContainer: palette.secondary.get(90),
         onSecondaryContainer: palette.secondary.get(10),
+        secondaryFixed: palette.secondary.get(90),
+        secondaryFixedDim: palette.secondary.get(80),
+        onSecondaryFixed: palette.secondary.get(10),
+        onSecondaryFixedVariant: palette.secondary.get(30),
+        //
         tertiary: palette.tertiary.get(40),
         onTertiary: palette.tertiary.get(100),
         tertiaryContainer: palette.tertiary.get(90),
         onTertiaryContainer: palette.tertiary.get(10),
+        tertiaryFixed: palette.tertiary.get(90),
+        tertiaryFixedDim: palette.tertiary.get(80),
+        onTertiaryFixed: palette.tertiary.get(10),
+        onTertiaryFixedVariant: palette.tertiary.get(30),
+        //
         error: palette.error.get(40),
         onError: palette.error.get(100),
         errorContainer: palette.error.get(90),
         onErrorContainer: palette.error.get(10),
+        //
         background: palette.neutral.get(99),
         onBackground: palette.neutral.get(10),
+        //
+        // Since this is legacy compatible it continues to use tone 99 here
         surface: palette.neutral.get(99),
+        surfaceDim: palette.neutral.get(87),
+        surfaceBright: palette.neutral.get(98),
+        surfaceContainerLowest: palette.neutral.get(100),
+        surfaceContainerLow: palette.neutral.get(96),
+        surfaceContainer: palette.neutral.get(94),
+        surfaceContainerHigh: palette.neutral.get(92),
+        surfaceContainerHighest: palette.neutral.get(90),
+        //
         onSurface: palette.neutral.get(10),
         surfaceVariant: palette.neutralVariant.get(90),
         onSurfaceVariant: palette.neutralVariant.get(30),
+        //
         outline: palette.neutralVariant.get(50),
         outlineVariant: palette.neutralVariant.get(80),
         shadow: palette.neutral.get(0),
@@ -202,28 +320,55 @@ class Scheme {
         onPrimary: palette.primary.get(20),
         primaryContainer: palette.primary.get(30),
         onPrimaryContainer: palette.primary.get(90),
+        primaryFixed: palette.primary.get(90),
+        primaryFixedDim: palette.primary.get(80),
+        onPrimaryFixed: palette.primary.get(10),
+        onPrimaryFixedVariant: palette.primary.get(30),
+        //
         secondary: palette.secondary.get(80),
         onSecondary: palette.secondary.get(20),
         secondaryContainer: palette.secondary.get(30),
         onSecondaryContainer: palette.secondary.get(90),
+        secondaryFixed: palette.secondary.get(90),
+        secondaryFixedDim: palette.secondary.get(80),
+        onSecondaryFixed: palette.secondary.get(10),
+        onSecondaryFixedVariant: palette.secondary.get(30),
+        //
         tertiary: palette.tertiary.get(80),
         onTertiary: palette.tertiary.get(20),
         tertiaryContainer: palette.tertiary.get(30),
         onTertiaryContainer: palette.tertiary.get(90),
+        tertiaryFixed: palette.tertiary.get(90),
+        tertiaryFixedDim: palette.tertiary.get(80),
+        onTertiaryFixed: palette.tertiary.get(10),
+        onTertiaryFixedVariant: palette.tertiary.get(30),
+        //
         error: palette.error.get(80),
         onError: palette.error.get(20),
         errorContainer: palette.error.get(30),
-        // TODO(rydmike): This tone is wrong, based on both past and current
-        //  spec it should be tone 90. MCU has always used the wrong tone here.
-        //  whereas FSS has used the one from the spec. We will skip this color
-        //  in the legacy test due to the error in the legacy Scheme.
-        onErrorContainer: palette.error.get(80),
+        // The tone in orig MCU is wrong, based on both past
+        // and current it should be tone 90. MCU has always used the wrong
+        // tone 80 here whereas FSS has used the one from the spec. We modified
+        // this tone in the rescued Scheme to match the spec and use 90.
+        onErrorContainer: palette.error.get(90),
+        //
         background: palette.neutral.get(10),
         onBackground: palette.neutral.get(90),
+        //
+        // Since this is legacy compatible it continues to use tone 10 here
         surface: palette.neutral.get(10),
+        surfaceDim: palette.neutral.get(6),
+        surfaceBright: palette.neutral.get(24),
+        surfaceContainerLowest: palette.neutral.get(4),
+        surfaceContainerLow: palette.neutral.get(10),
+        surfaceContainer: palette.neutral.get(12),
+        surfaceContainerHigh: palette.neutral.get(17),
+        surfaceContainerHighest: palette.neutral.get(22),
+        //
         onSurface: palette.neutral.get(90),
         surfaceVariant: palette.neutralVariant.get(30),
         onSurfaceVariant: palette.neutralVariant.get(80),
+        //
         outline: palette.neutralVariant.get(60),
         outlineVariant: palette.neutralVariant.get(30),
         shadow: palette.neutral.get(0),

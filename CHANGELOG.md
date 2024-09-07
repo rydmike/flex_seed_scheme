@@ -2,6 +2,18 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.3.0
+
+**Sep 7, 2024**
+
+**NEW**
+
+* Exposed `DynamicColor`, `MaterialDynamicColors` and `Scheme` from the underlying forked Material Color Utilities (MCU) library.
+* Undeprecated `Scheme`, that original MCU deprecated. It does not conflict with the new `DynamicSchemes` that replaced it, thus in the internal MCU fork, we do not need to deprecate it and can offer it for legacy access to old `ColorScheme.fromSeed` scheme result in use before Flutter 3.22.0. 
+  * Internally FlexSeedScheme does not use `Scheme` for its own legacy version of the same scheme, it uses its FlexTones based setup instead, but produces the same color values. We still recommend using its tones `FlexTones.material3Legacy` version instead of `Scheme` for a legacy Material-3 seed generated `ColorScheme`. 
+  * This API is provided for legacy access to the old MCU `Scheme` style and API, that was used in Flutter 3.19.0 and earlier in its `ColorScheme.fromSeed` constructor back then. If you want to recreate its exact older internal API algorithm, you can now do so using `Scheme` that it used to use before Flutter 3.22.0.
+  * This revived `Scheme` class was also complemented with the new `ColorScheme` colors added in Flutter 3.22.0, but it uses legacy Flutter 3.19 and earlier tone mappings for all colors that existed then. Except for dark mode `onErrorContainer` that it corrected from 80 to 90. It was always a bug in Flutter version 3.19 and earlier that tone 80 was used.
+
 ## 3.2.0
 
 **Aug 27, 2024**

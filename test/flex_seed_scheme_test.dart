@@ -1,6 +1,4 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flex_seed_scheme/src/mcu/dynamiccolor/material_dynamic_colors.dart';
-import 'package:flex_seed_scheme/src/mcu/scheme/scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,6 +25,12 @@ void main() {
         seedColor: primarySeedColor,
       );
 
+      // TODO(rydmike): Remove surfaceVariant from test when Flutter removes it.
+      // We have to copy the surfaceVariant from the Flutter scheme to the
+      // SeedColorScheme as it is not part of colors it makes anymore since it
+      // is deprecated in the Flutter ColorScheme class, but Flutter
+      // ColorScheme.fromSeed still uses it, even though it is deprecated in
+      // the Flutter ColorScheme class.
       final ColorScheme flex = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
@@ -44,6 +48,12 @@ void main() {
         brightness: Brightness.dark,
         seedColor: primarySeedColor,
       );
+      // TODO(rydmike): Remove surfaceVariant from test when Flutter removes it.
+      // We have to copy the surfaceVariant from the Flutter scheme to the
+      // SeedColorScheme as it is not part of colors it makes anymore since it
+      // is deprecated in the Flutter ColorScheme class, but Flutter
+      // ColorScheme.fromSeed still uses it, even though it is deprecated in
+      // the Flutter ColorScheme class.
       final ColorScheme flex = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
         primaryKey: primarySeedColor,
@@ -1300,16 +1310,31 @@ void main() {
       expect(scheme.onPrimary, Color(scheme2.onPrimary));
       expect(scheme.primaryContainer, Color(scheme2.primaryContainer));
       expect(scheme.onPrimaryContainer, Color(scheme2.onPrimaryContainer));
+      expect(scheme.primaryFixed, Color(scheme2.primaryFixed));
+      expect(scheme.primaryFixedDim, Color(scheme2.primaryFixedDim));
+      expect(scheme.onPrimaryFixed, Color(scheme2.onPrimaryFixed));
+      expect(
+          scheme.onPrimaryFixedVariant, Color(scheme2.onPrimaryFixedVariant));
       //
       expect(scheme.secondary, Color(scheme2.secondary));
       expect(scheme.onSecondary, Color(scheme2.onSecondary));
       expect(scheme.secondaryContainer, Color(scheme2.secondaryContainer));
       expect(scheme.onSecondaryContainer, Color(scheme2.onSecondaryContainer));
+      expect(scheme.secondaryFixed, Color(scheme2.secondaryFixed));
+      expect(scheme.secondaryFixedDim, Color(scheme2.secondaryFixedDim));
+      expect(scheme.onSecondaryFixed, Color(scheme2.onSecondaryFixed));
+      expect(scheme.onSecondaryFixedVariant,
+          Color(scheme2.onSecondaryFixedVariant));
       //
       expect(scheme.tertiary, Color(scheme2.tertiary));
       expect(scheme.onTertiary, Color(scheme2.onTertiary));
       expect(scheme.tertiaryContainer, Color(scheme2.tertiaryContainer));
       expect(scheme.onTertiaryContainer, Color(scheme2.onTertiaryContainer));
+      expect(scheme.tertiaryFixed, Color(scheme2.tertiaryFixed));
+      expect(scheme.tertiaryFixedDim, Color(scheme2.tertiaryFixedDim));
+      expect(scheme.onTertiaryFixed, Color(scheme2.onTertiaryFixed));
+      expect(
+          scheme.onTertiaryFixedVariant, Color(scheme2.onTertiaryFixedVariant));
       //
       expect(scheme.error, Color(scheme2.error));
       expect(scheme.onError, Color(scheme2.onError));
@@ -1320,6 +1345,16 @@ void main() {
       expect(scheme.outlineVariant, Color(scheme2.outlineVariant));
       //
       expect(scheme.surface, Color(scheme2.surface));
+      expect(scheme.surfaceDim, Color(scheme2.surfaceDim));
+      expect(scheme.surfaceBright, Color(scheme2.surfaceBright));
+      expect(
+          scheme.surfaceContainerLowest, Color(scheme2.surfaceContainerLowest));
+      expect(scheme.surfaceContainerLow, Color(scheme2.surfaceContainerLow));
+      expect(scheme.surfaceContainer, Color(scheme2.surfaceContainer));
+      expect(scheme.surfaceContainerHigh, Color(scheme2.surfaceContainerHigh));
+      expect(scheme.surfaceContainerHighest,
+          Color(scheme2.surfaceContainerHighest));
+      //
       expect(scheme.onSurface, Color(scheme2.onSurface));
       expect(scheme.onSurfaceVariant, Color(scheme2.onSurfaceVariant));
       expect(scheme.inverseSurface, Color(scheme2.inverseSurface));
@@ -1350,31 +1385,56 @@ void main() {
       expect(scheme.onPrimary, Color(scheme2.onPrimary));
       expect(scheme.primaryContainer, Color(scheme2.primaryContainer));
       expect(scheme.onPrimaryContainer, Color(scheme2.onPrimaryContainer));
+      expect(scheme.primaryFixed, Color(scheme2.primaryFixed));
+      expect(scheme.primaryFixedDim, Color(scheme2.primaryFixedDim));
+      expect(scheme.onPrimaryFixed, Color(scheme2.onPrimaryFixed));
+      expect(
+          scheme.onPrimaryFixedVariant, Color(scheme2.onPrimaryFixedVariant));
       //
       expect(scheme.secondary, Color(scheme2.secondary));
       expect(scheme.onSecondary, Color(scheme2.onSecondary));
       expect(scheme.secondaryContainer, Color(scheme2.secondaryContainer));
       expect(scheme.onSecondaryContainer, Color(scheme2.onSecondaryContainer));
+      expect(scheme.secondaryFixed, Color(scheme2.secondaryFixed));
+      expect(scheme.secondaryFixedDim, Color(scheme2.secondaryFixedDim));
+      expect(scheme.onSecondaryFixed, Color(scheme2.onSecondaryFixed));
+      expect(scheme.onSecondaryFixedVariant,
+          Color(scheme2.onSecondaryFixedVariant));
       //
       expect(scheme.tertiary, Color(scheme2.tertiary));
       expect(scheme.onTertiary, Color(scheme2.onTertiary));
       expect(scheme.tertiaryContainer, Color(scheme2.tertiaryContainer));
       expect(scheme.onTertiaryContainer, Color(scheme2.onTertiaryContainer));
+      expect(scheme.tertiaryFixed, Color(scheme2.tertiaryFixed));
+      expect(scheme.tertiaryFixedDim, Color(scheme2.tertiaryFixedDim));
+      expect(scheme.onTertiaryFixed, Color(scheme2.onTertiaryFixed));
+      expect(
+          scheme.onTertiaryFixedVariant, Color(scheme2.onTertiaryFixedVariant));
       //
       expect(scheme.error, Color(scheme2.error));
       expect(scheme.onError, Color(scheme2.onError));
       expect(scheme.errorContainer, Color(scheme2.errorContainer));
-      // TODO(rydmike): We are skipping this color in the test. MCU has always
-      //  used the wrong tone here. Whereas FSS has used the one from the spec.
-      //  It it should be tone 90, MCU uses 80, which is wrong. Even way back
-      //  machine on web shows that it was always 90, at least for a few years
-      //  back.
-      // expect(scheme.onErrorContainer, Color(scheme2.onErrorContainer));
+      // We can now test this color since we fixed it. MCU has always
+      // used the wrong tone here. Whereas FSS has used the one from the spec.
+      // It it should be tone 90, original MCU uses 80, which is wrong. Even
+      // way back machine on web shows that it was always 90, at least
+      // for a few years back. We corrected it in FSS resurrected Scheme.
+      expect(scheme.onErrorContainer, Color(scheme2.onErrorContainer));
       //
       expect(scheme.outline, Color(scheme2.outline));
       expect(scheme.outlineVariant, Color(scheme2.outlineVariant));
       //
       expect(scheme.surface, Color(scheme2.surface));
+      expect(scheme.surfaceDim, Color(scheme2.surfaceDim));
+      expect(scheme.surfaceBright, Color(scheme2.surfaceBright));
+      expect(
+          scheme.surfaceContainerLowest, Color(scheme2.surfaceContainerLowest));
+      expect(scheme.surfaceContainerLow, Color(scheme2.surfaceContainerLow));
+      expect(scheme.surfaceContainer, Color(scheme2.surfaceContainer));
+      expect(scheme.surfaceContainerHigh, Color(scheme2.surfaceContainerHigh));
+      expect(scheme.surfaceContainerHighest,
+          Color(scheme2.surfaceContainerHighest));
+      //
       expect(scheme.onSurface, Color(scheme2.onSurface));
       expect(scheme.onSurfaceVariant, Color(scheme2.onSurfaceVariant));
       expect(scheme.inverseSurface, Color(scheme2.inverseSurface));

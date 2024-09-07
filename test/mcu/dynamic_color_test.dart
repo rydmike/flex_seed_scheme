@@ -460,7 +460,7 @@ void main() {
           isDark: false,
           contrastLevel: -1.0);
 
-      // TODO(rydmike): Figure out missing testcases for DynamicColor
+      // TODO(rydmike): Maybe add more test cases for DynamicColor
       final DynamicColor dScheme = DynamicColor(
         name: 'name',
         palette: (DynamicScheme s) => TonalPalette.of(55, 55),
