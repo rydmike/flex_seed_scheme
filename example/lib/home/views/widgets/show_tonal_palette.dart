@@ -104,6 +104,7 @@ class ShowTonalPalette extends StatelessWidget {
         neutralChroma: controller.useMonoSurfaces ? 0 : tones.neutralChroma,
         neutralVariantChroma:
             controller.useMonoSurfaces ? 0 : tones.neutralVariantChroma,
+        respectMonochromeSeed: controller.respectMonochromeSeed,
         paletteType: paletteType,
       );
       // Assign the tonals for the schemes to the int lists.
