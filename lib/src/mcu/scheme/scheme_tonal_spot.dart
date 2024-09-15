@@ -33,24 +33,38 @@ class SchemeTonalSpot extends DynamicScheme {
     Hct? neutralSourceColorHct,
     Hct? neutralVariantSourceColorHct,
     Hct? errorSourceColorHct,
+    bool respectMonochromeSeed = false,
+    bool isPrimaryMonochrome = false,
+    bool isSecondaryMonochrome = false,
+    bool isTertiaryMonochrome = false,
+    bool isNeutralMonochrome = false,
+    bool isNeutralVariantMonochrome = false,
+    bool isErrorMonochrome = false,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.tonalSpot,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue, 36.0),
+          primaryPalette: TonalPalette.of(sourceColorHct.hue,
+              respectMonochromeSeed && isPrimaryMonochrome ? 0 : 36.0),
           secondaryPalette: TonalPalette.of(
-              secondarySourceColorHct?.hue ?? sourceColorHct.hue, 16.0),
+              secondarySourceColorHct?.hue ?? sourceColorHct.hue,
+              respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16),
           tertiaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(
                 tertiarySourceColorHct?.hue ?? (sourceColorHct.hue + 60.0)),
-            24.0,
+            respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
           ),
           neutralPalette: TonalPalette.of(
-              neutralSourceColorHct?.hue ?? sourceColorHct.hue, 6.0),
+              neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+              respectMonochromeSeed && isNeutralMonochrome ? 0 : 6),
           neutralVariantPalette: TonalPalette.of(
-              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue, 8.0),
+              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+              respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 8.0),
           customErrorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
+                  errorSourceColorHct.hue,
+                  respectMonochromeSeed && isErrorMonochrome
+                      ? 0
+                      : errorSourceColorHct.chroma),
         );
 }

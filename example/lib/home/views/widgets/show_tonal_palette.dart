@@ -1,6 +1,7 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/effective_flex_tones.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import 'select_palette_type.dart';
 import 'tonal_palette_colors.dart';
@@ -18,7 +19,7 @@ class ShowTonalPalette extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final Brightness brightness = theme.brightness;
     // Get the FlexTones setup
-    final FlexTones tones = controller.usedVariant.tones(brightness);
+    final FlexTones tones = effectiveFlexTones(controller, context);
     // Type of palette to show.
     final FlexPaletteType paletteType = controller.paletteType;
 
@@ -49,6 +50,7 @@ class ShowTonalPalette extends StatelessWidget {
         variant: controller.usedVariant,
         contrastLevel: controller.contrastLevel,
         useExpressiveOnContainerColors: controller.useExpressiveOn,
+        respectMonochromeSeed: controller.respectMonochromeSeed,
       );
 
       // Assign the tonals for the schemes to the int lists using tone indexes

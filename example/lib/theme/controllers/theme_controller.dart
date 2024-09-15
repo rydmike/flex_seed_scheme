@@ -197,6 +197,15 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  bool _respectMonochromeSeed = false;
+  bool get respectMonochromeSeed => _respectMonochromeSeed;
+  void setRespectMonochromeSeed(bool? value, [bool notify = true]) {
+    if (value == null) return;
+    if (value == _respectMonochromeSeed) return;
+    _respectMonochromeSeed = value;
+    if (notify) notifyListeners();
+  }
+
   Color _primarySeedColor = AppColor.primary;
   Color get primarySeedColor => _primarySeedColor;
   void setPrimarySeedColor(Color? value, [bool notify = true]) {

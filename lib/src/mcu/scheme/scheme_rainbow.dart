@@ -35,6 +35,13 @@ class SchemeRainbow extends DynamicScheme {
     Hct? neutralSourceColorHct,
     Hct? neutralVariantSourceColorHct,
     Hct? errorSourceColorHct,
+    bool respectMonochromeSeed = false,
+    bool isPrimaryMonochrome = false,
+    bool isSecondaryMonochrome = false,
+    bool isTertiaryMonochrome = false,
+    bool isNeutralMonochrome = false,
+    bool isNeutralVariantMonochrome = false,
+    bool isErrorMonochrome = false,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.rainbow,

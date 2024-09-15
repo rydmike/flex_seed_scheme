@@ -22,6 +22,7 @@ class SwitchListTileReveal extends StatefulWidget {
     this.dense,
     this.revealDense,
     this.enabled = true,
+    this.allowRevealWhenDisabled = false,
     this.isOpen,
     this.duration = const Duration(milliseconds: 200),
   });
@@ -67,7 +68,9 @@ class SwitchListTileReveal extends StatefulWidget {
   /// Insets a [SwitchListTileReveal]'s contents: its [title],
   /// [subtitleReveal] widgets.
   ///
-  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  ///
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used in M2
+  /// and `EdgeInsetsDirectional.only(start: 16.0, end: 24.0)` in M3.
   final EdgeInsetsGeometry? contentPadding;
 
   /// Called when the user taps this list tile.
@@ -75,8 +78,11 @@ class SwitchListTileReveal extends StatefulWidget {
   /// Inoperative if [enabled] is false.
   final GestureTapCallback? onTap;
 
-  /// Whether this list tile and card operation is interactive.
+  /// Whether this list tile is interactive.
   final bool enabled;
+
+  /// Allow reveal action even when the list tile is disabled.
+  final bool allowRevealWhenDisabled;
 
   /// Whether this list tile is part of a vertically dense list.
   ///
@@ -131,20 +137,27 @@ class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
         SwitchListTile(
           dense: widget.dense,
           contentPadding: widget.contentPadding,
-          value: widget.value,
+          value: widget.value && widget.enabled,
           onChanged: widget.enabled ? widget.onChanged : null,
           title: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: <Widget>[
               if (widget.title != null) widget.title!,
-              if (widget.subtitleReveal != null && widget.enabled)
-                IconButton(
-                  iconSize: 20,
-                  // ignore: avoid_bool_literals_in_conditional_expressions
-                  isSelected: widget.enabled ? _isOpen : false,
-                  icon: const Icon(Icons.info_outlined),
-                  selectedIcon: const Icon(Icons.info),
-                  onPressed: widget.enabled ? _handleTap : null,
+              if (widget.subtitleReveal != null &&
+                  (widget.enabled || widget.allowRevealWhenDisabled))
+                InkWell(
+                  onTap: widget.enabled || widget.allowRevealWhenDisabled
+                      ? _handleTap
+                      : null,
+                  borderRadius: BorderRadius.circular(28),
+                  child: SizedBox(
+                    width: 28,
+                    height: 28,
+                    child: Icon(
+                      _isOpen ? Icons.info : Icons.info_outlined,
+                      size: 18,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -159,7 +172,9 @@ class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
               child: child,
             );
           },
-          child: (_isOpen && widget.subtitleReveal != null && widget.enabled)
+          child: (_isOpen &&
+                  widget.subtitleReveal != null &&
+                  (widget.enabled || widget.allowRevealWhenDisabled))
               ? ListTile(
                   dense: widget.revealDense ?? true,
                   subtitle: widget.subtitleReveal,

@@ -502,8 +502,8 @@ class FlexCorePalette {
     /// the chroma is set to 0 to respect that it has no chroma
     /// so we get all greyscale tones.
     ///
-    /// If not set to true, we get a "red" tonal palette for all monochrome seed
-    /// colors except for white, which gives a "cyan" color palette.
+    /// If not set to true, we get a "cyan" tonal palette for monochrome and
+    /// white seed colors, while black, gives a "red" tonal palette.
     ///
     /// Defaults to `false` to keep the default behavior of the package and the
     /// Material-3 color system.
@@ -842,7 +842,7 @@ class FlexCorePalette {
         'error: $error\n';
   }
 
-  /// Returns true if the RGB color is monochrome.
+  /// Returns true if the RGB of [intColor] is monochrome.
   ///
   /// To be monochrome, the red, green, and blue values must be equal.
   static bool _isMonochrome(int intColor) {

@@ -4,7 +4,9 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.4.0
 
-**DRAFT NOT YET PUBLISHED - NEEDS TESTS**
+**DRAFT NOT YET PUBLISHED - NEEDS:**
+* Lots of new tests. No tests are broken, but coverage is down to 98% due to new not yet tested features.
+* Fix it so DynamicSchemeVariant works with `respectMonochromeSeed`. Concept done, see tonal spot.
 
 **Sep 15, 2024**
 
@@ -19,9 +21,9 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 * A new `bool` parameter, `respectMonochromeSeed`, in `SeedColorScheme.fromSeeds` can now be used to make generated schemes that respect a monochrome seed color as input. 
   * When set to `true`, any monochrome RGB input value will result in the creation of a greyscale tonal palette for the palette using the monochrome seed color. An RGB monochrome value is one where Red, Green and Blue values are all equal.
-  * Previously in FSS and in Material Color Utilities (MCU), and thus Flutter's default, using a monochrome seed value or total black, results in a tonal palette with red tones. A white input results in cyan like tones. This is not very intuitive and not really expected by most users for monochrome seed colors. 
-  * FSS still defaults to setting `respectMonochromeSeed` is set to `false`, to not break any existing code that relies on the old behavior. 
-  * Prefer using `respectMonochromeSeed` set to `true`, to get more logical seed results when using monochrome colors, white and black as seed colors. 
+  * Previously in FSS and in Material Color Utilities (MCU), and thus Flutter's default, using a monochrome seed value or white, results in a tonal palette with cyan color tones. A black input results in red like color tones. This is not very intuitive and not really expected by most users of monochrome seed colors. 
+  * FSS still defaults to setting `respectMonochromeSeed` to `false`, to not break any existing code that may rely on the old behavior. 
+  * Prefer using `respectMonochromeSeed` set to `true`, to get more logical seed results when using monochrome colors or white and black as seed colors. 
 
 ## 3.3.0
 

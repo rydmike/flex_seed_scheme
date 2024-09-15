@@ -167,6 +167,8 @@ class ShowcaseMaterial extends StatelessWidget {
         const SizedBox(height: 8),
         const SizedBox(height: 8),
         const TabBarForAppBarShowcase(explain: true),
+        const SizedBox(height: 16),
+        const TabBarScrollingForAppBarShowcase(),
         const SizedBox(height: 8),
         const TabBarForBackgroundShowcase(explain: true),
         const SizedBox(height: 16),
@@ -219,12 +221,14 @@ class ShowcaseMaterial extends StatelessWidget {
         //
         const Text('Card', style: headerStyle),
         const SizedBox(height: 8),
+        const CardTypesShowcase(showForcedOutlined: true),
         const CardShowcase(explain: true),
         const SizedBox(height: 16),
         //
         // Material
         //
         const Text('Material', style: headerStyle),
+
         const MaterialShowcase(explain: true),
         const SizedBox(height: 16),
         //
@@ -293,18 +297,27 @@ class ElevatedButtonShowcase extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Elevated button'),
+          SizedBox(
+            width: 116,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text('Elevated'),
+            ),
           ),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Elevated icon'),
+          SizedBox(
+            width: 110,
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text('Icon'),
+            ),
           ),
-          const ElevatedButton(
-            onPressed: null,
-            child: Text('Elevated button'),
+          const SizedBox(
+            width: 117,
+            child: ElevatedButton(
+              onPressed: null,
+              child: Text('Disabled'),
+            ),
           ),
         ],
       ),
@@ -323,18 +336,27 @@ class FilledButtonShowcase extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          FilledButton(
-            onPressed: () {},
-            child: const Text('Filled button'),
+          SizedBox(
+            width: 116,
+            child: FilledButton(
+              onPressed: () {},
+              child: const Text('Filled'),
+            ),
           ),
-          FilledButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Filled icon'),
+          SizedBox(
+            width: 110,
+            child: FilledButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text('Icon'),
+            ),
           ),
-          const FilledButton(
-            onPressed: null,
-            child: Text('Filled button'),
+          const SizedBox(
+            width: 117,
+            child: FilledButton(
+              onPressed: null,
+              child: Text('Disabled'),
+            ),
           ),
         ],
       ),
@@ -353,18 +375,27 @@ class FilledButtonTonalShowcase extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          FilledButton.tonal(
-            onPressed: () {},
-            child: const Text('Filled tonal button'),
+          SizedBox(
+            width: 116,
+            child: FilledButton.tonal(
+              onPressed: () {},
+              child: const Text('Tonal'),
+            ),
           ),
-          FilledButton.tonalIcon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Filled tonal icon'),
+          SizedBox(
+            width: 110,
+            child: FilledButton.tonalIcon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text('Icon'),
+            ),
           ),
-          const FilledButton.tonal(
-            onPressed: null,
-            child: Text('Filled tonal button'),
+          const SizedBox(
+            width: 117,
+            child: FilledButton.tonal(
+              onPressed: null,
+              child: Text('Disabled'),
+            ),
           ),
         ],
       ),
@@ -383,18 +414,27 @@ class OutlinedButtonShowcase extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text('Outlined button'),
+          SizedBox(
+            width: 116,
+            child: OutlinedButton(
+              onPressed: () {},
+              child: const Text('Outlined'),
+            ),
           ),
-          OutlinedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Outlined icon'),
+          SizedBox(
+            width: 110,
+            child: OutlinedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text('Icon'),
+            ),
           ),
-          const OutlinedButton(
-            onPressed: null,
-            child: Text('Outlined button'),
+          const SizedBox(
+            width: 117,
+            child: OutlinedButton(
+              onPressed: null,
+              child: Text('Disabled'),
+            ),
           ),
         ],
       ),
@@ -413,18 +453,27 @@ class TextButtonShowcase extends StatelessWidget {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          TextButton(
-            onPressed: () {},
-            child: const Text('Text button'),
+          SizedBox(
+            width: 116,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text('Text'),
+            ),
           ),
-          TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Text icon'),
+          SizedBox(
+            width: 110,
+            child: TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+              label: const Text('Icon'),
+            ),
           ),
-          const TextButton(
-            onPressed: null,
-            child: Text('Text button'),
+          const SizedBox(
+            width: 117,
+            child: TextButton(
+              onPressed: null,
+              child: Text('Disabled'),
+            ),
           ),
         ],
       ),
@@ -2432,6 +2481,9 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDefaultDecoration =
+        Theme.of(context).inputDecorationTheme == const InputDecorationTheme();
+
     return RepaintBoundary(
       child: Column(
         children: <Widget>[
@@ -2451,10 +2503,12 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
                   key: const Key('TextField1'),
                   controller: _plainFieldController,
                   decoration: InputDecoration(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
                     hintText: 'Write something...',
-                    labelText: 'Plain TextField',
+                    labelText: 'TextField',
                     errorText: _errorStatePlain
                         ? "Any entry without an 'a' will trigger this error"
                         : null,
@@ -2467,8 +2521,10 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
                   controller: TextEditingController(),
                   enabled: false,
                   decoration: InputDecoration(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
                     labelText: 'Disabled label',
                   ),
                 ),
@@ -2492,10 +2548,12 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
                   key: const Key('TextField2'),
                   controller: _withIconsController,
                   decoration: InputDecoration(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
                     hintText: 'Write something...',
-                    labelText: 'TextField with Icons',
+                    labelText: 'Icons',
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: const Icon(Icons.info),
                     errorText: _errorStateWithIcons
@@ -2507,12 +2565,13 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
               const SizedBox(width: 16),
               Expanded(
                 child: TextField(
-                  controller:
-                      TextEditingController(text: 'Disabled entered text'),
+                  controller: TextEditingController(text: 'Entry'),
                   enabled: false,
                   decoration: InputDecoration(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
                     labelText: 'Disabled label',
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: const Icon(Icons.info),
@@ -2529,9 +2588,11 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
                   key: const Key('TextField3'),
                   controller: _collapsedFieldController,
                   decoration: InputDecoration.collapsed(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
-                    hintText: 'Collapsed TextField',
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
+                    hintText: 'Collapsed',
                   ),
                 ),
               ),
@@ -2540,11 +2601,12 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
                 child: TextField(
                   key: const Key('TextField4'),
                   enabled: false,
-                  controller:
-                      TextEditingController(text: 'Disabled entered text'),
+                  controller: TextEditingController(text: 'Disabled entry'),
                   decoration: InputDecoration.collapsed(
-                    border: _forceOutlined ? const OutlineInputBorder() : null,
-                    filled: _forceFilled ? true : null,
+                    border: _forceOutlined && isDefaultDecoration
+                        ? const OutlineInputBorder()
+                        : null,
+                    filled: _forceFilled && isDefaultDecoration ? true : null,
                     hintText: 'Collapsed TextField',
                   ),
                 ),
@@ -2557,12 +2619,16 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
             children: <Widget>[
               Expanded(
                 child: SwitchListTileReveal(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                   dense: true,
-                  title: const Text('Force filled style'),
+                  title: const Text('Filled'),
                   subtitleReveal: const Text('This is not a theme toggle. It '
-                      'sets Decoration to fill on widget level. Use it to '
-                      'see the look of the Flutter default filled style when '
-                      'no theme is used.'),
+                      'sets the Decoration.filled to true on widget level. '
+                      "Use it to see Flutter's default filled style when "
+                      'no custom theme is used. This switch does nothing '
+                      'when a custom InputDecoration theme is active.'),
+                  enabled: isDefaultDecoration,
+                  allowRevealWhenDisabled: true,
                   value: _forceFilled,
                   onChanged: (bool value) {
                     setState(() {
@@ -2574,13 +2640,16 @@ class _TextFieldShowcaseState extends State<TextFieldShowcase> {
               const SizedBox(width: 16),
               Expanded(
                 child: SwitchListTileReveal(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                   dense: true,
-                  title: const Text('Force outlined style'),
+                  title: const Text('Outlined'),
                   subtitleReveal: const Text('This is not a theme toggle. It '
-                      'sets Decoration border to default OutlineInputBorder() '
-                      'on widget level. Use it to '
-                      'see the look of the Flutter default outlined style '
-                      'when no theme is used.'),
+                      'sets border to the default OutlineInputBorder() on '
+                      "widget level. Use it to see Flutter's default outlined "
+                      'style when no custom theme is used. This switch does '
+                      'nothing when a custom InputDecoration theme is active.'),
+                  enabled: isDefaultDecoration,
+                  allowRevealWhenDisabled: true,
                   value: _forceOutlined,
                   onChanged: (bool value) {
                     setState(() {
@@ -2914,8 +2983,14 @@ class TabBarForAppBarShowcase extends StatelessWidget {
                       ),
                     ],
                     title: const Text('TabBar in AppBar'),
-                    bottom: const TabBar(
-                      tabs: <Widget>[
+                    bottom: TabBar(
+                      tabAlignment: theme.tabBarTheme.tabAlignment ==
+                                  TabAlignment.start ||
+                              theme.tabBarTheme.tabAlignment ==
+                                  TabAlignment.startOffset
+                          ? TabAlignment.fill
+                          : null,
+                      tabs: const <Widget>[
                         Tab(
                           text: 'Chat',
                           icon: Badge(
@@ -2931,6 +3006,76 @@ class TabBarForAppBarShowcase extends StatelessWidget {
                           text: 'Folder',
                           icon: Icon(Icons.create_new_folder),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TabBarScrollingForAppBarShowcase extends StatelessWidget {
+  const TabBarScrollingForAppBarShowcase({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final bool isDark = theme.brightness == Brightness.dark;
+    final bool useM3 = theme.useMaterial3;
+    final ColorScheme colorScheme = theme.colorScheme;
+    const int nrOfTabs = 40;
+
+    final Color effectiveTabBackground = theme.appBarTheme.backgroundColor ??
+        (isDark
+            ? colorScheme.surface
+            : useM3
+                ? colorScheme.surface
+                : colorScheme.primary);
+
+    return RepaintBoundary(
+      child: DefaultTabController(
+        length: nrOfTabs,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            MediaQuery.removePadding(
+              context: context,
+              removeBottom: true,
+              removeTop: true,
+              child: Material(
+                color: effectiveTabBackground,
+                child: SizedBox(
+                  height: 100,
+                  child: AppBar(
+                    leading: IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () {},
+                    ),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {},
+                      ),
+                    ],
+                    title: const Text('Scrolling TabBar in AppBar'),
+                    bottom: TabBar(
+                      isScrollable: true,
+                      tabAlignment:
+                          theme.tabBarTheme.tabAlignment == TabAlignment.fill
+                              ? useM3
+                                  ? TabAlignment.startOffset
+                                  : TabAlignment.center
+                              : null,
+                      tabs: <Widget>[
+                        for (int i = 0; i < nrOfTabs; i++)
+                          useM3
+                              ? Tab(text: 'Tab label ${i + 1}')
+                              : Tab(text: 'TAB LABEL ${i + 1}'),
                       ],
                     ),
                   ),
@@ -2981,10 +3126,16 @@ class TabBarForBackgroundShowcase extends StatelessWidget {
             ],
             Material(
               color: theme.colorScheme.surface,
-              child: const SizedBox(
+              child: SizedBox(
                 height: 70,
                 child: TabBar(
-                  tabs: <Widget>[
+                  tabAlignment:
+                      theme.tabBarTheme.tabAlignment == TabAlignment.start ||
+                              theme.tabBarTheme.tabAlignment ==
+                                  TabAlignment.startOffset
+                          ? TabAlignment.fill
+                          : null,
+                  tabs: const <Widget>[
                     Tab(
                       text: 'Chat',
                       icon: Badge(
@@ -3404,9 +3555,9 @@ class _NavigationRailShowcaseState extends State<NavigationRailShowcase> {
                     Expanded(
                       child: Column(
                         children: <Widget>[
-                          SwitchListTile(
-                            title: const Text('Expand and collapse'),
-                            subtitle:
+                          SwitchListTileReveal(
+                            title: const Text('Expanded'),
+                            subtitleReveal:
                                 const Text('ON to expand  OFF to collapse\n'
                                     'Only used for local control of Rail '
                                     'presentation.'),
@@ -4235,12 +4386,13 @@ class _ExpansionPanelListShowcaseState
       child: ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
           setState(() {
-            _items[index].isExpanded = !isExpanded;
+            _items[index].isExpanded = isExpanded;
           });
         },
         children:
             _items.map<ExpansionPanel>((ExpansionPanelShowcaseItems item) {
           return ExpansionPanel(
+            canTapOnHeader: true,
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
                 title: Text(item.headerValue),
@@ -4781,10 +4933,11 @@ class _MaterialBannerShowcaseState extends State<MaterialBannerShowcase> {
 }
 
 class MaterialShowcase extends StatelessWidget {
-  const MaterialShowcase({super.key, this.explain = false});
+  const MaterialShowcase(
+      {super.key, this.explain = false, this.width = CardShowcase._width - 8});
   final bool explain;
+  final double width;
 
-  static const double _width = 160;
   static const double _height = 100;
 
   @override
@@ -4796,6 +4949,7 @@ class MaterialShowcase extends StatelessWidget {
     );
     final TextStyle denseBody = theme.textTheme.bodyMedium!
         .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+    final TextStyle labelSmall = theme.textTheme.labelSmall!;
 
     return RepaintBoundary(
       child: Column(
@@ -4804,31 +4958,32 @@ class MaterialShowcase extends StatelessWidget {
           if (explain) ...<Widget>[
             Text(
               'Material widget is a lower level building block. It cannot '
-              'be themed, but it has Material-2 and Material-3 mode dependent '
+              'be themed, but it has Material-2,  Material-3 mode dependent '
               'behavior. Material is responsible for clipping, elevation '
-              'and ink effects below its children. '
+              'and ink effects below its children.\n'
+              '\n'
               'Material can also specify surfaceTint color, '
               'which is applied when Material is elevated, but only in '
-              'Material 3 mode.',
+              'Material-3 mode.',
               style: denseBody,
             ),
             const SizedBox(height: 12),
           ],
           Text('Material type canvas', style: denseHeader),
           Text(
-            'Default background color is theme canvasColor, and '
-            'theme canvasColor is set to theme colorScheme background. The '
-            'color canvasColor is going to be deprecated in Flutter.',
+            'Default background color is theme canvasColor,,  '
+            'theme canvasColor is set to theme colorScheme surface. The '
+            'color canvasColor will be deprecated in Flutter.',
             style: denseBody,
           ),
           const SizedBox(height: 8),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 16,
-            runSpacing: 16,
+            spacing: 12,
+            runSpacing: 12,
             children: <Widget>[
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4836,13 +4991,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 1, default tint '
-                          'and default shadow',
+                          'Material canvas, elevation 1, default surfaceTint, '
+                          'default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4850,7 +5005,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4860,13 +5015,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 1, '
-                          'assigned surfaceTint and transparent shadow',
+                          'Material canvas, elevation 1, '
+                          'primary surfaceTint, transparent shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4874,7 +5029,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4884,13 +5039,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 1, '
-                          'assigned surfaceTint and primary shadow',
+                          'Material canvas, elevation 1, '
+                          'primary surfaceTint, primary shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4902,11 +5057,11 @@ class MaterialShowcase extends StatelessWidget {
           const SizedBox(height: 16),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 16,
-            runSpacing: 16,
+            spacing: 12,
+            runSpacing: 12,
             children: <Widget>[
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4914,13 +5069,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 6, default tint '
-                          'and default shadow',
+                          'Material canvas, elevation 6, default surfaceTint, '
+                          'default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4928,7 +5083,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4938,13 +5093,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 6, '
-                          'assigned surfaceTint and transparent shadow',
+                          'Material canvas, elevation 6, '
+                          'primary surfaceTint, transparent shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4952,7 +5107,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.canvas,
@@ -4962,13 +5117,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type canvas, elevation 6, '
-                          'assigned surfaceTint and primary shadow',
+                          'Material canvas, elevation 6, '
+                          'primary surfaceTint, primary shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -4978,21 +5133,21 @@ class MaterialShowcase extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 32),
-          Text('Material type card', style: denseHeader),
+          Text('Material card', style: denseHeader),
           Text(
-            'Default background color is theme cardColor, and '
+            'Default background color is theme cardColor,,  '
             'theme cardColor is set to theme colorScheme surface. The '
-            'color cardColor is going to be deprecated in Flutter.',
+            'color cardColor will be deprecated in Flutter.',
             style: denseBody,
           ),
           const SizedBox(height: 8),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 16,
-            runSpacing: 16,
+            spacing: 12,
+            runSpacing: 12,
             children: <Widget>[
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5000,13 +5155,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 1, default tint '
-                          'and default shadow',
+                          'Material card, elevation 1, default surfaceTint, '
+                          'default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5014,7 +5169,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5024,13 +5179,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 1, '
-                          'assigned surfaceTint and transparent shadow',
+                          'Material card, elevation 1, '
+                          'primary surfaceTint, transparent shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5038,7 +5193,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5048,13 +5203,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 1, '
-                          'assigned surfaceTint and primary shadow',
+                          'Material card, elevation 1, '
+                          'primary surfaceTint, primary shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5066,11 +5221,11 @@ class MaterialShowcase extends StatelessWidget {
           const SizedBox(height: 16),
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 16,
-            runSpacing: 16,
+            spacing: 12,
+            runSpacing: 12,
             children: <Widget>[
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5078,13 +5233,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 6, default tint '
-                          'and default shadow',
+                          'Material card, elevation 6, default surfaceTint, '
+                          'default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5092,7 +5247,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5102,13 +5257,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 6, '
-                          'assigned surfaceTint and transparent shadow',
+                          'Material card, elevation 6, '
+                          'primary surfaceTint, transparent shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5116,7 +5271,7 @@ class MaterialShowcase extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: _width,
+                width: width,
                 height: _height,
                 child: Material(
                   type: MaterialType.card,
@@ -5126,13 +5281,13 @@ class MaterialShowcase extends StatelessWidget {
                   child: SizedBox(
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
-                          'Material type card, elevation 6, '
-                          'assigned surfaceTint and primary shadow',
+                          'Material card, elevation 6, '
+                          'primary surfaceTint, primary shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
@@ -5148,41 +5303,53 @@ class MaterialShowcase extends StatelessWidget {
 }
 
 class CardShowcase extends StatelessWidget {
-  const CardShowcase({super.key, this.explain = false});
+  const CardShowcase({super.key, this.explain = false, this.width});
   final bool explain;
+  final double? width;
 
-  static const double _width = 160;
+  static const double _width = 140;
   static const double _height = 100;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final TextStyle denseHeader = theme.textTheme.titleMedium!.copyWith(
-      fontSize: 13,
-    );
     final TextStyle denseBody = theme.textTheme.bodyMedium!
         .copyWith(fontSize: 12, color: theme.textTheme.bodySmall!.color);
+    final TextStyle labelSmall = theme.textTheme.labelSmall!;
+
     return RepaintBoundary(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const CardTypesShowcase(cardWidth: 130),
-            const SizedBox(height: 8),
             if (explain)
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 child: Text(
                   'In M2 mode default background color is theme.cardColor, '
-                  'which typically is set to colorScheme.surface.\n'
-                  'In M3 mode before Flutter 3.22 background defaults to '
-                  'surface color and it gets elevation based surfaceTint.\n'
-                  'In M3 mode after Flutter 3.22 background defaults to '
-                  'surfaceContainerLow color and it does not get elevation '
-                  'based surfaceTint by default.\n'
-                  'In M2 mode surfaceTint has no effect even if specified.\n'
-                  'Card gets elevation shadow by default in M2 and M3 mode.',
+                  'which is typically set to colorScheme.surface.',
+                  style: denseBody,
+                ),
+              ),
+            if (explain)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                child: Text(
+                  'In M3 mode, before Flutter 3.22, its background defaults to '
+                  'surface color and it gets elevation based surfaceTint. '
+                  'After Flutter 3.22, the background defaults to '
+                  'surfaceContainerLow and it does not get any elevation '
+                  'based surfaceTint by default.',
+                  style: denseBody,
+                ),
+              ),
+            if (explain)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                child: Text(
+                  'In M2 mode surfaceTint has no effect, even if specified. '
+                  'Card gets elevation shadow by default in both '
+                  'M2 and M3 mode.',
                   style: denseBody,
                 ),
               ),
@@ -5192,7 +5359,7 @@ class CardShowcase extends StatelessWidget {
               runSpacing: 8,
               children: <Widget>[
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 0,
@@ -5205,14 +5372,14 @@ class CardShowcase extends StatelessWidget {
                           'Card, elevation 0, default surfaceTint '
                           'and default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         )),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 0,
@@ -5223,10 +5390,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 0, assigned surfaceTint and '
+                            'Card, elevation 0, assigned surfaceTint,  '
                             'default shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5234,7 +5401,7 @@ class CardShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 0,
@@ -5246,10 +5413,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 0, assigned surfaceTint and '
+                            'Card, elevation 0, assigned surfaceTint,  '
                             'transparent shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5265,7 +5432,7 @@ class CardShowcase extends StatelessWidget {
               runSpacing: 8,
               children: <Widget>[
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 1,
@@ -5278,14 +5445,14 @@ class CardShowcase extends StatelessWidget {
                           'Card, elevation 1, default surfaceTint '
                           'and default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         )),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 1,
@@ -5296,10 +5463,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 1, assigned surfaceTint and '
+                            'Card, elevation 1, assigned surfaceTint,  '
                             'default shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5307,7 +5474,7 @@ class CardShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 1,
@@ -5319,10 +5486,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 1, assigned surfaceTint and '
+                            'Card, elevation 1, assigned surfaceTint,  '
                             'transparent shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5338,7 +5505,7 @@ class CardShowcase extends StatelessWidget {
               runSpacing: 8,
               children: <Widget>[
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 4,
@@ -5351,7 +5518,7 @@ class CardShowcase extends StatelessWidget {
                             'Card, elevation 4, default surfaceTint '
                             'and default shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5359,7 +5526,7 @@ class CardShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 4,
@@ -5368,17 +5535,17 @@ class CardShowcase extends StatelessWidget {
                       height: 60,
                       child: Center(
                         child: Text(
-                          'Card, elevation 4, assigned surfaceTint and '
+                          'Card, elevation 4, assigned surfaceTint,  '
                           'default shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         ),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 4,
@@ -5390,10 +5557,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 4, assigned surfaceTint and '
+                            'Card, elevation 4, assigned surfaceTint,  '
                             'transparent shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5409,7 +5576,7 @@ class CardShowcase extends StatelessWidget {
               runSpacing: 8,
               children: <Widget>[
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 10,
@@ -5422,7 +5589,7 @@ class CardShowcase extends StatelessWidget {
                             'Card, elevation 10, default surfaceTint '
                             'and default shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5430,7 +5597,7 @@ class CardShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 10,
@@ -5441,10 +5608,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                           child: Text(
-                            'Card, elevation 10, assigned surfaceTint and '
+                            'Card, elevation 10, assigned surfaceTint,  '
                             'default shadow',
                             textAlign: TextAlign.center,
-                            style: denseHeader,
+                            style: labelSmall,
                           ),
                         ),
                       ),
@@ -5452,7 +5619,7 @@ class CardShowcase extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: _width,
+                  width: width ?? _width,
                   height: _height,
                   child: Card(
                     elevation: 10,
@@ -5464,10 +5631,10 @@ class CardShowcase extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
                             child: Text(
-                          'Card, elevation 10, assigned surfaceTint and '
+                          'Card, elevation 10, assigned surfaceTint,  '
                           'transparent shadow',
                           textAlign: TextAlign.center,
-                          style: denseHeader,
+                          style: labelSmall,
                         )),
                       ),
                     ),
@@ -5483,14 +5650,14 @@ class CardShowcase extends StatelessWidget {
 class CardTypesShowcase extends StatelessWidget {
   const CardTypesShowcase({
     super.key,
-    this.cardWidth,
-    this.showThemedOutline = false,
+    this.width,
+    this.showForcedOutlined = false,
   });
 
-  final double? cardWidth;
-  final bool showThemedOutline;
+  final double? width;
+  final bool showForcedOutlined;
 
-  static const double _cardWidth = 115;
+  static const double _cardWidth = CardShowcase._width;
 
   @override
   Widget build(BuildContext context) {
@@ -5504,9 +5671,9 @@ class CardTypesShowcase extends StatelessWidget {
     // the correct border radius that we can use in the custom constructor
     // further below.
     //
-    // Default starting point value based on M3 and M2 mode spec values.
+    // Default starting point value based on M3,  M2 mode spec values.
     double borderRadius = useMaterial3 ? 12 : 4;
-    // Is themed? Try to get the radius from the theme and used that if it was.
+    // Is themed? Try to get the radius from the theme,  used that if it was.
     final ShapeBorder? cardShape = theme.cardTheme.shape;
     if (cardShape != null && cardShape is RoundedRectangleBorder) {
       final BorderRadius shape = cardShape.borderRadius as BorderRadius;
@@ -5515,11 +5682,13 @@ class CardTypesShowcase extends StatelessWidget {
 
     return Wrap(
       alignment: WrapAlignment.spaceEvenly,
+      spacing: 8,
+      runSpacing: 8,
       children: <Widget>[
         SizedBox(
-          width: cardWidth ?? _cardWidth,
+          width: width ?? _cardWidth,
           child: Card(
-            child: Container(
+            child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
               child: Column(
                 children: <Widget>[
@@ -5541,10 +5710,9 @@ class CardTypesShowcase extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: cardWidth ?? _cardWidth,
+          width: width ?? _cardWidth,
           child: Card.filled(
-            elevation: 0,
-            child: Container(
+            child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
               child: Column(
                 children: <Widget>[
@@ -5566,14 +5734,8 @@ class CardTypesShowcase extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: cardWidth ?? _cardWidth,
+          width: width ?? _cardWidth,
           child: Card.outlined(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: theme.colorScheme.outlineVariant),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-            ),
-            borderOnForeground: false,
             child: Container(
               padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
               child: Column(
@@ -5595,13 +5757,17 @@ class CardTypesShowcase extends StatelessWidget {
             ),
           ),
         ),
-        if (showThemedOutline)
+        if (showForcedOutlined)
           SizedBox(
-            width: cardWidth ?? _cardWidth,
+            width: width ?? _cardWidth,
             child: Card.outlined(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: theme.colorScheme.outlineVariant),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+              ),
               borderOnForeground: false,
-              child: Container(
+              child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
                 child: Column(
                   children: <Widget>[
@@ -5615,7 +5781,7 @@ class CardTypesShowcase extends StatelessWidget {
                     const SizedBox(height: 20),
                     const Align(
                       alignment: Alignment.bottomLeft,
-                      child: Text('Outlined theme'),
+                      child: Text('Forced'),
                     )
                   ],
                 ),

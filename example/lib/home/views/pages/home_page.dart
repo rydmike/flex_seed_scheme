@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../../about/views/about.dart';
 import '../../../core/constants/app_data.dart';
+import '../../../core/utils/effective_flex_tones.dart';
 import '../../../core/views/universal/color_scheme_view.dart';
 import '../../../core/views/universal/list_tile_slider.dart';
 import '../../../core/views/universal/showcase_material.dart';
+import '../../../core/views/universal/switch_list_tile_reveal.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import '../widgets/flex_tones_popup_menu.dart';
 import '../widgets/show_input_colors.dart';
@@ -21,21 +23,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
+    final ThemeData theme = Theme.of(context);
+    final Brightness brightness = theme.brightness;
     final bool isLight = brightness == Brightness.light;
 
-    final FlexTones tones = controller.usedVariant.isFlutterScheme
-        ? FlexTones.material(brightness)
-            .expressiveOnContainer(controller.useExpressiveOn)
-        : controller.usedVariant
-            .tones(brightness)
-            .monochromeSurfaces(controller.useMonoSurfaces)
-            .higherContrastFixed(controller.higherContrastFixedColors)
-            .onMainsUseBW(controller.keepMainOnColorsBW)
-            .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-            .surfacesUseBW(isLight
-                ? controller.keepLightSurfaceColorsWhite
-                : controller.keepDarkSurfaceColorsBlack);
+    // Get effective tones and chroma setup
+    final FlexTones tones = effectiveFlexTones(controller, context);
+
+    // Paddings for the two column control layouts.
+    const EdgeInsetsDirectional paddingStartColumn =
+        EdgeInsetsDirectional.only(start: 16, end: 8);
+    final EdgeInsetsDirectional paddingEndColumn =
+        EdgeInsetsDirectional.only(start: 8, end: theme.useMaterial3 ? 24 : 16);
 
     return Scaffold(
       appBar: AppBar(
@@ -98,6 +97,48 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowTonalPalette(controller: controller),
           ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: SwitchListTileReveal(
+                  contentPadding: paddingStartColumn,
+                  dense: true,
+                  title: const Text('Use expressive container on-colors'),
+                  subtitleReveal: const Text(
+                    'Use tone 30 instead of 10 for onColors on containers in '
+                    'light mode. This is a new Material-3 spec standard. It is '
+                    'more color expressive, but reduces contrast.\n'
+                    '\n'
+                    'It is not yet used by Flutter SDK in ColorScheme.fromSeed '
+                    'produced color schemes, but will be when Flutter upgrades '
+                    'to Material Color Utilities 0.12.0. You can opt in on '
+                    'using it already with FSS, or decide to not use it, even '
+                    'after it becomes a forced default in Flutter SDK.\n',
+                  ),
+                  value: controller.useExpressiveOn,
+                  onChanged: controller.setUseExpressiveOn,
+                ),
+              ),
+              Expanded(
+                child: SwitchListTileReveal(
+                  contentPadding: paddingEndColumn,
+                  dense: true,
+                  title: const Text('Respect monochrome seed colors'),
+                  subtitleReveal: const Text(
+                    'Previously in FSS and in Material Color Utilities (MCU), '
+                    "and thus Flutter's default, using a monochrome seed "
+                    'value or white, results in a tonal palette with cyan '
+                    'color tones. A black input results in red like color '
+                    'tones. This is not very intuitive and not really '
+                    'expected by most users of monochrome seed colors.\n',
+                  ),
+                  value: controller.respectMonochromeSeed,
+                  onChanged: controller.setRespectMonochromeSeed,
+                ),
+              ),
+            ],
+          ),
           ListTileSlider(
             dense: true,
             title: const Text('Contrast level'),
@@ -113,20 +154,6 @@ class HomePage extends StatelessWidget {
                 : 0,
             onChanged: controller.setContrastLevel,
             sliderLabel: 'Contrast',
-          ),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Use expressive on-colors on light containers'),
-            value: controller.useExpressiveOn,
-            onChanged: controller.setUseExpressiveOn,
-          ),
-          const ListTile(
-            dense: true,
-            title: Text('Some MCU based seed strategies, like Fidelity and '
-                'Content, dynamically adjust '
-                'tones for contrast, this also applies when using contrast '
-                'level. The shown baseline tone mappings are not always used '
-                'when using MCU dynamic schemes'),
           ),
           const Divider(),
           if (controller.usedVariant.isFlutterScheme)

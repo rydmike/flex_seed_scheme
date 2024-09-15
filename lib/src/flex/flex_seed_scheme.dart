@@ -687,11 +687,12 @@ extension SeedColorScheme on ColorScheme {
     final bool useExpressiveOnContainerColors = false,
 
     /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma
-    /// so we get all greyscale tones.
+    /// the chroma is set to 0 to respect that it has no chroma, in its
+    /// conversion from Color or integer value to HCT space, so we get all
+    /// greyscale tones.
     ///
-    /// If not set to true, we get a "red" tonal palette for all monochrome seed
-    /// colors except for white, which gives a "cyan" color palette.
+    /// If not set to true, we get a "cyan" tonal palette for monochrome and
+    /// white seed colors, while black, gives a "red" tonal palette.
     ///
     /// Defaults to `false` to keep the default behavior of the package and the
     /// Material-3 color system.
@@ -1006,7 +1007,7 @@ extension SeedColorScheme on ColorScheme {
         errorKey: errorKey?.value,
         neutralKey: neutralKey?.value,
         neutralVariantKey: neutralVariantKey?.value,
-        tones: tones ??
+        tones: tones?.expressiveOnContainer(useExpressiveOnContainerColors) ??
             variantTones
                 ?.expressiveOnContainer(useExpressiveOnContainerColors) ??
             FlexTones.material(brightness)
@@ -1118,6 +1119,9 @@ extension SeedColorScheme on ColorScheme {
     final Hct? errorSourceColor =
         errorSeedColor != null ? Hct.fromInt(errorSeedColor.value) : null;
 
+    debugPrint('primarySourceColor = $primarySourceColor');
+    debugPrint('neutralSourceColor = $neutralSourceColor');
+
     return switch (variant) {
       FlexSchemeVariant.material ||
       FlexSchemeVariant.material3Legacy ||
@@ -1142,6 +1146,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.fidelity => SchemeFidelity(
           sourceColorHct: primarySourceColor,
@@ -1153,6 +1169,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.content => SchemeContent(
           sourceColorHct: primarySourceColor,
@@ -1164,6 +1192,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.monochrome => SchemeMonochrome(
           sourceColorHct: primarySourceColor,
@@ -1182,6 +1222,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.vibrant => SchemeVibrant(
           sourceColorHct: primarySourceColor,
@@ -1193,6 +1245,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.expressive => SchemeExpressive(
           sourceColorHct: primarySourceColor,
@@ -1204,6 +1268,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.rainbow => SchemeRainbow(
           sourceColorHct: primarySourceColor,
@@ -1215,6 +1291,18 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
       FlexSchemeVariant.fruitSalad => SchemeFruitSalad(
           sourceColorHct: primarySourceColor,
@@ -1226,7 +1314,26 @@ extension SeedColorScheme on ColorScheme {
           isDark: isDark,
           contrastLevel: contrastLevel,
           useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+          respectMonochromeSeed: respectMonochromeSeed,
+          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+          isSecondaryMonochrome:
+              _isMonochrome(secondarySeedColor ?? primarySeedColor),
+          isTertiaryMonochrome:
+              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+          isNeutralMonochrome:
+              _isMonochrome(neutralSeedColor ?? primarySeedColor),
+          isNeutralVariantMonochrome:
+              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+          isErrorMonochrome:
+              errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),
     };
+  }
+
+  /// Returns true if the RGB of [color] is monochrome.
+  ///
+  /// To be monochrome, the red, green, and blue values must be equal.
+  static bool _isMonochrome(Color color) {
+    return color.red == color.green && color.green == color.blue;
   }
 }
