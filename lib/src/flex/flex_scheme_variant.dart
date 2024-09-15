@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 
-import 'flex_seed_scheme.dart';
-import 'flex_tones.dart';
+import '../../flex_seed_scheme.dart';
 
 /// Enum used to return and describe properties of the [FlexSchemeVariant]
 /// variants to invoke different color scheme generation algorithms
 /// in [SeedColorScheme.fromSeeds], when passed to its [FlexSchemeVariant]
-/// property variant.
+/// property `variant`.
 ///
-/// [FlexSchemeVariant] values that use [isFlutterScheme] set to true, use the
-/// Flutter SDK and MCU algorithm to construct a [ColorScheme] identical to
-/// [ColorScheme.fromSeed] and its variant property that was added in
-/// Flutter 3.22.2.
+/// A [FlexSchemeVariant] is a scheme variant enum that includes both Flutter's
+/// [DynamicSchemeVariant] and FlexSeedScheme's own scheme variants, based on
+/// [FlexTones] configurations, that can be used to construct a [ColorScheme]
+/// via a convenient enum value selection.
 ///
-/// The [tonalSpot] is variant is the default Flutter 3.22 and later, it builds
+/// [FlexSchemeVariant] values that have [isFlutterScheme] set to true, use the
+/// Flutter SDK and MCU algorithm based [DynamicSchemeVariant] to construct a
+/// [ColorScheme] identical to [ColorScheme.fromSeed] and its `variant`
+/// property that was added in Flutter 3.22.2. This scheme variant is based on
+/// using the Material Color Utilities (MCU) algorithm in the
+/// [MaterialDynamicColors] class to construct the color scheme.
+///
+/// The [tonalSpot] variant is the default one Flutter 3.22 and later, it builds
 /// the default Material-3 style scheme colors. These colors are mapped to light
 /// or dark tones to achieve visually accessible color pairings with sufficient
 /// contrast between foreground and background elements.

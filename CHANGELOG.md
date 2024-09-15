@@ -2,6 +2,27 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.4.0
+
+**DRAFT NOT YET PUBLISHED - NEEDS TESTS**
+
+**Sep 15, 2024**
+
+**CHANGE**
+
+* The parameter `useExpressiveOnContainerColors` in `SeedColorScheme.fromSeeds` now impacts both scheme `variant`s regardless of if its `isFlutterScheme` is true or false. 
+  * For `tones` based variants, when using a built-in `FlexTones` or even a custom `tones`, it is no longer necessary to use the `FlexTones` modifier `.expressiveOnContainer()` on the used `tones` to get a seeded color scheme with expressive on container tones in light mode.
+  * The `FlexTones` based seeded color schemes the modifier is still used, but it is applied internally when the flag `useExpressiveOnContainerColors` is set t true.
+  * This makes this flag consistent and applicable to all seed generated schemes, regardless of if it is based on `DynamicSchemeVariant` or `FlexTones`.
+  
+**NEW**
+
+* A new `bool` parameter, `respectMonochromeSeed`, in `SeedColorScheme.fromSeeds` can now be used to make generated schemes that respect a monochrome seed color as input. 
+  * When set to `true`, any monochrome RGB input value will result in the creation of a greyscale tonal palette for the palette using the monochrome seed color. An RGB monochrome value is one where Red, Green and Blue values are all equal.
+  * Previously in FSS and in Material Color Utilities (MCU), and thus Flutter's default, using a monochrome seed value or total black, results in a tonal palette with red tones. A white input results in cyan like tones. This is not very intuitive and not really expected by most users for monochrome seed colors. 
+  * FSS still defaults to setting `respectMonochromeSeed` is set to `false`, to not break any existing code that relies on the old behavior. 
+  * Prefer using `respectMonochromeSeed` set to `true`, to get more logical seed results when using monochrome colors, white and black as seed colors. 
+
 ## 3.3.0
 
 **Sep 7, 2024**

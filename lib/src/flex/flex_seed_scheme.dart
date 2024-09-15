@@ -314,6 +314,7 @@ class FlexSeedScheme {
     int? neutralKey,
     int? neutralVariantKey,
     required FlexTones tones,
+    required bool respectMonochromeSeed,
   }) {
     final FlexCorePalette core = FlexCorePalette.fromSeeds(
       primary: primaryKey,
@@ -337,6 +338,7 @@ class FlexSeedScheme {
       neutralVariantMinChroma: tones.neutralVariantMinChroma,
       paletteType: tones.paletteType,
       useCam16: tones.useCam16,
+      respectMonochromeSeed: respectMonochromeSeed,
     );
     return FlexSeedScheme._(
       primary: core.primary.get(tones.primaryTone),
@@ -660,19 +662,14 @@ extension SeedColorScheme on ColorScheme {
 
     /// Use expressive on container colors for light mode.
     ///
-    /// This property only impacts MCU based DynamicSchemes. In FSS it means
-    /// [variant] based schemes that have [FlexSchemeVariant.isFlutterScheme]
-    /// set to true. To used the same expressive on container colors as MCU
-    /// in FSS [tones] based schemes, use the [FlexTones] modifier
-    /// [FlexTones.expressiveOnContainer].
-    ///
-    /// Material specification and MCU v0.12.0 changes the light mode on colors
-    /// for none surface containers from tone 10 to tone 30. It also sets the
-    /// min `ContrastCurve` from ContrastCurve(4.5, 7.0, 11.0, 21.0) to
+    /// Material specification and Material Color Utilities (MCU) v0.12.0
+    /// changes the light mode on colors for none surface containers from tone
+    /// 10 to tone 30. It also sets the min `ContrastCurve` from
+    /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
     /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
     /// contrast 4.5 instead of past 7.0.
     ///
-    /// This change is not yet used by Flutter and not fully documented in the
+    /// This change is not in use by Flutter and not fully documented in the
     /// M3 guide. In the FSS MCU fork we are making this change a deliberate
     /// opt-in feature and default to not opting in on it. This default may be
     /// adjusted later to opt-in by default, but FSS will continue to offer
@@ -680,7 +677,7 @@ extension SeedColorScheme on ColorScheme {
     /// by default will only be considered color style breaking and will not
     /// bump major version of FSS, only minor.
     ///
-    /// Defaults to false in FSS version 3.0.0.
+    /// Defaults to `false` in FSS version 3.0.0.
     ///
     /// The result you get with false, corresponds to used results in MCU until
     /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
@@ -688,6 +685,26 @@ extension SeedColorScheme on ColorScheme {
     /// change the light mode color schemes produced by all DynamicColor based
     /// Material color schemes.
     final bool useExpressiveOnContainerColors = false,
+
+    /// If true, when a seed color is monochrome, it is recognized as such and
+    /// the chroma is set to 0 to respect that it has no chroma
+    /// so we get all greyscale tones.
+    ///
+    /// If not set to true, we get a "red" tonal palette for all monochrome seed
+    /// colors except for white, which gives a "cyan" color palette.
+    ///
+    /// Defaults to `false` to keep the default behavior of the package and the
+    /// Material-3 color system.
+    ///
+    /// Consider setting it to `true` if you want to get
+    /// greyscale palette tones for any given monochrome seed color.
+    ///
+    /// If [respectMonochromeSeed] is true, any given configured minimum
+    /// chroma value is ignored for a monochrome seed colors, as the input has
+    /// chroma 0 and its chroma wil be set to zero regardless of the value
+    /// of minimum chroma. Minimum chroma is always 0 when
+    /// [respectMonochromeSeed] is used.
+    final bool respectMonochromeSeed = false,
 
     /// Override color for the seed generated [primary] color.
     ///
@@ -880,6 +897,7 @@ extension SeedColorScheme on ColorScheme {
         variant: variant,
         contrastLevel: contrastLevel,
         useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
       );
       return ColorScheme(
         primary:
@@ -988,7 +1006,12 @@ extension SeedColorScheme on ColorScheme {
         errorKey: errorKey?.value,
         neutralKey: neutralKey?.value,
         neutralVariantKey: neutralVariantKey?.value,
-        tones: tones ?? variantTones ?? FlexTones.material(brightness),
+        tones: tones ??
+            variantTones
+                ?.expressiveOnContainer(useExpressiveOnContainerColors) ??
+            FlexTones.material(brightness)
+                .expressiveOnContainer(useExpressiveOnContainerColors),
+        respectMonochromeSeed: respectMonochromeSeed,
       );
 
       return ColorScheme(
@@ -1074,6 +1097,7 @@ extension SeedColorScheme on ColorScheme {
     Color? neutralVariantSeedColor,
     double contrastLevel = 0.0,
     bool useExpressiveOnContainerColors = false,
+    bool respectMonochromeSeed = false,
   }) {
     assert(
       contrastLevel >= -1.0 && contrastLevel <= 1.0,

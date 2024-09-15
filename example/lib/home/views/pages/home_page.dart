@@ -35,8 +35,7 @@ class HomePage extends StatelessWidget {
             .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
             .surfacesUseBW(isLight
                 ? controller.keepLightSurfaceColorsWhite
-                : controller.keepDarkSurfaceColorsBlack)
-            .expressiveOnContainer(controller.useExpressiveOn);
+                : controller.keepDarkSurfaceColorsBlack);
 
     return Scaffold(
       appBar: AppBar(

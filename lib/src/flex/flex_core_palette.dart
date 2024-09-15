@@ -1,6 +1,7 @@
 import 'dart:math' as math;
+import 'dart:ui';
 
-import 'package:meta/meta.dart' show immutable;
+import 'package:flutter/foundation.dart';
 
 import '../mcu/material_color_utilities.dart';
 import 'flex_tonal_palette.dart';
@@ -496,6 +497,26 @@ class FlexCorePalette {
     /// style seeded color schemes as well, while the FSS ones continues to use
     /// Cam16.
     final bool useCam16 = true,
+
+    /// If true, when a seed color is monochrome, it is recognized as such and
+    /// the chroma is set to 0 to respect that it has no chroma
+    /// so we get all greyscale tones.
+    ///
+    /// If not set to true, we get a "red" tonal palette for all monochrome seed
+    /// colors except for white, which gives a "cyan" color palette.
+    ///
+    /// Defaults to `false` to keep the default behavior of the package and the
+    /// Material-3 color system.
+    ///
+    /// Consider setting it to `true` if you want to get
+    /// greyscale palette tones for any given monochrome seed color.
+    ///
+    /// If [respectMonochromeSeed] is true, any given configured minimum
+    /// chroma value is ignored for a monochrome seed colors, as the input has
+    /// chroma 0 and its chroma wil be set to zero regardless of the value
+    /// of minimum chroma. Minimum chroma is always 0 when
+    /// [respectMonochromeSeed] is used.
+    final bool respectMonochromeSeed = false,
   }) {
     // Primary TonalPalette calculation.
     late final double primaryComputedChroma;
@@ -509,16 +530,20 @@ class FlexCorePalette {
       primaryComputedHue = hctPrimary.hue;
       primaryComputedChroma = hctPrimary.chroma;
     }
-    // final Cam16 camPrimary = Cam16.fromInt(primary);
 
     // If a fixed chroma was given we use it instead of chroma in primary.
     final double effectivePrimaryChroma =
         primaryChroma ?? primaryComputedChroma;
-    // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(
-        primaryComputedHue,
-        math.max(primaryMinChroma ?? 48, effectivePrimaryChroma),
-        paletteType);
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedPrimaryChroma =
+        respectMonochromeSeed && _isMonochrome(primary)
+            ? 0
+            // We use the effectiveChroma, but only if it is over the min level.
+            : math.max(primaryMinChroma ?? 48, effectivePrimaryChroma);
+    // Compute the tonal palette for primary colors, using the computed hue
+    // and the used chroma value.
+    final FlexTonalPalette tonalPrimary =
+        FlexTonalPalette.of(primaryComputedHue, usedPrimaryChroma, paletteType);
 
     // Secondary TonalPalette calculation.
     //
@@ -542,11 +567,16 @@ class FlexCorePalette {
     // If a fixed chroma value was given we use it instead.
     final double effectiveSecondaryChroma =
         secondaryChroma ?? secondaryComputedChroma;
-    // We use the effectiveChroma, but only if it is over the min level.
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedSecondaryChroma =
+        respectMonochromeSeed && _isMonochrome(secondary ?? primary)
+            ? 0
+            // We use the effectiveChroma, but only if it is over the min level.
+            : math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma);
+    // Compute the tonal palette for secondary colors, using the computed hue
+    // and the used chroma value.
     final FlexTonalPalette tonalSecondary = FlexTonalPalette.of(
-        secondaryComputedHue,
-        math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma),
-        paletteType);
+        secondaryComputedHue, usedSecondaryChroma, paletteType);
 
     // Tertiary TonalPalette calculation.
     //
@@ -574,12 +604,16 @@ class FlexCorePalette {
     // If a fixed chroma value was given we use it instead.
     final double effectiveTertiaryChroma =
         tertiaryChroma ?? tertiaryComputedChroma;
-    // We use the effective hue and the effectiveChroma, but chroma
-    // only if it is over the min level.
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedTertiaryChroma =
+        respectMonochromeSeed && _isMonochrome(tertiary ?? primary)
+            ? 0
+            // We use the effectiveChroma, but only if it is over the min level.
+            : math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma);
+    // Compute the tonal palette for tertiary colors, using the computed hue
+    // and the used chroma value.
     final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(
-        tertiaryComputedHue,
-        math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma),
-        paletteType);
+        tertiaryComputedHue, usedTertiaryChroma, paletteType);
 
     // Neutral TonalPalette calculation.
     //
@@ -603,11 +637,16 @@ class FlexCorePalette {
     // If a fixed chroma value was given we use it instead.
     final double effectiveNeutralChroma =
         neutralChroma ?? neutralComputedChroma;
-    // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(
-        neutralComputedHue,
-        math.max(neutralMinChroma ?? 0, effectiveNeutralChroma),
-        paletteType);
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedNeutralChroma =
+        respectMonochromeSeed && _isMonochrome(neutral ?? primary)
+            ? 0
+            // We use the effectiveChroma, but only if it is over the min level.
+            : math.max(neutralMinChroma ?? 0, effectiveNeutralChroma);
+    // Compute the tonal palette for neutral colors, using the computed hue
+    // and the used chroma value.
+    final FlexTonalPalette tonalNeutral =
+        FlexTonalPalette.of(neutralComputedHue, usedNeutralChroma, paletteType);
 
     // NeutralVariant TonalPalette calculation.
     //
@@ -631,11 +670,16 @@ class FlexCorePalette {
     // If a fixed chroma value was given we use it instead.
     final double effectiveNeutralVariantChroma =
         neutralVariantChroma ?? neutralVariantComputedChroma;
-    // We use the effectiveChroma, but only if it is over the min level.
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedNeutralVariantChroma = respectMonochromeSeed &&
+            _isMonochrome(neutralVariant ?? primary)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(neutralVariantMinChroma ?? 0, effectiveNeutralVariantChroma);
+    // Compute the tonal palette for neutral variant colors, using the computed
+    // hue and the used chroma value.
     final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
-        neutralVariantComputedHue,
-        math.max(neutralVariantMinChroma ?? 0, effectiveNeutralVariantChroma),
-        paletteType);
+        neutralVariantComputedHue, usedNeutralVariantChroma, paletteType);
 
     // Error TonalPalette calculation.
     //
@@ -663,9 +707,17 @@ class FlexCorePalette {
     // effective chroma value, if not and if input error color was given, we use
     // its chroma, if one was not given we fall back to M3 default chroma 84.
     final double effectiveErrorChroma = errorChroma ?? errorComputedChroma;
-    // We use the effectiveChroma, but only if it is over the min level.
-    final FlexTonalPalette tonalError = FlexTonalPalette.of(errorComputedHue,
-        math.max(errorMinChroma ?? 0, effectiveErrorChroma), paletteType);
+
+    // If we recognize monochrome input, we set chroma to 0 for monochrome.
+    final double usedErrorChroma =
+        respectMonochromeSeed && error != null && _isMonochrome(error)
+            ? 0
+            // We use the effectiveChroma, but only if it is over the min level.
+            : math.max(errorMinChroma ?? 0, effectiveErrorChroma);
+    // Compute the tonal palette for neutral colors, using the computed hue
+    // and the used chroma value.
+    final FlexTonalPalette tonalError =
+        FlexTonalPalette.of(errorComputedHue, usedErrorChroma, paletteType);
 
     return FlexCorePalette(
       primary: tonalPrimary,
@@ -788,6 +840,14 @@ class FlexCorePalette {
         'neutral: $neutral\n'
         'neutralVariant: $neutralVariant\n'
         'error: $error\n';
+  }
+
+  /// Returns true if the RGB color is monochrome.
+  ///
+  /// To be monochrome, the red, green, and blue values must be equal.
+  static bool _isMonochrome(int intColor) {
+    final Color color = Color(intColor);
+    return color.red == color.green && color.green == color.blue;
   }
 
   /// Returns a partition from a list.
