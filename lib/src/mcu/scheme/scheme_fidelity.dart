@@ -52,23 +52,31 @@ class SchemeFidelity extends DynamicScheme {
           variant: Variant.fidelity,
           primaryPalette: TonalPalette.of(
             sourceColorHct.hue,
-            sourceColorHct.chroma,
+            respectMonochromeSeed && isPrimaryMonochrome
+                ? 0
+                : sourceColorHct.chroma,
           ),
           secondaryPalette: secondarySourceColorHct != null
               ? TonalPalette.of(
                   secondarySourceColorHct.hue,
-                  math.max(secondarySourceColorHct.chroma - 32.0,
-                      secondarySourceColorHct.chroma * 0.5),
+                  respectMonochromeSeed && isSecondaryMonochrome
+                      ? 0
+                      : math.max(secondarySourceColorHct.chroma - 32.0,
+                          secondarySourceColorHct.chroma * 0.5),
                 )
               : TonalPalette.of(
                   sourceColorHct.hue,
-                  math.max(sourceColorHct.chroma - 32.0,
-                      sourceColorHct.chroma * 0.5),
+                  respectMonochromeSeed && isSecondaryMonochrome
+                      ? 0
+                      : math.max(sourceColorHct.chroma - 32.0,
+                          sourceColorHct.chroma * 0.5),
                 ),
           tertiaryPalette: tertiarySourceColorHct != null
               ? TonalPalette.of(
                   tertiarySourceColorHct.hue,
-                  tertiarySourceColorHct.chroma,
+                  respectMonochromeSeed && isTertiaryMonochrome
+                      ? 0
+                      : tertiarySourceColorHct.chroma,
                 )
               : TonalPalette.fromHct(
                   DislikeAnalyzer.fixIfDisliked(
@@ -77,17 +85,26 @@ class SchemeFidelity extends DynamicScheme {
                 ),
           neutralPalette: TonalPalette.of(
             neutralSourceColorHct?.hue ?? sourceColorHct.hue,
-            (neutralSourceColorHct?.chroma ?? sourceColorHct.chroma) / 8.0,
+            respectMonochromeSeed && isNeutralMonochrome
+                ? 0
+                : (neutralSourceColorHct?.chroma ?? sourceColorHct.chroma) /
+                    8.0,
           ),
           neutralVariantPalette: TonalPalette.of(
             neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
-            ((neutralVariantSourceColorHct?.chroma ?? sourceColorHct.chroma) /
-                    8.0) +
-                4.0,
+            respectMonochromeSeed && isNeutralVariantMonochrome
+                ? 0
+                : ((neutralVariantSourceColorHct?.chroma ??
+                            sourceColorHct.chroma) /
+                        8.0) +
+                    4.0,
           ),
           customErrorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
+                  errorSourceColorHct.hue,
+                  respectMonochromeSeed && isErrorMonochrome
+                      ? 0
+                      : errorSourceColorHct.chroma),
         );
 }

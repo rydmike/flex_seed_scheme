@@ -18,11 +18,12 @@ import '../hct/hct.dart';
 import '../palettes/tonal_palette.dart';
 import '../utils/math_utils.dart';
 
-// TODO(rydmike): The doc below is what the MCU source says and does, BUT
-// the hue actually matches the source hue, but chroma is locked to 45.
-// Not sure what is up with the orig source code, but this is how it is now.
+// TODO(rydmike): The original MCU doc for this states:
+//  "A playful theme - the source color's hue does not appear in the theme."
+// However, the hue actually matches the source hue and chroma is locked to 48.
+// Not sure what is up with the original code doc, maybe report it.
 
-/// A playful theme - the source color's hue does not appear in the theme.
+/// A playful theme - the source color's chroma may not appear in the theme.
 class SchemeRainbow extends DynamicScheme {
   /// Default SchemeRainbow constructor.
   SchemeRainbow({
@@ -39,33 +40,31 @@ class SchemeRainbow extends DynamicScheme {
     bool isPrimaryMonochrome = false,
     bool isSecondaryMonochrome = false,
     bool isTertiaryMonochrome = false,
-    bool isNeutralMonochrome = false,
-    bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
           sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.rainbow,
           primaryPalette: TonalPalette.of(
             sourceColorHct.hue,
-            48.0,
+            respectMonochromeSeed && isPrimaryMonochrome ? 0 : 48.0,
           ),
           secondaryPalette: secondarySourceColorHct != null
               ? TonalPalette.of(
                   secondarySourceColorHct.hue,
-                  16.0,
+                  respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
                 )
               : TonalPalette.of(
                   sourceColorHct.hue,
-                  16.0,
+                  respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
                 ),
           tertiaryPalette: tertiarySourceColorHct != null
               ? TonalPalette.of(
                   tertiarySourceColorHct.hue,
-                  24.0,
+                  respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
                 )
               : TonalPalette.of(
                   MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
-                  24.0,
+                  respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
                 ),
           neutralPalette: TonalPalette.of(
             neutralSourceColorHct?.hue ?? sourceColorHct.hue,
@@ -78,6 +77,9 @@ class SchemeRainbow extends DynamicScheme {
           customErrorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
+                  errorSourceColorHct.hue,
+                  respectMonochromeSeed && isErrorMonochrome
+                      ? 0
+                      : errorSourceColorHct.chroma),
         );
 }

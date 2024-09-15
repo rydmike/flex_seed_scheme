@@ -114,7 +114,11 @@ class HomePage extends StatelessWidget {
                     'produced color schemes, but will be when Flutter upgrades '
                     'to Material Color Utilities 0.12.0. You can opt in on '
                     'using it already with FSS, or decide to not use it, even '
-                    'after it becomes a forced default in Flutter SDK.\n',
+                    'after it becomes a forced default in Flutter SDK.\n'
+                    '\n'
+                    'The DynamicScheme variants fidelity and content have '
+                    'their own predefined expressive on-colors for container '
+                    'and are not impacted by this setting.',
                   ),
                   value: controller.useExpressiveOn,
                   onChanged: controller.setUseExpressiveOn,

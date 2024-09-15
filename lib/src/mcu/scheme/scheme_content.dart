@@ -79,13 +79,20 @@ class SchemeContent extends DynamicScheme {
                       ? 0
                       : tertiarySourceColorHct.chroma,
                 )
-              : TonalPalette.fromHct(
-                  DislikeAnalyzer.fixIfDisliked(
-                    TemperatureCache(sourceColorHct)
-                        .analogous(count: 3, divisions: 6)
-                        .last,
-                  ),
-                ),
+              : respectMonochromeSeed && isTertiaryMonochrome
+                  ? TonalPalette.of(
+                      sourceColorHct.hue,
+                      respectMonochromeSeed && isTertiaryMonochrome
+                          ? 0
+                          : sourceColorHct.chroma,
+                    )
+                  : TonalPalette.fromHct(
+                      DislikeAnalyzer.fixIfDisliked(
+                        TemperatureCache(sourceColorHct)
+                            .analogous(count: 3, divisions: 6)
+                            .last,
+                      ),
+                    ),
           neutralPalette: TonalPalette.of(
             neutralSourceColorHct?.hue ?? sourceColorHct.hue,
             respectMonochromeSeed && isNeutralMonochrome

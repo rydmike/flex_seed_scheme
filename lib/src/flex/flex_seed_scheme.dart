@@ -1297,10 +1297,6 @@ extension SeedColorScheme on ColorScheme {
               _isMonochrome(secondarySeedColor ?? primarySeedColor),
           isTertiaryMonochrome:
               _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
           isErrorMonochrome:
               errorSeedColor != null && _isMonochrome(errorSeedColor),
         ),

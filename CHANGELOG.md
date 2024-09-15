@@ -4,11 +4,14 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.4.0
 
-**DRAFT NOT YET PUBLISHED - NEEDS:**
-* Lots of new tests. No tests are broken, but coverage is down to 98% due to new not yet tested features.
-* Fix it so DynamicSchemeVariant works with `respectMonochromeSeed`. Concept done, see tonal spot.
+**Sep 16, 2024**
 
-**Sep 15, 2024**
+**DRAFT NOT YET PUBLISHED**
+
+**TODO**
+* Lots of new tests. No tests are broken, but coverage is down to 98% due to new not yet tested features.
+* Review expressive On Container usage. Missing somewhere?
+* Fidelity and content with monochrome seed is bad. Fix?
 
 **CHANGE**
 

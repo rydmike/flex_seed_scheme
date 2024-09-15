@@ -85,30 +85,34 @@ class SchemeExpressive extends DynamicScheme {
           variant: Variant.expressive,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240.0),
-            40.0,
+            respectMonochromeSeed && isPrimaryMonochrome ? 0 : 40.0,
           ),
           secondaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
                 secondarySourceColorHct ?? sourceColorHct,
                 hues,
                 secondaryRotations),
-            24.0,
+            respectMonochromeSeed && isSecondaryMonochrome ? 0 : 24.0,
           ),
           tertiaryPalette: TonalPalette.of(
             DynamicScheme.getRotatedHue(
                 tertiarySourceColorHct ?? sourceColorHct,
                 hues,
                 tertiaryRotations),
-            32.0,
+            respectMonochromeSeed && isTertiaryMonochrome ? 0 : 32.0,
           ),
           neutralPalette: TonalPalette.of(
-              (neutralSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0, 8.0),
+              (neutralSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0,
+              respectMonochromeSeed && isNeutralMonochrome ? 0 : 8.0),
           neutralVariantPalette: TonalPalette.of(
               (neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0,
-              12.0),
+              respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0),
           customErrorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
+                  errorSourceColorHct.hue,
+                  respectMonochromeSeed && isErrorMonochrome
+                      ? 0
+                      : errorSourceColorHct.chroma),
         );
 }
