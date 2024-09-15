@@ -116,9 +116,9 @@ class HomePage extends StatelessWidget {
                     'using it already with FSS, or decide to not use it, even '
                     'after it becomes a forced default in Flutter SDK.\n'
                     '\n'
-                    'The DynamicScheme variants fidelity and content have '
-                    'their own predefined expressive on-colors for container '
-                    'and are not impacted by this setting.',
+                    'The DynamicScheme variants Fidelity and Content have '
+                    'their own predefined expressive on-colors for containers '
+                    'and do not use this setting.',
                   ),
                   value: controller.useExpressiveOn,
                   onChanged: controller.setUseExpressiveOn,
