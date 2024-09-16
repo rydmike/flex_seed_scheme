@@ -8,68 +8,26 @@ import 'flex_tonal_palette.dart';
 
 // ignore_for_file: comment_references
 
-// Background: Why make custom versions of CorePalette and TonalPalette?
-// (Mostly written down so author will remember it later)
-//
-// The FlexCorePalette and FlexTonalPalette are used to create custom
-// versions of material_color_utilities CorePalette and TonalPalette classes.
-//
-// FlexCorePalette has an additional [fromSeeds] factory that is a bit more
-// efficient than a version that would extend from CorePalette is, via reduced
-// interface overhead. It also adds tones 5 and 98.
-//
-// The conversion of TonalPalettes to a list of ints, and having super
-// create the CorePalette from this list, has a bit unneeded extra overhead.
-// It is a bit more efficient to make and use an own implementation
-// of this simple mid-layer that has the needed constructors fromSeed directly.
-// Perhaps it does not matter, in that case extending the parent [CorePalette]
-// to make FlexCorePalette is an option, I have one stashed away, but its
-// constructor interface felt a bit like using FFI.
-//
-// The [CorePalette] in Material Color Utilities is a convenience wrapper for
-// the needed [TonalPalette]s, that is used by an additional upper layer
-// called [Scheme] that [ColorScheme.fromSeed] uses to create
-// a [ColorScheme] from a seed color. To make a ColorScheme "fromSeeds"
-// version, we need to make a slightly modified version of [Scheme]
-// too. The usage of [CorePalette.of] is hard coded into it, so we
-// cannot plug-in our version of FlexCorePalette in it anyway.
-//
-// Considering we need a custom version [Scheme] and [TonalPalette] it seemed
-// we might as well make modified re-implementation version of [CorePalette] as
-// well instead of extending from [CorePalette] and name it [FlexCorePalette].
-//
-// Downside, it does not share parent with [CorePalette], like an earlier
-// implementation did when this class was a part of FlexColorScheme package,
-// but this is not really needed, it is just color utility class.
-//
-// Regarding the custom version of TonalPalette, named FlexTonalPalette, there
-// was just no convenient way to add the desired tones 5 and 98 to it without
-// making our own version of it. Future version of [TonalPalette] in package
-// material_color_utilities may add tone 98, as it briefly existed in M3 Web
-// tool, but not in M3 guide, so who knows, but last I checked tone 98 was gone
-// in the web tool. We liked tone 98 for more light tone options.
-// Likewise tone 5, for more fidelity in the dark tones. So here we offer them
-// as well.
-
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. Five tonal palettes are generated, plus a default
 /// error palette if not provided.
 ///
 /// This is a modification of package:material_color_utilities [CorePalette],
 /// to make it possible to create Material-3 seeded ColorScheme using tonal
-/// palettes created from 3 different ARGB seed colors, where 2 are optional.
+/// palettes created from 6 different ARGB seed colors, where 5 are optional.
 /// As an addition to using only one as provided via material_color_utilities
 /// version [CorePalette.of] and here also via [FlexCorePalette.of].
 ///
-/// This implementation also has an unnamed constructor for the five main final
-/// [FlexTonalPalette] properties. Exposes the original version's private
-/// constructor [FlexCorePalette.fromHueChroma], that is used by
+/// This implementation also has an unnamed constructor for the six main final
+/// [FlexTonalPalette] properties. It also exposes the original version's
+/// private constructor [FlexCorePalette.fromHueChroma], that is used by
 /// [FlexCorePalette.of].
 ///
 /// It adds a [FlexCorePalette.fromSeeds] constructor
 /// to enable creating the [FlexTonalPalette]s for primary, secondary and
-/// tertiary color groups using optional ARGB seed colors, for secondary and
-/// tertiary [FlexTonalPalette]s, instead of tying them down to same ARGB
+/// tertiary, error, neutral and neutralVariant color groups, called palettes
+/// using optional ARGB seed colors, for secondary, tertiary, error, neutral and
+/// neutralVariant [FlexTonalPalette]s, instead of tying them down to same ARGB
 /// seed color used for the primary color group.
 ///
 /// The core produced tonal palettes are [primary], [secondary], [tertiary],
@@ -80,7 +38,7 @@ class FlexCorePalette {
   /// tonal color palette in the Material 3 core palettes.
   ///
   /// Providing the [error] tonal palette is optional, if not given it defaults
-  /// to the Material 3 color system default FlexTonalPalette.of(25, 84).
+  /// to the Material-3 color system default FlexTonalPalette.of(25, 84).
   ///
   /// If you construct [FlexCorePalette] with this default constructor, you
   /// must use the same [paletteType] of [FlexPaletteType] in all passed in
