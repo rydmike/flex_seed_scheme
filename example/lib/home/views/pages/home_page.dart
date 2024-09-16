@@ -216,8 +216,7 @@ class HomePage extends StatelessWidget {
           if (isLight)
             SwitchListTile(
               dense: true,
-              title: const Text('Keep surface and deprecated background color, '
-                  'white in light scheme'),
+              title: const Text('Keep surface color white in light scheme'),
               subtitle: const Text('tones.surfacesUseBW()'),
               value: controller.keepLightSurfaceColorsWhite &&
                   !controller.usedVariant.isFlutterScheme,
@@ -228,8 +227,7 @@ class HomePage extends StatelessWidget {
           else
             SwitchListTile(
               dense: true,
-              title: const Text('Keep surface and deprecated background color, '
-                  'black in dark scheme'),
+              title: const Text('Keep surface color black in dark scheme'),
               subtitle: const Text('tones.surfacesUseBW()'),
               value: controller.keepDarkSurfaceColorsBlack &&
                   !controller.usedVariant.isFlutterScheme,
