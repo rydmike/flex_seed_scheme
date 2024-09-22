@@ -313,9 +313,18 @@ class FlexSeedScheme {
     int? errorKey,
     int? neutralKey,
     int? neutralVariantKey,
-    required FlexTones tones,
+    required FlexTones flexTones,
+    bool useExpressiveOnContainerColors = false,
     required bool respectMonochromeSeed,
   }) {
+    // We will not use the expressiveOnContainer if the onPrimaryContainerTone
+    // is set to zero, because that indicates the .onMainsUseBW() modifier
+    // is being used on passed in tones and we want it to take precedence
+    // over the expressiveOnContainer setting.
+    final FlexTones tones = flexTones.onPrimaryContainerTone != 0
+        ? flexTones.expressiveOnContainer(useExpressiveOnContainerColors)
+        : flexTones;
+
     final FlexCorePalette core = FlexCorePalette.fromSeeds(
       primary: primaryKey,
       secondary: secondaryKey,
@@ -662,34 +671,63 @@ extension SeedColorScheme on ColorScheme {
 
     /// Use expressive on container colors for light mode.
     ///
-    /// Material specification and Material Color Utilities (MCU) v0.12.0
-    /// changes the light mode on colors for none surface containers from tone
-    /// 10 to tone 30. It also sets the min `ContrastCurve` from
+    /// The [useExpressiveOnContainerColors] is used to make the light theme
+    /// mode [ColorScheme] colors [onPrimaryContainer], [onSecondaryContainer],
+    /// [onTertiaryContainer] and [onErrorContainer] more color expressive.
+    ///
+    /// This comes at the cost of their contrast level and accessibility.
+    ///
+    /// The value has no impact on dark mode [ColorScheme] colors. Expressive
+    /// onColors for container colors have always been used in dark mode in
+    /// Material-3 design and they have good contrast and accessibility.
+    ///
+    /// Setting the [useExpressiveOnContainerColors] to `true` will make the
+    /// onContainer colors of all scheme variants and [FlexTones] based schemes
+    /// use the new expressive tone, if the currently used tone is 10. If a
+    /// scheme already uses an intentionally customized tone, the new expressive
+    /// tone will not be used for those tones, even when this settings is true.
+    ///
+    /// Schemes that contain such on container tones are:
+    /// - Fidelity
+    /// - Monochrome
+    /// - Content
+    /// - Ultra Contrast
+    /// - Candy pop
+    /// - Chroma
+    ///
+    /// Defaults to `false` if undefined.
+    ///
+    /// The Material design spec for the tones used by the colors
+    /// [onPrimaryContainer], [onSecondaryContainer], [onTertiaryContainer] and
+    /// [onErrorContainer] have changed from tone **10** to **30** for **LIGHT**
+    /// theme mode. It also sets the min `ContrastCurve` from
     /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
     /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
     /// contrast 4.5 instead of past 7.0.
     ///
-    /// This change is not in use by Flutter and not fully documented in the
-    /// M3 guide. In the FSS MCU fork we are making this change a deliberate
-    /// opt-in feature and default to not opting in on it. This default may be
-    /// adjusted later to opt-in by default, but FSS will continue to offer
-    /// the older version with better contrast too. Any later change to opt-in
-    /// by default will only be considered color style breaking and will not
-    /// bump major version of FSS, only minor.
+    /// The expressive light container tone is not yet used in the Flutter SDK
+    /// (Sep 22, 2024), but it is in the Material-3 design spec and also in
+    /// MCU v0.12.0. This is a breaking change in MCU 0.12.0 compared to 0.11.1
+    /// used in Flutter 3.24 and it will change the light mode color schemes
+    /// produced by all DynamicColor based Material color schemes.
     ///
-    /// Defaults to `false` in FSS version 3.0.0.
+    /// When this change lands in stable Flutter, it will be made
+    /// `true` by default in FCS too when undefined. You you will still be able
+    /// to opt out of using it, by setting it `false`. Flutter SDK and MCU will
+    /// not contain such an opt-out feature. This
     ///
-    /// The result you get with false, corresponds to used results in MCU until
-    /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
-    /// this flag to true. This is a breaking change in MCU 0.12.0 and will
-    /// change the light mode color schemes produced by all DynamicColor based
-    /// Material color schemes.
+    /// The new **on** color tones for containers in light mode make them more
+    /// color expressive, but they also reduce their contrast level and
+    /// accessibility. We recommend keeping them at the higher contrast level,
+    /// by setting [useExpressiveOnContainerColors] to `false`. With it set to
+    /// `false`, you will also keep this preference when Flutter SDK
+    /// defaults to using the expressive tones.
     final bool useExpressiveOnContainerColors = false,
 
     /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma, in its
-    /// conversion from Color or integer value to HCT space, so we get all
-    /// greyscale tones.
+    /// the chroma is set to 0 to respect that it has no chroma. THis is then
+    /// used in its conversion from Color or integer value to HCT space, so
+    /// we get all greyscale tones.
     ///
     /// If not set to true, we get a "cyan" tonal palette for monochrome and
     /// white seed colors, while black, gives a "red" tonal palette.
@@ -697,7 +735,7 @@ extension SeedColorScheme on ColorScheme {
     /// Defaults to `false` to keep the default behavior of the package and the
     /// Material-3 color system.
     ///
-    /// Consider setting it to `true` if you want to get
+    /// Prefer setting it to `true` if you want to get
     /// greyscale palette tones for any given monochrome seed color.
     ///
     /// If [respectMonochromeSeed] is true, any given configured minimum
@@ -1007,11 +1045,8 @@ extension SeedColorScheme on ColorScheme {
         errorKey: errorKey?.value,
         neutralKey: neutralKey?.value,
         neutralVariantKey: neutralVariantKey?.value,
-        tones: tones?.expressiveOnContainer(useExpressiveOnContainerColors) ??
-            variantTones
-                ?.expressiveOnContainer(useExpressiveOnContainerColors) ??
-            FlexTones.material(brightness)
-                .expressiveOnContainer(useExpressiveOnContainerColors),
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        flexTones: tones ?? variantTones ?? FlexTones.material(brightness),
         respectMonochromeSeed: respectMonochromeSeed,
       );
 
@@ -1118,9 +1153,6 @@ extension SeedColorScheme on ColorScheme {
         : null;
     final Hct? errorSourceColor =
         errorSeedColor != null ? Hct.fromInt(errorSeedColor.value) : null;
-
-    debugPrint('primarySourceColor = $primarySourceColor');
-    debugPrint('neutralSourceColor = $neutralSourceColor');
 
     return switch (variant) {
       FlexSchemeVariant.material ||

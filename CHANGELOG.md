@@ -4,29 +4,27 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.4.0
 
-**Sep 16, 2024**
-
-**DRAFT NOT YET PUBLISHED**
-
-**TODO**
-* Lots of new tests. No tests are broken, but coverage is down to 98% due to new not yet tested features.
-* Review expressive On Container usage. Missing somewhere?
-* Fidelity and content with monochrome seed is bad. Fix?
+**Sep 23, 2024**
 
 **CHANGE**
 
-* The parameter `useExpressiveOnContainerColors` in `SeedColorScheme.fromSeeds` now impacts both scheme `variant`s regardless of if its `isFlutterScheme` is true or false. 
-  * For `tones` based variants, when using a built-in `FlexTones` or even a custom `tones`, it is no longer necessary to use the `FlexTones` modifier `.expressiveOnContainer()` on the used `tones` to get a seeded color scheme with expressive on container tones in light mode.
-  * The `FlexTones` based seeded color schemes the modifier is still used, but it is applied internally when the flag `useExpressiveOnContainerColors` is set t true.
-  * This makes this flag consistent and applicable to all seed generated schemes, regardless of if it is based on `DynamicSchemeVariant` or `FlexTones`.
+* The parameter `useExpressiveOnContainerColors` in `SeedColorScheme.fromSeeds` now works with a scheme `variant` regardless of if it has `isFlutterScheme` set to true or false. Meaning it impacts both MCU `DynamicSchemeVariant` and FSS `FlexTones` based scheme variants.
+
+  * For `FlexTones` based variants, when using a built-in `FlexTones` or even a custom one, it is no longer necessary to use the `FlexTones` modifier `.expressiveOnContainer()` on the used `tones` to get a seeded color scheme with expressive on container tones in light mode.
+  * The `FlexTones` based modifier `.expressiveOnContainer()` is still used, but it is applied internally when the flag `useExpressiveOnContainerColors` is set to true.
+  * The `useExpressiveOnContainerColors` only applies in light mode to on container tones that are equal to 10, other tones are considered custom on purpose and are not changed. This is in-line with that the MCU `DynamicSchemeVariant`s that did not use tone 30 before as on container color in light mode, like Fidelity, Monochrome and Content were not affected by this change in MCU 0.12.0. In the same manner, this flag no longer changes `FlexTones` based schemes that have on container tones that are not 10. This applies to some on container colors in UltraContrast, Candy Pop and Chroma predefined `FlexTones`.
+  * This change makes this flag consistent and applicable to all seed generated schemes, regardless of if it is based on `DynamicSchemeVariant`, built-in `FlexTones` or even custom `FlexTones` configurations.
+  * For MCU seed generated schemes, `useExpressiveOnContainerColors` only has any impact when contrast level is at the default value (0), normal contrast.
+  * When using FFS seed generated schemes with `useExpressiveOnContainerColors` set to true, the modifier is applied before any `FlexTones` modifiers. Using tones modifiers, like e.g. `onMainsUseBW()` will thus as expected, override this setting and set on container colors to tone 0 or tone 100, depending on the container colors brightness.
   
 **NEW**
 
-* A new `bool` parameter, `respectMonochromeSeed`, in `SeedColorScheme.fromSeeds` can now be used to make generated schemes that respect a monochrome seed color as input. 
+* A new `bool` parameter, `respectMonochromeSeed` in `SeedColorScheme.fromSeeds` can now be used to make seed generated ColorSchemes that work as expected if a monochrome color is used as seed color input.
   * When set to `true`, any monochrome RGB input value will result in the creation of a greyscale tonal palette for the palette using the monochrome seed color. An RGB monochrome value is one where Red, Green and Blue values are all equal.
-  * Previously in FSS and in Material Color Utilities (MCU), and thus Flutter's default, using a monochrome seed value or white, results in a tonal palette with cyan color tones. A black input results in red like color tones. This is not very intuitive and not really expected by most users of monochrome seed colors. 
+  * Previously in FSS and in Material Color Utilities (MCU) and thus still as default in Flutter `ColorScheme.fromSeed`, using a monochrome seed color value or white, resulted in a tonal palette with cyan color tones. A black input resulted in red like color tones. This is not very intuitive and not really expected when using monochrome seed colors.
   * FSS still defaults to setting `respectMonochromeSeed` to `false`, to not break any existing code that may rely on the old behavior. 
-  * Prefer using `respectMonochromeSeed` set to `true`, to get more logical seed results when using monochrome colors or white and black as seed colors. 
+  * Prefer setting `respectMonochromeSeed` to `true`, to get more logical seed results when using monochrome seed colors or white and black as seed colors. 
+  * **NOTE:** When using `respectMonochromeSeed` with `DynamicSchemeVariant` variants `fidelity` or `content`, for some monochrome input colors they produce `primaryContainer` and `onPrimaryContainer` as well as `tertiaryContainer` and `onTertiaryContainer` color pairs, with low contrast. Consider using some other scheme variants with monochrome seed colors. All others work well with any monochrome seed color. This is just how the MCU `DynamicScheme`s `SchemeContent` and `SchemeFidelity` are defined in MCU. They also produce fairly low contrast for these color pairs with very dark seed colors. This behavior with MCU's `SchemeContent` and `SchemeFidelity` could be fixed in FlexSeedScheme's internal MCU fork, but we want to keep the result of these schemes consistent with MCU.  
 
 ## 3.3.0
 
@@ -35,7 +33,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 **NEW**
 
 * Exposed `DynamicColor`, `MaterialDynamicColors` and `Scheme` from the underlying forked Material Color Utilities (MCU) library.
-* Undeprecated `Scheme`, that original MCU deprecated. It does not conflict with the new `DynamicSchemes` that replaced it, thus in the internal MCU fork, we do not need to deprecate it and can offer it for legacy access to old `ColorScheme.fromSeed` scheme result in use before Flutter 3.22.0. 
+* Un-deprecated `Scheme`, that original MCU deprecated. It does not conflict with the new `DynamicSchemes` that replaced it, thus in the internal MCU fork, we do not need to deprecate it and can offer it for legacy access to old `ColorScheme.fromSeed` scheme result in use before Flutter 3.22.0. 
   * Internally FlexSeedScheme does not use `Scheme` for its own legacy version of the same scheme, it uses its FlexTones based setup instead, but produces the same color values. We still recommend using its tones `FlexTones.material3Legacy` version instead of `Scheme` for a legacy Material-3 seed generated `ColorScheme`. 
   * This API is provided for legacy access to the old MCU `Scheme` style and API, that was used in Flutter 3.19.0 and earlier in its `ColorScheme.fromSeed` constructor back then. If you want to recreate its exact older internal API algorithm, you can now do so using `Scheme` that it used to use before Flutter 3.22.0.
   * This revived `Scheme` class was also complemented with the new `ColorScheme` colors added in Flutter 3.22.0, but it uses legacy Flutter 3.19 and earlier tone mappings for all colors that existed then. Except for dark mode `onErrorContainer` that it corrected from 80 to 90. It was always a bug in Flutter version 3.19 and earlier that tone 80 was used.

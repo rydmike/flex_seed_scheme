@@ -78,13 +78,8 @@ class SchemeFidelity extends DynamicScheme {
                       ? 0
                       : tertiarySourceColorHct.chroma,
                 )
-              : respectMonochromeSeed && isTertiaryMonochrome
-                  ? TonalPalette.of(
-                      sourceColorHct.hue,
-                      respectMonochromeSeed && isTertiaryMonochrome
-                          ? 0
-                          : sourceColorHct.chroma,
-                    )
+              : respectMonochromeSeed
+                  ? TonalPalette.of(sourceColorHct.hue, 0)
                   : TonalPalette.fromHct(
                       DislikeAnalyzer.fixIfDisliked(
                         TemperatureCache(sourceColorHct).complement,

@@ -97,6 +97,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ShowTonalPalette(controller: controller),
           ),
+          const SizedBox(height: 8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -110,15 +111,32 @@ class HomePage extends StatelessWidget {
                     'light mode. This is a new Material-3 spec standard. It is '
                     'more color expressive, but reduces contrast.\n'
                     '\n'
-                    'It is not yet used by Flutter SDK in ColorScheme.fromSeed '
-                    'produced color schemes, but will be when Flutter upgrades '
-                    'to Material Color Utilities 0.12.0. You can opt in on '
-                    'using it already with FSS, or decide to not use it, even '
-                    'after it becomes a forced default in Flutter SDK.\n'
+                    'This modifier only impacts light scheme variants where '
+                    'the container on colors use tone 10. For scheme variants '
+                    'with an intentionally custom tone for onColors on '
+                    'containers, this setting has no impact. Such variants '
+                    'are:\n'
+                    ' - Fidelity\n'
+                    ' - Monochrome\n'
+                    ' - Content\n'
+                    ' - Ultra Contrast\n'
+                    ' - Candy pop\n'
+                    ' - Chroma\n'
                     '\n'
-                    'The DynamicScheme variants Fidelity and Content have '
-                    'their own predefined expressive on-colors for containers '
-                    'and do not use this setting.',
+                    "This feature is not yet used by Flutter's "
+                    'ColorScheme.fromSeed produced ColorSchemes, but will be '
+                    'when Flutter upgrades to Material Color Utilities (MCU) '
+                    'v0.12.0. You can opt in on using it already now, or '
+                    'decide not to use it. With FSS you will be able to do so, '
+                    'even after it becomes a forced default and the only '
+                    "option in Flutter's ColorScheme.fromSeed.\n"
+                    '\n'
+                    'For MCU seed generated schemes, this only has any impact '
+                    'when contrast level is at the default value (0), normal '
+                    'contrast.\n'
+                    '\n'
+                    'When using FFS seed generated schemes, the tones modifier '
+                    '"B&W main onColors" will override this setting.\n',
                   ),
                   value: controller.useExpressiveOn,
                   onChanged: controller.setUseExpressiveOn,
@@ -183,58 +201,83 @@ class HomePage extends StatelessWidget {
                 ? null
                 : controller.setUseMonoSurfaces,
           ),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Higher contrast fixed colors'),
-            subtitle: const Text('tones.higherContrastFixed()'),
-            value: controller.higherContrastFixedColors &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setHigherContrastFixedColors,
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: SwitchListTile(
+                  contentPadding: paddingStartColumn,
+                  dense: true,
+                  title: const Text('Higher contrast fixed colors'),
+                  subtitle: const Text('tones.higherContrastFixed()'),
+                  value: controller.higherContrastFixedColors &&
+                      !controller.usedVariant.isFlutterScheme,
+                  onChanged: controller.usedVariant.isFlutterScheme
+                      ? null
+                      : controller.setHigherContrastFixedColors,
+                ),
+              ),
+              Expanded(
+                child: SwitchListTile(
+                  contentPadding: paddingEndColumn,
+                  dense: true,
+                  title: const Text('Keep main on-colors black and white'),
+                  subtitle: const Text('tones.onMainsUseBW()'),
+                  value: controller.keepMainOnColorsBW &&
+                      !controller.usedVariant.isFlutterScheme,
+                  onChanged: controller.usedVariant.isFlutterScheme
+                      ? null
+                      : controller.setKeepMainOnColorsBW,
+                ),
+              ),
+            ],
           ),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Keep main on-colors black and white'),
-            subtitle: const Text('tones.onMainsUseBW()'),
-            value: controller.keepMainOnColorsBW &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setKeepMainOnColorsBW,
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: SwitchListTile(
+                  contentPadding: paddingStartColumn,
+                  dense: true,
+                  title: const Text('Keep surface on-colors black and white'),
+                  subtitle: const Text('tones.onSurfacesUseBW()'),
+                  value: controller.keepSurfaceOnColorsBW &&
+                      !controller.usedVariant.isFlutterScheme,
+                  onChanged: controller.usedVariant.isFlutterScheme
+                      ? null
+                      : controller.setKeepSurfaceOnColorsBW,
+                ),
+              ),
+              if (isLight)
+                Expanded(
+                  child: SwitchListTile(
+                    contentPadding: paddingEndColumn,
+                    dense: true,
+                    title:
+                        const Text('Keep surface color white in light scheme'),
+                    subtitle: const Text('tones.surfacesUseBW()'),
+                    value: controller.keepLightSurfaceColorsWhite &&
+                        !controller.usedVariant.isFlutterScheme,
+                    onChanged: controller.usedVariant.isFlutterScheme
+                        ? null
+                        : controller.setKeepLightSurfaceColorsWhite,
+                  ),
+                )
+              else
+                Expanded(
+                  child: SwitchListTile(
+                    contentPadding: paddingEndColumn,
+                    dense: true,
+                    title:
+                        const Text('Keep surface color black in dark scheme'),
+                    subtitle: const Text('tones.surfacesUseBW()'),
+                    value: controller.keepDarkSurfaceColorsBlack &&
+                        !controller.usedVariant.isFlutterScheme,
+                    onChanged: controller.usedVariant.isFlutterScheme
+                        ? null
+                        : controller.setKeepDarkSurfaceColorsBlack,
+                  ),
+                ),
+            ],
           ),
-          SwitchListTile(
-            dense: true,
-            title: const Text('Keep surface on-colors black and white'),
-            subtitle: const Text('tones.onSurfacesUseBW()'),
-            value: controller.keepSurfaceOnColorsBW &&
-                !controller.usedVariant.isFlutterScheme,
-            onChanged: controller.usedVariant.isFlutterScheme
-                ? null
-                : controller.setKeepSurfaceOnColorsBW,
-          ),
-          if (isLight)
-            SwitchListTile(
-              dense: true,
-              title: const Text('Keep surface color white in light scheme'),
-              subtitle: const Text('tones.surfacesUseBW()'),
-              value: controller.keepLightSurfaceColorsWhite &&
-                  !controller.usedVariant.isFlutterScheme,
-              onChanged: controller.usedVariant.isFlutterScheme
-                  ? null
-                  : controller.setKeepLightSurfaceColorsWhite,
-            )
-          else
-            SwitchListTile(
-              dense: true,
-              title: const Text('Keep surface color black in dark scheme'),
-              subtitle: const Text('tones.surfacesUseBW()'),
-              value: controller.keepDarkSurfaceColorsBlack &&
-                  !controller.usedVariant.isFlutterScheme,
-              onChanged: controller.usedVariant.isFlutterScheme
-                  ? null
-                  : controller.setKeepDarkSurfaceColorsBlack,
-            ),
           const Divider(),
           const ListTile(
               title: Text('Widget showcase, using Material default styles')),

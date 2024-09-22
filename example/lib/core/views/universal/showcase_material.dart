@@ -73,7 +73,10 @@ class ShowcaseMaterial extends StatelessWidget {
         //
         const Text('Switch', style: headerStyle),
         const SizedBox(height: 8),
-        const SwitchShowcase(showCupertinoSwitches: true),
+        const SwitchShowcase(
+          showCupertinoSwitches: false,
+          showAdaptiveSwitches: false,
+        ),
         const SizedBox(height: 16),
         const Text('Checkbox', style: headerStyle),
         const SizedBox(height: 8),
@@ -732,7 +735,12 @@ class _FabShowcaseState extends State<FabShowcase> {
 }
 
 class SwitchShowcase extends StatefulWidget {
-  const SwitchShowcase({super.key, this.showCupertinoSwitches = false});
+  const SwitchShowcase({
+    super.key,
+    this.showAdaptiveSwitches = false,
+    this.showCupertinoSwitches = false,
+  });
+  final bool showAdaptiveSwitches;
   final bool showCupertinoSwitches;
 
   @override
@@ -826,46 +834,48 @@ class _SwitchShowcaseState extends State<SwitchShowcase> {
               ),
             ],
           ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              const SizedBox(width: _width, child: Text('Adaptive')),
-              Switch.adaptive(
-                value: isOn1,
-                onChanged: (bool value) {
-                  setState(() {
-                    isOn1 = value;
-                  });
-                },
-              ),
-              Switch.adaptive(
-                value: !isOn1,
-                onChanged: (bool value) {
-                  setState(() {
-                    isOn1 = !value;
-                  });
-                },
-              ),
-            ],
-          ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              const SizedBox(width: _width, child: Text('Disabled')),
-              Switch.adaptive(
-                value: isOn1,
-                onChanged: null,
-              ),
-              Switch.adaptive(
-                value: !isOn1,
-                onChanged: null,
-              ),
-            ],
-          ),
+          if (widget.showAdaptiveSwitches)
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: <Widget>[
+                const SizedBox(width: _width, child: Text('Adaptive')),
+                Switch.adaptive(
+                  value: isOn1,
+                  onChanged: (bool value) {
+                    setState(() {
+                      isOn1 = value;
+                    });
+                  },
+                ),
+                Switch.adaptive(
+                  value: !isOn1,
+                  onChanged: (bool value) {
+                    setState(() {
+                      isOn1 = !value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          if (widget.showCupertinoSwitches)
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: <Widget>[
+                const SizedBox(width: _width, child: Text('Disabled')),
+                Switch.adaptive(
+                  value: isOn1,
+                  onChanged: null,
+                ),
+                Switch.adaptive(
+                  value: !isOn1,
+                  onChanged: null,
+                ),
+              ],
+            ),
           if (widget.showCupertinoSwitches)
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,

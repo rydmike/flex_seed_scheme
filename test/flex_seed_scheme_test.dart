@@ -1123,6 +1123,126 @@ void main() {
     });
 
     test(
+        'FCS7.016-l-expr2: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and variant material for a light scheme and '
+        'useExpressiveOnContainerColors set to true '
+        'EXPECT scheme equal to using tones material with same seeds '
+        'and using modifier expressiveOnContainer', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.material,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.light).expressiveOnContainer(),
+      );
+      expect(scheme, scheme2);
+    });
+
+    test(
+        'FCS7.016-d-expr2: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and variant material for a dark scheme and '
+        'useExpressiveOnContainerColors set to true '
+        'EXPECT scheme equal to using tones material with same seeds '
+        'and using modifier expressiveOnContainer', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.material,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.material(Brightness.dark).expressiveOnContainer(),
+      );
+      expect(scheme, scheme2);
+    });
+
+    test(
+        'FCS7.016-l-expr3: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and variant chroma for a light scheme and '
+        'useExpressiveOnContainerColors set to true '
+        'EXPECT scheme equal to using tones material with same seeds '
+        'and using modifier expressiveOnContainer', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.chroma,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.chroma(Brightness.light).expressiveOnContainer(),
+      );
+      expect(scheme, scheme2);
+    });
+
+    test(
+        'FCS7.016-d-expr3: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and variant chroma for a dark scheme and '
+        'useExpressiveOnContainerColors set to true '
+        'EXPECT scheme equal to using tones material with same seeds '
+        'and using modifier expressiveOnContainer', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.chroma,
+      );
+      final ColorScheme scheme2 = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: primarySeedColor,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        tones: FlexTones.chroma(Brightness.dark).expressiveOnContainer(),
+      );
+      expect(scheme, scheme2);
+    });
+
+    test(
         'FCS7.017-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant content for a light scheme '
         'EXPECT this given checked color result', () {
@@ -1148,11 +1268,6 @@ void main() {
       expect(scheme.surfaceContainer, const Color(0xfff1eded));
     });
 
-    // TODO(rydmike): Examine tertiary black and white response, it is odd!
-    //   but a result of the weird "content" scheme, maybe add special cases
-    //   for white and seed with respectMonochromeSeed set to true?
-    //   as it is not a normal cases content was designed for.
-    //   for now this tests fails on purpose, so I will notice this.
     test(
         'FCS7.017-l-respect: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant content for a light scheme and '
@@ -1173,15 +1288,15 @@ void main() {
       expect(scheme.primaryContainer, const Color(0xff1b1b1b));
       expect(scheme.secondary, const Color(0xff4d5f7d));
       expect(scheme.secondaryContainer, const Color(0xffc8dbfe));
-      expect(scheme.tertiary, const Color(0xff1f5205));
-      expect(scheme.tertiaryContainer, const Color(0xff376b1e));
+      expect(scheme.tertiary, const Color(0xff000000));
+      expect(scheme.tertiaryContainer, const Color(0xff072100));
       expect(scheme.error, const Color(0xffba1a1a));
       expect(scheme.errorContainer, const Color(0xffffdad6));
       expect(scheme.surface, const Color(0xfffcf8f8));
       expect(scheme.surfaceContainer, const Color(0xfff1eded));
     });
     test(
-        'FCS7.017-l-respect: GIVEN a SeedColorScheme.fromSeeds using one seeds '
+        'FCS7.017-l-respect: GIVEN a SeedColorScheme.fromSeeds using one seed '
         'and variant content for a light scheme and '
         'respectMonochromeSeed true '
         'EXPECT this given checked color result', () {
@@ -1203,6 +1318,60 @@ void main() {
       expect(scheme.surfaceContainer, const Color(0xFFEEEEEE));
     });
     test(
+        'FCS7.017-l-mono-2: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant content for a light scheme and '
+        'respectMonochromeSeed false '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: const Color(0xFF999999),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: false,
+        variant: FlexSchemeVariant.content,
+      );
+      expect(scheme.primary, const Color(0xff5d5f5f));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff4d5f7d));
+      expect(scheme.secondaryContainer, const Color(0xffc8dbfe));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffdedddd));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
+        'FCS7.017-l-mono-3: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant content for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: const Color(0xFF555555),
+        tertiaryKey: const Color(0xFF999999),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.content,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff5e5e5e));
+      expect(scheme.secondaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffdddddd));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
         'FCS7.018-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and variant expressive for a light scheme '
         'EXPECT this given checked color result', () {
@@ -1218,6 +1387,33 @@ void main() {
       );
       expect(scheme.primary, const Color(0xff006b5a));
       expect(scheme.primaryContainer, const Color(0xff95f4dc));
+      expect(scheme.secondary, const Color(0xff7b5266));
+      expect(scheme.secondaryContainer, const Color(0xffffd8e8));
+      expect(scheme.tertiary, const Color(0xff1f695e));
+      expect(scheme.tertiaryContainer, const Color(0xffa9f0e2));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffbf8ff));
+      expect(scheme.surfaceContainer, const Color(0xffeeedf8));
+    });
+    test(
+        'FCS7.018-l-mono: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and variant expressive for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.expressive,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
       expect(scheme.secondary, const Color(0xff7b5266));
       expect(scheme.secondaryContainer, const Color(0xffffd8e8));
       expect(scheme.tertiary, const Color(0xff1f695e));
@@ -1253,6 +1449,113 @@ void main() {
       expect(scheme.surfaceContainer, const Color(0xfff1eded));
     });
     test(
+        'FCS7.019-l-mono: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant fidelity for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.fidelity,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff4d5f7d));
+      expect(scheme.secondaryContainer, const Color(0xffc8dbfe));
+      expect(scheme.tertiary, const Color(0xff366a1d));
+      expect(scheme.tertiaryContainer, const Color(0xffb1ee91));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
+        'FCS7.019-l-mono-2: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant fidelity for a light scheme and '
+        'respectMonochromeSeed false '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: const Color(0xFF999999),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: false,
+        variant: FlexSchemeVariant.fidelity,
+      );
+      expect(scheme.primary, const Color(0xff5d5f5f));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff4d5f7d));
+      expect(scheme.secondaryContainer, const Color(0xffc8dbfe));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffdedddd));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
+        'FCS7.019-l-mono-3: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant fidelity for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: const Color(0xFF555555),
+        tertiaryKey: const Color(0xFF999999),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.fidelity,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff5e5e5e));
+      expect(scheme.secondaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffdddddd));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
+        'FCS7.019-l-mono-4: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and variant fidelity for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xffdddddd),
+        secondaryKey: const Color(0xFF555555),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.fidelity,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffdddddd));
+      expect(scheme.secondary, const Color(0xff5e5e5e));
+      expect(scheme.secondaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffdddddd));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcf8f8));
+      expect(scheme.surfaceContainer, const Color(0xfff1eded));
+    });
+    test(
         'FCS7.020-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and fruitSalad content for a light scheme '
         'EXPECT this given checked color result', () {
@@ -1268,6 +1571,33 @@ void main() {
       );
       expect(scheme.primary, const Color(0xff00639c));
       expect(scheme.primaryContainer, const Color(0xffcee5ff));
+      expect(scheme.secondary, const Color(0xff006875));
+      expect(scheme.secondaryContainer, const Color(0xff9eeffe));
+      expect(scheme.tertiary, const Color(0xff446732));
+      expect(scheme.tertiaryContainer, const Color(0xffc5efab));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfff9f9ff));
+      expect(scheme.surfaceContainer, const Color(0xffeaeefa));
+    });
+    test(
+        'FCS7.020-l-mono: GIVEN a SeedColorScheme.fromSeeds using six '
+        'seeds and fruitSalad content for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: Colors.black,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.fruitSalad,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
       expect(scheme.secondary, const Color(0xff006875));
       expect(scheme.secondaryContainer, const Color(0xff9eeffe));
       expect(scheme.tertiary, const Color(0xff446732));
@@ -1303,6 +1633,33 @@ void main() {
       expect(scheme.surfaceContainer, const Color(0xffeeeeee));
     });
     test(
+        'FCS7.021-l-mono: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and monochrome content for a light scheme and using mono error '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: Colors.black,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: Colors.black,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.monochrome,
+      );
+      expect(scheme.primary, const Color(0xff000000));
+      expect(scheme.primaryContainer, const Color(0xff3b3b3b));
+      expect(scheme.secondary, const Color(0xff5e5e5e));
+      expect(scheme.secondaryContainer, const Color(0xffd4d4d4));
+      expect(scheme.tertiary, const Color(0xff3b3b3b));
+      expect(scheme.tertiaryContainer, const Color(0xff747474));
+      expect(scheme.error, const Color(0xff5e5e5e));
+      expect(scheme.errorContainer, const Color(0xffe2e2e2));
+      expect(scheme.surface, const Color(0xfff9f9f9));
+      expect(scheme.surfaceContainer, const Color(0xffeeeeee));
+    });
+    test(
         'FCS7.022-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and neutral content for a light scheme '
         'EXPECT this given checked color result', () {
@@ -1328,6 +1685,55 @@ void main() {
       expect(scheme.surfaceContainer, const Color(0xfff0edee));
     });
     test(
+        'FCS7.022-l-mono: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and neutral content for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: Colors.white,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.neutral,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xff5b5e66));
+      expect(scheme.secondaryContainer, const Color(0xffe0e2ec));
+      expect(scheme.tertiary, const Color(0xff55624c));
+      expect(scheme.tertiaryContainer, const Color(0xffd8e7cb));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffbf8fa));
+      expect(scheme.surfaceContainer, const Color(0xfff0edee));
+    });
+    test(
+        'FCS7.022-l-mono: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and neutral content for a light scheme and '
+        'respectMonochromeSeed true '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: Colors.white,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.neutral,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xFF5E5E5E));
+      expect(scheme.secondaryContainer, const Color(0xFFE2E2E2));
+      expect(scheme.tertiary, const Color(0xFF5E5E5E));
+      expect(scheme.tertiaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xFFF9F9F9));
+      expect(scheme.surfaceContainer, const Color(0xFFEEEEEE));
+    });
+    test(
         'FCS7.023-l: GIVEN a SeedColorScheme.fromSeeds using six seeds '
         'and rainbow content for a light scheme '
         'EXPECT this given checked color result', () {
@@ -1347,6 +1753,32 @@ void main() {
       expect(scheme.secondaryContainer, const Color(0xffd9e3f8));
       expect(scheme.tertiary, const Color(0xff4f6442));
       expect(scheme.tertiaryContainer, const Color(0xffd1eabe));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfff9f9f9));
+      expect(scheme.surfaceContainer, const Color(0xffeeeeee));
+    });
+    test(
+        'FCS7.023-l-mono: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and rainbow content for a light scheme '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xFF111111),
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: const Color(0xFF222222),
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.rainbow,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xff555f71));
+      expect(scheme.secondaryContainer, const Color(0xffd9e3f8));
+      expect(scheme.tertiary, const Color(0xff5e5e5e));
+      expect(scheme.tertiaryContainer, const Color(0xffe2e2e2));
       expect(scheme.error, const Color(0xffba1a1a));
       expect(scheme.errorContainer, const Color(0xffffdad6));
       expect(scheme.surface, const Color(0xfff9f9f9));
@@ -1376,6 +1808,147 @@ void main() {
       expect(scheme.errorContainer, const Color(0xffffdad6));
       expect(scheme.surface, const Color(0xfff9f9ff));
       expect(scheme.surfaceContainer, const Color(0xffeaeefa));
+    });
+
+    test(
+        'FCS7.024-l-mono: GIVEN a SeedColorScheme.fromSeeds using six seeds '
+        'and vibrant content for a light scheme '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: Colors.black,
+        secondaryKey: secondarySeedColor,
+        tertiaryKey: tertiarySeedColor,
+        errorKey: errorSeedColor,
+        neutralKey: neutralSeedColor,
+        neutralVariantKey: neutralVariantSeedColor,
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.vibrant,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xff565d7e));
+      expect(scheme.secondaryContainer, const Color(0xffdde1ff));
+      expect(scheme.tertiary, const Color(0xff2b6952));
+      expect(scheme.tertiaryContainer, const Color(0xffb0f0d2));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfff9f9ff));
+      expect(scheme.surfaceContainer, const Color(0xffeaeefa));
+    });
+
+    test(
+        'FCS7.024-l-mono: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and vibrant content for a light scheme '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xFFAAAAAA),
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.vibrant,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xFF5E5E5E));
+      expect(scheme.secondaryContainer, const Color(0xFFE2E2E2));
+      expect(scheme.tertiary, const Color(0xFF5E5E5E));
+      expect(scheme.tertiaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xFFF9F9F9));
+      expect(scheme.surfaceContainer, const Color(0xFFEEEEEE));
+    });
+
+    test(
+        'FCS7.025-l-mono: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and chroma for a light scheme '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xFFAAAAAA),
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.chroma,
+      );
+      expect(scheme.primary, const Color(0xff5e5e5e));
+      expect(scheme.primaryContainer, const Color(0xffc6c6c6));
+      expect(scheme.secondary, const Color(0xff777777));
+      expect(scheme.secondaryContainer, const Color(0xffe8e8e8));
+      expect(scheme.tertiary, const Color(0xff777777));
+      expect(scheme.tertiaryContainer, const Color(0xfff1f1f1));
+      expect(scheme.error, const Color(0xffba1a1a));
+      expect(scheme.errorContainer, const Color(0xffffdad6));
+      expect(scheme.surface, const Color(0xfffcfcfc));
+      expect(scheme.surfaceContainer, const Color(0xFFEEEEEE));
+    });
+
+    test(
+        'FCS7.025-d-mono: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and chroma for a light scheme '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: const Color(0xFFAAAAAA),
+        respectMonochromeSeed: true,
+        variant: FlexSchemeVariant.chroma,
+      );
+      expect(scheme.primary, const Color(0xffc6c6c6));
+      expect(scheme.primaryContainer, const Color(0xff5e5e5e));
+      expect(scheme.secondary, const Color(0xffababab));
+      expect(scheme.secondaryContainer, const Color(0xff777777));
+      expect(scheme.tertiary, const Color(0xffdadada));
+      expect(scheme.tertiaryContainer, const Color(0xff474747));
+      expect(scheme.error, const Color(0xffffb4ab));
+      expect(scheme.errorContainer, const Color(0xff93000a));
+      expect(scheme.surface, const Color(0xff0e0e0e));
+      expect(scheme.surfaceContainer, const Color(0xff1f1f1f));
+    });
+
+    test(
+        'FCS7.025-l-mono-2: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and chroma for a light scheme and error mono '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.light,
+        primaryKey: const Color(0xFFAAAAAA),
+        errorKey: const Color(0xFF888888),
+        respectMonochromeSeed: true,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.ultraContrast,
+      );
+      expect(scheme.primary, const Color(0xff303030));
+      expect(scheme.primaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.secondary, const Color(0xff5e5e5e));
+      expect(scheme.secondaryContainer, const Color(0xffe2e2e2));
+      expect(scheme.tertiary, const Color(0xff474747));
+      expect(scheme.tertiaryContainer, const Color(0xfff1f1f1));
+      expect(scheme.error, const Color(0xff5e5e5e));
+      expect(scheme.errorContainer, const Color(0xfff1f1f1));
+      expect(scheme.surface, const Color(0xffffffff));
+      expect(scheme.surfaceContainer, const Color(0xfff3f3f3));
+    });
+
+    test(
+        'FCS7.025-d-mono-2: GIVEN a SeedColorScheme.fromSeeds using one seed '
+        'and chroma for a light scheme and error mono '
+        'EXPECT this given checked color result', () {
+      final ColorScheme scheme = SeedColorScheme.fromSeeds(
+        brightness: Brightness.dark,
+        primaryKey: const Color(0xFFAAAAAA),
+        errorKey: const Color(0xFF888888),
+        respectMonochromeSeed: true,
+        useExpressiveOnContainerColors: true,
+        variant: FlexSchemeVariant.ultraContrast,
+      );
+      expect(scheme.primary, const Color(0xffe2e2e2));
+      expect(scheme.primaryContainer, const Color(0xff474747));
+      expect(scheme.secondary, const Color(0xfff1f1f1));
+      expect(scheme.secondaryContainer, const Color(0xff474747));
+      expect(scheme.tertiary, const Color(0xfff1f1f1));
+      expect(scheme.tertiaryContainer, const Color(0xff474747));
+      expect(scheme.error, const Color(0xffc6c6c6));
+      expect(scheme.errorContainer, const Color(0xff474747));
+      expect(scheme.surface, const Color(0xff070707));
+      expect(scheme.surfaceContainer, const Color(0xff1f1f1f));
     });
 
     test(
@@ -1481,10 +2054,6 @@ void main() {
       expect(scheme.shadow, Color(scheme2.shadow));
       expect(scheme.scrim, Color(scheme2.scrim));
       expect(scheme.surfaceTint, Color(scheme2.primary));
-      // TODO(rydmike): No longer testing these deprecated colors.
-      // expect(scheme.background, Color(scheme2.background));
-      // expect(scheme.onBackground, Color(scheme2.onBackground));
-      // expect(scheme.surfaceVariant, Color(scheme2.surfaceVariant));
     });
 
     test(
@@ -1561,10 +2130,6 @@ void main() {
       expect(scheme.shadow, Color(scheme2.shadow));
       expect(scheme.scrim, Color(scheme2.scrim));
       expect(scheme.surfaceTint, Color(scheme2.primary));
-      // TODO(rydmike): No longer testing these deprecated colors.
-      // expect(scheme.background, Color(scheme2.background));
-      // expect(scheme.onBackground, Color(scheme2.onBackground));
-      // expect(scheme.surfaceVariant, Color(scheme2.surfaceVariant));
     });
   });
 }

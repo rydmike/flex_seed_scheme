@@ -1015,8 +1015,8 @@ class FlexTones with Diagnosticable {
   }
 
   /// Returns a new [FlexTones] instance where the tones for light mode on
-  /// container tones are set to 30 for more color expressive container text
-  /// and icons on none surface containers.
+  /// container tones are set to 30 if they are 10. This gives us more
+  /// color expressive container text and icons on none surface containers.
   ///
   /// This [FlexTones] modifier only impacts none surface on-container tones
   /// that are dark and thus only has any impact on the light theme mode
@@ -1027,10 +1027,11 @@ class FlexTones with Diagnosticable {
   /// [onErrorContainerTone].
   ///
   /// This feature brings optional light mode expressive on container colors to
-  /// any predefined or custom [FlexTones] configuration. The expressive on
-  /// color in light mode containers are a new change to Material Design 3
-  /// ColorScheme. It was introduced in Material Color Utilities (MCU)
-  /// lib v0.12.0.
+  /// any predefined or custom [FlexTones] configuration.
+  ///
+  /// These expressive on color in light mode containers are a change
+  /// to the Material Design 3 ColorScheme. It was introduced in Material Color
+  /// Utilities (MCU) package v0.12.0.
   ///
   /// This modifier is equivalent to setting the
   /// [SeedColorScheme.fromSeeds] and its [useExpressiveOnContainerColors] to
@@ -1039,19 +1040,24 @@ class FlexTones with Diagnosticable {
   /// The [useExpressive] flag is true by default, making the function
   /// effective. If set to false, the function is a no op and just returns the
   /// [FlexTones] object unmodified. This is typically used to control applying
-  /// modifier via a controller.
+  /// the modifier via a controller. There is also an early no op exit
+  /// if the onPrimaryContainerTone is > 60, indicating that this is a dark
+  /// theme and the modifier should not have any effect.
   ///
   /// **NOTE**: If some [FlexTones] modifiers change same properties, the used
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones expressiveOnContainer([bool useExpressive = true]) {
-    // ignore: avoid_returning_this
     if ((!useExpressive) || (onPrimaryContainerTone > 60)) return this;
     return copyWith(
-      onPrimaryContainerTone: 30,
-      onSecondaryContainerTone: 30,
-      onTertiaryContainerTone: 30,
-      onErrorContainerTone: 30,
+      onPrimaryContainerTone:
+          onPrimaryContainerTone == 10 ? 30 : onPrimaryContainerTone,
+      onSecondaryContainerTone:
+          onSecondaryContainerTone == 10 ? 30 : onSecondaryContainerTone,
+      onTertiaryContainerTone:
+          onTertiaryContainerTone == 10 ? 30 : onTertiaryContainerTone,
+      onErrorContainerTone:
+          onErrorContainerTone == 10 ? 30 : onErrorContainerTone,
     );
   }
 

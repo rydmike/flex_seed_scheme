@@ -165,7 +165,7 @@ enum FlexSchemeVariant {
   /// The primary palette's hue is different from the seed color, for variety.
   expressive(
     variantName: 'Expressive',
-    description: 'Hue are intentionally different from the '
+    description: 'Hues are intentionally different from the '
         'seed colors',
     configDetails: 'Primary - Hue rotated 240 degrees, Chroma 40\n'
         'Secondary - Chroma 24, Hue rotated 20-95 degrees\n'
@@ -260,7 +260,9 @@ enum FlexSchemeVariant {
   /// Flutter SDK DynamicSchemeVariant and MCU do not provide that feature-set.
   material(
     variantName: 'Material-3',
-    description: 'Material-3 design tones and chroma setup',
+    description: 'Material-3 design tones and chroma setup. Same result as the '
+        "Flutter's default TonalSpot DynamicSchemeVariant, but this version "
+        'enables you to use FSS based tones modifiers.',
     configDetails: 'Primary - Chroma from key color, but min 36\n'
         'Secondary - Chroma 16\n'
         'Tertiary - Hue rotated 60 degrees or key hue, Chroma 24\n'

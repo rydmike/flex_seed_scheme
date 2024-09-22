@@ -22,9 +22,6 @@ import 'dynamic_color.dart';
 import 'src/contrast_curve.dart';
 import 'src/tone_delta_pair.dart';
 
-// TODO(rydmike): Review expressive On Container usage. Missing somewhere?
-// TODO(rydmike): Fidelity and content with monochrome seed is bad. Fix?
-
 bool _isFidelity(DynamicScheme scheme) =>
     scheme.variant == Variant.fidelity || scheme.variant == Variant.content;
 
