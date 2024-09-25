@@ -114,6 +114,8 @@ class ShowInputColors extends StatelessWidget {
                           color: primary,
                           child: ColorPickerInkWellDialog(
                             color: primary,
+                            tonalPaletteFixedMinChroma:
+                                controller.respectMonochromeSeed,
                             onChanged: controller.setPrimarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -174,6 +176,8 @@ class ShowInputColors extends StatelessWidget {
                               controller.useSecondaryKey ? secondary : surface,
                           child: ColorPickerInkWellDialog(
                             color: secondary,
+                            tonalPaletteFixedMinChroma:
+                                controller.respectMonochromeSeed,
                             onChanged: controller.setSecondarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -244,6 +248,8 @@ class ShowInputColors extends StatelessWidget {
                           child: ColorPickerInkWellDialog(
                             color:
                                 controller.useTertiaryKey ? tertiary : surface,
+                            tonalPaletteFixedMinChroma:
+                                controller.respectMonochromeSeed,
                             onChanged: controller.setTertiarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -312,6 +318,8 @@ class ShowInputColors extends StatelessWidget {
                           color: controller.useErrorKey ? error : surface,
                           child: ColorPickerInkWellDialog(
                             color: controller.useErrorKey ? error : surface,
+                            tonalPaletteFixedMinChroma:
+                                controller.respectMonochromeSeed,
                             onChanged: controller.setErrorSeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -378,6 +386,8 @@ class ShowInputColors extends StatelessWidget {
                           child: ColorPickerInkWellDialog(
                             color:
                                 controller.useNeutralKey ? neutrals : surface,
+                            tonalPaletteFixedMinChroma:
+                                controller.respectMonochromeSeed,
                             onChanged: controller.setNeutralSeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,

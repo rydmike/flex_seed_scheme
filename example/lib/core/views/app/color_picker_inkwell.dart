@@ -36,6 +36,7 @@ class ColorPickerInkWellDialog extends StatelessWidget {
     required this.onRecentColorsChanged,
     this.pickerSize = 40,
     this.enabled = false,
+    required this.tonalPaletteFixedMinChroma,
     required this.child,
   });
 
@@ -48,6 +49,7 @@ class ColorPickerInkWellDialog extends StatelessWidget {
 
   final double pickerSize;
   final bool enabled;
+  final bool tonalPaletteFixedMinChroma;
   final Widget child;
 
   // Some example custom colors for our custom picker.
@@ -144,6 +146,7 @@ class ColorPickerInkWellDialog extends StatelessWidget {
       ),
       enableShadesSelection: true,
       enableTonalPalette: true,
+      tonalPaletteFixedMinChroma: !tonalPaletteFixedMinChroma,
       width: 35,
       height: 35,
       spacing: 2,

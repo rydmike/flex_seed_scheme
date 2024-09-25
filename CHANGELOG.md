@@ -2,6 +2,19 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.4.1
+
+**Sep 25, 2024**
+
+**PACKAGE**
+
+* No changes to the FlexSeedScheme package!
+
+**WEB DEMO**
+
+* Updated the web demo example to use FlexColorPicker version 3.6.0, where the tonal palette can now also respect monochrome seed colors as its displayed Material tonal palette. This is a new feature in FlexColorPicker 3.6.0. 
+  * In the updated Web demo, the picker's setting is tied into the demo using the setting `respectMonochromeSeed` so the picker only uses it when the FlexSeedScheme web demo is configured to do so. The setting for the FlexColorPicker to make monochrome tonal palette for monochrome input and to use chroma of selected color, is a separate feature in the picker, it is not tied to FlexSeedScheme, but for this demo they are linked and use the same settings toggle.    
+
 ## 3.4.0
 
 **Sep 23, 2024**
@@ -271,7 +284,7 @@ This release adds support for the revised Material-3 `ColorScheme` released in F
 
 * **BREAKING STYLES**
 
-  * All built-in `FlexTones` now use the `paletteType` extended via `FlexPaletteType.extended` as default for additional tone fidelity. This is needed for compatibility with Flutter 3.22 and its revised `ColorScheme`.
+  * All built-in `FlexTones` now use the `paletteType` extended via `FlexPaletteType.extended` as default for additional tone fidelity. This is used for compatibility with Flutter 3.22 and its revised `ColorScheme`.
   
   * The default tones for the built-in `FlexTones` have been adjusted to match the new Material-3 `ColorScheme` in Flutter 3.22. The new tones and default styles are marginally different but also better than in previous Flutter versions. If you need the result and style used in Flutter 3.19 and earlier, you can use the `FlexTones.material3Legacy` as `tones` in `SeedColorScheme.fromSeeds` to get the result `FlexTones.material` produced in FSS before version 2.0.0 and that was also the default in Flutter in version 3.19 and earlier.
   

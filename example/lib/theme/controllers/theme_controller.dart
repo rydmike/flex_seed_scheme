@@ -197,7 +197,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  bool _respectMonochromeSeed = false;
+  bool _respectMonochromeSeed = true;
   bool get respectMonochromeSeed => _respectMonochromeSeed;
   void setRespectMonochromeSeed(bool? value, [bool notify = true]) {
     if (value == null) return;
