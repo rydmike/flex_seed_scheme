@@ -732,8 +732,9 @@ extension SeedColorScheme on ColorScheme {
     /// If not set to true, we get a "cyan" tonal palette for monochrome and
     /// white seed colors, while black, gives a "red" tonal palette.
     ///
-    /// Defaults to `false` to keep the default behavior of the package and the
-    /// Material-3 color system.
+    /// Defaults to `false` to keep the default behavior of the package past
+    /// behavior and the Material-3 color system as used in MCU package as well
+    /// as in Flutter's [ColorScheme.fromSeed].
     ///
     /// Prefer setting it to `true` if you want to get
     /// greyscale palette tones for any given monochrome seed color.
@@ -743,6 +744,12 @@ extension SeedColorScheme on ColorScheme {
     /// chroma 0 and its chroma will be set to zero regardless of the value
     /// of minimum chroma. Minimum chroma is always 0 when
     /// [respectMonochromeSeed] is used.
+    ///
+    /// A seed color is monochrome when the Red, Green and Blue components are
+    /// all equal in the seed colors RGB color space.
+    ///
+    /// If a seed color is **not** monochrome, the produced results are
+    /// identical regardless of this flag is true or false.
     final bool respectMonochromeSeed = false,
 
     /// Override color for the seed generated [primary] color.

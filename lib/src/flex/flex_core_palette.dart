@@ -457,23 +457,31 @@ class FlexCorePalette {
     final bool useCam16 = true,
 
     /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma
-    /// so we get all greyscale tones.
+    /// the chroma is set to 0 to respect that it has no chroma. This is then
+    /// used in its conversion from Color or integer value to HCT space, so
+    /// we get all greyscale tones.
     ///
     /// If not set to true, we get a "cyan" tonal palette for monochrome and
     /// white seed colors, while black, gives a "red" tonal palette.
     ///
-    /// Defaults to `false` to keep the default behavior of the package and the
-    /// Material-3 color system.
+    /// Defaults to `false` to keep the default behavior of the package past
+    /// behavior and the Material-3 color system as used in MCU package as well
+    /// as in Flutter's [ColorScheme.fromSeed].
     ///
-    /// Consider setting it to `true` if you want to get
+    /// Prefer setting it to `true` if you want to get
     /// greyscale palette tones for any given monochrome seed color.
     ///
     /// If [respectMonochromeSeed] is true, any given configured minimum
     /// chroma value is ignored for a monochrome seed colors, as the input has
-    /// chroma 0 and its chroma wil be set to zero regardless of the value
+    /// chroma 0 and its chroma will be set to zero regardless of the value
     /// of minimum chroma. Minimum chroma is always 0 when
     /// [respectMonochromeSeed] is used.
+    ///
+    /// A seed color is monochrome when the Red, Green and Blue components are
+    /// all equal in the seed colors RGB color space.
+    ///
+    /// If a seed color is **not** monochrome, the produced results are
+    /// identical regardless of this flag is true or false.
     final bool respectMonochromeSeed = false,
   }) {
     // Primary TonalPalette calculation.
