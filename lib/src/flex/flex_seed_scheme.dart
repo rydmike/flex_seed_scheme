@@ -740,7 +740,7 @@ extension SeedColorScheme on ColorScheme {
     ///
     /// If [respectMonochromeSeed] is true, any given configured minimum
     /// chroma value is ignored for a monochrome seed colors, as the input has
-    /// chroma 0 and its chroma wil be set to zero regardless of the value
+    /// chroma 0 and its chroma will be set to zero regardless of the value
     /// of minimum chroma. Minimum chroma is always 0 when
     /// [respectMonochromeSeed] is used.
     final bool respectMonochromeSeed = false,
