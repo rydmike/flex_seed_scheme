@@ -725,7 +725,7 @@ extension SeedColorScheme on ColorScheme {
     final bool useExpressiveOnContainerColors = false,
 
     /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma. THis is then
+    /// the chroma is set to 0 to respect that it has no chroma. This is then
     /// used in its conversion from Color or integer value to HCT space, so
     /// we get all greyscale tones.
     ///
