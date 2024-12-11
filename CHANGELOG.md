@@ -2,6 +2,15 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.5.0 WIP/DRAFT
+
+**Dec 12, 2024**
+
+**PACKAGE**
+
+* First prep for Flutter 3.27.0 update with new Color features that supports wide gamut. In total, 228 deprecations will have to be replaced with the new Color features.
+
+
 ## 3.4.1
 
 **Sep 25, 2024**

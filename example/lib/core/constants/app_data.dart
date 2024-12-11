@@ -14,7 +14,10 @@ sealed class AppData {
   // belongs and no need to put it as a const somewhere and no need to pass it
   // around via a title prop either. Also used in the About box as app name.
   static String title(BuildContext context) =>
-      (context as Element).findAncestorWidgetOfExactType<MaterialApp>()!.title;
+      (context as Element)
+          .findAncestorWidgetOfExactType<MaterialApp>()!
+          .title ??
+      '';
 
   // When building new public web versions of the demos, make sure to
   // update this info before triggering GitHub actions CI/CD that builds them.
