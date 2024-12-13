@@ -8,7 +8,8 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **PACKAGE**
 
-* First prep for Flutter 3.27.0 update with new Color features that supports wide gamut. In total, 228 deprecations will have to be replaced with the new Color features.
+* Updated the package to support and require min Flutter v3.27.0.
+* Fixed all new analyzer lint warnings and removed usage of all deprecated `Color` properties.
 
 
 ## 3.4.1
