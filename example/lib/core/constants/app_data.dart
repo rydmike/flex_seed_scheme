@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// App static functions and constants used in the example applications.
@@ -26,15 +27,25 @@ sealed class AppData {
   static const String packageName = 'FlexSeed\u{00AD}Scheme';
   // Version of the WEB build, usually same as package, but it also has a
   // build numbers.
+
+  // Check if this is a Web-WASM build, Web-JS build or native VM build.
+  static const bool isRunningWithWasm =
+      bool.fromEnvironment('dart.tool.dart2wasm');
+  static const String buildType = isRunningWithWasm
+      ? ', WasmGC'
+      : kIsWeb
+          ? ', JS'
+          : ', native VM';
+
   static const String versionMajor = '3';
   static const String versionMinor = '5';
   static const String versionPatch = '0';
-  static const String versionBuild = '01-beta';
+  static const String versionBuild = '01';
   static const String version = '$versionMajor.$versionMinor.$versionPatch '
       'Build-$versionBuild';
   static const String packageVersion =
       '$versionMajor.$versionMinor.$versionPatch';
-  static const String flutterVersion = '3.27.5 (canvaskit)';
+  static const String flutterVersion = '3.27.5 (canvaskit$buildType)';
   static const String copyright = '© 2022-2024';
   static const String author = 'Mike Rydstrom';
   static const String license = 'BSD 3-Clause License';
