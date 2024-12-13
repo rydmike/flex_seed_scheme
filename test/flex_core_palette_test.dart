@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
+import 'package:flex_seed_scheme/src/flex/flex_color_seed_color_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -12,12 +13,12 @@ void main() {
     // m1, is tonal palettes using FlexCorePalette.fromSeeds with one color
     // and M3 based defaults.
     final FlexCorePalette m1 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
     );
     // m2, makes tonal palette using CorePalette.of
-    final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value);
+    final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value32bit);
     // Do identity tests
     test(
         'FCP1.01: GIVEN same FlexCorePalette.fromSeeds default and '
@@ -136,9 +137,9 @@ void main() {
 
     // Use 3 input values
     final FlexCorePalette m3 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      secondary: const Color(0xFF625B71).value,
-      tertiary: const Color(0xFF7D5260).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      secondary: const Color(0xFF625B71).value32bit,
+      tertiary: const Color(0xFF7D5260).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
     );
@@ -241,9 +242,9 @@ void main() {
 
     // Use 3 input values and use chroma from secondary and tertiary
     final FlexCorePalette m4 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      secondary: const Color(0xFF625B71).value,
-      tertiary: const Color(0xFF7D5260).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      secondary: const Color(0xFF625B71).value32bit,
+      tertiary: const Color(0xFF7D5260).value32bit,
       secondaryChroma: null,
       tertiaryChroma: null,
     );
@@ -350,7 +351,7 @@ void main() {
     // m5, is tonal palettes using FlexCorePalette.fromSeeds with one color
     // and default parameters, equal to m1.
     final FlexCorePalette m5 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
     );
@@ -396,7 +397,7 @@ void main() {
         'EXPECT it to be equal to same FlexCorePalette.fromSeed() ', () {
       expect(
         m1,
-        equals(FlexCorePalette.of(const Color(0xFF6750A4).value)),
+        equals(FlexCorePalette.of(const Color(0xFF6750A4).value32bit)),
       );
     });
     test(
@@ -516,7 +517,7 @@ void main() {
     });
     // Custom Error tests
     final FlexCorePalette mError01 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
     );
     test('FCP1.Err01: GIVEN no error input EXPECT DEFAULT (25, 84)', () {
       expect(
@@ -525,7 +526,7 @@ void main() {
       );
     });
     final FlexCorePalette mError02 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       errorChroma: 60,
     );
     test('FCP1.Err02: GIVEN error Chroma 60 EXPECT (25, 60)', () {
@@ -535,7 +536,7 @@ void main() {
       );
     });
     final FlexCorePalette mError03 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       errorChroma: 62,
       errorMinChroma: 75,
     );
@@ -546,8 +547,8 @@ void main() {
       );
     });
     final FlexCorePalette mError04 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
     );
     test(
         'FCP1.Err04: GIVEN error Color #CC1839 EXPECT '
@@ -558,8 +559,8 @@ void main() {
       );
     });
     final FlexCorePalette mError05 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
     );
     test(
@@ -571,8 +572,8 @@ void main() {
       );
     });
     final FlexCorePalette mError06 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorMinChroma: 82,
     );
     test(
@@ -584,8 +585,8 @@ void main() {
       );
     });
     final FlexCorePalette mError07 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
     );
     test(
@@ -597,8 +598,8 @@ void main() {
       );
     });
     final FlexCorePalette mError08 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
       errorMinChroma: 45,
     );
@@ -611,8 +612,8 @@ void main() {
       );
     });
     final FlexCorePalette mError09 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
       errorMinChroma: 72,
     );
@@ -625,8 +626,8 @@ void main() {
       );
     });
     final FlexCorePalette mError10 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      error: const Color(0xFFCC1839).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
       errorMinChroma: 72,
       useCam16: false,
@@ -651,13 +652,13 @@ void main() {
     // m1, is tonal palettes using FlexCorePalette.fromSeeds with one color
     // and M3 based defaults and extended palette.
     final FlexCorePalette m1 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
       paletteType: FlexPaletteType.extended,
     );
     // m2, makes tonal palette using CorePalette.of and extended palette
-    final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value);
+    final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value32bit);
     // Do identity tests
     test(
         'FCP2.01: GIVEN same FlexCorePalette.fromSeeds extended and '
@@ -866,9 +867,9 @@ void main() {
     });
     // Use 3 input values
     final FlexCorePalette m3 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      secondary: const Color(0xFF625B71).value,
-      tertiary: const Color(0xFF7D5260).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      secondary: const Color(0xFF625B71).value32bit,
+      tertiary: const Color(0xFF7D5260).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
       paletteType: FlexPaletteType.extended,
@@ -1063,9 +1064,9 @@ void main() {
 
     // Use 3 input values and use chroma from secondary and tertiary
     final FlexCorePalette m4 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
-      secondary: const Color(0xFF625B71).value,
-      tertiary: const Color(0xFF7D5260).value,
+      primary: const Color(0xFF6750A4).value32bit,
+      secondary: const Color(0xFF625B71).value32bit,
+      tertiary: const Color(0xFF7D5260).value32bit,
       secondaryChroma: null,
       tertiaryChroma: null,
       paletteType: FlexPaletteType.extended,
@@ -1264,7 +1265,7 @@ void main() {
     // m5, is tonal palettes using FlexCorePalette.fromSeeds with one color
     // and extended palette parameters, equal to m1.
     final FlexCorePalette m5 = FlexCorePalette.fromSeeds(
-      primary: const Color(0xFF6750A4).value,
+      primary: const Color(0xFF6750A4).value32bit,
       secondaryChroma: 16,
       tertiaryChroma: 24,
       paletteType: FlexPaletteType.extended,
@@ -1313,7 +1314,7 @@ void main() {
       expect(
         m1,
         equals(FlexCorePalette.of(
-            const Color(0xFF6750A4).value, FlexPaletteType.extended)),
+            const Color(0xFF6750A4).value32bit, FlexPaletteType.extended)),
       );
     });
     test(

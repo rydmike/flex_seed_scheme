@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 
 import '../mcu/material_color_utilities.dart';
+import 'flex_color_seed_color_extensions.dart';
 import 'flex_tonal_palette.dart';
 
 // ignore_for_file: comment_references
@@ -813,7 +814,8 @@ class FlexCorePalette {
   /// To be monochrome, the red, green, and blue values must be equal.
   static bool _isMonochrome(int intColor) {
     final Color color = Color(intColor);
-    return color.red == color.green && color.green == color.blue;
+    return color.red8bit == color.green8bit &&
+        color.green8bit == color.blue8bit;
   }
 
   /// Returns a partition from a list.

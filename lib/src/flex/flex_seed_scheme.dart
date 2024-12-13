@@ -13,6 +13,7 @@ import '../mcu/scheme/scheme_neutral.dart';
 import '../mcu/scheme/scheme_rainbow.dart';
 import '../mcu/scheme/scheme_tonal_spot.dart';
 import '../mcu/scheme/scheme_vibrant.dart';
+import 'flex_color_seed_color_extensions.dart';
 import 'flex_core_palette.dart';
 import 'flex_scheme_variant.dart';
 import 'flex_tones.dart';
@@ -1046,12 +1047,12 @@ extension SeedColorScheme on ColorScheme {
         variantTones = variant.tones(brightness);
       }
       final FlexSeedScheme scheme = FlexSeedScheme._tones(
-        primaryKey: primaryKey.value,
-        secondaryKey: secondaryKey?.value,
-        tertiaryKey: tertiaryKey?.value,
-        errorKey: errorKey?.value,
-        neutralKey: neutralKey?.value,
-        neutralVariantKey: neutralVariantKey?.value,
+        primaryKey: primaryKey.value32bit,
+        secondaryKey: secondaryKey?.value32bit,
+        tertiaryKey: tertiaryKey?.value32bit,
+        errorKey: errorKey?.value32bit,
+        neutralKey: neutralKey?.value32bit,
+        neutralVariantKey: neutralVariantKey?.value32bit,
         useExpressiveOnContainerColors: useExpressiveOnContainerColors,
         flexTones: tones ?? variantTones ?? FlexTones.material(brightness),
         respectMonochromeSeed: respectMonochromeSeed,
@@ -1147,19 +1148,21 @@ extension SeedColorScheme on ColorScheme {
       'contrastLevel must be between [-1.0 to 1.0].',
     );
     final bool isDark = brightness == Brightness.dark;
-    final Hct primarySourceColor = Hct.fromInt(primarySeedColor.value);
+    final Hct primarySourceColor = Hct.fromInt(primarySeedColor.value32bit);
     final Hct? secondarySourceColor = secondarySeedColor != null
-        ? Hct.fromInt(secondarySeedColor.value)
+        ? Hct.fromInt(secondarySeedColor.value32bit)
         : null;
-    final Hct? tertiarySourceColor =
-        tertiarySeedColor != null ? Hct.fromInt(tertiarySeedColor.value) : null;
-    final Hct? neutralSourceColor =
-        neutralSeedColor != null ? Hct.fromInt(neutralSeedColor.value) : null;
+    final Hct? tertiarySourceColor = tertiarySeedColor != null
+        ? Hct.fromInt(tertiarySeedColor.value32bit)
+        : null;
+    final Hct? neutralSourceColor = neutralSeedColor != null
+        ? Hct.fromInt(neutralSeedColor.value32bit)
+        : null;
     final Hct? neutralVariantSourceColor = neutralVariantSeedColor != null
-        ? Hct.fromInt(neutralVariantSeedColor.value)
+        ? Hct.fromInt(neutralVariantSeedColor.value32bit)
         : null;
     final Hct? errorSourceColor =
-        errorSeedColor != null ? Hct.fromInt(errorSeedColor.value) : null;
+        errorSeedColor != null ? Hct.fromInt(errorSeedColor.value32bit) : null;
 
     return switch (variant) {
       FlexSchemeVariant.material ||
@@ -1369,6 +1372,7 @@ extension SeedColorScheme on ColorScheme {
   ///
   /// To be monochrome, the red, green, and blue values must be equal.
   static bool _isMonochrome(Color color) {
-    return color.red == color.green && color.green == color.blue;
+    return color.red8bit == color.green8bit &&
+        color.green8bit == color.blue8bit;
   }
 }
