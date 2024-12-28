@@ -398,6 +398,9 @@ enum Direction {
 
 /// MaximizeResult.
 class MaximizeResult {
+  /// Default MaximizeResult constructor.
+  MaximizeResult({required this.cutLocation, required this.maximum});
+
   /// cutLocation.
   ///
   /// < 0 if cut impossible
@@ -405,25 +408,32 @@ class MaximizeResult {
 
   /// maximum.
   double maximum;
-
-  /// Default MaximizeResult constructor.
-  MaximizeResult({required this.cutLocation, required this.maximum});
 }
 
 /// CreateBoxesResult.
 class CreateBoxesResult {
+  /// Default CreateBoxesResult constructor.
+  CreateBoxesResult({required this.requestedCount, required this.resultCount});
+
   /// requestedCount.
   int requestedCount;
 
   /// resultCount.
   int resultCount;
-
-  /// Default CreateBoxesResult constructor.
-  CreateBoxesResult({required this.requestedCount, required this.resultCount});
 }
 
 /// Box.
 class Box {
+  /// Default Box constructor.
+  Box(
+      {this.r0 = 0,
+      this.r1 = 0,
+      this.g0 = 0,
+      this.g1 = 0,
+      this.b0 = 0,
+      this.b1 = 0,
+      this.vol = 0});
+
   /// r0
   int r0;
 
@@ -444,16 +454,6 @@ class Box {
 
   /// vol
   int vol;
-
-  /// Default Box constructor.
-  Box(
-      {this.r0 = 0,
-      this.r1 = 0,
-      this.g0 = 0,
-      this.g1 = 0,
-      this.b0 = 0,
-      this.b1 = 0,
-      this.vol = 0});
 
   @override
   String toString() {

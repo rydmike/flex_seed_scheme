@@ -72,11 +72,12 @@ enum Variant {
   fruitSalad('fruit salad',
       "A playful theme - the source color's hue does not appear in the theme.");
 
+  /// Enum constructor
+  const Variant(this.label, this.description);
+
   /// The label of the variant color scheme.
   final String label;
 
   /// A description of the variant color scheme.
   final String description;
-
-  const Variant(this.label, this.description);
 }

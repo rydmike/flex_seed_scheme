@@ -23,6 +23,14 @@ import '../material_color_utilities.dart';
 /// hue as the key color, and all vary in chroma.
 @immutable
 class CorePalette {
+  /// Private constructor.
+  CorePalette._(double hue, double chroma)
+      : primary = TonalPalette.of(hue, math.max(48, chroma)),
+        secondary = TonalPalette.of(hue, 16),
+        tertiary = TonalPalette.of(hue + 60, 24),
+        neutral = TonalPalette.of(hue, 4),
+        neutralVariant = TonalPalette.of(hue, 8);
+
   /// The number of generated tonal palettes.
   static const int size = 5;
 
@@ -51,19 +59,13 @@ class CorePalette {
     return CorePalette._(cam.hue, cam.chroma);
   }
 
-  CorePalette._(double hue, double chroma)
-      : primary = TonalPalette.of(hue, math.max(48, chroma)),
-        secondary = TonalPalette.of(hue, 16),
-        tertiary = TonalPalette.of(hue + 60, 24),
-        neutral = TonalPalette.of(hue, 4),
-        neutralVariant = TonalPalette.of(hue, 8);
-
   /// Create a content [CorePalette] from a source ARGB color.
   static CorePalette contentOf(int argb) {
     final Cam16 cam = Cam16.fromInt(argb);
     return CorePalette._contentOf(cam.hue, cam.chroma);
   }
 
+  // ignore: sort_constructors_first
   CorePalette._contentOf(double hue, double chroma)
       : primary = TonalPalette.of(hue, chroma),
         secondary = TonalPalette.of(hue, chroma / 3),
@@ -75,6 +77,7 @@ class CorePalette {
   /// representing concatenated tonal palettes.
   ///
   /// Inverse of [asList].
+  // ignore: sort_constructors_first
   CorePalette.fromList(List<int> colors)
       : assert(colors.length == size * TonalPalette.commonSize,
             'colors length must be equal to size*commonSize'),

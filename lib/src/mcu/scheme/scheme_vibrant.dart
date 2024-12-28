@@ -25,48 +25,6 @@ import '../palettes/tonal_palette.dart';
 /// A Dynamic Color theme that maxes out colorfulness at each position in the
 /// Primary [TonalPalette].
 class SchemeVibrant extends DynamicScheme {
-  /// Hues used at breakpoints such that designers can specify a hue rotation
-  /// that occurs at a given break point.
-  static final List<double> hues = <double>[
-    0,
-    41,
-    61,
-    101,
-    131,
-    181,
-    251,
-    301,
-    360,
-  ];
-
-  /// Hue rotations of the Secondary [TonalPalette], corresponding to the
-  /// breakpoints in [hues].
-  static final List<double> secondaryRotations = <double>[
-    18,
-    15,
-    10,
-    12,
-    15,
-    18,
-    15,
-    12,
-    12,
-  ];
-
-  /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
-  /// breakpoints in [hues].
-  static final List<double> tertiaryRotations = <double>[
-    35,
-    30,
-    20,
-    25,
-    30,
-    35,
-    30,
-    25,
-    25,
-  ];
-
   /// SchemeVibrant default constructor.
   SchemeVibrant({
     required Hct sourceColorHct,
@@ -118,4 +76,46 @@ class SchemeVibrant extends DynamicScheme {
                       ? 0
                       : errorSourceColorHct.chroma),
         );
+
+  /// Hues used at breakpoints such that designers can specify a hue rotation
+  /// that occurs at a given break point.
+  static final List<double> hues = <double>[
+    0,
+    41,
+    61,
+    101,
+    131,
+    181,
+    251,
+    301,
+    360,
+  ];
+
+  /// Hue rotations of the Secondary [TonalPalette], corresponding to the
+  /// breakpoints in [hues].
+  static final List<double> secondaryRotations = <double>[
+    18,
+    15,
+    10,
+    12,
+    15,
+    18,
+    15,
+    12,
+    12,
+  ];
+
+  /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
+  /// breakpoints in [hues].
+  static final List<double> tertiaryRotations = <double>[
+    35,
+    30,
+    20,
+    25,
+    30,
+    35,
+    30,
+    25,
+    25,
+  ];
 }

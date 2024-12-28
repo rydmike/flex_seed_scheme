@@ -50,6 +50,16 @@ import 'viewing_conditions.dart';
 /// point is accurately measured as a slightly chromatic blue by CAM16.
 /// (roughly, hue 203, chroma 3, lightness 100)
 class Cam16 {
+  /// All of the CAM16 dimensions can be calculated from 3 of the dimensions, in
+  /// the following combinations:
+  ///     -  {j or q} and {c, m, or s} and hue
+  ///     - jstar, astar, bstar
+  /// Prefer using a static method that constructs from 3 of those dimensions.
+  /// This constructor is intended for those methods to use to return all
+  /// possible dimensions.
+  Cam16(this.hue, this.chroma, this.j, this.q, this.m, this.s, this.jstar,
+      this.astar, this.bstar);
+
   /// Like red, orange, yellow, green, etc.
   final double hue;
 
@@ -77,16 +87,6 @@ class Cam16 {
 
   /// CAM16-UCS b coordinate
   final double bstar;
-
-  /// All of the CAM16 dimensions can be calculated from 3 of the dimensions, in
-  /// the following combinations:
-  ///     -  {j or q} and {c, m, or s} and hue
-  ///     - jstar, astar, bstar
-  /// Prefer using a static method that constructs from 3 of those dimensions.
-  /// This constructor is intended for those methods to use to return all
-  /// possible dimensions.
-  Cam16(this.hue, this.chroma, this.j, this.q, this.m, this.s, this.jstar,
-      this.astar, this.bstar);
 
   /// CAM16 instances also have coordinates in the CAM16-UCS space, called J*,
   /// a*, b*, or jstar, astar, bstar in code. CAM16-UCS is included in the CAM16

@@ -63,6 +63,7 @@ class TonalPalette {
   final Map<int, int> _cache;
   final bool _isFromCache;
 
+  // ignore: sort_constructors_first
   TonalPalette._fromHct(Hct hct)
       : _cache = <int, int>{},
         hue = hct.hue,
@@ -70,11 +71,13 @@ class TonalPalette {
         keyColor = hct,
         _isFromCache = false;
 
+  // ignore: sort_constructors_first
   TonalPalette._fromHueAndChroma(this.hue, this.chroma)
       : _cache = <int, int>{},
         keyColor = createKeyColor(hue, chroma),
         _isFromCache = false;
 
+  // ignore: sort_constructors_first
   TonalPalette._fromCache(Map<int, int> cache, this.hue, this.chroma)
       : _cache = cache,
         keyColor = createKeyColor(hue, chroma),

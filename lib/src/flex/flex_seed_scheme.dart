@@ -52,6 +52,72 @@ import 'flex_tones.dart';
 @immutable
 @internal
 class FlexSeedScheme {
+  /// Private constructor requiring all int color values.
+  ///
+  /// A [FlexSeedScheme] cannot be created externally. It is only used
+  /// internally to create a seeded [ColorScheme] via its static method
+  /// [FlexSeedScheme.fromSeeds] from one to six seed colors, and optionally
+  /// using customizable [FlexTones] tone mapping to [ColorScheme].
+  const FlexSeedScheme._({
+    required this.primary,
+    required this.onPrimary,
+    required this.primaryContainer,
+    required this.onPrimaryContainer,
+    required this.primaryFixed,
+    required this.primaryFixedDim,
+    required this.onPrimaryFixed,
+    required this.onPrimaryFixedVariant,
+    //
+    required this.secondary,
+    required this.onSecondary,
+    required this.secondaryContainer,
+    required this.onSecondaryContainer,
+    required this.secondaryFixed,
+    required this.secondaryFixedDim,
+    required this.onSecondaryFixed,
+    required this.onSecondaryFixedVariant,
+    //
+    required this.tertiary,
+    required this.onTertiary,
+    required this.tertiaryContainer,
+    required this.onTertiaryContainer,
+    required this.tertiaryFixed,
+    required this.tertiaryFixedDim,
+    required this.onTertiaryFixed,
+    required this.onTertiaryFixedVariant,
+    //
+    required this.error,
+    required this.onError,
+    required this.errorContainer,
+    required this.onErrorContainer,
+    //
+    required this.surface,
+    required this.surfaceDim,
+    required this.surfaceBright,
+    required this.surfaceContainerLowest,
+    required this.surfaceContainerLow,
+    required this.surfaceContainer,
+    required this.surfaceContainerHigh,
+    required this.surfaceContainerHighest,
+    required this.onSurface,
+    required this.onSurfaceVariant,
+    //
+    required this.outline,
+    required this.outlineVariant,
+    required this.shadow,
+    required this.scrim,
+    required this.inverseSurface,
+    required this.onInverseSurface,
+    required this.inversePrimary,
+    required this.surfaceTint,
+    // ignore: unused_element
+    @Deprecated('Use surface instead.') this.background,
+    // ignore: unused_element
+    @Deprecated('Use onSurface instead.') this.onBackground,
+    // ignore: unused_element
+    @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
+  });
+
   /// The color displayed most frequently across your app.
   final int primary;
 
@@ -234,72 +300,6 @@ class FlexSeedScheme {
   @Deprecated('Use surfaceContainerHighest instead.')
   final int? surfaceVariant;
 
-  /// Private constructor requiring all int color values.
-  ///
-  /// A [FlexSeedScheme] cannot be created externally. It is only used
-  /// internally to create a seeded [ColorScheme] via its static method
-  /// [FlexSeedScheme.fromSeeds] from one to six seed colors, and optionally
-  /// using customizable [FlexTones] tone mapping to [ColorScheme].
-  const FlexSeedScheme._({
-    required this.primary,
-    required this.onPrimary,
-    required this.primaryContainer,
-    required this.onPrimaryContainer,
-    required this.primaryFixed,
-    required this.primaryFixedDim,
-    required this.onPrimaryFixed,
-    required this.onPrimaryFixedVariant,
-    //
-    required this.secondary,
-    required this.onSecondary,
-    required this.secondaryContainer,
-    required this.onSecondaryContainer,
-    required this.secondaryFixed,
-    required this.secondaryFixedDim,
-    required this.onSecondaryFixed,
-    required this.onSecondaryFixedVariant,
-    //
-    required this.tertiary,
-    required this.onTertiary,
-    required this.tertiaryContainer,
-    required this.onTertiaryContainer,
-    required this.tertiaryFixed,
-    required this.tertiaryFixedDim,
-    required this.onTertiaryFixed,
-    required this.onTertiaryFixedVariant,
-    //
-    required this.error,
-    required this.onError,
-    required this.errorContainer,
-    required this.onErrorContainer,
-    //
-    required this.surface,
-    required this.surfaceDim,
-    required this.surfaceBright,
-    required this.surfaceContainerLowest,
-    required this.surfaceContainerLow,
-    required this.surfaceContainer,
-    required this.surfaceContainerHigh,
-    required this.surfaceContainerHighest,
-    required this.onSurface,
-    required this.onSurfaceVariant,
-    //
-    required this.outline,
-    required this.outlineVariant,
-    required this.shadow,
-    required this.scrim,
-    required this.inverseSurface,
-    required this.onInverseSurface,
-    required this.inversePrimary,
-    required this.surfaceTint,
-    // ignore: unused_element
-    @Deprecated('Use surface instead.') this.background,
-    // ignore: unused_element
-    @Deprecated('Use onSurface instead.') this.onBackground,
-    // ignore: unused_element
-    @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
-  });
-
   /// Factory that creates a [FlexSeedScheme] based on seed keys and FlexTones
   /// tones mapping.
   ///
@@ -307,6 +307,7 @@ class FlexSeedScheme {
   /// internally to create a seeded [ColorScheme] via its static extension
   /// [SeedColorScheme.fromSeeds] from one to six seed colors, and with
   /// customizable [FlexTones] tone mapping to [ColorScheme].
+  // ignore: sort_constructors_first
   factory FlexSeedScheme._tones({
     required int primaryKey,
     int? secondaryKey,

@@ -16,10 +16,11 @@ import 'package:collection/collection.dart';
 import '../material_color_utilities.dart';
 
 class _ScoredHCT implements Comparable<_ScoredHCT> {
+  /// Creates a new _ScoredHCT.
+  _ScoredHCT(this.hct, this.score);
+
   Hct hct;
   double score;
-
-  _ScoredHCT(this.hct, this.score);
 
   @override
   int compareTo(_ScoredHCT other) {

@@ -108,6 +108,7 @@ class FlexCorePalette {
   }
 
   /// Create a standard Material 3 core tonal palette from Hue and Chroma.
+  // ignore: sort_constructors_first
   FlexCorePalette.fromHueChroma(
     double hue,
     double chroma, [
@@ -160,6 +161,7 @@ class FlexCorePalette {
   /// Tones 5 and 98 available in [FlexCorePalette] are not available in
   /// [CorePalette]. They are an addition in the modified implementation of
   /// [FlexTonalPalette] compared to [TonalPalette].
+  // ignore: sort_constructors_first
   factory FlexCorePalette.fromSeeds({
     /// Integer ARGB value of seed color used for primary tonal palette.
     /// calculation.
@@ -703,6 +705,7 @@ class FlexCorePalette {
   ///
   /// This fromList differs from MaterialColorUtilities version in CorePalette
   /// by including the error tonal colors last in the list.
+  // ignore: sort_constructors_first
   FlexCorePalette.fromList(
     List<int> colors, [
     FlexPaletteType paletteType = FlexPaletteType.common,

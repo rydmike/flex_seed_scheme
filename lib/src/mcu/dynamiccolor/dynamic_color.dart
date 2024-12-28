@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 import 'dart:math' as math;
 
 import '../contrast/contrast.dart';
@@ -98,6 +97,7 @@ class DynamicColor {
   /// [toneDeltaPair] A [ToneDeltaPair] object specifying a tone delta
   /// constraint between two colors. One of them must be the color being
   /// constructed.
+  // ignore: sort_constructors_first
   DynamicColor({
     required this.name,
     required this.palette,
@@ -131,6 +131,7 @@ class DynamicColor {
   /// [toneDeltaPair] A [ToneDeltaPair] object specifying a tone delta
   /// constraint between two colors. One of them must be the color being
   /// constructed.
+  // ignore: sort_constructors_first
   factory DynamicColor.fromPalette({
     String name = '',
     required TonalPalette Function(DynamicScheme) palette,

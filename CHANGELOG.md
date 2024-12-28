@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 3.5.0
 
-**Dec 28, 2024**
+**Dec 29, 2024**
 
 **PACKAGE**
 
