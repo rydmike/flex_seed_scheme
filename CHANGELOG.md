@@ -2,6 +2,16 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.5.0
+
+**Dec 29, 2024**
+
+**PACKAGE**
+
+* Updated the package to support and require at least Flutter v3.27.0.
+* Fixed all new analyzer lint warnings and removed usage of all deprecated `Color` properties.
+
+
 ## 3.4.1
 
 **Sep 25, 2024**

@@ -23,6 +23,22 @@ import 'variant.dart';
 /// provides a set of [TonalPalette]s that can create colors that fit in
 /// with the theme style. Used by [DynamicColor] to resolve into a color.
 class DynamicScheme {
+  /// Primary constructor for [DynamicScheme].
+  DynamicScheme({
+    required this.sourceColorArgb,
+    required this.variant,
+    this.contrastLevel = 0.0,
+    this.useExpressiveOnContainerColors = false,
+    required this.isDark,
+    required this.primaryPalette,
+    required this.secondaryPalette,
+    required this.tertiaryPalette,
+    required this.neutralPalette,
+    required this.neutralVariantPalette,
+    TonalPalette? customErrorPalette,
+  })  : sourceColorHct = Hct.fromInt(sourceColorArgb),
+        errorPalette = customErrorPalette ?? TonalPalette.of(25.0, 84.0);
+
   /// The source color of the theme as an ARGB integer.
   final int sourceColorArgb;
 
@@ -87,22 +103,6 @@ class DynamicScheme {
 
   /// Given a tone, produces a reddish, colorful, color.
   final TonalPalette errorPalette;
-
-  /// Primary constructor for [DynamicScheme].
-  DynamicScheme({
-    required this.sourceColorArgb,
-    required this.variant,
-    this.contrastLevel = 0.0,
-    this.useExpressiveOnContainerColors = false,
-    required this.isDark,
-    required this.primaryPalette,
-    required this.secondaryPalette,
-    required this.tertiaryPalette,
-    required this.neutralPalette,
-    required this.neutralVariantPalette,
-    TonalPalette? customErrorPalette,
-  })  : sourceColorHct = Hct.fromInt(sourceColorArgb),
-        errorPalette = customErrorPalette ?? TonalPalette.of(25.0, 84.0);
 
   /// Get the the rotated hue of the source color.
   static double getRotatedHue(

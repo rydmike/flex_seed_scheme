@@ -21,6 +21,15 @@ import 'viewing_conditions.dart';
 /// accurate color measurement system that can also accurately render what
 /// colors will appear as in different lighting environments.
 class Hct {
+  /// Private constructor.
+  Hct._(int argb) {
+    _argb = argb;
+    final Cam16 cam16 = Cam16.fromInt(argb);
+    _hue = cam16.hue;
+    _chroma = cam16.chroma;
+    _tone = ColorUtils.lstarFromArgb(_argb);
+  }
+
   late double _hue;
   late double _chroma;
   late double _tone;
@@ -116,14 +125,6 @@ class Hct {
   set tone(double newTone) {
     _argb = HctSolver.solveToInt(hue, chroma, newTone);
     final Cam16 cam16 = Cam16.fromInt(_argb);
-    _hue = cam16.hue;
-    _chroma = cam16.chroma;
-    _tone = ColorUtils.lstarFromArgb(_argb);
-  }
-
-  Hct._(int argb) {
-    _argb = argb;
-    final Cam16 cam16 = Cam16.fromInt(argb);
     _hue = cam16.hue;
     _chroma = cam16.chroma;
     _tone = ColorUtils.lstarFromArgb(_argb);

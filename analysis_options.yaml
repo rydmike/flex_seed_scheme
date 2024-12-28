@@ -1,4 +1,4 @@
-# RydMike LINTER Preferences v2.2.0
+# RydMike LINTER Preferences v2.3.0
 #
 # Get this file here: https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
 #
@@ -6,21 +6,22 @@
 # You can find a list of all lint rules to put in your all_lint_rules.yaml file here:
 # https://dart.dev/tools/linter-rules/all
 #
+# This version is updated for Flutter 3.27 and Dart 3.6.
+#
 # For a comparison of all lint rules settings in rule styles listed below, please see this Google
 # sheet: https://docs.google.com/spreadsheets/d/1Nc1gFjmCOMubWZD7f2E4fLhWN7LYaOE__tsA7bf2NjA
 #
 # Versions used for comparison:
 #
-# Core           v3.0.0     : https://pub.dev/packages/lints
-# Recommended    v3.0.0     : https://pub.dev/packages/lints
-# Flutter Lints  v3.0.1     : https://pub.dev/packages/flutter_lints
+# Core           v5.1.1     : https://pub.dev/packages/lints
+# Recommended    v5.1.1     : https://pub.dev/packages/lints
+# Flutter Lints  v5.0.0     : https://pub.dev/packages/flutter_lints
 # Pedantic       v1.11.1    : https://pub.dev/packages/pedantic
 # Effective Dart v1.3.2     : https://pub.dev/packages/effective_dart
 # Flutter repo   master     : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
-# Lint           v2.2.0     : https://pub.dev/packages/lint
-# VG Analysis    v5.1.0     : https://pub.dev/packages/very_good_analysis
-# RydMike        v2.1.0     : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-#
+# Lint           v2.3.0     : https://pub.dev/packages/lint
+# VG Analysis    v7.0.0     : https://pub.dev/packages/very_good_analysis
+# RydMike        v2.3.0     : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
 include: all_lint_rules.yaml
 analyzer:
   exclude:
@@ -56,6 +57,10 @@ analyzer:
 
     # Invocation of equality operator == with references of unrelated types.
     unrelated_type_equality_checks: warning
+
+    # Allow self-reference to deprecated members. This is done because otherwise we have
+    # to annotate every member in every test, assert, etc. when we deprecate something.
+    # deprecated_member_use_from_same_package: ignore
 
     # DON'T assign new values to parameters of methods or functions.
     #
@@ -161,7 +166,8 @@ linter:
     # look into what type an object is.
     #
     # We felt the above long explanation was warranted as a reminder. Keeping the rule listed here
-    # and the setting below. Maybe we turn it OFF permanently some day, or in some projects.
+    # and the setting below, in order to easily turn it OFF permanently some day, or in some
+    # projects.
     #
     # Other known linters use:
     #
@@ -191,10 +197,10 @@ linter:
     # Flutter repo now also prefers relative imports over package imports, so that is
     # another reason to use that.
     #
-    # Use what you prefer, but be consistent. Mixing and matching can
-    # cause issues if the same file is imported with the different options are considered to be
+    # Use what you prefer, but you have to be consistent though, since mixing and matching can
+    # cause issues as the same file imported with the different options are considered to be
     # different libs and code, even if it is the same file. This may impact the functionality
-    # of e.g., singletons, service locators and increase code size.
+    # of e.g. singletons, service locators and increase code size.
     #
     # When you refactor and move folders with a lot of code in them, that other code depends
     # on for imports via relative imports, then they get messed up by Flutter IDEs
@@ -217,9 +223,8 @@ linter:
     #
     # https://dart.dev/tools/linter-rules/avoid_annotating_with_dynamic.html
     #
-    # Violates Effective Dart "PREFER annotating with dynamic instead of letting inference fail".
-    # This rule also conflicts with strong mode disabling `implicit-dynamic`.
-    # Turning it OFF.
+    # Violates Effective Dart "PREFER annotating with dynamic instead of letting inference fail", it
+    # also conflicts with strong mode disabling `implicit-dynamic`. Turning it OFF.
     #
     # Other known linters use:
     #
@@ -243,6 +248,9 @@ linter:
     # where we voluntarily want to catch everything, especially as a library.
     # See https://github.com/dart-lang/linter/issues/3023
     #
+    # The above issue has been resolved and closed, so the rule is now enabled
+    # starting in version 2.3.0.
+    #
     # Other known linters use:
     #
     # Core           disabled : https://pub.dev/packages/lints
@@ -253,8 +261,11 @@ linter:
     # Flutter repo   disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
     # Lint           disabled : https://pub.dev/packages/lint
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
-    # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    avoid_catches_without_on_clauses: false
+    # RydMike                 : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+    #   PACKAGE:     enabled  : By commenting it out below.
+    #   APPLICATION: disabled : With false value.
+    #
+    #avoid_catches_without_on_clauses: false
 
     # AVOID defining a class that contains only static members.
     #
@@ -475,7 +486,7 @@ linter:
     # package in which they are declared.
     #
     # RydMike: In packages and especially in public packages, it is often useful to deprecate a
-    # member, but keep it available and functional until the deprecated member is completely
+    # member, but keep it available and functional until the deprecated member is completley
     # removed. We thus need to reference it in code and doc comments.
     #
     # Other known linters use:
@@ -495,8 +506,9 @@ linter:
     #
     # https://dart.dev/tools/linter-rules/diagnostic_describe_all_properties.html
     #
-    # Consider using this lint rule if you are making a public Flutter package, for private ones and private apps
-    # we recommend keeping it off as you probably won't be making diagnostic properties for all your
+    # Consider using this lint rule if you are making a public Flutter package.
+    # For private ones and private apps we recommend keeping it off as you probably
+    # won't be making diagnostic properties for all your
     # classes, unless you are using a data class lib that does it for you via code generation.
     #
     # Other known linters use:
@@ -507,10 +519,10 @@ linter:
     # Pedantic       disabled : https://pub.dev/packages/pedantic
     # Effective Dart disabled : https://pub.dev/packages/effective_dart
     # Lint           disabled : https://pub.dev/packages/lint
-    # Flutter repo   disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
+    # Flutter repo   ENABLED? disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
     # RydMike                 : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    #   PACKAGE:     enabled  : By commenting it out.
+    #   PACKAGE:     enabled  : By commenting it out, sometimes use it, not always.
     #   APPLICATION: disabled : With false value. (Default, assume we are making an app most of the time.)
     diagnostic_describe_all_properties: false
 
@@ -536,6 +548,30 @@ linter:
     # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     do_not_use_environment: false
+
+    # DO document lint ignores.
+    #
+    # https://dart.dev/tools/linter-rules/document_ignores
+    #
+    # Document ignore comments.
+    #
+    # RydMike: This is good, but putting it false for now. This lint is triggered a lot
+    # in our code bases that did not do this originally.
+    # Consider enabling it for new projects. May enable later in older projects too and
+    # add explanations to all the ignored rules.
+    #
+    # Other known linters use:
+    #
+    # Core           disabled : https://pub.dev/packages/lints
+    # Recommended    disabled : https://pub.dev/packages/lints
+    # Flutter Lints  disabled : https://pub.dev/packages/flutter_lints
+    # Pedantic       disabled : https://pub.dev/packages/pedantic
+    # Effective Dart disabled : https://pub.dev/packages/effective_dart
+    # Lint           disabled : https://pub.dev/packages/lint
+    # Flutter repo   disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
+    # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
+    # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+    document_ignores: false
 
     # DO Use Flutter TO-DO format.
     #
@@ -563,7 +599,7 @@ linter:
     # https://dart.dev/tools/linter-rules/lines_longer_than_80_chars.html
     #
     # Using this rule will sometimes force a line of 81 characters to be split in two.
-    # As long as we try to respect the 80-character limit going slightly above is fine.
+    # As long as we try to respect the 80-character limit, going slightly above is fine.
     #
     # For packages, keep this rule enabled though, because the pub.dev dart format check will
     # penalize package points if it does not adhere to strict Dart format rules, which
@@ -648,7 +684,28 @@ linter:
     # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     omit_local_variable_types: false
 
-    # PREFER using asserts with a message string.
+    # CONSIDER omitting obvious type annotations for local variables.
+    #
+    # https://dart.dev/tools/linter-rules/omit_obvious_local_variable_types
+    #
+    # Conflicts with 'always_specify_types' that is used, so then we can't have this rule either,
+    # besides we like being verbose and specific. Why and when would omitting the type for local
+    # variables be a good thing anyway, be specific, is our take on this.
+    #
+    # Other known linters use:
+    #
+    # Core           disabled : https://pub.dev/packages/lints
+    # Recommended    disabled : https://pub.dev/packages/lints
+    # Flutter Lints  disabled : https://pub.dev/packages/flutter_lints
+    # Pedantic       disabled : https://pub.dev/packages/pedantic
+    # Effective Dart disabled : https://pub.dev/packages/effective_dart
+    # Flutter repo   disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
+    # Lint           disabled : https://pub.dev/packages/lint
+    # VG Analysis    disabled : https://pub.dev/packages/very_good_analysis
+    # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+    omit_obvious_local_variable_types: false
+
+    # PREFER asserts with a message string.
     #
     # https://dart.dev/tools/linter-rules/prefer_asserts_with_message.html
     #
@@ -717,7 +774,7 @@ linter:
     #
     # This rule is mostly about what style you want to use and enforce, if any.
     # It of course conflicts with rule:
-    # `prefer_single_quotes`: "DO use single quotes where they wouldn't require additional escapes."
+    # `prefer_single_quotes` : "DO use single quotes where they wouldn't require additional escapes."
     # https://dart.dev/tools/linter-rules/prefer_single_quotes.html
     #
     # For us single quotes are easier to type. On our ISO keyboards it is next to Enter key, and
@@ -748,8 +805,8 @@ linter:
     #
     # https://dart.dev/tools/linter-rules/prefer_expression_function_bodies.html
     #
-    # Certainly a good idea in many cases, but not always. For example, not always suitable for
-    # Flutter, which may have a `build` method with a single return, but that return is still
+    # Certainly a good idea in many cases, but not always. For example, it is not always suitable for
+    # Flutter, which may have a `build` method with a single return. This return is still
     # complex enough that a "body" is worth it, and it might not even fit on a single line.
     # https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo#consider-using--for-short-functions-and-methods
     #
@@ -774,13 +831,13 @@ linter:
     # avoid accidental reassignments.
     #
     # Certainly a good idea in many cases. There seems to be one "small" false positive issue with it.
-    # Lint is triggered by final constructor properties, e.g., in
+    # Lint is triggered by final constructor properties, e.g. in
     # `final int i;` the parameter `this.i` is not also final, which is not really needed
     # since the property is final. However, this triggers the rule unnecessarily. We had to
     # turn OFF this rule due to it.
     #
     # We turned OFF the rule. In a test project, after we cleaned up all that could be after Flutter 2.5 upgrade.
-    # There were still 150 positives from the rule, from the above issue. So after having it on and doing cleanup
+    # There were still 150 positives from the rule, from above issue. So after having it on and doing cleanup
     # where it could be used, we turned off the rule for now. Pity, it is a useful and nice rule otherwise.
     #
     # Other known linters use:
@@ -801,7 +858,7 @@ linter:
     # https://dart.dev/tools/linter-rules/prefer_int_literals.html
     #
     # This rule goes against the preferred style of being explicit with
-    # declarations and hides when a number is double, since we cannot declare it
+    # declarations and hides when a number is double. We cannot declare it
     # as 0.0 or 1.0 when it is double, it has to be 0 or 1, making it look
     # like an integer, even if it is not. Sometimes doing that is OK, but let's
     # not enforce it.
@@ -844,11 +901,11 @@ linter:
     # Effective Dart enabled  : https://pub.dev/packages/effective_dart
     # Flutter repo   disabled : https://github.com/flutter/flutter/blob/master/analysis_options.yaml
     # Lint           disabled : https://pub.dev/packages/lint
-    # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
+    # VG Analysis    disabled  : https://pub.dev/packages/very_good_analysis
     # RydMike                 : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
     #   PACKAGE:     enabled  : By commenting it out. (My default, I start with this)
     #   APPLICATION: disabled : With false value. (But usually uncomment the false value if it is an app)
-    # public_member_api_docs: false
+    #public_member_api_docs: false
 
     # DO use trailing commas for all function calls and declarations unless the function call or
     # definition, from the start of the function name up to the closing parenthesis,
@@ -877,13 +934,20 @@ linter:
     #
     # We do like this lint rule, but we want to have the default constructor first, followed
     # by its properties, after this, other named constructors and factories. This rule gets
-    # in the way of that and forces you to put (often final) constructor properties after all
+    # in the way of that. It forces you to put (often final) constructor properties after all
     # the named constructors and factories, making them tedious to find and disconnected from
     # where we want to see, read and handily edit them. This is especially the case if there are
     # many constructors and factories, and they have a lot of parameters. For now, we disable
-    # this rule and order things as described above, which apart from the default constructor
-    # properties coming right after the constructor, is the only part where we in practice
-    # deviate from this rule, so other yes, we do put constructors first as well anyway.
+    # this rule and order things as described above. The default constructor properties coming
+    # right after the constructor, is the only part where we in practice
+    # deviate from this rule, so otherwise yes, we do put constructors first as well anyway.
+    #
+    # From version v2.3.0 started using this rule, but add exceptions for files with
+    # classes that have a lot of properties and factory constructors. In those cases,
+    # we disable this rule, so we can get a better overview of the class properties
+    # and main constructor, before the factory constructors.
+    #
+    # Remove the comment below to disable this rule again.
     #
     # Other known linters use:
     #
@@ -896,8 +960,8 @@ linter:
     # Lint           disabled : https://pub.dev/packages/lint
     #                           Discussion https://github.com/passsy/dart-lint/issues/1
     # VG Analysis    enabled  : https://pub.dev/packages/very_good_analysis
-    # RydMike        disabled : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
-    sort_constructors_first: false
+    # RydMike        enabled  : https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c
+    # sort_constructors_first: false
 
     # DON'T use final for local variables.
     #

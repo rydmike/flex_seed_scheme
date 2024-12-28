@@ -29,6 +29,25 @@ import '../utils/math_utils.dart';
 /// This class caches intermediate values of the CAM16 conversion process that
 /// depend only on viewing conditions, enabling speed ups.
 class ViewingConditions {
+  /// Default constructor.
+  const ViewingConditions(
+      {required this.whitePoint,
+      required this.adaptingLuminance,
+      required this.backgroundLstar,
+      required this.surround,
+      required this.discountingIlluminant,
+      required this.backgroundYTowhitePointY,
+      required this.aw,
+      required this.nbb,
+      required this.ncb,
+      required this.c,
+      required this.nC,
+      required this.drgbInverse,
+      required this.rgbD,
+      required this.fl,
+      required this.fLRoot,
+      required this.z});
+
   /// ViewingConditions for standard color space.
   static final ViewingConditions standard = sRgb;
 
@@ -83,25 +102,6 @@ class ViewingConditions {
   /// z
   final double z;
 
-  /// Default constructor.
-  const ViewingConditions(
-      {required this.whitePoint,
-      required this.adaptingLuminance,
-      required this.backgroundLstar,
-      required this.surround,
-      required this.discountingIlluminant,
-      required this.backgroundYTowhitePointY,
-      required this.aw,
-      required this.nbb,
-      required this.ncb,
-      required this.c,
-      required this.nC,
-      required this.drgbInverse,
-      required this.rgbD,
-      required this.fl,
-      required this.fLRoot,
-      required this.z});
-
   /// Convenience constructor for [ViewingConditions].
   ///
   /// Parameters affecting color appearance include:
@@ -110,6 +110,7 @@ class ViewingConditions {
   /// [backgroundLstar]: average luminance of 10 degrees around color.
   /// [surround]: brightness of the entire environment.
   /// [discountingIlluminant]: whether eyes have adjusted to lighting.
+  // ignore: sort_constructors_first
   factory ViewingConditions.make(
       {List<double>? whitePoint,
       double adaptingLuminance = -1.0,

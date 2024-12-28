@@ -25,10 +25,11 @@ final List<Hct> seedColors = <Hct>[
 final List<double> contrastLevels = <double>[-1.0, -0.5, 0.0, 0.5, 1.0];
 
 class _Pair {
+  /// A pair of foreground and background color names.
+  _Pair(this.fgName, this.bgName);
+
   final String fgName;
   final String bgName;
-
-  _Pair(this.fgName, this.bgName);
 }
 
 final Map<String, DynamicColor> _colors = <String, DynamicColor>{

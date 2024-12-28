@@ -20,48 +20,6 @@ import '../utils/math_utils.dart';
 
 /// A Dynamic Color theme that is intentionally detached from the input color.
 class SchemeExpressive extends DynamicScheme {
-  /// Hues used at breakpoints such that designers can specify a hue rotation
-  /// that occurs at a given break point.
-  static final List<double> hues = <double>[
-    0,
-    21,
-    51,
-    121,
-    151,
-    191,
-    271,
-    321,
-    360
-  ];
-
-  /// Hue rotations of the Secondary [TonalPalette], corresponding to the
-  /// breakpoints in [hues].
-  static final List<double> secondaryRotations = <double>[
-    45,
-    95,
-    45,
-    20,
-    45,
-    90,
-    45,
-    45,
-    45
-  ];
-
-  /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
-  /// breakpoints in [hues].
-  static final List<double> tertiaryRotations = <double>[
-    120,
-    120,
-    20,
-    45,
-    20,
-    15,
-    20,
-    120,
-    120
-  ];
-
   /// SchemeExpressive default constructor.
   SchemeExpressive({
     required Hct sourceColorHct,
@@ -115,4 +73,46 @@ class SchemeExpressive extends DynamicScheme {
                       ? 0
                       : errorSourceColorHct.chroma),
         );
+
+  /// Hues used at breakpoints such that designers can specify a hue rotation
+  /// that occurs at a given break point.
+  static final List<double> hues = <double>[
+    0,
+    21,
+    51,
+    121,
+    151,
+    191,
+    271,
+    321,
+    360
+  ];
+
+  /// Hue rotations of the Secondary [TonalPalette], corresponding to the
+  /// breakpoints in [hues].
+  static final List<double> secondaryRotations = <double>[
+    45,
+    95,
+    45,
+    20,
+    45,
+    90,
+    45,
+    45,
+    45
+  ];
+
+  /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
+  /// breakpoints in [hues].
+  static final List<double> tertiaryRotations = <double>[
+    120,
+    120,
+    20,
+    45,
+    20,
+    15,
+    20,
+    120,
+    120
+  ];
 }
