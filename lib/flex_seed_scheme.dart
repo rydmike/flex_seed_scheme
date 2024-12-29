@@ -4,6 +4,15 @@
 /// seed colors, custom chroma and tone mapping.
 library;
 
+/// None deprecated versions of 8-bit color channel getters for [Color] as
+/// well as its 32-bit value getter.
+///
+/// The getters are implemented the same vay as the deprecated getters are
+/// in [Color], but these are not deprecated and they care called
+/// [value32bit], [alpha8bit], [red8bit], [green8bit], [blue8bit].
+/// These getters will no be deprecated anytime soon.
+export 'src/flex/flex_color_seed_color_extensions.dart';
+
 /// Core palettes used to make a ColorScheme.
 ///
 /// An intermediate concept between the key colors for a UI theme, and a full

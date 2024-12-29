@@ -11,6 +11,9 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 * Updated the package to support and require at least Flutter v3.27.0.
 * Fixed all new analyzer lint warnings and removed usage of all deprecated `Color` properties.
 
+**NEW**
+
+* Added convenience `Color` sRGB extensions that can be used as none deprecated replacements for `alpha`, `red`, `green`, `blue` and `value` they are called `alpha8bit`, `red8bit`, `green8bit`, `blue8bit` and `value32bit`.
 
 ## 3.4.1
 

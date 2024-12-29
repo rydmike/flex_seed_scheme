@@ -2,7 +2,6 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/effective_flex_tones.dart';
-import '../../../core/utils/flex_color_extension.dart';
 import '../../../theme/controllers/theme_controller.dart';
 import 'select_palette_type.dart';
 import 'tonal_palette_colors.dart';

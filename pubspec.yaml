@@ -48,7 +48,7 @@ dependencies:
   meta: ^1.9.1
 
 dev_dependencies:
-
+  coverage: ^1.11.1
   flutter_test:
     sdk: flutter
   # Used by color_matcher.dart in tests.
