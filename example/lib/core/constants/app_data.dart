@@ -45,7 +45,7 @@ sealed class AppData {
       'Build-$versionBuild';
   static const String packageVersion =
       '$versionMajor.$versionMinor.$versionPatch';
-  static const String flutterVersion = '3.27.5 (canvaskit$buildType)';
+  static const String flutterVersion = '3.27.1 (canvaskit$buildType)';
   static const String copyright = '© 2022-2024';
   static const String author = 'Mike Rydstrom';
   static const String license = 'BSD 3-Clause License';
