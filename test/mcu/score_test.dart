@@ -17,7 +17,7 @@ import 'package:test/test.dart';
 import './utils/color_matcher.dart';
 
 void main() {
-  test('prioritizes chroma', () async {
+  test('prioritizes chroma', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff000000: 1,
       0xffffffff: 1,
@@ -29,7 +29,7 @@ void main() {
     expect(ranked[0], isColor(0xff0000ff));
   });
 
-  test('prioritizes chroma when proportions equal', () async {
+  test('prioritizes chroma when proportions equal', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffff0000: 1,
       0xff00ff00: 1,
@@ -43,7 +43,7 @@ void main() {
     expect(ranked[2], isColor(0xff0000ff));
   });
 
-  test('generates gBlue when no colors available', () async {
+  test('generates gBlue when no colors available', () {
     final Map<int, int> colorsToPopulation = <int, int>{0xff000000: 1};
     final List<int> ranked = Score.score(colorsToPopulation, desired: 4);
 
@@ -51,7 +51,7 @@ void main() {
     expect(ranked[0], isColor(0xff4285f4));
   });
 
-  test('dedupes nearby hues', () async {
+  test('dedupes nearby hues', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff008772: 1, // H 180 C 42 T 50
       0xff318477: 1 // H 184 C 35 T 50
@@ -62,7 +62,7 @@ void main() {
     expect(ranked[0], isColor(0xff008772));
   });
 
-  test('maximizes hue distance', () async {
+  test('maximizes hue distance', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff008772: 1, // H 180 C 42 T 50
       0xff008587: 1, // H 198 C 50 T 50
@@ -74,7 +74,7 @@ void main() {
     expect(ranked[1], isColor(0xff008772));
   });
 
-  test('passes generated scenario one', () async {
+  test('passes generated scenario one', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff7ea16d: 67,
       0xffd8ccae: 67,
@@ -90,7 +90,7 @@ void main() {
     expect(ranked[2], isColor(0xff835c0d));
   });
 
-  test('passes generated scenario two', () async {
+  test('passes generated scenario two', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffd33881: 14,
       0xff3205cc: 77,
@@ -107,7 +107,7 @@ void main() {
     expect(ranked[2], isColor(0xffd33881));
   });
 
-  test('passes generated scenario three', () async {
+  test('passes generated scenario three', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffbe94a6: 23,
       0xffc33fd7: 42,
@@ -124,7 +124,7 @@ void main() {
     expect(ranked[2], isColor(0xffbe94a6));
   });
 
-  test('passes generated scenario four', () async {
+  test('passes generated scenario four', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffdf241c: 85,
       0xff685859: 44,
@@ -141,7 +141,7 @@ void main() {
     expect(ranked[1], isColor(0xff561c54));
   });
 
-  test('passes generated scenario five', () async {
+  test('passes generated scenario five', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffbe66f8: 41,
       0xff4bbda9: 88,
@@ -159,7 +159,7 @@ void main() {
     expect(ranked[2], isColor(0xffbe66f8));
   });
 
-  test('passes generated scenario six', () async {
+  test('passes generated scenario six', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff18ea8f: 93,
       0xff327593: 18,
@@ -176,7 +176,7 @@ void main() {
     expect(ranked[1], isColor(0xfffa8a23));
   });
 
-  test('passes generated scenario seven', () async {
+  test('passes generated scenario seven', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff2e05ed: 23,
       0xff153e55: 90,
@@ -193,7 +193,7 @@ void main() {
     expect(ranked[1], isColor(0xff9ab220));
   });
 
-  test('passes generated scenario eight', () async {
+  test('passes generated scenario eight', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff816ec5: 24,
       0xff6dcb94: 19,
@@ -208,7 +208,7 @@ void main() {
     expect(ranked[0], isColor(0xff3cae91));
   });
 
-  test('passes generated scenario nine', () async {
+  test('passes generated scenario nine', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff206f86: 52,
       0xff4a620d: 96,
@@ -226,7 +226,7 @@ void main() {
     expect(ranked[2], isColor(0xff2b8ebf));
   });
 
-  test('passes generated scenario ten', () async {
+  test('passes generated scenario ten', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xff8b1d99: 54,
       0xff27effe: 43,
@@ -246,14 +246,14 @@ void main() {
   //
   // Rydmike extra coverage tests
   //
-  test('passes fallback to default', () async {
+  test('passes fallback to default', () {
     final Map<int, int> colorsToPopulation = <int, int>{};
     final List<int> ranked = Score.score(colorsToPopulation, desired: 2);
     expect(ranked.length, equals(1));
     expect(ranked[0], isColor(0xff4285F4));
   });
 
-  test('prioritizes chroma when proportions equal', () async {
+  test('prioritizes chroma when proportions equal', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffff0000: 1,
       0xff00ff00: 1,
@@ -269,7 +269,7 @@ void main() {
     expect(ranked[1], isColor(0xff00ff00));
     expect(ranked[2], isColor(0xff0000ff));
   });
-  test('prioritizes highest count', () async {
+  test('prioritizes highest count', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffff0000: 1,
       0xff00ff00: 8,
@@ -292,13 +292,13 @@ void main() {
   });
 
   // RydMike extra coverage hit
-  test('Get empty, gets fallback #4285F4', () async {
+  test('Get empty, gets fallback #4285F4', () {
     final Map<int, int> colorsToPopulation = <int, int>{};
     final List<int> ranked = Score.score(colorsToPopulation, desired: 1);
     expect(ranked.length, equals(1));
     expect(ranked[0], isColor(0xff4285F4));
   });
-  test('Get only white, gets fallback #4285F4', () async {
+  test('Get only white, gets fallback #4285F4', () {
     final Map<int, int> colorsToPopulation = <int, int>{
       0xffffffff: 5,
     };

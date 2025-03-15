@@ -110,11 +110,14 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    // ignore: unused_element
+    // ignore: unused_element, element is deprecated and has no effect.
+    // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use surface instead.') this.background,
-    // ignore: unused_element
+    // ignore: unused_element, element is deprecated and has no effect.
+    // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use onSurface instead.') this.onBackground,
-    // ignore: unused_element
+    // ignore: unused_element, element is deprecated and has no effect.
+    // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
   });
 
@@ -288,15 +291,30 @@ class FlexSeedScheme {
   final int surfaceTint;
 
   /// A color that typically appears behind scrollable content.
+  ///
+  /// This parameter is deprecated and has no effect. It is only available
+  /// to not break pas API. It will be removed in next major release.
+  ///
+  /// Use surface instead.
   @Deprecated('Use surface instead.')
   final int? background;
 
   /// A color that's clearly legible when drawn on [background].
+  ///
+  /// This parameter is deprecated and has no effect. It is only available
+  /// to not break pas API. It will be removed in next major release.
+  ///
+  /// Use onSurface instead.
   @Deprecated('Use onSurface instead.')
   final int? onBackground;
 
   /// A color variant of [surface] that can be used for differentiation against
   /// a component using [surface].
+  ///
+  /// This parameter is deprecated and has no effect. It is only available
+  /// to not break pas API. It will be removed in next major release.
+  ///
+  /// Use surfaceContainerHighest instead.
   @Deprecated('Use surfaceContainerHighest instead.')
   final int? surfaceVariant;
 

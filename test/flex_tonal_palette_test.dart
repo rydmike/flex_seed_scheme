@@ -148,7 +148,6 @@ void main() {
     test(
         'FCP1.U07: GIVEN a FlexTonalPalette.fromList '
         'EXPECT its toString to be "FlexTonalPalette.fromList(...)"', () {
-      // ignore: lines_longer_than_80_chars
       expect(
         m4.toString(),
         equals(
@@ -427,7 +426,6 @@ void main() {
           'FCP2.U07: GIVEN a FlexTonalPalette.fromList extended '
           'EXPECT its toString to be '
           '"FlexTonalPalette.fromList(...extended)"', () {
-        // ignore: lines_longer_than_80_chars
         expect(
           m4.toString(),
           equals(

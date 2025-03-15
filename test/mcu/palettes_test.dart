@@ -59,7 +59,7 @@ void main() {
     });
 
     group('[.of constructor]', () {
-      test('tones of blue', () async {
+      test('tones of blue', () {
         final Hct hct = Hct.fromInt(0xff0000ff);
         final TonalPalette tones = TonalPalette.of(hct.hue, hct.chroma);
 
@@ -124,7 +124,7 @@ void main() {
     });
 
     group('[.fromList constructor]', () {
-      test('tones of i', () async {
+      test('tones of i', () {
         final List<int> ints =
             List<int>.generate(TonalPalette.commonSize, (int i) => i);
         final TonalPalette tones = TonalPalette.fromList(ints);

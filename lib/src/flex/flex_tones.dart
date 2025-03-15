@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../../flex_seed_scheme.dart';
-
-// ignore_for_file: comment_references
 
 /// Configuration data class that defines which tone to use from each
 /// [FlexTonalPalette] when assigning used color to each [ColorScheme] color.
@@ -12,7 +11,7 @@ import '../../flex_seed_scheme.dart';
 ///
 /// To use optional [FlexTones] to change tone mappings and default chroma
 /// usage and limits with [SeedColorScheme.fromSeeds], you can pass in one of
-/// the predefined configs below, to its [tones] property:
+/// the predefined configs below, to its `tones` property:
 ///
 /// * [FlexTones.material], default and same as Flutter SDK M3 setup used in
 ///   Flutter 3.22 and later.
@@ -20,9 +19,10 @@ import '../../flex_seed_scheme.dart';
 ///   Flutter 3.19 and earlier.
 /// * [FlexTones.soft], softer and earthier tones than M3 [FlexTones.material].
 /// * [FlexTones.vivid], more vivid colors, uses chroma from all key colors.
-/// * [FlexTones.vividSurfaces], like [vivid], but with more colors in surfaces.
-/// * [FlexTones.vividBackground], like [vividSurfaces], but with tone mapping
-///   for [Colorscheme.surface] and [Colorscheme.background] colors swapped.
+/// * [FlexTones.vividSurfaces], like [FlexTones.vivid], but with more colors in
+///   surfaces.
+/// * [FlexTones.vividBackground], like [FlexTones.vividSurfaces],
+///   but with slightly modified background color tone mappings.
 /// * [FlexTones.highContrast], can be used for more color accessible themes.
 /// * [FlexTones.ultraContrast], for a very high contrast theme that is still
 ///   in Material 3 color system style.
@@ -157,7 +157,7 @@ class FlexTones with Diagnosticable {
   ///
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
-  /// [Scheme.light] and [ColorPalette.of]. The difference is
+  /// [Scheme.light] and `ColorPalette.of`. The difference is
   /// that it does not lock the chroma values for primary, secondary and
   /// tertiary to a specific chroma value, but uses actual chroma of specified
   /// key color, as long as it is over the minimum value.
@@ -264,7 +264,7 @@ class FlexTones with Diagnosticable {
   ///
   /// This setup is almost identical to the default that you get if only
   /// one seed color is used, as you get with Flutter when it uses
-  /// [Scheme.dark] and [ColorPalette.of]. The difference is
+  /// [Scheme.dark] and `ColorPalette.of`. The difference is
   /// that it does not lock the chroma values for primary, secondary and
   /// tertiary to a specific chroma value, but uses actual chroma of specified
   /// key color, as long as it is over the minimum value.
@@ -383,7 +383,7 @@ class FlexTones with Diagnosticable {
   /// seed generated ColorScheme. There might be some slight differences in
   /// its results and using this selection in some edge cases, but none have
   /// been observed in normal use cases. If an exact match is critical, use
-  /// [tonalSpot] as used in the Flutter SDK 3.22 and later.
+  /// [FlexSchemeVariant.tonalSpot] as used in the Flutter SDK 3.22 and later.
   ///
   /// If you want to use multiple seed colors to generate a ColorScheme, you
   /// will need to use [FlexTones] based configurations, the ones based on
@@ -892,12 +892,15 @@ class FlexTones with Diagnosticable {
   /// color tones, are set to be either pure white 100 or black 0, depending
   /// what is appropriate contrast for its color pair.
   ///
-  /// This will make the seeded on colors for [onPrimary], [onPrimaryContainer],
-  /// [onPrimaryFixed], [onPrimaryFixedVariant], [onSecondary],
-  /// [onSecondaryContainer], [onSecondaryFixed], [onSecondaryFixedVariant],
-  /// [onTertiary], [onTertiaryContainer], [onTertiaryFixed],
-  /// [onTertiaryFixedVariant] as well as [onError] and [onErrorContainer] pure
-  /// black or white, depending on need contrast, instead of the its chroma
+  /// This will make the seeded on colors for [ColorScheme.onPrimary],
+  /// [ColorScheme.onPrimaryContainer], [ColorScheme.onPrimaryFixed],
+  /// [ColorScheme.onPrimaryFixedVariant], [ColorScheme.onSecondary],
+  /// [ColorScheme.onSecondaryContainer], [ColorScheme.onSecondaryFixed],
+  /// [ColorScheme.onSecondaryFixedVariant], [ColorScheme.onTertiary],
+  /// [ColorScheme.onTertiaryContainer], [ColorScheme.onTertiaryFixed],
+  /// [ColorScheme.onTertiaryFixedVariant] as well as [ColorScheme.onError] and
+  /// [ColorScheme.onErrorContainer] pure
+  /// black or white, depending on need contrast, instead of its chroma
   /// tinted black and white versions.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
@@ -937,9 +940,10 @@ class FlexTones with Diagnosticable {
   /// color tones, are set to be either pure white 100 or black 0, depending
   /// what is appropriate contrast for its color pair.
   ///
-  /// This will make the seeded on colors for [onBackground], [onSurface],
-  /// [onSurfaceVariant], and [onInverseSurface] pure black or
-  /// white, depending on need contrast, instead of tinted black and white.
+  /// This will make the seeded on colors for [ColorScheme.onSurface],
+  /// [ColorScheme.onSurfaceVariant], and [ColorScheme.onInverseSurface]
+  /// pure black or white, depending on need contrast, instead of tinted
+  /// black and white.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
@@ -966,12 +970,12 @@ class FlexTones with Diagnosticable {
   /// Returns a new [FlexTones] instance where the tones for surface are
   /// set 0 (black) if it was <= 60 and to 100 (white) if > 60.
   ///
-  /// This will make the seeded color for [surface] pure
+  /// This will make the seeded color for [ColorScheme.surface] pure
   /// black or white, depending on if it is dark or light theme.
   ///
   /// This is a modifier, using copyWith, that can be used to change any
   /// existing or pre-made [FlexTones] config to not have any color tint in
-  /// their seeded [surface] color.
+  /// their seeded [ColorScheme.surface] color.
   ///
   /// The [useBW] flag is true by default, making the function effective.
   /// If set to false, the function is a no op and just returns the [FlexTones]
@@ -1034,7 +1038,7 @@ class FlexTones with Diagnosticable {
   /// Utilities (MCU) package v0.12.0.
   ///
   /// This modifier is equivalent to setting the
-  /// [SeedColorScheme.fromSeeds] and its [useExpressiveOnContainerColors] to
+  /// [SeedColorScheme.fromSeeds] and its `useExpressiveOnContainerColors` to
   /// true when using MCU dynamic scheme variant based seeded color schemes.
   ///
   /// The [useExpressive] flag is true by default, making the function
@@ -1370,8 +1374,8 @@ class FlexTones with Diagnosticable {
   /// The number of degrees to rotate Hue to use to get hue from primary
   /// color's Hue, used as base with rotated amount of degrees provided.
   ///
-  /// This is only used when [tertiary] ARGB key color is null and we have
-  /// no specified Hue input for tertiary key color.
+  /// This is only used when [ColorScheme.tertiary] ARGB key color is null and
+  /// we have no specified Hue input for tertiary key color.
   ///
   /// When used and if not defined, defaults to 60 degrees.
   final double? tertiaryHueRotation;

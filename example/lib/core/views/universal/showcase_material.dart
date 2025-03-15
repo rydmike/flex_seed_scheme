@@ -4482,6 +4482,7 @@ class AlertDialogShowcase extends StatelessWidget {
             'Show AlertDialog',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          // ignore: unnecessary_async, false positive!
           onPressed: () async => _openDialog(context),
         ),
       ],
@@ -4539,6 +4540,7 @@ class TimePickerDialogShowcase extends StatelessWidget {
             'Show TimePickerDialog',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          // ignore: unnecessary_async, false positive.
           onPressed: () async => _openDialog(context),
         ),
       ],
@@ -4582,6 +4584,7 @@ class DatePickerDialogShowcase extends StatelessWidget {
             'Show DatePickerDialog',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          // ignore: unnecessary_async, false positive.
           onPressed: () async => _openDialog(context),
         ),
       ],

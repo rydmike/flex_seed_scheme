@@ -27,7 +27,7 @@ void main() {
     expect(scheme.primary, isColor(0xffBEC2FF));
   });
 
-  test('3rd party light scheme', () async {
+  test('3rd party light scheme', () {
     final Scheme scheme = Scheme.light(0xff6750A4);
     expect(scheme.primary, isColor(0xff6750A4));
     expect(scheme.secondary, isColor(0xff625B71));
@@ -36,7 +36,7 @@ void main() {
     expect(scheme.onSurface, isColor(0xff1C1B1E));
   });
 
-  test('3rd party dark scheme', () async {
+  test('3rd party dark scheme', () {
     final Scheme scheme = Scheme.dark(0xff6750A4);
     expect(scheme.primary, isColor(0xffCFBCFF));
     expect(scheme.secondary, isColor(0xffCBC2DB));
@@ -45,7 +45,7 @@ void main() {
     expect(scheme.onSurface, isColor(0xffE6E1E6));
   });
 
-  test('light scheme from high chroma color', () async {
+  test('light scheme from high chroma color', () {
     final Scheme scheme = Scheme.light(0xfffa2bec);
     expect(scheme.primary, isColor(0xffab00a2));
     expect(scheme.onPrimary, isColor(0xffffffff));
@@ -78,7 +78,7 @@ void main() {
     expect(scheme.inversePrimary, isColor(0xffffabee));
   });
 
-  test('dark scheme from high chroma color', () async {
+  test('dark scheme from high chroma color', () {
     final Scheme scheme = Scheme.dark(0xfffa2bec);
     expect(scheme.primary, isColor(0xffffabee));
     expect(scheme.onPrimary, isColor(0xff5c0057));
@@ -111,7 +111,7 @@ void main() {
     expect(scheme.inversePrimary, isColor(0xffab00a2));
   });
 
-  test('light content scheme from high chroma color', () async {
+  test('light content scheme from high chroma color', () {
     final Scheme scheme = Scheme.lightContent(0xfffa2bec);
     expect(scheme.primary, isColor(0xffab00a2));
     expect(scheme.onPrimary, isColor(0xffffffff));
@@ -144,7 +144,7 @@ void main() {
     expect(scheme.inversePrimary, isColor(0xffffabee));
   });
 
-  test('dark content scheme from high chroma color', () async {
+  test('dark content scheme from high chroma color', () {
     final Scheme scheme = Scheme.darkContent(0xfffa2bec);
     expect(scheme.primary, isColor(0xffffabee));
     expect(scheme.onPrimary, isColor(0xff5c0057));
