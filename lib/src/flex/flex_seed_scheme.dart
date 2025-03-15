@@ -4,6 +4,8 @@ import 'package:meta/meta.dart' show internal;
 import '../mcu/dynamiccolor/dynamic_scheme.dart';
 import '../mcu/dynamiccolor/material_dynamic_colors.dart';
 import '../mcu/hct/hct.dart';
+import '../mcu/palettes/core_palette.dart';
+import '../mcu/scheme/scheme.dart';
 import '../mcu/scheme/scheme_content.dart';
 import '../mcu/scheme/scheme_expressive.dart';
 import '../mcu/scheme/scheme_fidelity.dart';
@@ -16,6 +18,7 @@ import '../mcu/scheme/scheme_vibrant.dart';
 import 'flex_color_seed_color_extensions.dart';
 import 'flex_core_palette.dart';
 import 'flex_scheme_variant.dart';
+import 'flex_tonal_palette.dart';
 import 'flex_tones.dart';
 
 // ignore_for_file: comment_references
@@ -25,7 +28,11 @@ import 'flex_tones.dart';
 /// It is used used to generate a [ColorScheme] based on a modified version of
 /// [CorePalette] found in package material_color_utilities.
 ///
-/// It has two enhancements to makes it more flexible and powerful:
+/// You use this via its static extension [SeedColorScheme.fromSeeds] to create
+/// a [ColorScheme] from one to six seed colors, and optionally
+/// using customizable [FlexTones] tone mapping to [ColorScheme] colors.
+///
+/// It has two enhancements to make it more flexible and powerful:
 ///
 /// 1) Six seed colors instead of just one.
 ///
@@ -55,8 +62,8 @@ class FlexSeedScheme {
   /// Private constructor requiring all int color values.
   ///
   /// A [FlexSeedScheme] cannot be created externally. It is only used
-  /// internally to create a seeded [ColorScheme] via its static method
-  /// [FlexSeedScheme.fromSeeds] from one to six seed colors, and optionally
+  /// internally to create a seeded [ColorScheme] via its static extension
+  /// [SeedColorScheme.fromSeeds] from one to six seed colors, and optionally
   /// using customizable [FlexTones] tone mapping to [ColorScheme].
   const FlexSeedScheme._({
     required this.primary,

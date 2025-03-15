@@ -26,8 +26,8 @@ on:
     branches: [none]
     paths-ignore:
       - "**.md"
-  #release:
-  #  types: [published]
+  release:
+    types: [published]
 
 jobs:
   flutter_tests:
@@ -65,7 +65,7 @@ jobs:
       - name: "EXAMPLE START BUILD - Flutter clean before build"
         run: flutter clean && cd example && flutter clean
       - name: "EXAMPLE WEB release build"
-        run: cd example && flutter build web --web-renderer canvaskit --base-href "/flexseedscheme/demo-v3/" --release -t lib/main.dart
+        run: cd example && flutter build web --base-href "/flexseedscheme/demo-v3/" --release -t lib/main.dart
       - name: "EXAMPLE DEPLOY to GitHub Pages repository, published on commit."
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:

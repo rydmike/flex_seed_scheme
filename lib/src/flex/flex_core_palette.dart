@@ -42,10 +42,10 @@ class FlexCorePalette {
   /// to the Material-3 color system default FlexTonalPalette.of(25, 84).
   ///
   /// If you construct [FlexCorePalette] with this default constructor, you
-  /// must use the same [paletteType] of [FlexPaletteType] in all passed in
+  /// must use the same `paletteType` of [FlexPaletteType] in all passed in
   /// [FlexTonalPalette]s. They default to [FlexPaletteType.common], but if you
   /// use [FlexPaletteType.extended] you must also provide the [error] tonal
-  /// palette and set its [paletteType] to [FlexPaletteType.extended] as well.
+  /// palette and set its `paletteType`
   /// The input for the default M3 error color palette using the extended tones
   /// would be `FlexTonalPalette.of(25, 84, FlexPaletteType.extended)`.
   ///
@@ -88,10 +88,10 @@ class FlexCorePalette {
   /// The error color hue is 25 and chroma 84 and FlexPaletteType.common.
   ///
   /// If you construct [FlexCorePalette] with this default constructor, you
-  /// must use the same [paletteType] of [FlexPaletteType] in all passed in
+  /// must use the same `paletteType` of [FlexPaletteType] in all passed in
   /// [FlexTonalPalette]s. They default to [FlexPaletteType.common], but if you
   /// use [FlexPaletteType.extended] you must also provide the [error] tonal
-  /// palette and set its [paletteType] to [FlexPaletteType.extended] as well.
+  /// palette and set its `paletteType` to [FlexPaletteType.extended] as well.
   /// You would typically give it the value:
   /// [FlexTonalPalette.of(25, 84, FlexPaletteType.extended)] for M3 default
   /// error colors but with more tones available.

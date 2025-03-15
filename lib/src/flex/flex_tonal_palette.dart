@@ -15,8 +15,7 @@ import 'package:collection/collection.dart' show ListEquality;
 import 'package:flutter/foundation.dart';
 
 import '../mcu/hct/hct.dart';
-
-// ignore_for_file: comment_references
+import 'flex_tones.dart';
 
 /// Enum used to select tones included in produced FlexTonalPalette.
 ///
@@ -118,10 +117,10 @@ class FlexTonalPalette {
   ///
   /// In original implementation package material_color_utilities this is
   /// defined as well, presumably for improved efficiency, there it is set to
-  /// [FlexTonalPalette.commonTones.length]. Here we instead manually set it
+  /// [FlexTonalPalette.commonTones] length. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 common tones and [FlexTonalPalette] 15.
+  /// Flutter MCU TonalPalette has 13 common tones and [FlexTonalPalette] 15.
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
   /// should be avoided and extended tones used instead. The common tones are
@@ -189,10 +188,10 @@ class FlexTonalPalette {
   ///
   /// In original implementation package material_color_utilities this is
   /// defined as well, presumably for improved efficiency, but there it is set
-  /// to [FlexTonalPalette.commonTones.length]. Here we instead manually set it
+  /// to [FlexTonalPalette.commonTones] length. Here we instead manually set it
   /// to compile time const of same const list length.
   ///
-  /// Flutter SDK [TonalPalette] has 13 tones, [FlexTonalPalette] extended 30.
+  /// Flutter SDK TonalPalette has 13 tones, [FlexTonalPalette] extended 30.
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
   /// should be avoided and extended tones used instead. The common tones are
