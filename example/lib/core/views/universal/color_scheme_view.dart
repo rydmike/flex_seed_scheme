@@ -31,7 +31,6 @@ class ColorSchemeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = scheme ?? theme.colorScheme;
-    final bool useMaterial3 = theme.useMaterial3;
     const double spacing = 6;
 
     // Grab the card border from the theme card shape
@@ -46,12 +45,13 @@ class ColorSchemeView extends StatelessWidget {
       // If border was null, make one matching Card default, but with border
       // side, if it was not null, we leave it as it was.
       border ??= RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
+        borderRadius:
+            BorderRadius.all(Radius.circular(theme.useMaterial3 ? 12 : 4)),
         side: BorderSide(color: colorScheme.outlineVariant),
       );
     }
     return Theme(
-      data: Theme.of(context).copyWith(
+      data: theme.copyWith(
         cardTheme: CardTheme.of(context).copyWith(
           elevation: 0,
           shape: border,
