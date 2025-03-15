@@ -1,8 +1,13 @@
 {
-    "cSpell.words": [
-        "celebi",
-        "dynamiccolor",
-        "quantizer",
-        "Tonals"
-    ]
+  "cSpell.words": [
+    "ARBG",
+    "celebi",
+    "dynamiccolor",
+    "materialdesign",
+    "nonobvious",
+    "quantizer",
+    "settersinvariant",
+    "Tonals"
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

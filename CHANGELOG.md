@@ -2,6 +2,16 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.5.1-dev.1
+
+**March 15, 2025**
+
+Version to check if the updates fixes pub score.
+
+**CHORE**
+* Update lints for package scoring.
+* Minor API documentation updates and fix API doc references.
+
 ## 3.5.0
 
 **Dec 29, 2024**
