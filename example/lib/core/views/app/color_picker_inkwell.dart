@@ -212,7 +212,6 @@ class ColorPickerInkWellDialog extends StatelessWidget {
       hoverColor: Colors.transparent,
       onTap: enabled
           ? () async {
-              // ignore: use_build_context_synchronously
               if (await colorPicker.showPickerDialog(
                 context,
                 insetPadding: const EdgeInsets.all(16),

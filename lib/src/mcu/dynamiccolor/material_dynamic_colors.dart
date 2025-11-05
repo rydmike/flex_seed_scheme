@@ -385,10 +385,9 @@ class MaterialDynamicColors {
       }
       return _findDesiredChromaByTone(
           s.secondaryPalette.hue,
-          // ignore: avoid_bool_literals_in_conditional_expressions
           s.secondaryPalette.chroma,
           initialTone,
-          // ignore: avoid_bool_literals_in_conditional_expressions
+          // ignore: avoid_bool_literals_in_conditional_expressions, more clear
           s.isDark ? false : true);
     },
     isBackground: true,

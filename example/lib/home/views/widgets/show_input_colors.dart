@@ -149,7 +149,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.primary,
+                      activeThumbColor: colorScheme.primary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
@@ -207,7 +207,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.secondary,
+                      activeThumbColor: colorScheme.secondary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Secondary'),
@@ -218,7 +218,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.secondary,
+                      activeThumbColor: colorScheme.secondary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
@@ -279,7 +279,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.tertiary,
+                      activeThumbColor: colorScheme.tertiary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Tertiary'),
@@ -290,7 +290,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.tertiary,
+                      activeThumbColor: colorScheme.tertiary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
@@ -346,7 +346,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.error,
+                      activeThumbColor: colorScheme.error,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Error'),
@@ -357,7 +357,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.error,
+                      activeThumbColor: colorScheme.error,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Pinned'),
@@ -416,7 +416,7 @@ class ShowInputColors extends StatelessWidget {
                   SizedBox(
                     width: boxWidth,
                     child: SwitchListTile(
-                      activeColor: colorScheme.outline,
+                      activeThumbColor: colorScheme.outline,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       dense: true,
                       title: const Text('Surfaces'),

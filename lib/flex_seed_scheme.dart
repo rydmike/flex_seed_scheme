@@ -1,15 +1,13 @@
-// ignore_for_file: comment_references
-
 /// A more flexible version of Flutter's ColorScheme.fromSeed, use multiple
 /// seed colors, custom chroma and tone mapping.
 library;
 
-/// None deprecated versions of 8-bit color channel getters for [Color] as
+/// None deprecated versions of 8-bit color channel getters for `Color` as
 /// well as its 32-bit value getter.
 ///
 /// The getters are implemented the same vay as the deprecated getters are
-/// in [Color], but these are not deprecated and they care called
-/// [value32bit], [alpha8bit], [red8bit], [green8bit], [blue8bit].
+/// in `Color`, but these are not deprecated and they care called
+/// `value32bit`, `alpha8bit`, `red8bit`, `green8bit`, `blue8bit`.
 /// These getters will no be deprecated anytime soon.
 export 'src/flex/flex_color_seed_color_extensions.dart';
 
@@ -19,8 +17,8 @@ export 'src/flex/flex_color_seed_color_extensions.dart';
 /// ColorScheme. Totally 5 tonal palettes are generated, plus a fixed error
 /// palette.
 ///
-/// The core produced tonal palettes are [primary], [secondary], [tertiary],
-/// [neutral], [neutralVariant] and [error].
+/// The core produced tonal palettes are `primary`, `secondary`, `tertiary`,
+/// `neutral`, `neutralVariant` and `error`.
 export 'src/flex/flex_core_palette.dart';
 
 /// Enum used to select which scheme variant algorithm to use when creating
@@ -34,20 +32,20 @@ export 'src/flex/flex_seed_scheme.dart' show SeedColorScheme;
 ///
 /// The Material Color Utilities default Tonal Palette includes 13 tones,
 /// FlexSeedScheme's FlexTonalPalette provides 15 when using
-/// [FlexPaletteType.common].
+/// `FlexPaletteType.common`.
 /// The additional two tones are 5 and 98. Tone 98 provides optional tonal
 /// fidelity in the light and white end of the palette, and tone 5 a more dark
 /// tone in the black end of the palette.
 ///
-/// The [FlexPaletteType.common] tones are
+/// The `FlexPaletteType.common` tones are
 /// 0,5,10,20,30,40,50,60,70,80,90,95,98,99,100.
 ///
-/// To get even more tones you can use [FlexPaletteType.extended] which provides
+/// To get even more tones you can use `FlexPaletteType.extended` which provides
 /// 25 tones, the additional tones are 2,4,6,12,17,22,24,87,92,94,96,97 for a
 /// total of 27 tones, which are
 /// 0,2,4,5,6,10,12,17,20,22,24,30,40,50,60,70,80,87,90,92,94,95,96,97,98,99,100
 ///
-/// The new tones are also used by the new [ColorScheme] in updated Material-3
+/// The new tones are also used by the new `ColorScheme` in updated Material-3
 /// design system that landed in Flutter 3.22.0.
 export 'src/flex/flex_tonal_palette.dart';
 

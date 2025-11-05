@@ -259,7 +259,7 @@ class ThemeController with ChangeNotifier {
   // custom colors for the theme, that needs to update the entire app anyway.
   List<Color> _recentColors = <Color>[];
   List<Color> get recentColors => _recentColors;
-  // ignore: use_setters_to_change_properties
+  // ignore: use_setters_to_change_properties, using a function instead.
   void setRecentColors(final List<Color> colors) {
     _recentColors = colors;
   }

@@ -916,7 +916,6 @@ class FlexTones with Diagnosticable {
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones onMainsUseBW([bool useBW = true]) {
-    // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       onPrimaryTone: primaryTone <= 60 ? 100 : 0,
@@ -958,7 +957,6 @@ class FlexTones with Diagnosticable {
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones onSurfacesUseBW([bool useBW = true]) {
-    // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       onSurfaceTone: surfaceTone <= 60 ? 100 : 0,
@@ -986,7 +984,6 @@ class FlexTones with Diagnosticable {
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones surfacesUseBW([bool useBW = true]) {
-    // ignore: avoid_returning_this
     if (!useBW) return this;
     return copyWith(
       surfaceTone: surfaceTone <= 60 ? 0 : 100,
@@ -1008,7 +1005,6 @@ class FlexTones with Diagnosticable {
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones monochromeSurfaces([bool useMonochrome = true]) {
-    // ignore: avoid_returning_this
     if (!useMonochrome) return this;
     return copyWith(
       neutralChroma: 0,
@@ -1079,7 +1075,6 @@ class FlexTones with Diagnosticable {
   /// order in which they are applied matters. The last one applied will be
   /// the one that is used.
   FlexTones higherContrastFixed([bool useHigherContrast = true]) {
-    // ignore: avoid_returning_this
     if (!useHigherContrast) return this;
     return copyWith(
       primaryFixedTone: 92,
