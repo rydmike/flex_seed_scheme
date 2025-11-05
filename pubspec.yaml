@@ -1,6 +1,6 @@
 name: flex_seed_scheme
 description: A more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping.
-version: 3.5.1
+version: 3.6.0
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
@@ -29,7 +29,7 @@ topics:
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.27.0'
+  flutter: '>=3.35.0'
 
 dependencies:
   # Used by mcu: tonal_palette.dart, require at least 1.18.0.
@@ -48,7 +48,7 @@ dependencies:
   meta: ^1.9.1
 
 dev_dependencies:
-  coverage: ^1.11.1
+  coverage: ^1.15.0
   flutter_test:
     sdk: flutter
   # Used by color_matcher.dart in tests.

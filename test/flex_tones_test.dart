@@ -231,7 +231,7 @@ void main() {
           m1.toString(),
           //
           equalsIgnoringHashCodes(
-              // ignore: lines_longer_than_80_chars
+              // ignore: lines_longer_than_80_chars, for tests.
               'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)'));
     });
     test(

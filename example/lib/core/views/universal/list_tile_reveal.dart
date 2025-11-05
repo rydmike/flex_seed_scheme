@@ -140,7 +140,7 @@ class _ListTileRevealState extends State<ListTileReveal> {
               if (widget.subtitleReveal != null && widget.enabled)
                 IconButton(
                   iconSize: 20,
-                  // ignore: avoid_bool_literals_in_conditional_expressions
+                  // ignore: avoid_bool_literals_in_conditional_expressions, clearer this way
                   isSelected: widget.enabled ? _isOpen : false,
                   icon: const Icon(Icons.info_outlined),
                   selectedIcon: const Icon(Icons.info),

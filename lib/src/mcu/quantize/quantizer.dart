@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: one_member_abstracts
+// ignore_for_file: one_member_abstracts, code from MCU lib.
 
 /// Quantizer.
 abstract class Quantizer {

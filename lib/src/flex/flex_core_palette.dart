@@ -7,8 +7,6 @@ import '../mcu/material_color_utilities.dart';
 import 'flex_color_seed_color_extensions.dart';
 import 'flex_tonal_palette.dart';
 
-// ignore_for_file: comment_references
-
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. Five tonal palettes are generated, plus a default
 /// error palette if not provided.
@@ -183,11 +181,11 @@ class FlexCorePalette {
     /// If not provided, the palette is based on [primary] with Cam16 chroma
     /// fixed at 16.
     ///
-    /// A fixed chroma value can also be specified via [secondaryChroma], if it
+    /// A fixed chroma value can also be specified via `secondaryChroma`, if it
     /// is, then the given chroma value is used. Alternatively a
-    /// [secondaryMinChroma] can, be specified, then chroma in [secondary] is
-    /// used when it is higher than [secondaryMinChroma]. If both
-    /// [secondaryChroma] and [secondaryMinChroma] are specified, the higher
+    /// `secondaryMinChroma` can, be specified, then chroma in [secondary] is
+    /// used when it is higher than `secondaryMinChroma`. If both
+    /// `secondaryChroma` and `secondaryMinChroma` are specified, the higher
     /// value is used for chroma.
     int? secondary,
 
@@ -196,13 +194,13 @@ class FlexCorePalette {
     ///
     /// Cam16 chroma is capped at 48 if provided. If not provided, the palette
     /// is based on [primary] with Cam16 hue + 60 degrees (default value for
-    /// [tertiaryHueRotation]) and chroma at 24.
+    /// `tertiaryHueRotation`) and chroma at 24.
     ///
-    /// A fixed chroma value can also be specified via [tertiaryChroma], if it
+    /// A fixed chroma value can also be specified via `tertiaryChroma`, if it
     /// is, then the given chroma value is used. Alternatively a
-    /// [tertiaryMinChroma] can, be specified, then chroma in [tertiary] is
-    /// used when it is higher than [tertiaryMinChroma]. If both
-    /// [tertiaryChroma] and [tertiaryMinChroma] are specified, the higher
+    /// `tertiaryMinChroma` can, be specified, then chroma in [tertiary] is
+    /// used when it is higher than `tertiaryMinChroma`. If both
+    /// `tertiaryChroma` and `tertiaryMinChroma` are specified, the higher
     /// value is used for chroma.
     int? tertiary,
 
@@ -215,11 +213,11 @@ class FlexCorePalette {
     /// specify a new error seed color here with a different hue and also
     /// chroma limit or fixed one.
     ///
-    /// A fixed chroma value can also be specified via [errorChroma], if it
+    /// A fixed chroma value can also be specified via `errorChroma`, if it
     /// is, then the given chroma value is used. Alternatively a
-    /// [errorMinChroma] can, be specified, then chroma in [error] is
-    /// used when it is higher than [errorMinChroma]. If both
-    /// [errorChroma] and [errorMinChroma] are specified, the higher
+    /// `errorMinChroma` can, be specified, then chroma in [error] is
+    /// used when it is higher than `errorMinChroma`. If both
+    /// `errorChroma` and `errorMinChroma` are specified, the higher
     /// value is used for chroma.
     int? error,
 
@@ -229,11 +227,11 @@ class FlexCorePalette {
     /// If not provided, the palette is based on [primary] with Cam16 chroma
     /// fixed at 16.
     ///
-    /// A fixed chroma value can also be specified via [neutralChroma], if it
+    /// A fixed chroma value can also be specified via `neutralChroma`], if it
     /// is, then the given chroma value is used. Alternatively a
-    /// [neutralMinChroma] can, be specified, then chroma in [neutral] is
-    /// used when it is higher than [neutralMinChroma]. If both
-    /// [neutralChroma] and [neutralMinChroma] are specified, the higher
+    /// `neutralMinChroma` can, be specified, then chroma in [neutral] is
+    /// used when it is higher than `neutralMinChroma`. If both
+    /// `neutralChroma` and `neutralMinChroma` are specified, the higher
     /// value is used for chroma.
     int? neutral,
 
@@ -243,12 +241,12 @@ class FlexCorePalette {
     /// If not provided, the palette is based on [primary] with Cam16 chroma
     /// fixed at 16.
     ///
-    /// A fixed chroma value can also be specified via [neutralVariantChroma],
+    /// A fixed chroma value can also be specified via `neutralVariantChroma`,
     /// if it is, then the given chroma value is used. Alternatively a
-    /// [neutralVariantMinChroma] can, be specified, then chroma in
+    /// `neutralVariantMinChroma` can, be specified, then chroma in
     /// [neutralVariant] is used when it is higher than
-    /// [neutralVariantMinChroma]. If both [neutralVariantChroma] and
-    /// [neutralVariantMinChroma] are specified, the higher value is used
+    /// `neutralVariantMinChroma`. If both `neutralVariantChroma` and
+    /// `neutralVariantMinChroma` are specified, the higher value is used
     /// for chroma.
     int? neutralVariant,
 

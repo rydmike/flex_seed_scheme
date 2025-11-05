@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: omit_local_variable_types
 // rationale: This library relies heavily on numeric computation, and a key
 // requirement is that it is 'the same' as implementations in different
 // languages. Including variable types, though sometimes unnecessary, is a

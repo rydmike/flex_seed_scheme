@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// App static functions and constants used in the example applications.
 ///
@@ -29,24 +30,28 @@ sealed class AppData {
   // build numbers.
 
   // Check if this is a Web-WASM build, Web-JS build or native VM build.
-  static const bool isRunningWithWasm =
-      bool.fromEnvironment('dart.tool.dart2wasm');
+  static const bool isRunningWithWasm = bool.fromEnvironment(
+    'dart.tool.dart2wasm',
+  );
   static const String buildType = isRunningWithWasm
-      ? ', WasmGC'
+      ? 'WasmGC'
       : kIsWeb
-          ? ', JS'
-          : ', native VM';
-
+          ? 'JS'
+          : 'native VM';
+  // Version of the WEB build, usually same as package, but it also has a
+  // build numbers.
   static const String versionMajor = '3';
-  static const String versionMinor = '5';
-  static const String versionPatch = '1';
+  static const String versionMinor = '6';
+  static const String versionPatch = '0';
   static const String versionBuild = '01';
-  static const String version = '$versionMajor.$versionMinor.$versionPatch '
-      'Build-$versionBuild';
-  static const String packageVersion =
-      '$versionMajor.$versionMinor.$versionPatch';
-  static const String flutterVersion = '3.29.2 (canvaskit$buildType)';
-  static const String copyright = '© 2022-2024';
+  static const String versionFull = '$versionMajor.$versionMinor.$versionPatch'
+      '\nBuild-$versionBuild';
+  static const String version = '$versionMajor.$versionMinor.$versionPatch';
+  static const String flutterVersionNum = FlutterVersion.version ?? '';
+  static const String flutterChannel = FlutterVersion.channel ?? '';
+  static const String flutterVersion =
+      '$flutterChannel $flutterVersionNum ($buildType)';
+  static const String copyright = '© 2022-2025';
   static const String author = 'Mike Rydstrom';
   static const String license = 'BSD 3-Clause License';
   static final Uri packageUri = Uri(

@@ -2,7 +2,22 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 3.5.1
+## 3.6.0
+
+Requires at least Flutter 3.35.0
+
+**Nov 5, 2025**
+
+**CHORE**
+* Bump dependencies.
+* Update lints to RydMike 2.5.0 lint rules and fix new lint warnings.
+* Update the example to support Flutter v3.35.0. 
+  * Due to breaking changes in Flutter 3.35.0, the package now also requires at least Flutter 3.35.0.
+* Update included custom fork of material_color_utilities to include changes in version 0.13.0
+  * All of the `MaterialDynamicColors` fields are now final. 
+  * NOTE: Flutter stable 3.35.x still uses material_color_utilities 0.11.1, at the time of publishing this, master also does.
+  * Since FSS uses its own fork, we can use the latest MCU features without conflicts with the pinned version Flutter uses.
+
 
 **March 15, 2025**
 

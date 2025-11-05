@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A custom [SwitchListTile] that has a built-in animated custom leading action
+/// A custom [SwitchListTile] that has a built-in animated custom action
 /// as a part of [title] that reveals the [subtitleReveal] when clicked.
 ///
 /// This is useful when a more compact look is desired where more information
@@ -20,6 +20,7 @@ class SwitchListTileReveal extends StatefulWidget {
     this.contentPadding,
     this.onTap,
     this.dense,
+    this.shape,
     this.revealDense,
     this.enabled = true,
     this.allowRevealWhenDisabled = false,
@@ -91,6 +92,9 @@ class SwitchListTileReveal extends StatefulWidget {
   /// Dense list tiles default to a smaller height.
   final bool? dense;
 
+  /// The shape of the ListTile.
+  final ShapeBorder? shape;
+
   /// Whether the used reveal part of the ListTile is dense.
   ///
   /// If not defined, defaults to true.
@@ -110,7 +114,7 @@ class SwitchListTileReveal extends StatefulWidget {
 }
 
 class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
-  late bool _isOpen;
+  bool _isOpen = false;
 
   @override
   void initState() {
@@ -136,6 +140,7 @@ class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
       children: <Widget>[
         SwitchListTile(
           dense: widget.dense,
+          shape: widget.shape,
           contentPadding: widget.contentPadding,
           value: widget.value && widget.enabled,
           onChanged: widget.enabled ? widget.onChanged : null,
@@ -150,9 +155,8 @@ class _SwitchListTileRevealState extends State<SwitchListTileReveal> {
                       ? _handleTap
                       : null,
                   borderRadius: BorderRadius.circular(28),
-                  child: SizedBox(
-                    width: 28,
-                    height: 28,
+                  child: SizedBox.square(
+                    dimension: 28,
                     child: Icon(
                       _isOpen ? Icons.info : Icons.info_outlined,
                       size: 18,

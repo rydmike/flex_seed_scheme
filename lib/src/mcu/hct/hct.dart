@@ -47,7 +47,7 @@ class Hct {
 
   /// Operator == override
   @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes, code from MCU lib.
   bool operator ==(Object o) {
     if (o is! Hct) {
       return false;
@@ -57,7 +57,7 @@ class Hct {
 
   /// The hash code for this object.
   @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes, code from MCU lib.
   int get hashCode => _argb.hashCode;
 
   @override

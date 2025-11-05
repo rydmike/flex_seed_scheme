@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: one_member_abstracts, library_private_types_in_public_api
+// ignore_for_file: one_member_abstracts, code from MCU lib.
+// ignore_for_file: library_private_types_in_public_api, from MCU lib.
 
 import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/contrast_curve.dart';
 import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/tone_delta_pair.dart';

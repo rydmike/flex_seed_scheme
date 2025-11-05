@@ -21,7 +21,8 @@ import 'flex_scheme_variant.dart';
 import 'flex_tonal_palette.dart';
 import 'flex_tones.dart';
 
-// ignore_for_file: comment_references
+// ignore_for_file: comment_references, ignored in hope that doc links
+// will become available for factory and function parameters.
 
 /// This class is the same concept as Flutter's [ColorScheme] class.
 ///
@@ -117,13 +118,10 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    // ignore: unused_element, element is deprecated and has no effect.
     // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use surface instead.') this.background,
-    // ignore: unused_element, element is deprecated and has no effect.
     // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use onSurface instead.') this.onBackground,
-    // ignore: unused_element, element is deprecated and has no effect.
     // ignore: unused_element_parameter, parameter deprecated and has no effect.
     @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
   });

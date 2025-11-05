@@ -65,7 +65,7 @@ class CorePalette {
     return CorePalette._contentOf(cam.hue, cam.chroma);
   }
 
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we prefer this order for factories.
   CorePalette._contentOf(double hue, double chroma)
       : primary = TonalPalette.of(hue, chroma),
         secondary = TonalPalette.of(hue, chroma / 3),
@@ -77,7 +77,7 @@ class CorePalette {
   /// representing concatenated tonal palettes.
   ///
   /// Inverse of [asList].
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we prefer this order for factories.
   CorePalette.fromList(List<int> colors)
       : assert(colors.length == size * TonalPalette.commonSize,
             'colors length must be equal to size*commonSize'),

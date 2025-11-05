@@ -220,7 +220,7 @@ class FlexTonalPalette {
   /// Whether the palette was created from the cache or not.
   final bool _isFromCache;
 
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromHct(
     Hct hct, [
     FlexPaletteType paletteType = FlexPaletteType.common,
@@ -231,7 +231,7 @@ class FlexTonalPalette {
         keyColor = hct,
         _isFromCache = false;
 
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromHueAndChroma(
     this.hue,
     this.chroma, [
@@ -241,7 +241,7 @@ class FlexTonalPalette {
         keyColor = createKeyColor(hue, chroma),
         _isFromCache = false;
 
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromCache(
     Map<int, int> cache,
     this.hue,

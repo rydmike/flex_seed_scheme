@@ -2,7 +2,7 @@
 #
 # Based on manual update from auto generated list: https://dart.dev/tools/linter-rules/all
 #
-# This file is used and needed by rydmike analysis_options: V2.4.0
+# This file is used and needed by rydmike analysis_options: V2.5.0
 #
 # The list below has removed these deprecated lint rules, that were included in
 # older version of the list:
@@ -27,7 +27,16 @@
 # - unnecessary_ignore
 # - unnecessary_underscores
 # - unsafe_variance
-
+#
+# Dart 3.8.0 added the following new rules:
+# - use_null_aware_elements
+#
+# Dart 3.9.0 added the following new rules:
+# - switch_on_type
+# - unnecessary_unawaited
+#
+# Version 2.5.0 / 5.10.2025 added:
+# - remove_deprecations_in_breaking_versions
 linter:
   rules:
     - always_declare_return_types
@@ -188,6 +197,7 @@ linter:
     - provide_deprecation_message
     - public_member_api_docs
     - recursive_getters
+    - remove_deprecations_in_breaking_versions
     - require_trailing_commas
     - secure_pubspec_urls
     - sized_box_for_whitespace
@@ -200,6 +210,7 @@ linter:
     - specify_nonobvious_local_variable_types
     - specify_nonobvious_property_types
     - strict_top_level_inference
+    - switch_on_type
     - test_types_in_equals
     - throw_in_finally
     - tighten_type_of_initializing_formals
@@ -235,6 +246,7 @@ linter:
     - unnecessary_string_interpolations
     - unnecessary_this
     - unnecessary_to_list_in_spreads
+    - unnecessary_unawaited
     - unnecessary_underscores
     - unreachable_from_main
     - unrelated_type_equality_checks
@@ -250,6 +262,7 @@ linter:
     - use_key_in_widget_constructors
     - use_late_for_private_fields_and_variables
     - use_named_constants
+    - use_null_aware_elements
     - use_raw_strings
     - use_rethrow_when_possible
     - use_setters_to_change_properties

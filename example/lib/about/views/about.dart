@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -73,7 +75,7 @@ void showAppAboutDialog(BuildContext context) {
                 style: footerStyle,
                 text: 'Built with Flutter ${AppData.flutterVersion},\n'
                     'using ${AppData.packageName} '
-                    '${AppData.packageVersion}\n'
+                    '${AppData.version}\n'
                     'Media size (w:${width.toStringAsFixed(0)}, '
                     'h:${height.toStringAsFixed(0)})\n\n',
               ),
@@ -101,7 +103,7 @@ class LinkTextSpan extends TextSpan {
       : super(
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launchUrl(uri);
+              unawaited(launchUrl(uri));
             },
         );
 }
