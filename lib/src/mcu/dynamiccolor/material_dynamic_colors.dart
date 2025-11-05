@@ -42,42 +42,43 @@ class MaterialDynamicColors {
   }
 
   /// Get DynamicColor for primaryPaletteKeyColor.
-  static DynamicColor primaryPaletteKeyColor = DynamicColor.fromPalette(
+  static final DynamicColor primaryPaletteKeyColor = DynamicColor.fromPalette(
     name: 'primary_palette_key_color',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => s.primaryPalette.keyColor.tone,
   );
 
   /// Get DynamicColor for secondaryPaletteKeyColor.
-  static DynamicColor secondaryPaletteKeyColor = DynamicColor.fromPalette(
+  static final DynamicColor secondaryPaletteKeyColor = DynamicColor.fromPalette(
     name: 'secondary_palette_key_color',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => s.secondaryPalette.keyColor.tone,
   );
 
   /// Get DynamicColor for tertiaryPaletteKeyColor.
-  static DynamicColor tertiaryPaletteKeyColor = DynamicColor.fromPalette(
+  static final DynamicColor tertiaryPaletteKeyColor = DynamicColor.fromPalette(
     name: 'tertiary_palette_key_color',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) => s.tertiaryPalette.keyColor.tone,
   );
 
   /// Get DynamicColor for neutralPaletteKeyColor.
-  static DynamicColor neutralPaletteKeyColor = DynamicColor.fromPalette(
+  static final DynamicColor neutralPaletteKeyColor = DynamicColor.fromPalette(
     name: 'neutral_palette_key_color',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.neutralPalette.keyColor.tone,
   );
 
   /// Get DynamicColor for neutralVariantPaletteKeyColor.
-  static DynamicColor neutralVariantPaletteKeyColor = DynamicColor.fromPalette(
+  static final DynamicColor neutralVariantPaletteKeyColor =
+      DynamicColor.fromPalette(
     name: 'neutral_variant_palette_key_color',
     palette: (DynamicScheme s) => s.neutralVariantPalette,
     tone: (DynamicScheme s) => s.neutralVariantPalette.keyColor.tone,
   );
 
   /// Get DynamicColor for background.
-  static DynamicColor background = DynamicColor.fromPalette(
+  static final DynamicColor background = DynamicColor.fromPalette(
     name: 'background',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 6 : 98,
@@ -85,7 +86,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for backgroundDim.
-  static DynamicColor onBackground = DynamicColor.fromPalette(
+  static final DynamicColor onBackground = DynamicColor.fromPalette(
     name: 'on_background',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 90 : 10,
@@ -94,7 +95,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surface.
-  static DynamicColor surface = DynamicColor.fromPalette(
+  static final DynamicColor surface = DynamicColor.fromPalette(
     name: 'surface',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 6 : 98,
@@ -102,7 +103,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceDim.
-  static DynamicColor surfaceDim = DynamicColor.fromPalette(
+  static final DynamicColor surfaceDim = DynamicColor.fromPalette(
     name: 'surface_dim',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) =>
@@ -111,7 +112,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceBright.
-  static DynamicColor surfaceBright = DynamicColor.fromPalette(
+  static final DynamicColor surfaceBright = DynamicColor.fromPalette(
     name: 'surface_bright',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) =>
@@ -120,7 +121,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceContainerLowest.
-  static DynamicColor surfaceContainerLowest = DynamicColor.fromPalette(
+  static final DynamicColor surfaceContainerLowest = DynamicColor.fromPalette(
     name: 'surface_container_lowest',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) =>
@@ -129,7 +130,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceContainerLow.
-  static DynamicColor surfaceContainerLow = DynamicColor.fromPalette(
+  static final DynamicColor surfaceContainerLow = DynamicColor.fromPalette(
     name: 'surface_container_low',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark
@@ -139,7 +140,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceContainer.
-  static DynamicColor surfaceContainer = DynamicColor.fromPalette(
+  static final DynamicColor surfaceContainer = DynamicColor.fromPalette(
     name: 'surface_container',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark
@@ -149,7 +150,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceContainerHigh.
-  static DynamicColor surfaceContainerHigh = DynamicColor.fromPalette(
+  static final DynamicColor surfaceContainerHigh = DynamicColor.fromPalette(
     name: 'surface_container_high',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark
@@ -159,7 +160,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceContainerHighest.
-  static DynamicColor surfaceContainerHighest = DynamicColor.fromPalette(
+  static final DynamicColor surfaceContainerHighest = DynamicColor.fromPalette(
     name: 'surface_container_highest',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark
@@ -169,7 +170,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSurface.
-  static DynamicColor onSurface = DynamicColor.fromPalette(
+  static final DynamicColor onSurface = DynamicColor.fromPalette(
     name: 'on_surface',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 90 : 10,
@@ -178,7 +179,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for surfaceVariant.
-  static DynamicColor surfaceVariant = DynamicColor.fromPalette(
+  static final DynamicColor surfaceVariant = DynamicColor.fromPalette(
     name: 'surface_variant',
     palette: (DynamicScheme s) => s.neutralVariantPalette,
     tone: (DynamicScheme s) => s.isDark ? 30 : 90,
@@ -186,7 +187,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSurfaceVariant.
-  static DynamicColor onSurfaceVariant = DynamicColor.fromPalette(
+  static final DynamicColor onSurfaceVariant = DynamicColor.fromPalette(
     name: 'on_surface_variant',
     palette: (DynamicScheme s) => s.neutralVariantPalette,
     tone: (DynamicScheme s) => s.isDark ? 80 : 30,
@@ -195,14 +196,14 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for inverseSurface.
-  static DynamicColor inverseSurface = DynamicColor.fromPalette(
+  static final DynamicColor inverseSurface = DynamicColor.fromPalette(
     name: 'inverse_surface',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 90 : 20,
   );
 
   /// Get DynamicColor for inverseOnSurface.
-  static DynamicColor inverseOnSurface = DynamicColor.fromPalette(
+  static final DynamicColor inverseOnSurface = DynamicColor.fromPalette(
     name: 'inverse_on_surface',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => s.isDark ? 20 : 95,
@@ -211,7 +212,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for outline.
-  static DynamicColor outline = DynamicColor.fromPalette(
+  static final DynamicColor outline = DynamicColor.fromPalette(
     name: 'outline',
     palette: (DynamicScheme s) => s.neutralVariantPalette,
     tone: (DynamicScheme s) => s.isDark ? 60 : 50,
@@ -220,7 +221,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for outlineVariant.
-  static DynamicColor outlineVariant = DynamicColor.fromPalette(
+  static final DynamicColor outlineVariant = DynamicColor.fromPalette(
     name: 'outline_variant',
     palette: (DynamicScheme s) => s.neutralVariantPalette,
     tone: (DynamicScheme s) => s.isDark ? 30 : 80,
@@ -229,21 +230,21 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for shadow.
-  static DynamicColor shadow = DynamicColor.fromPalette(
+  static final DynamicColor shadow = DynamicColor.fromPalette(
     name: 'shadow',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => 0,
   );
 
   /// Get DynamicColor for scrim.
-  static DynamicColor scrim = DynamicColor.fromPalette(
+  static final DynamicColor scrim = DynamicColor.fromPalette(
     name: 'scrim',
     palette: (DynamicScheme s) => s.neutralPalette,
     tone: (DynamicScheme s) => 0,
   );
 
   /// Get DynamicColor for surfaceTint.
-  static DynamicColor surfaceTint = DynamicColor.fromPalette(
+  static final DynamicColor surfaceTint = DynamicColor.fromPalette(
     name: 'surface_tint',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => s.isDark ? 80 : 40,
@@ -251,7 +252,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for primary.
-  static DynamicColor primary = DynamicColor.fromPalette(
+  static final DynamicColor primary = DynamicColor.fromPalette(
     name: 'primary',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) {
@@ -272,7 +273,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onPrimary.
-  static DynamicColor onPrimary = DynamicColor.fromPalette(
+  static final DynamicColor onPrimary = DynamicColor.fromPalette(
     name: 'on_primary',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) {
@@ -286,7 +287,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for primaryContainer.
-  static DynamicColor primaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor primaryContainer = DynamicColor.fromPalette(
     name: 'primary_container',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) {
@@ -310,7 +311,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onPrimaryContainer.
-  static DynamicColor onPrimaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor onPrimaryContainer = DynamicColor.fromPalette(
     name: 'on_primary_container',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) {
@@ -332,7 +333,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for inversePrimary.
-  static DynamicColor inversePrimary = DynamicColor.fromPalette(
+  static final DynamicColor inversePrimary = DynamicColor.fromPalette(
     name: 'inverse_primary',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => s.isDark ? 40 : 80,
@@ -341,7 +342,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for inverseOnPrimary.
-  static DynamicColor secondary = DynamicColor.fromPalette(
+  static final DynamicColor secondary = DynamicColor.fromPalette(
     name: 'secondary',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => s.isDark ? 80 : 40,
@@ -357,7 +358,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSecondary.
-  static DynamicColor onSecondary = DynamicColor.fromPalette(
+  static final DynamicColor onSecondary = DynamicColor.fromPalette(
     name: 'on_secondary',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) {
@@ -372,7 +373,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for secondaryContainer.
-  static DynamicColor secondaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor secondaryContainer = DynamicColor.fromPalette(
     name: 'secondary_container',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) {
@@ -402,7 +403,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSecondaryContainer.
-  static DynamicColor onSecondaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor onSecondaryContainer = DynamicColor.fromPalette(
     name: 'on_secondary_container',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) {
@@ -424,7 +425,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for tertiary.
-  static DynamicColor tertiary = DynamicColor.fromPalette(
+  static final DynamicColor tertiary = DynamicColor.fromPalette(
     name: 'tertiary',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) {
@@ -445,7 +446,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onTertiary.
-  static DynamicColor onTertiary = DynamicColor.fromPalette(
+  static final DynamicColor onTertiary = DynamicColor.fromPalette(
     name: 'on_tertiary',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) {
@@ -459,7 +460,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for tertiaryContainer.
-  static DynamicColor tertiaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor tertiaryContainer = DynamicColor.fromPalette(
     name: 'tertiary_container',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) {
@@ -484,7 +485,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onTertiaryContainer.
-  static DynamicColor onTertiaryContainer = DynamicColor.fromPalette(
+  static final DynamicColor onTertiaryContainer = DynamicColor.fromPalette(
     name: 'on_tertiary_container',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) {
@@ -506,7 +507,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for error.
-  static DynamicColor error = DynamicColor.fromPalette(
+  static final DynamicColor error = DynamicColor.fromPalette(
     name: 'error',
     palette: (DynamicScheme s) => s.errorPalette,
     tone: (DynamicScheme s) => s.isDark ? 80 : 40,
@@ -522,7 +523,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onError.
-  static DynamicColor onError = DynamicColor.fromPalette(
+  static final DynamicColor onError = DynamicColor.fromPalette(
     name: 'on_error',
     palette: (DynamicScheme s) => s.errorPalette,
     tone: (DynamicScheme s) => s.isDark ? 20 : 100,
@@ -531,7 +532,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for errorContainer.
-  static DynamicColor errorContainer = DynamicColor.fromPalette(
+  static final DynamicColor errorContainer = DynamicColor.fromPalette(
     name: 'error_container',
     palette: (DynamicScheme s) => s.errorPalette,
     tone: (DynamicScheme s) => s.isDark ? 30 : 90,
@@ -547,7 +548,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onErrorContainer.
-  static DynamicColor onErrorContainer = DynamicColor.fromPalette(
+  static final DynamicColor onErrorContainer = DynamicColor.fromPalette(
     name: 'on_error_container',
     palette: (DynamicScheme s) => s.errorPalette,
     tone: (DynamicScheme s) {
@@ -565,7 +566,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for primaryFixed.
-  static DynamicColor primaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor primaryFixed = DynamicColor.fromPalette(
     name: 'primary_fixed',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 40.0 : 90.0,
@@ -581,7 +582,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for primaryFixedDim.
-  static DynamicColor primaryFixedDim = DynamicColor.fromPalette(
+  static final DynamicColor primaryFixedDim = DynamicColor.fromPalette(
     name: 'primary_fixed_dim',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 30.0 : 80.0,
@@ -597,7 +598,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onPrimaryFixed.
-  static DynamicColor onPrimaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor onPrimaryFixed = DynamicColor.fromPalette(
     name: 'on_primary_fixed',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 100.0 : 10.0,
@@ -607,7 +608,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onPrimaryFixedVariant.
-  static DynamicColor onPrimaryFixedVariant = DynamicColor.fromPalette(
+  static final DynamicColor onPrimaryFixedVariant = DynamicColor.fromPalette(
     name: 'on_primary_fixed_variant',
     palette: (DynamicScheme s) => s.primaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 90.0 : 30.0,
@@ -617,7 +618,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for secondaryFixed.
-  static DynamicColor secondaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor secondaryFixed = DynamicColor.fromPalette(
     name: 'secondary_fixed',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 80.0 : 90.0,
@@ -633,7 +634,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for secondaryFixedDim.
-  static DynamicColor secondaryFixedDim = DynamicColor.fromPalette(
+  static final DynamicColor secondaryFixedDim = DynamicColor.fromPalette(
     name: 'secondary_fixed_dim',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 70.0 : 80.0,
@@ -649,7 +650,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSecondaryFixed.
-  static DynamicColor onSecondaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor onSecondaryFixed = DynamicColor.fromPalette(
     name: 'on_secondary_fixed',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => 10.0,
@@ -659,7 +660,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onSecondaryFixedVariant.
-  static DynamicColor onSecondaryFixedVariant = DynamicColor.fromPalette(
+  static final DynamicColor onSecondaryFixedVariant = DynamicColor.fromPalette(
     name: 'on_secondary_fixed_variant',
     palette: (DynamicScheme s) => s.secondaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 25.0 : 30.0,
@@ -669,7 +670,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for tertiaryFixed.
-  static DynamicColor tertiaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor tertiaryFixed = DynamicColor.fromPalette(
     name: 'tertiary_fixed',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 40.0 : 90.0,
@@ -685,7 +686,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for tertiaryFixedDim.
-  static DynamicColor tertiaryFixedDim = DynamicColor.fromPalette(
+  static final DynamicColor tertiaryFixedDim = DynamicColor.fromPalette(
     name: 'tertiary_fixed_dim',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 30.0 : 80.0,
@@ -701,7 +702,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onTertiaryFixed.
-  static DynamicColor onTertiaryFixed = DynamicColor.fromPalette(
+  static final DynamicColor onTertiaryFixed = DynamicColor.fromPalette(
     name: 'on_tertiary_fixed',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 100.0 : 10.0,
@@ -711,7 +712,7 @@ class MaterialDynamicColors {
   );
 
   /// Get DynamicColor for onTertiaryFixedVariant.
-  static DynamicColor onTertiaryFixedVariant = DynamicColor.fromPalette(
+  static final DynamicColor onTertiaryFixedVariant = DynamicColor.fromPalette(
     name: 'on_tertiary_fixed_variant',
     palette: (DynamicScheme s) => s.tertiaryPalette,
     tone: (DynamicScheme s) => _isMonochrome(s) ? 90.0 : 30.0,
