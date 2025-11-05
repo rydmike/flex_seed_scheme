@@ -2,6 +2,14 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 3.6.1
+
+**Nov 5, 2025**
+
+**FIX**
+
+* FIX changelog that dropped the 3.5.1 heading in 3.6.0 release
+
 ## 3.6.0
 
 Requires at least Flutter 3.35.0
@@ -18,6 +26,7 @@ Requires at least Flutter 3.35.0
   * NOTE: Flutter stable 3.35.x still uses material_color_utilities 0.11.1, at the time of publishing this, master also does.
   * Since FSS uses its own fork, we can use the latest MCU features without conflicts with the pinned version Flutter uses.
 
+## 3.5.1
 
 **March 15, 2025**
 
