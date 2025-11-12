@@ -106,7 +106,7 @@ void main() {
     // TODO(rydmike): This test cannot pass until Flutter updates to MCU 0.12.0
     // expect(colorScheme.onPrimaryContainer.value32bit,
     //     MaterialDynamicColors.onPrimaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Using hard coded value test until Flutter updates.
+    // TODO(rydmike): Using temp hard coded value test until Flutter updates.
     expect(colorScheme.onPrimaryContainer.value32bit, 4281079296);
     //
     expect(colorScheme.primaryFixed.value32bit,
@@ -125,10 +125,6 @@ void main() {
         MaterialDynamicColors.secondaryContainer.getArgb(dynamicScheme));
     expect(colorScheme.onSecondaryContainer.value32bit,
         MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onSecondaryContainer.value32bit, 4280883206);
-    // expect(4284039724,
-    //     MaterialDynamicColors.onSecondaryContainer.getArgb(dynamicScheme));
     //
     expect(colorScheme.secondaryFixed.value32bit,
         MaterialDynamicColors.secondaryFixed.getArgb(dynamicScheme));
@@ -146,10 +142,6 @@ void main() {
         MaterialDynamicColors.tertiaryContainer.getArgb(dynamicScheme));
     expect(colorScheme.onTertiaryContainer.value32bit,
         MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onTertiaryContainer.value32bit, 4279639553);
-    // expect(4282469156,
-    //     MaterialDynamicColors.onTertiaryContainer.getArgb(dynamicScheme));
     //
     expect(colorScheme.tertiaryFixed.value32bit,
         MaterialDynamicColors.tertiaryFixed.getArgb(dynamicScheme));
@@ -167,13 +159,11 @@ void main() {
         MaterialDynamicColors.errorContainer.getArgb(dynamicScheme));
     expect(colorScheme.onErrorContainer.value32bit,
         MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onErrorContainer.value32bit, 4282449922);
-    // expect(4287823882,
-    //     MaterialDynamicColors.onErrorContainer.getArgb(dynamicScheme));
     //
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.background.value32bit,
         MaterialDynamicColors.background.getArgb(dynamicScheme));
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.onBackground.value32bit,
         MaterialDynamicColors.onBackground.getArgb(dynamicScheme));
     expect(colorScheme.surface.value32bit,
@@ -194,6 +184,7 @@ void main() {
         MaterialDynamicColors.surfaceContainerHighest.getArgb(dynamicScheme));
     expect(colorScheme.onSurface.value32bit,
         MaterialDynamicColors.onSurface.getArgb(dynamicScheme));
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.surfaceVariant.value32bit,
         MaterialDynamicColors.surfaceVariant.getArgb(dynamicScheme));
     expect(colorScheme.onSurfaceVariant.value32bit,
@@ -220,9 +211,6 @@ void main() {
         dynamicScheme.primaryContainer);
     expect(colorScheme.onPrimaryContainer.value32bit,
         dynamicScheme.onPrimaryContainer);
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onPrimaryContainer.value32bit, 4281079296);
-    // expect(4285086720, dynamicScheme.onPrimaryContainer);
     //
     expect(colorScheme.primaryFixed.value32bit, dynamicScheme.primaryFixed);
     expect(
@@ -236,9 +224,6 @@ void main() {
         dynamicScheme.secondaryContainer);
     expect(colorScheme.onSecondaryContainer.value32bit,
         dynamicScheme.onSecondaryContainer);
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onSecondaryContainer.value32bit, 4280883206);
-    // expect(4284039724, dynamicScheme.onSecondaryContainer);
     //
     expect(colorScheme.secondaryFixed.value32bit, dynamicScheme.secondaryFixed);
     expect(colorScheme.secondaryFixedDim.value32bit,
@@ -253,9 +238,6 @@ void main() {
         dynamicScheme.tertiaryContainer);
     expect(colorScheme.onTertiaryContainer.value32bit,
         dynamicScheme.onTertiaryContainer);
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onTertiaryContainer.value32bit, 4279639553);
-    // expect(4282469156, dynamicScheme.onTertiaryContainer);
     //
     expect(colorScheme.tertiaryFixed.value32bit, dynamicScheme.tertiaryFixed);
     expect(colorScheme.tertiaryFixedDim.value32bit,
@@ -269,11 +251,9 @@ void main() {
     expect(colorScheme.errorContainer.value32bit, dynamicScheme.errorContainer);
     expect(colorScheme.onErrorContainer.value32bit,
         dynamicScheme.onErrorContainer);
-    // TODO(rydmike): Use hard coded values to test expressive colors
-    // expect(colorScheme.onErrorContainer.value32bit, 4282449922);
-    // expect(4287823882, dynamicScheme.onErrorContainer);
-    //
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.background.value32bit, dynamicScheme.background);
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.onBackground.value32bit, dynamicScheme.onBackground);
     expect(colorScheme.surface.value32bit, dynamicScheme.surface);
     expect(colorScheme.surfaceDim.value32bit, dynamicScheme.surfaceDim);
@@ -289,6 +269,7 @@ void main() {
     expect(colorScheme.surfaceContainerHighest.value32bit,
         dynamicScheme.surfaceContainerHighest);
     expect(colorScheme.onSurface.value32bit, dynamicScheme.onSurface);
+    // ignore: deprecated_member_use, for testing, still used in SDK.
     expect(colorScheme.surfaceVariant.value32bit, dynamicScheme.surfaceVariant);
     expect(colorScheme.onSurfaceVariant.value32bit,
         dynamicScheme.onSurfaceVariant);

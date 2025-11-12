@@ -34,6 +34,7 @@ void main() {
       final ColorScheme flex = SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
         primaryKey: primarySeedColor,
+        // ignore: deprecated_member_use, for testing, still used in SDK.
       ).copyWith(surfaceVariant: flutter.surfaceVariant);
 
       expect(
@@ -57,6 +58,7 @@ void main() {
       final ColorScheme flex = SeedColorScheme.fromSeeds(
         brightness: Brightness.dark,
         primaryKey: primarySeedColor,
+        // ignore: deprecated_member_use, for testing, still used in SDK.
       ).copyWith(surfaceVariant: flutter.surfaceVariant);
 
       expect(
