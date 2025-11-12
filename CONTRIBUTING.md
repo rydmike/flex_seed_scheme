@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to **FlexSeedScheme**, a more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping. We welcome contributions that fix bugs, introduce enhancements or new features, and correct API documentation errors or typos.
 
+Looking for a quick overview of expectations, commands, and style rules? See the concise [AGENTS.md](AGENTS.md) guide.
+
 ## How to contribute
 
 Before you start working on your contribution, please follow these steps:
