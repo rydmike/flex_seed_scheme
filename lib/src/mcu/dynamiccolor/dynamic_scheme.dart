@@ -35,9 +35,9 @@ class DynamicScheme {
     required this.tertiaryPalette,
     required this.neutralPalette,
     required this.neutralVariantPalette,
-    TonalPalette? customErrorPalette,
+    TonalPalette? errorPalette,
   })  : sourceColorArgb = sourceColorHct.toInt(),
-        errorPalette = customErrorPalette ?? TonalPalette.of(25.0, 84.0);
+        errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
 
   /// The source color of the theme as an ARGB integer.
   final int sourceColorArgb;

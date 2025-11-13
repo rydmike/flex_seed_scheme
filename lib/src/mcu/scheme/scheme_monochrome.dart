@@ -33,7 +33,7 @@ class SchemeMonochrome extends DynamicScheme {
           tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue, errorSourceColorHct.chroma),

@@ -74,7 +74,7 @@ class SchemeRainbow extends DynamicScheme {
             neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
             0.0,
           ),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

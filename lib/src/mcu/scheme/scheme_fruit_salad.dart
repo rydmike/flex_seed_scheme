@@ -62,7 +62,7 @@ class SchemeFruitSalad extends DynamicScheme {
             neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
             respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 16.0,
           ),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

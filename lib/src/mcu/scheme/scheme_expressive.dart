@@ -65,7 +65,7 @@ class SchemeExpressive extends DynamicScheme {
           neutralVariantPalette: TonalPalette.of(
               (neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0,
               respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

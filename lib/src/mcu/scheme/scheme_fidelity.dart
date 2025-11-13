@@ -101,7 +101,7 @@ class SchemeFidelity extends DynamicScheme {
                         8.0) +
                     4.0,
           ),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,
