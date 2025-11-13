@@ -14,6 +14,8 @@
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
+import './utils/color_matcher.dart';
+
 void main() {
   group('TonalPalette', () {
     group('[.of and .fromList constructors]', () {
@@ -172,6 +174,68 @@ void main() {
         expect(tones.get(3), 4278716699);
       });
 
+      final TonalPalette hueChromaPalette = TonalPalette.of(270, 36);
+      final List<int> cachedPalette =
+          TonalPalette.commonTones.map(hueChromaPalette.get).toList();
+      final List<int> brokenPalette = <int>[
+        cachedPalette[0],
+        cachedPalette[1],
+        Hct.from(180, 24, 20).toInt(),
+        cachedPalette[3],
+        cachedPalette[4],
+        cachedPalette[5],
+        cachedPalette[6],
+        cachedPalette[7],
+        cachedPalette[8],
+        Hct.from(0, 12, 90).toInt(),
+        cachedPalette[10],
+        cachedPalette[11],
+        cachedPalette[12],
+      ];
+
+      final TonalPalette rebuiltPalette = TonalPalette.fromList(brokenPalette);
+
+      test('correctly deduces original hue and chroma', () {
+        expect(rebuiltPalette.hue, closeTo(270, 1));
+        expect(rebuiltPalette.chroma, closeTo(36, 1));
+      });
+
+      test('low-chroma noise does not affect the hue and chroma deduced', () {
+        final TonalPalette rebuiltCleanPalette =
+            TonalPalette.fromList(cachedPalette);
+
+        expect(rebuiltPalette.hue, rebuiltCleanPalette.hue);
+        expect(rebuiltPalette.chroma, rebuiltCleanPalette.chroma);
+      });
+
+      test('returns cached colors when possible', () {
+        expect(rebuiltPalette.get(20), isColor(brokenPalette[2]));
+        expect(rebuiltPalette.get(50), isColor(brokenPalette[5]));
+        expect(rebuiltPalette.get(90), isColor(brokenPalette[9]));
+        expect(rebuiltPalette.get(99), isColor(brokenPalette[11]));
+      });
+
+      test('correctly deduces colors at other tones', () {
+        expect(
+          rebuiltPalette.get(15),
+          isCloseToColor(hueChromaPalette.get(15)),
+        );
+        expect(
+          rebuiltPalette.get(53),
+          isCloseToColor(hueChromaPalette.get(53)),
+        );
+        expect(
+          rebuiltPalette.get(78),
+          isCloseToColor(hueChromaPalette.get(78)),
+        );
+      });
+
+      test('deduced colors have correct tone', () {
+        expect(rebuiltPalette.getHct(15).tone, closeTo(15, 1));
+        expect(rebuiltPalette.getHct(53).tone, closeTo(53, 1));
+        expect(rebuiltPalette.getHct(78).tone, closeTo(78, 1));
+      });
+
       test('asList', () {
         final List<int> ints =
             List<int>.generate(TonalPalette.commonSize, (int i) => i);
@@ -179,7 +243,7 @@ void main() {
         expect(tones.asList, ints);
       });
 
-      test('operator == and hashCode', () {
+      test('operator == and hashCode (simple)', () {
         final List<int> intsAB =
             List<int>.generate(TonalPalette.commonSize, (int i) => i);
         final TonalPalette tonesA = TonalPalette.fromList(intsAB);
@@ -193,6 +257,69 @@ void main() {
 
         expect(tonesA.hashCode, tonesB.hashCode);
         expect(tonesB.hashCode, isNot(tonesC.hashCode));
+      });
+
+      test('operator == and hashCode (advanced)', () {
+        // This test confirms that `==` and `hashCode` behave the way they are
+        // expected to behave. By defining five palettes, three from hue and
+        // chroma, and two from lists, we expect their `hashCode` to be
+        // distinct, and that their equality should satisfy the following grid:
+        //
+        // ==? 1   2   3   4   5
+        // 1   YES -   -   YES -
+        // 2   -   YES -   -   -
+        // 3   -   -   YES -   -
+        // 4   YES -   -   YES -
+        // 5   -   -   -   -   YES
+        final TonalPalette palette1 = TonalPalette.of(270, 36);
+        final TonalPalette palette2 = TonalPalette.of(180, 36);
+        final TonalPalette palette3 = TonalPalette.of(270, 12);
+
+        final TonalPalette palette4 = TonalPalette.fromList(palette1.asList);
+        final List<int> brokenList = <int>[...palette1.asList];
+        brokenList[2] = Hct.from(180, 24, 20).toInt();
+        brokenList[9] = Hct.from(0, 12, 90).toInt();
+        final TonalPalette palette5 = TonalPalette.fromList(brokenList);
+
+        expect(palette1, palette1);
+        expect(palette1, isNot(palette2));
+        expect(palette1, isNot(palette3));
+        expect(palette1, palette4);
+        expect(palette1, isNot(palette5));
+
+        expect(palette2, isNot(palette1));
+        expect(palette2, palette2);
+        expect(palette2, isNot(palette3));
+        expect(palette2, isNot(palette4));
+        expect(palette2, isNot(palette5));
+
+        expect(palette3, isNot(palette1));
+        expect(palette3, isNot(palette2));
+        expect(palette3, palette3);
+        expect(palette3, isNot(palette4));
+        expect(palette3, isNot(palette5));
+
+        expect(palette4, palette1);
+        expect(palette4, isNot(palette2));
+        expect(palette4, isNot(palette3));
+        expect(palette4, palette4);
+        expect(palette4, isNot(palette5));
+
+        expect(palette5, isNot(palette1));
+        expect(palette5, isNot(palette2));
+        expect(palette5, isNot(palette3));
+        expect(palette5, isNot(palette4));
+        expect(palette5, palette5);
+
+        // They should have five distinct hash codes (ignoring hash collision).
+        final List<int> hashCodes = <TonalPalette>[
+          palette1,
+          palette2,
+          palette3,
+          palette4,
+          palette5,
+        ].map((TonalPalette x) => x.hashCode).toSet().toList();
+        expect(hashCodes, hasLength(5));
       });
     });
   });
