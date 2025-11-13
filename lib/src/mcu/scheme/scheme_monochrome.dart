@@ -26,7 +26,7 @@ class SchemeMonochrome extends DynamicScheme {
     super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.monochrome,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),

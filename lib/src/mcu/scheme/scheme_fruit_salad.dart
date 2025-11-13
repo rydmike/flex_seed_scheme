@@ -39,7 +39,7 @@ class SchemeFruitSalad extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.fruitSalad,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),

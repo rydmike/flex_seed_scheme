@@ -39,7 +39,7 @@ class SchemeExpressive extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.expressive,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240.0),

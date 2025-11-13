@@ -41,7 +41,7 @@ class SchemeTonalSpot extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.tonalSpot,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 36.0),

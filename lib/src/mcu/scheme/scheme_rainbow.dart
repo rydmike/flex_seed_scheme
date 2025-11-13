@@ -42,7 +42,7 @@ class SchemeRainbow extends DynamicScheme {
     bool isTertiaryMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.rainbow,
           primaryPalette: TonalPalette.of(
             sourceColorHct.hue,

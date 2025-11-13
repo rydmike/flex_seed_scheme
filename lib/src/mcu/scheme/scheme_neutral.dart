@@ -38,7 +38,7 @@ class SchemeNeutral extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
+          sourceColorHct: sourceColorHct,
           variant: Variant.neutral,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 12.0),

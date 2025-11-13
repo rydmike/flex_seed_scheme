@@ -6,9 +6,10 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **Nov 13, 2025**
 
-**FIX**
+**CHANGE**
 
-* Add missed KeyColor algorithm binary search optimization in MCU 0.11.2 
+* Add missed KeyColor algorithm binary search optimization in MCU 0.11.2
+* Optimize ARGB and HCT usage in DynamicScheme
 
 **TODO**
 - Check and add potential new tests in palettes_test.
