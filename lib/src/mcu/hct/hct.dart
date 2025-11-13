@@ -48,11 +48,11 @@ class Hct {
   /// Operator == override
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes, code from MCU lib.
-  bool operator ==(Object o) {
-    if (o is! Hct) {
+  bool operator ==(Object other) {
+    if (other is! Hct) {
       return false;
     }
-    return o._argb == _argb;
+    return other._argb == _argb;
   }
 
   /// The hash code for this object.
