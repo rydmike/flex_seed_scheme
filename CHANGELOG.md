@@ -6,19 +6,28 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **Nov 13, 2025**
 
+The version requires Flutter 3.38.1 or higher.
+
+This release **really** brings the bundled forked version of the package [Material Color Utilities (MCU)](https://pub.dev/packages/material_color_utilities) to parity with version 0.13.0. Flutter stable 3.38.x still uses MCU 0.11.1 as did master channel at time of release.
+
 **CHANGE**
-* Add missed KeyColor algorithm binary search optimization in MCU 0.11.2
-* Optimize ARGB and HCT usage in DynamicScheme
-* The `DynamicScheme` parameter `customErrorPalette` was renamed to `errorPalette` to match newly exposed MCU 0.13.0 naming.
-    - Previously MCU did not expose this parameter and it was named customErrorPalette in FSS fork.
-    - Now that MCU exposes it, we rename it to match MCU naming.
-    - **NOTE:** This is a **minor breaking** change, that you will hit if you used named parameter `customErrorPalette` in `DynamicScheme`. This is very unlikely to be used directly by end users, as it is a very low-level API and not used by main APIs directly. Since this aligns FSS naming with MCU:s new exposed property, we decided to not bump the major version for this minor breaking change. It is very unlikely to impact end users. If it did, meh, sorry.
-    - FlexColorScheme and Themes Playground do not use this API directly, only indirectly via FSS higher APIs.
+* Add `KeyColor` algorithm and its binary search optimization that was added in MCU 0.11.2. This may improve performance when extracting tonal palettes from seed colors.
+* Optimize ARGB and HCT usage in DynamicScheme.
+* A bunch of internal final statics were made const. 
+* **Minor breaking:** The `DynamicScheme` parameter `customErrorPalette` was renamed to `errorPalette` to match newly exposed MCU 0.13.0 naming.
+    - Previously MCU did not expose this parameter and it was named customErrorPalette in FSS fork.  Now that MCU exposes it, we rename it to match MCU's naming.
+    - This is a **minor breaking** change, you will hit it if you used named parameter `customErrorPalette` in `DynamicScheme`. It is very unlikely to be used directly by end users, as it is a very low-level API and not used by recommended main public APIs directly, but it was a public API, unfortunately. Since this aligns FSS naming with MCU:s new equivalent exposed property, we decided to not bump the major version for this minor breaking change to accommodate this alignment. It is very unlikely to impact end users, if it did for you, apologies!
+    - FlexColorScheme and Themes Playground did not and do not use this API directly, only indirectly via FSS higher APIs.
    
 **TESTS**
 * Add explicit test for ARGB int representation.
 * Improved tests for TonalPalettes.
 
+**INFO**
+
+MCU produces incorrect Tone 99 for some seed colors with yellowish hues. Tone 99 becomes too bright yellow, brighter than Tone 98 which is not correct, it should be less tinted than Tone 98, almost white with a very slight yellow tint.
+
+This is a known issue in MCU. It is not fixed in Dart MCU 0.13.0, thus it is also not fixed in this FSS release. For the JAVA and TypeScript versions of MCU, it is fixed. We hope to see an offcial fix in Dart MCU in a future release, if not we may port the fix to our forked Dart version later.
 
 ## 3.6.1
 

@@ -28,13 +28,13 @@ topics:
   - materialdesign
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.35.0'
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: '>=3.38.1'
 
 dependencies:
-  # Used by mcu: tonal_palette.dart, require at least 1.18.0.
+  # Used by mcu: tonal_palette.dart, require at least 1.19.0.
   # https://pub.dev/packages/collection
-  collection: ^1.18.0
+  collection: ^1.19.1
 
   flutter:
     sdk: flutter
@@ -43,9 +43,9 @@ dependencies:
   # statically analyzing source code. Package is from Google dart.dev team.
   #
   # Flutter does not expose the "@internal" annotation via foundation, to use it we need to import the package.
-  # Version 1.9.1 is first with updated SDK constraints to >=2.12.0 <4.0.0.
+  # Version 1.9.1 is first with updated SDK constraints to >=2.12.0 <4.0.0. We use same as Flutter 3.38.
   # https://pub.dev/packages/meta
-  meta: ^1.9.1
+  meta: ^1.17.0
 
 dev_dependencies:
   coverage: ^1.15.0
