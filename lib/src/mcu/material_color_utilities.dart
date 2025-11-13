@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// RydMike: This contains a local copy of Material Color Utilities used by
-// FlexSeedScheme.
+// RydMike: This contains a modified local copy of Material Color Utilities
+// used by FlexSeedScheme.
 //
 // Since MCU is using zero semver and Flutter SDK, depends on it, any
 // minor version number change is breaking and cannot be resolved across
@@ -34,6 +34,7 @@ export 'hct/cam16.dart';
 export 'hct/hct.dart';
 export 'hct/viewing_conditions.dart';
 export 'palettes/core_palette.dart';
+export 'palettes/core_palettes.dart';
 export 'palettes/tonal_palette.dart';
 export 'quantize/quantizer.dart';
 export 'quantize/quantizer_celebi.dart';
