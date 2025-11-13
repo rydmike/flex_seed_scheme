@@ -2,7 +2,7 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 4.0.0
+## 3.7.0
 
 **Nov 13, 2025**
 
@@ -10,6 +10,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 * In DynamicScheme and its descendants, rename customErrorPalette to errorPalette to match MCU 0.13.0 naming.
     - Previously MCU did not expose this parameter, it was named customErrorPalette in FSS fork. 
     - Now that MCU exposes it, we rename it to match MCU naming.
+    - TBD: If we bump FSS to 4.0.0 or just 3.7.0. This is a very minor breaking change.
 
 **CHANGE**
 * Add missed KeyColor algorithm binary search optimization in MCU 0.11.2

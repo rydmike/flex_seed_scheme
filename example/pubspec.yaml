@@ -1,6 +1,6 @@
 name: flex_seed_scheme_example
 description: Example that demonstrate how to use the FlexSeedScheme package.
-version: 3.6.1
+version: 3.7.0
 publish_to: 'none'
 environment:
   sdk: '>=3.0.0 <4.0.0'
