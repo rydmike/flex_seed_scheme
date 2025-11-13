@@ -32,7 +32,7 @@ import '../temperature/temperature_cache.dart';
 class SchemeContent extends DynamicScheme {
   /// Create a [SchemeContent] from a source color.
   SchemeContent({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -49,7 +49,6 @@ class SchemeContent extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorHct: sourceColorHct,
           variant: Variant.content,
           primaryPalette: TonalPalette.of(
             sourceColorHct.hue,

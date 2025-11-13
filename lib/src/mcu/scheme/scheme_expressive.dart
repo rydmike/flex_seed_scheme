@@ -22,7 +22,7 @@ import '../utils/math_utils.dart';
 class SchemeExpressive extends DynamicScheme {
   /// SchemeExpressive default constructor.
   SchemeExpressive({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -39,7 +39,6 @@ class SchemeExpressive extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorHct: sourceColorHct,
           variant: Variant.expressive,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240.0),

@@ -20,13 +20,12 @@ import '../palettes/tonal_palette.dart';
 class SchemeMonochrome extends DynamicScheme {
   /// Default SchemeMonochrome constructor.
   SchemeMonochrome({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
-          sourceColorHct: sourceColorHct,
           variant: Variant.monochrome,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),

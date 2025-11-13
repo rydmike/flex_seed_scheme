@@ -22,7 +22,7 @@ import '../utils/math_utils.dart';
 class SchemeFruitSalad extends DynamicScheme {
   /// Default SchemeFruitSalad constructor.
   SchemeFruitSalad({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -39,7 +39,6 @@ class SchemeFruitSalad extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorHct: sourceColorHct,
           variant: Variant.fruitSalad,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),

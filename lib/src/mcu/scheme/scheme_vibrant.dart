@@ -27,7 +27,7 @@ import '../palettes/tonal_palette.dart';
 class SchemeVibrant extends DynamicScheme {
   /// SchemeVibrant default constructor.
   SchemeVibrant({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -44,7 +44,6 @@ class SchemeVibrant extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorHct: sourceColorHct,
           variant: Variant.vibrant,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 200.0),
