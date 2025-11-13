@@ -285,6 +285,70 @@ void main() {
     });
   });
 
+  group('CorePalettes', () {
+    test('operator == and hashCode and toString', () {
+      final Hct hctA = Hct.fromInt(0xff0000ff);
+      final TonalPalette tonesA = TonalPalette.of(hctA.hue, hctA.chroma);
+
+      final Hct hctB = Hct.fromInt(0xff123456);
+      final TonalPalette tonesB = TonalPalette.of(hctB.hue, hctB.chroma);
+
+      final Hct hctC = Hct.fromInt(0xffa9a9c1);
+      final TonalPalette tonesC = TonalPalette.of(hctC.hue, hctC.chroma);
+
+      final Hct hctD = Hct.fromInt(0xff3488290);
+      final TonalPalette tonesD = TonalPalette.of(hctD.hue, hctD.chroma);
+
+      final Hct hctE = Hct.fromInt(0xff3488290);
+      final TonalPalette tonesE = TonalPalette.of(hctE.hue, hctE.chroma);
+
+      final CorePalettes corePalettesA = CorePalettes(
+        tonesA,
+        tonesB,
+        tonesC,
+        tonesD,
+        tonesE,
+      );
+
+      final CorePalettes corePalettesB = CorePalettes(
+        tonesA,
+        tonesB,
+        tonesC,
+        tonesD,
+        tonesE,
+      );
+
+      final CorePalettes corePalettesC = CorePalettes(
+        tonesA,
+        tonesB,
+        tonesC,
+        tonesD,
+        tonesA,
+      );
+
+      expect(corePalettesA, corePalettesB);
+      expect(corePalettesB, isNot(corePalettesC));
+
+      expect(corePalettesA.hashCode, corePalettesB.hashCode);
+      expect(corePalettesB.hashCode, isNot(corePalettesC.hashCode));
+
+      expect(
+        '$corePalettesA',
+        'primary: TonalPalette.of(282.78817956187277, 87.23069368032536), '
+            'secondary: TonalPalette.of(255.34728319100583, '
+            '29.908669996064578), '
+            'tertiary: TonalPalette.of(282.2828801636618, 16.255729147120405), '
+            'neutral: TonalPalette.of(215.73199707095307, 29.469950500691876), '
+            'neutralVariant: TonalPalette.of(215.73199707095307, '
+            '29.469950500691876)',
+      );
+      expect(
+        '$corePalettesA',
+        '$corePalettesB',
+      );
+    });
+  });
+
   group('KeyColor', () {
     test('exact chroma is available', () {
       // Requested chroma is exactly achievable at a certain tone.
