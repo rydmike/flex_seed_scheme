@@ -14,11 +14,25 @@
  * limitations under the License.
  */
 
+import 'package:meta/meta.dart';
+
 import 'tonal_palette.dart';
 
 /// Comprises foundational palettes to build a color scheme. Generated from a
 /// source color, these palettes will then be part of a `DynamicScheme`
 /// together with appearance preferences.
+///
+/// FlexSeedScheme information:
+///
+/// This exists in MCU but is not used by anything in MCU nor is it
+/// exported. It exists because CorePalette was deprecated in MCU in favor of
+/// DynamicScheme, and CorePalettes is the replacement for CorePalette.
+/// It is missing error palette compared to CorePalette and seems a bit
+/// half baked in MCU 0.13.0. We add equality, hashCode and toString
+/// that is missing compared to CorePalettes in MCU.
+/// We include it here for completeness. Recommend using
+/// DynamicScheme instead or old CorePalette.
+@immutable
 class CorePalettes {
   /// Construct a set of core palettes.
   const CorePalettes(
@@ -43,4 +57,34 @@ class CorePalettes {
 
   /// Neutral variant tonal palette.
   final TonalPalette neutralVariant;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is CorePalettes &&
+        primary == other.primary &&
+        secondary == other.secondary &&
+        tertiary == other.tertiary &&
+        neutral == other.neutral &&
+        neutralVariant == other.neutralVariant;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        primary,
+        secondary,
+        tertiary,
+        neutral,
+        neutralVariant,
+      );
+
+  @override
+  String toString() {
+    return 'primary: $primary, '
+        'secondary: $secondary, '
+        'tertiary: $tertiary, '
+        'neutral: $neutral, '
+        'neutralVariant: $neutralVariant';
+  }
 }
