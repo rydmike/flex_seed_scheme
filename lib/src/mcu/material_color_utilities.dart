@@ -35,6 +35,7 @@ export 'hct/hct.dart';
 export 'hct/viewing_conditions.dart';
 export 'palettes/core_palette.dart';
 export 'palettes/core_palettes.dart';
+export 'palettes/key_color.dart';
 export 'palettes/tonal_palette.dart';
 export 'quantize/quantizer.dart';
 export 'quantize/quantizer_celebi.dart';
