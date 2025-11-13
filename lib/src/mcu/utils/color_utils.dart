@@ -89,7 +89,7 @@ class ColorUtils {
 
   /// Converts a color from ARGB to XYZ.
   static int argbFromXyz(double x, double y, double z) {
-    final List<List<double>> matrix = _xyzToSrgb;
+    const List<List<double>> matrix = _xyzToSrgb;
     final double linearR =
         matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
     final double linearG =
@@ -113,7 +113,7 @@ class ColorUtils {
   /// Converts a color represented in Lab color space into an ARGB
   /// integer.
   static int argbFromLab(double l, double a, double b) {
-    final List<double> whitePoint = _whitePointD65;
+    const List<double> whitePoint = _whitePointD65;
     final double fy = (l + 16.0) / 116.0;
     final double fx = a / 500.0 + fy;
     final double fz = fy - b / 200.0;
@@ -135,7 +135,7 @@ class ColorUtils {
     final double linearR = linearized(redFromArgb(argb));
     final double linearG = linearized(greenFromArgb(argb));
     final double linearB = linearized(blueFromArgb(argb));
-    final List<List<double>> matrix = _srgbToXyz;
+    const List<List<double>> matrix = _srgbToXyz;
     final double x = matrix[0][0] * linearR +
         matrix[0][1] * linearG +
         matrix[0][2] * linearB;
@@ -145,7 +145,7 @@ class ColorUtils {
     final double z = matrix[2][0] * linearR +
         matrix[2][1] * linearG +
         matrix[2][2] * linearB;
-    final List<double> whitePoint = _whitePointD65;
+    const List<double> whitePoint = _whitePointD65;
     final double xNormalized = x / whitePoint[0];
     final double yNormalized = y / whitePoint[1];
     final double zNormalized = z / whitePoint[2];
