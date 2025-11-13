@@ -23,13 +23,13 @@ import 'math_utils.dart';
 /// Utility methods for color science constants and color space
 /// conversions that aren't HCT or CAM16.
 class ColorUtils {
-  static final List<List<double>> _srgbToXyz = <List<double>>[
+  static const List<List<double>> _srgbToXyz = <List<double>>[
     <double>[0.41233895, 0.35762064, 0.18051042],
     <double>[0.2126, 0.7152, 0.0722],
     <double>[0.01932141, 0.11916382, 0.95034478],
   ];
 
-  static final List<List<double>> _xyzToSrgb = <List<double>>[
+  static const List<List<double>> _xyzToSrgb = <List<double>>[
     <double>[
       3.2413774792388685,
       -1.5376652402851851,
@@ -47,7 +47,7 @@ class ColorUtils {
     ],
   ];
 
-  static final List<double> _whitePointD65 = <double>[95.047, 100.0, 108.883];
+  static const List<double> _whitePointD65 = <double>[95.047, 100.0, 108.883];
 
   /// Converts a color from RGB components to ARGB format.
   static int argbFromRgb(int red, int green, int blue) {

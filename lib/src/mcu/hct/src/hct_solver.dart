@@ -23,45 +23,29 @@ import '../viewing_conditions.dart';
 
 /// A class that solves the HCT equation.
 class HctSolver {
-  static final List<List<double>> _scaledDiscountFromLinrgb = <List<double>>[
-    <double>[
-      0.001200833568784504,
-      0.002389694492170889,
-      0.0002795742885861124,
-    ],
+  static const List<List<double>> _scaledDiscountFromLinrgb = <List<double>>[
+    <double>[0.001200833568784504, 0.002389694492170889, 0.0002795742885861124],
     <double>[
       0.0005891086651375999,
       0.0029785502573438758,
-      0.0003270666104008398,
+      0.0003270666104008398
     ],
     <double>[
       0.00010146692491640572,
       0.0005364214359186694,
-      0.0032979401770712076,
+      0.0032979401770712076
     ],
   ];
 
-  static final List<List<double>> _linrgbFromScaledDiscount = <List<double>>[
-    <double>[
-      1373.2198709594231,
-      -1100.4251190754821,
-      -7.278681089101213,
-    ],
-    <double>[
-      -271.815969077903,
-      559.6580465940733,
-      -32.46047482791194,
-    ],
-    <double>[
-      1.9622899599665666,
-      -57.173814538844006,
-      308.7233197812385,
-    ],
+  static const List<List<double>> _linrgbFromScaledDiscount = <List<double>>[
+    <double>[1373.2198709594231, -1100.4251190754821, -7.278681089101213],
+    <double>[-271.815969077903, 559.6580465940733, -32.46047482791194],
+    <double>[1.9622899599665666, -57.173814538844006, 308.7233197812385],
   ];
 
-  static final List<double> _yFromLinrgb = <double>[0.2126, 0.7152, 0.0722];
+  static const List<double> _yFromLinrgb = <double>[0.2126, 0.7152, 0.0722];
 
-  static final List<double> _criticalPlanes = <double>[
+  static const List<double> _criticalPlanes = <double>[
     0.015176349177441876,
     0.045529047532325624,
     0.07588174588720938,

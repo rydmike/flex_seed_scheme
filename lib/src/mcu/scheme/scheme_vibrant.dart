@@ -78,7 +78,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hues used at breakpoints such that designers can specify a hue rotation
   /// that occurs at a given break point.
-  static final List<double> hues = <double>[
+  static const List<double> hues = <double>[
     0,
     41,
     61,
@@ -92,7 +92,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hue rotations of the Secondary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> secondaryRotations = <double>[
+  static const List<double> secondaryRotations = <double>[
     18,
     15,
     10,
@@ -106,7 +106,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> tertiaryRotations = <double>[
+  static const List<double> tertiaryRotations = <double>[
     35,
     30,
     20,
