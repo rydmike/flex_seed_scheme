@@ -104,14 +104,17 @@ class CorePalette {
       ];
 
   @override
-  bool operator ==(Object other) =>
-      other is CorePalette &&
-      primary == other.primary &&
-      secondary == other.secondary &&
-      tertiary == other.tertiary &&
-      neutral == other.neutral &&
-      neutralVariant == other.neutralVariant &&
-      error == other.error;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    return other is CorePalette &&
+        primary == other.primary &&
+        secondary == other.secondary &&
+        tertiary == other.tertiary &&
+        neutral == other.neutral &&
+        neutralVariant == other.neutralVariant &&
+        error == other.error;
+  }
 
   @override
   int get hashCode => Object.hash(
