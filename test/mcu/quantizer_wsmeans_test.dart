@@ -27,7 +27,7 @@ void main() {
     final QuantizerResult result =
         QuantizerWsmeans.quantize(<int>[0xff141216], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(0xff141216));
   });
 
@@ -35,35 +35,40 @@ void main() {
     final QuantizerResult result =
         QuantizerWsmeans.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
   });
   test('1R', () {
     final QuantizerResult result =
         QuantizerWsmeans.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(red));
   });
   test('1G', () {
     final QuantizerResult result =
         QuantizerWsmeans.quantize(<int>[green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(green));
   });
   test('1B', () {
     final QuantizerResult result =
         QuantizerWsmeans.quantize(<int>[blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
   test('5B', () {
-    final QuantizerResult result = QuantizerWsmeans.quantize(
-        <int>[blue, blue, blue, blue, blue], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[
+      blue,
+      blue,
+      blue,
+      blue,
+      blue,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
@@ -99,7 +104,7 @@ void main() {
       returnInputPixelToClusterPixel: true,
     );
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(5));
+    expect(colors, hasLength(5));
     expect(colors[0], equals(green));
   });
   test('Mixed 3, with pixels print', () {
@@ -109,7 +114,7 @@ void main() {
       returnInputPixelToClusterPixel: true,
     );
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(0));
+    expect(colors, hasLength(0));
     expect(colors.isEmpty, equals(true));
   });
 }

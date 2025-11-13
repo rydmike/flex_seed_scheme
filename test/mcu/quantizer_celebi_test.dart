@@ -25,7 +25,7 @@ void main() {
     final QuantizerCelebi celebi = QuantizerCelebi();
     final QuantizerResult result = await celebi.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(red));
   });
   test('1G', () async {
@@ -33,7 +33,7 @@ void main() {
     final QuantizerResult result =
         await celebi.quantize(<int>[green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(green));
   });
   test('1B', () async {
@@ -41,16 +41,21 @@ void main() {
     final QuantizerResult result =
         await celebi.quantize(<int>[blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
   test('5B', () async {
     final QuantizerCelebi celebi = QuantizerCelebi();
-    final QuantizerResult result =
-        await celebi.quantize(<int>[blue, blue, blue, blue, blue], maxColors);
+    final QuantizerResult result = await celebi.quantize(<int>[
+      blue,
+      blue,
+      blue,
+      blue,
+      blue,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
@@ -60,7 +65,7 @@ void main() {
         await celebi.quantize(<int>[red, green, blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
 
-    expect(Set<int>.from(colors).length, equals(3));
+    expect(Set<int>.of(colors), hasLength(3));
     expect(colors[0], blue);
     expect(colors[1], red);
     expect(colors[2], green);
@@ -68,10 +73,15 @@ void main() {
 
   test('2R 3G', () async {
     final QuantizerCelebi celebi = QuantizerCelebi();
-    final QuantizerResult result =
-        await celebi.quantize(<int>[red, red, green, green, green], maxColors);
+    final QuantizerResult result = await celebi.quantize(<int>[
+      red,
+      red,
+      green,
+      green,
+      green,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(Set<int>.from(colors).length, equals(2));
+    expect(Set<int>.of(colors), hasLength(2));
 
     expect(colors[0], green);
     expect(colors[1], red);
