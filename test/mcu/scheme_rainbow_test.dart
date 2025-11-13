@@ -30,9 +30,9 @@ void main() {
     expect(MaterialDynamicColors.tertiaryPaletteKeyColor.getArgb(scheme),
         isColor(0xff936b84));
     expect(MaterialDynamicColors.neutralPaletteKeyColor.getArgb(scheme),
-        isColor(0xff070707));
+        isColor(0xff777777));
     expect(MaterialDynamicColors.neutralVariantPaletteKeyColor.getArgb(scheme),
-        isColor(0xff070707));
+        isColor(0xff777777));
   });
 
   test('lightTheme_minContrast_primary', () {
