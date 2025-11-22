@@ -30,6 +30,12 @@ This FSS release contains a breaking change to match the default for expressive 
     - `onBackgroundTone`
     - `surfaceVariantTone`
 
+**CHANGE**
+
+- Updated `FlexSchemeVariant` and their `configDetails` descriptions to offer better explanations.
+  - As stated in the change policy doc comment for the enum `FlexSchemeVariant`, any changes in the property values `variantName`, `description`, `configDetails`, `icon` and `shade` are not considered breaking changes, only patches.
+  - These properties may be used when building UIs that present the different scheme variants. They serve no other purpose. They can also be ignored, you can use the enum values as input to build your own UI for selecting and describing the scheme variants. The values are used in the example app and also in the `FlexColorScheme` package example apps, like the **Themes Playground**.
+
 **CHORE**
 - MCU: Use `MathUtils.sanitizeDegreesDouble` for hue calculation in Cam16. (MCU update Nov 19, 2025, not yet in any package version)
 - MCU: Added the `KeyColor` algorithm and its binary search optimization that was added in **MCU 0.11.2**. This may improve performance when extracting tonal palettes from seed colors.
