@@ -35,7 +35,7 @@ formatter:
   # Strongly recommended to preserve trailing commas as written and not let formatter mess with them.
   # See https://github.com/dart-lang/dart_style/issues/1652
   # Not using this setting contradicts the
-  # - require_trailing_commas: true
+  # - require_trailing_commas: false
   # linter rule and removes the ability to force line breaks.
   trailing_commas: preserve
 
