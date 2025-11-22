@@ -47,12 +47,6 @@ This FSS release contains a breaking change to match the default for expressive 
 * Updated test for new `useExpressiveOnContainerColors` defaulting to `true`.
 * Added loop test for all MCU `DynamicSchemeVariant`s to ensure they can be created without errors, so that same `DynamicScheme` matches results from Flutter's `ColorScheme.fromSeed` using corresponding `DynamicSchemeVariant`. The loop test excludes the variants `DynamicSchemeVariant.fidelity`, `DynamicSchemeVariant.monochrome` and `DynamicSchemeVariant.content` that have their own special tone logic. Previously only the default `DynamicSchemeVariant.tonalSpot` was tested this way. This test helps us verify that our fork of MCU can match the version of MCU that Flutter uses internally. When Flutter stable changes to use MCU 0.13.0, this test will need to change its flag `useExpressiveOnContainerColors` from `false` to `true`.
 
-**INFO**
-
-MCU produces incorrect Tone 99 for some seed colors with yellowish hues. Tone 99 becomes too bright yellow, brighter than Tone 98 which is not correct, it should be less tinted than Tone 98, almost white with a very slight yellow tint.
-
-This is a known issue in MCU. It is not fixed in Dart MCU 0.13.0, thus it is also not fixed in this FSS release. For the JAVA and TypeScript versions of MCU, it is fixed. We hope to see an offcial fix in Dart MCU in a future release, if not we may port the fix to our forked Dart version later.
-
 ## 3.6.1
 
 **Nov 5, 2025**
