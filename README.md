@@ -452,18 +452,15 @@ When `useExpressiveOnContainerColors` is `true`, the seed generated `ColorScheme
 
 Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older Material-3 spec. Flutter stable **3.38.x** still use MCU versions lower than 0.12.0 and thus default to the older color tones 10 in light mode. This will be changed when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you could already opt in on using the new spec, with FSS 4.0.0 the default is changed to use the new spec by default. This is done to align FSS with a coming change to update the pinned version of MCU to 0.13.0 or later in next Flutter stable after version 0.38.x.
 
-If you need to keep the older higher contrast on-container colors, or just to get identical results as you got bu default before version 4.0.0, you can set `useExpressiveOnContainerColors` to `false` in `SeedColorScheme.fromSeeds` for your light mode `ColorScheme` generation. 
-
+If you need to keep the older higher contrast on-container colors, or must get identical results as you got before version 4.0.0, you can set `useExpressiveOnContainerColors` to `false` in `SeedColorScheme.fromSeeds` for your light mode `ColorScheme` generation. 
 
 ```dart
     // Make a light ColorScheme from a seeds using variant style vibrant.
     final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
       primaryKey: primarySeedColor,
-      variant: FlexSchemeVariant.vibrant,
-      // Use the coming new standard. It does nothing in dark mode, 
-      // so no point in using it there and it defaults to false.
-      useExpressiveOnContainerColors: false,
+      variant: FlexSchemeVariant.vibrant,      
+      useExpressiveOnContainerColors: false, // Opt out of expressive on colors
     );
     // Make a dark ColorScheme from a seeds using variant style vibrant.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
