@@ -4,11 +4,11 @@
 
 A more flexible and powerful version of Flutter's `ColorScheme.fromSeed`. Use this package instead of `ColorScheme.fromSeed` and get around its limitations. The replacement `SeedColorScheme.fromSeeds` has the following additional capabilities:
 
-* Optionally use separate seed key colors for all palettes the `ColorScheme` is based on, to customize the seed-based tonal palettes for primary, secondary, tertiary as well as error, neutral and neutral variant colors used by the `ColorScheme`.
+* You can use separate seed key colors for all palettes the `ColorScheme` is based on, to customize the seed generated tonal palettes for primary, secondary, tertiary as well as error, neutral and neutral variant colors used by the `ColorScheme`.
 * Change and customize the chromacity (colorfulness) used in the seed strategy for tonal palette generation in the Google HCT (Hue-Chroma-Tone) color space.
 * Customize tonal palette tones to `ColorScheme` color mappings.
-* Remove color tint from all surface colors and make them monochrome.
-* Use the new Material-3 design `ColorScheme` variants like `fidelity`, `content` and `monochrome` that arrived in Flutter SDK v3.22.2, with the twist that you can now also use multiple seed colors with them.
+* Remove color tint from all generated surface colors and make them monochrome.
+* Use the new Material-3 design `ColorScheme` variants like `fidelity`, `content` and `monochrome` that arrived in Flutter SDK v3.22.2, with the twist that you can also use multiple seed colors with them.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ Add the `flex_seed_scheme` package to `pubspec.yaml`:
 
 ### Demo Web Application
 
-You can try a web version of the package example and demo app [**here**](https://rydmike.com/flexseedscheme/demo-v3).
+You can try a web version of the package example and demo app [**here**](https://rydmike.com/flexseedscheme/demo-v4).
 
 ## Usage
 
@@ -446,13 +446,14 @@ final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
 
 ## Expressive On Container Colors 
 
-By setting `useExpressiveOnContainerColors` to true in `SeedColorScheme.fromSeeds` you can opt in on using the new Material expressive on-colors specification for none surface on-container colors in light theme mode.
+Starting from **FlexSeedScheme (FSS)** version **4.0.0** the setting `useExpressiveOnContainerColors` defaults to `true` in `SeedColorScheme.fromSeeds` giving you the new Material expressive on-colors results for none surface on-container colors in light theme mode. In FSS version 3.x.x, it still defaulted to `false`, to keep the older higher contrast on-container colors as default.
 
-Opting in changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from 10 to 30, making them more color expressive, but they then also have less contrast. The accepted min contrast curve is now `ContrastCurve(3, 4.5, 7, 11)` instead of `ContrastCurve(4.5, 7, 11, 21)` for the on-container colors. Meaning normal contrast of 4.5 is now accepted when it was 7 before.
+When `useExpressiveOnContainerColors` is `true`, the seed generated `ColorScheme` results in more color expressive on-container colors in light mode. It changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from past **10** to **30**, making them more color expressive. The new color combinations have a bit less contrast. The accepted min contrast curve is now `ContrastCurve(3, 4.5, 7, 11)` instead of `ContrastCurve(4.5, 7, 11, 21)` for the on-container colors. Meaning normal contrast of 4.5 is now accepted, when it was 7 before.
 
-Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older Material-3 spec. Flutter stable 3.22.x and Flutter master 3.23.x still use MCU versions lower than 0.12.0 and default to the older color tones 10 in light mode. This will be changed when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you can opt in on using the new spec already now. FSS still defaults to the older spec with more contrast. When Flutter stable changes to use the new spec, FSS will also change to use it as default. While Flutter and MCU will then no longer offer the older higher contrast version, FSS will continue to do so. 
+Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older Material-3 spec. Flutter stable **3.38.x** still use MCU versions lower than 0.12.0 and thus default to the older color tones 10 in light mode. This will be changed when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you could already opt in on using the new spec, with FSS 4.0.0 the default is changed to use the new spec by default. This is done to align FSS with a coming change to update the pinned version of MCU to 0.13.0 or later in next Flutter stable after version 0.38.x.
 
-The optional usage of the expressive colors for on-container colors is a customization of MCU features in the forked version. We see value in being able to offer both the higher contrast older, still current, version and the new more color expressive one.
+If you need to keep the older higher contrast on-container colors, or just to get identical results as you got bu default before version 4.0.0, you can set `useExpressiveOnContainerColors` to `false` in `SeedColorScheme.fromSeeds` for your light mode `ColorScheme` generation. 
+
 
 ```dart
     // Make a light ColorScheme from a seeds using variant style vibrant.
@@ -462,7 +463,7 @@ The optional usage of the expressive colors for on-container colors is a customi
       variant: FlexSchemeVariant.vibrant,
       // Use the coming new standard. It does nothing in dark mode, 
       // so no point in using it there and it defaults to false.
-      useExpressiveOnContainerColors: true,
+      useExpressiveOnContainerColors: false,
     );
     // Make a dark ColorScheme from a seeds using variant style vibrant.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
@@ -472,31 +473,33 @@ The optional usage of the expressive colors for on-container colors is a customi
     );
 ``` 
 
+The optional usage of the expressive colors for on-container colors is a customization of MCU features in the forked version included with FSS. We see value in being able to offer both the higher contrast older version and the new more color expressive one.
+
 The variants `fidelity` and `content` have their own algorithm for the on colors that `useExpressiveOnContainerColors` impacts that are already expressive. Thus, the flag does nothing to their on-colors. Likewise `monochrome` is excluded from the expressive on colors feature, as it is intended to be monochrome. However, even for these variants the `useExpressiveOnContainerColors` will change the `onErrorContainer` color, to be more expressive in light mode.
 
 
-Starting with version 3.4.0 the parameter `useExpressiveOnContainerColors` in `SeedColorScheme.fromSeeds` now works with a scheme `variant` regardless of if it has `isFlutterScheme` set to true or false. Meaning it impacts both MCU `DynamicSchemeVariant` and FSS `FlexTones` based scheme variants.
+From version 3.4.0 the parameter `useExpressiveOnContainerColors` in `SeedColorScheme.fromSeeds` works with a scheme `variant` regardless of if it has `isFlutterScheme` set to true or false. Meaning it impacts both MCU `DynamicSchemeVariant` and FSS `FlexTones` based scheme variants.
  
 For `FlexTones` based variants, when using a built-in `FlexTones` or even a custom one, it is no longer necessary to use the `FlexTones` modifier `.expressiveOnContainer()` on the used `tones` to get a seeded color scheme with expressive on container tones in light mode.
 
 The `FlexTones` based modifier `.expressiveOnContainer()` is still used, but it is applied internally when the flag `useExpressiveOnContainerColors` is set to true.
 
-The `useExpressiveOnContainerColors` only applies in light mode to on container tones that are equal to 10, other tones are considered custom on purpose and are not changed. This is in-line with that the MCU `DynamicSchemeVariant`s that did not use tone 30 before as on container color in light mode, like Fidelity, Monochrome and Content were not affected by this change in MCU 0.12.0. In the same manner, this flag no longer changes `FlexTones` based schemes that have on container tones that are not 10. This applies to some on container colors in UltraContrast, Candy Pop and Chroma predefined `FlexTones`.
+The `useExpressiveOnContainerColors` only applies in light mode to on container tones that are equal to **10**, other tones are considered custom on purpose and are not changed. This is in-line with that the MCU `DynamicSchemeVariant`s that did not use tone **30** before as on container color in light mode, like Fidelity, Monochrome and Content, were not affected by this change in MCU 0.12.0. In the same manner, this flag no longer changes `FlexTones` based schemes that have on container tones that are not **10**. This applies to some on container colors in **UltraContrast**, **Candy Pop** and **Chroma** predefined `FlexTones`.
 
 This change makes this flag consistent and applicable to all seed generated schemes, regardless of if it is based on `DynamicSchemeVariant`, built-in `FlexTones` or even custom `FlexTones` configurations.
 
-For MCU seed generated schemes, `useExpressiveOnContainerColors` only has any impact when contrast level is at the default value (0), normal contrast. 
+For **MCU** seed generated schemes, `useExpressiveOnContainerColors` only has any impact when contrast level is at the default value (0), normal contrast. 
 
-When using FFS seed generated schemes with `useExpressiveOnContainerColors` set to true, the modifier is applied before any `FlexTones` modifiers. Using tones modifiers, like e.g. `onMainsUseBW()` will thus as expected, override this setting and set on container colors to tone 0 or tone 100, depending on the container colors brightness.
+When using FFS seed generated schemes with `useExpressiveOnContainerColors` set to `true`, the modifier is applied before any `FlexTones` modifiers. Using tone modifiers, like e.g. `onMainsUseBW()` will thus as expected, override this setting and set on container colors to tone 0 or tone 100, depending on the container colors brightness.
 
 
 ### FlexTones Modifier `expressiveOnContainer()`
 
-While no longer needed to be used directly, the `tones` configuration class `FlexTones` can still also use the modifier `expressiveOnContainer()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for light mode on container tones are set to 30 for more color expressive container text and icons on none surface containers.
+While no longer needed to be used directly, the `tones` configuration class `FlexTones` can still also use the modifier `expressiveOnContainer()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for light mode on container tones are set to **30** for more color expressive container text and icons on none surface containers.
 
-This modifier only impacts none surface on-container tones that are equal to 10 and thus only has any impact on the light theme mode on-container colors. The impacted on container colors are `onPrimaryContainerTone`,`onSecondaryContainerTone`, `onTertiaryContainerTone` and `onErrorContainerTone`.
+This modifier only impacts none surface on-container tones that are equal to **10** and thus only has any impact on the light theme mode on-container colors. The impacted on container colors are `onPrimaryContainerTone`,`onSecondaryContainerTone`, `onTertiaryContainerTone` and `onErrorContainerTone`.
 
-This feature brings optional light mode expressive on-container colors to any predefined or custom `FlexTones` configuration. The expressive on-color in light mode containers are a new coming change to Material Design 3 ColorScheme. This modifier is equivalent to setting the `SeedColorScheme.fromSeeds` and its `useExpressiveOnContainerColors` property to true.
+This feature brings optional light mode expressive on-container colors to any predefined or custom `FlexTones` configuration. This modifier is equivalent to setting the `SeedColorScheme.fromSeeds` and its `useExpressiveOnContainerColors` property to true.
 
 **Usage example:**
 
@@ -553,9 +556,9 @@ FSS still defaults to setting `respectMonochromeSeed` to `false`, to not break a
 
 The included example application uses above color seeding and custom tone mapping. You can also choose any of the built-in pre-configured tone mappings as used seeding strategy. When you select seeding strategy, basic info about is displayed.
 
-You can try a web version of this example for version 3 of FSS [**here in V3 demo**](https://rydmike.com/flexseedscheme/demo-v3). The older demos for version 1 and 2 of FSS are still available [**here in V1 demo**](https://rydmike.com/flexseedscheme/demo-v1) and [**here in V2 demo**](https://rydmike.com/flexseedscheme/demo-v2)
+You can try a web version of this example for version 4 of FSS here [**V4 demo**](https://rydmike.com/flexseedscheme/demo-v4). The older demos for version 1, 2 and 3 of FSS are still available [**V1 demo**](https://rydmike.com/flexseedscheme/demo-v1), [**V2 demo**](https://rydmike.com/flexseedscheme/demo-v2) and [**V3 demo**](https://rydmike.com/flexseedscheme/demo-v3)
 
-You can choose to use secondary and primary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force background and surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
+You can use secondary and primary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force background and surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
 
 With the app we can compare results from `SeedColorScheme.fromSeeds`, to using the single seed color 
 based `ColorScheme.fromSeed` seed generated default Material-3 `ColorScheme` available in Flutter.
