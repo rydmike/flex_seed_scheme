@@ -155,11 +155,7 @@ class Cam16 {
     // hue
     final double atan2 = math.atan2(b, a);
     final double atanDegrees = atan2 * 180.0 / math.pi;
-    final double hue = atanDegrees < 0
-        ? atanDegrees + 360.0
-        : atanDegrees >= 360
-            ? atanDegrees - 360 // coverage:ignore-line
-            : atanDegrees;
+    final double hue = MathUtils.sanitizeDegreesDouble(atanDegrees);
     final double hueRadians = hue * math.pi / 180.0;
     assert(hue >= 0 && hue < 360, 'hue was really $hue');
 
