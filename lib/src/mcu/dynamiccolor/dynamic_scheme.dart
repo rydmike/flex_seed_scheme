@@ -28,7 +28,7 @@ class DynamicScheme {
     required this.sourceColorHct,
     required this.variant,
     this.contrastLevel = 0.0,
-    this.useExpressiveOnContainerColors = false,
+    this.useExpressiveOnContainerColors = true,
     required this.isDark,
     required this.primaryPalette,
     required this.secondaryPalette,
