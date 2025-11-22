@@ -118,12 +118,6 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use surface instead.') this.background,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use onSurface instead.') this.onBackground,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
   });
 
   /// The color displayed most frequently across your app.
@@ -294,34 +288,6 @@ class FlexSeedScheme {
   /// A color used as an overlay on a surface color to indicate a component's
   /// elevation.
   final int surfaceTint;
-
-  /// A color that typically appears behind scrollable content.
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use surface instead.
-  @Deprecated('Use surface instead.')
-  final int? background;
-
-  /// A color that's clearly legible when drawn on [background].
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use onSurface instead.
-  @Deprecated('Use onSurface instead.')
-  final int? onBackground;
-
-  /// A color variant of [surface] that can be used for differentiation against
-  /// a component using [surface].
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use surfaceContainerHighest instead.
-  @Deprecated('Use surfaceContainerHighest instead.')
-  final int? surfaceVariant;
 
   /// Factory that creates a [FlexSeedScheme] based on seed keys and FlexTones
   /// tones mapping.
@@ -939,15 +905,6 @@ extension SeedColorScheme on ColorScheme {
 
     /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
-
-    /// Override color for the seed generated background color.
-    @Deprecated('Use surface instead.') Color? background,
-
-    /// Override color for the seed generated onBackground color.
-    @Deprecated('Use onSurface instead.') Color? onBackground,
-
-    /// Override color for the seed generated surfaceVariant color.
-    @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
     // Assert that a none null value has not been assign to tones and variant
     // at the same time, since they are mutually exclusive, both can be null, in
