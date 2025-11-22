@@ -2,6 +2,16 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 4.0.1
+
+**Nov 23, 2025**
+
+The version requires Flutter 3.38.0 or higher.
+
+**FIX**
+
+- Fix mistakes in `README.md` section about [`useExpressiveOnContainerColors`](https://pub.dev/packages/flex_seed_scheme#expressive-on-container-colors).
+
 ## 4.0.0
 
 **Nov 22, 2025**
