@@ -2,6 +2,58 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 4.0.0
+
+**Nov 22, 2025**
+
+The version requires Flutter 3.38.0 or higher.
+
+This release **really** brings the bundled forked version of the package [Material Color Utilities (MCU)](https://pub.dev/packages/material_color_utilities) to parity with version 0.13.0. Flutter stable 3.38.x still uses MCU 0.11.1. Next version of Flutter, after stable 0.38, will use MCU 0.13.0, see [PR 12125](https://github.com/flutter/website/pull/12125).
+
+This FSS release contains a breaking change to match the default for expressive on-container colors in MCU 0.12.0. This is also included in the coming bump to MCU 0.13.0 in Flutter after version 3.38.
+
+**BREAKING**
+- The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` now defaults to `true` instead of `false`.
+  - This makes the default behavior of `SeedColorScheme.fromSeeds` match the default behavior of MCU 0.12.0 and later, where expressive on-container colors are used by default in light mode.
+  - If you want to maintain the previous behavior, you can explicitly set `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`.
+  - For more information see https://pub.dev/packages/flex_seed_scheme#expressive-on-container-colors
+- The `DynamicScheme` parameter `customErrorPalette` was renamed to `errorPalette` to match newly exposed MCU 0.13.0 naming.
+  - Previously MCU did not expose this parameter, it was named customErrorPalette in the FSS fork. Now that MCU exposes it, we rename it to match MCU's naming.
+  - This is a **minor breaking** change, you will **only** hit it if you have used named parameter `customErrorPalette` in `DynamicScheme`. It is very unlikely to be used directly by end users of this package, as it is a very low-level API and not used by recommended main public APIs directly, but it was a public API, unfortunately.
+  - **FlexColorScheme** and **Themes Playground** did not and do not use this API directly, only indirectly via FSS higher APIs.
+- **Removed** already in **version 2.0.0** deprecated **private** `int` properties in `FlexSeedScheme._()` and same named **public** `Color` parameters in `SeedColorScheme.fromSeeds()`:
+  - `background`
+  - `onBackground`
+  - `surfaceVariant`
+- Removed already in **version 2.0.0** deprecated **public** `int` properties in `FlexTones()`, `FlexTones.light()` and `FlexTones.dark()` and same named parameters in `FlexTones.copyWith()`:
+    - `backgroundTone`
+    - `onBackgroundTone`
+    - `surfaceVariantTone`
+
+**CHANGE**
+
+- Updated `FlexSchemeVariant` and their `configDetails` descriptions to offer better explanations.
+  - As stated in the change policy doc comment for the enum `FlexSchemeVariant`, any changes in the property values `variantName`, `description`, `configDetails`, `icon` and `shade` are not considered breaking changes, only patches.
+  - These properties may be used when building UIs that present the different scheme variants. They serve no other purpose. They can also be ignored, you can use the enum values as input to build your own UI for selecting and describing the scheme variants. The values are used in the example app and also in the `FlexColorScheme` package example apps, like the **Themes Playground**.
+
+**CHORE**
+- MCU: Use `MathUtils.sanitizeDegreesDouble` for hue calculation in Cam16. (MCU update Nov 19, 2025, not yet in any package version)
+- MCU: Added the `KeyColor` algorithm and its binary search optimization that was added in **MCU 0.11.2**. This may improve performance when extracting tonal palettes from seed colors.
+- MCU: Optimize ARGB and HCT usage in DynamicScheme.
+- MCU: A bunch of internal final statics were made const.
+   
+**TESTS**
+* Add explicit test for ARGB int representation.
+* Improved tests for TonalPalettes.
+* Updated test for new `useExpressiveOnContainerColors` defaulting to `true`.
+* Added loop test for all MCU `DynamicSchemeVariant`s to ensure they can be created without errors, so that same `DynamicScheme` matches results from Flutter's `ColorScheme.fromSeed` using corresponding `DynamicSchemeVariant`. The loop test excludes the variants `DynamicSchemeVariant.fidelity`, `DynamicSchemeVariant.monochrome` and `DynamicSchemeVariant.content` that have their own special tone logic. Previously only the default `DynamicSchemeVariant.tonalSpot` was tested this way. This test helps us verify that our fork of MCU can match the version of MCU that Flutter uses internally. When Flutter stable chnages to use MCU 0.13.0, this test will need to change its flag `useExpressiveOnContainerColors` from `false` to `true`.
+
+**INFO**
+
+MCU produces incorrect Tone 99 for some seed colors with yellowish hues. Tone 99 becomes too bright yellow, brighter than Tone 98 which is not correct, it should be less tinted than Tone 98, almost white with a very slight yellow tint.
+
+This is a known issue in MCU. It is not fixed in Dart MCU 0.13.0, thus it is also not fixed in this FSS release. For the JAVA and TypeScript versions of MCU, it is fixed. We hope to see an offcial fix in Dart MCU in a future release, if not we may port the fix to our forked Dart version later.
+
 ## 3.6.1
 
 **Nov 5, 2025**

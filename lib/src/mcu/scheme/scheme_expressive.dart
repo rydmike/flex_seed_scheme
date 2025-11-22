@@ -22,7 +22,7 @@ import '../utils/math_utils.dart';
 class SchemeExpressive extends DynamicScheme {
   /// SchemeExpressive default constructor.
   SchemeExpressive({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -39,7 +39,6 @@ class SchemeExpressive extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.expressive,
           primaryPalette: TonalPalette.of(
             MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240.0),
@@ -65,7 +64,7 @@ class SchemeExpressive extends DynamicScheme {
           neutralVariantPalette: TonalPalette.of(
               (neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue) + 15.0,
               respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,
@@ -76,7 +75,7 @@ class SchemeExpressive extends DynamicScheme {
 
   /// Hues used at breakpoints such that designers can specify a hue rotation
   /// that occurs at a given break point.
-  static final List<double> hues = <double>[
+  static const List<double> hues = <double>[
     0,
     21,
     51,
@@ -90,7 +89,7 @@ class SchemeExpressive extends DynamicScheme {
 
   /// Hue rotations of the Secondary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> secondaryRotations = <double>[
+  static const List<double> secondaryRotations = <double>[
     45,
     95,
     45,
@@ -104,7 +103,7 @@ class SchemeExpressive extends DynamicScheme {
 
   /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> tertiaryRotations = <double>[
+  static const List<double> tertiaryRotations = <double>[
     120,
     120,
     20,

@@ -20,60 +20,51 @@ DynamicScheme schemeFromVariant({
   required bool isDark,
   required double contrastLevel,
 }) {
-  switch (variant) {
-    case Variant.content:
-      return SchemeContent(
+  return switch (variant) {
+    Variant.content => SchemeContent(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.expressive:
-      return SchemeExpressive(
+      ),
+    Variant.expressive => SchemeExpressive(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.fidelity:
-      return SchemeFidelity(
+      ),
+    Variant.fidelity => SchemeFidelity(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.fruitSalad:
-      return SchemeFruitSalad(
+      ),
+    Variant.fruitSalad => SchemeFruitSalad(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.monochrome:
-      return SchemeMonochrome(
+      ),
+    Variant.monochrome => SchemeMonochrome(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.neutral:
-      return SchemeNeutral(
+      ),
+    Variant.neutral => SchemeNeutral(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.rainbow:
-      return SchemeRainbow(
+      ),
+    Variant.rainbow => SchemeRainbow(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.tonalSpot:
-      return SchemeTonalSpot(
+      ),
+    Variant.tonalSpot => SchemeTonalSpot(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-    case Variant.vibrant:
-      return SchemeVibrant(
+      ),
+    Variant.vibrant => SchemeVibrant(
         sourceColorHct: sourceColorHct,
         isDark: isDark,
         contrastLevel: contrastLevel,
-      );
-  }
+      ),
+  };
 }

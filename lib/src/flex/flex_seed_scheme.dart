@@ -118,12 +118,6 @@ class FlexSeedScheme {
     required this.onInverseSurface,
     required this.inversePrimary,
     required this.surfaceTint,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use surface instead.') this.background,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use onSurface instead.') this.onBackground,
-    // ignore: unused_element_parameter, parameter deprecated and has no effect.
-    @Deprecated('Use surfaceContainerHighest instead.') this.surfaceVariant,
   });
 
   /// The color displayed most frequently across your app.
@@ -295,34 +289,6 @@ class FlexSeedScheme {
   /// elevation.
   final int surfaceTint;
 
-  /// A color that typically appears behind scrollable content.
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use surface instead.
-  @Deprecated('Use surface instead.')
-  final int? background;
-
-  /// A color that's clearly legible when drawn on [background].
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use onSurface instead.
-  @Deprecated('Use onSurface instead.')
-  final int? onBackground;
-
-  /// A color variant of [surface] that can be used for differentiation against
-  /// a component using [surface].
-  ///
-  /// This parameter is deprecated and has no effect. It is only available
-  /// to not break pas API. It will be removed in next major release.
-  ///
-  /// Use surfaceContainerHighest instead.
-  @Deprecated('Use surfaceContainerHighest instead.')
-  final int? surfaceVariant;
-
   /// Factory that creates a [FlexSeedScheme] based on seed keys and FlexTones
   /// tones mapping.
   ///
@@ -339,7 +305,7 @@ class FlexSeedScheme {
     int? neutralKey,
     int? neutralVariantKey,
     required FlexTones flexTones,
-    bool useExpressiveOnContainerColors = false,
+    bool useExpressiveOnContainerColors = true,
     required bool respectMonochromeSeed,
   }) {
     // We will not use the expressiveOnContainer if the onPrimaryContainerTone
@@ -720,7 +686,7 @@ extension SeedColorScheme on ColorScheme {
     /// - Candy pop
     /// - Chroma
     ///
-    /// Defaults to `false` if undefined.
+    /// Defaults to `true` if undefined.
     ///
     /// The Material design spec for the tones used by the colors
     /// [onPrimaryContainer], [onSecondaryContainer], [onTertiaryContainer] and
@@ -731,23 +697,25 @@ extension SeedColorScheme on ColorScheme {
     /// contrast 4.5 instead of past 7.0.
     ///
     /// The expressive light container tone is not yet used in the Flutter SDK
-    /// (Sep 22, 2024), but it is in the Material-3 design spec and also in
-    /// MCU v0.12.0. This is a breaking change in MCU 0.12.0 compared to 0.11.1
-    /// used in Flutter 3.24 and it will change the light mode color schemes
-    /// produced by all DynamicColor based Material color schemes.
+    /// (Nov 22, 2025 v3.38), but it is in the Material-3 design spec and also
+    /// in MCU v0.12.0. This is a breaking change in MCU 0.12.0 compared to
+    /// 0.11.1 used in Flutter 3.38 and it will change the light mode color
+    /// schemes produced by all DynamicColor based Material color schemes.
     ///
-    /// When this change lands in stable Flutter, it will be made
-    /// `true` by default in FCS too when undefined. You you will still be able
-    /// to opt out of using it, by setting it `false`. Flutter SDK and MCU will
-    /// not contain such an opt-out feature. This
+    /// In FlexSeedScheme before 4.0.0 this defaulted to `false`, version 4.0.0
+    /// changes the default to `true` to align with default behaviour in
+    /// Flutter version after 3.38 stable release, for more info see
+    /// https://github.com/flutter/website/pull/12125
+    ///
+    /// Flutter SDK will not offer a way to opt-out of this change, but with
+    /// FlexSeedScheme you can do so by setting this
+    /// [useExpressiveOnContainerColors] to `false`.
     ///
     /// The new **on** color tones for containers in light mode make them more
     /// color expressive, but they also reduce their contrast level and
-    /// accessibility. We recommend keeping them at the higher contrast level,
-    /// by setting [useExpressiveOnContainerColors] to `false`. With it set to
-    /// `false`, you will also keep this preference when Flutter SDK
-    /// defaults to using the expressive tones.
-    final bool useExpressiveOnContainerColors = false,
+    /// accessibility. For a higher contrast level, prefer setting
+    /// [useExpressiveOnContainerColors] to `false`.
+    final bool useExpressiveOnContainerColors = true,
 
     /// If true, when a seed color is monochrome, it is recognized as such and
     /// the chroma is set to 0 to respect that it has no chroma. This is then
@@ -939,15 +907,6 @@ extension SeedColorScheme on ColorScheme {
 
     /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
-
-    /// Override color for the seed generated background color.
-    @Deprecated('Use surface instead.') Color? background,
-
-    /// Override color for the seed generated onBackground color.
-    @Deprecated('Use onSurface instead.') Color? onBackground,
-
-    /// Override color for the seed generated surfaceVariant color.
-    @Deprecated('Use surfaceContainerHighest instead.') Color? surfaceVariant,
   }) {
     // Assert that a none null value has not been assign to tones and variant
     // at the same time, since they are mutually exclusive, both can be null, in
@@ -1164,7 +1123,7 @@ extension SeedColorScheme on ColorScheme {
     Color? neutralSeedColor,
     Color? neutralVariantSeedColor,
     double contrastLevel = 0.0,
-    bool useExpressiveOnContainerColors = false,
+    bool useExpressiveOnContainerColors = true,
     bool respectMonochromeSeed = false,
   }) {
     assert(

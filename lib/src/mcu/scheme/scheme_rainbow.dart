@@ -27,7 +27,7 @@ import '../utils/math_utils.dart';
 class SchemeRainbow extends DynamicScheme {
   /// Default SchemeRainbow constructor.
   SchemeRainbow({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -42,7 +42,6 @@ class SchemeRainbow extends DynamicScheme {
     bool isTertiaryMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.rainbow,
           primaryPalette: TonalPalette.of(
             sourceColorHct.hue,
@@ -74,7 +73,7 @@ class SchemeRainbow extends DynamicScheme {
             neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
             0.0,
           ),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

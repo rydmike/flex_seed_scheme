@@ -26,63 +26,76 @@ void main() {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult result = await wu.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
   });
   test('1Rando', () async {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult result =
         await wu.quantize(<int>[0xff141216], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(0xff141216));
   });
   test('1R', () async {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult result = await wu.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(red));
   });
   test('1G', () async {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult result = await wu.quantize(<int>[green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(green));
   });
   test('1B', () async {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult result = await wu.quantize(<int>[blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
   test('5B', () async {
     final QuantizerWu wu = QuantizerWu();
-    final QuantizerResult result =
-        await wu.quantize(<int>[blue, blue, blue, blue, blue], maxColors);
+    final QuantizerResult result = await wu.quantize(<int>[
+      blue,
+      blue,
+      blue,
+      blue,
+      blue,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(colors.length, equals(1));
+    expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
   });
 
   test('2R 3G', () async {
     final QuantizerWu wu = QuantizerWu();
-    final QuantizerResult result =
-        await wu.quantize(<int>[red, red, green, green, green], maxColors);
+    final QuantizerResult result = await wu.quantize(<int>[
+      red,
+      red,
+      green,
+      green,
+      green,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(Set<int>.from(colors).length, equals(2));
+    expect(Set<int>.of(colors), hasLength(2));
     expect(colors[0], green);
     expect(colors[1], red);
   });
 
   test('1R 1G 1B', () async {
     final QuantizerWu wu = QuantizerWu();
-    final QuantizerResult result =
-        await wu.quantize(<int>[red, green, blue], maxColors);
+    final QuantizerResult result = await wu.quantize(<int>[
+      red,
+      green,
+      blue,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(Set<int>.from(colors).length, equals(3));
+    expect(Set<int>.of(colors), hasLength(3));
     expect(colors[0], blue);
     expect(colors[1], red);
     expect(colors[2], green);
@@ -93,10 +106,16 @@ void main() {
   //
   test('1R 1G 4B', () async {
     final QuantizerWu wu = QuantizerWu();
-    final QuantizerResult result =
-        await wu.quantize(<int>[red, blue, green, blue, blue, blue], maxColors);
+    final QuantizerResult result = await wu.quantize(<int>[
+      red,
+      blue,
+      green,
+      blue,
+      blue,
+      blue,
+    ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(Set<int>.from(colors).length, equals(3));
+    expect(Set<int>.of(colors), hasLength(3));
     expect(colors[0], green);
     expect(colors[1], blue);
     expect(colors[2], red);
@@ -120,7 +139,7 @@ void main() {
       blue1
     ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
-    expect(Set<int>.from(colors).length, equals(3));
+    expect(Set<int>.of(colors), hasLength(3));
     expect(colors[0], green);
     expect(colors[1], blue);
     expect(colors[2], red);

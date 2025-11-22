@@ -28,8 +28,11 @@ abstract class _Constraint {
 }
 
 class _ContrastConstraint extends _Constraint {
-  _ContrastConstraint(this.foreground, this.background,
-      {required this.contrastCurve});
+  _ContrastConstraint(
+    this.foreground,
+    this.background, {
+    required this.contrastCurve,
+  });
   final DynamicColor foreground;
   final DynamicColor background;
   final ContrastCurve contrastCurve;
@@ -39,64 +42,76 @@ class _ContrastConstraint extends _Constraint {
   void testAgainst(DynamicScheme scheme) {
     final Hct foregroundColor = foreground.getHct(scheme);
     final Hct backgroundColor = background.getHct(scheme);
-    final double actualContrast =
-        Contrast.ratioOfTones(foregroundColor.tone, backgroundColor.tone);
+    final double actualContrast = Contrast.ratioOfTones(
+      foregroundColor.tone,
+      backgroundColor.tone,
+    );
     final double desiredContrast = contrastCurve.get(scheme.contrastLevel);
 
     if (desiredContrast <= 4.5) {
       // A requirement of <= 4.5 must be met (with tolerance)
       if (actualContrast < desiredContrast - _contrastTolerance) {
-        fail('Dynamic scheme $scheme fails contrast constraint:\n'
-            '${foreground.name} should have contrast at least $desiredContrast '
-            'against ${background.name}, but has $actualContrast\n\n'
-            'Foreground: ${foreground.name}\n'
-            'Background: ${background.name}\n'
-            'Scheme parameters:\n'
-            '  Variant: ${scheme.variant}\n'
-            '  Source color: ${scheme.sourceColorHct}\n'
-            '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
-            '  Contrast level: ${scheme.contrastLevel}\n'
-            'Desired contrast: $desiredContrast\n'
-            'Actual contrast: $actualContrast');
+        fail(
+          'Dynamic scheme $scheme fails contrast constraint:\n'
+          '${foreground.name} should have contrast at least $desiredContrast '
+          'against ${background.name}, but has $actualContrast\n\n'
+          'Foreground: ${foreground.name}\n'
+          'Background: ${background.name}\n'
+          'Scheme parameters:\n'
+          '  Variant: ${scheme.variant}\n'
+          '  Source color: ${scheme.sourceColorHct}\n'
+          '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
+          '  Contrast level: ${scheme.contrastLevel}\n'
+          'Desired contrast: $desiredContrast\n'
+          'Actual contrast: $actualContrast',
+        );
       }
     } else {
       if (actualContrast < 4.5 - _contrastTolerance) {
-        fail('Dynamic scheme $scheme fails contrast constraint:\n'
-            '${foreground.name} should have contrast at least 4.5 '
-            'against ${background.name}, but has $actualContrast\n\n'
-            'Foreground: ${foreground.name}\n'
-            'Background: ${background.name}\n'
-            'Scheme parameters:\n'
-            '  Variant: ${scheme.variant}\n'
-            '  Source color: ${scheme.sourceColorHct}\n'
-            '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
-            '  Contrast level: ${scheme.contrastLevel}\n'
-            'Desired contrast: $desiredContrast\n'
-            'Actual contrast: $actualContrast');
+        fail(
+          'Dynamic scheme $scheme fails contrast constraint:\n'
+          '${foreground.name} should have contrast at least 4.5 '
+          'against ${background.name}, but has $actualContrast\n\n'
+          'Foreground: ${foreground.name}\n'
+          'Background: ${background.name}\n'
+          'Scheme parameters:\n'
+          '  Variant: ${scheme.variant}\n'
+          '  Source color: ${scheme.sourceColorHct}\n'
+          '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
+          '  Contrast level: ${scheme.contrastLevel}\n'
+          'Desired contrast: $desiredContrast\n'
+          'Actual contrast: $actualContrast',
+        );
       } else if (actualContrast < desiredContrast - _contrastTolerance &&
           foregroundColor.tone != 100.0 &&
           foregroundColor.tone != 0.0) {
-        fail('Dynamic scheme $scheme fails contrast constraint:\n'
-            '${foreground.name} should have contrast at least $desiredContrast '
-            'against ${background.name}, but has $actualContrast, and no color '
-            'has a tone of 0 or 100\n\n'
-            'Foreground: ${foreground.name}\n'
-            'Background: ${background.name}\n'
-            'Scheme parameters:\n'
-            '  Variant: ${scheme.variant}\n'
-            '  Source color: ${scheme.sourceColorHct}\n'
-            '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
-            '  Contrast level: ${scheme.contrastLevel}\n'
-            'Desired contrast: $desiredContrast\n'
-            'Actual contrast: $actualContrast');
+        fail(
+          'Dynamic scheme $scheme fails contrast constraint:\n'
+          '${foreground.name} should have contrast at least $desiredContrast '
+          'against ${background.name}, but has $actualContrast, and no color '
+          'has a tone of 0 or 100\n\n'
+          'Foreground: ${foreground.name}\n'
+          'Background: ${background.name}\n'
+          'Scheme parameters:\n'
+          '  Variant: ${scheme.variant}\n'
+          '  Source color: ${scheme.sourceColorHct}\n'
+          '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
+          '  Contrast level: ${scheme.contrastLevel}\n'
+          'Desired contrast: $desiredContrast\n'
+          'Actual contrast: $actualContrast',
+        );
       }
     }
   }
 }
 
 class _DeltaConstraint extends _Constraint {
-  _DeltaConstraint(this.roleA, this.roleB,
-      {required this.delta, required this.polarity});
+  _DeltaConstraint(
+    this.roleA,
+    this.roleB, {
+    required this.delta,
+    required this.polarity,
+  });
   final DynamicColor roleA;
   final DynamicColor roleB;
   final double delta;
@@ -116,19 +131,21 @@ class _DeltaConstraint extends _Constraint {
         ? roleAColor.tone - roleBColor.tone
         : roleBColor.tone - roleAColor.tone;
     if (actualDelta < delta - _deltaTolerance) {
-      fail('Dynamic scheme $scheme fails delta constraint:\n'
-          '${roleA.name} should be $delta $lighterOrDarker than ${roleB.name}, '
-          'but they have tones ${roleAColor.tone} and ${roleBColor.tone}, '
-          'respectively\n\n'
-          'Role A: ${roleA.name}\n'
-          'Role B: ${roleB.name}\n'
-          'Scheme parameters:\n'
-          '  Variant: ${scheme.variant}\n'
-          '  Source color: ${scheme.sourceColorHct}\n'
-          '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
-          '  Contrast level: ${scheme.contrastLevel}\n'
-          'Desired delta: $delta\n'
-          'Actual delta: $actualDelta');
+      fail(
+        'Dynamic scheme $scheme fails delta constraint:\n'
+        '${roleA.name} should be $delta $lighterOrDarker than ${roleB.name}, '
+        'but they have tones ${roleAColor.tone} and ${roleBColor.tone}, '
+        'respectively\n\n'
+        'Role A: ${roleA.name}\n'
+        'Role B: ${roleB.name}\n'
+        'Scheme parameters:\n'
+        '  Variant: ${scheme.variant}\n'
+        '  Source color: ${scheme.sourceColorHct}\n'
+        '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
+        '  Contrast level: ${scheme.contrastLevel}\n'
+        'Desired delta: $delta\n'
+        'Actual delta: $actualDelta',
+      );
     }
   }
 }
@@ -141,16 +158,18 @@ class _BackgroundConstraint extends _Constraint {
   void testAgainst(DynamicScheme scheme) {
     final Hct color = background.getHct(scheme);
     if (color.tone >= 50.5 && color.tone < 59.5) {
-      fail('Dynamic scheme $scheme fails background constraint:\n'
-          '${background.name} has tone ${color.tone} which is in the '
-          'forbidden zone 50.5 <= tone < 59.5\n\n'
-          'Background: ${background.name}\n'
-          'Scheme parameters:\n'
-          '  Variant: ${scheme.variant}\n'
-          '  Source color: ${scheme.sourceColorHct}\n'
-          '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
-          '  Contrast level: ${scheme.contrastLevel}\n'
-          'Actual tone: ${color.tone}');
+      fail(
+        'Dynamic scheme $scheme fails background constraint:\n'
+        '${background.name} has tone ${color.tone} which is in the '
+        'forbidden zone 50.5 <= tone < 59.5\n\n'
+        'Background: ${background.name}\n'
+        'Scheme parameters:\n'
+        '  Variant: ${scheme.variant}\n'
+        '  Source color: ${scheme.sourceColorHct}\n'
+        '  Brightness: ${scheme.isDark ? "dark" : "light"}\n'
+        '  Contrast level: ${scheme.contrastLevel}\n'
+        'Actual tone: ${color.tone}',
+      );
     }
   }
 }

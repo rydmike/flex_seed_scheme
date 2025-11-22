@@ -25,19 +25,19 @@ import 'variant.dart';
 class DynamicScheme {
   /// Primary constructor for [DynamicScheme].
   DynamicScheme({
-    required this.sourceColorArgb,
+    required this.sourceColorHct,
     required this.variant,
     this.contrastLevel = 0.0,
-    this.useExpressiveOnContainerColors = false,
+    this.useExpressiveOnContainerColors = true,
     required this.isDark,
     required this.primaryPalette,
     required this.secondaryPalette,
     required this.tertiaryPalette,
     required this.neutralPalette,
     required this.neutralVariantPalette,
-    TonalPalette? customErrorPalette,
-  })  : sourceColorHct = Hct.fromInt(sourceColorArgb),
-        errorPalette = customErrorPalette ?? TonalPalette.of(25.0, 84.0);
+    TonalPalette? errorPalette,
+  })  : sourceColorArgb = sourceColorHct.toInt(),
+        errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
 
   /// The source color of the theme as an ARGB integer.
   final int sourceColorArgb;

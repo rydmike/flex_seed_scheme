@@ -21,7 +21,7 @@ import '../palettes/tonal_palette.dart';
 class SchemeNeutral extends DynamicScheme {
   /// Default SchemeNeutral constructor.
   SchemeNeutral({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -38,7 +38,6 @@ class SchemeNeutral extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.neutral,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 12.0),
@@ -54,7 +53,7 @@ class SchemeNeutral extends DynamicScheme {
           neutralVariantPalette: TonalPalette.of(
               neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
               respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 2.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

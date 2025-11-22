@@ -27,7 +27,7 @@ import '../palettes/tonal_palette.dart';
 class SchemeVibrant extends DynamicScheme {
   /// SchemeVibrant default constructor.
   SchemeVibrant({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -44,7 +44,6 @@ class SchemeVibrant extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.vibrant,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 200.0),
@@ -68,7 +67,7 @@ class SchemeVibrant extends DynamicScheme {
           neutralVariantPalette: TonalPalette.of(
               neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
               respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,
@@ -79,7 +78,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hues used at breakpoints such that designers can specify a hue rotation
   /// that occurs at a given break point.
-  static final List<double> hues = <double>[
+  static const List<double> hues = <double>[
     0,
     41,
     61,
@@ -93,7 +92,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hue rotations of the Secondary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> secondaryRotations = <double>[
+  static const List<double> secondaryRotations = <double>[
     18,
     15,
     10,
@@ -107,7 +106,7 @@ class SchemeVibrant extends DynamicScheme {
 
   /// Hue rotations of the Tertiary [TonalPalette], corresponding to the
   /// breakpoints in [hues].
-  static final List<double> tertiaryRotations = <double>[
+  static const List<double> tertiaryRotations = <double>[
     35,
     30,
     20,

@@ -20,20 +20,19 @@ import '../palettes/tonal_palette.dart';
 class SchemeMonochrome extends DynamicScheme {
   /// Default SchemeMonochrome constructor.
   SchemeMonochrome({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.monochrome,
           primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
           neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue, errorSourceColorHct.chroma),

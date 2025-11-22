@@ -130,11 +130,6 @@ class FlexTones with Diagnosticable {
     required this.onInverseSurfaceTone,
     required this.inversePrimaryTone,
     required this.surfaceTintTone,
-    // Deprecated color tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
-    @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -237,11 +232,6 @@ class FlexTones with Diagnosticable {
     this.outlineVariantTone = 80,
     this.shadowTone = 0,
     this.scrimTone = 0,
-    // Deprecated tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
-    @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -343,11 +333,6 @@ class FlexTones with Diagnosticable {
     this.outlineVariantTone = 30,
     this.shadowTone = 0,
     this.scrimTone = 0,
-    // Deprecated tones
-    @Deprecated('Use surfaceTone instead.') this.backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') this.onBackgroundTone,
-    @Deprecated('Use surfaceContainerHighestTone instead.')
-    this.surfaceVariantTone,
     //
     this.primaryChroma,
     this.primaryMinChroma,
@@ -1261,21 +1246,6 @@ class FlexTones with Diagnosticable {
   /// Tone used for [ColorScheme.surfaceTint] from primary [FlexTonalPalette].
   final int surfaceTintTone;
 
-  // Deprecated colors.
-
-  /// Tone used for ColorScheme background from neutral [FlexTonalPalette].
-  @Deprecated('Use surfaceTone instead.')
-  final int? backgroundTone;
-
-  /// Tone used for ColorScheme onBackground from neutral [FlexTonalPalette].
-  @Deprecated('Use onSurfaceTone instead.')
-  final int? onBackgroundTone;
-
-  /// Tone used for ColorScheme surfaceVariant from neutralVariant
-  /// [FlexTonalPalette].
-  @Deprecated('Use surfaceContainerHighestTone instead.')
-  final int? surfaceVariantTone;
-
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
   /// generation.
   ///
@@ -1539,10 +1509,6 @@ class FlexTones with Diagnosticable {
     int? onInverseSurfaceTone,
     int? inversePrimaryTone,
     int? surfaceTintTone,
-    @Deprecated('Use surfaceTone instead.') int? backgroundTone,
-    @Deprecated('Use onSurfaceTone instead.') int? onBackgroundTone,
-    @Deprecated('Use surfaceContainerHighestTone instead.')
-    int? surfaceVariantTone,
     //
     double? primaryChroma,
     double? primaryMinChroma,

@@ -24,7 +24,7 @@ import '../utils/math_utils.dart';
 class SchemeTonalSpot extends DynamicScheme {
   /// SchemeTonalSpot default constructor.
   SchemeTonalSpot({
-    required Hct sourceColorHct,
+    required super.sourceColorHct,
     required super.isDark,
     required super.contrastLevel,
     super.useExpressiveOnContainerColors,
@@ -41,7 +41,6 @@ class SchemeTonalSpot extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          sourceColorArgb: sourceColorHct.toInt(),
           variant: Variant.tonalSpot,
           primaryPalette: TonalPalette.of(sourceColorHct.hue,
               respectMonochromeSeed && isPrimaryMonochrome ? 0 : 36.0),
@@ -59,7 +58,7 @@ class SchemeTonalSpot extends DynamicScheme {
           neutralVariantPalette: TonalPalette.of(
               neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
               respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 8.0),
-          customErrorPalette: errorSourceColorHct == null
+          errorPalette: errorSourceColorHct == null
               ? null
               : TonalPalette.of(
                   errorSourceColorHct.hue,

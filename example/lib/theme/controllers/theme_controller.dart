@@ -188,7 +188,7 @@ class ThemeController with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  bool _useExpressiveOn = false;
+  bool _useExpressiveOn = true;
   bool get useExpressiveOn => _useExpressiveOn;
   void setUseExpressiveOn(bool? value, [bool notify = true]) {
     if (value == null) return;
