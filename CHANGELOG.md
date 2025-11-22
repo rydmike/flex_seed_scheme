@@ -31,7 +31,6 @@ This FSS release contains a breaking change to match the default for expressive 
     - `surfaceVariantTone`
 
 **CHANGE**
-
 - Updated `FlexSchemeVariant` and their `configDetails` descriptions to offer better explanations.
   - As stated in the change policy doc comment for the enum `FlexSchemeVariant`, any changes in the property values `variantName`, `description`, `configDetails`, `icon` and `shade` are not considered breaking changes, only patches.
   - These properties may be used when building UIs that present the different scheme variants. They serve no other purpose. They can also be ignored, you can use the enum values as input to build your own UI for selecting and describing the scheme variants. The values are used in the example app and also in the `FlexColorScheme` package example apps, like the **Themes Playground**.
@@ -46,7 +45,7 @@ This FSS release contains a breaking change to match the default for expressive 
 * Add explicit test for ARGB int representation.
 * Improved tests for TonalPalettes.
 * Updated test for new `useExpressiveOnContainerColors` defaulting to `true`.
-* Added loop test for all MCU `DynamicSchemeVariant`s to ensure they can be created without errors, so that same `DynamicScheme` matches results from Flutter's `ColorScheme.fromSeed` using corresponding `DynamicSchemeVariant`. The loop test excludes the variants `DynamicSchemeVariant.fidelity`, `DynamicSchemeVariant.monochrome` and `DynamicSchemeVariant.content` that have their own special tone logic. Previously only the default `DynamicSchemeVariant.tonalSpot` was tested this way. This test helps us verify that our fork of MCU can match the version of MCU that Flutter uses internally. When Flutter stable chnages to use MCU 0.13.0, this test will need to change its flag `useExpressiveOnContainerColors` from `false` to `true`.
+* Added loop test for all MCU `DynamicSchemeVariant`s to ensure they can be created without errors, so that same `DynamicScheme` matches results from Flutter's `ColorScheme.fromSeed` using corresponding `DynamicSchemeVariant`. The loop test excludes the variants `DynamicSchemeVariant.fidelity`, `DynamicSchemeVariant.monochrome` and `DynamicSchemeVariant.content` that have their own special tone logic. Previously only the default `DynamicSchemeVariant.tonalSpot` was tested this way. This test helps us verify that our fork of MCU can match the version of MCU that Flutter uses internally. When Flutter stable changes to use MCU 0.13.0, this test will need to change its flag `useExpressiveOnContainerColors` from `false` to `true`.
 
 **INFO**
 
