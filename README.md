@@ -584,7 +584,7 @@ Flutter's default seed generation in Flutter 3.22.0 and later.
 
 | Light from single seed - Material 3 default                                                                                      | Dark from single seed - Material 3 default                                                                                      |
 |----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v3_d.png" alt="dark_app_m3"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v4_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/tonal_spot_v4_d.png" alt="dark_app_m3"/> |
 
 #### Variant `material` based - Based on `FlexTones.material` 
 
@@ -592,7 +592,7 @@ Replicates the Flutter default using `FlexTones` instead of MCU `DynamicScheme`.
 
 | Light from single seed - Material 3                                                                                             | Dark from single seed - Material 3                                                                                             |
 |---------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v3_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v3_d.png" alt="dark_app_m3"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v4_l.png" alt="light_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_v4_d.png" alt="dark_app_m3"/> |
 
 
 #### Variant `material3Legacy` based - Based on `FlexTones.material3Legacy`
@@ -601,7 +601,7 @@ Replicates the Flutter Material default as it was before Flutter 3.22. You can u
 
 | Light from single seed - Material 3 legacy                                                                                                    | Dark from single seed - Material 3 legacy                                                                                                    |
 |-----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v3_l.png" alt="light_legacy_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v3_d.png" alt="dark_legacy_app_m3"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v4_l.png" alt="light_legacy_app_m3"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/material3_legacy_v4_d.png" alt="dark_legacy_app_m3"/> |
 
 ### Candy Pop Strategy with One Seed Color
 
@@ -609,7 +609,7 @@ This example using `tones` strategy `FlexTones.candyPop` shows the difference wh
 
 | Light from single seed - Candy pop tones                                                                                                  | Dark from single seed - Candy pop tones                                                                                                  |
 |-------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v3_l.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v3_d.png" alt="candy pop dark 1"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v4_l.png" alt="candy pop light 1"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_one_seed_v4_d.png" alt="candy pop dark 1"/> |
 
 ### Candy Pop Strategy with Four Seed Colors
 
@@ -617,7 +617,7 @@ This example shows how to use four seeds colors, including a custom error seed c
 
 | Light from four seeds - Candy pop tones                                                                                                 | Dark from four seeds - Candy pop tones                                                                                                 |
 |-----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v3_l.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v3_d.png" alt="candy pop dark 4"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v4_l.png" alt="candy pop light 4"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/candy_4_seed_v4_d.png" alt="candy pop dark 4"/> |
 
 
 ### One hue
@@ -658,7 +658,7 @@ A key feature with the `oneHue` seed strategy is that it does not invent any new
 
 | Light from seed - One hue                                                                                                  | Dark from seed - One hue                                                                                                  |
 |----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_l.png" alt="light_app"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v3_d.png" alt="dark_app"/> |
+| <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v4_l.png" alt="light_app"/> | <img src="https://raw.githubusercontent.com/rydmike/flex_seed_scheme/master/doc_assets/one_hue_v4_d.png" alt="dark_app"/> |
 
 ## Comparing Flutter Default and One Hue
 
