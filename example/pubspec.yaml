@@ -3,7 +3,7 @@ description: Example that demonstrate how to use the FlexSeedScheme package.
 version: 3.7.0
 publish_to: 'none'
 environment:
-  sdk: '>=3.8.0 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
   flutter: '>=3.38.1'
 
 dependencies:
