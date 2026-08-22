@@ -117,371 +117,374 @@ class FlexCorePalette {
        neutralVariant = FlexTonalPalette.of(hue, 8, paletteType),
        _error = FlexTonalPalette.of(25, 84, paletteType);
 
-  /// Create a [FlexCorePalette] from one to three seed colors.
+  /// Create a [FlexCorePalette] from one to six ARGB seed colors.
   ///
-  /// If only [primary] ARGB is provided, it is the same as using the
-  /// [FlexCorePalette.of] static that returns an instance of
-  /// [FlexCorePalette] created from a single ARGB seed color.
+  /// If only [primary] is provided, this is the same as [FlexCorePalette.of]:
+  /// a [FlexCorePalette] created from a single seed color. Optional [secondary],
+  /// [tertiary], [error], [neutral] and [neutralVariant] seeds supply hue and
+  /// chroma for those palettes instead of deriving them from [primary].
   ///
-  /// When using optional [secondary] and [tertiary] int ARGB seed values,
-  /// the tonal palette generation will use hue and chroma from the provided
-  /// color values for creation of respective tonal palettes.
+  /// For each palette, used chroma is the maximum of that palette's min chroma
+  /// and its fixed chroma, or the seed chroma if the fixed chroma is null. If
+  /// [respectMonochromeSeed] is true and a seed has equal RGB channels, chroma
+  /// is forced to 0 and the min is ignored for that seed.
   ///
-  /// The specified fixed chroma value, or minimum allowed chroma value, will
-  /// if specified be used, but combined with the hue in provided [secondary]
-  /// and [tertiary] key colors. If no min chroma or fixed chroma value is
-  /// given, the chroma value in the provided seed/key color is used.
+  /// To match Material Color Utilities [CorePalette.of] tone values, pass only
+  /// [primary] and set [secondaryChroma] to 16 and [tertiaryChroma] to 24:
   ///
-  /// To create a [FlexCorePalette.fromSeeds] that equals Material Color
-  /// Utilities package [CorePalette.of] palette results, when it comes to same
-  /// color tone values. Only specify the [primary] ARGB seed color and
-  /// set [secondaryChroma] and [tertiaryChroma] to same fixed values that
-  /// the Material 3 default color system has hard coded, 16 and 24.
-  ///
-  /// Example:
   /// ```dart
   /// final FlexCorePalette fCorePal = FlexCorePalette.fromSeeds(
   ///   primary: const Color(0xFF6750A4).value,
   ///   secondaryChroma: 16,
   ///   tertiaryChroma: 24,
   /// );
-  //  final CorePalette corePal = CorePalette.of(const Color(0xFF6750A4).value);
+  /// final CorePalette corePal = CorePalette.of(const Color(0xFF6750A4).value);
+  /// // fCorePal.primary.get(10) == corePal.primary.get(10); // true
   /// ```
   ///
-  /// Using above `corePal` and `fCorePal` same tones in corresponding palettes
-  /// will be equal.
+  /// Tones 5 and 98 in [FlexCorePalette] are not in [CorePalette]. They come
+  /// from [FlexTonalPalette] compared to [TonalPalette].
   ///
-  /// ```dart
-  /// var same = fCorePal.primary.get(10) == corePal.primary.get(10); // true
-  /// ```
+  /// ## [primary]
   ///
-  /// Tones 5 and 98 available in [FlexCorePalette] are not available in
-  /// [CorePalette]. They are an addition in the modified implementation of
-  /// [FlexTonalPalette] compared to [TonalPalette].
+  /// Required integer ARGB seed for the primary tonal palette.
+  ///
+  /// By default a minimum Cam16 chroma of 48 is used so the palette stays
+  /// reasonably vivid. If chroma of the provided color is higher than 48, that
+  /// chroma is used. A fixed chroma can be set with [primaryChroma], or a
+  /// floor with [primaryMinChroma]. If both are set, the higher value is used.
+  ///
+  /// ## [secondary]
+  ///
+  /// Optional integer ARGB seed for the secondary tonal palette.
+  ///
+  /// If omitted, hue and chroma come from [primary]. Flutter's
+  /// [ColorScheme.fromSeed] does not use a secondary seed; it locks secondary
+  /// chroma to 16, which yields soft, muted, earthy mid-tones. Set
+  /// [secondaryChroma] to 16 for that Material 3 result. A floor can be set
+  /// with [secondaryMinChroma]; if both chroma and min are set, the higher
+  /// value is used.
+  ///
+  /// ## [tertiary]
+  ///
+  /// Optional integer ARGB seed for the tertiary tonal palette.
+  ///
+  /// If omitted, hue is [primary] hue plus [tertiaryHueRotation] (default 60)
+  /// and chroma comes from [primary]. Flutter's [ColorScheme.fromSeed] locks
+  /// tertiary chroma to 24, which is softer than primary and a bit less muted
+  /// than secondary. Set [tertiaryChroma] to 24 for that Material 3 result. A
+  /// floor can be set with [tertiaryMinChroma]; if both are set, the higher
+  /// value is used.
+  ///
+  /// ## [error]
+  ///
+  /// Optional integer ARGB seed for the error tonal palette.
+  ///
+  /// If omitted, the palette is Material 3 default hue 25 and chroma 84
+  /// (`FlexTonalPalette.of(25, 84)`). Stick to that unless a red primary
+  /// clashes with the default error color; then pass a different hue here and
+  /// optionally [errorChroma] / [errorMinChroma]. If both chroma and min are
+  /// set, the higher value is used.
+  ///
+  /// ## [neutral]
+  ///
+  /// Optional integer ARGB seed for the neutral tonal palette.
+  ///
+  /// If omitted, hue comes from [primary]. Chroma defaults to 4 via
+  /// [neutralChroma], matching [ColorScheme.fromSeed]. Keep chroma low on
+  /// neutrals. To use chroma from this seed instead, set [neutralChroma] to
+  /// null and [neutralMinChroma] to 0; the seed itself should then have very
+  /// low chroma.
+  ///
+  /// ## [neutralVariant]
+  ///
+  /// Optional integer ARGB seed for the neutral variant tonal palette.
+  ///
+  /// If omitted, hue comes from [primary]. Chroma defaults to 8 via
+  /// [neutralVariantChroma], matching [ColorScheme.fromSeed]. Same guidance as
+  /// [neutral]: keep chroma low, or set [neutralVariantChroma] to null and
+  /// [neutralVariantMinChroma] to 0 to use the seed's own chroma.
+  ///
+  /// ## [primaryChroma]
+  ///
+  /// Cam16 chroma for the primary palette, or null to use chroma from
+  /// [primary] when it is at least [primaryMinChroma].
+  ///
+  /// Flutter SDK [ColorScheme.fromSeed] uses chroma from the seed with
+  /// [primaryMinChroma] 48, so seed chroma is used when above 48 and never
+  /// lower. That keeps primary tones usable regardless of how muted the seed
+  /// is. Keep this null and adjust [primaryMinChroma] to control the floor
+  /// while still using the seed's chroma when it is colorful enough.
+  ///
+  /// ## [primaryMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the primary palette.
+  ///
+  /// If chroma in [primary], or a fixed [primaryChroma], is below this value,
+  /// this minimum is used. Defaults to 48, matching the Flutter SDK hard-coded
+  /// design.
+  ///
+  /// ## [secondaryChroma]
+  ///
+  /// Cam16 chroma for the secondary palette, or null to use chroma from
+  /// [secondary] (or from [primary] if [secondary] is omitted) when it is at
+  /// least [secondaryMinChroma].
+  ///
+  /// Defaults to null. Flutter's [ColorScheme.fromSeed] locks this to 16,
+  /// which produces quite soft, muted, earthy mid-tones. Set this to 16 for a
+  /// Material 3 standard result, or keep it null to follow the seed. Keep this
+  /// null and set [secondaryMinChroma] to use seed chroma with a floor.
+  ///
+  /// ## [secondaryMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the secondary palette.
+  ///
+  /// If chroma in [secondary], or a fixed [secondaryChroma], is below this
+  /// value, this minimum is used. Defaults to 0. Flutter has no secondary min;
+  /// chroma is always locked to 16.
+  ///
+  /// ## [tertiaryChroma]
+  ///
+  /// Cam16 chroma for the tertiary palette, or null to use chroma from
+  /// [tertiary] (or from [primary] if [tertiary] is omitted) when it is at
+  /// least [tertiaryMinChroma].
+  ///
+  /// Defaults to null. Flutter's [ColorScheme.fromSeed] locks this to 24. That
+  /// default is soft and pastel at mid-tones, a bit less muted than the
+  /// default secondary palette. Set this to 24 for a Material 3 standard
+  /// result. Keep this null and set [tertiaryMinChroma] to use seed chroma
+  /// with a floor.
+  ///
+  /// ## [tertiaryMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the tertiary palette.
+  ///
+  /// If chroma in [tertiary], or a fixed [tertiaryChroma], is below this
+  /// value, this minimum is used. Defaults to 0. Flutter has no tertiary min;
+  /// chroma is always locked to 24.
+  ///
+  /// ## [tertiaryHueRotation]
+  ///
+  /// Degrees to rotate the hue of [primary] to get tertiary hue, used only
+  /// when [tertiary] is omitted.
+  ///
+  /// Defaults to 60, the Material 3 single-seed hue shift. Set this to 0, or
+  /// close to it, to make every palette "like" the primary color with only
+  /// subtle tone differences.
+  ///
+  /// ## [neutralChroma]
+  ///
+  /// Cam16 chroma for the neutral palette.
+  ///
+  /// Defaults to 4, matching [ColorScheme.fromSeed]. Typically keep this very
+  /// low so surfaces stay near greyscale with only a hint of the seed hue. To
+  /// force chroma from the [neutral] seed, set this to null and keep
+  /// [neutralMinChroma] at 0; that seed should itself have very low chroma.
+  ///
+  /// ## [neutralMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the neutral palette.
+  ///
+  /// If chroma in [neutral], or a fixed [neutralChroma], is below this value,
+  /// this minimum is used. Defaults to 0. Flutter has no neutral min; chroma
+  /// is always locked to 4.
+  ///
+  /// ## [neutralVariantChroma]
+  ///
+  /// Cam16 chroma for the neutral variant palette.
+  ///
+  /// Defaults to 8, matching [ColorScheme.fromSeed]. Same guidance as
+  /// [neutralChroma]: keep it low. To force chroma from the [neutralVariant]
+  /// seed, set this to null and keep [neutralVariantMinChroma] at 0.
+  ///
+  /// ## [neutralVariantMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the neutral variant palette.
+  ///
+  /// If chroma in [neutralVariant], or a fixed [neutralVariantChroma], is
+  /// below this value, this minimum is used. Defaults to 0. Flutter has no
+  /// neutral-variant min; chroma is always locked to 8.
+  ///
+  /// ## [errorChroma]
+  ///
+  /// Cam16 chroma for the error palette, or null to use chroma from [error]
+  /// when it is at least [errorMinChroma] (or 84 when [error] is omitted).
+  ///
+  /// Defaults to null. Set it to 84 to keep Material 3 error chroma on a
+  /// custom error hue. Keep this null and set [errorMinChroma] to use seed
+  /// chroma with a floor.
+  ///
+  /// ## [errorMinChroma]
+  ///
+  /// Minimum Cam16 chroma for the error palette.
+  ///
+  /// If chroma in [error], or a fixed [errorChroma], is below this value, this
+  /// minimum is used. Defaults to 0. Flutter has no error min; chroma is
+  /// always locked to 84.
+  ///
+  /// ## [paletteType]
+  ///
+  /// Which tones this [FlexCorePalette] includes.
+  ///
+  /// [FlexPaletteType.common] has the original 15 tones;
+  /// [FlexPaletteType.extended] has 24 tones (Material 3 revision, extra
+  /// surface fidelity).
+  ///
+  /// ## [useCam16]
+  ///
+  /// If true, CAM16 is used to get hue and chroma from each seed. If false,
+  /// HCT `fromInt` is used (simpler and faster).
+  ///
+  /// Defaults to true. Before version 2.0.0 this package always used CAM16.
+  /// Flutter 3.22+ [ColorScheme.fromSeed] uses HCT `fromInt`. Material 3
+  /// seeded schemes in this package follow that; FSS seeded schemes continue
+  /// to use Cam16.
+  ///
+  /// ## [respectMonochromeSeed]
+  ///
+  /// If true, a seed whose red, green and blue channels are equal is treated
+  /// as chroma 0, so the palette is greyscale. Any configured minimum chroma
+  /// is ignored for that seed.
+  ///
+  /// Defaults to false to match MCU and [ColorScheme.fromSeed], which map
+  /// white/grey seeds to cyan-ish palettes and black to a red-ish palette.
+  /// Prefer true if monochrome seeds should stay greyscale. Seeds that are
+  /// not monochrome produce the same result either way.
   // ignore: sort_constructors_first
   factory FlexCorePalette.fromSeeds({
-    /// Integer ARGB value of seed color used for primary tonal palette.
-    /// calculation.
+    /// Required ARGB seed for the primary tonal palette.
     ///
-    /// By default a minimum of Cam16 chroma 48 is used to ensure a bright
-    /// palette. If chroma of the provided color is higher than 48, it is
-    /// used.
-    ///
-    /// A fixed chroma value can also be specified via [primaryChroma], if it
-    /// is, then the given chroma value is used. Alternatively a
-    /// [primaryMinChroma] can, be specified, then chroma in [primary] is used
-    /// when it is higher than [primaryMinChroma]. If both [primaryChroma] and
-    /// [primaryMinChroma] are specified, the higher value is used for chroma.
+    /// Default min chroma is 48 so the palette stays reasonably vivid.
+    /// Override with `primaryChroma` / `primaryMinChroma`; if both are set,
+    /// the higher value is used.
     required int primary,
 
-    /// Integer ARGB value of seed color used for secondary tonal palette
-    /// calculation.
+    /// Optional ARGB seed for the secondary tonal palette.
     ///
-    /// If not provided, the palette is based on [primary] with Cam16 chroma
-    /// fixed at 16.
-    ///
-    /// A fixed chroma value can also be specified via `secondaryChroma`, if it
-    /// is, then the given chroma value is used. Alternatively a
-    /// `secondaryMinChroma` can, be specified, then chroma in [secondary] is
-    /// used when it is higher than `secondaryMinChroma`. If both
-    /// `secondaryChroma` and `secondaryMinChroma` are specified, the higher
-    /// value is used for chroma.
+    /// If omitted, uses `primary` hue and chroma. Set `secondaryChroma` to 16
+    /// for a Material 3 match.
     int? secondary,
 
-    /// Integer ARGB value of seed color used for tertiary tonal palette
-    /// calculation.
+    /// Optional ARGB seed for the tertiary tonal palette.
     ///
-    /// Cam16 chroma is capped at 48 if provided. If not provided, the palette
-    /// is based on [primary] with Cam16 hue + 60 degrees (default value for
-    /// `tertiaryHueRotation`) and chroma at 24.
-    ///
-    /// A fixed chroma value can also be specified via `tertiaryChroma`, if it
-    /// is, then the given chroma value is used. Alternatively a
-    /// `tertiaryMinChroma` can, be specified, then chroma in [tertiary] is
-    /// used when it is higher than `tertiaryMinChroma`. If both
-    /// `tertiaryChroma` and `tertiaryMinChroma` are specified, the higher
-    /// value is used for chroma.
+    /// If omitted, uses `primary` hue plus `tertiaryHueRotation` (default 60)
+    /// and `primary` chroma. Set `tertiaryChroma` to 24 for a Material 3 match.
     int? tertiary,
 
-    /// Integer ARGB value of seed color used for error tonal palette.
+    /// Optional ARGB seed for the error tonal palette.
     ///
-    /// If not provided, the palette will be based on Material 3 default
-    /// `FlexTonalPalette.of(25, 84)`. The error color hue is 25 and chroma 84.
-    /// Typically you should stick to this, but if your theme uses a primary
-    /// red color that clashes badly with the default M3 error color, you can
-    /// specify a new error seed color here with a different hue and also
-    /// chroma limit or fixed one.
-    ///
-    /// A fixed chroma value can also be specified via `errorChroma`, if it
-    /// is, then the given chroma value is used. Alternatively a
-    /// `errorMinChroma` can, be specified, then chroma in [error] is
-    /// used when it is higher than `errorMinChroma`. If both
-    /// `errorChroma` and `errorMinChroma` are specified, the higher
-    /// value is used for chroma.
+    /// If omitted, uses Material 3 default hue 25 and chroma 84. Override with
+    /// `errorChroma` / `errorMinChroma` when a red primary clashes with that
+    /// default.
     int? error,
 
-    /// Integer ARGB value of seed color used for neutral tonal palette
-    /// calculation.
+    /// Optional ARGB seed for the neutral tonal palette.
     ///
-    /// If not provided, the palette is based on [primary] with Cam16 chroma
-    /// fixed at 16.
-    ///
-    /// A fixed chroma value can also be specified via `neutralChroma`], if it
-    /// is, then the given chroma value is used. Alternatively a
-    /// `neutralMinChroma` can, be specified, then chroma in [neutral] is
-    /// used when it is higher than `neutralMinChroma`. If both
-    /// `neutralChroma` and `neutralMinChroma` are specified, the higher
-    /// value is used for chroma.
+    /// If omitted, uses `primary` hue with chroma 4 (not 16). Override with
+    /// `neutralChroma` / `neutralMinChroma`.
     int? neutral,
 
-    /// Integer ARGB value of seed color used for neutralVariant tonal palette
-    /// calculation.
+    /// Optional ARGB seed for the neutral variant tonal palette.
     ///
-    /// If not provided, the palette is based on [primary] with Cam16 chroma
-    /// fixed at 16.
-    ///
-    /// A fixed chroma value can also be specified via `neutralVariantChroma`,
-    /// if it is, then the given chroma value is used. Alternatively a
-    /// `neutralVariantMinChroma` can, be specified, then chroma in
-    /// [neutralVariant] is used when it is higher than
-    /// `neutralVariantMinChroma`. If both `neutralVariantChroma` and
-    /// `neutralVariantMinChroma` are specified, the higher value is used
-    /// for chroma.
+    /// If omitted, uses `primary` hue with chroma 8. Override with
+    /// `neutralVariantChroma` / `neutralVariantMinChroma`.
     int? neutralVariant,
 
-    /// Cam16 chroma value to use for primary colors tonal palette generation.
+    /// Fixed Cam16 chroma for the primary palette, or null to use the seed.
     ///
-    /// If null, the chroma value from the used [primary] seed key color is
-    /// used, if it is larger than [primaryMinChroma].
-    ///
-    /// Flutter SDK [ColorScheme.fromSeed] uses chroma from seed, with
-    /// [primaryMinChroma] set to 48, so the chroma from the key color is used
-    /// when above 48, but never lower than 48. This keeps primary color in
-    /// resulting tonal palette reasonably vivid and usable regardless of
-    /// used seed color.
-    ///
-    /// To use chroma value from [primary] seed color, keep [primaryChroma] null
-    /// and [primaryMinChroma] at desired threshold for target min colorfulness.
+    /// Used when it is at least `primaryMinChroma` (Flutter
+    /// [ColorScheme.fromSeed] default min is 48).
     final double? primaryChroma,
 
-    /// The minimum used chroma value for primary palette.
+    /// Minimum Cam16 chroma for the primary palette.
     ///
-    /// If chroma in provided [primary] key color is below this value, or if a
-    /// fixed [primaryChroma] is provided that is lower than [primaryMinChroma]
-    /// then the [primaryMinChroma] value is used.
-    ///
-    /// If not defined, defaults to 48.
-    ///
-    /// Flutter SDK uses 48 via a hard coded value and design.
+    /// Defaults to 48, matching Flutter SDK. Used when the seed or
+    /// `primaryChroma` is lower.
     final double? primaryMinChroma,
 
-    /// Cam16 chroma value to use for secondary colors tonal palette
-    /// generation.
+    /// Fixed Cam16 chroma for the secondary palette, or null to use the seed.
     ///
-    /// If null, the chroma value from the used [secondary] seed key color is
-    /// used, if it is larger than [secondaryMinChroma].
-    ///
-    /// Flutter SDK [ColorScheme.fromSeed] uses [secondaryChroma] hard coded
-    /// and locked to 16.
-    ///
-    /// Defaults to null, set it to 16 for Material 3 standard result.
-    ///
-    /// The Flutter's and M3 default value produces quite soft, muted and earthy
-    /// tones as secondary tonal palette at its mid-point tones of the palette.
-    /// This is a design choice, but you can modify it here.
-    ///
-    /// To use chroma value from [secondary] seed color, keep [secondaryChroma]
-    /// null and [secondaryMinChroma] at desired threshold for target min
-    /// colorfulness.
+    /// [ColorScheme.fromSeed] locks this to 16, which yields soft muted
+    /// mid-tones. Defaults to null; set to 16 for a Material 3 match.
     final double? secondaryChroma,
 
-    /// The minimum used chroma value for secondary palette.
+    /// Minimum Cam16 chroma for the secondary palette.
     ///
-    /// If chroma in provided [secondary] key color is below this value, or if a
-    /// fixed [secondaryChroma] is provided that is lower than
-    /// [secondaryMinChroma] then the [secondaryMinChroma] value is used.
-    ///
-    /// If not defined, defaults to 0.
-    ///
-    /// Flutter SDK only uses [secondaryChroma] hard coded to 16, and has no
-    /// concept of minimum level for secondary tonal palettes as its chroma
-    /// value is always locked to 16.
+    /// Defaults to 0. Flutter has no secondary min; it always uses chroma 16.
     final double? secondaryMinChroma,
 
-    /// Cam16 chroma value to use for tertiary colors tonal palette generation.
+    /// Fixed Cam16 chroma for the tertiary palette, or null to use the seed.
     ///
-    /// If null, the chroma value from the used [tertiary] seed key color is
-    /// used, if it is larger than [tertiaryMinChroma].
-    ///
-    /// Flutter SDK [ColorScheme.fromSeed] uses [tertiaryChroma] hard coded
-    /// and locked to 24.
-    ///
-    /// Defaults to null, set it to 24 for Material 3 standard result.
-    ///
-    /// The default produces soft and pastel tones as tertiary tonal palette
-    /// at the mid-point tones of the palette, they are bit less muted than
-    /// the default secondary tonal palette.
-    ///
-    /// To use chroma value from [tertiary] seed color, keep [tertiaryChroma]
-    /// null and [tertiaryMinChroma] at desired threshold for target min
-    /// colorfulness.
+    /// [ColorScheme.fromSeed] locks this to 24 (softer than primary, a bit
+    /// less muted than secondary). Defaults to null; set to 24 for a Material 3
+    /// match.
     final double? tertiaryChroma,
 
-    /// The minimum used chroma value for tertiary palette.
+    /// Minimum Cam16 chroma for the tertiary palette.
     ///
-    /// If chroma in provided [tertiary] key color is below this value, or if a
-    /// fixed [tertiaryChroma] is provided that is lower than
-    /// [tertiaryMinChroma] then the [tertiaryMinChroma] value is used.
-    ///
-    /// If not defined, defaults to 0.
-    ///
-    /// Flutter SDK only uses [tertiaryChroma] hard coded to 24, and has no
-    /// concept of minimum level for tertiary tonal palettes, as its value is
-    /// always locked to 24.
+    /// Defaults to 0. Flutter has no tertiary min; it always uses chroma 24.
     final double? tertiaryMinChroma,
 
-    /// The number of degrees to rotate the hue in [primary] key color to get
-    /// the used Hue for the tertiary color.
+    /// Degrees to rotate `primary` hue when `tertiary` is omitted.
     ///
-    /// This is only used when [tertiary] ARGB key color is null and we have
-    /// not specified an own key color for [tertiary] with its onw hue.
-    ///
-    /// If you set this value to 0, or very close to it, you can make seed
-    /// generated color schemes where all color are "like" the primary color
-    /// but with subtle tone and shade variations.
-    ///
-    /// If not defined, default 60.
+    /// Ignored if a `tertiary` seed is given. Use 0 to keep all palettes close
+    /// to the primary hue. Defaults to 60.
     final double? tertiaryHueRotation,
 
-    /// Cam16 chroma value to use for neutral colors tonal palette generation.
+    /// Fixed Cam16 chroma for the neutral palette.
     ///
-    /// Uses chroma from the [neutral] key color, but you can vary the
-    /// amount of chroma from neutral key color that is used to generate
-    /// the tonal palette
-    ///
-    /// Flutter SDK [ColorScheme.fromSeed] uses [neutralChroma] hard coded to 4.
-    ///
-    /// If not defined, defaults to 4.
-    ///
-    /// To force the chroma in [neutral] key color to be used, set this to null
-    /// and keep [neutralMinChroma] at 0. Typically you want to use very low
-    /// chroma on the neutral colors. If you set this to null, the provided
-    /// ARGB value in [neutral] should have a very low chroma value itself.
+    /// Defaults to 4, matching [ColorScheme.fromSeed]. Set to null and keep
+    /// `neutralMinChroma` at 0 to use chroma from the `neutral` seed; that seed
+    /// should then have very low chroma.
     final double? neutralChroma = 4,
 
-    /// The minimum used chroma value for neutral palette.
+    /// Minimum Cam16 chroma for the neutral palette.
     ///
-    /// If chroma in provided [neutral] key color is below this value, or if a
-    /// fixed [neutralChroma] is provided that is lower than
-    /// [neutralMinChroma] then the [neutralMinChroma] value is used.
-    ///
-    /// If not defined, defaults to 0.
-    ///
-    /// Flutter SDK only uses [neutralChroma] hard coded to 4, and has no
-    /// concept of minimum level for neutral tonal palettes as its chroma
-    /// value is always locked to 16.
+    /// Defaults to 0. Flutter has no neutral min; it always uses chroma 4.
     final double? neutralMinChroma,
 
-    /// Cam16 chroma value to use for neutralVariant colors
-    /// tonal palette generation.
+    /// Fixed Cam16 chroma for the neutral variant palette.
     ///
-    /// Uses chroma from the [neutralVariant] key color, but you can vary
-    /// the amount of chroma from neutral variant key color that is used to
-    /// generate the tonal palette
-    ///
-    /// Flutter SDK [ColorScheme.fromSeed] uses [neutralVariantChroma] hard
-    /// coded to 8.
-    ///
-    /// Defaults to 8.
-    ///
-    /// To force the chroma in [neutralVariant] key color to be used, set this
-    /// to null and keep [neutralVariantMinChroma] at 0. Typically you want to
-    /// use very low chroma on the neutral colors. If you set this to null, the
-    /// provided ARGB value in [neutralVariant] should have a very low chroma
-    /// value itself.
+    /// Defaults to 8, matching [ColorScheme.fromSeed]. Set to null and keep
+    /// `neutralVariantMinChroma` at 0 to use chroma from the `neutralVariant`
+    /// seed; that seed should then have very low chroma.
     final double? neutralVariantChroma = 8,
 
-    /// The minimum used chroma value for neutral variant palette.
+    /// Minimum Cam16 chroma for the neutral variant palette.
     ///
-    /// If chroma in provided [neutralVariant] key color is below this value,
-    /// or if a fixed [neutralVariantChroma] is provided that is lower than
-    /// [neutralVariantMinChroma] then the [neutralVariantMinChroma] value
-    /// is used.
-    ///
-    /// If not defined, defaults to 0.
-    ///
-    /// Flutter SDK only uses [neutralVariantMinChroma] hard coded to 4, and
-    /// has no concept of minimum level for neutral variant tonal palettes as
-    /// its chroma value is always locked to 8.
+    /// Defaults to 0. Flutter has no neutral-variant min; it always uses
+    /// chroma 8.
     final double? neutralVariantMinChroma,
 
-    /// Cam16 chroma value to use for error colors tonal palette generation.
+    /// Fixed Cam16 chroma for the error palette, or null to use the seed.
     ///
-    /// If null, the chroma value from the used [error] seed key color is
-    /// used, if it is larger than [errorMinChroma].
-    ///
-    /// Defaults to null. Set it to 84 for M3 default also on custom hues.
-    ///
-    /// To use chroma value from [error] seed color, keep [errorChroma]
-    /// null and [errorMinChroma] at desired threshold for target min
-    /// colorfulness.
+    /// Defaults to null. Set to 84 to keep the Material 3 error chroma on a
+    /// custom error hue.
     final double? errorChroma,
 
-    /// The minimum used chroma value for error palette.
+    /// Minimum Cam16 chroma for the error palette.
     ///
-    /// If chroma in provided [error] key color is below this value, or if a
-    /// fixed [errorChroma] is provided that is lower than
-    /// [errorMinChroma] then the [errorMinChroma] value is used.
-    ///
-    /// If not defined, defaults to 0.
-    ///
-    /// Flutter SDK only uses [errorChroma] hard coded to 84, and has no
-    /// concept of minimum level for error tonal palettes, as its value is
-    /// always locked to 84.
+    /// Defaults to 0. Flutter has no error min; it always uses chroma 84.
     final double? errorMinChroma,
 
-    /// Defines what [FlexPaletteType] this [FlexCorePalette] uses.
+    /// Tones included in the produced palettes.
     ///
-    /// The default [FlexPaletteType.common] with 15 tones or the extended
-    /// [FlexPaletteType.extended] with 24 tones.
+    /// [FlexPaletteType.common] has 15 tones; [FlexPaletteType.extended] has 24.
     final FlexPaletteType paletteType = FlexPaletteType.common,
 
-    /// If true, the CAM16 color space is used to define the HCT color, if
-    /// false simpler and faster HCT from int is used.
+    /// If true, use CAM16 to get hue and chroma from seeds; if false, use HCT
+    /// `fromInt` (faster, matching Flutter 3.22+ [ColorScheme.fromSeed]).
     ///
-    /// Prior to version 2.0.0 of this package, the CAM16 color space was always
-    /// used. However, in Flutter 3.22 the HCT vanilla HCT.fromInt is used
-    /// for its seeded scheme colors.It is used here by the Material3
-    /// style seeded color schemes as well, while the FSS ones continues to use
-    /// Cam16.
+    /// Defaults to true. FSS seeded schemes keep Cam16; Material 3 seeded
+    /// schemes in Flutter use HCT.
     final bool useCam16 = true,
 
-    /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma. This is then
-    /// used in its conversion from Color or integer value to HCT space, so
-    /// we get all greyscale tones.
+    /// If true, equal RGB seeds are treated as chroma 0 so palettes stay
+    /// greyscale, and min chroma is ignored for those seeds.
     ///
-    /// If not set to true, we get a "cyan" tonal palette for monochrome and
-    /// white seed colors, while black, gives a "red" tonal palette.
-    ///
-    /// Defaults to `false` to keep the default behavior of the package past
-    /// behavior and the Material-3 color system as used in MCU package as well
-    /// as in Flutter's [ColorScheme.fromSeed].
-    ///
-    /// Prefer setting it to `true` if you want to get
-    /// greyscale palette tones for any given monochrome seed color.
-    ///
-    /// If [respectMonochromeSeed] is true, any given configured minimum
-    /// chroma value is ignored for a monochrome seed colors, as the input has
-    /// chroma 0 and its chroma will be set to zero regardless of the value
-    /// of minimum chroma. Minimum chroma is always 0 when
-    /// [respectMonochromeSeed] is used.
-    ///
-    /// A seed color is monochrome when the Red, Green and Blue components are
-    /// all equal in the seed colors RGB color space.
-    ///
-    /// If a seed color is **not** monochrome, the produced results are
-    /// identical regardless of this flag is true or false.
+    /// Defaults to false to match MCU and [ColorScheme.fromSeed] (white/grey
+    /// map to cyan-ish palettes, black to red-ish). Non-monochrome seeds are
+    /// unchanged.
     final bool respectMonochromeSeed = false,
   }) {
     // Primary TonalPalette calculation.
