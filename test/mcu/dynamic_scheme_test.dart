@@ -65,8 +65,6 @@ void main() {
       sourceColorHct: sourceColor,
       isDark: false,
       contrastLevel: 0.0,
-      // When Flutter updates to MCU 0.12.0, change to true to test.
-      useExpressiveOnContainerColors: false,
     );
 
     // Test getters for key colors
@@ -92,64 +90,46 @@ void main() {
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.fidelity => SchemeFidelity(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.content => SchemeContent(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.monochrome => SchemeMonochrome(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.neutral => SchemeNeutral(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.vibrant => SchemeVibrant(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.expressive => SchemeExpressive(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.rainbow => SchemeRainbow(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
         DynamicSchemeVariant.fruitSalad => SchemeFruitSalad(
             sourceColorHct: sourceColor,
             isDark: isDark,
             contrastLevel: contrastLevel,
-            // When Flutter updates to MCU 0.12.0, change to true to test.
-            useExpressiveOnContainerColors: false,
           ),
       };
 
