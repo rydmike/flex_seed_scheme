@@ -40,9 +40,9 @@ sealed class AppData {
           : 'native VM';
   // Version of the WEB build, usually same as package, but it also has a
   // build numbers.
-  static const String versionMajor = '4';
+  static const String versionMajor = '5';
   static const String versionMinor = '0';
-  static const String versionPatch = '1';
+  static const String versionPatch = '0';
   static const String versionBuild = '01';
   static const String versionFull = '$versionMajor.$versionMinor.$versionPatch'
       '\nBuild-$versionBuild';
@@ -51,7 +51,7 @@ sealed class AppData {
   static const String flutterChannel = FlutterVersion.channel ?? '';
   static const String flutterVersion =
       '$flutterChannel $flutterVersionNum ($buildType)';
-  static const String copyright = '© 2022-2025';
+  static const String copyright = '© 2022-2026';
   static const String author = 'Mike Rydstrom';
   static const String license = 'BSD 3-Clause License';
   static final Uri packageUri = Uri(
