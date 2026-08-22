@@ -18,7 +18,9 @@ The version requires Flutter 3.47.0 or higher.
 **CHORE**
 - Bump all dependencies.
 - Example app's macOS build migrated from cocoapods to Swift Package Manager.
-
+- Code style: Changed from RydMike lints 2.6.0 to RydMike lints 3.0.0. Big code diffs and changes in the code style.
+- Example app: fix Flutter SDK deprecation of axisAlignment in ListTileReveal and SwitchListTileReveal widgets.
+- Fix new lints.
 
 ## 4.0.1
 
