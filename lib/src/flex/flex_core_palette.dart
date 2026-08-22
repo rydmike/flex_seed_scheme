@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:flex_seed_scheme/src/flex/flex_color_seed_color_extensions.dart';
+import 'package:flex_seed_scheme/src/flex/flex_tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:flutter/foundation.dart';
-
-import '../mcu/material_color_utilities.dart';
-import 'flex_color_seed_color_extensions.dart';
-import 'flex_tonal_palette.dart';
+import 'package:flutter/material.dart' show ColorScheme;
 
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. Five tonal palettes are generated, plus a default

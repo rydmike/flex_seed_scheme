@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 /// Describes the different in tone between colors.
 enum TonePolarity {

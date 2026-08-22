@@ -14,8 +14,8 @@
 
 import 'dart:math' as math;
 
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// In traditional color spaces, a color can be identified solely by the
 /// observer's measurement of the color. Color appearance models such as CAM16

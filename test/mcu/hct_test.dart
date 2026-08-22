@@ -18,7 +18,7 @@ import 'package:flex_seed_scheme/src/mcu/hct/src/hct_solver.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 const int black = 0xff000000;
 const int white = 0xffffffff;

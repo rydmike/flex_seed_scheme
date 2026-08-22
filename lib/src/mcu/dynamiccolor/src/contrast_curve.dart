@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 /// A class containing the contrast curve for a dynamic color on its background.
 ///

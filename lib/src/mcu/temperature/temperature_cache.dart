@@ -14,7 +14,7 @@
 
 import 'dart:math' as math;
 
-import '../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 /// Design utilities using color temperature theory.
 ///

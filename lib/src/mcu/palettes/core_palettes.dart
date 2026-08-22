@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
 import 'package:meta/meta.dart';
-
-import 'tonal_palette.dart';
 
 /// Comprises foundational palettes to build a color scheme. Generated from a
 /// source color, these palettes will then be part of a `DynamicScheme`

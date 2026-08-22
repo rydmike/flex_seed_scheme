@@ -14,7 +14,7 @@
 import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 void main() {
   // Estimated test time: 3 ~ 4 minutes.

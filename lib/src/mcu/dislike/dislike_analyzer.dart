@@ -14,7 +14,7 @@
 
 // import 'package:material_color_utilities/hct/hct.dart';
 
-import '../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 /// Check and/or fix universally disliked colors.
 ///

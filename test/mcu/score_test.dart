@@ -14,7 +14,7 @@
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 void main() {
   test('prioritizes chroma', () {

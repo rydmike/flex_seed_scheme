@@ -11,8 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Utility methods for calculating contrast given two colors, or calculating a
 /// color given one color and a contrast ratio.

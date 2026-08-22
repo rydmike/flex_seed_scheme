@@ -17,10 +17,10 @@
 // import 'dynamic_scheme.dart';
 // import 'variant.dart';
 
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
 
 /// A Dynamic Color theme that maxes out colorfulness at each position in the
 /// Primary [TonalPalette].

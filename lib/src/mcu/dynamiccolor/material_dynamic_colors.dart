@@ -14,13 +14,13 @@
 
 import 'dart:math' as math;
 
-import '../dislike/dislike_analyzer.dart';
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import 'dynamic_color.dart';
-import 'src/contrast_curve.dart';
-import 'src/tone_delta_pair.dart';
+import 'package:flex_seed_scheme/src/mcu/dislike/dislike_analyzer.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_color.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/contrast_curve.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/tone_delta_pair.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
 
 bool _isFidelity(DynamicScheme scheme) =>
     scheme.variant == Variant.fidelity || scheme.variant == Variant.content;

@@ -1,4 +1,4 @@
-import '../hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
 
 /// Key color is a color that represents the hue and chroma of a tonal palette.
 class KeyColor {

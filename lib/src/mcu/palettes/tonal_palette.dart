@@ -13,10 +13,9 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/key_color.dart';
 import 'package:meta/meta.dart';
-
-import '../hct/hct.dart';
-import 'key_color.dart';
 
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.

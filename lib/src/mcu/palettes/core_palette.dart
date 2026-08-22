@@ -14,9 +14,8 @@
 
 import 'dart:math' as math;
 
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../material_color_utilities.dart';
 
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. 5 tonal palettes are generated, all except one use the same

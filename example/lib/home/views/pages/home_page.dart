@@ -1,17 +1,16 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
+import 'package:flex_seed_scheme_example/about/views/about.dart';
+import 'package:flex_seed_scheme_example/core/constants/app_data.dart';
+import 'package:flex_seed_scheme_example/core/utils/effective_flex_tones.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/color_scheme_view.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/list_tile_slider.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/showcase_material.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/switch_list_tile_reveal.dart';
+import 'package:flex_seed_scheme_example/home/views/widgets/flex_tones_popup_menu.dart';
+import 'package:flex_seed_scheme_example/home/views/widgets/show_input_colors.dart';
+import 'package:flex_seed_scheme_example/home/views/widgets/show_tonal_palette.dart';
+import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
-
-import '../../../about/views/about.dart';
-import '../../../core/constants/app_data.dart';
-import '../../../core/utils/effective_flex_tones.dart';
-import '../../../core/views/universal/color_scheme_view.dart';
-import '../../../core/views/universal/list_tile_slider.dart';
-import '../../../core/views/universal/showcase_material.dart';
-import '../../../core/views/universal/switch_list_tile_reveal.dart';
-import '../../../theme/controllers/theme_controller.dart';
-import '../widgets/flex_tones_popup_menu.dart';
-import '../widgets/show_input_colors.dart';
-import '../widgets/show_tonal_palette.dart';
 
 /// The home page of this custom seed generated color scheme demo.
 ///

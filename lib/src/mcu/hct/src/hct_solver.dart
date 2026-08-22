@@ -16,10 +16,10 @@
 
 import 'dart:math';
 
-import '../../utils/color_utils.dart';
-import '../../utils/math_utils.dart';
-import '../cam16.dart';
-import '../viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/cam16.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// A class that solves the HCT equation.
 class HctSolver {

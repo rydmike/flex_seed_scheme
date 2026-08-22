@@ -16,10 +16,10 @@
 
 import 'dart:math';
 
-import '../hct/cam16.dart';
-import '../hct/hct.dart';
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/cam16.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Functions for blending in HCT and CAM16.
 class Blend {

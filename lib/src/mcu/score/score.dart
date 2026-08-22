@@ -13,7 +13,7 @@
 // limitations under the License.
 import 'package:collection/collection.dart';
 
-import '../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 class _ScoredHCT implements Comparable<_ScoredHCT> {
   /// Creates a new _ScoredHCT.

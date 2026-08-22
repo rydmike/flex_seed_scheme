@@ -13,12 +13,12 @@
 // limitations under the License.
 import 'dart:math' as math;
 
-import '../dislike/dislike_analyzer.dart';
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../temperature/temperature_cache.dart';
+import 'package:flex_seed_scheme/src/mcu/dislike/dislike_analyzer.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/temperature/temperature_cache.dart';
 
 /// A scheme that places the source color in Scheme.primaryContainer.
 ///

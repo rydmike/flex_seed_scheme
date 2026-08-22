@@ -13,13 +13,13 @@
 // limitations under the License.
 import 'dart:math' as math;
 
-import '../contrast/contrast.dart';
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../utils/math_utils.dart';
-import 'src/contrast_curve.dart';
-import 'src/tone_delta_pair.dart';
+import 'package:flex_seed_scheme/src/mcu/contrast/contrast.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/contrast_curve.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/tone_delta_pair.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// A color that adjusts itself based on UI state provided by [DynamicScheme].
 ///

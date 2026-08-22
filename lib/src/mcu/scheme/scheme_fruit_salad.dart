@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// A playful theme - the source color's hue does not appear in the theme.
 class SchemeFruitSalad extends DynamicScheme {

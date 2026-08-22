@@ -15,9 +15,9 @@
 import 'dart:core';
 import 'dart:math' as math;
 
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
-import 'viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// CAM16, a color appearance model. Colors are not just defined by their hex
 /// code, but rather, a hex code and viewing conditions.

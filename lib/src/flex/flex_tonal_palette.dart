@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:flex_seed_scheme/src/flex/flex_tones.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/key_color.dart';
 import 'package:flutter/foundation.dart';
-
-import '../mcu/hct/hct.dart';
-import '../mcu/palettes/key_color.dart';
-import 'flex_tones.dart';
 
 /// Enum used to select tones included in produced FlexTonalPalette.
 ///

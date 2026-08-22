@@ -11,12 +11,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../utils/math_utils.dart';
-import 'dynamic_color.dart';
-import 'material_dynamic_colors.dart';
-import 'variant.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_color.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/material_dynamic_colors.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Constructed by a set of values representing the current UI state (such as
 /// whether or not its dark theme, what the theme style is, etc.), and

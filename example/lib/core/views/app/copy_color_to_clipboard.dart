@@ -1,8 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../utils/flex_color_extension.dart';
 
 /// Copy the color value as a String to the Clipboard in Flutter Dart format.
 ///

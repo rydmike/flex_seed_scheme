@@ -1,25 +1,24 @@
+import 'package:flex_seed_scheme/src/flex/flex_color_seed_color_extensions.dart';
+import 'package:flex_seed_scheme/src/flex/flex_core_palette.dart';
+import 'package:flex_seed_scheme/src/flex/flex_scheme_variant.dart';
+import 'package:flex_seed_scheme/src/flex/flex_tonal_palette.dart';
+import 'package:flex_seed_scheme/src/flex/flex_tones.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/material_dynamic_colors.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/core_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_content.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_expressive.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_fidelity.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_fruit_salad.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_monochrome.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_neutral.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_rainbow.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_tonal_spot.dart';
+import 'package:flex_seed_scheme/src/mcu/scheme/scheme_vibrant.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart' show internal;
-
-import '../mcu/dynamiccolor/dynamic_scheme.dart';
-import '../mcu/dynamiccolor/material_dynamic_colors.dart';
-import '../mcu/hct/hct.dart';
-import '../mcu/palettes/core_palette.dart';
-import '../mcu/scheme/scheme.dart';
-import '../mcu/scheme/scheme_content.dart';
-import '../mcu/scheme/scheme_expressive.dart';
-import '../mcu/scheme/scheme_fidelity.dart';
-import '../mcu/scheme/scheme_fruit_salad.dart';
-import '../mcu/scheme/scheme_monochrome.dart';
-import '../mcu/scheme/scheme_neutral.dart';
-import '../mcu/scheme/scheme_rainbow.dart';
-import '../mcu/scheme/scheme_tonal_spot.dart';
-import '../mcu/scheme/scheme_vibrant.dart';
-import 'flex_color_seed_color_extensions.dart';
-import 'flex_core_palette.dart';
-import 'flex_scheme_variant.dart';
-import 'flex_tonal_palette.dart';
-import 'flex_tones.dart';
 
 // ignore_for_file: comment_references, ignored in hope that doc links
 // will become available for factory and function parameters.

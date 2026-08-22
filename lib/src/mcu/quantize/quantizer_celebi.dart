@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'quantizer.dart';
-import 'quantizer_wsmeans.dart';
-import 'quantizer_wu.dart';
-import 'src/point_provider_lab.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer_wsmeans.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer_wu.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider_lab.dart';
 
 /// QuantizerCelebi Quantizer.
 class QuantizerCelebi implements Quantizer {

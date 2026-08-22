@@ -14,11 +14,10 @@
 
 import 'dart:math' as math show Random, min;
 
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider_lab.dart';
 import 'package:flutter/foundation.dart';
-
-import 'quantizer.dart';
-import 'src/point_provider.dart';
-import 'src/point_provider_lab.dart';
 
 /// DistanceAndIndex.
 class DistanceAndIndex implements Comparable<DistanceAndIndex> {

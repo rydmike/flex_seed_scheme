@@ -17,9 +17,9 @@
 // languages. Including variable types, though sometimes unnecessary, is a
 // powerful help to verification and avoiding hard-to-debug issues.
 
-import '../utils/color_utils.dart';
-import 'quantizer.dart';
-import 'quantizer_map.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer_map.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
 
 /// QuantizerWu Quantizer.
 class QuantizerWu implements Quantizer {

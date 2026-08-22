@@ -1,10 +1,9 @@
 import 'dart:async';
 
+import 'package:flex_seed_scheme_example/core/constants/app_data.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../core/constants/app_data.dart';
 
 /// An about icon button used on the example's app app bar.
 class AboutIconButton extends StatelessWidget {

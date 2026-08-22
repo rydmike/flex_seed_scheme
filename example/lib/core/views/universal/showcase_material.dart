@@ -1,10 +1,9 @@
 import 'dart:async';
 
+import 'package:flex_seed_scheme_example/core/views/universal/switch_list_tile_reveal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'switch_list_tile_reveal.dart';
 
 /// Used to show the current themed Material widgets.
 ///

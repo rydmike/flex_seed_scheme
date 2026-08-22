@@ -1,8 +1,7 @@
+import 'package:flex_seed_scheme_example/home/views/pages/home_page.dart';
+import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
+import 'package:flex_seed_scheme_example/theme/model/app_theme.dart';
 import 'package:flutter/material.dart';
-
-import 'home/views/pages/home_page.dart';
-import 'theme/controllers/theme_controller.dart';
-import 'theme/model/app_theme.dart';
 
 void main() {
   // Create a ThemeController.

@@ -1,7 +1,6 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
+import 'package:flex_seed_scheme_example/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/constants/app_colors.dart';
 
 /// A ChangeNotifier controller used to control inputs that configures the
 /// ColorScheme in ThemeData and ThemeMode.

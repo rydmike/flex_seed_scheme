@@ -1,8 +1,7 @@
+import 'package:flex_seed_scheme_example/core/views/app/color_name_value.dart';
+import 'package:flex_seed_scheme_example/core/views/app/color_picker_inkwell.dart';
+import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
-
-import '../../../core/views/app/color_name_value.dart';
-import '../../../core/views/app/color_picker_inkwell.dart';
-import '../../../theme/controllers/theme_controller.dart';
 
 // Display the colors in currently selected input color scheme, including
 // their name and color code.

@@ -1,6 +1,5 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
-
-import '../../flex_seed_scheme.dart';
 
 /// Enum used to return and describe properties of the [FlexSchemeVariant]
 /// variants to invoke different color scheme generation algorithms

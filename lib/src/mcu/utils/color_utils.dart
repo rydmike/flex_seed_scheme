@@ -16,7 +16,7 @@
 
 import 'dart:math';
 
-import 'math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Color science utilities.
 ///
