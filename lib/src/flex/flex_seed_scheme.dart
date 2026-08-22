@@ -20,12 +20,9 @@ import 'package:flex_seed_scheme/src/mcu/scheme/scheme_vibrant.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart' show internal;
 
-// ignore_for_file: comment_references, ignored in hope that doc links
-// will become available for factory and function parameters.
-
 /// This class is the same concept as Flutter's [ColorScheme] class.
 ///
-/// It is used used to generate a [ColorScheme] based on a modified version of
+/// It is used to generate a [ColorScheme] based on a modified version of
 /// [CorePalette] found in package material_color_utilities.
 ///
 /// You use this via its static extension [SeedColorScheme.fromSeeds] to create
@@ -424,8 +421,12 @@ extension SeedColorScheme on ColorScheme {
   /// The properties [tones] and [variant] are mutually exclusive, only one of
   /// them can be used. If both are null, the default from [tones] is used.
   /// The [variant] can be used to select a predefined [FlexSchemeVariant] that
-  /// include all the [DynamicSchemeVariant]s in Flutter SDK, but also all the
-  /// predefined [FlexTones] in this package.  ///
+  /// includes all the [DynamicSchemeVariant]s in Flutter SDK, but also all the
+  /// predefined [FlexTones] in this package.
+  ///
+  /// As with [ColorScheme.fromSeed], prefer using the same key colors when seed
+  /// generating your light and dark [ColorScheme] to create a balanced and
+  /// matching light and dark scheme.
   ///
   /// A [ColorScheme] is a set of 46 colors based on the
   /// [Material spec](https://m3.material.io/styles/color/the-color-system/color-roles)
@@ -476,274 +477,332 @@ extension SeedColorScheme on ColorScheme {
   /// also have the same color between light and dark themes, but compared
   /// with on '-Fixed' roles, such as [onPrimaryFixed], they provide a
   /// lower-emphasis option for text and icons.
+  ///
+  /// ## [brightness]
+  ///
+  /// Overall brightness of the produced [ColorScheme]. Defaults to
+  /// [Brightness.light].
+  ///
+  /// ## [primaryKey]
+  ///
+  /// Required seed color used to generate all the primary-dependent colors in
+  /// a [ColorScheme].
+  ///
+  /// In the Material 3 color system and in [ColorScheme.fromSeed], this color
+  /// is used to generate palettes for all tonal palettes, except the error
+  /// palette that has its own fixed seed value.
+  ///
+  /// The default is the same here. However, if colors are provided for
+  /// [secondaryKey] and [tertiaryKey] their tonal palettes will be seeded
+  /// from their own key color. Likewise for [errorKey], [neutralKey] and
+  /// [neutralVariantKey]. It is uncommon and seldom needed to customize them,
+  /// but to create very custom and unique looking apps, it is possible to do
+  /// so.
+  ///
+  /// As in [ColorScheme.fromSeed], there is no guarantee that the used key
+  /// color ends up as the corresponding main color in the produced
+  /// [ColorScheme]. [primaryKey] will typically not become your
+  /// [ColorScheme.primary] color. It will only be of the same hue. If you used
+  /// a color intended for light theme mode as [primaryKey], consider overriding
+  /// [primary] for the light theme with the same color value as your
+  /// [primaryKey].
+  ///
+  /// ## [secondaryKey]
+  ///
+  /// Optional key color used to seed the secondary tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.secondary]. It
+  /// will only be of the same hue. If you used a color intended for light
+  /// theme mode as [secondaryKey], consider overriding [secondary] for the
+  /// light theme with the same color value as your [secondaryKey].
+  ///
+  /// ## [tertiaryKey]
+  ///
+  /// Optional key color used to seed the tertiary tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.tertiary]. It
+  /// will only be of the same hue. If you used a color intended for light
+  /// theme mode as [tertiaryKey], consider overriding [tertiary] for the light
+  /// theme with the same color value as your [tertiaryKey].
+  ///
+  /// ## [errorKey]
+  ///
+  /// Optional key color used to seed the error tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.error]. It will
+  /// only be of the same hue. If you used a color intended for light theme
+  /// mode as [errorKey], consider overriding [error] for the light theme with
+  /// the same color value as your [errorKey].
+  ///
+  /// ## [neutralKey]
+  ///
+  /// Optional key color used to seed the neutral tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.surface]. It
+  /// will only be of the same hue. If you used a color intended for light
+  /// theme mode as [neutralKey], consider overriding [surface] for the light
+  /// theme with the same color value as your [neutralKey].
+  ///
+  /// ## [neutralVariantKey]
+  ///
+  /// Optional key color used to seed the neutral variant tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes the [ColorScheme] variant
+  /// colors. It will only be of the same hue. If you used a color intended
+  /// for light theme mode as [neutralVariantKey], consider overriding one of
+  /// the variant theme colors with the same color value as your
+  /// [neutralVariantKey].
+  ///
+  /// The variant palette is only used by [onSurfaceVariant], [outline] and
+  /// [outlineVariant]. The main color that used it prior to Flutter 3.22,
+  /// `surfaceVariant`, has been deprecated.
+  ///
+  /// ## [tones]
+  ///
+  /// Optional mapping of tonal palette tones to [ColorScheme] colors, and
+  /// chroma limits or fixed chroma from the provided key colors when generating
+  /// each tonal palette.
+  ///
+  /// If not provided, a setup matching the Material 3 Color System
+  /// specification is used by defaulting to [FlexTones.material].
+  ///
+  /// To create a seed generated [ColorScheme] with different chroma limits and
+  /// tonal mappings, provide a custom [FlexTones], or use a predefined one
+  /// like [FlexTones.jolly], [FlexTones.vivid] or [FlexTones.highContrast].
+  ///
+  /// Starting with version 2.0.0 you can also use [variant] as an optional way
+  /// to select a predefined seed generation configuration, instead of
+  /// providing a [FlexTones] configuration. The [variant] API provides access
+  /// to the [DynamicSchemeVariant]s that are available in Flutter 3.22.2 and
+  /// later. With FSS you can use them in Flutter 3.22.0 already.
+  ///
+  /// [tones] and [variant] are mutually exclusive. Setting both to a value
+  /// throws in debug mode; if both are set in a release build, [variant] will
+  /// be used. Both can be null, in that case default [tones] with value
+  /// [FlexTones.material] will be used.
+  ///
+  /// ## [variant]
+  ///
+  /// Optional way to select the algorithm for seeded [ColorScheme]
+  /// generation, instead of a [FlexTones] provided in [tones].
+  ///
+  /// [variant] and [tones] are mutually exclusive. If both are null, the
+  /// default from [tones] is used.
+  ///
+  /// The [variant] selections include all the Flutter SDK defined options
+  /// available in Flutter Stable 3.22.2 and later. Variant options that are
+  /// identical to the Flutter SDK options have
+  /// [FlexSchemeVariant.isFlutterScheme] set to true. Starting with FSS
+  /// version 3.0.0 these enum options can also use all the seed generation
+  /// key colors, not just [primaryKey]. The standard MCU lib only supports
+  /// using one seed color. FSS includes a forked MCU library that enables
+  /// using up to six seed colors, providing more degrees of freedom also with
+  /// MCU based scheme variants, not just with [FlexTones] based ones.
+  ///
+  /// [FlexSchemeVariant] also includes quick selections for all the predefined
+  /// [FlexTones] configurations. However, with [variant] you can only use the
+  /// predefined configurations, and not make custom configurations like you
+  /// can with [FlexTones]. Additionally you cannot use the [FlexTones]
+  /// modifiers [FlexTones.monochromeSurfaces], [FlexTones.onMainsUseBW],
+  /// [FlexTones.onSurfacesUseBW] and [FlexTones.surfacesUseBW], since they
+  /// operate on the [FlexTones] configurations passed in to [tones].
+  ///
+  /// ## [contrastLevel]
+  ///
+  /// Contrast level between color pairs, such as [primary] and [onPrimary].
+  /// The value 0.0 is the default (normal) contrast; -1.0 is the lowest; 1.0
+  /// is the highest. From Material Design guideline, the normal, medium and
+  /// high contrast options correspond to 0.0, 0.5 and 1.0 respectively.
+  ///
+  /// Only used when a scheme [variant] is used where
+  /// [FlexSchemeVariant.isFlutterScheme] is true. That corresponds to all the
+  /// [DynamicSchemeVariant]s in Flutter SDK. This is the same property as
+  /// [ColorScheme.fromSeed]'s `contrastLevel`.
+  ///
+  /// When using [tones] based seed generated schemes, or a [variant] with
+  /// [FlexSchemeVariant.isFlutterScheme] set to false, [contrastLevel] is
+  /// ignored.
+  ///
+  /// With [tones] based schemes, contrast can instead be set using custom
+  /// [FlexTones] configurations. There are two predefined higher contrast
+  /// tone mappings available as [FlexTones.highContrast] and
+  /// [FlexTones.ultraContrast]; you can use them as they are or as examples
+  /// on how to create your own custom high contrast tone mappings.
+  ///
+  /// ## [useExpressiveOnContainerColors]
+  ///
+  /// If true, makes the light theme mode colors [onPrimaryContainer],
+  /// [onSecondaryContainer], [onTertiaryContainer] and [onErrorContainer] more
+  /// color expressive. This comes at the cost of their contrast level and
+  /// accessibility.
+  ///
+  /// The value has no impact on dark mode [ColorScheme] colors. Expressive
+  /// on-colors for container colors have always been used in dark mode in
+  /// Material 3 design and they have good contrast and accessibility.
+  ///
+  /// When true, on-container colors of all scheme variants and [FlexTones]
+  /// based schemes use the new expressive tone, if the currently used tone is
+  /// 10. If a scheme already uses an intentionally customized tone, the new
+  /// expressive tone will not be used for those tones, even when this setting
+  /// is true.
+  ///
+  /// Schemes that contain such on-container tones are:
+  ///
+  /// * Fidelity
+  /// * Monochrome
+  /// * Content
+  /// * Ultra Contrast
+  /// * Candy pop
+  /// * Chroma
+  ///
+  /// Defaults to true.
+  ///
+  /// The Material design spec for the tones used by [onPrimaryContainer],
+  /// [onSecondaryContainer], [onTertiaryContainer] and [onErrorContainer]
+  /// changed from tone **10** to **30** for **LIGHT** theme mode. It also
+  /// sets the min `ContrastCurve` from ContrastCurve(4.5, 7.0, 11.0, 21.0)
+  /// to ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
+  /// contrast 4.5 instead of the past 7.0.
+  ///
+  /// Flutter 3.38 still used the older MCU 0.11.1 tone 10. MCU 0.12.0 and the
+  /// Material 3 spec use tone 30. That MCU change is breaking versus 0.11.1
+  /// and changes the light mode color schemes produced by all DynamicColor
+  /// based Material color schemes.
+  ///
+  /// In FlexSeedScheme before 4.0.0 this defaulted to false. Version 4.0.0
+  /// changed the default to true to align with default behaviour in Flutter
+  /// versions after the 3.38 stable release. For more info see
+  /// https://github.com/flutter/website/pull/12125
+  ///
+  /// Flutter SDK does not offer a way to opt out of this change. With
+  /// FlexSeedScheme you can set [useExpressiveOnContainerColors] to false.
+  /// The new on-color tones for containers in light mode make them more color
+  /// expressive, but they also reduce their contrast level and accessibility.
+  /// For a higher contrast level, prefer setting this to false.
+  ///
+  /// ## [respectMonochromeSeed]
+  ///
+  /// If true, a seed whose red, green and blue channels are equal is treated
+  /// as chroma 0, so the palette is greyscale. Any configured minimum chroma
+  /// is ignored for that seed.
+  ///
+  /// Defaults to false to match MCU and [ColorScheme.fromSeed], which map
+  /// white/grey seeds to cyan-ish palettes and black to a red-ish palette.
+  /// Prefer true if monochrome seeds should stay greyscale. Seeds that are
+  /// not monochrome produce the same result either way.
+  ///
+  /// ## Color overrides
+  ///
+  /// Any seed-generated [ColorScheme] color can be replaced by passing that
+  /// color. One-liner override parameters (`onPrimary`, `primaryContainer`,
+  /// surfaces, outlines, and so on) have no extra semantics beyond replacing
+  /// the corresponding seed result. [primary], [secondary] and [tertiary]
+  /// also have brand-color guidance below.
+  ///
+  /// ## [primary]
+  ///
+  /// Override color for the seed generated [primary] color.
+  ///
+  /// You may want to assign [primaryKey] to this color in light brightness
+  /// mode, if it is also your branding or main design color.
+  ///
+  /// ## [secondary]
+  ///
+  /// Override color for the seed generated [secondary] color.
+  ///
+  /// You may sometimes want to assign [secondaryKey] to this color in light
+  /// brightness mode, if it is also your secondary brand or design color.
+  ///
+  /// If you only have two brand or design colors, consider using it as key
+  /// color and override for the tertiary color instead, as the M3 color
+  /// system calls for a secondary color that is same or close in hue to the
+  /// primary color but with less chroma. Your secondary brand or design color
+  /// may not fit well with that constraint. The tertiary color in M3 color
+  /// system does not have this preference.
+  ///
+  /// ## [tertiary]
+  ///
+  /// Override color for the seed generated [tertiary] color.
+  ///
+  /// You may sometimes want to assign [tertiaryKey] to this color in light
+  /// brightness mode, if it is also your secondary or tertiary brand or
+  /// design color.
+  ///
+  /// If you only have two brand or design colors, consider using it as key
+  /// color and override for the tertiary color, as the M3 color system calls
+  /// for a secondary color that is same or close in hue to the primary color
+  /// but with less chroma. Your secondary brand or design color may not fit
+  /// well with that constraint. The tertiary color in M3 color system does
+  /// not have this preference.
   static ColorScheme fromSeeds({
     /// The overall brightness of this color scheme.
     Brightness brightness = Brightness.light,
 
-    /// Seed color used to generate all the primary color dependent colors in
-    /// a ColorScheme.
+    /// Required seed for primary-dependent [ColorScheme] colors.
     ///
-    /// In Material 3 color system and in [ColorScheme.fromSeed], this color is
-    /// used to generate palettes for all tonal palettes, except error palette
-    /// that has its own fixed seed value.
-    ///
-    /// The default is the same here. However, if colors are provided for
-    /// [secondaryKey] and [tertiaryKey] their tonal palettes will be seeded
-    /// from their own key color. Likewise for [errorKey], [neutralKey] and
-    /// the [neutralVariantKey] colors. It is however uncommon and seldom
-    /// needed to customize them, but to create very custom an unique looking
-    /// apps, it is possible to do so.
-    ///
-    /// As in [ColorScheme.fromSeed], there is no guarantee that the used key
-    /// color, used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [primaryKey] will typically not become your [ColorScheme.primary] color.
-    /// It will only be of the same hue. If you used a color intended for light
-    /// theme mode as [primaryKey], consider overriding [primary] for the light
-    /// theme with the same color value as your [primaryKey].
+    /// Extra keys are optional. The seed is hue-only; override [primary] in
+    /// light mode if this is also your brand color.
     required Color primaryKey,
 
-    /// Optional key color used to seed the secondary tonal palette.
+    /// Optional seed for the secondary tonal palette.
     ///
-    /// There is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [secondaryKey] will typically not become your [ColorScheme.secondary]
-    /// color. It will only be of the same hue. If you used a color intended
-    /// for light theme mode as [secondaryKey], consider overriding [secondary]
-    /// for the light theme with the same color value as your [secondaryKey].
+    /// Hue-only; override [secondary] in light mode if this is your brand
+    /// color.
     Color? secondaryKey,
 
-    /// Optional key color used to seed the tertiary tonal palette.
+    /// Optional seed for the tertiary tonal palette.
     ///
-    /// There is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [tertiaryKey] will typically not become your [ColorScheme.tertiary]
-    /// color. It will only be of the same hue. If you used a color intended
-    /// for light theme mode as [tertiaryKey], consider overriding [tertiary]
-    /// for the light theme with the same color value as your [tertiaryKey].
+    /// Hue-only; override [tertiary] in light mode if this is your brand
+    /// color.
     Color? tertiaryKey,
 
-    /// Optional key color used to seed the error tonal palette.
+    /// Optional seed for the error tonal palette.
     ///
-    /// There is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [errorKey] will typically not become your [ColorScheme.error]
-    /// color. It will only be of the same hue. If you used a color intended
-    /// for light theme mode as [errorKey], consider overriding [error]
-    /// for the light theme with the same color value as your [errorKey].
+    /// Hue-only; override [error] in light mode if this is your brand color.
     Color? errorKey,
 
-    /// Optional key color used to seed the neutral tonal palette.
+    /// Optional seed for the neutral tonal palette.
     ///
-    /// There is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [neutralKey] will typically not become your [ColorScheme.surface]
-    /// color. It will only be of the same hue. If you used a color intended
-    /// for light theme mode as [neutralKey], consider overriding [surface]
-    /// for the light theme with the same color value as your [neutralKey].
+    /// Hue-only; override [surface] in light mode if this is your brand color.
     Color? neutralKey,
 
-    /// Optional key color used to seed the neutral variant tonal palette.
+    /// Optional seed for the neutral variant tonal palette.
     ///
-    /// There is no guarantee that the used key
-    /// color used as seed, ends up as the corresponding main color in the
-    /// produced [ColorScheme] for the palette in question. In this case
-    /// [neutralVariantKey] will typically not become your
-    /// [ColorScheme] variant colors. It will only be of the same hue.
-    /// If you used a color intended for light theme mode as
-    /// [neutralVariantKey], consider overriding one of the variant theme colors
-    /// with the same color value as your [neutralVariantKey].
-    ///
-    /// The variant palette is only used by the [ColorScheme] variant colors
-    /// [onSurfaceVariant], [outline] and [outlineVariant], the
-    /// main color that used it prior to Flutter 3.22 surfaceVariant has been
-    /// deprecated.
+    /// Feeds [onSurfaceVariant], [outline] and [outlineVariant] only.
     Color? neutralVariantKey,
 
-    /// Tonal palette chroma usage configuration and mapping to [ColorScheme].
+    /// Tone mapping and chroma limits. Mutually exclusive with `variant`.
     ///
-    /// Optional mapping configuration for how tonal palette tones are mapped
-    /// to their corresponding [ColorScheme] colors.
-    ///
-    /// Can also configure how chroma is limited or fixed from the provided
-    /// key colors when generating each tonal palette.
-    ///
-    /// If not provided, a setup matching the Material 3 Color System
-    /// specification is used by defaulting to [FlexTones.material].
-    ///
-    /// To create seed generated [ColorScheme] with
-    /// different chroma limits and tonal mappings provide a custom [FlexTones],
-    /// or use a predefined one like [FlexTones.jolly], [FlexTones.vivid] or
-    /// [FlexTones.highContrast].
-    ///
-    /// Starting with version 2.0.0 you can also use [variant] as an optional
-    /// way to select a predefined seed generation configuration, instead of
-    /// providing a [FlexTones] configuration. The [variant] API is used
-    /// to provide access to the DynamicSchemeVariant that are available
-    /// in Flutter 3.22.2 and later. With FSS you can use them in
-    /// Flutter 3.22.0 already.
-    ///
-    /// An assert is used to check that a none null value has not been assign to
-    /// [tones] and [variant] at the same time, since they are mutually
-    /// exclusive. Setting both to a value throws in debug mode, if both are
-    /// set in a release build, [variant] will be used. Both can be null, in
-    /// that case default [tones] with value [FlexTones.material] will be used.
+    /// Defaults to [FlexTones.material] when both this and `variant` are null.
     FlexTones? tones,
 
-    /// An optional way to select the used algorithm for seeded [ColorScheme]
-    /// generation, can be used instead of a [FlexTones] provided in [tones].
+    /// Predefined seed algorithm, including Flutter SDK variants.
     ///
-    /// The [variant] and [tones] are mutually exclusive, only one of them
-    /// can be used. If both are null, the default from [tones] is used.
-    ///
-    /// The [variant] selections includes all the Flutter SDK defined options
-    /// are available in the in Flutter Stable 3.22.2 and later. Variant options
-    /// that are identical to the Flutter SDK options
-    /// have [FlexSchemeVariant.value], [isFlutterScheme] set to true. Starting
-    /// with FSS version 3.0.0 these enum options can also use all the seed
-    /// generation key colors, not just the [primaryKey]. The standard MCU lib
-    /// only support using one seed color. FSS includes a forked MCU library
-    /// that now enables using up to six seed colors, providing more degrees of
-    /// freedom also with MCU based scheme variants not just with FlexTones
-    /// based ones.
-    ///
-    /// The [FlexSchemeVariant] also includes quick selections for all the
-    /// predefined [FlexTones] configurations. However, with [variant] you can
-    /// only use the predefined configurations, and not make custom
-    /// configurations like you can with [FlexTones]. Additionally you cannot
-    /// use the [FlexTones] modifiers [monochromeSurfaces], [onMainsUseBW],
-    /// [onSurfacesUseBW] and [surfacesUseBW], since they operate on the
-    /// [FlexTones] configurations passed in to [tones].
-    ///
-    /// An assert is used to check that a none null value has not been assign to
-    /// [tones] and [variant] at the same time, since they are mutually
-    /// exclusive. Setting both to a value throws in debug mode, if both are
-    /// set in a release build, [variant] will be used. Both can be null, in
-    /// that case default [tones] with value [FlexTones.material] will be used.
+    /// Mutually exclusive with `tones`. Custom [FlexTones] modifiers only work
+    /// via `tones`.
     FlexSchemeVariant? variant,
 
-    /// The [contrastLevel] parameter indicates the contrast level between color
-    /// pairs, such as [primary] and [onPrimary]. The value 0.0 is the default
-    /// (normal) contrast; -1.0 is the lowest; 1.0 is the highest.
-    /// From Material Design guideline, the normal, medium and high contrast
-    /// options correspond to 0.0, 0.5 and 1.0 respectively.
+    /// Contrast between pairs such as [primary] and [onPrimary], range -1 to 1.
     ///
-    /// The [contrastLevel] property is only used when seed generating a
-    /// [ColorScheme] based on [FlexSeedScheme]'s [SeedColorScheme.fromSeeds]
-    /// when a scheme [variant] is used where its [FlexSchemeVariant.value],
-    /// [isFlutterScheme] it set to true. This corresponds to all the
-    /// [DynamicSchemeVariant]s in Flutter SDK.
-    ///
-    /// This [contrastLevel] is the same as the Flutter [contrastLevel] property
-    /// available in [ColorScheme.fromSeed]. As of 1.9.2024 still only available
-    /// in the master channel. It will land in next Flutter stable released
-    /// after Flutter 3.24.
-    ///
-    /// When using [tones] based seed generated schemes or [variant] is having
-    /// its [FlexSchemeVariant.value], [isFlutterScheme] it set to false,
-    /// the [contrastLevel] value is ignored.
-    ///
-    /// With [tones] based schemes, the contrast level can instead be set as
-    /// desired using custom [FlexTones] configurations. There are two
-    /// predefined higher contrast level tone mappings available as
-    /// [FlexTones.highContrast] and [FlexTones.ultraContrast], you can use them
-    /// as they are or as examples on how to create your own custom high
-    /// contrast tone mappings.
+    /// Only used when `variant.isFlutterScheme` is true; ignored for
+    /// [FlexTones] based schemes.
     double contrastLevel = 0.0,
 
-    /// Use expressive on container colors for light mode.
+    /// If true, light-mode on-container colors use expressive tone 30.
     ///
-    /// The [useExpressiveOnContainerColors] is used to make the light theme
-    /// mode [ColorScheme] colors [onPrimaryContainer], [onSecondaryContainer],
-    /// [onTertiaryContainer] and [onErrorContainer] more color expressive.
-    ///
-    /// This comes at the cost of their contrast level and accessibility.
-    ///
-    /// The value has no impact on dark mode [ColorScheme] colors. Expressive
-    /// onColors for container colors have always been used in dark mode in
-    /// Material-3 design and they have good contrast and accessibility.
-    ///
-    /// Setting the [useExpressiveOnContainerColors] to `true` will make the
-    /// onContainer colors of all scheme variants and [FlexTones] based schemes
-    /// use the new expressive tone, if the currently used tone is 10. If a
-    /// scheme already uses an intentionally customized tone, the new expressive
-    /// tone will not be used for those tones, even when this settings is true.
-    ///
-    /// Schemes that contain such on container tones are:
-    /// - Fidelity
-    /// - Monochrome
-    /// - Content
-    /// - Ultra Contrast
-    /// - Candy pop
-    /// - Chroma
-    ///
-    /// Defaults to `true` if undefined.
-    ///
-    /// The Material design spec for the tones used by the colors
-    /// [onPrimaryContainer], [onSecondaryContainer], [onTertiaryContainer] and
-    /// [onErrorContainer] have changed from tone **10** to **30** for **LIGHT**
-    /// theme mode. It also sets the min `ContrastCurve` from
-    /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
-    /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
-    /// contrast 4.5 instead of past 7.0.
-    ///
-    /// The expressive light container tone is not yet used in the Flutter SDK
-    /// (Nov 22, 2025 v3.38), but it is in the Material-3 design spec and also
-    /// in MCU v0.12.0. This is a breaking change in MCU 0.12.0 compared to
-    /// 0.11.1 used in Flutter 3.38 and it will change the light mode color
-    /// schemes produced by all DynamicColor based Material color schemes.
-    ///
-    /// In FlexSeedScheme before 4.0.0 this defaulted to `false`, version 4.0.0
-    /// changes the default to `true` to align with default behaviour in
-    /// Flutter version after 3.38 stable release, for more info see
-    /// https://github.com/flutter/website/pull/12125
-    ///
-    /// Flutter SDK will not offer a way to opt-out of this change, but with
-    /// FlexSeedScheme you can do so by setting this
-    /// [useExpressiveOnContainerColors] to `false`.
-    ///
-    /// The new **on** color tones for containers in light mode make them more
-    /// color expressive, but they also reduce their contrast level and
-    /// accessibility. For a higher contrast level, prefer setting
-    /// [useExpressiveOnContainerColors] to `false`.
+    /// Dark mode is unchanged. Set to false for higher contrast (legacy tone
+    /// 10). Defaults to true since version 4.0.0.
     final bool useExpressiveOnContainerColors = true,
 
-    /// If true, when a seed color is monochrome, it is recognized as such and
-    /// the chroma is set to 0 to respect that it has no chroma. This is then
-    /// used in its conversion from Color or integer value to HCT space, so
-    /// we get all greyscale tones.
+    /// If true, equal-RGB seeds stay greyscale (chroma 0).
     ///
-    /// If not set to true, we get a "cyan" tonal palette for monochrome and
-    /// white seed colors, while black, gives a "red" tonal palette.
-    ///
-    /// Defaults to `false` to keep the default behavior of the package past
-    /// behavior and the Material-3 color system as used in MCU package as well
-    /// as in Flutter's [ColorScheme.fromSeed].
-    ///
-    /// Prefer setting it to `true` if you want to get
-    /// greyscale palette tones for any given monochrome seed color.
-    ///
-    /// If [respectMonochromeSeed] is true, any given configured minimum
-    /// chroma value is ignored for a monochrome seed colors, as the input has
-    /// chroma 0 and its chroma will be set to zero regardless of the value
-    /// of minimum chroma. Minimum chroma is always 0 when
-    /// [respectMonochromeSeed] is used.
-    ///
-    /// A seed color is monochrome when the Red, Green and Blue components are
-    /// all equal in the seed colors RGB color space.
-    ///
-    /// If a seed color is **not** monochrome, the produced results are
-    /// identical regardless of this flag is true or false.
+    /// Defaults to false to match MCU and [ColorScheme.fromSeed].
     final bool respectMonochromeSeed = false,
 
-    /// Override color for the seed generated [primary] color.
+    /// Override for seed generated [primary].
     ///
-    /// You may want to assign the [primaryKey] to this color in light
-    /// brightness mode, if it is also your branding or main design color.
+    /// In light mode you may assign `primaryKey` here if it is your brand
+    /// color.
     Color? primary,
 
     /// Override color for the seed generated [onPrimary] color.
@@ -767,18 +826,10 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [onPrimaryFixedVariant] color.
     Color? onPrimaryFixedVariant,
 
-    /// Override color for the seed generated [secondary] color.
+    /// Override for seed generated [secondary].
     ///
-    /// You may sometimes want to assign the [secondaryKey] to this color in
-    /// light brightness mode, if it is also your secondary brand or design
-    /// color.
-    ///
-    /// If you only have two brand or design colors, consider using it as key
-    /// color and override for the tertiary color instead, as the M3 color
-    /// system calls for a secondary color that is same or close in hue to the
-    /// primary color but with less chroma. Your secondary brand or design color
-    /// may not fit well with that constraint. The tertiary color in M3 color
-    /// system does not have this preference.
+    /// In light mode you may assign `secondaryKey` here. Prefer tertiary for a
+    /// second brand color; M3 secondary should stay close in hue to primary.
     Color? secondary,
 
     /// Override color for the seed generated [onSecondary] color.
@@ -802,18 +853,10 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [onSecondaryFixedVariant] color.
     Color? onSecondaryFixedVariant,
 
-    /// Override color for the seed generated [tertiary] color.
+    /// Override for seed generated [tertiary].
     ///
-    /// You may sometimes want to assign the [tertiaryKey] to this color in
-    /// light brightness mode, if it is also your secondary or tertiary brand
-    /// or design color.
-    ///
-    /// If you only have two brand or design colors, consider using it as
-    /// key color and override for the tertiary color, as the M3 color
-    /// system calls for a secondary color that is same or close in hue to the
-    /// primary color but with less chroma. Your secondary brand or design color
-    /// may not fit well with that constraint. The tertiary color in M3 color
-    /// system does not have this preference.
+    /// In light mode you may assign `tertiaryKey` here. A second brand color
+    /// often fits tertiary better than secondary.
     Color? tertiary,
 
     /// Override color for the seed generated [onTertiary] color.
@@ -903,10 +946,9 @@ extension SeedColorScheme on ColorScheme {
     /// Override color for the seed generated [surfaceTint] color.
     Color? surfaceTint,
   }) {
-    // Assert that a none null value has not been assign to tones and variant
-    // at the same time, since they are mutually exclusive, both can be null, in
-    // that case default tones will be used. Setting both throws in debug mode,
-    // if both are set used on release mode, variant will be used.
+    // Assert that tones and variant are not both set, since they are mutually
+    // exclusive. Both can be null; in that case default tones will be used.
+    // Setting both throws in debug mode; in a release build, variant is used.
     assert(tones == null || variant == null, 'Only one of tones or variant can be provided, not both.');
 
     if (variant != null && variant.isFlutterScheme) {
