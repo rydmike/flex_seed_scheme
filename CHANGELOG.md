@@ -12,8 +12,12 @@ The version requires Flutter 3.47.0 or higher.
 - This version requires Flutter 3.47.0 or higher.
 - This means full support for the standalone `material_ui` and `cupertino_ui` packages.
 
+**TESTS**
+- Update tests to no longer use `useExpressiveOnContainerColors: false` for all MCU `DynamicSchemeVariant`s. This is no longer needed as the default is now `true` in Flutter stable 3.44.0 and later. The option to **not** use expressive on container colors is still available and can be used by setting `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`. However, Flutter ColorScheme.fromSeed does not use expressive on container colors anymore, nor does it offer it as an option. But with `FlexSeedScheme` it is still available and can be used as before. The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` already defaulted to `true` instead of `false` in FSS version 4.0.0. And started using it as default before Flutter switched to it.
+
 **CHORE**
 - Bump all dependencies.
+- Example app's macOS build migrated from cocoapods to Swift Package Manager.
 
 
 ## 4.0.1
