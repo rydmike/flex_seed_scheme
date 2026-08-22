@@ -2,6 +2,20 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 5.0.0
+
+**Aug 22, 2026**
+
+The version requires Flutter 3.47.0 or higher.
+
+**BREAKING**
+- This version requires Flutter 3.47.0 or higher.
+- This means full support for the standalone `material_ui` and `cupertino_ui` packages.
+
+**CHORE**
+- Bump all dependencies.
+
+
 ## 4.0.1
 
 **Nov 23, 2025**
