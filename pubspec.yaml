@@ -28,8 +28,8 @@ topics:
   - materialdesign
 
 environment:
-  sdk: '>=3.12.0 <4.0.0'
-  flutter: '>=3.44.0'
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
 
 dependencies:
   # Used by mcu: tonal_palette.dart, require at least 1.19.0.
