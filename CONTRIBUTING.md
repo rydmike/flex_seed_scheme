@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to **FlexSeedScheme**, a more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping. We welcome contributions that fix bugs, introduce enhancements or new features, and correct API documentation errors or typos.
 
-Looking for a quick overview of expectations, commands, and style rules? See the concise [AGENTS.md](AGENTS.md) guide.
+Looking for a quick overview of expectations, commands, and style rules? See [AGENTS.md](AGENTS.md). Package-specific agent skills live in [`.agents/skills/`](.agents/skills/). Claude Code mirrors (`CLAUDE.md`, `.claude/skills/`) are generated from those masters — see [scripts/README.md](scripts/README.md).
 
 ## How to contribute
 
