@@ -90,48 +90,51 @@ final List<_Pair> _textSurfacePairs = <_Pair>[
 void main() {
   test('Values are correct', () {
     expect(
-      MaterialDynamicColors.onPrimaryContainer.getArgb(SchemeFidelity(
-        sourceColorHct: Hct.fromInt(0xFFFF0000),
-        isDark: false,
-        contrastLevel: 0.5,
-      )),
+      MaterialDynamicColors.onPrimaryContainer.getArgb(
+        SchemeFidelity(
+          sourceColorHct: Hct.fromInt(0xFFFF0000),
+          isDark: false,
+          contrastLevel: 0.5,
+        ),
+      ),
       equals(0xFFFFFFFF),
     );
     expect(
-      MaterialDynamicColors.onSecondaryContainer.getArgb(SchemeContent(
-        sourceColorHct: Hct.fromInt(0xFF0000FF),
-        isDark: false,
-        contrastLevel: 0.5,
-      )),
+      MaterialDynamicColors.onSecondaryContainer.getArgb(
+        SchemeContent(
+          sourceColorHct: Hct.fromInt(0xFF0000FF),
+          isDark: false,
+          contrastLevel: 0.5,
+        ),
+      ),
       equals(0xFFFFFFFF),
     );
     expect(
-      MaterialDynamicColors.onTertiaryContainer.getArgb(SchemeContent(
-        sourceColorHct: Hct.fromInt(0xFFFFFF00),
-        isDark: true,
-        contrastLevel: -0.5,
-      )),
+      MaterialDynamicColors.onTertiaryContainer.getArgb(
+        SchemeContent(
+          sourceColorHct: Hct.fromInt(0xFFFFFF00),
+          isDark: true,
+          contrastLevel: -0.5,
+        ),
+      ),
       equals(0xff959b1a),
     );
     expect(
-      MaterialDynamicColors.inverseSurface.getArgb(SchemeContent(
-          sourceColorHct: Hct.fromInt(0xFF0000FF),
-          isDark: false,
-          contrastLevel: 0.0)),
+      MaterialDynamicColors.inverseSurface.getArgb(
+        SchemeContent(sourceColorHct: Hct.fromInt(0xFF0000FF), isDark: false, contrastLevel: 0.0),
+      ),
       equals(0xFF2F2F3B),
     );
     expect(
-      MaterialDynamicColors.inversePrimary.getArgb(SchemeContent(
-          sourceColorHct: Hct.fromInt(0xFFFF0000),
-          isDark: false,
-          contrastLevel: -0.5)),
+      MaterialDynamicColors.inversePrimary.getArgb(
+        SchemeContent(sourceColorHct: Hct.fromInt(0xFFFF0000), isDark: false, contrastLevel: -0.5),
+      ),
       equals(0xffff422f),
     );
     expect(
-      MaterialDynamicColors.outlineVariant.getArgb(SchemeContent(
-          sourceColorHct: Hct.fromInt(0xFFFFFF00),
-          isDark: true,
-          contrastLevel: 0.0)),
+      MaterialDynamicColors.outlineVariant.getArgb(
+        SchemeContent(sourceColorHct: Hct.fromInt(0xFFFFFF00), isDark: true, contrastLevel: 0.0),
+      ),
       equals(0xFF484831),
     );
   });
@@ -143,25 +146,12 @@ void main() {
     for (final double contrastLevel in contrastLevels) {
       for (final bool isDark in <bool>[false, true]) {
         for (final DynamicScheme scheme in <DynamicScheme>[
-          SchemeContent(
-              sourceColorHct: color,
-              isDark: isDark,
-              contrastLevel: contrastLevel),
-          SchemeMonochrome(
-              sourceColorHct: color,
-              isDark: isDark,
-              contrastLevel: contrastLevel),
-          SchemeTonalSpot(
-              sourceColorHct: color,
-              isDark: isDark,
-              contrastLevel: contrastLevel),
-          SchemeFidelity(
-              sourceColorHct: color,
-              isDark: isDark,
-              contrastLevel: contrastLevel),
+          SchemeContent(sourceColorHct: color, isDark: isDark, contrastLevel: contrastLevel),
+          SchemeMonochrome(sourceColorHct: color, isDark: isDark, contrastLevel: contrastLevel),
+          SchemeTonalSpot(sourceColorHct: color, isDark: isDark, contrastLevel: contrastLevel),
+          SchemeFidelity(sourceColorHct: color, isDark: isDark, contrastLevel: contrastLevel),
         ]) {
-          test(
-              'Scheme: $scheme; Seed color: $color; '
+          test('Scheme: $scheme; Seed color: $color; '
               'Contrast level: $contrastLevel; Dark: $isDark', () {
             for (final _Pair pair in _textSurfacePairs) {
               // Expect that each text-surface pair has a
@@ -169,20 +159,17 @@ void main() {
               // (reduced contrast).
               final String fgName = pair.fgName;
               final String bgName = pair.bgName;
-              final double foregroundTone =
-                  _colors[fgName]!.getHct(scheme).tone;
-              final double backgroundTone =
-                  _colors[bgName]!.getHct(scheme).tone;
-              final double contrast =
-                  Contrast.ratioOfTones(foregroundTone, backgroundTone);
+              final double foregroundTone = _colors[fgName]!.getHct(scheme).tone;
+              final double backgroundTone = _colors[bgName]!.getHct(scheme).tone;
+              final double contrast = Contrast.ratioOfTones(foregroundTone, backgroundTone);
 
-              final double minimumRequirement =
-                  contrastLevel >= 0.0 ? 4.5 : 3.0;
+              final double minimumRequirement = contrastLevel >= 0.0 ? 4.5 : 3.0;
 
               expect(
                 contrast,
                 greaterThanOrEqualTo(minimumRequirement),
-                reason: 'Contrast $contrast is too low between '
+                reason:
+                    'Contrast $contrast is too low between '
                     'foreground ($fgName; $foregroundTone) and '
                     'background ($bgName; $backgroundTone)',
               );
@@ -457,9 +444,10 @@ void main() {
   group('DynamicColor Test', () {
     test('Raw  DynamicColor', () {
       final SchemeExpressive scheme = SchemeExpressive(
-          sourceColorHct: Hct.fromInt(0xff0000ff),
-          isDark: false,
-          contrastLevel: -1.0);
+        sourceColorHct: Hct.fromInt(0xff0000ff),
+        isDark: false,
+        contrastLevel: -1.0,
+      );
 
       // TODO(rydmike): Maybe add more test cases for DynamicColor
       final DynamicColor dScheme = DynamicColor(

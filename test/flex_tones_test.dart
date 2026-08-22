@@ -85,38 +85,31 @@ void main() {
     // m4, has all values different from m1
     const FlexTones m4 = FlexTones.dark();
     // Do identity tests
-    test(
-        'FTO1.01a: GIVEN same FlexTones objects '
+    test('FTO1.01a: GIVEN same FlexTones objects '
         'EXPECT them to be equal', () {
       expect(m1, equals(m1));
     });
-    test(
-        'FTO1.01b: GIVEN same FlexTones objects '
+    test('FTO1.01b: GIVEN same FlexTones objects '
         'EXPECT them to have identity', () {
       expect(identical(m1, m1), true);
     });
-    test(
-        'FTO1.01c: GIVEN two equal FlexTones objects '
+    test('FTO1.01c: GIVEN two equal FlexTones objects '
         'EXPECT them to have equality', () {
       expect(m1, equals(m2));
     });
-    test(
-        'FTO1.01d: GIVEN two equal FlexTones objects '
+    test('FTO1.01d: GIVEN two equal FlexTones objects '
         'EXPECT them to have identity', () {
       expect(identical(m1, m2), true);
     });
-    test(
-        'FTO1.01c: GIVEN two equal FlexTones objects '
+    test('FTO1.01c: GIVEN two equal FlexTones objects '
         'EXPECT them to have equality with operator', () {
       expect(m1 == m2, true);
     });
-    test(
-        'FTO1.02a: GIVEN none equal FlexTones objects '
+    test('FTO1.02a: GIVEN none equal FlexTones objects '
         'EXPECT them to be unequal', () {
       expect(m1, isNot(m3));
     });
-    test(
-        'FTO1.02b: GIVEN none equal FlexTones objects '
+    test('FTO1.02b: GIVEN none equal FlexTones objects '
         'EXPECT them to be unequal with operator', () {
       expect(m1 != m3, true);
     });
@@ -125,8 +118,7 @@ void main() {
     //
     // Test .copyWith, full and null..
     //**************************************************************************
-    test(
-        'FTO1.09a: GIVEN a FlexTones object EXPECT it to be equal to '
+    test('FTO1.09a: GIVEN a FlexTones object EXPECT it to be equal to '
         'an unequal object when made equal with copyWith.', () {
       expect(
         m3.copyWith(
@@ -135,16 +127,14 @@ void main() {
         equals(m1),
       );
     });
-    test(
-        'FTO1.09b: GIVEN a FlexTones object EXPECT it to be unchanged '
+    test('FTO1.09b: GIVEN a FlexTones object EXPECT it to be unchanged '
         'after and empty copyWith.', () {
       expect(
         m1.copyWith(),
         equals(m1),
       );
     });
-    test(
-        'FTO1.09c: GIVEN a FlexTones with all different values '
+    test('FTO1.09c: GIVEN a FlexTones with all different values '
         'EXPECT equal to an unequal one when made equal with copyWith.', () {
       expect(
         m4.copyWith(
@@ -224,18 +214,18 @@ void main() {
     // toString and hashcode.
     //**************************************************************************
 
-    test(
-        'FTO1.10: Test toString implemented via debugFillProperties '
+    test('FTO1.10: Test toString implemented via debugFillProperties '
         'EXPECT exact print string value.', () {
       expect(
-          m1.toString(),
-          //
-          equalsIgnoringHashCodes(
-              // ignore: for tests.
-              'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)'));
+        m1.toString(),
+        //
+        equalsIgnoringHashCodes(
+          // ignore: for tests.
+          'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)',
+        ),
+      );
     });
-    test(
-        'FTO1.11: Test toStringShort implemented via debugFillProperties '
+    test('FTO1.11: Test toStringShort implemented via debugFillProperties '
         'EXPECT exact short printout.', () {
       expect(m1.toStringShort(), equalsIgnoringHashCodes('FlexTones#00000'));
     });
@@ -406,52 +396,58 @@ void main() {
     test('FTO1.017: Verify FlexTones.material(Brightness.light).', () {
       expect(
         FlexTones.material(Brightness.light),
-        equals(const FlexTones.light(
-          primaryChroma: 36,
-          primaryMinChroma: 36,
-          secondaryChroma: 16,
-          tertiaryChroma: 24,
-        )),
+        equals(
+          const FlexTones.light(
+            primaryChroma: 36,
+            primaryMinChroma: 36,
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
+          ),
+        ),
       );
     });
     test('FTO1.018: Verify FlexTones.material(Brightness.dark).', () {
       expect(
         FlexTones.material(Brightness.dark),
-        equals(const FlexTones.dark(
-          primaryChroma: 36,
-          primaryMinChroma: 36,
-          secondaryChroma: 16,
-          tertiaryChroma: 24,
-        )),
+        equals(
+          const FlexTones.dark(
+            primaryChroma: 36,
+            primaryMinChroma: 36,
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
+          ),
+        ),
       );
     });
-    test('FTO1.017legacy: Verify FlexTones.material3Legacy(Brightness.light).',
-        () {
+    test('FTO1.017legacy: Verify FlexTones.material3Legacy(Brightness.light).', () {
       expect(
         FlexTones.material3Legacy(Brightness.light),
-        equals(const FlexTones.light(
-          surfaceTone: 99,
-          primaryChroma: 48,
-          primaryMinChroma: 48,
-          secondaryChroma: 16,
-          tertiaryChroma: 24,
-          neutralChroma: 4,
-        )),
+        equals(
+          const FlexTones.light(
+            surfaceTone: 99,
+            primaryChroma: 48,
+            primaryMinChroma: 48,
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
+            neutralChroma: 4,
+          ),
+        ),
       );
     });
-    test('FTO1.018Legacy: Verify FlexTones.material3Legacy(Brightness.dark).',
-        () {
+    test('FTO1.018Legacy: Verify FlexTones.material3Legacy(Brightness.dark).', () {
       expect(
         FlexTones.material3Legacy(Brightness.dark),
-        equals(const FlexTones.dark(
-          surfaceTone: 10,
-          onErrorContainerTone: 90,
-          primaryChroma: 48,
-          primaryMinChroma: 48,
-          secondaryChroma: 16,
-          tertiaryChroma: 24,
-          neutralChroma: 4,
-        )),
+        equals(
+          const FlexTones.dark(
+            surfaceTone: 10,
+            onErrorContainerTone: 90,
+            primaryChroma: 48,
+            primaryMinChroma: 48,
+            secondaryChroma: 16,
+            tertiaryChroma: 24,
+            neutralChroma: 4,
+          ),
+        ),
       );
     });
     test('FTO1.019: Verify FlexTones.soft(Brightness.light).', () {
@@ -931,8 +927,7 @@ void main() {
       );
     });
   });
-  group(
-      'FTO2: Test 1.10 APi with 1.20, 1.21 and 1.22 of FlexTones '
+  group('FTO2: Test 1.10 APi with 1.20, 1.21 and 1.22 of FlexTones '
       'that unintentionally broke 1.x API.', () {
     // m1, is the baseline for FlexTones tests
     const FlexTones m1 = FlexTones(
@@ -1027,38 +1022,31 @@ void main() {
       neutralVariantChroma: 10,
     );
     // Do identity tests
-    test(
-        'FTO1.01a: GIVEN same FlexTones objects '
+    test('FTO1.01a: GIVEN same FlexTones objects '
         'EXPECT them to be equal', () {
       expect(m1, equals(m1));
     });
-    test(
-        'FTO1.01b: GIVEN same FlexTones objects '
+    test('FTO1.01b: GIVEN same FlexTones objects '
         'EXPECT them to have identity', () {
       expect(identical(m1, m1), true);
     });
-    test(
-        'FTO1.01c: GIVEN two equal FlexTones objects '
+    test('FTO1.01c: GIVEN two equal FlexTones objects '
         'EXPECT them to have equality', () {
       expect(m1, equals(m2));
     });
-    test(
-        'FTO1.01d: GIVEN two equal FlexTones objects '
+    test('FTO1.01d: GIVEN two equal FlexTones objects '
         'EXPECT them to have identity', () {
       expect(identical(m1, m2), true);
     });
-    test(
-        'FTO1.01c: GIVEN two equal FlexTones objects '
+    test('FTO1.01c: GIVEN two equal FlexTones objects '
         'EXPECT them to have equality with operator', () {
       expect(m1 == m2, true);
     });
-    test(
-        'FTO1.02a: GIVEN none equal FlexTones objects '
+    test('FTO1.02a: GIVEN none equal FlexTones objects '
         'EXPECT them to be unequal', () {
       expect(m1, isNot(m3));
     });
-    test(
-        'FTO1.02b: GIVEN none equal FlexTones objects '
+    test('FTO1.02b: GIVEN none equal FlexTones objects '
         'EXPECT them to be unequal with operator', () {
       expect(m1 != m3, true);
     });

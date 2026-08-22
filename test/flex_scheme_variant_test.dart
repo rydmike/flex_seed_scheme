@@ -12,8 +12,7 @@ void main() {
     for (final FlexSchemeVariant variant in FlexSchemeVariant.values) {
       final FlexTones flexTones = variant.tones(brightness);
 
-      test(
-          'FSVA1.01: GIVEN a FlexSchemeVariant EXPECT variant to return '
+      test('FSVA1.01: GIVEN a FlexSchemeVariant EXPECT variant to return '
           'correct tones for the FlexSchemeVariant', () {
         switch (variant) {
           case FlexSchemeVariant.tonalSpot:

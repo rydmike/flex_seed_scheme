@@ -89,8 +89,7 @@ class TemperatureCache {
       // as answers.
       while (indexSatisfied && allColors.length < divisions) {
         allColors.add(hct);
-        final double desiredTotalTempDeltaForIndex =
-            (allColors.length + indexAddend) * tempStep;
+        final double desiredTotalTempDeltaForIndex = (allColors.length + indexAddend) * tempStep;
         indexSatisfied = totalTempDelta >= desiredTotalTempDeltaForIndex;
         indexAddend++;
       }
@@ -153,10 +152,8 @@ class TemperatureCache {
     final double warmestHue = warmest.hue;
     final double warmestTemp = tempsByHct[warmest]!;
     final double range = warmestTemp - coldestTemp;
-    final bool startHueIsColdestToWarmest =
-        isBetween(angle: input.hue, a: coldestHue, b: warmestHue);
-    final double startHue =
-        startHueIsColdestToWarmest ? warmestHue : coldestHue;
+    final bool startHueIsColdestToWarmest = isBetween(angle: input.hue, a: coldestHue, b: warmestHue);
+    final double startHue = startHueIsColdestToWarmest ? warmestHue : coldestHue;
     final double endHue = startHueIsColdestToWarmest ? coldestHue : warmestHue;
     const double directionOfRotation = 1.0;
     double smallestError = 1000.0;
@@ -166,14 +163,12 @@ class TemperatureCache {
     // Find the color in the other section, closest to the inverse percentile
     // of the input color. This is the complement.
     for (double hueAddend = 0.0; hueAddend <= 360.0; hueAddend += 1.0) {
-      final double hue = MathUtils.sanitizeDegreesDouble(
-          startHue + directionOfRotation * hueAddend);
+      final double hue = MathUtils.sanitizeDegreesDouble(startHue + directionOfRotation * hueAddend);
       if (!isBetween(angle: hue, a: startHue, b: endHue)) {
         continue;
       }
       final Hct possibleAnswer = hctsByHue[hue.round()];
-      final double relativeTemp =
-          (_tempsByHct[possibleAnswer]! - coldestTemp) / range;
+      final double relativeTemp = (_tempsByHct[possibleAnswer]! - coldestTemp) / range;
       final double error = (complementRelativeTemp - relativeTemp).abs();
       if (error < smallestError) {
         smallestError = error;
@@ -188,8 +183,7 @@ class TemperatureCache {
   /// Value on a scale from 0 to 1.
   double relativeTemperature(Hct hct) {
     final double range = tempsByHct[warmest]! - tempsByHct[coldest]!;
-    final double differenceFromColdest =
-        tempsByHct[hct]! - tempsByHct[coldest]!;
+    final double differenceFromColdest = tempsByHct[hct]! - tempsByHct[coldest]!;
     // Handle when there's no difference in temperature between warmest and
     // coldest: for example, at T100, only one color is available, white.
     if (range == 0.0) {
@@ -206,8 +200,7 @@ class TemperatureCache {
     final double coldestTemp = tempsByHct[coldest]!;
     final double range = tempsByHct[warmest]! - coldestTemp;
     final double differenceFromColdest = tempsByHct[input]! - coldestTemp;
-    final double inputRelativeTemp =
-        (range == 0.0) ? 0.5 : differenceFromColdest / range;
+    final double inputRelativeTemp = (range == 0.0) ? 0.5 : differenceFromColdest / range;
     // False positive, this is not doable, we need to update private cache.
     // ignore: join_return_with_assignment
     _inputRelativeTemperature = inputRelativeTemp;
@@ -223,8 +216,7 @@ class TemperatureCache {
     final List<Hct> hcts = List<Hct>.from(hctsByHue, growable: true);
     hcts.add(input);
     final Map<Hct, double> temperaturesByHct = tempsByHct;
-    hcts.sort((Hct a, Hct b) =>
-        temperaturesByHct[a]!.compareTo(temperaturesByHct[b]!));
+    hcts.sort((Hct a, Hct b) => temperaturesByHct[a]!.compareTo(temperaturesByHct[b]!));
     // False positive, this is not doable, we need to update private cache.
     // ignore: join_return_with_assignment
     _hctsByTemp = hcts;
@@ -237,9 +229,7 @@ class TemperatureCache {
       return _tempsByHct;
     }
     final List<Hct> allHcts = List<Hct>.from(hctsByHue)..add(input);
-    final Map<Hct, double> temperaturesByHct = <Hct, double>{
-      for (final Hct e in allHcts) e: rawTemperature(e)
-    };
+    final Map<Hct, double> temperaturesByHct = <Hct, double>{for (final Hct e in allHcts) e: rawTemperature(e)};
     // False positive, this is not doable, we need to update private cache.
     // ignore: join_return_with_assignment
     _tempsByHct = temperaturesByHct;
@@ -264,8 +254,7 @@ class TemperatureCache {
   }
 
   /// Determines if an angle is between two other angles, rotating clockwise.
-  static bool isBetween(
-      {required double angle, required double a, required double b}) {
+  static bool isBetween({required double angle, required double a, required double b}) {
     if (a < b) {
       return a <= angle && angle <= b;
     }
@@ -291,10 +280,10 @@ class TemperatureCache {
   ///   Assuming max of 130 chroma, 8.61.
   static double rawTemperature(Hct color) {
     final List<double> lab = ColorUtils.labFromArgb(color.toInt());
-    final double hue = MathUtils.sanitizeDegreesDouble(
-        math.atan2(lab[2], lab[1]) * 180.0 / math.pi);
+    final double hue = MathUtils.sanitizeDegreesDouble(math.atan2(lab[2], lab[1]) * 180.0 / math.pi);
     final double chroma = math.sqrt((lab[1] * lab[1]) + (lab[2] * lab[2]));
-    final double temperature = -0.5 +
+    final double temperature =
+        -0.5 +
         0.02 *
             math.pow(chroma, 1.07) *
             math.cos(

@@ -19,10 +19,7 @@ extension FlexColorSeedColorExtensions on Color {
   /// * Bits 8-15 are the green value.
   /// * Bits 0-7 are the blue value.
   int get value32bit {
-    return _floatToInt8(a) << 24 |
-        _floatToInt8(r) << 16 |
-        _floatToInt8(g) << 8 |
-        _floatToInt8(b) << 0;
+    return _floatToInt8(a) << 24 | _floatToInt8(r) << 16 | _floatToInt8(g) << 8 | _floatToInt8(b) << 0;
   }
 
   /// The alpha channel of this color in an 8 bit value.

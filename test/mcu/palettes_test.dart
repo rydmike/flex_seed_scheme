@@ -24,10 +24,8 @@ void main() {
       test('operator ==', () {
         final TonalPalette a1 = TonalPalette.of(1, 1);
         final TonalPalette a2 = TonalPalette.of(1, 1);
-        final TonalPalette b1 = TonalPalette.fromList(
-            TonalPalette.commonTones.map((int e) => 0xDEADBEEF).toList());
-        final TonalPalette b2 = TonalPalette.fromList(
-            TonalPalette.commonTones.map((int e) => 0xDEADBEEF).toList());
+        final TonalPalette b1 = TonalPalette.fromList(TonalPalette.commonTones.map((int e) => 0xDEADBEEF).toList());
+        final TonalPalette b2 = TonalPalette.fromList(TonalPalette.commonTones.map((int e) => 0xDEADBEEF).toList());
         expect(a1 == b1, isFalse);
         expect(b1 == a1, isFalse);
         expect(a1 != b1, isTrue);
@@ -35,12 +33,11 @@ void main() {
         expect(a1 == a2, isTrue);
         expect(b1 == b2, isTrue);
 
-        final TonalPalette c1 = TonalPalette.fromList(
-            TonalPalette.commonTones.map((int e) => 123).toList());
+        final TonalPalette c1 = TonalPalette.fromList(TonalPalette.commonTones.map((int e) => 123).toList());
 
-        final TonalPalette c2 = TonalPalette.fromList(TonalPalette.commonTones
-            .map((int e) => e < 15 ? 456 : 123)
-            .toList());
+        final TonalPalette c2 = TonalPalette.fromList(
+          TonalPalette.commonTones.map((int e) => e < 15 ? 456 : 123).toList(),
+        );
 
         expect(c1.get(50), c2.get(50));
         expect(c1 == c2, isFalse);
@@ -127,8 +124,7 @@ void main() {
 
     group('[.fromList constructor]', () {
       test('tones of i', () {
-        final List<int> ints =
-            List<int>.generate(TonalPalette.commonSize, (int i) => i);
+        final List<int> ints = List<int>.generate(TonalPalette.commonSize, (int i) => i);
         final TonalPalette tones = TonalPalette.fromList(ints);
 
         expect(tones.get(100), 12);
@@ -175,8 +171,7 @@ void main() {
       });
 
       final TonalPalette hueChromaPalette = TonalPalette.of(270, 36);
-      final List<int> cachedPalette =
-          TonalPalette.commonTones.map(hueChromaPalette.get).toList();
+      final List<int> cachedPalette = TonalPalette.commonTones.map(hueChromaPalette.get).toList();
       final List<int> brokenPalette = <int>[
         cachedPalette[0],
         cachedPalette[1],
@@ -201,8 +196,7 @@ void main() {
       });
 
       test('low-chroma noise does not affect the hue and chroma deduced', () {
-        final TonalPalette rebuiltCleanPalette =
-            TonalPalette.fromList(cachedPalette);
+        final TonalPalette rebuiltCleanPalette = TonalPalette.fromList(cachedPalette);
 
         expect(rebuiltPalette.hue, rebuiltCleanPalette.hue);
         expect(rebuiltPalette.chroma, rebuiltCleanPalette.chroma);
@@ -237,19 +231,16 @@ void main() {
       });
 
       test('asList', () {
-        final List<int> ints =
-            List<int>.generate(TonalPalette.commonSize, (int i) => i);
+        final List<int> ints = List<int>.generate(TonalPalette.commonSize, (int i) => i);
         final TonalPalette tones = TonalPalette.fromList(ints);
         expect(tones.asList, ints);
       });
 
       test('operator == and hashCode (simple)', () {
-        final List<int> intsAB =
-            List<int>.generate(TonalPalette.commonSize, (int i) => i);
+        final List<int> intsAB = List<int>.generate(TonalPalette.commonSize, (int i) => i);
         final TonalPalette tonesA = TonalPalette.fromList(intsAB);
         final TonalPalette tonesB = TonalPalette.fromList(intsAB);
-        final List<int> intsC =
-            List<int>.generate(TonalPalette.commonSize, (int i) => 1);
+        final List<int> intsC = List<int>.generate(TonalPalette.commonSize, (int i) => 1);
         final TonalPalette tonesC = TonalPalette.fromList(intsC);
 
         expect(tonesA, tonesB);
@@ -326,8 +317,7 @@ void main() {
 
   group('CorePalette', () {
     test('asList', () {
-      final List<int> ints = List<int>.generate(
-          CorePalette.size * TonalPalette.commonSize, (int i) => i);
+      final List<int> ints = List<int>.generate(CorePalette.size * TonalPalette.commonSize, (int i) => i);
       final CorePalette corePalette = CorePalette.fromList(ints);
       expect(corePalette.asList(), ints);
     });
@@ -373,13 +363,14 @@ void main() {
       expect(core.secondary.get(0), 0xff000000);
 
       expect(
-          core.toString(),
-          'primary: TonalPalette.of(282.78817956187277, 87.23069368032536)\n'
-          'secondary: TonalPalette.of(282.78817956187277, 16.0)\n'
-          'tertiary: TonalPalette.of(342.78817956187277, 24.0)\n'
-          'neutral: TonalPalette.of(282.78817956187277, 4.0)\n'
-          'neutralVariant: TonalPalette.of(282.78817956187277, 8.0)\n'
-          'error: TonalPalette.of(25.0, 84.0)\n');
+        core.toString(),
+        'primary: TonalPalette.of(282.78817956187277, 87.23069368032536)\n'
+        'secondary: TonalPalette.of(282.78817956187277, 16.0)\n'
+        'tertiary: TonalPalette.of(342.78817956187277, 24.0)\n'
+        'neutral: TonalPalette.of(282.78817956187277, 4.0)\n'
+        'neutralVariant: TonalPalette.of(282.78817956187277, 8.0)\n'
+        'error: TonalPalette.of(25.0, 84.0)\n',
+      );
     });
 
     test('content of blue', () {

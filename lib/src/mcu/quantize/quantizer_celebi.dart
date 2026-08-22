@@ -20,15 +20,20 @@ import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider_lab.dart';
 /// QuantizerCelebi Quantizer.
 class QuantizerCelebi implements Quantizer {
   @override
-  Future<QuantizerResult> quantize(Iterable<int> pixels, int maxColors,
-      {bool returnInputPixelToClusterPixel = false}) async {
+  Future<QuantizerResult> quantize(
+    Iterable<int> pixels,
+    int maxColors, {
+    bool returnInputPixelToClusterPixel = false,
+  }) async {
     final QuantizerWu wu = QuantizerWu();
     final QuantizerResult wuResult = await wu.quantize(pixels, maxColors);
     final QuantizerResult wsmeansResult = QuantizerWsmeans.quantize(
-        pixels, maxColors,
-        startingClusters: wuResult.colorToCount.keys.toList(),
-        pointProvider: const PointProviderLab(),
-        returnInputPixelToClusterPixel: returnInputPixelToClusterPixel);
+      pixels,
+      maxColors,
+      startingClusters: wuResult.colorToCount.keys.toList(),
+      pointProvider: const PointProviderLab(),
+      returnInputPixelToClusterPixel: returnInputPixelToClusterPixel,
+    );
     return wsmeansResult;
   }
 }

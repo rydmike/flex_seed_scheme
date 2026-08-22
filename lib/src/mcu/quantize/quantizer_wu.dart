@@ -60,8 +60,7 @@ class QuantizerWu implements Quantizer {
 
   @override
   Future<QuantizerResult> quantize(Iterable<int> pixels, int colorCount) async {
-    final QuantizerResult result =
-        await QuantizerMap().quantize(pixels, colorCount);
+    final QuantizerResult result = await QuantizerMap().quantize(pixels, colorCount);
     constructHistogram(result.colorToCount);
     computeMoments();
     final CreateBoxesResult createBoxesResult = createBoxes(colorCount);
@@ -77,12 +76,7 @@ class QuantizerWu implements Quantizer {
 
   /// Get index.
   static int getIndex(int r, int g, int b) {
-    return (r << (indexBits * 2)) +
-        (r << (indexBits + 1)) +
-        (g << indexBits) +
-        r +
-        g +
-        b;
+    return (r << (indexBits * 2)) + (r << (indexBits + 1)) + (g << indexBits) + r + g + b;
   }
 
   /// constructHistogram.
@@ -118,8 +112,7 @@ class QuantizerWu implements Quantizer {
       final List<int> areaR = List<int>.filled(sideLength, 0, growable: false);
       final List<int> areaG = List<int>.filled(sideLength, 0, growable: false);
       final List<int> areaB = List<int>.filled(sideLength, 0, growable: false);
-      final List<double> area2 =
-          List<double>.filled(sideLength, 0.0, growable: false);
+      final List<double> area2 = List<double>.filled(sideLength, 0.0, growable: false);
       for (int g = 1; g < sideLength; g++) {
         int line = 0;
         int lineR = 0;
@@ -154,17 +147,14 @@ class QuantizerWu implements Quantizer {
   /// createBoxes.
   CreateBoxesResult createBoxes(int maxColorCount) {
     cubes = List<Box>.generate(maxColorCount, (int index) => Box());
-    cubes[0] = Box(
-        r0: 0, r1: maxIndex, g0: 0, g1: maxIndex, b0: 0, b1: maxIndex, vol: 0);
+    cubes[0] = Box(r0: 0, r1: maxIndex, g0: 0, g1: maxIndex, b0: 0, b1: maxIndex, vol: 0);
 
-    final List<double> volumeVariance =
-        List<double>.filled(maxColorCount, 0.0, growable: false);
+    final List<double> volumeVariance = List<double>.filled(maxColorCount, 0.0, growable: false);
     int next = 0;
     int generatedColorCount = maxColorCount;
     for (int i = 1; i < maxColorCount; i++) {
       if (cut(cubes[next], cubes[i])) {
-        volumeVariance[next] =
-            (cubes[next].vol > 1) ? variance(cubes[next]) : 0.0;
+        volumeVariance[next] = (cubes[next].vol > 1) ? variance(cubes[next]) : 0.0;
         volumeVariance[i] = (cubes[i].vol > 1) ? variance(cubes[i]) : 0.0;
       } else {
         volumeVariance[next] = 0.0;
@@ -185,8 +175,7 @@ class QuantizerWu implements Quantizer {
       }
     }
 
-    return CreateBoxesResult(
-        requestedCount: maxColorCount, resultCount: generatedColorCount);
+    return CreateBoxesResult(requestedCount: maxColorCount, resultCount: generatedColorCount);
   }
 
   /// perform createResult.
@@ -211,7 +200,8 @@ class QuantizerWu implements Quantizer {
     final int dr = volume(cube, momentsR);
     final int dg = volume(cube, momentsG);
     final int db = volume(cube, momentsB);
-    final double xx = moments[getIndex(cube.r1, cube.g1, cube.b1)] -
+    final double xx =
+        moments[getIndex(cube.r1, cube.g1, cube.b1)] -
         moments[getIndex(cube.r1, cube.g1, cube.b0)] -
         moments[getIndex(cube.r1, cube.g0, cube.b1)] +
         moments[getIndex(cube.r1, cube.g0, cube.b0)] -
@@ -232,12 +222,18 @@ class QuantizerWu implements Quantizer {
     final int wholeB = volume(one, momentsB);
     final int wholeW = volume(one, weights);
 
-    final MaximizeResult maxRResult = maximize(
-        one, Direction.red, one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW);
-    final MaximizeResult maxGResult = maximize(one, Direction.green, one.g0 + 1,
-        one.g1, wholeR, wholeG, wholeB, wholeW);
-    final MaximizeResult maxBResult = maximize(one, Direction.blue, one.b0 + 1,
-        one.b1, wholeR, wholeG, wholeB, wholeW);
+    final MaximizeResult maxRResult = maximize(one, Direction.red, one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW);
+    final MaximizeResult maxGResult = maximize(
+      one,
+      Direction.green,
+      one.g0 + 1,
+      one.g1,
+      wholeR,
+      wholeG,
+      wholeB,
+      wholeW,
+    );
+    final MaximizeResult maxBResult = maximize(one, Direction.blue, one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
 
     Direction cutDirection;
     final double maxR = maxRResult.maximum;
@@ -282,8 +278,16 @@ class QuantizerWu implements Quantizer {
   }
 
   /// maximize.
-  MaximizeResult maximize(Box cube, Direction direction, int first, int last,
-      int wholeR, int wholeG, int wholeB, int wholeW) {
+  MaximizeResult maximize(
+    Box cube,
+    Direction direction,
+    int first,
+    int last,
+    int wholeR,
+    int wholeG,
+    int wholeB,
+    int wholeW,
+  ) {
     final int bottomR = bottom(cube, direction, momentsR);
     final int bottomG = bottom(cube, direction, momentsG);
     final int bottomB = bottom(cube, direction, momentsB);
@@ -302,8 +306,7 @@ class QuantizerWu implements Quantizer {
         continue;
       }
 
-      double tempNumerator =
-          ((halfR * halfR) + (halfG * halfG) + (halfB * halfB)).toDouble();
+      double tempNumerator = ((halfR * halfR) + (halfG * halfG) + (halfB * halfB)).toDouble();
       double tempDenominator = halfW.toDouble();
       double temp = tempNumerator / tempDenominator;
 
@@ -314,8 +317,7 @@ class QuantizerWu implements Quantizer {
       if (halfW == 0) {
         continue;
       }
-      tempNumerator =
-          ((halfR * halfR) + (halfG * halfG) + (halfB * halfB)).toDouble();
+      tempNumerator = ((halfR * halfR) + (halfG * halfG) + (halfB * halfB)).toDouble();
       tempDenominator = halfW.toDouble();
       temp += tempNumerator / tempDenominator;
 
@@ -361,8 +363,7 @@ class QuantizerWu implements Quantizer {
   }
 
   /// top.
-  static int top(
-      Box cube, Direction direction, int position, List<int> moment) {
+  static int top(Box cube, Direction direction, int position, List<int> moment) {
     switch (direction) {
       case Direction.red:
         return moment[getIndex(position, cube.g1, cube.b1)] -
@@ -424,14 +425,7 @@ class CreateBoxesResult {
 /// Box.
 class Box {
   /// Default Box constructor.
-  Box(
-      {this.r0 = 0,
-      this.r1 = 0,
-      this.g0 = 0,
-      this.g1 = 0,
-      this.b0 = 0,
-      this.b1 = 0,
-      this.vol = 0});
+  Box({this.r0 = 0, this.r1 = 0, this.g0 = 0, this.g1 = 0, this.b0 = 0, this.b1 = 0, this.vol = 0});
 
   /// r0
   int r0;

@@ -224,22 +224,22 @@ class FlexTonalPalette {
   FlexTonalPalette._fromHct(
     Hct hct, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = <int, int>{},
-        _paletteType = paletteType,
-        hue = hct.hue,
-        chroma = hct.chroma,
-        keyColor = hct,
-        _isFromCache = false;
+  ]) : _cache = <int, int>{},
+       _paletteType = paletteType,
+       hue = hct.hue,
+       chroma = hct.chroma,
+       keyColor = hct,
+       _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromHueAndChroma(
     this.hue,
     this.chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = <int, int>{},
-        _paletteType = paletteType,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = false;
+  ]) : _cache = <int, int>{},
+       _paletteType = paletteType,
+       keyColor = KeyColor(hue, chroma).create(),
+       _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromCache(
@@ -247,10 +247,10 @@ class FlexTonalPalette {
     this.hue,
     this.chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = cache,
-        _paletteType = paletteType,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = true;
+  ]) : _cache = cache,
+       _paletteType = paletteType,
+       keyColor = KeyColor(hue, chroma).create(),
+       _isFromCache = true;
 
   /// Create colors using [hue] and [chroma].
   static FlexTonalPalette of(
@@ -277,20 +277,17 @@ class FlexTonalPalette {
     FlexPaletteType paletteType = FlexPaletteType.common,
   ]) {
     assert(
-        (colors.length == commonSize &&
-                paletteType == FlexPaletteType.common) ||
-            (colors.length == extendedSize &&
-                paletteType == FlexPaletteType.extended),
-        'Length must be $commonSize when using FlexPaletteType.common OR '
-        'length must be $extendedSize when using FlexPaletteType.extended.');
+      (colors.length == commonSize && paletteType == FlexPaletteType.common) ||
+          (colors.length == extendedSize && paletteType == FlexPaletteType.extended),
+      'Length must be $commonSize when using FlexPaletteType.common OR '
+      'length must be $extendedSize when using FlexPaletteType.extended.',
+    );
     final Map<int, int> cache = <int, int>{};
     switch (paletteType) {
       case FlexPaletteType.common:
-        commonTones.asMap().forEach(
-            (int index, int toneValue) => cache[toneValue] = colors[index]);
+        commonTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
       case FlexPaletteType.extended:
-        extendedTones.asMap().forEach(
-            (int index, int toneValue) => cache[toneValue] = colors[index]);
+        extendedTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
     }
 
     // Approximately deduces the original hue and chroma that generated this
@@ -317,9 +314,8 @@ class FlexTonalPalette {
   /// Returns a fixed-size list of ARGB color ints for common tone values.
   ///
   /// Inverse of [fromList].
-  List<int> get asList => _paletteType == FlexPaletteType.common
-      ? commonTones.map(get).toList()
-      : extendedTones.map(get).toList();
+  List<int> get asList =>
+      _paletteType == FlexPaletteType.common ? commonTones.map(get).toList() : extendedTones.map(get).toList();
 
   /// Returns the ARGB representation of an HCT color at the given [tone].
   ///
@@ -359,9 +355,7 @@ class FlexTonalPalette {
     if (other is FlexTonalPalette) {
       if (!_isFromCache && !other._isFromCache) {
         // Both created with .of or .fromHct
-        return hue == other.hue &&
-            chroma == other.chroma &&
-            _paletteType == other._paletteType;
+        return hue == other.hue && chroma == other.chroma && _paletteType == other._paletteType;
       } else {
         return const ListEquality<int>().equals(asList, other.asList);
       }

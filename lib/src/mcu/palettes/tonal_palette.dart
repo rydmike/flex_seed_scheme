@@ -65,23 +65,23 @@ class TonalPalette {
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromHct(Hct hct)
-      : _cache = <int, int>{},
-        hue = hct.hue,
-        chroma = hct.chroma,
-        keyColor = hct,
-        _isFromCache = false;
+    : _cache = <int, int>{},
+      hue = hct.hue,
+      chroma = hct.chroma,
+      keyColor = hct,
+      _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromHueAndChroma(this.hue, this.chroma)
-      : _cache = <int, int>{},
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = false;
+    : _cache = <int, int>{},
+      keyColor = KeyColor(hue, chroma).create(),
+      _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromCache(Map<int, int> cache, this.hue, this.chroma)
-      : _cache = cache,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = true;
+    : _cache = cache,
+      keyColor = KeyColor(hue, chroma).create(),
+      _isFromCache = true;
 
   /// Create colors using [hue] and [chroma].
   static TonalPalette of(double hue, double chroma) {
@@ -97,11 +97,9 @@ class TonalPalette {
   ///
   /// Inverse of [TonalPalette.asList].
   static TonalPalette fromList(List<int> colors) {
-    assert(colors.length == commonSize,
-        'colors length must be equal to commonSize');
+    assert(colors.length == commonSize, 'colors length must be equal to commonSize');
     final Map<int, int> cache = <int, int>{};
-    commonTones.asMap().forEach(
-        (int index, int toneValue) => cache[toneValue] = colors[index]);
+    commonTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
 
     // Approximately deduces the original hue and chroma that generated this
     // list of colors.

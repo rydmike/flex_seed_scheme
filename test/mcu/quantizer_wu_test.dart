@@ -30,8 +30,7 @@ void main() {
   });
   test('1Rando', () async {
     final QuantizerWu wu = QuantizerWu();
-    final QuantizerResult result =
-        await wu.quantize(<int>[0xff141216], maxColors);
+    final QuantizerResult result = await wu.quantize(<int>[0xff141216], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(0xff141216));
@@ -120,8 +119,7 @@ void main() {
     expect(colors[1], blue);
     expect(colors[2], red);
     //
-    expect(
-        Box().toString(), equals('Box: R 0 -> 0 G  0 -> 0 B 0 -> 0 VOL = 0'));
+    expect(Box().toString(), equals('Box: R 0 -> 0 G  0 -> 0 B 0 -> 0 VOL = 0'));
   });
   test('1R 1G 4B', () async {
     final QuantizerWu wu = QuantizerWu();
@@ -136,7 +134,7 @@ void main() {
       green,
       green,
       blue1,
-      blue1
+      blue1,
     ], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(Set<int>.of(colors), hasLength(3));

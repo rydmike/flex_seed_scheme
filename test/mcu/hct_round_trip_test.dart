@@ -21,8 +21,7 @@ void main() {
   test('hct_preserves_original_color', () {
     for (int argb = 0xFF000000; argb <= 0xFFFFFFFF; argb++) {
       final Hct hct = Hct.fromInt(argb);
-      final int reconstructedArgb =
-          Hct.from(hct.hue, hct.chroma, hct.tone).toInt();
+      final int reconstructedArgb = Hct.from(hct.hue, hct.chroma, hct.tone).toInt();
       expect(reconstructedArgb, isColor(argb));
     }
   });

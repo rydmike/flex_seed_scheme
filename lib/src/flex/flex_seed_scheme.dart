@@ -356,8 +356,7 @@ class FlexSeedScheme {
       secondaryFixed: core.secondary.get(tones.secondaryFixedTone),
       secondaryFixedDim: core.secondary.get(tones.secondaryFixedDimTone),
       onSecondaryFixed: core.secondary.get(tones.onSecondaryFixedTone),
-      onSecondaryFixedVariant:
-          core.secondary.get(tones.onSecondaryFixedVariantTone),
+      onSecondaryFixedVariant: core.secondary.get(tones.onSecondaryFixedVariantTone),
       //
       tertiary: core.tertiary.get(tones.tertiaryTone),
       onTertiary: core.tertiary.get(tones.onTertiaryTone),
@@ -366,8 +365,7 @@ class FlexSeedScheme {
       tertiaryFixed: core.tertiary.get(tones.tertiaryFixedTone),
       tertiaryFixedDim: core.tertiary.get(tones.tertiaryFixedDimTone),
       onTertiaryFixed: core.tertiary.get(tones.onTertiaryFixedTone),
-      onTertiaryFixedVariant:
-          core.tertiary.get(tones.onTertiaryFixedVariantTone),
+      onTertiaryFixedVariant: core.tertiary.get(tones.onTertiaryFixedVariantTone),
       //
       error: core.error.get(tones.errorTone),
       onError: core.error.get(tones.onErrorTone),
@@ -377,13 +375,11 @@ class FlexSeedScheme {
       surface: core.neutral.get(tones.surfaceTone),
       surfaceDim: core.neutral.get(tones.surfaceDimTone),
       surfaceBright: core.neutral.get(tones.surfaceBrightTone),
-      surfaceContainerLowest:
-          core.neutral.get(tones.surfaceContainerLowestTone),
+      surfaceContainerLowest: core.neutral.get(tones.surfaceContainerLowestTone),
       surfaceContainerLow: core.neutral.get(tones.surfaceContainerLowTone),
       surfaceContainer: core.neutral.get(tones.surfaceContainerTone),
       surfaceContainerHigh: core.neutral.get(tones.surfaceContainerHighTone),
-      surfaceContainerHighest:
-          core.neutral.get(tones.surfaceContainerHighestTone),
+      surfaceContainerHighest: core.neutral.get(tones.surfaceContainerHighestTone),
       onSurface: core.neutral.get(tones.onSurfaceTone),
       onSurfaceVariant: core.neutralVariant.get(tones.onSurfaceVariantTone),
       //
@@ -911,8 +907,7 @@ extension SeedColorScheme on ColorScheme {
     // at the same time, since they are mutually exclusive, both can be null, in
     // that case default tones will be used. Setting both throws in debug mode,
     // if both are set used on release mode, variant will be used.
-    assert(tones == null || variant == null,
-        'Only one of tones or variant can be provided, not both.');
+    assert(tones == null || variant == null, 'Only one of tones or variant can be provided, not both.');
 
     if (variant != null && variant.isFlutterScheme) {
       final DynamicScheme scheme = buildDynamicScheme(
@@ -929,97 +924,57 @@ extension SeedColorScheme on ColorScheme {
         respectMonochromeSeed: respectMonochromeSeed,
       );
       return ColorScheme(
-        primary:
-            primary ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
-        onPrimary:
-            onPrimary ?? Color(MaterialDynamicColors.onPrimary.getArgb(scheme)),
-        primaryContainer: primaryContainer ??
-            Color(MaterialDynamicColors.primaryContainer.getArgb(scheme)),
-        onPrimaryContainer: onPrimaryContainer ??
-            Color(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme)),
-        primaryFixed: primaryFixed ??
-            Color(MaterialDynamicColors.primaryFixed.getArgb(scheme)),
-        primaryFixedDim: primaryFixedDim ??
-            Color(MaterialDynamicColors.primaryFixedDim.getArgb(scheme)),
-        onPrimaryFixed: onPrimaryFixed ??
-            Color(MaterialDynamicColors.onPrimaryFixed.getArgb(scheme)),
-        onPrimaryFixedVariant: onPrimaryFixedVariant ??
-            Color(MaterialDynamicColors.onPrimaryFixedVariant.getArgb(scheme)),
-        secondary:
-            secondary ?? Color(MaterialDynamicColors.secondary.getArgb(scheme)),
-        onSecondary: onSecondary ??
-            Color(MaterialDynamicColors.onSecondary.getArgb(scheme)),
-        secondaryContainer: secondaryContainer ??
-            Color(MaterialDynamicColors.secondaryContainer.getArgb(scheme)),
-        onSecondaryContainer: onSecondaryContainer ??
-            Color(MaterialDynamicColors.onSecondaryContainer.getArgb(scheme)),
-        secondaryFixed: secondaryFixed ??
-            Color(MaterialDynamicColors.secondaryFixed.getArgb(scheme)),
-        secondaryFixedDim: secondaryFixedDim ??
-            Color(MaterialDynamicColors.secondaryFixedDim.getArgb(scheme)),
-        onSecondaryFixed: onSecondaryFixed ??
-            Color(MaterialDynamicColors.onSecondaryFixed.getArgb(scheme)),
-        onSecondaryFixedVariant: onSecondaryFixedVariant ??
-            Color(
-                MaterialDynamicColors.onSecondaryFixedVariant.getArgb(scheme)),
-        tertiary:
-            tertiary ?? Color(MaterialDynamicColors.tertiary.getArgb(scheme)),
-        onTertiary: onTertiary ??
-            Color(MaterialDynamicColors.onTertiary.getArgb(scheme)),
-        tertiaryContainer: tertiaryContainer ??
-            Color(MaterialDynamicColors.tertiaryContainer.getArgb(scheme)),
-        onTertiaryContainer: onTertiaryContainer ??
-            Color(MaterialDynamicColors.onTertiaryContainer.getArgb(scheme)),
-        tertiaryFixed: tertiaryFixed ??
-            Color(MaterialDynamicColors.tertiaryFixed.getArgb(scheme)),
-        tertiaryFixedDim: tertiaryFixedDim ??
-            Color(MaterialDynamicColors.tertiaryFixedDim.getArgb(scheme)),
-        onTertiaryFixed: onTertiaryFixed ??
-            Color(MaterialDynamicColors.onTertiaryFixed.getArgb(scheme)),
-        onTertiaryFixedVariant: onTertiaryFixedVariant ??
-            Color(MaterialDynamicColors.onTertiaryFixedVariant.getArgb(scheme)),
+        primary: primary ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
+        onPrimary: onPrimary ?? Color(MaterialDynamicColors.onPrimary.getArgb(scheme)),
+        primaryContainer: primaryContainer ?? Color(MaterialDynamicColors.primaryContainer.getArgb(scheme)),
+        onPrimaryContainer: onPrimaryContainer ?? Color(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme)),
+        primaryFixed: primaryFixed ?? Color(MaterialDynamicColors.primaryFixed.getArgb(scheme)),
+        primaryFixedDim: primaryFixedDim ?? Color(MaterialDynamicColors.primaryFixedDim.getArgb(scheme)),
+        onPrimaryFixed: onPrimaryFixed ?? Color(MaterialDynamicColors.onPrimaryFixed.getArgb(scheme)),
+        onPrimaryFixedVariant:
+            onPrimaryFixedVariant ?? Color(MaterialDynamicColors.onPrimaryFixedVariant.getArgb(scheme)),
+        secondary: secondary ?? Color(MaterialDynamicColors.secondary.getArgb(scheme)),
+        onSecondary: onSecondary ?? Color(MaterialDynamicColors.onSecondary.getArgb(scheme)),
+        secondaryContainer: secondaryContainer ?? Color(MaterialDynamicColors.secondaryContainer.getArgb(scheme)),
+        onSecondaryContainer: onSecondaryContainer ?? Color(MaterialDynamicColors.onSecondaryContainer.getArgb(scheme)),
+        secondaryFixed: secondaryFixed ?? Color(MaterialDynamicColors.secondaryFixed.getArgb(scheme)),
+        secondaryFixedDim: secondaryFixedDim ?? Color(MaterialDynamicColors.secondaryFixedDim.getArgb(scheme)),
+        onSecondaryFixed: onSecondaryFixed ?? Color(MaterialDynamicColors.onSecondaryFixed.getArgb(scheme)),
+        onSecondaryFixedVariant:
+            onSecondaryFixedVariant ?? Color(MaterialDynamicColors.onSecondaryFixedVariant.getArgb(scheme)),
+        tertiary: tertiary ?? Color(MaterialDynamicColors.tertiary.getArgb(scheme)),
+        onTertiary: onTertiary ?? Color(MaterialDynamicColors.onTertiary.getArgb(scheme)),
+        tertiaryContainer: tertiaryContainer ?? Color(MaterialDynamicColors.tertiaryContainer.getArgb(scheme)),
+        onTertiaryContainer: onTertiaryContainer ?? Color(MaterialDynamicColors.onTertiaryContainer.getArgb(scheme)),
+        tertiaryFixed: tertiaryFixed ?? Color(MaterialDynamicColors.tertiaryFixed.getArgb(scheme)),
+        tertiaryFixedDim: tertiaryFixedDim ?? Color(MaterialDynamicColors.tertiaryFixedDim.getArgb(scheme)),
+        onTertiaryFixed: onTertiaryFixed ?? Color(MaterialDynamicColors.onTertiaryFixed.getArgb(scheme)),
+        onTertiaryFixedVariant:
+            onTertiaryFixedVariant ?? Color(MaterialDynamicColors.onTertiaryFixedVariant.getArgb(scheme)),
         error: error ?? Color(MaterialDynamicColors.error.getArgb(scheme)),
-        onError:
-            onError ?? Color(MaterialDynamicColors.onError.getArgb(scheme)),
-        errorContainer: errorContainer ??
-            Color(MaterialDynamicColors.errorContainer.getArgb(scheme)),
-        onErrorContainer: onErrorContainer ??
-            Color(MaterialDynamicColors.onErrorContainer.getArgb(scheme)),
-        outline:
-            outline ?? Color(MaterialDynamicColors.outline.getArgb(scheme)),
-        outlineVariant: outlineVariant ??
-            Color(MaterialDynamicColors.outlineVariant.getArgb(scheme)),
-        surface:
-            surface ?? Color(MaterialDynamicColors.surface.getArgb(scheme)),
-        surfaceDim: surfaceDim ??
-            Color(MaterialDynamicColors.surfaceDim.getArgb(scheme)),
-        surfaceBright: surfaceBright ??
-            Color(MaterialDynamicColors.surfaceBright.getArgb(scheme)),
-        surfaceContainerLowest: surfaceContainerLowest ??
-            Color(MaterialDynamicColors.surfaceContainerLowest.getArgb(scheme)),
-        surfaceContainerLow: surfaceContainerLow ??
-            Color(MaterialDynamicColors.surfaceContainerLow.getArgb(scheme)),
-        surfaceContainer: surfaceContainer ??
-            Color(MaterialDynamicColors.surfaceContainer.getArgb(scheme)),
-        surfaceContainerHigh: surfaceContainerHigh ??
-            Color(MaterialDynamicColors.surfaceContainerHigh.getArgb(scheme)),
-        surfaceContainerHighest: surfaceContainerHighest ??
-            Color(
-                MaterialDynamicColors.surfaceContainerHighest.getArgb(scheme)),
-        onSurface:
-            onSurface ?? Color(MaterialDynamicColors.onSurface.getArgb(scheme)),
-        onSurfaceVariant: onSurfaceVariant ??
-            Color(MaterialDynamicColors.onSurfaceVariant.getArgb(scheme)),
-        inverseSurface: inverseSurface ??
-            Color(MaterialDynamicColors.inverseSurface.getArgb(scheme)),
-        onInverseSurface: onInverseSurface ??
-            Color(MaterialDynamicColors.inverseOnSurface.getArgb(scheme)),
-        inversePrimary: inversePrimary ??
-            Color(MaterialDynamicColors.inversePrimary.getArgb(scheme)),
+        onError: onError ?? Color(MaterialDynamicColors.onError.getArgb(scheme)),
+        errorContainer: errorContainer ?? Color(MaterialDynamicColors.errorContainer.getArgb(scheme)),
+        onErrorContainer: onErrorContainer ?? Color(MaterialDynamicColors.onErrorContainer.getArgb(scheme)),
+        outline: outline ?? Color(MaterialDynamicColors.outline.getArgb(scheme)),
+        outlineVariant: outlineVariant ?? Color(MaterialDynamicColors.outlineVariant.getArgb(scheme)),
+        surface: surface ?? Color(MaterialDynamicColors.surface.getArgb(scheme)),
+        surfaceDim: surfaceDim ?? Color(MaterialDynamicColors.surfaceDim.getArgb(scheme)),
+        surfaceBright: surfaceBright ?? Color(MaterialDynamicColors.surfaceBright.getArgb(scheme)),
+        surfaceContainerLowest:
+            surfaceContainerLowest ?? Color(MaterialDynamicColors.surfaceContainerLowest.getArgb(scheme)),
+        surfaceContainerLow: surfaceContainerLow ?? Color(MaterialDynamicColors.surfaceContainerLow.getArgb(scheme)),
+        surfaceContainer: surfaceContainer ?? Color(MaterialDynamicColors.surfaceContainer.getArgb(scheme)),
+        surfaceContainerHigh: surfaceContainerHigh ?? Color(MaterialDynamicColors.surfaceContainerHigh.getArgb(scheme)),
+        surfaceContainerHighest:
+            surfaceContainerHighest ?? Color(MaterialDynamicColors.surfaceContainerHighest.getArgb(scheme)),
+        onSurface: onSurface ?? Color(MaterialDynamicColors.onSurface.getArgb(scheme)),
+        onSurfaceVariant: onSurfaceVariant ?? Color(MaterialDynamicColors.onSurfaceVariant.getArgb(scheme)),
+        inverseSurface: inverseSurface ?? Color(MaterialDynamicColors.inverseSurface.getArgb(scheme)),
+        onInverseSurface: onInverseSurface ?? Color(MaterialDynamicColors.inverseOnSurface.getArgb(scheme)),
+        inversePrimary: inversePrimary ?? Color(MaterialDynamicColors.inversePrimary.getArgb(scheme)),
         shadow: shadow ?? Color(MaterialDynamicColors.shadow.getArgb(scheme)),
         scrim: scrim ?? Color(MaterialDynamicColors.scrim.getArgb(scheme)),
-        surfaceTint:
-            surfaceTint ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
+        surfaceTint: surfaceTint ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
         brightness: brightness,
       );
     } else {
@@ -1044,36 +999,29 @@ extension SeedColorScheme on ColorScheme {
         primary: primary ?? Color(scheme.primary),
         onPrimary: onPrimary ?? Color(scheme.onPrimary),
         primaryContainer: primaryContainer ?? Color(scheme.primaryContainer),
-        onPrimaryContainer:
-            onPrimaryContainer ?? Color(scheme.onPrimaryContainer),
+        onPrimaryContainer: onPrimaryContainer ?? Color(scheme.onPrimaryContainer),
         primaryFixed: primaryFixed ?? Color(scheme.primaryFixed),
         primaryFixedDim: primaryFixedDim ?? Color(scheme.primaryFixedDim),
         onPrimaryFixed: onPrimaryFixed ?? Color(scheme.onPrimaryFixed),
-        onPrimaryFixedVariant:
-            onPrimaryFixedVariant ?? Color(scheme.onPrimaryFixedVariant),
+        onPrimaryFixedVariant: onPrimaryFixedVariant ?? Color(scheme.onPrimaryFixedVariant),
         //
         secondary: secondary ?? Color(scheme.secondary),
         onSecondary: onSecondary ?? Color(scheme.onSecondary),
-        secondaryContainer:
-            secondaryContainer ?? Color(scheme.secondaryContainer),
-        onSecondaryContainer:
-            onSecondaryContainer ?? Color(scheme.onSecondaryContainer),
+        secondaryContainer: secondaryContainer ?? Color(scheme.secondaryContainer),
+        onSecondaryContainer: onSecondaryContainer ?? Color(scheme.onSecondaryContainer),
         secondaryFixed: secondaryFixed ?? Color(scheme.secondaryFixed),
         secondaryFixedDim: secondaryFixedDim ?? Color(scheme.secondaryFixedDim),
         onSecondaryFixed: onSecondaryFixed ?? Color(scheme.onSecondaryFixed),
-        onSecondaryFixedVariant:
-            onSecondaryFixedVariant ?? Color(scheme.onSecondaryFixedVariant),
+        onSecondaryFixedVariant: onSecondaryFixedVariant ?? Color(scheme.onSecondaryFixedVariant),
         //
         tertiary: tertiary ?? Color(scheme.tertiary),
         onTertiary: onTertiary ?? Color(scheme.onTertiary),
         tertiaryContainer: tertiaryContainer ?? Color(scheme.tertiaryContainer),
-        onTertiaryContainer:
-            onTertiaryContainer ?? Color(scheme.onTertiaryContainer),
+        onTertiaryContainer: onTertiaryContainer ?? Color(scheme.onTertiaryContainer),
         tertiaryFixed: tertiaryFixed ?? Color(scheme.tertiaryFixed),
         tertiaryFixedDim: tertiaryFixedDim ?? Color(scheme.tertiaryFixedDim),
         onTertiaryFixed: onTertiaryFixed ?? Color(scheme.onTertiaryFixed),
-        onTertiaryFixedVariant:
-            onTertiaryFixedVariant ?? Color(scheme.onTertiaryFixedVariant),
+        onTertiaryFixedVariant: onTertiaryFixedVariant ?? Color(scheme.onTertiaryFixedVariant),
         //
         error: error ?? Color(scheme.error),
         onError: onError ?? Color(scheme.onError),
@@ -1083,15 +1031,11 @@ extension SeedColorScheme on ColorScheme {
         surface: surface ?? Color(scheme.surface),
         surfaceDim: surfaceDim ?? Color(scheme.surfaceDim),
         surfaceBright: surfaceBright ?? Color(scheme.surfaceBright),
-        surfaceContainerLowest:
-            surfaceContainerLowest ?? Color(scheme.surfaceContainerLowest),
-        surfaceContainerLow:
-            surfaceContainerLow ?? Color(scheme.surfaceContainerLow),
+        surfaceContainerLowest: surfaceContainerLowest ?? Color(scheme.surfaceContainerLowest),
+        surfaceContainerLow: surfaceContainerLow ?? Color(scheme.surfaceContainerLow),
         surfaceContainer: surfaceContainer ?? Color(scheme.surfaceContainer),
-        surfaceContainerHigh:
-            surfaceContainerHigh ?? Color(scheme.surfaceContainerHigh),
-        surfaceContainerHighest:
-            surfaceContainerHighest ?? Color(scheme.surfaceContainerHighest),
+        surfaceContainerHigh: surfaceContainerHigh ?? Color(scheme.surfaceContainerHigh),
+        surfaceContainerHighest: surfaceContainerHighest ?? Color(scheme.surfaceContainerHighest),
         onSurface: onSurface ?? Color(scheme.onSurface),
         onSurfaceVariant: onSurfaceVariant ?? Color(scheme.onSurfaceVariant),
         //
@@ -1131,20 +1075,13 @@ extension SeedColorScheme on ColorScheme {
     );
     final bool isDark = brightness == Brightness.dark;
     final Hct primarySourceColor = Hct.fromInt(primarySeedColor.value32bit);
-    final Hct? secondarySourceColor = secondarySeedColor != null
-        ? Hct.fromInt(secondarySeedColor.value32bit)
-        : null;
-    final Hct? tertiarySourceColor = tertiarySeedColor != null
-        ? Hct.fromInt(tertiarySeedColor.value32bit)
-        : null;
-    final Hct? neutralSourceColor = neutralSeedColor != null
-        ? Hct.fromInt(neutralSeedColor.value32bit)
-        : null;
+    final Hct? secondarySourceColor = secondarySeedColor != null ? Hct.fromInt(secondarySeedColor.value32bit) : null;
+    final Hct? tertiarySourceColor = tertiarySeedColor != null ? Hct.fromInt(tertiarySeedColor.value32bit) : null;
+    final Hct? neutralSourceColor = neutralSeedColor != null ? Hct.fromInt(neutralSeedColor.value32bit) : null;
     final Hct? neutralVariantSourceColor = neutralVariantSeedColor != null
         ? Hct.fromInt(neutralVariantSeedColor.value32bit)
         : null;
-    final Hct? errorSourceColor =
-        errorSeedColor != null ? Hct.fromInt(errorSeedColor.value32bit) : null;
+    final Hct? errorSourceColor = errorSeedColor != null ? Hct.fromInt(errorSeedColor.value32bit) : null;
 
     return switch (variant) {
       FlexSchemeVariant.material ||
@@ -1159,194 +1096,155 @@ extension SeedColorScheme on ColorScheme {
       FlexSchemeVariant.oneHue ||
       FlexSchemeVariant.candyPop ||
       FlexSchemeVariant.chroma ||
-      FlexSchemeVariant.tonalSpot =>
-        SchemeTonalSpot(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+      FlexSchemeVariant.tonalSpot => SchemeTonalSpot(
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.fidelity => SchemeFidelity(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.content => SchemeContent(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.monochrome => SchemeMonochrome(
-          sourceColorHct: primarySourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-        ),
+        sourceColorHct: primarySourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+      ),
       FlexSchemeVariant.neutral => SchemeNeutral(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.vibrant => SchemeVibrant(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.expressive => SchemeExpressive(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.rainbow => SchemeRainbow(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
       FlexSchemeVariant.fruitSalad => SchemeFruitSalad(
-          sourceColorHct: primarySourceColor,
-          secondarySourceColorHct: secondarySourceColor,
-          tertiarySourceColorHct: tertiarySourceColor,
-          neutralSourceColorHct: neutralSourceColor,
-          neutralVariantSourceColorHct: neutralVariantSourceColor,
-          errorSourceColorHct: errorSourceColor,
-          isDark: isDark,
-          contrastLevel: contrastLevel,
-          useExpressiveOnContainerColors: useExpressiveOnContainerColors,
-          respectMonochromeSeed: respectMonochromeSeed,
-          isPrimaryMonochrome: _isMonochrome(primarySeedColor),
-          isSecondaryMonochrome:
-              _isMonochrome(secondarySeedColor ?? primarySeedColor),
-          isTertiaryMonochrome:
-              _isMonochrome(tertiarySeedColor ?? primarySeedColor),
-          isNeutralMonochrome:
-              _isMonochrome(neutralSeedColor ?? primarySeedColor),
-          isNeutralVariantMonochrome:
-              _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
-          isErrorMonochrome:
-              errorSeedColor != null && _isMonochrome(errorSeedColor),
-        ),
+        sourceColorHct: primarySourceColor,
+        secondarySourceColorHct: secondarySourceColor,
+        tertiarySourceColorHct: tertiarySourceColor,
+        neutralSourceColorHct: neutralSourceColor,
+        neutralVariantSourceColorHct: neutralVariantSourceColor,
+        errorSourceColorHct: errorSourceColor,
+        isDark: isDark,
+        contrastLevel: contrastLevel,
+        useExpressiveOnContainerColors: useExpressiveOnContainerColors,
+        respectMonochromeSeed: respectMonochromeSeed,
+        isPrimaryMonochrome: _isMonochrome(primarySeedColor),
+        isSecondaryMonochrome: _isMonochrome(secondarySeedColor ?? primarySeedColor),
+        isTertiaryMonochrome: _isMonochrome(tertiarySeedColor ?? primarySeedColor),
+        isNeutralMonochrome: _isMonochrome(neutralSeedColor ?? primarySeedColor),
+        isNeutralVariantMonochrome: _isMonochrome(neutralVariantSeedColor ?? primarySeedColor),
+        isErrorMonochrome: errorSeedColor != null && _isMonochrome(errorSeedColor),
+      ),
     };
   }
 
@@ -1354,7 +1252,6 @@ extension SeedColorScheme on ColorScheme {
   ///
   /// To be monochrome, the red, green, and blue values must be equal.
   static bool _isMonochrome(Color color) {
-    return color.red8bit == color.green8bit &&
-        color.green8bit == color.blue8bit;
+    return color.red8bit == color.green8bit && color.green8bit == color.blue8bit;
   }
 }

@@ -204,7 +204,8 @@ class DynamicColor {
       final DynamicColor bg = background!(scheme);
       final double bgTone = bg.getTone(scheme);
 
-      final bool aIsNearer = polarity == TonePolarity.nearer ||
+      final bool aIsNearer =
+          polarity == TonePolarity.nearer ||
           (polarity == TonePolarity.lighter && !scheme.isDark) ||
           (polarity == TonePolarity.darker && scheme.isDark);
       final DynamicColor nearer = aIsNearer ? roleA : roleB;
@@ -336,13 +337,11 @@ class DynamicColor {
 
         // The darkest light tone that satisfies the desired ratio,
         // or -1 if such ratio cannot be reached.
-        final double lightOption =
-            Contrast.lighter(tone: upper, ratio: desiredRatio);
+        final double lightOption = Contrast.lighter(tone: upper, ratio: desiredRatio);
 
         // The lightest dark tone that satisfies the desired ratio,
         // or -1 if such ratio cannot be reached.
-        final double darkOption =
-            Contrast.darker(tone: lower, ratio: desiredRatio);
+        final double darkOption = Contrast.darker(tone: lower, ratio: desiredRatio);
 
         // Tones suitable for the foreground.
         final List<double> availables = <double>[];
@@ -351,8 +350,7 @@ class DynamicColor {
         // Rydmike: If MCU devs do not hit test this, I'm not going to either.
         // coverage:ignore-start
         final bool prefersLight =
-            DynamicColor.tonePrefersLightForeground(bgTone1) ||
-                DynamicColor.tonePrefersLightForeground(bgTone2);
+            DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
         if (prefersLight) {
           return (lightOption < 0) ? 100 : lightOption;
         }
@@ -374,8 +372,7 @@ class DynamicColor {
   /// outside that range.
   /// [ratio] The contrast ratio desired between [bgTone] and the return value.
   static double foregroundTone(double bgTone, double ratio) {
-    final double lighterTone =
-        Contrast.lighterUnsafe(tone: bgTone, ratio: ratio);
+    final double lighterTone = Contrast.lighterUnsafe(tone: bgTone, ratio: ratio);
     final double darkerTone = Contrast.darkerUnsafe(tone: bgTone, ratio: ratio);
     final double lighterRatio = Contrast.ratioOfTones(lighterTone, bgTone);
     final double darkerRatio = Contrast.ratioOfTones(darkerTone, bgTone);
@@ -392,17 +389,11 @@ class DynamicColor {
       // contrast value was 0.6568521221032331.
       final bool negligibleDifference =
           (lighterRatio - darkerRatio).abs() < 0.1 &&
-              lighterRatio < ratio &&
-              darkerRatio < ratio; // coverage:ignore-line
-      return lighterRatio >= ratio ||
-              lighterRatio >= darkerRatio ||
-              negligibleDifference
-          ? lighterTone
-          : darkerTone;
+          lighterRatio < ratio &&
+          darkerRatio < ratio; // coverage:ignore-line
+      return lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference ? lighterTone : darkerTone;
     } else {
-      return darkerRatio >= ratio || darkerRatio >= lighterRatio
-          ? darkerTone
-          : lighterTone;
+      return darkerRatio >= ratio || darkerRatio >= lighterRatio ? darkerTone : lighterTone;
     }
   }
 

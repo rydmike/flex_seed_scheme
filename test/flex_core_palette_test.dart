@@ -19,8 +19,7 @@ void main() {
     // m2, makes tonal palette using CorePalette.of
     final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value32bit);
     // Do identity tests
-    test(
-        'FCP1.01: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.01: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT primary palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -28,8 +27,7 @@ void main() {
       final List<int> m1List = m1.primary.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -38,8 +36,7 @@ void main() {
         equals(m2.primary.asList),
       );
     });
-    test(
-        'FCP1.02: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.02: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT secondary palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -47,8 +44,7 @@ void main() {
       final List<int> m1List = m1.secondary.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -57,8 +53,7 @@ void main() {
         equals(m2.secondary.asList),
       );
     });
-    test(
-        'FCP1.03: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.03: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT tertiary palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -66,8 +61,7 @@ void main() {
       final List<int> m1List = m1.tertiary.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -76,8 +70,7 @@ void main() {
         equals(m2.tertiary.asList),
       );
     });
-    test(
-        'FCP1.04: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.04: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT error palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -85,8 +78,7 @@ void main() {
       final List<int> m1List = m1.error.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -95,8 +87,7 @@ void main() {
         equals(m2.error.asList),
       );
     });
-    test(
-        'FCP1.05: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.05: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT neutral palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -104,8 +95,7 @@ void main() {
       final List<int> m1List = m1.neutral.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -114,8 +104,7 @@ void main() {
         equals(m2.neutral.asList),
       );
     });
-    test(
-        'FCP1.06: GIVEN same FlexCorePalette.fromSeeds default and '
+    test('FCP1.06: GIVEN same FlexCorePalette.fromSeeds default and '
         'CorePalette.of using same input color '
         'EXPECT neutralVariant palette lists to be equal', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -123,8 +112,7 @@ void main() {
       final List<int> m1List = m1.neutralVariant.asList;
       final List<int> m1No5and98List = <int>[];
       for (int i = 0; i <= FlexTonalPalette.commonTones.length - 1; i++) {
-        if (FlexTonalPalette.commonTones[i] != 5 &&
-            FlexTonalPalette.commonTones[i] != 98) {
+        if (FlexTonalPalette.commonTones[i] != 5 && FlexTonalPalette.commonTones[i] != 98) {
           m1No5and98List.add(m1List[i]);
         }
       }
@@ -142,8 +130,7 @@ void main() {
       secondaryChroma: 16,
       tertiaryChroma: 24,
     );
-    test(
-        'FCP1.07: GIVEN FlexCorePalette.fromSeeds with 3 colors and defaults '
+    test('FCP1.07: GIVEN FlexCorePalette.fromSeeds with 3 colors and defaults '
         'EXPECT a given list result', () {
       expect(m3.asList(), <int>[
         4278190080,
@@ -247,8 +234,7 @@ void main() {
       secondaryChroma: null,
       tertiaryChroma: null,
     );
-    test(
-        'FCP1.08: GIVEN FlexCorePalette.fromSeeds with 3 colors and using '
+    test('FCP1.08: GIVEN FlexCorePalette.fromSeeds with 3 colors and using '
         'chroma from secondary and tertiary '
         'EXPECT a given result', () {
       expect(
@@ -354,53 +340,46 @@ void main() {
       secondaryChroma: 16,
       tertiaryChroma: 24,
     );
-    test(
-        'FCP1.U01a: GIVEN two identical FlexCorePalette '
+    test('FCP1.U01a: GIVEN two identical FlexCorePalette '
         'EXPECT them to be equal', () {
       expect(
         m1,
         equals(m5),
       );
     });
-    test(
-        'FCP1.U01b: GIVEN two identical FlexCorePalette '
+    test('FCP1.U01b: GIVEN two identical FlexCorePalette '
         'EXPECT them to have identity', () {
       expect(identical(m1, m1), true);
     });
-    test(
-        'FCP1.U01c: GIVEN to identical FlexCorePalette '
+    test('FCP1.U01c: GIVEN to identical FlexCorePalette '
         'EXPECT them to have equality with operator', () {
       expect(m1 == m5, true);
     });
     test('FCP1.U01c: Test hashCode has value.', () {
       expect(m1.hashCode, isNotNull);
     });
-    test(
-        'FCP1.U02: GIVEN to identical FlexCorePalette '
+    test('FCP1.U02: GIVEN to identical FlexCorePalette '
         'EXPECT their asList to be equal', () {
       expect(
         m1.asList(),
         equals(m5.asList()),
       );
     });
-    test(
-        'FCP1.U03: GIVEN to identical FlexCorePalette '
+    test('FCP1.U03: GIVEN to identical FlexCorePalette '
         'EXPECT their toString to be equal', () {
       expect(
         m1.toString(),
         equals(m5.toString()),
       );
     });
-    test(
-        'FCP1.U05: GIVEN FlexCorePalette.of() '
+    test('FCP1.U05: GIVEN FlexCorePalette.of() '
         'EXPECT it to be equal to same FlexCorePalette.fromSeed() ', () {
       expect(
         m1,
         equals(FlexCorePalette.of(const Color(0xFF6750A4).value32bit)),
       );
     });
-    test(
-        'FCP1.U06: GIVEN FlexCorePalette.of() '
+    test('FCP1.U06: GIVEN FlexCorePalette.of() '
         'EXPECT it to be equal to same FlexCorePalette.fromHueChroma() ', () {
       expect(
         FlexCorePalette.fromHueChroma(40, 82),
@@ -415,103 +394,104 @@ void main() {
         ),
       );
     });
-    test(
-        'FCP1.U07: GIVEN a FlexCorePalette from a List '
+    test('FCP1.U07: GIVEN a FlexCorePalette from a List '
         'EXPECT it to be equal to one created from same seed Based one', () {
       expect(
         m3,
-        equals(FlexCorePalette.fromList(const <int>[
-          4278190080,
-          4279631937,
-          4280418397,
-          4281867890,
-          4283381642,
-          4284960932,
-          4286605759,
-          4288316379,
-          4290158072,
-          4291804415,
-          4293516799,
-          4294373119,
-          4294834175,
-          4294966271,
-          4294967295,
-          4278190080,
-          4279438880,
-          4280162603,
-          4281544001,
-          4283057240,
-          4284636016,
-          4286280842,
-          4287991204,
-          4289767359,
-          4291609307,
-          4293451512,
-          4294372863,
-          4294899711,
-          4294966271,
-          4294967295,
-          4278190080,
-          4280550930,
-          4281405469,
-          4283049266,
-          4284693320,
-          4286468704,
-          4288244345,
-          4290085778,
-          4291993005,
-          4293900488,
-          4294957539,
-          4294962416,
-          4294965496,
-          4294966271,
-          4294967295,
-          4278190080,
-          4279373844,
-          4280032030,
-          4281413683,
-          4282926666,
-          4284505442,
-          4286150266,
-          4287860628,
-          4289637038,
-          4291478986,
-          4293321190,
-          4294242292,
-          4294834429,
-          4294966271,
-          4294967295,
-          4278190080,
-          4279373847,
-          4280097314,
-          4281478968,
-          4282991950,
-          4284570982,
-          4286215551,
-          4287926169,
-          4289702324,
-          4291478735,
-          4293386475,
-          4294307578,
-          4294834175,
-          4294966271,
-          4294967295,
-          4278190080,
-          4281139201,
-          4282449922,
-          4285071365,
-          4287823882,
-          4290386458,
-          4292753200,
-          4294923337,
-          4294936957,
-          4294948011,
-          4294957782,
-          4294962666,
-          4294965495,
-          4294966271,
-          4294967295,
-        ])),
+        equals(
+          FlexCorePalette.fromList(const <int>[
+            4278190080,
+            4279631937,
+            4280418397,
+            4281867890,
+            4283381642,
+            4284960932,
+            4286605759,
+            4288316379,
+            4290158072,
+            4291804415,
+            4293516799,
+            4294373119,
+            4294834175,
+            4294966271,
+            4294967295,
+            4278190080,
+            4279438880,
+            4280162603,
+            4281544001,
+            4283057240,
+            4284636016,
+            4286280842,
+            4287991204,
+            4289767359,
+            4291609307,
+            4293451512,
+            4294372863,
+            4294899711,
+            4294966271,
+            4294967295,
+            4278190080,
+            4280550930,
+            4281405469,
+            4283049266,
+            4284693320,
+            4286468704,
+            4288244345,
+            4290085778,
+            4291993005,
+            4293900488,
+            4294957539,
+            4294962416,
+            4294965496,
+            4294966271,
+            4294967295,
+            4278190080,
+            4279373844,
+            4280032030,
+            4281413683,
+            4282926666,
+            4284505442,
+            4286150266,
+            4287860628,
+            4289637038,
+            4291478986,
+            4293321190,
+            4294242292,
+            4294834429,
+            4294966271,
+            4294967295,
+            4278190080,
+            4279373847,
+            4280097314,
+            4281478968,
+            4282991950,
+            4284570982,
+            4286215551,
+            4287926169,
+            4289702324,
+            4291478735,
+            4293386475,
+            4294307578,
+            4294834175,
+            4294966271,
+            4294967295,
+            4278190080,
+            4281139201,
+            4282449922,
+            4285071365,
+            4287823882,
+            4290386458,
+            4292753200,
+            4294923337,
+            4294936957,
+            4294948011,
+            4294957782,
+            4294962666,
+            4294965495,
+            4294966271,
+            4294967295,
+          ]),
+        ),
       );
     });
     // Custom Error tests
@@ -549,8 +529,7 @@ void main() {
       primary: const Color(0xFF6750A4).value32bit,
       error: const Color(0xFFCC1839).value32bit,
     );
-    test(
-        'FCP1.Err04: GIVEN error Color #CC1839 EXPECT '
+    test('FCP1.Err04: GIVEN error Color #CC1839 EXPECT '
         '(17.23982263982711, 87.83137466032304)', () {
       expect(
         mError04.error,
@@ -562,8 +541,7 @@ void main() {
       error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
     );
-    test(
-        'FCP1.Err05: GIVEN error Color #CC1839, chroma 62 EXPECT '
+    test('FCP1.Err05: GIVEN error Color #CC1839, chroma 62 EXPECT '
         '(17.23982263982711, 62)', () {
       expect(
         mError05.error,
@@ -575,8 +553,7 @@ void main() {
       error: const Color(0xFFCC1839).value32bit,
       errorMinChroma: 82,
     );
-    test(
-        'FCP1.Err06: GIVEN error Color #CC1839, min chroma 82 EXPECT '
+    test('FCP1.Err06: GIVEN error Color #CC1839, min chroma 82 EXPECT '
         '(17.23982263982711, 62)', () {
       expect(
         mError06.error,
@@ -588,8 +565,7 @@ void main() {
       error: const Color(0xFFCC1839).value32bit,
       errorChroma: 62,
     );
-    test(
-        'FCP1.Err07: GIVEN error Color #CC1839, chroma 62 EXPECT '
+    test('FCP1.Err07: GIVEN error Color #CC1839, chroma 62 EXPECT '
         '(17.23982263982711, 62)', () {
       expect(
         mError07.error,
@@ -602,8 +578,7 @@ void main() {
       errorChroma: 62,
       errorMinChroma: 45,
     );
-    test(
-        'FCP1.Err08: GIVEN error Color #CC1839, chroma 62. min 45 EXPECT '
+    test('FCP1.Err08: GIVEN error Color #CC1839, chroma 62. min 45 EXPECT '
         '(17.23982263982711, 62)', () {
       expect(
         mError08.error,
@@ -616,8 +591,7 @@ void main() {
       errorChroma: 62,
       errorMinChroma: 72,
     );
-    test(
-        'FCP1.Err09: GIVEN error Color #CC1839, chroma 62. min 72 EXPECT '
+    test('FCP1.Err09: GIVEN error Color #CC1839, chroma 62. min 72 EXPECT '
         '(17.23982263982711, 72)', () {
       expect(
         mError09.error,
@@ -631,8 +605,7 @@ void main() {
       errorMinChroma: 72,
       useCam16: false,
     );
-    test(
-        'FCP1.Err109: GIVEN error Color #CC1839, chroma 62. min 72 and '
+    test('FCP1.Err109: GIVEN error Color #CC1839, chroma 62. min 72 and '
         'use Cam16 is false EXPECT '
         '(17.23982263982711, 72)', () {
       expect(
@@ -659,8 +632,7 @@ void main() {
     // m2, makes tonal palette using CorePalette.of and extended palette
     final CorePalette m2 = CorePalette.of(const Color(0xFF6750A4).value32bit);
     // Do identity tests
-    test(
-        'FCP2.01: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.01: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT primary palette lists to be equal without extended tones', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -693,11 +665,9 @@ void main() {
         equals(m2.primary.asList),
       );
     });
-    test(
-        'FCP2.02: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.02: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
-        'EXPECT secondary palette lists to be equal without extended tones',
-        () {
+        'EXPECT secondary palette lists to be equal without extended tones', () {
       // If we remove the tones that MaterialColorUtilities
       // CorePalette.of does not include, our custom tones list should be equal.
       final List<int> m1List = m1.secondary.asList;
@@ -728,8 +698,7 @@ void main() {
         equals(m2.secondary.asList),
       );
     });
-    test(
-        'FCP2.03: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.03: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT tertiary palette lists to be equal without extended tones', () {
       // If we remove the tones that MaterialColorUtilities
@@ -762,8 +731,7 @@ void main() {
         equals(m2.tertiary.asList),
       );
     });
-    test(
-        'FCP2.04: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.04: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT error palette lists to be equal without extended tones', () {
       // If we remove the tones 5 and 98 that MaterialColorUtilities
@@ -796,8 +764,7 @@ void main() {
         equals(m2.error.asList),
       );
     });
-    test(
-        'FCP2.05: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.05: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT neutral palette lists to be equal without extended tones', () {
       // If we remove the tones that MaterialColorUtilities
@@ -830,8 +797,7 @@ void main() {
         equals(m2.neutral.asList),
       );
     });
-    test(
-        'FCP2.06: GIVEN same FlexCorePalette.fromSeeds extended and '
+    test('FCP2.06: GIVEN same FlexCorePalette.fromSeeds extended and '
         'CorePalette.of using same input color '
         'EXPECT neutralVariant palette lists equal without extended tones', () {
       // If we remove the tones that MaterialColorUtilities
@@ -874,8 +840,7 @@ void main() {
       paletteType: FlexPaletteType.extended,
     );
     // print(m3.asList());
-    test(
-        'FCP2.07: GIVEN FlexCorePalette.fromSeeds with 3 colors and extended '
+    test('FCP2.07: GIVEN FlexCorePalette.fromSeeds with 3 colors and extended '
         'EXPECT a given list result', () {
       expect(m3.asList(), <int>[
         4278190080,
@@ -1071,8 +1036,7 @@ void main() {
       paletteType: FlexPaletteType.extended,
     );
     // print(m4.asList());
-    test(
-        'FCP2.08: GIVEN FlexCorePalette.fromSeeds with 3 colors and using '
+    test('FCP2.08: GIVEN FlexCorePalette.fromSeeds with 3 colors and using '
         'chroma from secondary and tertiary and extended palette '
         'EXPECT a given result', () {
       expect(
@@ -1269,55 +1233,47 @@ void main() {
       tertiaryChroma: 24,
       paletteType: FlexPaletteType.extended,
     );
-    test(
-        'FCP2.U01a: GIVEN two identical FlexCorePalette extended palette '
+    test('FCP2.U01a: GIVEN two identical FlexCorePalette extended palette '
         'EXPECT them to be equal', () {
       expect(
         m1,
         equals(m5),
       );
     });
-    test(
-        'FCP2.U01b: GIVEN two identical FlexCorePalette extended palette '
+    test('FCP2.U01b: GIVEN two identical FlexCorePalette extended palette '
         'EXPECT them to have identity', () {
       expect(identical(m1, m1), true);
     });
-    test(
-        'FCP2.U01c: GIVEN to identical FlexCorePalette extended palette '
+    test('FCP2.U01c: GIVEN to identical FlexCorePalette extended palette '
         'EXPECT them to have equality with operator', () {
       expect(m1 == m5, true);
     });
     test('FCP1.U01c: Test hashCode has value.', () {
       expect(m1.hashCode, isNotNull);
     });
-    test(
-        'FCP2.U02: GIVEN to identical FlexCorePalette extended palette '
+    test('FCP2.U02: GIVEN to identical FlexCorePalette extended palette '
         'EXPECT their asList to be equal', () {
       expect(
         m1.asList(),
         equals(m5.asList()),
       );
     });
-    test(
-        'FCP2.U03: GIVEN to identical FlexCorePalette extended palette '
+    test('FCP2.U03: GIVEN to identical FlexCorePalette extended palette '
         'EXPECT their toString to be equal', () {
       expect(
         m1.toString(),
         equals(m5.toString()),
       );
     });
-    test(
-        'FCP2.U05: GIVEN FlexCorePalette.of() extended palette '
+    test('FCP2.U05: GIVEN FlexCorePalette.of() extended palette '
         'EXPECT it to be equal to same FlexCorePalette.fromSeed() '
         'extended palette ', () {
       expect(
         m1,
-        equals(FlexCorePalette.of(
-            const Color(0xFF6750A4).value32bit, FlexPaletteType.extended)),
+        equals(FlexCorePalette.of(const Color(0xFF6750A4).value32bit, FlexPaletteType.extended)),
       );
     });
-    test(
-        'FCP2.U06: GIVEN FlexCorePalette.of() extended palette '
+    test('FCP2.U06: GIVEN FlexCorePalette.of() extended palette '
         'EXPECT it to be equal to same FlexCorePalette.fromHueChroma() '
         'extended palette ', () {
       expect(
@@ -1325,20 +1281,16 @@ void main() {
         equals(
           FlexCorePalette(
             primary: FlexTonalPalette.of(40.0, 82.0, FlexPaletteType.extended),
-            secondary:
-                FlexTonalPalette.of(40.0, 16.0, FlexPaletteType.extended),
-            tertiary:
-                FlexTonalPalette.of(100.0, 24.0, FlexPaletteType.extended),
+            secondary: FlexTonalPalette.of(40.0, 16.0, FlexPaletteType.extended),
+            tertiary: FlexTonalPalette.of(100.0, 24.0, FlexPaletteType.extended),
             neutral: FlexTonalPalette.of(40.0, 4.0, FlexPaletteType.extended),
-            neutralVariant:
-                FlexTonalPalette.of(40.0, 8.0, FlexPaletteType.extended),
+            neutralVariant: FlexTonalPalette.of(40.0, 8.0, FlexPaletteType.extended),
             error: FlexTonalPalette.of(25, 84, FlexPaletteType.extended),
           ),
         ),
       );
     });
-    test(
-        'FCP1.U07: GIVEN a FlexCorePalette from a extended List '
+    test('FCP1.U07: GIVEN a FlexCorePalette from a extended List '
         'EXPECT it to be equal to one created from same seed Based '
         'extended one', () {
       // print(m3.asList());

@@ -26,7 +26,7 @@ enum TonePolarity {
   nearer,
 
   /// Farther tone polarity.
-  farther;
+  farther,
 }
 
 /// Documents a constraint between two DynamicColors, in which their tones must

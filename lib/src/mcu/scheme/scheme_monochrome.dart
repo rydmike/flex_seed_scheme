@@ -26,15 +26,14 @@ class SchemeMonochrome extends DynamicScheme {
     super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
-          variant: Variant.monochrome,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
-        );
+         variant: Variant.monochrome,
+         primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(errorSourceColorHct.hue, errorSourceColorHct.chroma),
+       );
 }

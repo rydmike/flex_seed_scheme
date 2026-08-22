@@ -24,11 +24,11 @@ import 'package:flutter/cupertino.dart';
 class CorePalette {
   /// Private constructor.
   CorePalette._(double hue, double chroma)
-      : primary = TonalPalette.of(hue, math.max(48, chroma)),
-        secondary = TonalPalette.of(hue, 16),
-        tertiary = TonalPalette.of(hue + 60, 24),
-        neutral = TonalPalette.of(hue, 4),
-        neutralVariant = TonalPalette.of(hue, 8);
+    : primary = TonalPalette.of(hue, math.max(48, chroma)),
+      secondary = TonalPalette.of(hue, 16),
+      tertiary = TonalPalette.of(hue + 60, 24),
+      neutral = TonalPalette.of(hue, 4),
+      neutralVariant = TonalPalette.of(hue, 8);
 
   /// The number of generated tonal palettes.
   static const int size = 5;
@@ -66,11 +66,11 @@ class CorePalette {
 
   // ignore: sort_constructors_first, we prefer this order for factories.
   CorePalette._contentOf(double hue, double chroma)
-      : primary = TonalPalette.of(hue, chroma),
-        secondary = TonalPalette.of(hue, chroma / 3),
-        tertiary = TonalPalette.of(hue + 60, chroma / 2),
-        neutral = TonalPalette.of(hue, math.min(chroma / 12, 4)),
-        neutralVariant = TonalPalette.of(hue, math.min(chroma / 6, 8));
+    : primary = TonalPalette.of(hue, chroma),
+      secondary = TonalPalette.of(hue, chroma / 3),
+      tertiary = TonalPalette.of(hue + 60, chroma / 2),
+      neutral = TonalPalette.of(hue, math.min(chroma / 12, 4)),
+      neutralVariant = TonalPalette.of(hue, math.min(chroma / 6, 8));
 
   /// Create a [CorePalette] from a fixed-size list of ARGB color ints
   /// representing concatenated tonal palettes.
@@ -78,29 +78,23 @@ class CorePalette {
   /// Inverse of [asList].
   // ignore: sort_constructors_first, we prefer this order for factories.
   CorePalette.fromList(List<int> colors)
-      : assert(colors.length == size * TonalPalette.commonSize,
-            'colors length must be equal to size*commonSize'),
-        primary = TonalPalette.fromList(
-            _getPartition(colors, 0, TonalPalette.commonSize)),
-        secondary = TonalPalette.fromList(
-            _getPartition(colors, 1, TonalPalette.commonSize)),
-        tertiary = TonalPalette.fromList(
-            _getPartition(colors, 2, TonalPalette.commonSize)),
-        neutral = TonalPalette.fromList(
-            _getPartition(colors, 3, TonalPalette.commonSize)),
-        neutralVariant = TonalPalette.fromList(
-            _getPartition(colors, 4, TonalPalette.commonSize));
+    : assert(colors.length == size * TonalPalette.commonSize, 'colors length must be equal to size*commonSize'),
+      primary = TonalPalette.fromList(_getPartition(colors, 0, TonalPalette.commonSize)),
+      secondary = TonalPalette.fromList(_getPartition(colors, 1, TonalPalette.commonSize)),
+      tertiary = TonalPalette.fromList(_getPartition(colors, 2, TonalPalette.commonSize)),
+      neutral = TonalPalette.fromList(_getPartition(colors, 3, TonalPalette.commonSize)),
+      neutralVariant = TonalPalette.fromList(_getPartition(colors, 4, TonalPalette.commonSize));
 
   /// Returns a list of ARGB color [int]s from concatenated tonal palettes.
   ///
   /// Inverse of [CorePalette.fromList].
   List<int> asList() => <int>[
-        ...primary.asList,
-        ...secondary.asList,
-        ...tertiary.asList,
-        ...neutral.asList,
-        ...neutralVariant.asList,
-      ];
+    ...primary.asList,
+    ...secondary.asList,
+    ...tertiary.asList,
+    ...neutral.asList,
+    ...neutralVariant.asList,
+  ];
 
   @override
   bool operator ==(Object other) {
@@ -117,13 +111,13 @@ class CorePalette {
 
   @override
   int get hashCode => Object.hash(
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-        error,
-      );
+    primary,
+    secondary,
+    tertiary,
+    neutral,
+    neutralVariant,
+    error,
+  );
 
   @override
   String toString() {
@@ -143,8 +137,7 @@ class CorePalette {
 //
 // range.getPartition(0, 3) // [1, 2, 3]
 // range.getPartition(1, 3) // [4, 5, 6]
-List<int> _getPartition(
-    List<int> list, int partitionNumber, int partitionSize) {
+List<int> _getPartition(List<int> list, int partitionNumber, int partitionSize) {
   return list.sublist(
     partitionNumber * partitionSize,
     (partitionNumber + 1) * partitionSize,

@@ -36,8 +36,8 @@ class DynamicScheme {
     required this.neutralPalette,
     required this.neutralVariantPalette,
     TonalPalette? errorPalette,
-  })  : sourceColorArgb = sourceColorHct.toInt(),
-        errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
+  }) : sourceColorArgb = sourceColorHct.toInt(),
+       errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
 
   /// The source color of the theme as an ARGB integer.
   final int sourceColorArgb;
@@ -105,11 +105,9 @@ class DynamicScheme {
   final TonalPalette errorPalette;
 
   /// Get the the rotated hue of the source color.
-  static double getRotatedHue(
-      Hct sourceColor, List<double> hues, List<double> rotations) {
+  static double getRotatedHue(Hct sourceColor, List<double> hues, List<double> rotations) {
     final double sourceHue = sourceColor.hue;
-    assert(hues.length == rotations.length,
-        'Hues and rotations length must match');
+    assert(hues.length == rotations.length, 'Hues and rotations length must match');
     if (rotations.length == 1) {
       return MathUtils.sanitizeDegreesDouble(sourceColor.hue + rotations[0]);
     }
@@ -134,24 +132,19 @@ class DynamicScheme {
 
   // Getters.
   /// The primaryPaletteKeyColor color of the theme.
-  int get primaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.primaryPaletteKeyColor);
+  int get primaryPaletteKeyColor => getArgb(MaterialDynamicColors.primaryPaletteKeyColor);
 
   /// The secondaryPaletteKeyColor color of the theme.
-  int get secondaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.secondaryPaletteKeyColor);
+  int get secondaryPaletteKeyColor => getArgb(MaterialDynamicColors.secondaryPaletteKeyColor);
 
   /// The tertiaryPaletteKeyColor color of the theme.
-  int get tertiaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.tertiaryPaletteKeyColor);
+  int get tertiaryPaletteKeyColor => getArgb(MaterialDynamicColors.tertiaryPaletteKeyColor);
 
   /// The neutralPaletteKeyColor color of the theme.
-  int get neutralPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.neutralPaletteKeyColor);
+  int get neutralPaletteKeyColor => getArgb(MaterialDynamicColors.neutralPaletteKeyColor);
 
   /// The neutralVariantPaletteKeyColor variant color of the theme.
-  int get neutralVariantPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.neutralVariantPaletteKeyColor);
+  int get neutralVariantPaletteKeyColor => getArgb(MaterialDynamicColors.neutralVariantPaletteKeyColor);
 
   /// The background color of the theme.
   int get background => getArgb(MaterialDynamicColors.background);
@@ -169,23 +162,19 @@ class DynamicScheme {
   int get surfaceBright => getArgb(MaterialDynamicColors.surfaceBright);
 
   /// The surfaceContainerLowest color of the theme.
-  int get surfaceContainerLowest =>
-      getArgb(MaterialDynamicColors.surfaceContainerLowest);
+  int get surfaceContainerLowest => getArgb(MaterialDynamicColors.surfaceContainerLowest);
 
   /// The surfaceContainerLow color of the theme.
-  int get surfaceContainerLow =>
-      getArgb(MaterialDynamicColors.surfaceContainerLow);
+  int get surfaceContainerLow => getArgb(MaterialDynamicColors.surfaceContainerLow);
 
   /// The surfaceContainer color of the theme.
   int get surfaceContainer => getArgb(MaterialDynamicColors.surfaceContainer);
 
   /// The surfaceContainerHigh color of the theme.
-  int get surfaceContainerHigh =>
-      getArgb(MaterialDynamicColors.surfaceContainerHigh);
+  int get surfaceContainerHigh => getArgb(MaterialDynamicColors.surfaceContainerHigh);
 
   /// The surfaceContainerHighest color of the theme.
-  int get surfaceContainerHighest =>
-      getArgb(MaterialDynamicColors.surfaceContainerHighest);
+  int get surfaceContainerHighest => getArgb(MaterialDynamicColors.surfaceContainerHighest);
 
   /// The onSurface color of the theme.
   int get onSurface => getArgb(MaterialDynamicColors.onSurface);
@@ -227,8 +216,7 @@ class DynamicScheme {
   int get primaryContainer => getArgb(MaterialDynamicColors.primaryContainer);
 
   /// The onPrimaryContainer color of the theme.
-  int get onPrimaryContainer =>
-      getArgb(MaterialDynamicColors.onPrimaryContainer);
+  int get onPrimaryContainer => getArgb(MaterialDynamicColors.onPrimaryContainer);
 
   /// The inversePrimary color of the theme.
   int get inversePrimary => getArgb(MaterialDynamicColors.inversePrimary);
@@ -240,12 +228,10 @@ class DynamicScheme {
   int get onSecondary => getArgb(MaterialDynamicColors.onSecondary);
 
   /// The secondaryContainer color of the theme.
-  int get secondaryContainer =>
-      getArgb(MaterialDynamicColors.secondaryContainer);
+  int get secondaryContainer => getArgb(MaterialDynamicColors.secondaryContainer);
 
   /// The onSecondaryContainer color of the theme.
-  int get onSecondaryContainer =>
-      getArgb(MaterialDynamicColors.onSecondaryContainer);
+  int get onSecondaryContainer => getArgb(MaterialDynamicColors.onSecondaryContainer);
 
   /// The tertiary color of the theme.
   int get tertiary => getArgb(MaterialDynamicColors.tertiary);
@@ -257,8 +243,7 @@ class DynamicScheme {
   int get tertiaryContainer => getArgb(MaterialDynamicColors.tertiaryContainer);
 
   /// The onTertiaryContainer color of the theme.
-  int get onTertiaryContainer =>
-      getArgb(MaterialDynamicColors.onTertiaryContainer);
+  int get onTertiaryContainer => getArgb(MaterialDynamicColors.onTertiaryContainer);
 
   /// The error color of the theme.
   int get error => getArgb(MaterialDynamicColors.error);
@@ -282,8 +267,7 @@ class DynamicScheme {
   int get onPrimaryFixed => getArgb(MaterialDynamicColors.onPrimaryFixed);
 
   /// The onPrimaryFixedVariant color of the theme.
-  int get onPrimaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onPrimaryFixedVariant);
+  int get onPrimaryFixedVariant => getArgb(MaterialDynamicColors.onPrimaryFixedVariant);
 
   /// The secondaryFixed color of the theme.
   int get secondaryFixed => getArgb(MaterialDynamicColors.secondaryFixed);
@@ -295,8 +279,7 @@ class DynamicScheme {
   int get onSecondaryFixed => getArgb(MaterialDynamicColors.onSecondaryFixed);
 
   /// The onSecondaryFixedVariant color of the theme.
-  int get onSecondaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onSecondaryFixedVariant);
+  int get onSecondaryFixedVariant => getArgb(MaterialDynamicColors.onSecondaryFixedVariant);
 
   /// The tertiaryFixed color of the theme.
   int get tertiaryFixed => getArgb(MaterialDynamicColors.tertiaryFixed);
@@ -308,6 +291,5 @@ class DynamicScheme {
   int get onTertiaryFixed => getArgb(MaterialDynamicColors.onTertiaryFixed);
 
   /// The onTertiaryFixedVariant color of the theme.
-  int get onTertiaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onTertiaryFixedVariant);
+  int get onTertiaryFixedVariant => getArgb(MaterialDynamicColors.onTertiaryFixedVariant);
 }

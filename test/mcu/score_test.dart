@@ -81,8 +81,7 @@ void main() {
       0xff835c0d: 49,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 3, fallbackColorARGB: 0xff8d3819, filter: false);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 3, fallbackColorARGB: 0xff8d3819, filter: false);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xff7ea16d));
@@ -98,8 +97,7 @@ void main() {
       0xffa08f5d: 81,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 4, fallbackColorARGB: 0xff7d772b, filter: true);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 4, fallbackColorARGB: 0xff7d772b, filter: true);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xff3205cc));
@@ -115,8 +113,7 @@ void main() {
       0xff94c574: 82,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 3, fallbackColorARGB: 0xffaa79a4, filter: true);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 3, fallbackColorARGB: 0xffaa79a4, filter: true);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xff94c574));
@@ -133,8 +130,7 @@ void main() {
       0xff713090: 88,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 5, fallbackColorARGB: 0xff58c19c, filter: false);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 5, fallbackColorARGB: 0xff58c19c, filter: false);
 
     expect(ranked, hasLength(2));
     expect(ranked[0], isColor(0xffdf241c));
@@ -150,8 +146,7 @@ void main() {
       0xffe89307: 65,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 3, fallbackColorARGB: 0xff916691, filter: false);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 3, fallbackColorARGB: 0xff916691, filter: false);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xffab8017));
@@ -168,8 +163,7 @@ void main() {
       0xff04ca1f: 62,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 2, fallbackColorARGB: 0xff4c377a, filter: false);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 2, fallbackColorARGB: 0xff4c377a, filter: false);
 
     expect(ranked, hasLength(2));
     expect(ranked[0], isColor(0xff18ea8f));
@@ -185,8 +179,7 @@ void main() {
       0xff68bcc3: 81,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 2, fallbackColorARGB: 0xfff588dc, filter: true);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 2, fallbackColorARGB: 0xfff588dc, filter: true);
 
     expect(ranked, hasLength(2));
     expect(ranked[0], isColor(0xff2e05ed));
@@ -201,8 +194,7 @@ void main() {
       0xff5b542f: 25,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 1, fallbackColorARGB: 0xff84b0fd, filter: false);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 1, fallbackColorARGB: 0xff84b0fd, filter: false);
 
     expect(ranked, hasLength(1));
     expect(ranked[0], isColor(0xff3cae91));
@@ -217,8 +209,7 @@ void main() {
       0xff277766: 59,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 3, fallbackColorARGB: 0xff02b415, filter: true);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 3, fallbackColorARGB: 0xff02b415, filter: true);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xfff51401));
@@ -234,8 +225,7 @@ void main() {
       0xff77fdf2: 78,
     };
 
-    final List<int> ranked = Score.score(colorsToPopulation,
-        desired: 4, fallbackColorARGB: 0xff5e7a10, filter: true);
+    final List<int> ranked = Score.score(colorsToPopulation, desired: 4, fallbackColorARGB: 0xff5e7a10, filter: true);
 
     expect(ranked, hasLength(3));
     expect(ranked[0], isColor(0xff27effe));
@@ -254,11 +244,7 @@ void main() {
   });
 
   test('prioritizes chroma when proportions equal', () {
-    final Map<int, int> colorsToPopulation = <int, int>{
-      0xffff0000: 1,
-      0xff00ff00: 1,
-      0xff0000ff: 1
-    };
+    final Map<int, int> colorsToPopulation = <int, int>{0xffff0000: 1, 0xff00ff00: 1, 0xff0000ff: 1};
     final List<int> ranked = Score.score(
       colorsToPopulation,
       desired: 4,

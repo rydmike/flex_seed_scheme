@@ -93,8 +93,7 @@ class FlexCorePalette {
   /// You would typically give it the value:
   /// [FlexTonalPalette.of(25, 84, FlexPaletteType.extended)] for M3 default
   /// error colors but with more tones available.
-  FlexTonalPalette get error =>
-      _error ?? FlexTonalPalette.of(25, 84, FlexPaletteType.common);
+  FlexTonalPalette get error => _error ?? FlexTonalPalette.of(25, 84, FlexPaletteType.common);
 
   /// Create a [FlexCorePalette] from a given int ARGB color value.
   static FlexCorePalette of(
@@ -111,12 +110,12 @@ class FlexCorePalette {
     double hue,
     double chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : primary = FlexTonalPalette.of(hue, math.max(48, chroma), paletteType),
-        secondary = FlexTonalPalette.of(hue, 16, paletteType),
-        tertiary = FlexTonalPalette.of(hue + 60, 24, paletteType),
-        neutral = FlexTonalPalette.of(hue, 4, paletteType),
-        neutralVariant = FlexTonalPalette.of(hue, 8, paletteType),
-        _error = FlexTonalPalette.of(25, 84, paletteType);
+  ]) : primary = FlexTonalPalette.of(hue, math.max(48, chroma), paletteType),
+       secondary = FlexTonalPalette.of(hue, 16, paletteType),
+       tertiary = FlexTonalPalette.of(hue + 60, 24, paletteType),
+       neutral = FlexTonalPalette.of(hue, 4, paletteType),
+       neutralVariant = FlexTonalPalette.of(hue, 8, paletteType),
+       _error = FlexTonalPalette.of(25, 84, paletteType);
 
   /// Create a [FlexCorePalette] from one to three seed colors.
   ///
@@ -499,18 +498,15 @@ class FlexCorePalette {
     }
 
     // If a fixed chroma was given we use it instead of chroma in primary.
-    final double effectivePrimaryChroma =
-        primaryChroma ?? primaryComputedChroma;
+    final double effectivePrimaryChroma = primaryChroma ?? primaryComputedChroma;
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedPrimaryChroma =
-        respectMonochromeSeed && _isMonochrome(primary)
-            ? 0
-            // We use the effectiveChroma, but only if it is over the min level.
-            : math.max(primaryMinChroma ?? 48, effectivePrimaryChroma);
+    final double usedPrimaryChroma = respectMonochromeSeed && _isMonochrome(primary)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(primaryMinChroma ?? 48, effectivePrimaryChroma);
     // Compute the tonal palette for primary colors, using the computed hue
     // and the used chroma value.
-    final FlexTonalPalette tonalPrimary =
-        FlexTonalPalette.of(primaryComputedHue, usedPrimaryChroma, paletteType);
+    final FlexTonalPalette tonalPrimary = FlexTonalPalette.of(primaryComputedHue, usedPrimaryChroma, paletteType);
 
     // Secondary TonalPalette calculation.
     //
@@ -532,18 +528,15 @@ class FlexCorePalette {
       }
     }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveSecondaryChroma =
-        secondaryChroma ?? secondaryComputedChroma;
+    final double effectiveSecondaryChroma = secondaryChroma ?? secondaryComputedChroma;
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedSecondaryChroma =
-        respectMonochromeSeed && _isMonochrome(secondary ?? primary)
-            ? 0
-            // We use the effectiveChroma, but only if it is over the min level.
-            : math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma);
+    final double usedSecondaryChroma = respectMonochromeSeed && _isMonochrome(secondary ?? primary)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(secondaryMinChroma ?? 0, effectiveSecondaryChroma);
     // Compute the tonal palette for secondary colors, using the computed hue
     // and the used chroma value.
-    final FlexTonalPalette tonalSecondary = FlexTonalPalette.of(
-        secondaryComputedHue, usedSecondaryChroma, paletteType);
+    final FlexTonalPalette tonalSecondary = FlexTonalPalette.of(secondaryComputedHue, usedSecondaryChroma, paletteType);
 
     // Tertiary TonalPalette calculation.
     //
@@ -554,8 +547,7 @@ class FlexCorePalette {
       // If we had no tertiary keyColor, we won't use primary key's hue
       // directly, we add 60 degrees to it, this is the M3 way to shift hue
       // from a single key.
-      tertiaryComputedHue = MathUtils.sanitizeDegreesDouble(
-          primaryComputedHue + (tertiaryHueRotation ?? 60));
+      tertiaryComputedHue = MathUtils.sanitizeDegreesDouble(primaryComputedHue + (tertiaryHueRotation ?? 60));
       tertiaryComputedChroma = primaryComputedChroma;
     } else {
       if (useCam16) {
@@ -569,18 +561,15 @@ class FlexCorePalette {
       }
     }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveTertiaryChroma =
-        tertiaryChroma ?? tertiaryComputedChroma;
+    final double effectiveTertiaryChroma = tertiaryChroma ?? tertiaryComputedChroma;
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedTertiaryChroma =
-        respectMonochromeSeed && _isMonochrome(tertiary ?? primary)
-            ? 0
-            // We use the effectiveChroma, but only if it is over the min level.
-            : math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma);
+    final double usedTertiaryChroma = respectMonochromeSeed && _isMonochrome(tertiary ?? primary)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(tertiaryMinChroma ?? 0, effectiveTertiaryChroma);
     // Compute the tonal palette for tertiary colors, using the computed hue
     // and the used chroma value.
-    final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(
-        tertiaryComputedHue, usedTertiaryChroma, paletteType);
+    final FlexTonalPalette tonalTertiary = FlexTonalPalette.of(tertiaryComputedHue, usedTertiaryChroma, paletteType);
 
     // Neutral TonalPalette calculation.
     //
@@ -602,18 +591,15 @@ class FlexCorePalette {
       }
     }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveNeutralChroma =
-        neutralChroma ?? neutralComputedChroma;
+    final double effectiveNeutralChroma = neutralChroma ?? neutralComputedChroma;
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedNeutralChroma =
-        respectMonochromeSeed && _isMonochrome(neutral ?? primary)
-            ? 0
-            // We use the effectiveChroma, but only if it is over the min level.
-            : math.max(neutralMinChroma ?? 0, effectiveNeutralChroma);
+    final double usedNeutralChroma = respectMonochromeSeed && _isMonochrome(neutral ?? primary)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(neutralMinChroma ?? 0, effectiveNeutralChroma);
     // Compute the tonal palette for neutral colors, using the computed hue
     // and the used chroma value.
-    final FlexTonalPalette tonalNeutral =
-        FlexTonalPalette.of(neutralComputedHue, usedNeutralChroma, paletteType);
+    final FlexTonalPalette tonalNeutral = FlexTonalPalette.of(neutralComputedHue, usedNeutralChroma, paletteType);
 
     // NeutralVariant TonalPalette calculation.
     //
@@ -635,18 +621,19 @@ class FlexCorePalette {
       }
     }
     // If a fixed chroma value was given we use it instead.
-    final double effectiveNeutralVariantChroma =
-        neutralVariantChroma ?? neutralVariantComputedChroma;
+    final double effectiveNeutralVariantChroma = neutralVariantChroma ?? neutralVariantComputedChroma;
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedNeutralVariantChroma = respectMonochromeSeed &&
-            _isMonochrome(neutralVariant ?? primary)
+    final double usedNeutralVariantChroma = respectMonochromeSeed && _isMonochrome(neutralVariant ?? primary)
         ? 0
         // We use the effectiveChroma, but only if it is over the min level.
         : math.max(neutralVariantMinChroma ?? 0, effectiveNeutralVariantChroma);
     // Compute the tonal palette for neutral variant colors, using the computed
     // hue and the used chroma value.
     final FlexTonalPalette tonalNeutralVariant = FlexTonalPalette.of(
-        neutralVariantComputedHue, usedNeutralVariantChroma, paletteType);
+      neutralVariantComputedHue,
+      usedNeutralVariantChroma,
+      paletteType,
+    );
 
     // Error TonalPalette calculation.
     //
@@ -676,15 +663,13 @@ class FlexCorePalette {
     final double effectiveErrorChroma = errorChroma ?? errorComputedChroma;
 
     // If we recognize monochrome input, we set chroma to 0 for monochrome.
-    final double usedErrorChroma =
-        respectMonochromeSeed && error != null && _isMonochrome(error)
-            ? 0
-            // We use the effectiveChroma, but only if it is over the min level.
-            : math.max(errorMinChroma ?? 0, effectiveErrorChroma);
+    final double usedErrorChroma = respectMonochromeSeed && error != null && _isMonochrome(error)
+        ? 0
+        // We use the effectiveChroma, but only if it is over the min level.
+        : math.max(errorMinChroma ?? 0, effectiveErrorChroma);
     // Compute the tonal palette for neutral colors, using the computed hue
     // and the used chroma value.
-    final FlexTonalPalette tonalError =
-        FlexTonalPalette.of(errorComputedHue, usedErrorChroma, paletteType);
+    final FlexTonalPalette tonalError = FlexTonalPalette.of(errorComputedHue, usedErrorChroma, paletteType);
 
     return FlexCorePalette(
       primary: tonalPrimary,
@@ -707,60 +692,59 @@ class FlexCorePalette {
   FlexCorePalette.fromList(
     List<int> colors, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : assert(
-            (colors.length == size * FlexTonalPalette.commonSize &&
-                    paletteType == FlexPaletteType.common) ||
-                (colors.length == size * FlexTonalPalette.extendedSize &&
-                    paletteType == FlexPaletteType.extended),
-            'Incorrect size.'),
-        primary = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                0,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType),
-        secondary = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                1,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType),
-        tertiary = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                2,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType),
-        neutral = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                3,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType),
-        neutralVariant = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                4,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType),
-        _error = FlexTonalPalette.fromList(
-            _getPartition(
-                colors,
-                5,
-                paletteType == FlexPaletteType.common
-                    ? FlexTonalPalette.commonSize
-                    : FlexTonalPalette.extendedSize),
-            paletteType);
+  ]) : assert(
+         (colors.length == size * FlexTonalPalette.commonSize && paletteType == FlexPaletteType.common) ||
+             (colors.length == size * FlexTonalPalette.extendedSize && paletteType == FlexPaletteType.extended),
+         'Incorrect size.',
+       ),
+       primary = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           0,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       ),
+       secondary = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           1,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       ),
+       tertiary = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           2,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       ),
+       neutral = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           3,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       ),
+       neutralVariant = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           4,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       ),
+       _error = FlexTonalPalette.fromList(
+         _getPartition(
+           colors,
+           5,
+           paletteType == FlexPaletteType.common ? FlexTonalPalette.commonSize : FlexTonalPalette.extendedSize,
+         ),
+         paletteType,
+       );
 
   /// Returns a list of ARGB color [int]s from concatenated tonal palettes.
   ///
@@ -769,13 +753,13 @@ class FlexCorePalette {
   /// This fromList differs from MaterialColorUtilities version in CorePalette
   /// by including the error tonal colors last in the list.
   List<int> asList() => <int>[
-        ...primary.asList,
-        ...secondary.asList,
-        ...tertiary.asList,
-        ...neutral.asList,
-        ...neutralVariant.asList,
-        ...error.asList,
-      ];
+    ...primary.asList,
+    ...secondary.asList,
+    ...tertiary.asList,
+    ...neutral.asList,
+    ...neutralVariant.asList,
+    ...error.asList,
+  ];
 
   /// Override the equality operator.
   @override
@@ -791,13 +775,13 @@ class FlexCorePalette {
   /// Override hashcode.
   @override
   int get hashCode => Object.hashAll(<Object?>[
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-        error,
-      ]);
+    primary,
+    secondary,
+    tertiary,
+    neutral,
+    neutralVariant,
+    error,
+  ]);
 
   /// Override toString.
   @override
@@ -815,8 +799,7 @@ class FlexCorePalette {
   /// To be monochrome, the red, green, and blue values must be equal.
   static bool _isMonochrome(int intColor) {
     final Color color = Color(intColor);
-    return color.red8bit == color.green8bit &&
-        color.green8bit == color.blue8bit;
+    return color.red8bit == color.green8bit && color.green8bit == color.blue8bit;
   }
 
   /// Returns a partition from a list.
@@ -826,8 +809,7 @@ class FlexCorePalette {
   ///
   /// range.getPartition(0, 3) // [1, 2, 3]
   /// range.getPartition(1, 3) // [4, 5, 6]
-  static List<int> _getPartition(
-      List<int> list, int partitionNumber, int partitionSize) {
+  static List<int> _getPartition(List<int> list, int partitionNumber, int partitionSize) {
     return list.sublist(
       partitionNumber * partitionSize,
       (partitionNumber + 1) * partitionSize,

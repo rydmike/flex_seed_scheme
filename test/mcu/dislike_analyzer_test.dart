@@ -45,8 +45,7 @@ void main() {
         0xff464521,
       ];
       for (final int color in unlikable) {
-        expect(DislikeAnalyzer.isDisliked(Hct.fromInt(color)), true,
-            reason: '$color was likable');
+        expect(DislikeAnalyzer.isDisliked(Hct.fromInt(color)), true, reason: '$color was likable');
       }
     });
 

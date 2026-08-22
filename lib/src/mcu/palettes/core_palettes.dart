@@ -71,12 +71,12 @@ class CorePalettes {
 
   @override
   int get hashCode => Object.hash(
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-      );
+    primary,
+    secondary,
+    tertiary,
+    neutral,
+    neutralVariant,
+  );
 
   @override
   String toString() {

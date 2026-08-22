@@ -42,43 +42,42 @@ class SchemeRainbow extends DynamicScheme {
     bool isTertiaryMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          variant: Variant.rainbow,
-          primaryPalette: TonalPalette.of(
-            sourceColorHct.hue,
-            respectMonochromeSeed && isPrimaryMonochrome ? 0 : 48.0,
-          ),
-          secondaryPalette: secondarySourceColorHct != null
-              ? TonalPalette.of(
-                  secondarySourceColorHct.hue,
-                  respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
-                )
-              : TonalPalette.of(
-                  sourceColorHct.hue,
-                  respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
-                ),
-          tertiaryPalette: tertiarySourceColorHct != null
-              ? TonalPalette.of(
-                  tertiarySourceColorHct.hue,
-                  respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
-                )
-              : TonalPalette.of(
-                  MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
-                  respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
-                ),
-          neutralPalette: TonalPalette.of(
-            neutralSourceColorHct?.hue ?? sourceColorHct.hue,
-            0.0,
-          ),
-          neutralVariantPalette: TonalPalette.of(
-            neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
-            0.0,
-          ),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue,
-                  respectMonochromeSeed && isErrorMonochrome
-                      ? 0
-                      : errorSourceColorHct.chroma),
-        );
+         variant: Variant.rainbow,
+         primaryPalette: TonalPalette.of(
+           sourceColorHct.hue,
+           respectMonochromeSeed && isPrimaryMonochrome ? 0 : 48.0,
+         ),
+         secondaryPalette: secondarySourceColorHct != null
+             ? TonalPalette.of(
+                 secondarySourceColorHct.hue,
+                 respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
+               )
+             : TonalPalette.of(
+                 sourceColorHct.hue,
+                 respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16.0,
+               ),
+         tertiaryPalette: tertiarySourceColorHct != null
+             ? TonalPalette.of(
+                 tertiarySourceColorHct.hue,
+                 respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
+               )
+             : TonalPalette.of(
+                 MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
+                 respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
+               ),
+         neutralPalette: TonalPalette.of(
+           neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+           0.0,
+         ),
+         neutralVariantPalette: TonalPalette.of(
+           neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+           0.0,
+         ),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(
+                 errorSourceColorHct.hue,
+                 respectMonochromeSeed && isErrorMonochrome ? 0 : errorSourceColorHct.chroma,
+               ),
+       );
 }

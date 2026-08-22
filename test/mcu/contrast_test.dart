@@ -32,8 +32,7 @@ void main() {
   });
 
   test('lighterUnsafe_returnsMaxTone', () {
-    expect(
-        100, closeTo(Contrast.lighterUnsafe(tone: 100.0, ratio: 2.0), 0.001));
+    expect(100, closeTo(Contrast.lighterUnsafe(tone: 100.0, ratio: 2.0), 0.001));
   });
 
   test('darker_impossibleRatioErrors', () {

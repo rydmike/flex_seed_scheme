@@ -44,37 +44,31 @@ class SchemeVibrant extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          variant: Variant.vibrant,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue,
-              respectMonochromeSeed && isPrimaryMonochrome ? 0 : 200.0),
-          secondaryPalette: TonalPalette.of(
-            DynamicScheme.getRotatedHue(
-                secondarySourceColorHct ?? sourceColorHct,
-                hues,
-                secondaryRotations),
-            respectMonochromeSeed && isSecondaryMonochrome ? 0 : 24.0,
-          ),
-          tertiaryPalette: TonalPalette.of(
-            DynamicScheme.getRotatedHue(
-                tertiarySourceColorHct ?? sourceColorHct,
-                hues,
-                tertiaryRotations),
-            respectMonochromeSeed && isTertiaryMonochrome ? 0 : 32.0,
-          ),
-          neutralPalette: TonalPalette.of(
-              neutralSourceColorHct?.hue ?? sourceColorHct.hue,
-              respectMonochromeSeed && isNeutralMonochrome ? 0 : 10.0),
-          neutralVariantPalette: TonalPalette.of(
-              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
-              respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue,
-                  respectMonochromeSeed && isErrorMonochrome
-                      ? 0
-                      : errorSourceColorHct.chroma),
-        );
+         variant: Variant.vibrant,
+         primaryPalette: TonalPalette.of(sourceColorHct.hue, respectMonochromeSeed && isPrimaryMonochrome ? 0 : 200.0),
+         secondaryPalette: TonalPalette.of(
+           DynamicScheme.getRotatedHue(secondarySourceColorHct ?? sourceColorHct, hues, secondaryRotations),
+           respectMonochromeSeed && isSecondaryMonochrome ? 0 : 24.0,
+         ),
+         tertiaryPalette: TonalPalette.of(
+           DynamicScheme.getRotatedHue(tertiarySourceColorHct ?? sourceColorHct, hues, tertiaryRotations),
+           respectMonochromeSeed && isTertiaryMonochrome ? 0 : 32.0,
+         ),
+         neutralPalette: TonalPalette.of(
+           neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralMonochrome ? 0 : 10.0,
+         ),
+         neutralVariantPalette: TonalPalette.of(
+           neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 12.0,
+         ),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(
+                 errorSourceColorHct.hue,
+                 respectMonochromeSeed && isErrorMonochrome ? 0 : errorSourceColorHct.chroma,
+               ),
+       );
 
   /// Hues used at breakpoints such that designers can specify a hue rotation
   /// that occurs at a given break point.

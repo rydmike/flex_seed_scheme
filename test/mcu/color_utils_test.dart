@@ -17,12 +17,10 @@ import 'package:test/test.dart';
 
 List<double> _range(double start, double stop, int caseCount) {
   final double stepSize = (stop - start) / (caseCount - 1);
-  return List<double>.generate(
-      caseCount, (int index) => start + stepSize * index);
+  return List<double>.generate(caseCount, (int index) => start + stepSize * index);
 }
 
-List<int> get rgbRange =>
-    _range(0.0, 255.0, 8).map((double element) => element.round()).toList();
+List<int> get rgbRange => _range(0.0, 255.0, 8).map((double element) => element.round()).toList();
 
 List<int> get fullRgbRange => List<int>.generate(256, (int index) => index);
 
@@ -207,8 +205,7 @@ void main() {
 
   test('linearize_delinearize', () {
     for (final int rgbComponent in fullRgbRange) {
-      final int converted =
-          ColorUtils.delinearized(ColorUtils.linearized(rgbComponent));
+      final int converted = ColorUtils.delinearized(ColorUtils.linearized(rgbComponent));
       expect(converted, rgbComponent);
     }
   });

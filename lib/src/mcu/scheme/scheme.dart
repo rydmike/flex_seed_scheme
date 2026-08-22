@@ -245,134 +245,132 @@ class Scheme {
   static Scheme dark(int color) => darkFromCorePalette(CorePalette.of(color));
 
   /// Get Scheme for lightContent from CorePalette.
-  static Scheme lightContent(int color) =>
-      lightFromCorePalette(CorePalette.contentOf(color));
+  static Scheme lightContent(int color) => lightFromCorePalette(CorePalette.contentOf(color));
 
   /// Get Scheme for darkContent from CorePalette.
-  static Scheme darkContent(int color) =>
-      darkFromCorePalette(CorePalette.contentOf(color));
+  static Scheme darkContent(int color) => darkFromCorePalette(CorePalette.contentOf(color));
 
   /// Get Scheme from lightFromCorePalette.
   static Scheme lightFromCorePalette(CorePalette palette) => Scheme(
-        primary: palette.primary.get(40),
-        onPrimary: palette.primary.get(100),
-        primaryContainer: palette.primary.get(90),
-        onPrimaryContainer: palette.primary.get(10),
-        primaryFixed: palette.primary.get(90),
-        primaryFixedDim: palette.primary.get(80),
-        onPrimaryFixed: palette.primary.get(10),
-        onPrimaryFixedVariant: palette.primary.get(30),
-        //
-        secondary: palette.secondary.get(40),
-        onSecondary: palette.secondary.get(100),
-        secondaryContainer: palette.secondary.get(90),
-        onSecondaryContainer: palette.secondary.get(10),
-        secondaryFixed: palette.secondary.get(90),
-        secondaryFixedDim: palette.secondary.get(80),
-        onSecondaryFixed: palette.secondary.get(10),
-        onSecondaryFixedVariant: palette.secondary.get(30),
-        //
-        tertiary: palette.tertiary.get(40),
-        onTertiary: palette.tertiary.get(100),
-        tertiaryContainer: palette.tertiary.get(90),
-        onTertiaryContainer: palette.tertiary.get(10),
-        tertiaryFixed: palette.tertiary.get(90),
-        tertiaryFixedDim: palette.tertiary.get(80),
-        onTertiaryFixed: palette.tertiary.get(10),
-        onTertiaryFixedVariant: palette.tertiary.get(30),
-        //
-        error: palette.error.get(40),
-        onError: palette.error.get(100),
-        errorContainer: palette.error.get(90),
-        onErrorContainer: palette.error.get(10),
-        //
-        background: palette.neutral.get(99),
-        onBackground: palette.neutral.get(10),
-        //
-        // Since this is legacy compatible it continues to use tone 99 here
-        surface: palette.neutral.get(99),
-        surfaceDim: palette.neutral.get(87),
-        surfaceBright: palette.neutral.get(98),
-        surfaceContainerLowest: palette.neutral.get(100),
-        surfaceContainerLow: palette.neutral.get(96),
-        surfaceContainer: palette.neutral.get(94),
-        surfaceContainerHigh: palette.neutral.get(92),
-        surfaceContainerHighest: palette.neutral.get(90),
-        //
-        onSurface: palette.neutral.get(10),
-        surfaceVariant: palette.neutralVariant.get(90),
-        onSurfaceVariant: palette.neutralVariant.get(30),
-        //
-        outline: palette.neutralVariant.get(50),
-        outlineVariant: palette.neutralVariant.get(80),
-        shadow: palette.neutral.get(0),
-        scrim: palette.neutral.get(0),
-        inverseSurface: palette.neutral.get(20),
-        inverseOnSurface: palette.neutral.get(95),
-        inversePrimary: palette.primary.get(80),
-      );
+    primary: palette.primary.get(40),
+    onPrimary: palette.primary.get(100),
+    primaryContainer: palette.primary.get(90),
+    onPrimaryContainer: palette.primary.get(10),
+    primaryFixed: palette.primary.get(90),
+    primaryFixedDim: palette.primary.get(80),
+    onPrimaryFixed: palette.primary.get(10),
+    onPrimaryFixedVariant: palette.primary.get(30),
+    //
+    secondary: palette.secondary.get(40),
+    onSecondary: palette.secondary.get(100),
+    secondaryContainer: palette.secondary.get(90),
+    onSecondaryContainer: palette.secondary.get(10),
+    secondaryFixed: palette.secondary.get(90),
+    secondaryFixedDim: palette.secondary.get(80),
+    onSecondaryFixed: palette.secondary.get(10),
+    onSecondaryFixedVariant: palette.secondary.get(30),
+    //
+    tertiary: palette.tertiary.get(40),
+    onTertiary: palette.tertiary.get(100),
+    tertiaryContainer: palette.tertiary.get(90),
+    onTertiaryContainer: palette.tertiary.get(10),
+    tertiaryFixed: palette.tertiary.get(90),
+    tertiaryFixedDim: palette.tertiary.get(80),
+    onTertiaryFixed: palette.tertiary.get(10),
+    onTertiaryFixedVariant: palette.tertiary.get(30),
+    //
+    error: palette.error.get(40),
+    onError: palette.error.get(100),
+    errorContainer: palette.error.get(90),
+    onErrorContainer: palette.error.get(10),
+    //
+    background: palette.neutral.get(99),
+    onBackground: palette.neutral.get(10),
+    //
+    // Since this is legacy compatible it continues to use tone 99 here
+    surface: palette.neutral.get(99),
+    surfaceDim: palette.neutral.get(87),
+    surfaceBright: palette.neutral.get(98),
+    surfaceContainerLowest: palette.neutral.get(100),
+    surfaceContainerLow: palette.neutral.get(96),
+    surfaceContainer: palette.neutral.get(94),
+    surfaceContainerHigh: palette.neutral.get(92),
+    surfaceContainerHighest: palette.neutral.get(90),
+    //
+    onSurface: palette.neutral.get(10),
+    surfaceVariant: palette.neutralVariant.get(90),
+    onSurfaceVariant: palette.neutralVariant.get(30),
+    //
+    outline: palette.neutralVariant.get(50),
+    outlineVariant: palette.neutralVariant.get(80),
+    shadow: palette.neutral.get(0),
+    scrim: palette.neutral.get(0),
+    inverseSurface: palette.neutral.get(20),
+    inverseOnSurface: palette.neutral.get(95),
+    inversePrimary: palette.primary.get(80),
+  );
 
   /// Get Scheme from darkFromCorePalette.
   static Scheme darkFromCorePalette(CorePalette palette) => Scheme(
-        primary: palette.primary.get(80),
-        onPrimary: palette.primary.get(20),
-        primaryContainer: palette.primary.get(30),
-        onPrimaryContainer: palette.primary.get(90),
-        primaryFixed: palette.primary.get(90),
-        primaryFixedDim: palette.primary.get(80),
-        onPrimaryFixed: palette.primary.get(10),
-        onPrimaryFixedVariant: palette.primary.get(30),
-        //
-        secondary: palette.secondary.get(80),
-        onSecondary: palette.secondary.get(20),
-        secondaryContainer: palette.secondary.get(30),
-        onSecondaryContainer: palette.secondary.get(90),
-        secondaryFixed: palette.secondary.get(90),
-        secondaryFixedDim: palette.secondary.get(80),
-        onSecondaryFixed: palette.secondary.get(10),
-        onSecondaryFixedVariant: palette.secondary.get(30),
-        //
-        tertiary: palette.tertiary.get(80),
-        onTertiary: palette.tertiary.get(20),
-        tertiaryContainer: palette.tertiary.get(30),
-        onTertiaryContainer: palette.tertiary.get(90),
-        tertiaryFixed: palette.tertiary.get(90),
-        tertiaryFixedDim: palette.tertiary.get(80),
-        onTertiaryFixed: palette.tertiary.get(10),
-        onTertiaryFixedVariant: palette.tertiary.get(30),
-        //
-        error: palette.error.get(80),
-        onError: palette.error.get(20),
-        errorContainer: palette.error.get(30),
-        // The tone in orig MCU is wrong, based on both past
-        // and current it should be tone 90. MCU has always used the wrong
-        // tone 80 here whereas FSS has used the one from the spec. We modified
-        // this tone in the rescued Scheme to match the spec and use 90.
-        onErrorContainer: palette.error.get(90),
-        //
-        background: palette.neutral.get(10),
-        onBackground: palette.neutral.get(90),
-        //
-        // Since this is legacy compatible it continues to use tone 10 here
-        surface: palette.neutral.get(10),
-        surfaceDim: palette.neutral.get(6),
-        surfaceBright: palette.neutral.get(24),
-        surfaceContainerLowest: palette.neutral.get(4),
-        surfaceContainerLow: palette.neutral.get(10),
-        surfaceContainer: palette.neutral.get(12),
-        surfaceContainerHigh: palette.neutral.get(17),
-        surfaceContainerHighest: palette.neutral.get(22),
-        //
-        onSurface: palette.neutral.get(90),
-        surfaceVariant: palette.neutralVariant.get(30),
-        onSurfaceVariant: palette.neutralVariant.get(80),
-        //
-        outline: palette.neutralVariant.get(60),
-        outlineVariant: palette.neutralVariant.get(30),
-        shadow: palette.neutral.get(0),
-        scrim: palette.neutral.get(0),
-        inverseSurface: palette.neutral.get(90),
-        inverseOnSurface: palette.neutral.get(20),
-        inversePrimary: palette.primary.get(40),
-      );
+    primary: palette.primary.get(80),
+    onPrimary: palette.primary.get(20),
+    primaryContainer: palette.primary.get(30),
+    onPrimaryContainer: palette.primary.get(90),
+    primaryFixed: palette.primary.get(90),
+    primaryFixedDim: palette.primary.get(80),
+    onPrimaryFixed: palette.primary.get(10),
+    onPrimaryFixedVariant: palette.primary.get(30),
+    //
+    secondary: palette.secondary.get(80),
+    onSecondary: palette.secondary.get(20),
+    secondaryContainer: palette.secondary.get(30),
+    onSecondaryContainer: palette.secondary.get(90),
+    secondaryFixed: palette.secondary.get(90),
+    secondaryFixedDim: palette.secondary.get(80),
+    onSecondaryFixed: palette.secondary.get(10),
+    onSecondaryFixedVariant: palette.secondary.get(30),
+    //
+    tertiary: palette.tertiary.get(80),
+    onTertiary: palette.tertiary.get(20),
+    tertiaryContainer: palette.tertiary.get(30),
+    onTertiaryContainer: palette.tertiary.get(90),
+    tertiaryFixed: palette.tertiary.get(90),
+    tertiaryFixedDim: palette.tertiary.get(80),
+    onTertiaryFixed: palette.tertiary.get(10),
+    onTertiaryFixedVariant: palette.tertiary.get(30),
+    //
+    error: palette.error.get(80),
+    onError: palette.error.get(20),
+    errorContainer: palette.error.get(30),
+    // The tone in orig MCU is wrong, based on both past
+    // and current it should be tone 90. MCU has always used the wrong
+    // tone 80 here whereas FSS has used the one from the spec. We modified
+    // this tone in the rescued Scheme to match the spec and use 90.
+    onErrorContainer: palette.error.get(90),
+    //
+    background: palette.neutral.get(10),
+    onBackground: palette.neutral.get(90),
+    //
+    // Since this is legacy compatible it continues to use tone 10 here
+    surface: palette.neutral.get(10),
+    surfaceDim: palette.neutral.get(6),
+    surfaceBright: palette.neutral.get(24),
+    surfaceContainerLowest: palette.neutral.get(4),
+    surfaceContainerLow: palette.neutral.get(10),
+    surfaceContainer: palette.neutral.get(12),
+    surfaceContainerHigh: palette.neutral.get(17),
+    surfaceContainerHighest: palette.neutral.get(22),
+    //
+    onSurface: palette.neutral.get(90),
+    surfaceVariant: palette.neutralVariant.get(30),
+    onSurfaceVariant: palette.neutralVariant.get(80),
+    //
+    outline: palette.neutralVariant.get(60),
+    outlineVariant: palette.neutralVariant.get(30),
+    shadow: palette.neutral.get(0),
+    scrim: palette.neutral.get(0),
+    inverseSurface: palette.neutral.get(90),
+    inverseOnSurface: palette.neutral.get(20),
+    inversePrimary: palette.primary.get(40),
+  );
 }

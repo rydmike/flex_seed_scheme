@@ -35,10 +35,8 @@ class KeyColor {
     int upperTone = 100;
     while (lowerTone < upperTone) {
       final int midTone = (lowerTone + upperTone) ~/ 2;
-      final bool isAscending =
-          _maxChroma(midTone) < _maxChroma(midTone + toneStepSize);
-      final bool sufficientChroma =
-          _maxChroma(midTone) >= requestedChroma - epsilon;
+      final bool isAscending = _maxChroma(midTone) < _maxChroma(midTone + toneStepSize);
+      final bool sufficientChroma = _maxChroma(midTone) >= requestedChroma - epsilon;
 
       if (sufficientChroma) {
         // Either range [lowerTone, midTone] or [midTone, upperTone] has

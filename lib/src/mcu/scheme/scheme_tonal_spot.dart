@@ -41,29 +41,29 @@ class SchemeTonalSpot extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          variant: Variant.tonalSpot,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue,
-              respectMonochromeSeed && isPrimaryMonochrome ? 0 : 36.0),
-          secondaryPalette: TonalPalette.of(
-              secondarySourceColorHct?.hue ?? sourceColorHct.hue,
-              respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16),
-          tertiaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(
-                tertiarySourceColorHct?.hue ?? (sourceColorHct.hue + 60.0)),
-            respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
-          ),
-          neutralPalette: TonalPalette.of(
-              neutralSourceColorHct?.hue ?? sourceColorHct.hue,
-              respectMonochromeSeed && isNeutralMonochrome ? 0 : 6),
-          neutralVariantPalette: TonalPalette.of(
-              neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
-              respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 8.0),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue,
-                  respectMonochromeSeed && isErrorMonochrome
-                      ? 0
-                      : errorSourceColorHct.chroma),
-        );
+         variant: Variant.tonalSpot,
+         primaryPalette: TonalPalette.of(sourceColorHct.hue, respectMonochromeSeed && isPrimaryMonochrome ? 0 : 36.0),
+         secondaryPalette: TonalPalette.of(
+           secondarySourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isSecondaryMonochrome ? 0 : 16,
+         ),
+         tertiaryPalette: TonalPalette.of(
+           MathUtils.sanitizeDegreesDouble(tertiarySourceColorHct?.hue ?? (sourceColorHct.hue + 60.0)),
+           respectMonochromeSeed && isTertiaryMonochrome ? 0 : 24.0,
+         ),
+         neutralPalette: TonalPalette.of(
+           neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralMonochrome ? 0 : 6,
+         ),
+         neutralVariantPalette: TonalPalette.of(
+           neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 8.0,
+         ),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(
+                 errorSourceColorHct.hue,
+                 respectMonochromeSeed && isErrorMonochrome ? 0 : errorSourceColorHct.chroma,
+               ),
+       );
 }

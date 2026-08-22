@@ -31,8 +31,7 @@ class Contrast {
   static double ratioOfTones(double toneA, double toneB) {
     final double localToneA = MathUtils.clampDouble(0.0, 100.0, toneA);
     final double localToneB = MathUtils.clampDouble(0.0, 100.0, toneB);
-    return _ratioOfYs(
-        ColorUtils.yFromLstar(localToneA), ColorUtils.yFromLstar(localToneB));
+    return _ratioOfYs(ColorUtils.yFromLstar(localToneA), ColorUtils.yFromLstar(localToneB));
   }
 
   static double _ratioOfYs(double y1, double y2) {
