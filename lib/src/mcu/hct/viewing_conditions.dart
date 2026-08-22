@@ -121,12 +121,12 @@ class ViewingConditions {
   }) {
     whitePoint ??= ColorUtils.whitePointD65();
 
-    adaptingLuminance = (adaptingLuminance > 0.0)
+    final double adaptingLuminanceValue = (adaptingLuminance > 0.0)
         ? adaptingLuminance
         : (200.0 / math.pi * ColorUtils.yFromLstar(50.0) / 100.0);
     // A background of pure black is non-physical and leads to infinities that
     // represent the idea that any color viewed in pure black can't be seen.
-    backgroundLstar = math.max(0.1, backgroundLstar);
+    final double backgroundLstarValue = math.max(0.1, backgroundLstar);
     // Transform test illuminant white in XYZ to 'cone'/'rgb' responses
     final List<double> xyz = whitePoint;
     final double rW = xyz[0] * 0.401288 + xyz[1] * 0.650173 + xyz[2] * -0.051461;
@@ -141,7 +141,9 @@ class ViewingConditions {
         ? MathUtils.lerp(0.59, 0.69, (f - 0.9) * 10.0)
         : MathUtils.lerp(0.525, 0.59, (f - 0.8) * 10.0);
     // Calculate degree of adaptation to illuminant
-    double d = discountingIlluminant ? 1.0 : f * (1.0 - ((1.0 / 3.6) * math.exp((-adaptingLuminance - 42.0) / 92.0)));
+    double d = discountingIlluminant
+        ? 1.0
+        : f * (1.0 - ((1.0 / 3.6) * math.exp((-adaptingLuminanceValue - 42.0) / 92.0)));
     // Per Li et al, if D is greater than 1 or less than 0, set it to 1 or 0.
     d = (d > 1.0)
         ? 1.0
@@ -168,15 +170,16 @@ class ViewingConditions {
     ];
 
     // Factor used in calculating meaningful factors
-    final double k = 1.0 / (5.0 * adaptingLuminance + 1.0);
+    final double k = 1.0 / (5.0 * adaptingLuminanceValue + 1.0);
     final double k4 = k * k * k * k;
     final double k4F = 1.0 - k4;
 
     // Luminance-level adaptation factor
-    final double fl = (k4 * adaptingLuminance) + (0.1 * k4F * k4F * math.pow(5.0 * adaptingLuminance, 1.0 / 3.0));
+    final double fl =
+        (k4 * adaptingLuminanceValue) + (0.1 * k4F * k4F * math.pow(5.0 * adaptingLuminanceValue, 1.0 / 3.0));
     // Intermediate factor, ratio of background relative luminance to white
     // relative luminance
-    final double n = ColorUtils.yFromLstar(backgroundLstar) / whitePoint[1];
+    final double n = ColorUtils.yFromLstar(backgroundLstarValue) / whitePoint[1];
 
     // Base exponential none linearity
     // note Schlomer 2018 has a typo and uses 1.58, the correct factor is 1.48
@@ -204,8 +207,8 @@ class ViewingConditions {
 
     return ViewingConditions(
       whitePoint: whitePoint,
-      adaptingLuminance: adaptingLuminance,
-      backgroundLstar: backgroundLstar,
+      adaptingLuminance: adaptingLuminanceValue,
+      backgroundLstar: backgroundLstarValue,
       surround: surround,
       discountingIlluminant: discountingIlluminant,
       backgroundYTowhitePointY: n,
