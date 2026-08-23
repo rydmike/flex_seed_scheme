@@ -23,9 +23,10 @@ import 'package:meta/meta.dart';
 /// This class can be instantiated in two ways:
 /// 1. [of] From hue and chroma. (preferred)
 /// 2. [fromList] From a fixed-size ([TonalPalette.commonSize]) list of ints
-/// representing ARBG colors. Correctness (constant hue and chroma) of the input
+/// representing ARGB colors. Correctness (constant hue and chroma) of the input
 /// is not enforced. [get] will only return the input colors, corresponding to
-/// [commonTones]. This also initializes the key color to black.
+/// [commonTones]. The key color is deduced from the input color with the
+/// highest chroma.
 @immutable
 class TonalPalette {
   /// Commonly-used tone values.

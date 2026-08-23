@@ -50,7 +50,7 @@ class MathUtils {
     return input;
   }
 
-  /// Clamps an integer between two floating-point numbers.
+  /// Clamps a floating-point number between two floating-point numbers.
   ///
   /// Returns input when min <= input <= max, and either min or max
   /// otherwise.

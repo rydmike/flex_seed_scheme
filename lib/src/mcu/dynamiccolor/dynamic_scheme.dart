@@ -57,24 +57,24 @@ class DynamicScheme {
 
   /// Use expressive on container colors for light mode.
   ///
-  /// Material spec and MCU v0.12.0 changes light mode on colors for
-  /// containers from tone 10 to tone 30 can the `ContrastCurve` from
-  /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
-  /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal 4.5
-  /// instead of past 7.0.
+  /// Material spec and MCU v0.12.0 changed light mode on colors for
+  /// containers from tone 10 to tone 30, making them more color expressive
+  /// but with less contrast.
   ///
-  /// This change is not yet used by Flutter and not fully documented in the
-  /// M3 guide. In this MCY fork we are making this change a deliberate opt-in
-  /// feature and default to not opting in on it. This default may be adjusted
-  /// later to opt-in by default, but FSS will continue to offer the older
-  /// version with better contrast too.
+  /// In this MCU fork the flag only switches the light mode on-container
+  /// tone between 30 (true) and 10 (false). The `ContrastCurve` used for the
+  /// on-container colors is always ContrastCurve(3.0, 4.5, 7.0, 11.0), as in
+  /// MCU 0.12.0 and later. Dark mode is not affected by this flag.
   ///
-  /// Defaults to false in FSS version 3.0.0.
+  /// Defaults to true since FSS version 4.0.0, it was false when the flag was
+  /// introduced in FSS version 3.0.0. Flutter uses MCU 0.13.0 in Flutter
+  /// 3.44 and later and thus also uses the expressive on container colors,
+  /// without any option to opt out. This fork keeps the opt-out available.
   ///
-  /// The result you get with false, corresponds to used results in MCU until
-  /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
-  /// this flag to true. This is a breaking change in MCU 0.12.0 and will
-  /// change the light mode color schemes produced by all DynamicColor based
+  /// The result you get with false, corresponds to results in MCU until
+  /// version 0.11.1. With true it corresponds to MCU version 0.12.0 and
+  /// later. This was a breaking change in MCU 0.12.0 and changed the light
+  /// mode color schemes produced by all DynamicColor based
   /// Material color schemes.
   final bool useExpressiveOnContainerColors;
 
@@ -104,7 +104,7 @@ class DynamicScheme {
   /// Given a tone, produces a reddish, colorful, color.
   final TonalPalette errorPalette;
 
-  /// Get the the rotated hue of the source color.
+  /// Get the rotated hue of the source color.
   static double getRotatedHue(Hct sourceColor, List<double> hues, List<double> rotations) {
     final double sourceHue = sourceColor.hue;
     assert(hues.length == rotations.length, 'Hues and rotations length must match');
@@ -191,7 +191,7 @@ class DynamicScheme {
   /// The inverseOnSurface color of the theme.
   int get inverseOnSurface => getArgb(MaterialDynamicColors.inverseOnSurface);
 
-  /// The inverseSurfaceVariant color of the theme.
+  /// The outline color of the theme.
   int get outline => getArgb(MaterialDynamicColors.outline);
 
   /// The outlineVariant color of the theme.

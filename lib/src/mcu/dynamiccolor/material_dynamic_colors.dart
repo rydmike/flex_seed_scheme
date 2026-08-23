@@ -81,7 +81,7 @@ class MaterialDynamicColors {
     isBackground: true,
   );
 
-  /// Get DynamicColor for backgroundDim.
+  /// Get DynamicColor for onBackground.
   static final DynamicColor onBackground = DynamicColor.fromPalette(
     name: 'on_background',
     palette: (DynamicScheme s) => s.neutralPalette,
@@ -335,7 +335,7 @@ class MaterialDynamicColors {
     contrastCurve: ContrastCurve(3, 4.5, 7, 7),
   );
 
-  /// Get DynamicColor for inverseOnPrimary.
+  /// Get DynamicColor for secondary.
   static final DynamicColor secondary = DynamicColor.fromPalette(
     name: 'secondary',
     palette: (DynamicScheme s) => s.secondaryPalette,

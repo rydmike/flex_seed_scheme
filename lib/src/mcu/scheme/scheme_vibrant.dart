@@ -12,11 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// import 'package:material_color_utilities/hct/hct.dart';
-// import 'package:material_color_utilities/palettes/tonal_palette.dart';
-// import 'dynamic_scheme.dart';
-// import 'variant.dart';
-
 import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
 import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
 import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';

@@ -34,21 +34,6 @@ import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 /// For example, white under the traditional assumption of a midday sun white
 /// point is accurately measured as a slightly chromatic blue by CAM16.
 /// (roughly, hue 203, chroma 3, lightness 100)
-/// CAM16, a color appearance model. Colors are not just defined by their hex
-/// code, but rather, a hex code and viewing conditions.
-///
-/// CAM16 instances also have coordinates in the CAM16-UCS space, called J*, a*,
-/// b*, or jstar, astar, bstar in code. CAM16-UCS is included in the CAM16
-/// specification, and should be used when measuring distances between colors.
-///
-/// In traditional color spaces, a color can be identified solely by the
-/// observer's measurement of the color. Color appearance models such as CAM16
-/// also use information about the environment where the color was
-/// observed, known as the viewing conditions.
-///
-/// For example, white under the traditional assumption of a midday sun white
-/// point is accurately measured as a slightly chromatic blue by CAM16.
-/// (roughly, hue 203, chroma 3, lightness 100)
 class Cam16 {
   /// All of the CAM16 dimensions can be calculated from 3 of the dimensions, in
   /// the following combinations:
@@ -186,7 +171,7 @@ class Cam16 {
     return fromJchInViewingConditions(j, c, h, ViewingConditions.sRgb);
   }
 
-  /// Create a CAM16 color from lightness [j], chroma [C], and hue [h],
+  /// Create a CAM16 color from lightness [J], chroma [C], and hue [h],
   /// in [viewingConditions].
   static Cam16 fromJchInViewingConditions(double J, double C, double h, ViewingConditions viewingConditions) {
     final double Q =

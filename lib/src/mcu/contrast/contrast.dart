@@ -21,7 +21,7 @@ import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 /// perception, Y becomes HCT's tone and L*a*b*'s' L*. Informally, this is the
 /// lightness of a color.
 ///
-/// Methods refer to tone, T in the the HCT color space.
+/// Methods refer to tone, T in the HCT color space.
 /// Tone is equivalent to L* in the L*a*b* color space, or L in the LCH color
 /// space.
 class Contrast {

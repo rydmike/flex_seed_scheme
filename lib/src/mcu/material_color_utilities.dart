@@ -19,9 +19,9 @@
 // hue wrap 158b9c185a25c53fddd051cba811d542e6b94d68 (2025-11-19); already
 // in FSS 4.0.0. Keep this line current after each Dart MCU fork sync.
 //
-// Since MCU is using zero semver and Flutter SDK, depends on it, any
+// Since MCU uses zero semver and the Flutter SDK depends on it, any
 // minor version number change is breaking and cannot be resolved across
-// Flutter channels if a package also uses MCU. This is the reason why (FSS)
+// Flutter channels if a package also uses MCU. This is the reason why FSS
 // for now does not use MCU directly. It bundles its own version of it for now.
 // This also means FSS may sometimes use a newer version of MCU than Flutter
 // stable, beta, and master. FSS may stop bundling MCU when it stops getting

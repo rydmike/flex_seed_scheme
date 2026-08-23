@@ -173,8 +173,8 @@ class ColorUtils {
   ///
   /// L* in L*a*b* and Y in XYZ measure the same quantity, luminance.
   ///
-  /// L* measures perceptual luminance, a linear scale. Y in XYZ
-  /// measures relative luminance, a logarithmic scale.
+  /// L* measures perceptual luminance, a perceptually uniform, nonlinear
+  /// scale. Y in XYZ measures relative luminance, a linear scale.
   ///
   /// [lstar] L* in L*a*b*
   /// Returns Y in XYZ
@@ -186,8 +186,8 @@ class ColorUtils {
   ///
   /// L* in L*a*b* and Y in XYZ measure the same quantity, luminance.
   ///
-  /// L* measures perceptual luminance, a linear scale. Y in XYZ
-  /// measures relative luminance, a logarithmic scale.
+  /// L* measures perceptual luminance, a perceptually uniform, nonlinear
+  /// scale. Y in XYZ measures relative luminance, a linear scale.
   ///
   /// [y] Y in XYZ
   /// Returns L* in L*a*b*

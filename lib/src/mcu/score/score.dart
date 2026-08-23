@@ -55,7 +55,7 @@ class Score {
   /// color appears, usually from a source image.
   /// [desired] max count of colors to be returned in the list.
   /// [fallbackColorARGB] color to be returned if no other options available.
-  /// [filter] whether to filter out undesireable combinations.
+  /// [filter] whether to filter out undesirable combinations.
   ///
   /// The list returned is of length <= [desired]. The recommended color is the
   /// first item, the least suitable is the last. There will always be at least

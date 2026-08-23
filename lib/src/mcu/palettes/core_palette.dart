@@ -48,8 +48,7 @@ class CorePalette {
   /// TonalPalette for neutralVariant colors. Typically hues of primary.
   final TonalPalette neutralVariant;
 
-  /// Error palette property that defaults via init list to
-  /// provided error parameter.
+  /// The error palette, fixed at hue 25, chroma 84.
   final TonalPalette error = TonalPalette.of(25, 84);
 
   /// Create a [CorePalette] from a source ARGB color.

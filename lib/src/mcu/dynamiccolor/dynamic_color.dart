@@ -38,7 +38,7 @@ import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 /// for a desired contrast level, and ensuring it has a certain lightness/tone
 /// difference from another color, is provided by a function that takes a
 /// [DynamicScheme] and returns a value. This ensures ultimate flexibility, any
-/// desired behavior of a color for any design system, but it usually
+/// desired behavior of a color for any design system, but it is usually
 /// unnecessary. See the default constructor for more information.
 class DynamicColor {
   /// [name] The name of the dynamic color.
@@ -154,8 +154,8 @@ class DynamicColor {
     );
   }
 
-  /// Return a ARGB integer (i.e. a hex code).
-
+  /// Return an ARGB integer (i.e. a hex code).
+  ///
   /// [scheme] Defines the conditions of the user interface, for example,
   /// whether or not it is dark mode or light mode, and what the desired
   /// contrast level is.

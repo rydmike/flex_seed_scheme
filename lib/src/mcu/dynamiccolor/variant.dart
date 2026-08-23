@@ -69,10 +69,15 @@ enum Variant {
         'Tertiary palette is complement of source color.',
   ),
 
-  /// A playful theme - the source color's hue does not appear in the theme.
+  /// A playful theme - the source color's chroma may not appear in the theme,
+  /// its chroma is locked to 48. Note that despite the original upstream MCU
+  /// description kept in [description], the source color's hue is used.
   rainbow('rainbow', "A playful theme - the source color's hue does not appear in the theme."),
 
-  /// A playful theme - the source color's hue does not appear in the theme.
+  /// A playful theme - the primary and secondary palette hues are rotated
+  /// away from the source color's hue, but the tertiary palette uses the
+  /// source hue. Note that despite the original upstream MCU description kept
+  /// in [description], the source color's hue appears in the tertiary palette.
   fruitSalad('fruit salad', "A playful theme - the source color's hue does not appear in the theme.");
 
   /// Enum constructor

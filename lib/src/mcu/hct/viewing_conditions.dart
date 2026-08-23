@@ -52,7 +52,7 @@ class ViewingConditions {
   /// ViewingConditions for standard color space.
   static final ViewingConditions standard = sRgb;
 
-  /// ViewingConditions for standard color sRgb.
+  /// ViewingConditions for the sRGB color space.
   static final ViewingConditions sRgb = ViewingConditions.make();
 
   /// whitePoint
@@ -181,7 +181,7 @@ class ViewingConditions {
     // relative luminance
     final double n = ColorUtils.yFromLstar(backgroundLstarValue) / whitePoint[1];
 
-    // Base exponential none linearity
+    // Base exponential nonlinearity
     // note Schlomer 2018 has a typo and uses 1.58, the correct factor is 1.48
     final double z = 1.48 + math.sqrt(n);
 
@@ -190,7 +190,7 @@ class ViewingConditions {
     final double ncb = nbb;
 
     // Discounted cone responses to the white point, adjusted for
-    // post-saturationtic adaptation perceptual none linearity.
+    // post-saturationtic adaptation perceptual nonlinearities.
     final List<num> rgbAFactors = <num>[
       math.pow(fl * rgbD[0] * rW / 100.0, 0.42),
       math.pow(fl * rgbD[1] * gW / 100.0, 0.42),
