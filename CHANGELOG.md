@@ -47,6 +47,15 @@ The changes below are only documentation and agent changes. No code behavior was
 - Agent/skills config: added a new `release` skill (pub.dev publish flow, GitHub release triggered web demo deploy, downstream coordination), added a "Verify claims against code" section with known stale-info traps and the `FlexSchemeVariant` string phrasing conventions to the `code-documentation` skill, and logged deliberate MCU comment divergences in the `mcu-fork-sync` skill reference. Also documented in the `package-development` skill that `analysis_options.yaml` is the versioned RydMike linter preferences file publicly shared as a gist, so rule changes to it or `all_lint_rules.yaml` get a CHANGELOG note and a reminder to update the gist.
 
 **TESTS**
+- Added full-scheme golden locks for `FlexTones.candyPop` and `FlexTones.chroma`, light and dark (FCS7.028, FCS7.029). Together with the existing `ultraContrast` goldens, all three tone mappings whose produced results changed with the `surfaceTintTone` fix are now locked against unintended changes.
+- Added a test locking the legacy `useExpressiveOnContainerColors: false` on-container colors on the MCU variant path (FCS7.030). Coverage of those legacy branches was lost when other tests moved to the new expressive default.
+- Added a no-op test for all six `FlexTones` modifiers called with a false flag (FTO1.15).
+- Improved MCU fork test coverage and removed 14 `coverage:ignore` markers by adding tests for previously untested branches. These are extra coverage tests not done by MCU upstream. They will allow us to better verify our forked MCU version and detect changes made to MCU upstream in the future:
+  - `DynamicColor.getTone`: background color landing in the awkward tone 50..60 zone, `ToneDeltaPair` with `stayTogether` in both light and dark mode, all dual background fallback branches, and the `foregroundTone` negligible-difference edge case.
+  - `TemperatureCache`: `analogous` with more divisions than hue steps and with count larger than divisions, plus cached `complement` and `inputRelativeTemperature` calls.
+  - `Score.score` fallback color when all input colors are filtered out.
+  - `QuantizerWsmeans` empty cluster reset when a starting cluster captures no points.
+  - The package now has 100% line coverage with only 8 remaining ignore markers, all on verified dead code: compile-time disabled debug logging in `QuantizerWsmeans`, negative modulo guards in `MathUtils` that Dart's `%` operator can never produce, index guards in `TemperatureCache.analogous` that its callers can never trigger, and one unreachable defensive padding line.
 - Added regression tests for the `FlexTones` `useCam16` fix: equality of configs differing only in `useCam16` (FTO1.02c) and `copyWith`/modifier preservation of `useCam16` (FTO1.09d).
 - Updated the `FlexTones` toString golden for the added `onErrorTone` and `useCam16` diagnostics properties.
 - Corrected the expected configurations in FTO1.017/FTO1.018: they omitted `useCam16: false` for `FlexTones.material`, which the previous incomplete equality operator could not detect.

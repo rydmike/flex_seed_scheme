@@ -262,8 +262,6 @@ class DynamicColor {
         }
       } else if (50 <= fTone && fTone < 60) {
         if (stayTogether) {
-          // Rydmike: If MCU devs do not hit test this, I'm not going to either.
-          // coverage:ignore-start
           // Fixes both, to avoid two colors on opposite sides of the "awkward
           // zone".
           if (expansionDir > 0) {
@@ -273,7 +271,6 @@ class DynamicColor {
             nTone = 49;
             fTone = math.min(fTone, nTone + delta * expansionDir);
           }
-          // coverage:ignore-end
         } else {
           // Not required to stay together; fixes just one.
           if (expansionDir > 0) {
@@ -310,15 +307,12 @@ class DynamicColor {
       }
 
       if (isBackground && 50 <= answer && answer < 60) {
-        // Rydmike: If MCU devs do not hit test this, I'm not going to either.
-        // coverage:ignore-start
         // Must adjust
         if (Contrast.ratioOfTones(49, bgTone) >= desiredRatio) {
           answer = 49;
         } else {
           answer = 60;
         }
-        // coverage:ignore-end
       }
 
       if (secondBackground != null) {
@@ -347,8 +341,6 @@ class DynamicColor {
         final List<double> availables = <double>[];
         if (lightOption != -1) availables.add(lightOption);
         if (darkOption != -1) availables.add(darkOption);
-        // Rydmike: If MCU devs do not hit test this, I'm not going to either.
-        // coverage:ignore-start
         final bool prefersLight =
             DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
         if (prefersLight) {
@@ -358,7 +350,6 @@ class DynamicColor {
           return availables[0];
         }
         return (darkOption < 0) ? 0 : darkOption;
-        // coverage:ignore-end
       }
 
       return answer;
@@ -388,9 +379,7 @@ class DynamicColor {
       // PC's standard tone was T90, OPC's was T10, it was light mode, and the
       // contrast value was 0.6568521221032331.
       final bool negligibleDifference =
-          (lighterRatio - darkerRatio).abs() < 0.1 &&
-          lighterRatio < ratio &&
-          darkerRatio < ratio; // coverage:ignore-line
+          (lighterRatio - darkerRatio).abs() < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
       return lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference ? lighterTone : darkerTone;
     } else {
       return darkerRatio >= ratio || darkerRatio >= lighterRatio ? darkerTone : lighterTone;

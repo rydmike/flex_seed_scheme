@@ -292,4 +292,15 @@ void main() {
     expect(ranked, hasLength(1));
     expect(ranked[0], isColor(0xff4285F4));
   });
+
+  // Extra tests not covered by MCU upstream.
+  test('scoring only a low chroma grey with default desired count returns '
+      'the Google Blue fallback', () {
+    final Map<int, int> colorsToPopulation = <int, int>{
+      0xff8d8d8d: 100,
+    };
+    final List<int> ranked = Score.score(colorsToPopulation);
+    expect(ranked, hasLength(1));
+    expect(ranked[0], isColor(0xff4285F4));
+  });
 }

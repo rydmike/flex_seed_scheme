@@ -100,4 +100,16 @@ void main() {
     expect(colors, hasLength(0));
     expect(colors.isEmpty, equals(true));
   });
+
+  // Extra tests not covered by MCU upstream.
+  test('a starting cluster far away from all points ends up empty and is '
+      'reset, all points land in the remaining cluster', () {
+    final QuantizerResult result = QuantizerWsmeans.quantize(
+      <int>[0xff000011, 0xff000012],
+      2,
+      startingClusters: <int>[0xff000011, 0xffffffff],
+    );
+    expect(result.colorToCount.keys, hasLength(1));
+    expect(result.colorToCount.values.first, 2);
+  });
 }

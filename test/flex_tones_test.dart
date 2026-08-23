@@ -256,6 +256,15 @@ void main() {
     test('FTO1.14: Test hashCode copyWith has same exact value.', () {
       expect(m1.hashCode, equals(m1.copyWith().hashCode));
     });
+    test('FTO1.15: GIVEN all FlexTones modifiers called with false flag '
+        'EXPECT them to be no ops returning the unmodified instance.', () {
+      expect(identical(m1.onMainsUseBW(false), m1), true);
+      expect(identical(m1.onSurfacesUseBW(false), m1), true);
+      expect(identical(m1.surfacesUseBW(false), m1), true);
+      expect(identical(m1.monochromeSurfaces(false), m1), true);
+      expect(identical(m1.expressiveOnContainer(false), m1), true);
+      expect(identical(m1.higherContrastFixed(false), m1), true);
+    });
 
     //**************************************************************************
     // FlexTones unit tests.

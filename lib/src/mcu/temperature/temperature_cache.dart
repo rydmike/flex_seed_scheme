@@ -96,11 +96,12 @@ class TemperatureCache {
       lastTemp = temp;
       hueAddend++;
       if (hueAddend > 360) {
-        // coverage:ignore-start
         while (allColors.length < divisions) {
-          allColors.add(hct);
+          // Defensive padding that appears to be unreachable, the
+          // division quota is always filled by the 360 hue walk above before
+          // this line is reached. Kept as it is upstream MCU code.
+          allColors.add(hct); // coverage:ignore-line
         }
-        // coverage:ignore-end
         break;
       }
     }
@@ -128,7 +129,7 @@ class TemperatureCache {
         index = allColors.length + index; // coverage:ignore-line
       }
       if (index >= allColors.length) {
-        index = index % allColors.length; // coverage:ignore-line
+        index = index % allColors.length;
       }
       answers.add(allColors[index]);
     }
@@ -143,7 +144,7 @@ class TemperatureCache {
   /// input color is warm-cool.
   Hct get complement {
     if (_complement != null) {
-      return _complement!; // coverage:ignore-line
+      return _complement!;
     }
 
     final double coldestHue = coldest.hue;
@@ -195,7 +196,7 @@ class TemperatureCache {
   /// Relative temperature of the input color. See [relativeTemperature].
   double get inputRelativeTemperature {
     if (_inputRelativeTemperature >= 0.0) {
-      return _inputRelativeTemperature; // coverage:ignore-line
+      return _inputRelativeTemperature;
     }
     final double coldestTemp = tempsByHct[coldest]!;
     final double range = tempsByHct[warmest]! - coldestTemp;

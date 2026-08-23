@@ -119,5 +119,51 @@ void main() {
       expect(whiteAnalogous[3], isColor(0xffffffff));
       expect(whiteAnalogous[4], isColor(0xffffffff));
     });
+
+    // Extra tests below not covered by MCU upstream.
+    test('analogous with more divisions than the 360 hue steps pads the '
+        'division list and still returns the requested count', () {
+      final List<Hct> result = TemperatureCache(
+        Hct.fromInt(0xff0000ff),
+      ).analogous(count: 5, divisions: 400);
+      expect(result, hasLength(5));
+    });
+    test('analogous with divisions larger than the 360 hue walk completes '
+        'via the hue walk exit for various inputs', () {
+      for (final List<int> config in <List<int>>[
+        <int>[0xffff0000, 999],
+        <int>[0xff808082, 1000],
+        <int>[0xff123456, 725],
+        <int>[0xff0000ff, 363],
+        <int>[0xff804040, 500],
+      ]) {
+        final List<Hct> result = TemperatureCache(
+          Hct.fromInt(config[0]),
+        ).analogous(count: 3, divisions: config[1]);
+        expect(result, hasLength(3));
+      }
+    });
+    test('analogous with a count larger than divisions wraps around the '
+        'division list and returns the requested count', () {
+      final List<Hct> result = TemperatureCache(
+        Hct.fromInt(0xff0000ff),
+      ).analogous(count: 8, divisions: 3);
+      expect(result, hasLength(8));
+      // The input color is always included in the answers.
+      expect(result.map((Hct h) => h.toInt()), contains(0xff0000ff));
+    });
+    test('complement and inputRelativeTemperature return cached values on '
+        'repeated calls', () {
+      final TemperatureCache cache = TemperatureCache(Hct.fromInt(0xff0000ff));
+      final Hct first = cache.complement;
+      final Hct second = cache.complement;
+      expect(first.toInt(), isColor(0xff9d0002));
+      expect(identical(first, second), true);
+      final double rel1 = cache.inputRelativeTemperature;
+      final double rel2 = cache.inputRelativeTemperature;
+      // Blue is the coldest color, its relative temperature is 0.
+      expect(rel1, 0.0);
+      expect(rel2, rel1);
+    });
   });
 }

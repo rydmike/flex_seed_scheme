@@ -49,11 +49,13 @@ class QuantizerWsmeans {
 
   /// debugLog.
   static void debugLog(String log) {
+    // coverage:ignore-start
     if (debug) {
       if (kDebugMode) {
-        print(log); // coverage:ignore-line
+        print(log);
       }
     }
+    // coverage:ignore-end
   }
 
   /// Do quantize.
@@ -223,7 +225,7 @@ class QuantizerWsmeans {
       for (int i = 0; i < clusterCount; i++) {
         final int count = pixelCountSums[i];
         if (count == 0) {
-          clusters[i] = <double>[0.0, 0.0, 0.0]; // coverage:ignore-line
+          clusters[i] = <double>[0.0, 0.0, 0.0];
           continue;
         }
         final double a = componentASums[i] / count;

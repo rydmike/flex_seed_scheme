@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/contrast_curve.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/src/tone_delta_pair.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
@@ -141,7 +143,6 @@ void main() {
 
   // Parametric test, ensuring that dynamic schemes respect contrast
   // between text-surface pairs.
-
   for (final Hct color in seedColors) {
     for (final double contrastLevel in contrastLevels) {
       for (final bool isDark in <bool>[false, true]) {
@@ -439,8 +440,8 @@ void main() {
   });
 
   //
-  // RydMike - Raw usage DynamicColor tests
-  //
+  // Raw usage DynamicColor tests
+  // Extra tests not done by MCU upstream.
   group('DynamicColor Test', () {
     test('Raw  DynamicColor', () {
       final SchemeExpressive scheme = SchemeExpressive(
@@ -470,6 +471,150 @@ void main() {
       expect(DynamicColor.enableLightForeground(10), 10);
       expect(DynamicColor.enableLightForeground(90), 90);
       expect(DynamicColor.enableLightForeground(58), 49);
+    });
+  });
+
+  // Extra coverage tests for getTone branches that the Material
+  // dynamic colors do not reach, exercised with custom DynamicColor setups.
+  // Extra tests not done by MCU upstream.
+  group('Rydmike: DynamicColor getTone edge cases', () {
+    final DynamicScheme scheme = SchemeTonalSpot(
+      sourceColorHct: Hct.fromInt(0xFF6750A4),
+      isDark: false,
+      contrastLevel: 0.0,
+    );
+    DynamicColor fixedTone(String name, double tone) => DynamicColor.fromPalette(
+      name: name,
+      palette: (DynamicScheme s) => s.neutralPalette,
+      tone: (DynamicScheme s) => tone,
+    );
+    test('isBackground color landing in the awkward 50..60 zone is moved '
+        'out of the zone, to 49 when 49 satisfies the contrast', () {
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'awkward',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 55.0,
+        isBackground: true,
+        background: (DynamicScheme s) => fixedTone('bg55', 55),
+        contrastCurve: ContrastCurve(1, 1, 1, 1),
+      );
+      expect(color.getTone(scheme), 49.0);
+    });
+    test('dual background, a background prefers light foreground and no '
+        'light option can reach the ratio EXPECT tone 100', () {
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'dualA',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 50.0,
+        background: (DynamicScheme s) => fixedTone('bg30', 30),
+        secondBackground: (DynamicScheme s) => fixedTone('bg90', 90),
+        contrastCurve: ContrastCurve(4.5, 4.5, 4.5, 4.5),
+      );
+      expect(color.getTone(scheme), 100.0);
+    });
+    test('dual background where the tone already satisfies the ratio '
+        'against both backgrounds EXPECT the unadjusted tone', () {
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'dualB',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 50.0,
+        background: (DynamicScheme s) => fixedTone('bg70', 70),
+        secondBackground: (DynamicScheme s) => fixedTone('bg90b', 90),
+        contrastCurve: ContrastCurve(1.5, 1.5, 1.5, 1.5),
+      );
+      expect(color.getTone(scheme), 50.0);
+    });
+    test('dual background, no light preference and only the dark option '
+        'reaches the ratio EXPECT the dark option tone', () {
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'dualB2',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 90.0,
+        background: (DynamicScheme s) => fixedTone('bg75', 75),
+        secondBackground: (DynamicScheme s) => fixedTone('bg98', 98),
+        contrastCurve: ContrastCurve(1.3, 1.3, 1.3, 1.3),
+      );
+      // Tone 90 fails ratio 1.3 against the tone 98 background; no lighter
+      // tone can reach it, only the darker option can.
+      expect(color.getTone(scheme), Contrast.darker(tone: 75, ratio: 1.3));
+    });
+    test('dual background, no light preference and no option reaches the '
+        'ratio EXPECT tone 0', () {
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'dualC',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 50.0,
+        background: (DynamicScheme s) => fixedTone('bg70c', 70),
+        secondBackground: (DynamicScheme s) => fixedTone('bg90c', 90),
+        contrastCurve: ContrastCurve(21, 21, 21, 21),
+      );
+      expect(color.getTone(scheme), 0.0);
+    });
+    test('ToneDeltaPair with stayTogether true and farther color in the '
+        'awkward 50..60 zone EXPECT both colors moved out of the zone', () {
+      final DynamicColor bg = fixedTone('bg90d', 90);
+      late DynamicColor colorA;
+      late DynamicColor colorB;
+      ToneDeltaPair pairOf(DynamicScheme s) => ToneDeltaPair(colorA, colorB, 15, TonePolarity.nearer, true);
+      colorA = DynamicColor.fromPalette(
+        name: 'pairA',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 70.0,
+        background: (DynamicScheme s) => bg,
+        contrastCurve: ContrastCurve(1, 1, 1, 1),
+        toneDeltaPair: pairOf,
+      );
+      colorB = DynamicColor.fromPalette(
+        name: 'pairB',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 55.0,
+        background: (DynamicScheme s) => bg,
+        contrastCurve: ContrastCurve(1, 1, 1, 1),
+        toneDeltaPair: pairOf,
+      );
+      // Nearer role is moved to 49, farther keeps the 15 delta below it.
+      expect(colorA.getTone(scheme), 49.0);
+      expect(colorB.getTone(scheme), 34.0);
+    });
+    test('ToneDeltaPair with stayTogether true and farther color in the '
+        'awkward 50..60 zone in dark mode EXPECT both colors moved up and '
+        'out of the zone', () {
+      final DynamicScheme darkScheme = SchemeTonalSpot(
+        sourceColorHct: Hct.fromInt(0xFF6750A4),
+        isDark: true,
+        contrastLevel: 0.0,
+      );
+      final DynamicColor bg = fixedTone('bg10d', 10);
+      late DynamicColor colorA;
+      late DynamicColor colorB;
+      ToneDeltaPair pairOf(DynamicScheme s) => ToneDeltaPair(colorA, colorB, 15, TonePolarity.nearer, true);
+      colorA = DynamicColor.fromPalette(
+        name: 'pairAd',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 30.0,
+        background: (DynamicScheme s) => bg,
+        contrastCurve: ContrastCurve(1, 1, 1, 1),
+        toneDeltaPair: pairOf,
+      );
+      colorB = DynamicColor.fromPalette(
+        name: 'pairBd',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 55.0,
+        background: (DynamicScheme s) => bg,
+        contrastCurve: ContrastCurve(1, 1, 1, 1),
+        toneDeltaPair: pairOf,
+      );
+      // In dark mode the expansion direction is up: nearer role is moved to
+      // 60, farther keeps the 15 delta above it.
+      expect(colorA.getTone(darkScheme), 60.0);
+      expect(colorB.getTone(darkScheme), 75.0);
+    });
+    test('foregroundTone where lighter and darker ratios are negligibly '
+        'different and both fail the ratio EXPECT the lighter tone 100', () {
+      // Near tone 49.5 the lighter and darker contrast ratios differ by
+      // less than 0.1 and neither reaches ratio 21; light foreground is
+      // preferred and tone 100 is returned.
+      expect(DynamicColor.foregroundTone(49.5, 21.0), 100.0);
     });
   });
 }

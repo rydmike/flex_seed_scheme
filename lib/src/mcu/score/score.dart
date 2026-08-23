@@ -133,12 +133,9 @@ class Score {
       if (chosenColors.length >= desired) break;
     }
     final List<int> colors = <int>[];
-    // Rydmike: If MCU devs do not hit test this, I'm not going to either.
-    // coverage:ignore-start
     if (chosenColors.isEmpty) {
       colors.add(fallbackColorARGB);
     }
-    // coverage:ignore-end
     for (final Hct chosenHct in chosenColors) {
       colors.add(chosenHct.toInt());
     }
