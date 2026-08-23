@@ -113,6 +113,12 @@ void main() {
         'EXPECT them to be unequal with operator', () {
       expect(m1 != m3, true);
     });
+    test('FTO1.02c: GIVEN FlexTones objects that differ only in useCam16 '
+        'EXPECT them to be unequal', () {
+      const FlexTones m1NoCam = FlexTones.light(useCam16: false);
+      expect(m2, isNot(m1NoCam));
+      expect(m2.hashCode, isNot(m1NoCam.hashCode));
+    });
     //**************************************************************************
     // FlexTones unit tests.
     //
@@ -207,6 +213,21 @@ void main() {
         equals(m1),
       );
     });
+    test('FTO1.09d: GIVEN a FlexTones with useCam16 false '
+        'EXPECT copyWith to keep useCam16 false and copyWith(useCam16: true) '
+        'to change it. Regression test for issue where copyWith dropped '
+        'useCam16 and reset it to true.', () {
+      final FlexTones materialLight = FlexTones.material(Brightness.light);
+      expect(materialLight.useCam16, false);
+      // An unrelated copyWith must preserve useCam16 false.
+      expect(materialLight.copyWith(primaryTone: 30).useCam16, false);
+      // The expressiveOnContainer modifier uses copyWith internally and must
+      // also preserve useCam16 false.
+      expect(materialLight.expressiveOnContainer().useCam16, false);
+      // copyWith can change the value.
+      expect(materialLight.copyWith(useCam16: true).useCam16, true);
+      expect(m1.copyWith(useCam16: false).useCam16, false);
+    });
 
     //**************************************************************************
     // FlexTones unit tests.
@@ -221,7 +242,7 @@ void main() {
         //
         equalsIgnoringHashCodes(
           // ignore: for tests.
-          'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended)',
+          'FlexTones#00000(primaryTone: 40, onPrimaryTone: 100, primaryContainerTone: 90, onPrimaryContainerTone: 10, primaryFixedTone: 90, primaryFixedDimTone: 80, onPrimaryFixedTone: 10, onPrimaryFixedVariantTone: 30, secondaryTone: 40, onSecondaryTone: 100, secondaryContainerTone: 90, onSecondaryContainerTone: 10, secondaryFixedTone: 90, secondaryFixedDimTone: 80, onSecondaryFixedTone: 10, onSecondaryFixedVariantTone: 30, tertiaryTone: 40, onTertiaryTone: 100, tertiaryContainerTone: 90, onTertiaryContainerTone: 10, tertiaryFixedTone: 90, tertiaryFixedDimTone: 80, onTertiaryFixedTone: 10, onTertiaryFixedVariantTone: 30, errorTone: 40, onErrorTone: 100, errorContainerTone: 90, onErrorContainerTone: 10, surfaceTone: 98, surfaceDimTone: 87, surfaceBrightTone: 98, surfaceContainerLowestTone: 100, surfaceContainerLowTone: 96, surfaceContainerTone: 94, surfaceContainerHighTone: 92, surfaceContainerHighestTone: 90, onSurfaceTone: 10, onSurfaceVariantTone: 30, outlineTone: 50, outlineVariantTone: 80, shadowTone: 0, scrimTone: 0, inverseSurfaceTone: 20, onInverseSurfaceTone: 95, inversePrimaryTone: 80, surfaceTintTone: 40, primaryChroma: null, primaryMinChroma: null, secondaryChroma: null, secondaryMinChroma: null, tertiaryChroma: null, tertiaryHueRotation: null, tertiaryMinChroma: null, errorChroma: null, errorMinChroma: null, neutralChroma: 6.0, neutralMinChroma: null, neutralVariantChroma: 8.0, neutralVariantMinChroma: null, paletteType: extended, useCam16: true)',
         ),
       );
     });
@@ -402,6 +423,7 @@ void main() {
             primaryMinChroma: 36,
             secondaryChroma: 16,
             tertiaryChroma: 24,
+            useCam16: false,
           ),
         ),
       );
@@ -415,6 +437,7 @@ void main() {
             primaryMinChroma: 36,
             secondaryChroma: 16,
             tertiaryChroma: 24,
+            useCam16: false,
           ),
         ),
       );

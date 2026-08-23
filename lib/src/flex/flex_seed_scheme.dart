@@ -946,10 +946,12 @@ extension SeedColorScheme on ColorScheme {
 
     /// Override color for the seed generated [surfaceTint] color.
     ///
-    /// If not provided, the produced [ColorScheme.surfaceTint] is always
-    /// assigned the same color as the produced [ColorScheme.primary],
-    /// matching what Flutter's [ColorScheme.fromSeed] does. The
-    /// `FlexTones.surfaceTintTone` mapping is currently not applied to it.
+    /// If not provided, on the `tones` based path the produced
+    /// [ColorScheme.surfaceTint] uses the `FlexTones.surfaceTintTone` mapping
+    /// from the primary palette (before FSS 5.0.0 it was always assigned the
+    /// same color as the produced [ColorScheme.primary]). On the MCU `variant`
+    /// based path it is the same color as [ColorScheme.primary], matching
+    /// what Flutter's [ColorScheme.fromSeed] does.
     Color? surfaceTint,
   }) {
     // Assert that tones and variant are not both set, since they are mutually
@@ -1022,6 +1024,13 @@ extension SeedColorScheme on ColorScheme {
         inversePrimary: inversePrimary ?? Color(MaterialDynamicColors.inversePrimary.getArgb(scheme)),
         shadow: shadow ?? Color(MaterialDynamicColors.shadow.getArgb(scheme)),
         scrim: scrim ?? Color(MaterialDynamicColors.scrim.getArgb(scheme)),
+        // Deliberately uses `MaterialDynamicColors.primary` and NOT
+        // `MaterialDynamicColors.surfaceTint`, to match what Flutter's
+        // `ColorScheme.fromSeed` does. MCU's own `surfaceTint` is a plain
+        // primary palette tone 40/80 color without primary's contrast curve
+        // and monochrome adjustments, so the two differ when `contrastLevel`
+        // is not 0 and for the monochrome variant. Do not "fix" this without
+        // checking `ColorScheme.fromSeed` parity.
         surfaceTint: surfaceTint ?? Color(MaterialDynamicColors.primary.getArgb(scheme)),
         brightness: brightness,
       );
@@ -1094,7 +1103,7 @@ extension SeedColorScheme on ColorScheme {
         inverseSurface: inverseSurface ?? Color(scheme.inverseSurface),
         onInverseSurface: onInverseSurface ?? Color(scheme.onInverseSurface),
         inversePrimary: inversePrimary ?? Color(scheme.inversePrimary),
-        surfaceTint: surfaceTint ?? Color(scheme.primary),
+        surfaceTint: surfaceTint ?? Color(scheme.surfaceTint),
         brightness: brightness,
       );
     }

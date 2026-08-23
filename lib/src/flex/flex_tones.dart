@@ -1232,11 +1232,11 @@ class FlexTones with Diagnosticable {
 
   /// Tone used for [ColorScheme.surfaceTint] from primary [FlexTonalPalette].
   ///
-  /// NOTE: In the produced [ColorScheme], the [ColorScheme.surfaceTint] color
-  /// is currently always assigned the same color as [ColorScheme.primary],
-  /// matching what Flutter's [ColorScheme.fromSeed] does. This tone mapping
-  /// is thus currently not applied to the produced [ColorScheme.surfaceTint],
-  /// unless it also modifies the primary tone.
+  /// Before FSS 5.0.0 this tone mapping was not applied; the produced
+  /// [ColorScheme.surfaceTint] was always assigned the same color as the
+  /// produced [ColorScheme.primary]. Since FSS 5.0.0 this tone is used, as
+  /// was always intended by the built-in [FlexTones] configurations that
+  /// define a custom value for it.
   final int surfaceTintTone;
 
   /// Cam16 chroma value to use for primary colors [FlexTonalPalette]
@@ -1454,9 +1454,6 @@ class FlexTones with Diagnosticable {
   final bool useCam16;
 
   /// Copy the object with one or more provided properties changed.
-  ///
-  /// NOTE: [useCam16] is currently not included in [copyWith]; a copied
-  /// instance always gets the default value true.
   FlexTones copyWith({
     int? primaryTone,
     int? onPrimaryTone,
@@ -1524,6 +1521,7 @@ class FlexTones with Diagnosticable {
     double? neutralVariantChroma,
     double? neutralVariantMinChroma,
     FlexPaletteType? paletteType,
+    bool? useCam16,
   }) {
     return FlexTones(
       primaryTone: primaryTone ?? this.primaryTone,
@@ -1592,6 +1590,7 @@ class FlexTones with Diagnosticable {
       neutralVariantChroma: neutralVariantChroma ?? this.neutralVariantChroma,
       neutralVariantMinChroma: neutralVariantMinChroma ?? this.neutralVariantMinChroma,
       paletteType: paletteType ?? this.paletteType,
+      useCam16: useCam16 ?? this.useCam16,
     );
   }
 
@@ -1666,7 +1665,8 @@ class FlexTones with Diagnosticable {
         other.neutralMinChroma == neutralMinChroma &&
         other.neutralVariantChroma == neutralVariantChroma &&
         other.neutralVariantMinChroma == neutralVariantMinChroma &&
-        other.paletteType == paletteType;
+        other.paletteType == paletteType &&
+        other.useCam16 == useCam16;
   }
 
   /// Override for hashcode, dart.ui Jenkins based.
@@ -1738,6 +1738,7 @@ class FlexTones with Diagnosticable {
     neutralVariantChroma,
     neutralVariantMinChroma,
     paletteType,
+    useCam16,
   ]);
 
   /// Flutter debug properties override, includes toString.
@@ -1772,6 +1773,7 @@ class FlexTones with Diagnosticable {
     properties.add(DiagnosticsProperty<int>('onTertiaryFixedVariantTone', onTertiaryFixedVariantTone));
     //
     properties.add(DiagnosticsProperty<int>('errorTone', errorTone));
+    properties.add(DiagnosticsProperty<int>('onErrorTone', onErrorTone));
     properties.add(DiagnosticsProperty<int>('errorContainerTone', errorContainerTone));
     properties.add(DiagnosticsProperty<int>('onErrorContainerTone', onErrorContainerTone));
     //
@@ -1809,5 +1811,6 @@ class FlexTones with Diagnosticable {
     properties.add(DiagnosticsProperty<double>('neutralVariantChroma', neutralVariantChroma));
     properties.add(DiagnosticsProperty<double>('neutralVariantMinChroma', neutralVariantMinChroma));
     properties.add(EnumProperty<FlexPaletteType>('paletteType', paletteType));
+    properties.add(DiagnosticsProperty<bool>('useCam16', useCam16));
   }
 }
