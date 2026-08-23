@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.dark(controller),
           highContrastTheme: AppTheme.highContrastLight(controller),
           highContrastDarkTheme: AppTheme.highContrastDark(controller),
+          builder: (BuildContext context, Widget? child) {
+            // ignore: deprecated_member_use, temporary fix for MaterialUi compatibility.
+            return MaterialUiCompatibilityBridge(child: child!);
+          },
           home: HomePage(controller: controller),
         );
       },
