@@ -20,7 +20,7 @@ import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 ///
 /// In standard MCU the [Scheme] class is deprecated in favor of newer and more
 /// complex [DynamicScheme]. Please see
-/// https://github.com/material-foundation/material-color-utilities/blob/main/make_schemes.md
+/// https://github.com/material-foundation/material-color-utilities/blob/main/dev_guide/creating_color_scheme.md
 /// for migration guidance.
 ///
 /// In FlexSeedScheme we keep [Scheme] available and it can be used for legacy
