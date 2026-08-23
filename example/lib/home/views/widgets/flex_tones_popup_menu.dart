@@ -2,7 +2,7 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
 import 'package:flex_seed_scheme_example/core/views/universal/color_scheme_box.dart';
 import 'package:flex_seed_scheme_example/core/views/universal/list_tile_reveal.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Widget used to select used [FlexTones] with a popup menu.
 ///

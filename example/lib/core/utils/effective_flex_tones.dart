@@ -1,6 +1,6 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Return effective FlexTones for the current theme setup and mode.
 FlexTones effectiveFlexTones(ThemeController controller, BuildContext context) {

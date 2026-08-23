@@ -17,7 +17,7 @@ import 'package:flex_seed_scheme/src/mcu/scheme/scheme_neutral.dart';
 import 'package:flex_seed_scheme/src/mcu/scheme/scheme_rainbow.dart';
 import 'package:flex_seed_scheme/src/mcu/scheme/scheme_tonal_spot.dart';
 import 'package:flex_seed_scheme/src/mcu/scheme/scheme_vibrant.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:meta/meta.dart' show internal;
 
 /// This class is the same concept as Flutter's [ColorScheme] class.
@@ -792,12 +792,12 @@ extension SeedColorScheme on ColorScheme {
     ///
     /// Dark mode is unchanged. Set to false for higher contrast (legacy tone
     /// 10). Defaults to true since version 4.0.0.
-    final bool useExpressiveOnContainerColors = true,
+    bool useExpressiveOnContainerColors = true,
 
     /// If true, equal-RGB seeds stay greyscale (chroma 0).
     ///
     /// Defaults to false to match MCU and [ColorScheme.fromSeed].
-    final bool respectMonochromeSeed = false,
+    bool respectMonochromeSeed = false,
 
     /// Override for seed generated [primary].
     ///

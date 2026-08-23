@@ -14,7 +14,7 @@
 
 import 'package:flex_seed_scheme/src/flex/flex_color_seed_color_extensions.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,6 +1,6 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Configuration data class that defines which tone to use from each
 /// [FlexTonalPalette] when assigning used color to each [ColorScheme] color.

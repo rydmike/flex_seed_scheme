@@ -1,5 +1,5 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Enum used to return and describe properties of the [FlexSchemeVariant]
 /// variants to invoke different color scheme generation algorithms
@@ -570,7 +570,7 @@ enum FlexSchemeVariant {
   );
 
   /// The constructor for the [FlexSchemeVariant] enum.
-  const FlexSchemeVariant({
+  FlexSchemeVariant({
     required this.variantName,
     required this.description,
     required this.configDetails,

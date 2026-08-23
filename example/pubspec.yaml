@@ -12,6 +12,9 @@ dependencies:
   # https://pub.dev/packages/cupertino_icons
   cupertino_icons: ^1.0.9
 
+  # The official Flutter Cupertino Design Library.
+  cupertino_ui: ^1.0.0
+
   # Color picker package, by Mike Rydstrom, rydmike.com (@rydmike).
   # Used for color selection in the Playground to make customized color schemes.
   # https://pub.dev/packages/flex_color_picker
@@ -22,9 +25,12 @@ dependencies:
   flex_seed_scheme:
     path: ../
 
-  # The Flutter SDK, by Google flutter.dev.
+  # The Flutter SDK library itself.
   flutter:
     sdk: flutter
+
+  # The official Flutter Material UI Library.
+  material_ui: ^1.0.0
 
   # Used for launching a WEB URL, by Google flutter.dev.
   # https://pub.dev/packages/url_launcher

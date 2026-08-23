@@ -3,7 +3,7 @@ import 'package:flex_seed_scheme_example/core/utils/effective_flex_tones.dart';
 import 'package:flex_seed_scheme_example/home/views/widgets/select_palette_type.dart';
 import 'package:flex_seed_scheme_example/home/views/widgets/tonal_palette_colors.dart';
 import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ShowTonalPalette extends StatelessWidget {
   const ShowTonalPalette({

@@ -1,5 +1,5 @@
 import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A Material widget used as a color indicator to show a color in the
 /// TonalPalette.

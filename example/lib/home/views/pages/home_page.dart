@@ -10,7 +10,7 @@ import 'package:flex_seed_scheme_example/home/views/widgets/flex_tones_popup_men
 import 'package:flex_seed_scheme_example/home/views/widgets/show_input_colors.dart';
 import 'package:flex_seed_scheme_example/home/views/widgets/show_tonal_palette.dart';
 import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// The home page of this custom seed generated color scheme demo.
 ///

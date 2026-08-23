@@ -1,7 +1,7 @@
 import 'package:flex_seed_scheme_example/core/views/app/color_name_value.dart';
 import 'package:flex_seed_scheme_example/core/views/app/color_picker_inkwell.dart';
 import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 // Display the colors in currently selected input color scheme, including
 // their name and color code.
@@ -17,11 +17,11 @@ class ShowInputColors extends StatelessWidget {
   final ThemeController controller;
 
   // Return true if the color is light, meaning it needs dark text for contrast.
-  static bool _isLight(final Color color) =>
+  static bool _isLight(Color color) =>
       ThemeData.estimateBrightnessForColor(color) == Brightness.light;
 
   // On color used when a theme color property does not have a theme onColor.
-  static Color _onColor(final Color color) =>
+  static Color _onColor(Color color) =>
       _isLight(color) ? Colors.black : Colors.white;
 
   @override

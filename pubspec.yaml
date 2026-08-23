@@ -36,9 +36,16 @@ dependencies:
   # https://pub.dev/packages/collection
   collection: ^1.19.1
 
+  # The official Flutter Cupertino Design Library.
+  cupertino_ui: ^1.0.0
+
+  # The flutter library itself
   flutter:
     sdk: flutter
 
+  # The official Flutter Material UI Library.
+  material_ui: ^1.0.0
+  
   # Annotations used to express developer intentions that can't otherwise be deduced by
   # statically analyzing source code. Package is from Google dart.dev team.
   #
@@ -48,6 +55,8 @@ dependencies:
   # https://pub.dev/packages/meta
   meta: ^1.18.0
 
+  
+  
 dev_dependencies:
   coverage: ^1.15.0
   flutter_test:

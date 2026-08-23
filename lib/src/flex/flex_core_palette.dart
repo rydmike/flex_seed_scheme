@@ -5,7 +5,7 @@ import 'package:flex_seed_scheme/src/flex/flex_color_seed_color_extensions.dart'
 import 'package:flex_seed_scheme/src/flex/flex_tonal_palette.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show ColorScheme;
+import 'package:material_ui/material_ui.dart' show ColorScheme;
 
 /// An intermediate concept between the key color for a UI theme, and a full
 /// color scheme. Five tonal palettes are generated, plus a default
@@ -394,90 +394,90 @@ class FlexCorePalette {
     ///
     /// Used when it is at least `primaryMinChroma` (Flutter
     /// [ColorScheme.fromSeed] default min is 48).
-    final double? primaryChroma,
+    double? primaryChroma,
 
     /// Minimum Cam16 chroma for the primary palette.
     ///
     /// Defaults to 48, matching Flutter SDK. Used when the seed or
     /// `primaryChroma` is lower.
-    final double? primaryMinChroma,
+    double? primaryMinChroma,
 
     /// Fixed Cam16 chroma for the secondary palette, or null to use the seed.
     ///
     /// [ColorScheme.fromSeed] locks this to 16, which yields soft muted
     /// mid-tones. Defaults to null; set to 16 for a Material 3 match.
-    final double? secondaryChroma,
+    double? secondaryChroma,
 
     /// Minimum Cam16 chroma for the secondary palette.
     ///
     /// Defaults to 0. Flutter has no secondary min; it always uses chroma 16.
-    final double? secondaryMinChroma,
+    double? secondaryMinChroma,
 
     /// Fixed Cam16 chroma for the tertiary palette, or null to use the seed.
     ///
     /// [ColorScheme.fromSeed] locks this to 24 (softer than primary, a bit
     /// less muted than secondary). Defaults to null; set to 24 for a Material 3
     /// match.
-    final double? tertiaryChroma,
+    double? tertiaryChroma,
 
     /// Minimum Cam16 chroma for the tertiary palette.
     ///
     /// Defaults to 0. Flutter has no tertiary min; it always uses chroma 24.
-    final double? tertiaryMinChroma,
+    double? tertiaryMinChroma,
 
     /// Degrees to rotate `primary` hue when `tertiary` is omitted.
     ///
     /// Ignored if a `tertiary` seed is given. Use 0 to keep all palettes close
     /// to the primary hue. Defaults to 60.
-    final double? tertiaryHueRotation,
+    double? tertiaryHueRotation,
 
     /// Fixed Cam16 chroma for the neutral palette.
     ///
     /// Defaults to 4, matching [ColorScheme.fromSeed]. Set to null and keep
     /// `neutralMinChroma` at 0 to use chroma from the `neutral` seed; that seed
     /// should then have very low chroma.
-    final double? neutralChroma = 4,
+    double? neutralChroma = 4,
 
     /// Minimum Cam16 chroma for the neutral palette.
     ///
     /// Defaults to 0. Flutter has no neutral min; it always uses chroma 4.
-    final double? neutralMinChroma,
+    double? neutralMinChroma,
 
     /// Fixed Cam16 chroma for the neutral variant palette.
     ///
     /// Defaults to 8, matching [ColorScheme.fromSeed]. Set to null and keep
     /// `neutralVariantMinChroma` at 0 to use chroma from the `neutralVariant`
     /// seed; that seed should then have very low chroma.
-    final double? neutralVariantChroma = 8,
+    double? neutralVariantChroma = 8,
 
     /// Minimum Cam16 chroma for the neutral variant palette.
     ///
     /// Defaults to 0. Flutter has no neutral-variant min; it always uses
     /// chroma 8.
-    final double? neutralVariantMinChroma,
+    double? neutralVariantMinChroma,
 
     /// Fixed Cam16 chroma for the error palette, or null to use the seed.
     ///
     /// Defaults to null. Set to 84 to keep the Material 3 error chroma on a
     /// custom error hue.
-    final double? errorChroma,
+    double? errorChroma,
 
     /// Minimum Cam16 chroma for the error palette.
     ///
     /// Defaults to 0. Flutter has no error min; it always uses chroma 84.
-    final double? errorMinChroma,
+    double? errorMinChroma,
 
     /// Tones included in the produced palettes.
     ///
     /// [FlexPaletteType.common] has 15 tones; [FlexPaletteType.extended] has 24.
-    final FlexPaletteType paletteType = FlexPaletteType.common,
+    FlexPaletteType paletteType = FlexPaletteType.common,
 
     /// If true, use CAM16 to get hue and chroma from seeds; if false, use HCT
     /// `fromInt` (faster, matching Flutter 3.22+ [ColorScheme.fromSeed]).
     ///
     /// Defaults to true. FSS seeded schemes keep Cam16; Material 3 seeded
     /// schemes in Flutter use HCT.
-    final bool useCam16 = true,
+    bool useCam16 = true,
 
     /// If true, equal RGB seeds are treated as chroma 0 so palettes stay
     /// greyscale, and min chroma is ignored for those seeds.
@@ -485,7 +485,7 @@ class FlexCorePalette {
     /// Defaults to false to match MCU and [ColorScheme.fromSeed] (white/grey
     /// map to cyan-ish palettes, black to red-ish). Non-monochrome seeds are
     /// unchanged.
-    final bool respectMonochromeSeed = false,
+    bool respectMonochromeSeed = false,
   }) {
     // Primary TonalPalette calculation.
     late final double primaryComputedChroma;

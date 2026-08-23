@@ -1,13 +1,12 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Copy the color value as a String to the Clipboard in Flutter Dart format.
 ///
 /// Notify with [SnackBar] that it was copied.
-Future<void> copyColorToClipboard(BuildContext context, Color color,
-    [String label = '']) async {
+Future<void> copyColorToClipboard(BuildContext context, Color color, [String label = '']) async {
   final ClipboardData data = ClipboardData(text: '0x${color.hexAlpha}');
   await Clipboard.setData(data);
   final String materialName = ColorTools.materialName(color);
@@ -28,12 +27,14 @@ Future<void> copyColorToClipboard(BuildContext context, Color color,
               elevation: 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text('#${color.hexCode}',
-                    style: TextStyle(
-                        color: ThemeData.estimateBrightnessForColor(color) ==
-                                Brightness.light
-                            ? Colors.black
-                            : Colors.white)),
+                child: Text(
+                  '#${color.hexCode}',
+                  style: TextStyle(
+                    color: ThemeData.estimateBrightnessForColor(color) == Brightness.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 8),
