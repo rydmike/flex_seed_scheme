@@ -19,18 +19,15 @@ import 'package:flutter/foundation.dart';
 
 /// Enum used to select tones included in produced FlexTonalPalette.
 ///
-/// When using type [FlexPaletteType.common] the chroma of high tones, >= 90,
-/// is limited to maximum 40. This keeps the chromacity of tones 90 to 100,
-/// lower than 40.
-/// If the source color use more chromacity than 40, there may be a sudden jump
-/// in chroma reduction at tone 90. This is the standard behavior for the
-/// original Material 3 tonal palette computation. The [FlexPaletteType.common]
-/// is intended  to be used when there is a need to follow strict M3's
-/// original palette design.
+/// The two types differ only in which tones they include. The
+/// [FlexPaletteType.common] type is intended to be used when there is a need
+/// to follow the original, pre Flutter 3.22, Material-3 palette design.
 ///
-/// When using the [FlexPaletteType.extended] type tones, there are not only
-/// the new tones, but the chroma limit of tones >= 90 is also removed.
-/// This increases fidelity of higher tone when high chromacity is used.
+/// Before FlexSeedScheme 2.0.0 the [FlexPaletteType.common] type also limited
+/// the chroma of high tones, >= 90, to maximum 40. This limit was removed
+/// in FlexSeedScheme 2.0.0, to match the updated Material-3 color system in
+/// Flutter 3.22. Any remaining chroma reduction in high tones comes from the
+/// HCT color space gamut itself, not from a palette type limit.
 ///
 /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
 /// should be avoided and extended tones used instead. The common tones are
@@ -60,10 +57,12 @@ enum FlexPaletteType {
   /// in surface colors. These were added during 1st half of 2023 to the
   /// Material 3 color system specification.
   ///
-  /// The added tones 2, 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
+  /// The added tones 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
-  /// 98, 97, 96, 94, 92, 87 are for light mode surfaces in the updated
-  /// Material-3 color system. For more information, see:
+  /// 98, 96, 94, 92, 87 are for light mode surfaces in the updated
+  /// Material-3 color system. Tones 2, 5, 65, 75, 84 and 97 are not in the
+  /// old or new M3 spec, they are FlexSeedScheme additions for even more
+  /// fidelity. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
@@ -77,12 +76,15 @@ enum FlexPaletteType {
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
 ///
-/// This class can be instantiated in two ways:
+/// This class can be instantiated in three ways:
 /// 1. [of] From hue and chroma. (preferred)
-/// 2. [fromList] From a fixed-size ([FlexTonalPalette.commonSize]) list of ints
-/// representing ARBG colors. Correctness (constant hue and chroma) of the input
-/// is not enforced. [get] will only return the input colors, corresponding to
-/// [commonTones]. This also initializes the key color to black.
+/// 2. [fromHct] From an [Hct] color, using its hue and chroma.
+/// 3. [fromList] From a fixed-size list of ints representing ARGB colors,
+/// [FlexTonalPalette.commonSize] or [FlexTonalPalette.extendedSize] long,
+/// matching the used [FlexPaletteType]. Correctness (constant hue and chroma)
+/// of the input is not enforced. [get] will only return the input colors,
+/// corresponding to [commonTones] or [extendedTones]. The key color is
+/// deduced from the input color with the highest chroma.
 @immutable
 class FlexTonalPalette {
   /// Commonly-used tone values.

@@ -8,8 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart' show ColorScheme;
 
 /// An intermediate concept between the key color for a UI theme, and a full
-/// color scheme. Five tonal palettes are generated, plus a default
-/// error palette if not provided.
+/// color scheme. Six tonal palettes are generated, where the error palette
+/// defaults to the Material-3 hue 25, chroma 84 palette if not provided.
 ///
 /// This is a modification of package:material_color_utilities [CorePalette],
 /// to make it possible to create Material-3 seeded ColorScheme using tonal
@@ -43,7 +43,7 @@ class FlexCorePalette {
   /// must use the same `paletteType` of [FlexPaletteType] in all passed in
   /// [FlexTonalPalette]s. They default to [FlexPaletteType.common], but if you
   /// use [FlexPaletteType.extended] you must also provide the [error] tonal
-  /// palette and set its `paletteType`
+  /// palette and set its `paletteType` to [FlexPaletteType.extended] as well.
   /// The input for the default M3 error color palette using the extended tones
   /// would be `FlexTonalPalette.of(25, 84, FlexPaletteType.extended)`.
   ///
@@ -91,7 +91,7 @@ class FlexCorePalette {
   /// use [FlexPaletteType.extended] you must also provide the [error] tonal
   /// palette and set its `paletteType` to [FlexPaletteType.extended] as well.
   /// You would typically give it the value:
-  /// [FlexTonalPalette.of(25, 84, FlexPaletteType.extended)] for M3 default
+  /// `FlexTonalPalette.of(25, 84, FlexPaletteType.extended)` for M3 default
   /// error colors but with more tones available.
   FlexTonalPalette get error => _error ?? FlexTonalPalette.of(25, 84, FlexPaletteType.common);
 
@@ -134,11 +134,12 @@ class FlexCorePalette {
   ///
   /// ```dart
   /// final FlexCorePalette fCorePal = FlexCorePalette.fromSeeds(
-  ///   primary: const Color(0xFF6750A4).value,
+  ///   primary: const Color(0xFF6750A4).value32bit,
   ///   secondaryChroma: 16,
   ///   tertiaryChroma: 24,
   /// );
-  /// final CorePalette corePal = CorePalette.of(const Color(0xFF6750A4).value);
+  /// final CorePalette corePal =
+  ///     CorePalette.of(const Color(0xFF6750A4).value32bit);
   /// // fCorePal.primary.get(10) == corePal.primary.get(10); // true
   /// ```
   ///
@@ -327,7 +328,7 @@ class FlexCorePalette {
   /// Which tones this [FlexCorePalette] includes.
   ///
   /// [FlexPaletteType.common] has the original 15 tones;
-  /// [FlexPaletteType.extended] has 24 tones (Material 3 revision, extra
+  /// [FlexPaletteType.extended] has 30 tones (Material 3 revision, extra
   /// surface fidelity).
   ///
   /// ## [useCam16]
@@ -380,7 +381,7 @@ class FlexCorePalette {
 
     /// Optional ARGB seed for the neutral tonal palette.
     ///
-    /// If omitted, uses `primary` hue with chroma 4 (not 16). Override with
+    /// If omitted, uses `primary` hue with chroma 4. Override with
     /// `neutralChroma` / `neutralMinChroma`.
     int? neutral,
 
@@ -393,13 +394,14 @@ class FlexCorePalette {
     /// Fixed Cam16 chroma for the primary palette, or null to use the seed.
     ///
     /// Used when it is at least `primaryMinChroma` (Flutter
-    /// [ColorScheme.fromSeed] default min is 48).
+    /// [ColorScheme.fromSeed] used min 48 before Flutter 3.22, since then it
+    /// locks primary chroma to 36).
     double? primaryChroma,
 
     /// Minimum Cam16 chroma for the primary palette.
     ///
-    /// Defaults to 48, matching Flutter SDK. Used when the seed or
-    /// `primaryChroma` is lower.
+    /// Defaults to 48, matching the Flutter SDK before Flutter 3.22. Used when
+    /// the seed or `primaryChroma` is lower.
     double? primaryMinChroma,
 
     /// Fixed Cam16 chroma for the secondary palette, or null to use the seed.
@@ -433,14 +435,16 @@ class FlexCorePalette {
 
     /// Fixed Cam16 chroma for the neutral palette.
     ///
-    /// Defaults to 4, matching [ColorScheme.fromSeed]. Set to null and keep
+    /// Defaults to 4, matching [ColorScheme.fromSeed] before Flutter 3.22;
+    /// since Flutter 3.22 it uses 6. Set to null and keep
     /// `neutralMinChroma` at 0 to use chroma from the `neutral` seed; that seed
     /// should then have very low chroma.
     double? neutralChroma = 4,
 
     /// Minimum Cam16 chroma for the neutral palette.
     ///
-    /// Defaults to 0. Flutter has no neutral min; it always uses chroma 4.
+    /// Defaults to 0. Flutter has no neutral min; it always uses chroma 6
+    /// (4 before Flutter 3.22).
     double? neutralMinChroma,
 
     /// Fixed Cam16 chroma for the neutral variant palette.
@@ -469,7 +473,7 @@ class FlexCorePalette {
 
     /// Tones included in the produced palettes.
     ///
-    /// [FlexPaletteType.common] has 15 tones; [FlexPaletteType.extended] has 24.
+    /// [FlexPaletteType.common] has 15 tones; [FlexPaletteType.extended] has 30.
     FlexPaletteType paletteType = FlexPaletteType.common,
 
     /// If true, use CAM16 to get hue and chroma from seeds; if false, use HCT
@@ -807,11 +811,11 @@ class FlexCorePalette {
 
   /// Returns a partition from a list.
   ///
-  /// For example, given a list with 2 partitions of size 3.
-  /// range = [1, 2, 3, 4, 5, 6];
+  /// For example, given a list with 2 partitions of size 3:
+  /// `list = [1, 2, 3, 4, 5, 6];`
   ///
-  /// range.getPartition(0, 3) // [1, 2, 3]
-  /// range.getPartition(1, 3) // [4, 5, 6]
+  /// `_getPartition(list, 0, 3) // [1, 2, 3]`
+  /// `_getPartition(list, 1, 3) // [4, 5, 6]`
   static List<int> _getPartition(List<int> list, int partitionNumber, int partitionSize) {
     return list.sublist(
       partitionNumber * partitionSize,

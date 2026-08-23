@@ -472,7 +472,7 @@ enum FlexSchemeVariant {
   /// white surface, tone 100, in light mode and a slightly darker surface,
   /// tone 5, in dark mode.
   ///
-  /// Before Flutter 3.22 removed the background color, this variant swapped
+  /// Before Flutter 3.22 deprecated the background color, this variant swapped
   /// the tone mapping of surface and background from the
   /// [FlexTones.vividSurfaces] setup, hence its name.
   vividBackground(

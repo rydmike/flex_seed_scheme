@@ -36,8 +36,8 @@ import 'package:meta/meta.dart' show internal;
 /// Instead of [CorePalette] it uses custom version called [FlexCorePalette]
 /// that enables using up to six seed colors for more degrees
 /// of freedom in seeded ColorScheme. Using defined seed colors for
-/// primary, secondary and tertiary colors, as well as error color, surface
-/// and surface variant color. The custom [FlexCorePalette]
+/// primary, secondary and tertiary colors, as well as error color, neutral
+/// and neutral variant palettes. The custom [FlexCorePalette]
 /// version also allows for adjusting chroma usage and levels that are
 /// hard coded into M3 design [CorePalette].
 ///
@@ -50,7 +50,7 @@ import 'package:meta/meta.dart' show internal;
 /// passing the extra min chroma and fixed level parameters it should
 /// use when computing the [FlexCorePalette].
 ///
-/// This helper class is internal for now in [FlexSeedScheme] package.
+/// This helper class is internal for now in the `flex_seed_scheme` package.
 /// If there ever is a need for using it via the library, post an issue and
 /// we will consider it.
 @immutable
@@ -253,7 +253,8 @@ class FlexSeedScheme {
   /// A color that's clearly legible when drawn on [surface].
   final int onSurface;
 
-  /// A alternative color that's clearly legible when drawn on [surface] colors.
+  /// An alternative color that's clearly legible when drawn on [surface]
+  /// colors.
   final int onSurfaceVariant;
 
   /// A utility color that creates boundaries and emphasis to improve usability.
@@ -944,6 +945,11 @@ extension SeedColorScheme on ColorScheme {
     Color? inversePrimary,
 
     /// Override color for the seed generated [surfaceTint] color.
+    ///
+    /// If not provided, the produced [ColorScheme.surfaceTint] is always
+    /// assigned the same color as the produced [ColorScheme.primary],
+    /// matching what Flutter's [ColorScheme.fromSeed] does. The
+    /// `FlexTones.surfaceTintTone` mapping is currently not applied to it.
     Color? surfaceTint,
   }) {
     // Assert that tones and variant are not both set, since they are mutually
