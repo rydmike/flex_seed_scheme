@@ -25,7 +25,7 @@ import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 ///
 /// In FlexSeedScheme we keep [Scheme] available and it can be used for legacy
 /// `ColorScheme` generation if so needed. Internally FlexSeedScheme does not
-/// use it fr legacy scheme. It uses its own FlexTones based legacy version to
+/// use it for legacy scheme. It uses its own FlexTones based legacy version to
 /// make a ColorScheme that can be equal to this [Scheme] based one.
 ///
 /// In the resurrection of this legacy Scheme version, we also added all the
