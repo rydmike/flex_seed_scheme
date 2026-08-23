@@ -55,6 +55,7 @@ The changes below are only documentation and agent changes. No code behavior was
   - `TemperatureCache`: `analogous` with more divisions than hue steps and with count larger than divisions, plus cached `complement` and `inputRelativeTemperature` calls.
   - `Score.score` fallback color when all input colors are filtered out.
   - `QuantizerWsmeans` empty cluster reset when a starting cluster captures no points.
+  - Covered the last IDE-reported coverage misses: the `identical` equality short circuits in `CorePalette` and `CorePalettes` (self comparison tests) and the awkward-zone adjustment to tone 60 in `DynamicColor.getTone`, used when tone 49 cannot reach the required contrast against a dark background.
   - The package now has 100% line coverage with only 8 remaining ignore markers, all on verified dead code: compile-time disabled debug logging in `QuantizerWsmeans`, negative modulo guards in `MathUtils` that Dart's `%` operator can never produce, index guards in `TemperatureCache.analogous` that its callers can never trigger, and one unreachable defensive padding line.
 - Added regression tests for the `FlexTones` `useCam16` fix: equality of configs differing only in `useCam16` (FTO1.02c) and `copyWith`/modifier preservation of `useCam16` (FTO1.09d).
 - Updated the `FlexTones` toString golden for the added `onErrorTone` and `useCam16` diagnostics properties.

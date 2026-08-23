@@ -500,6 +500,22 @@ void main() {
       );
       expect(color.getTone(scheme), 49.0);
     });
+    test('isBackground color landing in the awkward 50..60 zone is moved '
+        'out of the zone, to 60 when 49 does not satisfy the contrast', () {
+      // Own tone 30 on a tone 30 background fails ratio 2.3, the improved
+      // foreground tone is about 53, in the awkward zone. Tone 49 only
+      // reaches ratio 2.01 against the tone 30 background, so the color is
+      // moved up to tone 60 instead.
+      final DynamicColor color = DynamicColor.fromPalette(
+        name: 'awkward60',
+        palette: (DynamicScheme s) => s.primaryPalette,
+        tone: (DynamicScheme s) => 30.0,
+        isBackground: true,
+        background: (DynamicScheme s) => fixedTone('bg30a', 30),
+        contrastCurve: ContrastCurve(2.3, 2.3, 2.3, 2.3),
+      );
+      expect(color.getTone(scheme), 60.0);
+    });
     test('dual background, a background prefers light foreground and no '
         'light option can reach the ratio EXPECT tone 100', () {
       final DynamicColor color = DynamicColor.fromPalette(

@@ -401,6 +401,19 @@ void main() {
       expect(core.secondary.get(10), 0xff14173f);
       expect(core.secondary.get(0), 0xff000000);
     });
+
+    // Rydmike: Extra coverage test.
+    test('operator == identical, equality and hashCode', () {
+      final CorePalette corePalette = CorePalette.of(0xff0000ff);
+      final CorePalette corePaletteSame = CorePalette.of(0xff0000ff);
+      final CorePalette corePaletteOther = CorePalette.of(0xff123456);
+      // Self comparison uses the identical short circuit.
+      expect(corePalette == corePalette, true);
+      expect(corePalette, corePaletteSame);
+      expect(corePalette, isNot(corePaletteOther));
+      expect(corePalette.hashCode, corePaletteSame.hashCode);
+      expect(corePalette.hashCode, isNot(corePaletteOther.hashCode));
+    });
   });
 
   group('CorePalettes', () {
@@ -444,6 +457,8 @@ void main() {
         tonesA,
       );
 
+      // Self comparison uses the identical short circuit.
+      expect(corePalettesA == corePalettesA, true);
       expect(corePalettesA, corePalettesB);
       expect(corePalettesB, isNot(corePalettesC));
 
