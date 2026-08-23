@@ -44,6 +44,7 @@ FSS-specific deltas — do not remove them:
 
 Rules:
 
+- To check or port upstream MCU, load [mcu-fork-sync](../mcu-fork-sync/SKILL.md). Dart `dart/lib` and `dart/test` only.
 - Sync from upstream surgically. Re-run `test/mcu/**` and the `ColorScheme.fromSeed` parity loop in FSS tests.
 - Keep Google license headers.
 - Never replace the fork with a pub `material_color_utilities` dependency unless the maintainers explicitly ask.

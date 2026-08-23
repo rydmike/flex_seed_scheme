@@ -15,6 +15,10 @@
 // RydMike: This contains a modified local copy of Material Color Utilities
 // used by FlexSeedScheme.
 //
+// Last synced: MCU Dart 0.13.1 (pub.dev 2026-08-10). GitHub dart/lib Cam16
+// hue wrap 158b9c185a25c53fddd051cba811d542e6b94d68 (2025-11-19); already
+// in FSS 4.0.0. Keep this line current after each Dart MCU fork sync.
+//
 // Since MCU is using zero semver and Flutter SDK, depends on it, any
 // minor version number change is breaking and cannot be resolved across
 // Flutter channels if a package also uses MCU. This is the reason why (FSS)

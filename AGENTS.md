@@ -20,12 +20,13 @@ The script rewrites skill paths for Claude. Optional teardown: `./scripts/delete
 
 Load the matching skill; do not paste their contents into this file.
 
-| Skill                                                                                      | When                                                         |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
-| [.agents/skills/package-development/SKILL.md](.agents/skills/package-development/SKILL.md) | Changing `lib/`, `test/`, `example/`, or CI                  |
-| [.agents/skills/flex-seed-scheme/SKILL.md](.agents/skills/flex-seed-scheme/SKILL.md)       | Using the package (`example/`, or copy into a consuming app) |
-| [.agents/skills/code-documentation/SKILL.md](.agents/skills/code-documentation/SKILL.md)   | Writing or updating dartdoc and comments                     |
-| [.agents/skills/code-review/SKILL.md](.agents/skills/code-review/SKILL.md)                 | Reviewing a branch, PR, or uncommitted diff                  |
+| Skill                                                                                      | When                                                                                 |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| [.agents/skills/package-development/SKILL.md](.agents/skills/package-development/SKILL.md) | Changing `lib/`, `test/`, `example/`, or CI                                          |
+| [.agents/skills/mcu-fork-sync/SKILL.md](.agents/skills/mcu-fork-sync/SKILL.md)             | Checking or porting Dart MCU upstream (`material_color_utilities`, Cam16, fork sync) |
+| [.agents/skills/flex-seed-scheme/SKILL.md](.agents/skills/flex-seed-scheme/SKILL.md)       | Using the package (`example/`, or copy into a consuming app)                         |
+| [.agents/skills/code-documentation/SKILL.md](.agents/skills/code-documentation/SKILL.md)   | Writing or updating dartdoc and comments                                             |
+| [.agents/skills/code-review/SKILL.md](.agents/skills/code-review/SKILL.md)                 | Reviewing a branch, PR, or uncommitted diff                                          |
 
 ## Commands
 
