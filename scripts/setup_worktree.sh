@@ -62,6 +62,6 @@ Worktree ready: $worktree_root
 Next steps:
   - Package tests: ${flutter_cmd[*]} test
   - Example app:   cd example && ${flutter_cmd[*]} run
-  - The first iOS example run may take a bit while CocoaPods resolves.
-    Do not run pod install yourself; flutter run in example/ does that.
+  - The first iOS/macOS example run may take a bit while Swift Package Manager resolves.
+    Do not run pod install; flutter run in example/ generates the ephemeral Swift package.
 NEXT

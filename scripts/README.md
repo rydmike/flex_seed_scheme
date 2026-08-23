@@ -62,7 +62,7 @@ Prepares a fresh git worktree for development.
 - Runs `fvm flutter pub get` at the package root, then again in `example/` (a separate package, not a pub workspace)
 - Prints the next steps: package tests at the root, `flutter run` in `example/`
 
-It does not run `pod install` — the first `flutter run` in `example/` does that. It is safe to re-run: existing files are left untouched.
+It does not install CocoaPods. Example iOS and macOS use Swift Package Manager; the first `flutter run` in `example/` generates the ephemeral Swift package. It is safe to re-run: existing files are left untouched.
 
 ```bash
 bash scripts/setup_worktree.sh
