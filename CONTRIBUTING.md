@@ -9,11 +9,11 @@ Looking for a quick overview of expectations, commands, and style rules? See [AG
 Before you start working on your contribution, please follow these steps:
 
 - Fork the repository on GitHub and clone your fork to your local machine.
-- Create a new branch from the main branch and name it according to the type and scope of your contribution. For example, `fix/issue-123` or `feature/new-color-option`.
+- Create a new branch from the master branch and name it according to the type and scope of your contribution. For example, `fix/issue-123` or `feature/new-color-option`.
 - Make your changes in the new branch, following the code style and conventions of the project.
 - Write tests for your changes, using the existing test framework. Make sure your changes do not break any existing tests or decrease the test coverage of the project.
 - Commit your changes with a clear and descriptive message, referencing any relevant issues or pull requests.
-- Push your changes to your fork on GitHub and create a pull request against the main branch of the original repository.
+- Push your changes to your fork on GitHub and create a pull request against the master branch of the original repository.
 - Wait for the maintainers to review your pull request and provide feedback or approval.
 
 ## What to contribute
