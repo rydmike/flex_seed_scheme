@@ -106,14 +106,11 @@ class ColorPickerInkWellDialog extends StatelessWidget {
   );
 
   // Custom colors
-  static final Map<ColorSwatch<Object>, String> _customSwatches =
-      <ColorSwatch<Object>, String>{
+  static final Map<ColorSwatch<Object>, String> _customSwatches = <ColorSwatch<Object>, String>{
     ColorTools.createPrimarySwatch(guideNewPrimary): 'Guide Purple',
-    ColorTools.createPrimarySwatch(guideNewPrimaryVariant):
-        'Guide Purple Variant',
+    ColorTools.createPrimarySwatch(guideNewPrimaryVariant): 'Guide Purple Variant',
     ColorTools.createAccentSwatch(guideNewSecondary): 'Guide Teal',
-    ColorTools.createAccentSwatch(guideNewSecondaryVariant):
-        'Guide Teal Variant',
+    ColorTools.createAccentSwatch(guideNewSecondaryVariant): 'Guide Teal Variant',
     ColorTools.createPrimarySwatch(guideNewError): 'Guide Error',
     ColorTools.createPrimarySwatch(guideNewErrorDark): 'Guide Error Dark',
     ColorTools.createPrimarySwatch(blueBlues): 'Blue blues',
@@ -179,10 +176,8 @@ class ColorPickerInkWellDialog extends StatelessWidget {
       onRecentColorsChanged: onRecentColorsChanged,
       title: Text('Select Color', style: theme.textTheme.titleLarge),
       subheading: Text('Select color shade', style: theme.textTheme.bodyLarge),
-      wheelSubheading: Text('Selected color and its shades',
-          style: theme.textTheme.bodyLarge),
-      recentColorsSubheading:
-          Text('Recent colors', style: theme.textTheme.bodyLarge),
+      wheelSubheading: Text('Selected color and its shades', style: theme.textTheme.bodyLarge),
+      recentColorsSubheading: Text('Recent colors', style: theme.textTheme.bodyLarge),
       selectedPickerTypeColor: theme.colorScheme.primary,
       showMaterialName: true,
       showColorName: true,

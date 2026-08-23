@@ -20,7 +20,7 @@ class SelectPaletteType extends StatelessWidget {
         ButtonSegment<FlexPaletteType>(
           value: FlexPaletteType.extended,
           label: Text('Extended'),
-        )
+        ),
       ],
       selected: <FlexPaletteType>{controller.paletteType},
       onSelectionChanged: (Set<FlexPaletteType> selected) {

@@ -8,8 +8,8 @@ import 'package:material_ui/material_ui.dart';
 /// is provided as an optional user based reveal action. The purpose is to make
 /// UI less talkative but provide easy access to additional usage explanation.
 ///
-/// This is a Flutter "Universal" Widget that only depends on the SDK and
-/// can be dropped into any application.
+/// This is a "Universal" widget that only depends on the `material_ui`
+/// package and can be dropped into any application.
 class ListTileReveal extends StatefulWidget {
   const ListTileReveal({
     super.key,

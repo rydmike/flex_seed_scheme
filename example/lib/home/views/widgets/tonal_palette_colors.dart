@@ -39,9 +39,7 @@ class TonalPaletteColors extends StatelessWidget {
   }
 
   static Color _onColor(Color color) {
-    return ThemeData.estimateBrightnessForColor(color) == Brightness.light
-        ? Colors.black
-        : Colors.white;
+    return ThemeData.estimateBrightnessForColor(color) == Brightness.light ? Colors.black : Colors.white;
   }
 
   @override
@@ -58,8 +56,7 @@ class TonalPaletteColors extends StatelessWidget {
                 color: Color(tonalPalette[i]),
                 height: height,
                 onTap: () {
-                  unawaited(
-                      copyColorToClipboard(context, Color(tonalPalette[i])));
+                  unawaited(copyColorToClipboard(context, Color(tonalPalette[i])));
                 },
                 child: Center(
                   child: Stack(

@@ -28,7 +28,10 @@ class MyApp extends StatelessWidget {
           highContrastTheme: AppTheme.highContrastLight(controller),
           highContrastDarkTheme: AppTheme.highContrastDark(controller),
           builder: (BuildContext context, Widget? child) {
-            // ignore: deprecated_member_use, temporary fix for MaterialUi compatibility.
+            // Temporary MaterialUi compatibility fix, needed as long as the
+            // used flex_color_picker still imports SDK material. Remove the
+            // bridge when the picker has migrated to material_ui.
+            // ignore: deprecated_member_use
             return MaterialUiCompatibilityBridge(child: child!);
           },
           home: HomePage(controller: controller),

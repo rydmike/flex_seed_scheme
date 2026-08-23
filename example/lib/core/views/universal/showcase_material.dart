@@ -11,14 +11,13 @@ import 'package:material_ui/material_ui.dart';
 /// how it looks with different Material widgets.
 ///
 /// The sub widgets used in this theme showcase can also be used on their
-/// own, for example combined in smaller panels instead of in on big column
-/// like here. Using the individual elements is done in example 5 where they
-/// are put in separate cards.
+/// own, for example combined in smaller panels instead of in one big column
+/// like here.
 ///
-/// These are all Flutter "Universal" Widgets that only depends on the SDK and
-/// all the Widgets in this file be dropped into any application. They are
-/// however not so useful, unless all you really want to do is to show what
-/// Flutter Widgets look like.
+/// These are all "Universal" widgets that only depend on the `material_ui`
+/// and `cupertino_ui` packages, and all the widgets in this file can be
+/// dropped into any application. They are however not so useful, unless all
+/// you really want to do is to show what the Material widgets look like.
 class ShowcaseMaterial extends StatelessWidget {
   const ShowcaseMaterial({super.key});
 

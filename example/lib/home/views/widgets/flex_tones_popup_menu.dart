@@ -49,16 +49,17 @@ class FlexTonesPopupMenu extends StatelessWidget {
               ),
               title: Text(variant.variantName, style: txtStyle),
             ),
-          )
+          ),
       ],
       child: ListTileReveal(
-        contentPadding:
-            contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
         title: Text('$title ${variant.variantName}'),
         subtitle: Text(variant.description),
         subtitleReveal: ListTile(
-          title: Text('${variant.variantName}'
-              ' scheme variant configuration info:'),
+          title: Text(
+            '${variant.variantName}'
+            ' scheme variant configuration info:',
+          ),
           subtitle: Text('${variant.configDetails}\n'),
         ),
         trailing: Badge(

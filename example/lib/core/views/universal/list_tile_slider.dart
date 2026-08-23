@@ -5,8 +5,8 @@ import 'package:material_ui/material_ui.dart';
 ///
 /// The Slider value is displayed as a trailing widget.
 ///
-/// This is a Flutter "Universal" Widget that only depends on the SDK and
-/// can be dropped into any application.
+/// This is a "Universal" widget that only depends on the `material_ui`
+/// package and can be dropped into any application.
 class ListTileSlider extends StatelessWidget {
   const ListTileSlider({
     super.key,
@@ -61,7 +61,7 @@ class ListTileSlider extends StatelessWidget {
 
   /// The number of discrete divisions.
   ///
-  /// If null, set to ([max]- [min]).toInt().
+  /// If null, set to ([max] - [min]).toInt().
   final int? divisions;
 
   /// The number of decimals to show for the value.
@@ -95,7 +95,7 @@ class ListTileSlider extends StatelessWidget {
           ? (double value) {
               onChanged?.call(value);
             }
-          // Sett to null to also disable the Slider in the ListTile.
+          // Set to null to also disable the Slider in the ListTile.
           : null,
     );
 

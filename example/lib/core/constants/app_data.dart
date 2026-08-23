@@ -23,8 +23,6 @@ sealed class AppData {
   //
   // The name of the package this app demonstrates.
   static const String packageName = 'FlexSeed\u{00AD}Scheme';
-  // Version of the WEB build, usually same as package, but it also has a
-  // build numbers.
 
   // Check if this is a Web-WASM build, Web-JS build or native VM build.
   static const bool isRunningWithWasm = bool.fromEnvironment(
@@ -36,7 +34,7 @@ sealed class AppData {
       ? 'JS'
       : 'native VM';
   // Version of the WEB build, usually same as package, but it also has a
-  // build numbers.
+  // build number.
   static const String versionMajor = '5';
   static const String versionMinor = '0';
   static const String versionPatch = '0';

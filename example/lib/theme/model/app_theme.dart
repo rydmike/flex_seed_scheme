@@ -2,14 +2,14 @@ import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
 import 'package:material_ui/material_ui.dart';
 
-/// The theme for this app is defined in
+/// The themes for this app are defined as static functions in this class.
 class AppTheme {
   AppTheme._();
 
   /// Function to build our example light theme.
   static ThemeData light(ThemeController controller) {
     //
-    // Use [SeedColorScheme.fromSeeds] instead of ColorScheme.fromSeed],
+    // Use `SeedColorScheme.fromSeeds` instead of `ColorScheme.fromSeed`,
     // to generate the ColorScheme.
     // We often need the colors in the ColorScheme we will use in our
     // ThemeData to customize color mappings in ThemeData and components,
@@ -20,28 +20,26 @@ class AppTheme {
       // Primary key color is required, like seed in ColorScheme.fromSeed.
       primaryKey: controller.primarySeedColor,
       // We can opt in on using secondary and tertiary seed key colors.
-      secondaryKey:
-          controller.useSecondaryKey ? controller.secondarySeedColor : null,
-      tertiaryKey:
-          controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      secondaryKey: controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiaryKey: controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
       neutralKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
-      neutralVariantKey:
-          controller.useNeutralKey ? controller.neutralSeedColor : null,
+      neutralVariantKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
 
       // The contrast level only has any effect when using above variant based
       // scheming strategy and the variant is one where isFlutterScheme is true.
       contrastLevel: controller.contrastLevel,
       // Use expressive on container colors if opted in on that setting.
-      // Used as new default in Material-3 after MCU v0.12.0. Flutter stable
-      // 3.22.x and master 3.23.x do not yet use this design.
+      // This is the Material-3 default since MCU v0.12.0 and it is used by
+      // Flutter stable 3.44 and later. FSS defaults to it since version 4.0.0,
+      // but unlike Flutter, FSS still offers the option to opt out of it.
+      // The flag only affects light mode on-container tones, so it is not
+      // used in the dark theme below.
       useExpressiveOnContainerColors: controller.useExpressiveOn,
       // Respect monochrome seed colors if opted in on that setting.
       respectMonochromeSeed: controller.respectMonochromeSeed,
       // Use a `variant` based seeded scheme.
-      variant: controller.usedVariant.isFlutterScheme
-          ? controller.usedVariant
-          : null,
+      variant: controller.usedVariant.isFlutterScheme ? controller.usedVariant : null,
       // Tone chroma config and tone mapping is optional. If you do not add it
       // you get a config matching Flutter's Material 3 ColorScheme.fromSeed.
       //
@@ -51,26 +49,19 @@ class AppTheme {
       tones: controller.usedVariant.isFlutterScheme
           ? null
           : controller.usedVariant
-              .tones(Brightness.light)
-              .monochromeSurfaces(controller.useMonoSurfaces)
-              .higherContrastFixed(controller.higherContrastFixedColors)
-              .onMainsUseBW(controller.keepMainOnColorsBW)
-              .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-              .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
+                .tones(Brightness.light)
+                .monochromeSurfaces(controller.useMonoSurfaces)
+                .higherContrastFixed(controller.higherContrastFixedColors)
+                .onMainsUseBW(controller.keepMainOnColorsBW)
+                .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+                .surfacesUseBW(controller.keepLightSurfaceColorsWhite),
       // Pin input seed colors in light mode to corresponding main colors
       // when set to be pinned in the UI.
       primary: controller.pinPrimary ? controller.primarySeedColor : null,
-      secondary: controller.pinSecondary && controller.useSecondaryKey
-          ? controller.secondarySeedColor
-          : null,
-      tertiary: controller.pinTertiary && controller.useTertiaryKey
-          ? controller.tertiarySeedColor
-          : null,
-      error: controller.pinError && controller.useErrorKey
-          ? controller.errorSeedColor
-          : null,
-      surfaceTint:
-          controller.useNeutralKey ? controller.neutralSeedColor : null,
+      secondary: controller.pinSecondary && controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiary: controller.pinTertiary && controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      error: controller.pinError && controller.useErrorKey ? controller.errorSeedColor : null,
+      surfaceTint: controller.useNeutralKey ? controller.neutralSeedColor : null,
     );
 
     // Light mode theme
@@ -94,48 +85,35 @@ class AppTheme {
     final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: controller.primarySeedColor,
-      secondaryKey:
-          controller.useSecondaryKey ? controller.secondarySeedColor : null,
-      tertiaryKey:
-          controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      secondaryKey: controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiaryKey: controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       errorKey: controller.useErrorKey ? controller.errorSeedColor : null,
       neutralKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
-      neutralVariantKey:
-          controller.useNeutralKey ? controller.neutralSeedColor : null,
+      neutralVariantKey: controller.useNeutralKey ? controller.neutralSeedColor : null,
       contrastLevel: controller.contrastLevel,
       respectMonochromeSeed: controller.respectMonochromeSeed,
       // Use a `variant` based seeded scheme.
-      variant: controller.usedVariant.isFlutterScheme
-          ? controller.usedVariant
-          : null,
+      variant: controller.usedVariant.isFlutterScheme ? controller.usedVariant : null,
       tones: controller.usedVariant.isFlutterScheme
           ? null
           : controller.usedVariant
-              .tones(Brightness.dark)
-              .monochromeSurfaces(controller.useMonoSurfaces)
-              .higherContrastFixed(controller.higherContrastFixedColors)
-              .onMainsUseBW(controller.keepMainOnColorsBW)
-              .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
-              .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
+                .tones(Brightness.dark)
+                .monochromeSurfaces(controller.useMonoSurfaces)
+                .higherContrastFixed(controller.higherContrastFixedColors)
+                .onMainsUseBW(controller.keepMainOnColorsBW)
+                .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
+                .surfacesUseBW(controller.keepDarkSurfaceColorsBlack),
       // Pin input seed colors in dark mode to corresponding container colors
       // when set to be pinned in the UI.
-      // Typically input seed "brand" colors have high chroma and ar dark, hence
+      // Typically input seed "brand" colors have high chroma and are dark, so
       // they usually will not fit on the main colors in dark mode, but often
       // they work well on the containers. This can be used to bring a touch
       // of the source "brand" colors to the dark mode.
-      primaryContainer:
-          controller.pinPrimary ? controller.primarySeedColor : null,
-      secondaryContainer: controller.pinSecondary && controller.useSecondaryKey
-          ? controller.secondarySeedColor
-          : null,
-      tertiaryContainer: controller.pinTertiary && controller.useTertiaryKey
-          ? controller.tertiarySeedColor
-          : null,
-      errorContainer: controller.pinError && controller.useErrorKey
-          ? controller.errorSeedColor
-          : null,
-      surfaceTint:
-          controller.useNeutralKey ? controller.neutralSeedColor : null,
+      primaryContainer: controller.pinPrimary ? controller.primarySeedColor : null,
+      secondaryContainer: controller.pinSecondary && controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiaryContainer: controller.pinTertiary && controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      errorContainer: controller.pinError && controller.useErrorKey ? controller.errorSeedColor : null,
+      surfaceTint: controller.useNeutralKey ? controller.neutralSeedColor : null,
     );
 
     // Dark mode theme
@@ -150,8 +128,8 @@ class AppTheme {
 
   // Define accessibility high contrast versions using same color base.
   //
-  // The theme below is same as selecting the ultra contrast option in the
-  // popup.
+  // The light theme below is the same as selecting the high contrast option
+  // in the popup, and the dark theme the same as the ultra contrast option.
   //
   // By providing a theme on these properties, it will be auto selected
   // when platform accessibility theme is requested. Some host platforms
@@ -159,9 +137,8 @@ class AppTheme {
   // users to increase contrast through an  accessibility setting.
   //
   // If the user requested a high contrast between foreground and background
-  // content on iOS, via Settings -> Accessibility -> Increase Contrast.
-  // This is currently only supported on iOS devices that are running
-  // iOS 13 or above.
+  // content on iOS, via Settings -> Accessibility -> Increase Contrast,
+  // these themes are used.
   //
   // If you make the selection on an iOS device, you will get the high
   // contrast scheme based ThemeData versions below, regardless of what
@@ -172,15 +149,13 @@ class AppTheme {
 
   /// Function to build our example high contrast light theme.
   ///
-  // In this example we use FlexTones.highContrast.
+  /// In this example we use FlexTones.highContrast.
   static ThemeData highContrastLight(ThemeController controller) {
     final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
       primaryKey: controller.primarySeedColor,
-      secondaryKey:
-          controller.useSecondaryKey ? controller.secondarySeedColor : null,
-      tertiaryKey:
-          controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      secondaryKey: controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiaryKey: controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       tones: FlexTones.highContrast(Brightness.light)
           .onMainsUseBW(controller.keepMainOnColorsBW)
           .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)
@@ -196,18 +171,16 @@ class AppTheme {
     );
   }
 
-  // Factory to build our example ultra high contrast dark theme.
+  // Function to build our example ultra high contrast dark theme.
   //
   // In this example we use FlexTones.ultraContrast.
-  // Same input seed colors mode, but with brightness set to dark
+  // Same input seed colors mode, but with brightness set to dark.
   static ThemeData highContrastDark(ThemeController controller) {
     final ColorScheme colorScheme = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: controller.primarySeedColor,
-      secondaryKey:
-          controller.useSecondaryKey ? controller.secondarySeedColor : null,
-      tertiaryKey:
-          controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+      secondaryKey: controller.useSecondaryKey ? controller.secondarySeedColor : null,
+      tertiaryKey: controller.useTertiaryKey ? controller.tertiarySeedColor : null,
       tones: FlexTones.ultraContrast(Brightness.dark)
           .onMainsUseBW(controller.keepMainOnColorsBW)
           .onSurfacesUseBW(controller.keepSurfaceOnColorsBW)

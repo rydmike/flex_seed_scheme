@@ -36,16 +36,11 @@ class ShowTonalPalette extends StatelessWidget {
       final DynamicScheme dynamicScheme = SeedColorScheme.buildDynamicScheme(
         brightness: brightness,
         primarySeedColor: controller.primarySeedColor,
-        secondarySeedColor:
-            controller.useSecondaryKey ? controller.secondarySeedColor : null,
-        tertiarySeedColor:
-            controller.useTertiaryKey ? controller.tertiarySeedColor : null,
-        errorSeedColor:
-            controller.useErrorKey ? controller.errorSeedColor : null,
-        neutralSeedColor:
-            controller.useNeutralKey ? controller.neutralSeedColor : null,
-        neutralVariantSeedColor:
-            controller.useNeutralKey ? controller.neutralSeedColor : null,
+        secondarySeedColor: controller.useSecondaryKey ? controller.secondarySeedColor : null,
+        tertiarySeedColor: controller.useTertiaryKey ? controller.tertiarySeedColor : null,
+        errorSeedColor: controller.useErrorKey ? controller.errorSeedColor : null,
+        neutralSeedColor: controller.useNeutralKey ? controller.neutralSeedColor : null,
+        neutralVariantSeedColor: controller.useNeutralKey ? controller.neutralSeedColor : null,
         variant: controller.usedVariant,
         contrastLevel: controller.contrastLevel,
         useExpressiveOnContainerColors: controller.useExpressiveOn,
@@ -62,8 +57,7 @@ class ShowTonalPalette extends StatelessWidget {
             tertiaryTonals.add(dynamicScheme.tertiaryPalette.get(i));
             errorTonals.add(dynamicScheme.errorPalette.get(i));
             neutralTonals.add(dynamicScheme.neutralPalette.get(i));
-            neutralVariantTonals
-                .add(dynamicScheme.neutralVariantPalette.get(i));
+            neutralVariantTonals.add(dynamicScheme.neutralVariantPalette.get(i));
           }
         case FlexPaletteType.extended:
           for (final int i in FlexTonalPalette.extendedTones) {
@@ -72,8 +66,7 @@ class ShowTonalPalette extends StatelessWidget {
             tertiaryTonals.add(dynamicScheme.tertiaryPalette.get(i));
             errorTonals.add(dynamicScheme.errorPalette.get(i));
             neutralTonals.add(dynamicScheme.neutralPalette.get(i));
-            neutralVariantTonals
-                .add(dynamicScheme.neutralVariantPalette.get(i));
+            neutralVariantTonals.add(dynamicScheme.neutralVariantPalette.get(i));
           }
       }
     } else {
@@ -81,21 +74,11 @@ class ShowTonalPalette extends StatelessWidget {
       final FlexCorePalette palettes = FlexCorePalette.fromSeeds(
         primary: controller.primarySeedColor.value32bit,
         // Pass in null if set to not use secondary or tertiary seed keys.
-        secondary: controller.useSecondaryKey
-            ? controller.secondarySeedColor.value32bit
-            : null,
-        tertiary: controller.useTertiaryKey
-            ? controller.tertiarySeedColor.value32bit
-            : null,
-        error: controller.useErrorKey
-            ? controller.errorSeedColor.value32bit
-            : null,
-        neutral: controller.useNeutralKey
-            ? controller.neutralSeedColor.value32bit
-            : null,
-        neutralVariant: controller.useNeutralKey
-            ? controller.neutralSeedColor.value32bit
-            : null,
+        secondary: controller.useSecondaryKey ? controller.secondarySeedColor.value32bit : null,
+        tertiary: controller.useTertiaryKey ? controller.tertiarySeedColor.value32bit : null,
+        error: controller.useErrorKey ? controller.errorSeedColor.value32bit : null,
+        neutral: controller.useNeutralKey ? controller.neutralSeedColor.value32bit : null,
+        neutralVariant: controller.useNeutralKey ? controller.neutralSeedColor.value32bit : null,
         // Tone config details we get from active FlexTones.
         primaryChroma: tones.primaryChroma,
         primaryMinChroma: tones.primaryMinChroma,
@@ -105,8 +88,7 @@ class ShowTonalPalette extends StatelessWidget {
         tertiaryMinChroma: tones.tertiaryMinChroma,
         tertiaryHueRotation: tones.tertiaryHueRotation,
         neutralChroma: controller.useMonoSurfaces ? 0 : tones.neutralChroma,
-        neutralVariantChroma:
-            controller.useMonoSurfaces ? 0 : tones.neutralVariantChroma,
+        neutralVariantChroma: controller.useMonoSurfaces ? 0 : tones.neutralVariantChroma,
         respectMonochromeSeed: controller.respectMonochromeSeed,
         paletteType: paletteType,
       );

@@ -7,8 +7,8 @@ import 'package:material_ui/material_ui.dart';
 /// is provided as an optional user based reveal action. The purpose is to make
 /// UI less talkative but provide easy access to additional usage explanation.
 ///
-/// This is a Flutter "Universal" Widget that only depends on the SDK and
-/// can be dropped into any application.
+/// This is a "Universal" widget that only depends on the `material_ui`
+/// package and can be dropped into any application.
 class SwitchListTileReveal extends StatefulWidget {
   const SwitchListTileReveal({
     super.key,
@@ -29,8 +29,6 @@ class SwitchListTileReveal extends StatefulWidget {
   });
 
   /// Whether this switch is checked.
-  ///
-  /// This property must not be null.
   final bool value;
 
   /// Called when the user toggles the switch on or off.
@@ -43,7 +41,7 @@ class SwitchListTileReveal extends StatefulWidget {
   ///
   /// The callback provided to [onChanged] should update the state of the parent
   /// [StatefulWidget] using the [State.setState] method, so that the parent
-  /// gets rebuilt; for example:
+  /// gets rebuilt.
   final ValueChanged<bool>? onChanged;
 
   /// The primary content of the list tile.
@@ -68,7 +66,6 @@ class SwitchListTileReveal extends StatefulWidget {
   ///
   /// Insets a [SwitchListTileReveal]'s contents: its [title],
   /// [subtitleReveal] widgets.
-  ///
   ///
   /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used in M2
   /// and `EdgeInsetsDirectional.only(start: 16.0, end: 24.0)` in M3.

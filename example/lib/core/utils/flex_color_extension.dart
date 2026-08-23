@@ -11,7 +11,7 @@ import 'package:material_ui/material_ui.dart';
 /// been modified to use Flutter's HSLColor class instead of the custom one in
 /// the TinyColor lib. The functions from TinyColor re-implemented as Color
 /// extensions here are [brighten], [lighten] and [darken]. They are used
-/// for color calculations in FlexColorScheme, but also exposed for reuse.
+/// for color calculations in this example app.
 extension FlexColorExtensions on Color {
   /// Brightens the color with the given integer percentage amount.
   /// Defaults to 10%.
@@ -37,9 +37,7 @@ extension FlexColorExtensions on Color {
     final HSLColor hsl = this == const Color(0xFF000000)
         ? HSLColor.fromColor(this).withSaturation(0)
         : HSLColor.fromColor(this);
-    return hsl
-        .withLightness(math.min(1, math.max(0, hsl.lightness + amount / 100)))
-        .toColor();
+    return hsl.withLightness(math.min(1, math.max(0, hsl.lightness + amount / 100))).toColor();
   }
 
   /// Darkens the color with the given integer percentage amount.
@@ -48,9 +46,7 @@ extension FlexColorExtensions on Color {
     if (amount <= 0) return this;
     if (amount > 100) return Colors.black;
     final HSLColor hsl = HSLColor.fromColor(this);
-    return hsl
-        .withLightness(math.min(1, math.max(0, hsl.lightness - amount / 100)))
-        .toColor();
+    return hsl.withLightness(math.min(1, math.max(0, hsl.lightness - amount / 100))).toColor();
   }
 
   /// Return uppercase Flutter style hex code string of the color.
@@ -59,7 +55,7 @@ extension FlexColorExtensions on Color {
   }
 
   /// Return uppercase RGB hex code string, with # and no alpha value.
-  /// This format is often used in APIs and in CSS color values..
+  /// This format is often used in APIs and in CSS color values.
   String get hex {
     return '#${value32bit.toRadixString(16).toUpperCase().padLeft(8, '0').substring(2)}';
   }
