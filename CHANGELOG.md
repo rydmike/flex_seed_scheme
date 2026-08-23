@@ -4,7 +4,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 ## 5.0.0
 
-**Aug 22, 2026**
+**Aug 23, 2026**
 
 The version requires Flutter 3.47.0 or higher.
 
@@ -19,8 +19,10 @@ The version requires Flutter 3.47.0 or higher.
 - Bump all dependencies.
 - Example app's macOS build migrated from cocoapods to Swift Package Manager.
 - Code style: Changed from RydMike lints 2.6.0 to RydMike lints 3.0.0. Big code diffs and changes in the code style.
-- Example app: fix Flutter SDK deprecation of axisAlignment in ListTileReveal and SwitchListTileReveal widgets.
 - Fix new lints.
+- Example app: fix Flutter SDK deprecation of axisAlignment in ListTileReveal and SwitchListTileReveal widgets.
+- Example app: Temporary use of MaterialUiCompatibilityBridge, temporary fix for MaterialUi compatibility for packages that still use Material from SDK, pre Flutter 3.47.0.
+
 
 ## 4.0.1
 
