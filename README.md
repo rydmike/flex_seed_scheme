@@ -8,13 +8,20 @@ A more flexible and powerful version of Flutter's `ColorScheme.fromSeed`. Use th
 * Change and customize the chromacity (colorfulness) used in the seed strategy for tonal palette generation in the Google HCT (Hue-Chroma-Tone) color space.
 * Customize tonal palette tones to `ColorScheme` color mappings.
 * Remove color tint from all generated surface colors and make them monochrome.
-* Use the new Material-3 design `ColorScheme` variants like `fidelity`, `content` and `monochrome` that arrived in Flutter SDK v3.22.2, with the twist that you can also use multiple seed colors with them.
+* Make monochrome seed colors, like black, white and greys, produce the expected greyscale palettes with `respectMonochromeSeed`, instead of the cyan and red hues that plain `ColorScheme.fromSeed` gives you.
+* Use the Material-3 design `ColorScheme` variants like `fidelity`, `content` and `monochrome` that arrived in Flutter SDK v3.22.2, with the twist that you can also use multiple seed colors with them.
 
 ## Getting Started
 
 Add the `flex_seed_scheme` package to `pubspec.yaml`:
 
 `dart pub add flex_seed_scheme` or `flutter pub add flex_seed_scheme`
+
+### Version 5.0.0
+
+FlexSeedScheme 5.0.0 requires Flutter 3.47.0 and Dart 3.13.0 or later. It brings full support for the SDK decoupled `material_ui` and `cupertino_ui` packages. It contains no breaking or new APIs.
+
+Produced `ColorScheme` results are the same as in version 4, with one intentional bug fix exception: the `FlexTones.surfaceTintTone` mapping is now actually applied to the produced `ColorScheme.surfaceTint` color, as was always intended. Previously `surfaceTint` was always assigned the same color as the produced `primary` color. This changes the produced `surfaceTint` color of the built-in `ultraContrast`, `candyPop` and `chroma` configurations, as well as of custom `FlexTones` that define a `surfaceTintTone` differing from their `primaryTone`. Since the surface tint color is only used as a low-opacity elevation overlay, the visual impact of this fix is minimal.
 
 ### Demo Web Application
 
@@ -37,11 +44,11 @@ const Color secondarySeedColor = Color(0xFF3871BB);
 const Color tertiarySeedColor = Color(0xFF6CA450);
 ```
 
-With **FlexSeedScheme** you make a seed generated `ColorScheme` using `SeedColorScheme.fromSeeds`. It works like `ColorScheme.fromSeed`, but instead of only accepting a single seed color, it can use **six key color**s as seed colors. One for each main color (primary, secondary and tertiary) group in `ColorScheme`. 
+With **FlexSeedScheme** you make a seed generated `ColorScheme` using `SeedColorScheme.fromSeeds`. It works like `ColorScheme.fromSeed`, but instead of only accepting a single seed color, it can use **six key colors** as seed colors. One for each main color (primary, secondary and tertiary) group in `ColorScheme`, plus separate ones for the error color and for the neutral and neutral variant palettes. 
 
 You can even customize the seed generated `error` color, typically there is no need to do so, but if your primary color is of a red hue, that conflicts with the error color, then adjusting the error color is a possibility.
 
-You can also use custom key colors to seed generate the neutral and neutral variant palettes, that are used to define all the surface and background colors in `ColorScheme`. We recommend sticking to the default that uses primary key color's hue with very low chroma.
+You can also use custom key colors to seed generate the neutral and neutral variant palettes, that are used to define all the surface colors in `ColorScheme`. We recommend sticking to the default that uses primary key color's hue with very low chroma.
 
 Chroma limits that differ from Material-3 defaults for tonal palette generation, can also be 
 defined. Additionally, tone mapping, that defines which tone is used by a `ColorScheme` color, can be customized. Both are done via `FlexTones` passed in to `tones`.
@@ -103,16 +110,16 @@ We can, for example, see that in light mode, the primary tone 30, is assigned to
 
 ### Dynamic Scheme Variants
 
-If you want to use the same scheme seed generation variants `DynamicSchemeVariant`, that Flutter SDK introduced to `ColorScheme.fromSeed` version 3.22.2 and later, then use `SeedColorScheme.fromSeeds` with the `variant` property of enum type `FlexSchemeVariant`. 
+If you want to use the same scheme seed generation variants `DynamicSchemeVariant`, that Flutter SDK introduced to `ColorScheme.fromSeed` in version 3.22.2 and later, then use `SeedColorScheme.fromSeeds` with the `variant` property of enum type `FlexSchemeVariant`. 
 
 If the variant `FlexSchemeVariant` style is one that is also provided by Flutter SDK, it has `FlexSchemeVariant` property `isFlutterScheme` set to true. 
 
-The `FlexSchemeVariant` also include the predefined `FlexTone` based variants. You can use the `variant` option as a way to select `ColorScheme` seed generation variant that is based on both the in Flutter 3.22.2 new SDK `dynamicSchemeVariant` and the FlexSeedScheme predefined FlexTones `tones` based seed generation options.
+The `FlexSchemeVariant` also includes the predefined `FlexTones` based variants. You can use the `variant` option as a way to select a `ColorScheme` seed generation variant that is based on either the SDK `dynamicSchemeVariant` styles introduced in Flutter 3.22.2, or on the FlexSeedScheme predefined FlexTones `tones` based seed generation options.
 
-Starting with FlexSeedSeed scheme version 3.0.0, when using `SeedColorScheme.fromSeeds` with a `variant` that is based on MCU and Flutter SDK `DynamicSchemeVariant`, you can use all the same seed keys as with `FlexTones` based schemes using the `tones` property. You are no longer limited to using only your primary or main brand color as seed color, even when using the Flutter SDK `DynamicSchemeVariant` based variants. In versions before 3.0.0 of FlexSeedScheme, you could only use a single seed color with the `dynamicSchemeVariant` based variants. FSS uses a custom fork of MCU to enable this feature.
+Starting with FlexSeedScheme version 3.0.0, when using `SeedColorScheme.fromSeeds` with a `variant` that is based on MCU and Flutter SDK `DynamicSchemeVariant`, you can use all the same seed keys as with `FlexTones` based schemes using the `tones` property. You are no longer limited to using only your primary or main brand color as seed color, even when using the Flutter SDK `DynamicSchemeVariant` based variants. In versions before 3.0.0 of FlexSeedScheme, you could only use a single seed color with the `dynamicSchemeVariant` based variants. FSS uses a custom fork of MCU to enable this feature.
 
 ```dart
-    // Make a light ColorScheme from a seeds using variant style fidelity.
+    // Make a light ColorScheme from seeds using variant style fidelity.
     // This is a variant that is available in Flutter SDK stable 3.22.2 or later.
     final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
@@ -121,7 +128,7 @@ Starting with FlexSeedSeed scheme version 3.0.0, when using `SeedColorScheme.fro
       tertiaryKey: tertiarySeedColor,
       variant: FlexSchemeVariant.fidelity,
     );
-    // Make a dark ColorScheme from a seeds using variant style fidelity.
+    // Make a dark ColorScheme from seeds using variant style fidelity.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: primarySeedColor,
@@ -154,10 +161,7 @@ generated `ColorScheme`s just as you would with any other `ColorScheme`. For exa
 
 All colors in the seed produced `ColorScheme` can be overridden by providing each color property in `SeedColorScheme.fromSeeds` a given override color value. This feature is equivalent to the one that exists in `ColorScheme.fromSeed`.
 
-This is typically used to assign a given color value to `primary` color, which is often used as the brand color. When the brand color is used as `primaryKey` seed color, it typically does 
-not end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as
-`primary` color is often desired. To get the seed color as your `primary` brand color, assign the
-color used as `primaryKey` to `primary` color as well.
+This is typically used to assign a given color value to `primary` color, which is often used as the brand color. When the brand color is used as `primaryKey` seed color, it typically does not end up as the `primary` color in the seed generated `ColorScheme`. Having a given brand color as `primary` color is often desired. To get the seed color as your `primary` brand color, assign the color used as `primaryKey` to `primary` color as well.
 
 ```dart
     // Make a light ColorScheme from the seeds.
@@ -183,7 +187,7 @@ If there is a spec that calls for completely different main colors in dark mode,
 
 ## ColorScheme Generation Strategy
 
-In the above example, we used a predefined tone mapping and chroma setup `ColorScheme` generation strategy called `FlexTones.vivid`. There are currently **eleven** predefined `FlexTones` configurations available:
+In the above example, we used a predefined tone mapping and chroma setup `ColorScheme` generation strategy called `FlexTones.vivid`. There are currently **twelve** predefined `FlexTones` configurations available:
 
 * `FlexTones.material`, default and same as Flutter SDK M3 setup in Flutter 3.22.0 and later.
 * `FlexTones.material3Legacy`, same as Flutter SDK M3 default setup in Flutter before 3.22.0.
@@ -194,7 +198,7 @@ In the above example, we used a predefined tone mapping and chroma setup `ColorS
 * `FlexTones.ultraContrast`, for a very high-contrast theme version.
 * `FlexTones.jolly`, for a more "jolly" and colorful theme.
 * `FlexTones.vividBackground`, like `vividSurfaces`, but with less tint in surface color and a slightly darker surface color than default in dark mode.
-* `FlexTones.oneHue`, a balanced chromatic setup. It is called oneHue because When only primary color is used as seed, it does not rotate its hue value to make a computed hue for tertiary tonal palettes, but uses the same hue. This makes it possible to make seed-generated color schemes from a single color. In such themes, all colors are based on the same hue, but using different chroma and tones. 
+* `FlexTones.oneHue`, a balanced chromatic setup. It is called oneHue because when only primary color is used as seed, it does not rotate its hue value to make a computed hue for tertiary tonal palettes, but uses the same hue. This makes it possible to make seed-generated color schemes from a single color. In such themes, all colors are based on the same hue, but using different chroma and tones. 
 * `FlexTones.candyPop`, A high contrast color scheme, useful for accessible themes, with colors that pop like candy. Keeps the background and surface white in light mode, and only a slight tint in dark mode. Neutrals have very low chroma.
 * `FlexTones.chroma`, use it to create a color scheme that follows chroma of each used seed color. Useful for manual control of pop or low chromacity. It uses low surface tint and neutrals with medium chroma.
 
@@ -208,12 +212,12 @@ const FlexTones myLightTones = FlexTones.light(
   onSecondaryTone: 96, // Default is 100
   onTertiaryTone: 96, // Default is 100
   onErrorTone: 96, // Default is 100
-  primaryMinChroma: 55, // Default is 36
-  secondaryChroma: 25, // Default is 16
-  tertiaryChroma: 40, // Default is 24
+  primaryMinChroma: 55, // Default is null, min 48 is then used.
+  secondaryChroma: 25, // Default is null, chroma from seed is then used.
+  tertiaryChroma: 40, // Default is null, chroma from seed is then used.
   neutralChroma: 5, // Default is 6, avoid very high values in light mode.
   neutralVariantChroma: 10, // Default is 8
-  paletteType: FlexPaletteType.extended, // Use extended palette type
+  paletteType: FlexPaletteType.extended, // Extended is also the default.
 );
 
 // Example definition of dark custom tones config.
@@ -223,31 +227,29 @@ const FlexTones myDarkTones = FlexTones.dark(
   onSecondaryTone: 6, // Default is 20
   onTertiaryTone: 6, // Default is 20
   onErrorTone: 6, // Default is 20
-  primaryMinChroma: 55, // Default is 36
-  secondaryChroma: 25, // Default is 16
-  tertiaryChroma: 40, // Default is 24
+  primaryMinChroma: 55, // Default is null, min 48 is then used.
+  secondaryChroma: 25, // Default is null, chroma from seed is then used.
+  tertiaryChroma: 40, // Default is null, chroma from seed is then used.
   neutralChroma: 7, // Default is 6, you can go higher in dark mode than light.
   neutralVariantChroma: 14, // Default is 8
-  paletteType: FlexPaletteType.extended, // Use extended palette type
+  paletteType: FlexPaletteType.extended, // Extended is also the default.
 );
 
 ```
 
 ## Extended Palette
 
-The extended palette type is the new default, it contains 30 tones. If you are using Flutter 3.22 or later, you should only use extended palette. The `common` tones option is provided for backwards compatibility with older Flutter versions and older FSS versions.
+The extended palette type is the default, it contains 30 tones. It is the palette type to use with the current Material-3 color system. The `common` tones option is provided for backwards compatibility with older Flutter versions and older FSS versions.
 
-By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access new color tones that exists in the late 2022 revised `ColorScheme` for surface colors and even more colors for **fixed** and **fixedDim** main colors that arrived in the Material-3 design during later half of 2023. 
+By using `paletteType` with value `FlexPaletteType.extended`, you can create seed generated `ColorScheme`s that use and access the color tones that exist in the late 2022 revised `ColorScheme` for surface colors, and even more colors for **fixed** and **fixedDim** main colors that arrived in the Material-3 design during the later half of 2023. 
 
-The `ColorScheme` colors that use these new tones are now also available in Flutter 3.22 or later. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
+The `ColorScheme` colors that use these tones are available in Flutter 3.22 and later. For more information and the latest updates, see [Material-3 color-roles](https://m3.material.io/styles/color/the-color-system/color-roles) specification.
 
-The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. By default `paletteType` of `FlexTones.extended` is now used to enable support for the tones in the updated specification and also adding six more custom tones `[2, 5, 65, 75, 84, 97]`. The `paletteType` with value `FlexPaletteType.extended` is default. It produces the following 30 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 65, 70, 75, 80, 84, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
+The updated Material-3 color system adds tones `[4, 6, 12, 17, 22, 24]`, they are used for new dark mode surfaces in revised Material-3 dark surface colors. Likewise, the added tones `[87, 92, 94, 96, 98]` are for light mode surfaces in the updated Material-3 color system. The default `paletteType` value `FlexPaletteType.extended` supports the tones in the updated specification and also adds six more custom tones `[2, 5, 65, 75, 84, 97]`. It produces the following 30 tones `[0, 2, 4, 5, 6, 10, 12, 17, 20, 22, 24, 30, 40, 50, 60, 65, 70, 75, 80, 84, 87, 90, 92, 94, 95, 96, 97, 98, 99, 100]`.
 
-To use older simpler tones setup you can still use `FlexTones.common`. It produces the legacy M3 tones with its own two additions `[5]` and `[98]` resulting in 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. Flutter versions before 3.22 do not yet use any of the extended tones in its standard `ColorScheme`. 
+To use the older, simpler tones setup you can still use `FlexPaletteType.common`. It produces the legacy M3 tones with its own two additions `[5]` and `[98]`, resulting in 15 tones `[0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100]`. Flutter versions before 3.22 did not use any of the extended tones in their standard `ColorScheme`. 
 
-For backwards compatibility, when using type `FlexPaletteType.common` the chroma of high tones, meaning higher or equal to 90, are limited to maximum chroma of 40. This keeps the chromacity of tones 90 to 100 lower than or equal to 40. If the source seed color has higher chromacity than 40, there may be a sudden jump in chroma reduction at tone 90. This is the standard behavior for the original Material-3 tonal palette computation. The `FlexPaletteType.common` type is intended to be used when there is a need to follow the M3's original, now legacy, palette design. 
-  
-When using the `FlexPaletteType.extended` type tones, there are not only new tones, but the chroma limit of tones >= 90 is also removed. This increases fidelity of higher tone when high chromacity is used.
+The two palette types differ only in which tones they include. In FSS versions before 2.0.0, the `FlexPaletteType.common` type also limited the chroma of high tones, greater than or equal to 90, to a maximum chroma of 40, as the original, pre Flutter 3.22, Material-3 tonal palette computation did. This limit was removed in FSS 2.0.0 to match the updated Material-3 color system in Flutter 3.22 and later. It increases the fidelity of high tones when seed colors with high chromacity are used. Any remaining chroma reduction in high tones comes from the HCT color space gamut itself.
 
 ## Accessibility
 
@@ -295,14 +297,14 @@ When using a `variant` that is based on the equivalent Flutter SDK `DynamicSchem
 The `contrastLevel` parameter is used to indicate the contrast level between color pairs, such as `primary` and `onPrimary`. The value 0.0 is the default normal contrast; -1.0 is the lowest; 1.0 is the highest. From **Material Design guideline**, the medium and high contrast, correspond to 0.5 and 1.0 respectively. The `contrastLevel` is used to adjust the contrast between the main color and its on color pair. The `contrastLevel` must be from -1.0 to 1.0.
 
 ```dart
-    // Make a light high contrast ColorScheme from a seeds using variant style fidelity.
+    // Make a light high contrast ColorScheme from seeds using variant style fidelity.
     final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
       primaryKey: primarySeedColor,
       variant: FlexSchemeVariant.fidelity,
       contrastLevel: 1.0,
     );
-    // Make a dark high contrast ColorScheme from a seeds using variant style fidelity.
+    // Make a dark high contrast ColorScheme from seeds using variant style fidelity.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: primarySeedColor,
@@ -392,7 +394,7 @@ final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
   tones: FlexTones.material(Brightness.light)
           .onMainsUseBW()
           .onSurfacesUseBW()
-          .surfacesUseBW(), // Make light surface and background white
+          .surfacesUseBW(), // Make light surface white
 );
 ```
 
@@ -420,14 +422,9 @@ final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
 
 #### FlexTones Modifier `higherContrastFixed()`
 
-A `FlexTones` modifier available in FSS version 3.2.0 and later. 
-This modifier can be applied to any predefined or custom
-`FlexTones` to make a returned instance where the tones for
-the fixed colors `fixed`, `onFixed`, `fixedDim`, `onFixedVariant` are
-set to 92, 6, 84 and 12, instead Material-3 designs specified 90, 10, 80 and 30.
+A `FlexTones` modifier available in FSS version 3.2.0 and later. This modifier can be applied to any predefined or custom `FlexTones` to make a returned instance where the tones for the fixed colors `fixed`, `onFixed`, `fixedDim`, `onFixedVariant` are set to 92, 6, 84 and 12, instead Material-3 designs specified 90, 10, 80 and 30.
 
 This gives us an alternative set of fixed colors with more contrast.
-
 
 ```dart
 // Make an ultraContrast seeded light ColorScheme, where all fixed colors
@@ -446,23 +443,23 @@ final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
 
 ## Expressive On Container Colors 
 
-Starting from **FlexSeedScheme (FSS)** version **4.0.0** the setting `useExpressiveOnContainerColors` defaults to `true` in `SeedColorScheme.fromSeeds` giving you the new Material expressive on-colors results for none surface on-container colors in light theme mode. In FSS version 3.x.x, it still defaulted to `false`, to keep the older higher contrast on-container colors as default.
+Starting from **FlexSeedScheme (FSS)** version **4.0.0** the setting `useExpressiveOnContainerColors` defaults to `true` in `SeedColorScheme.fromSeeds` giving you the Material expressive on-colors results for non-surface on-container colors in light theme mode. In FSS version 3.x.x, it still defaulted to `false`, to keep the older higher contrast on-container colors as default.
 
-When `useExpressiveOnContainerColors` is `true`, the seed generated `ColorScheme` results in more color expressive on-container colors in light mode. It changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from past **10** to **30**, making them more color expressive. The new color combinations have a bit less contrast. The accepted min contrast curve is now `ContrastCurve(3, 4.5, 7, 11)` instead of `ContrastCurve(4.5, 7, 11, 21)` for the on-container colors. Meaning normal contrast of 4.5 is now accepted, when it was 7 before.
+When `useExpressiveOnContainerColors` is `true`, the seed generated `ColorScheme` results in more color expressive on-container colors in light mode. It changes the light mode color tone for the colors `onPrimaryContainer`, `onSecondaryContainer`, `onTertiaryContainer` and `onErrorContainer` from past **10** to **30**, making them more color expressive. The new color combinations have a bit less contrast. This change arrived with an updated accepted min contrast curve for the on-container colors, `ContrastCurve(3, 4.5, 7, 11)` instead of the earlier `ContrastCurve(4.5, 7, 11, 21)`. Meaning a normal contrast of 4.5 is now accepted, when it was 7 before. In the MCU fork used by FSS, the flag only switches the light mode on-container tone between 30 and 10; the on-container contrast curve always follows the newer MCU 0.12 and later spec.
 
-Prior to MCU version 0.12.0 the `MaterialDynamicColors` used an older Material-3 spec. Flutter stable **3.38.x** still use MCU versions lower than 0.12.0 and thus default to the older color tones 10 in light mode. This will be changed when Flutter is updated to use MCU 0.12.0 or later. With FSS 3.0.0, you could already opt in on using the new spec, with FSS 4.0.0 the default is changed to use the new spec by default. This is done to align FSS with a coming change to update the pinned version of MCU to 0.13.0 or later in next Flutter stable after version 0.38.x.
+The expressive on-container colors arrived in the Material-3 spec with MCU version 0.12.0. Flutter stable 3.44 and later use MCU 0.13.0, where the expressive on-container colors are the only option, Flutter offers no opt-out. With FSS 3.0.0 you could already opt in on the new style, and with FSS 4.0.0 it became the default, aligning FSS with the current Flutter and MCU default. Unlike Flutter, FSS still offers the option to opt out of it.
 
 If you need to keep the older higher contrast on-container colors, or must get identical results as you got before version 4.0.0, you can set `useExpressiveOnContainerColors` to `false` in `SeedColorScheme.fromSeeds` for your light mode `ColorScheme` generation. 
 
 ```dart
-    // Make a light ColorScheme from a seeds using variant style vibrant.
+    // Make a light ColorScheme from seeds using variant style vibrant.
     final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
       primaryKey: primarySeedColor,
       variant: FlexSchemeVariant.vibrant,      
       useExpressiveOnContainerColors: false, // Opt out of expressive on colors
     );
-    // Make a dark ColorScheme from a seeds using variant style vibrant.
+    // Make a dark ColorScheme from seeds using variant style vibrant.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       primaryKey: primarySeedColor,
@@ -487,37 +484,37 @@ This change makes this flag consistent and applicable to all seed generated sche
 
 For **MCU** seed generated schemes, `useExpressiveOnContainerColors` only has any impact when contrast level is at the default value (0), normal contrast. 
 
-When using FFS seed generated schemes with `useExpressiveOnContainerColors` set to `true`, the modifier is applied before any `FlexTones` modifiers. Using tone modifiers, like e.g. `onMainsUseBW()` will thus as expected, override this setting and set on container colors to tone 0 or tone 100, depending on the container colors brightness.
+When using FSS seed generated schemes with `useExpressiveOnContainerColors` set to `true`, the modifier is applied before any `FlexTones` modifiers. Using tone modifiers, like e.g. `onMainsUseBW()` will thus as expected, override this setting and set on container colors to tone 0 or tone 100, depending on the container colors brightness.
 
 
 ### FlexTones Modifier `expressiveOnContainer()`
 
-While no longer needed to be used directly, the `tones` configuration class `FlexTones` can still also use the modifier `expressiveOnContainer()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for light mode on container tones are set to **30** for more color expressive container text and icons on none surface containers.
+While no longer needed to be used directly, the `tones` configuration class `FlexTones` can still also use the modifier `expressiveOnContainer()`. It can be applied to any predefined or custom `FlexTones` to make a returned `FlexTones` instance where the tones for light mode on container tones are set to **30** for more color expressive container text and icons on non-surface containers.
 
-This modifier only impacts none surface on-container tones that are equal to **10** and thus only has any impact on the light theme mode on-container colors. The impacted on container colors are `onPrimaryContainerTone`,`onSecondaryContainerTone`, `onTertiaryContainerTone` and `onErrorContainerTone`.
+This modifier only impacts non-surface on-container tones that are equal to **10** and thus only has any impact on the light theme mode on-container colors. The impacted on container colors are `onPrimaryContainerTone`,`onSecondaryContainerTone`, `onTertiaryContainerTone` and `onErrorContainerTone`.
 
-This feature brings optional light mode expressive on-container colors to any predefined or custom `FlexTones` configuration. This modifier is equivalent to setting the `SeedColorScheme.fromSeeds` and its `useExpressiveOnContainerColors` property to true.
+This feature brings optional light mode expressive on-container colors to any predefined or custom `FlexTones` configuration. This modifier is equivalent to setting `useExpressiveOnContainerColors` to true in `SeedColorScheme.fromSeeds`.
 
 **Usage example:**
 
 ```dart
-// Make a Material 3 seeded light ColorScheme, but with always 
-// black and white contrasting onColors and ensure that background
-// and surface colors are always white.
-final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
+// Make a Material 3 seeded light ColorScheme with the more color
+// expressive tone 30 on-container colors.
+final ColorScheme schemeLightExpressive = SeedColorScheme.fromSeeds(
   brightness: Brightness.light,
   primaryKey: primarySeedColor,
   secondaryKey: secondarySeedColor,
   tertiaryKey: tertiarySeedColor,
   tones: FlexTones.material(Brightness.light)
-          .onMainsUseBW()
           .expressiveOnContainer(),          
 );
 ```
 
+Note that combining this modifier with `onMainsUseBW()` is pointless. If `onMainsUseBW()` is applied first, the on-container tones are no longer **10**, so `expressiveOnContainer()` does nothing. If applied after, it overrides the expressive tones with black or white ones.
+
 ## Using Monochrome Seed Colors
 
-In version 3.4.0 a new `bool` parameter, `respectMonochromeSeed` in `SeedColorScheme.fromSeeds` can now be used to make seed generated ColorSchemes that work as expected if a monochrome color is used as seed color input.
+Since version 3.4.0 the `bool` parameter `respectMonochromeSeed` in `SeedColorScheme.fromSeeds` can be used to make seed generated ColorSchemes that work as expected if a monochrome color is used as seed color input.
 
 When set to `true`, any monochrome RGB input value will result in the creation of a greyscale tonal palette for the palette using the monochrome seed color. An RGB monochrome value is one where Red, Green and Blue values are all equal.
 
@@ -532,35 +529,34 @@ FSS still defaults to setting `respectMonochromeSeed` to `false`, to not break a
 **Usage example:**
 
 ```dart
-    // Make a light ColorScheme from a seeds using variant style vibrant.
+    // Make a light ColorScheme from seeds using variant style chroma.
     final ColorScheme schemeLight = SeedColorScheme.fromSeeds(
       brightness: Brightness.light,
       respectMonochromeSeed: true,
       primaryKey: Colors.black,
       variant: FlexSchemeVariant.chroma,
     );
-    // Make a dark ColorScheme from a seeds using variant style vibrant.
+    // Make a dark ColorScheme from seeds using variant style chroma.
     final ColorScheme schemeDark = SeedColorScheme.fromSeeds(
       brightness: Brightness.dark,
       respectMonochromeSeed: true,
-      primaryKey: const Colors(0xFF555555),
+      primaryKey: const Color(0xFF555555),
       variant: FlexSchemeVariant.chroma,
     );
 ``` 
 
 
-## [Example Application](https://rydmike.com/flexseedscheme/demo-v2)
+## [Example Application](https://rydmike.com/flexseedscheme/demo-v5)
 
-The included example application uses above color seeding and custom tone mapping. You can also choose any of the built-in pre-configured tone mappings as used seeding strategy. When you select seeding strategy, basic info about is displayed.
+The included example application uses above color seeding and custom tone mapping. You can also choose any of the built-in pre-configured tone mappings as used seeding strategy. When you select a seeding strategy, basic info about it is displayed.
 
-You can try a web version of this example for version 5 of FSS here [**V5 demo**](https://rydmike.com/flexseedscheme/demo-v5). The older demos for version 1, 2 and 3 of FSS are still available [**V1 demo**](https://rydmike.com/flexseedscheme/demo-v1), [**V2 demo**](https://rydmike.com/flexseedscheme/demo-v2), [**V3 demo**](https://rydmike.com/flexseedscheme/demo-v3), and [**V4 demo**](https://rydmike.com/flexseedscheme/demo-v4).
+You can try a web version of this example for version 5 of FSS here [**V5 demo**](https://rydmike.com/flexseedscheme/demo-v5). The older demos for versions 1 to 4 of FSS are still available [**V1 demo**](https://rydmike.com/flexseedscheme/demo-v1), [**V2 demo**](https://rydmike.com/flexseedscheme/demo-v2), [**V3 demo**](https://rydmike.com/flexseedscheme/demo-v3), and [**V4 demo**](https://rydmike.com/flexseedscheme/demo-v4).
 
-You can use secondary and primary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force background and surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
+You can use secondary and tertiary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
 
-With the app we can compare results from `SeedColorScheme.fromSeeds`, to using the single seed color 
-based `ColorScheme.fromSeed` seed generated default Material-3 `ColorScheme` available in Flutter.
+With the app we can compare results from `SeedColorScheme.fromSeeds`, to using the single seed color based `ColorScheme.fromSeed` seed generated default Material-3 `ColorScheme` available in Flutter.
 
-Both can use a single key color as their primary seed color, but `ColorScheme.fromSeed` can only use it as its single seed color, we cannot use hues from our secondary and tertiary key colors for the seed produced tonal palettes, nor change how and its tones are mapped to the generated `ColorScheme`. 
+Both can use a single key color as their primary seed color, but `ColorScheme.fromSeed` can only use it as its single seed color, we cannot use hues from our secondary and tertiary key colors for the seed produced tonal palettes, nor change how its tones are mapped to the generated `ColorScheme`. 
 
 With `ColorScheme.fromSeed` we can also not customize the colorfulness (chromacity) of its seed generated secondary and tertiary colors, other than using the predefined `DynamicSchemeVariant`s. With `SeedColorScheme.fromSeeds` we can use both `DynamicSchemeVariant` and `FlexTones` configurations. The tonal palette tones to `ColorScheme` color mappings can be modified with `SeedColorScheme.fromSeeds` and its different mappings in each `FlexTones` seeding strategy. You can create custom `FlexTones` configurations to create your own tonal palettes and mapping of its tones to `ColorScheme` colors.
 
@@ -568,11 +564,11 @@ The seed generated tonal palettes are also displayed in the example application.
 
 ## Scheme Generation Strategies
 
-Below some example color schemes made with FlexSeedScheme using `SeedColorScheme.fromSeed` using different `FlexTones` seed generation strategies.
+Below some example color schemes made with FlexSeedScheme using `SeedColorScheme.fromSeeds` using different `FlexTones` seed generation strategies.
 
 ### Default Material-3 Themes
 
-This example shows the default Material-3 seed-based scheme, using a single primary seed color and the default `ColorScheme.fromSeed` variant `tonalSport` versus the tones strategy `FlexTones.material`. Both are the same as using Flutter's default `ColorScheme.fromSeed` with its default `dynamicSchemeVariant = DynamicSchemeVariant.tonalSpot`. We also show the same with the `FlexTones.material3Legacy` variant, which is slightly different from the default Material-3 setup in Flutter 3.22.0 and later.
+This example shows the default Material-3 seed-based scheme, using a single primary seed color and the default `ColorScheme.fromSeed` variant `tonalSpot` versus the tones strategy `FlexTones.material`. Both are the same as using Flutter's default `ColorScheme.fromSeed` with its default `dynamicSchemeVariant = DynamicSchemeVariant.tonalSpot`. We also show the same with the `FlexTones.material3Legacy` variant, which is slightly different from the default Material-3 setup in Flutter 3.22.0 and later.
 
 
 #### Variant `tonalSpot` based - Based on MCU's `DynamicScheme`
@@ -621,7 +617,7 @@ This example shows how to use four seeds colors, including a custom error seed c
 
 This example shows the light and dark version of the `tones` strategy called `oneHue`.
 
-In some cases, you may want to create a color scheme based on a single brand color and pin it as your `primary` color in the seed produced light `ColorScheme`. A brand color intended for white paper is usually a good fit for the `primary` color in light mode. It can be used as both as seed and pinned to `primary` in light mode to guarantee that the brand color is present in the produced color scheme. In this example, we are using a strong blue brand color called "Governor Bay" as the seed color and when using it as override for `primary` is `SeedColorScheme.fromSeeds` in light mode. This happens when we select "Pinned" option in the demo example app. In code, you would do this:
+In some cases, you may want to create a color scheme based on a single brand color and pin it as your `primary` color in the seed produced light `ColorScheme`. A brand color intended for white paper is usually a good fit for the `primary` color in light mode. It can be used as both as seed and pinned to `primary` in light mode to guarantee that the brand color is present in the produced color scheme. In this example, we are using a strong blue brand color called "Governor Bay" as the seed color, and also using it as override for `primary` in `SeedColorScheme.fromSeeds` in light mode. This happens when we select "Pinned" option in the demo example app. In code, you would do this:
 
 ```dart
     const Color brandBlue = Color(0xFF2539B0); // Governor Bay blue
@@ -648,7 +644,7 @@ In dark mode, a brand color intended for use on white paper rarely fits on prima
     );
 ```
 
-You should typically use the same seed color in light and dark mode to get the same matching tonal palettes for your light and dark mode. You can often still use different token colors as pinned override color values in light and dark mode seed generation, to get your brand colors into fitting `ColorScheme` colors. Do make sure it fits with its contrasting on-color and course also with the other colors in the scheme.  
+You should typically use the same seed color in light and dark mode to get the same matching tonal palettes for your light and dark mode. You can often still use different token colors as pinned override color values in light and dark mode seed generation, to get your brand colors into fitting `ColorScheme` colors. Do make sure it fits with its contrasting on-color and of course also with the other colors in the scheme.  
 
 A key feature with the `oneHue` seed strategy is that it does not invent any new hues for any tonal palettes, but uses the same hue as the primary seed color for all the tonal palettes. This makes it possible to create a color scheme from a single color all based on the hue in source brand color. The `oneHue` strategy is useful when you have a single brand color and want to create a color scheme based on its color, and not get any other color hues in your resulting `ColorScheme`.
 
@@ -680,14 +676,26 @@ As we can see, there is more pop and colorfulness in the **One hue** version. We
 
 Now we see that the `DatePicker` no longer has the pink color it got from its default `tertiaryContainer` color. Instead, it uses the same blue hue related color as the `primary` color. This is because the `oneHue` strategy uses the same hue for all tonal palettes. This makes it possible to create a color scheme from a single color all based on the hue in the source brand color, without using tedious component color scheme re-mappings.
 
+## Color Channel Getters
+
+Flutter deprecated the `Color.value` getter and its 8-bit channel getters `alpha`, `red`, `green` and `blue`. FlexSeedScheme exports non-deprecated replacements for them as extensions on `Color`, called `value32bit`, `alpha8bit`, `red8bit`, `green8bit` and `blue8bit`. They are implemented the same way as the deprecated getters and will not be deprecated by this package.
+
+They are convenient when you need the old 32-bit integer ARGB value of a `Color`, for example when calling APIs in the included forked Material Color Utilities (MCU) library, that operate on ARGB integer values.
+
+```dart
+// A color and its 32-bit ARGB integer value.
+const Color seed = Color(0xFF6750A4);
+final int argb = seed.value32bit; // Replaces deprecated seed.value.
+
+// For example, to use MCU APIs directly:
+final Scheme scheme = Scheme.light(seed.value32bit);
+```
+
 ## Package Background
 
-This package was extracted from the customizable color scheme seeding engine in the
-[**FlexColorScheme (FCS)**](https://pub.dev/packages/flex_color_scheme) package to its own package.
+This package was extracted from the customizable color scheme seeding engine in the [**FlexColorScheme (FCS)**](https://pub.dev/packages/flex_color_scheme) package to its own package.
 
-This allows developers to use the same customizable `ColorScheme` seeding algorithms used by
-**FlexColorScheme**, without using the FlexColorScheme package.
-Starting with **FlexColorScheme** version 6 and later, FCS depends on this package instead.
+This allows developers to use the same customizable `ColorScheme` seeding algorithms used by **FlexColorScheme**, without using the FlexColorScheme package. Starting with **FlexColorScheme** version 6 and later, FCS depends on this package instead.
 
 If you use **FlexColorScheme** version 6 or later, you do not need to add **FlexSeedScheme** to use its features, FlexColorScheme exports its API as well.
 
