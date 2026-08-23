@@ -91,6 +91,16 @@ Keep **100%** Codecov coverage. New branches and functions need tests. `fvm flut
 - Web demo deploys from `.github/workflows/deploy.yml` on GitHub **release**, not from `dart pub publish`. Publishing to pub.dev is manual.
 - CI (PRs to `master`): `dart analyze`, `dart format --output=none --set-exit-if-changed .`, `flutter test --coverage` → Codecov.
 
+## Lint config is published externally
+
+[analysis_options.yaml](../../../analysis_options.yaml) is the versioned "RydMike LINTER Preferences" file (see its version header), publicly shared as a gist: https://gist.github.com/rydmike/fdb53ddd933c37d20e6f3188a936cd4c. [all_lint_rules.yaml](../../../all_lint_rules.yaml) is its companion all-rules list, manually maintained from https://dart.dev/tools/linter-rules/all.
+
+When either file changes (rule toggled, severity changed, formatter setting, version bump):
+
+1. Bump/update the version header comment in `analysis_options.yaml` when the change is a rule or config change (not for pure comment fixes).
+2. Add a CHANGELOG `CHORE` (or `STYLE`-worthy) note describing the rule change.
+3. Remind the user to post the updated `analysis_options.yaml` to the gist — the gist is updated manually by the user and must stay in sync with rule changes here.
+
 ## Style reminders
 
 Package imports, `dart format`, `public_member_api_docs` on `lib/`. Unresolved dartdoc `[Type]` fails CI. Details: [AGENTS.md](../../../AGENTS.md) and [.agents/skills/code-documentation/SKILL.md](../code-documentation/SKILL.md).
