@@ -53,6 +53,12 @@ analyzer:
     - "lib/generated_plugin_registrant.dart"
     # Swift Package Manager plugin checkouts and other build outputs (not project source).
     - "build/**"
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
   # For more information see: https://dart.dev/tools/analysis
   language:
@@ -140,8 +146,13 @@ analyzer:
 # - prefer_initializing_formals
 # - prefer_relative_imports
 # - simplify_variable_pattern
+#
 # Re-enabled (removed from false):
 # - always_use_package_imports
+#
+# Removed due to deprecation:
+# - prefer_final_parameters
+# Also manually removed for all lints list.
 #
 # The big change is no longer requiring to always specify type
 # and moving from from relative to all package style imports.
@@ -650,35 +661,6 @@ linter:
     # Riverpod/Remi  false : https://github.com/rrousselGit/riverpod/blob/master/analysis_options.yaml
     prefer_expression_function_bodies: false
 
-    # DO prefer declaring parameters as final if they are not reassigned in the function body.
-    #
-    # https://dart.dev/tools/linter-rules/prefer_final_parameters.html
-    #
-    # This rule is DEPRECATED in the Dart linter -- the only non-stable rule we
-    # disable. Its own metadata marks it incompatible with `unnecessary_final` and
-    # `avoid_final_parameters`, both of which we also disable, so turning it off
-    # stays coherent; it can be dropped from this file once the linter removes it.
-    #
-    # Declaring parameters as final when possible is a good practice because it helps
-    # avoid accidental reassignments.
-    #
-    # Certainly a good idea in many cases. There seems to be one "small" false positive issue with it.
-    # Lint is triggered by final constructor properties, e.g. in
-    # `final int i;` the parameter `this.i` is not also final, which is not really needed
-    # since the property is final. However, this triggers the rule unnecessarily. We had to
-    # turn OFF this rule due to this. It is too verbose even for us, others agree.
-    #
-    # Other known linters use:
-    #
-    # Core           false : https://pub.dev/packages/lints
-    # Recommended    false : https://pub.dev/packages/lints
-    # Flutter Lints  false : https://pub.dev/packages/flutter_lints
-    # Flutter repo   false : https://github.com/flutter/flutter/blob/master/analysis_options_common.yaml
-    # Lint           false : https://pub.dev/packages/lint
-    # VG Analysis    false : https://pub.dev/packages/very_good_analysis
-    # Riverpod/Remi  false : https://github.com/rrousselGit/riverpod/blob/master/analysis_options.yaml
-    prefer_final_parameters: false
-
     # DO use int literals rather than the corresponding double literal.
     #
     # https://dart.dev/tools/linter-rules/prefer_int_literals.html
@@ -829,6 +811,28 @@ linter:
     # VG Analysis    false : https://pub.dev/packages/very_good_analysis
     # Riverpod/Remi  false : https://github.com/rrousselGit/riverpod/blob/master/analysis_options.yaml
     unnecessary_final: false
+
+    # DON'T use unnecessary type name in a constructor.
+    #
+    # https://dart.dev/tools/linter-rules/unnecessary_final.html
+    #
+    # Don't include the type name in a constructor declaration. 
+    # It isn't necessary, and the code is shorter and cleaner without it.
+    #
+    # We do not enforce this Dart 3.13 migration, using it or the `new` keyword are
+    # both OK and accepted in this lint rule set. We might consider enforcing it
+    # and migrating to it later.
+    #
+    # Other known linters use:
+    #
+    # Core           tbd   : https://pub.dev/packages/lints
+    # Recommended    tbd   : https://pub.dev/packages/lints
+    # Flutter Lints  tbd   : https://pub.dev/packages/flutter_lints
+    # Flutter repo   tbd   : https://github.com/flutter/flutter/blob/master/analysis_options_common.yaml
+    # Lint           tbd   : https://pub.dev/packages/lint
+    # VG Analysis    tbd   : https://pub.dev/packages/very_good_analysis
+    # Riverpod/Remi  tbd   : https://github.com/rrousselGit/riverpod/blob/master/analysis_options.yaml
+    unnecessary_type_name_in_constructor: false
 
     # DO use DecoratedBox when a Container has only a Decoration.
     #
