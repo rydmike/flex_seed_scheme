@@ -2167,7 +2167,7 @@ void main() {
       expect(scheme.errorContainer, Color(scheme2.errorContainer));
       // We can now test this color since we fixed it. MCU has always
       // used the wrong tone here. Whereas FSS has used the one from the spec.
-      // It it should be tone 90, original MCU uses 80, which is wrong. Even
+      // It should be tone 90, original MCU uses 80, which is wrong. Even
       // way back machine on web shows that it was always 90, at least
       // for a few years back. We corrected it in FSS resurrected Scheme.
       expect(scheme.onErrorContainer, Color(scheme2.onErrorContainer));

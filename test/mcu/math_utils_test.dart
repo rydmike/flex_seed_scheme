@@ -55,7 +55,7 @@ void main() {
     }
   });
   //
-  // RydMike add coverage for isOpaque
+  // RydMike add coverage for sanitizeDegreesInt and sanitizeDegreesDouble
   //
   test('sanitizeDegreesInt', () {
     expect(MathUtils.sanitizeDegreesInt(0), equals(0));

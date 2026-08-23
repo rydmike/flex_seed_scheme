@@ -141,9 +141,9 @@ void main() {
         expect(tones.get(10), 1);
         expect(tones.get(0), 0);
 
-        /// Tone not in [TonalPalette.commonTones]
-        /// Before version 2.0.0 this would have thrown an exception.
-        /// but now we can get any tone.
+        // Tone not in `TonalPalette.commonTones`.
+        // Before FSS version 2.0.0 this would have thrown an exception,
+        // but now we can get any tone.
         expect(tones.get(3), 4278716699);
 
         // RydMike Extra tests
@@ -163,9 +163,9 @@ void main() {
         expect(tones.getHct(99).toInt(), 11);
         expect(tones.getHct(100).toInt(), 12);
 
-        /// Tone not in [TonalPalette.commonTones]
-        /// Before version 2.0.0 this would have thrown an exception.
-        /// but now we can get any tone.
+        // Tone not in `TonalPalette.commonTones`.
+        // Before FSS version 2.0.0 this would have thrown an exception,
+        // but now we can get any tone.
         expect(tones.getHct(3).toInt(), 4278716699);
         expect(tones.get(3), 4278716699);
       });

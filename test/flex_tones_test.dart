@@ -240,8 +240,8 @@ void main() {
     // FlexTones unit tests.
     //
     // Test that all built in FlexTones definitions are as they were defined
-    // originally. Main purposes just to check that nobody fiddled with the
-    // definition values, without also changing tests and knowingly doing a
+    // originally. Main purpose is just to check that nobody fiddled with the
+    // definition values, without also changing tests and knowingly doing
     // a breaking change.
     //**************************************************************************
 
