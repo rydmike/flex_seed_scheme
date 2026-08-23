@@ -2,7 +2,7 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 5.0.0
+## 5.0.0-dev.1
 
 **Aug 23, 2026**
 
@@ -14,6 +14,20 @@ The version requires Flutter 3.47.0 or higher. Offers support for SDK decoupled 
 - This release brings full support for the standalone `material_ui` and `cupertino_ui` packages.
 - Per **Flutter's official recommendation** the package is released as a **major breaking** release, but contains no breaking APIs or any new APIs. Produced `ColorScheme` results are same as before too.
 
+**CHANGE**
+- Reviewed and corrected the informational `FlexSchemeVariant` UI strings `description` and `configDetails` against the actual scheme generation code. As documented, these strings may change in any release and this is not a breaking change. No generated colors are affected.
+  - `expressive`: config details tertiary palette uses Chroma 32 (not 24) and hue rotation range 15-120 degrees (not 20-120).
+  - `soft`, `vivid`, `highContrast` and `oneHue`: config details neutral palette uses Chroma 6 (not 4). The value 4 was a leftover from before FSS 2.0.0, when the Material-3 default neutral chroma changed to 6.
+  - `fidelity` and `content`: the descriptions were nearly identical, they now state their actual difference: tertiary palette is the seed color's complement (fidelity) versus an analogous hue (content).
+  - `vividBackground`: description no longer refers to the removed `background` color swap, it now describes the actual difference to `vividSurfaces` (white surface in light mode, slightly darker surface in dark mode).
+  - Aligned hue rotation phrasing: variants that also rotate a provided key color's hue (`vibrant`, `expressive`) now read "Hue from primary or key rotated x-y degrees", while variants that use a provided key hue as-is keep the "Hue primary rotated 60 degrees or key" form.
+- Fixed stale doc comments that no longer matched the code:
+  - `FlexSchemeVariant.vividSurfaces`: neutral chroma is 5 and neutralVariant 10, not 8 and 16.
+  - `FlexSchemeVariant.candyPop` and `FlexSchemeVariant.chroma`: removed references to the removed `background` color and corrected surface tones (chroma uses light surface tone 99 and dark 4).
+  - `FlexTones.dark`: default neutral chroma limits are 6 and 8, not 4 and 8.
+  - `FlexTones.candyPop`: dark mode surface tone is 6, not 5.
+  - `FlexTones.chroma`: light mode surface tone is 99 (not 98) and dark mode 4 (not 6).
+
 **TESTS**
 - Update tests to no longer use `useExpressiveOnContainerColors: false` for all MCU `DynamicSchemeVariant`s. This is no longer needed as the default is now `true` in Flutter stable 3.44.0 and later. The option to **not** use expressive on container colors is still available and can be used by setting `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`. However, Flutter's `ColorScheme.fromSeed` does not use expressive on container colors anymore, nor does it offer it as an option. With `FlexSeedScheme` it is still available and can be used as before. The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` already defaulted to `true` instead of `false` in FSS version 4.0.0, and started using it as default before Flutter switched to it. You can still use the legacy option if you need it.
 
@@ -23,7 +37,7 @@ The version requires Flutter 3.47.0 or higher. Offers support for SDK decoupled 
   - The new `Cam16` hue helper was already in FSS version 4.0.0; MCU 0.13.1 published that commit.
   - This release is only a doc update about Scheme migration URL + declare fork at 0.13.1 (Flutter 3.47 still on 0.13.0).
   - No user-facing ColorScheme / HCT change.
-- Example app's macOS build migrated from cocoapods to Swift Package Manager.
+- Example app's macOS and iOS builds migrated from CocoaPods to Swift Package Manager.
 - Code style: Changed from RydMike lints 2.6.0 to RydMike lints 3.0.0. Big code diffs and changes in the code style.
 - Updated to opt in on using min Dart 3.13.0 SDK. 
   - Old code base was compile time incompatible with Dart 3.13.0, fixed the issues that don't compile with Dart 3.13.0. The issue was this **breaking change in Dart 3.13:**

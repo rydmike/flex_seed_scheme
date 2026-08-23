@@ -264,7 +264,7 @@ class FlexTones with Diagnosticable {
   /// [FlexTones] configuration.
   ///
   /// The default chroma limits for neutral and neutral variant key colors are
-  /// set to 4 and 8 as in Material 3 design. You can create a
+  /// set to 6 and 8 as in Material 3 design. You can create a
   /// [FlexTones.dark] where you set [neutralChroma] and [neutralVariantChroma]
   /// to use the effective chroma values in their seed key values as the actual
   /// chroma value for the neutral and neutral tonal palette generation.
@@ -463,7 +463,7 @@ class FlexTones with Diagnosticable {
 
   /// Creates a tonal palette extraction setup that results in M3 like
   /// ColorsSchemes with chroma like [FlexTones.vivid] on main colors, but
-  /// increased chroma on neutrals and more color tinted surfaces and onColors.
+  /// adjusted chroma on neutrals and more color tinted surfaces and onColors.
   ///
   /// Primary tone is one tone darker than in Material 3 standard setup in light
   /// mode. As in M3 default, primary uses its own chroma, but with a minimum
@@ -471,8 +471,7 @@ class FlexTones with Diagnosticable {
   /// with no min limits, making the secondary and tertiary mid tones closer
   /// to their used key colors.
   ///
-  /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
-  /// 6 and 8.
+  /// Chroma for neutral is 5 and neutralVariant 10 (M3 defaults are 6 and 8).
   ///
   /// The tones are modified for more colorful container, onColors color tones
   /// and for using higher tones on surfaces and backgrounds. This creates
@@ -516,8 +515,7 @@ class FlexTones with Diagnosticable {
   /// Surface color uses tone 100 (white) instead of standard 98 in light mode
   /// and 5 instead of 6 in dark mode, for a bit darker dark mode.
   ///
-  /// Chroma for neutral is 5 and neutralVariant 10, increased from M3 defaults
-  /// 6 and 8.
+  /// Chroma for neutral is 5 and neutralVariant 10 (M3 defaults are 6 and 8).
   ///
   /// **NOTE:**
   ///
@@ -735,7 +733,7 @@ class FlexTones with Diagnosticable {
   /// candy pop like theme.
   ///
   /// It has white surface (tone 100) in light mode and low chroma on neutrals
-  /// (2 and 4). Dark mode uses surface tone 5.
+  /// (2 and 4). Dark mode uses surface tone 6.
   factory FlexTones.candyPop(Brightness brightness) => brightness == Brightness.light
       ? const FlexTones.light(
           primaryTone: 40,
@@ -798,9 +796,9 @@ class FlexTones with Diagnosticable {
   /// chromacity.
   ///
   /// Uses low surface tint and neutrals with medium chroma.
-  /// Theme with surface tone 98, in light mode and very low
+  /// Theme with surface tone 99 in light mode and very low
   /// chroma in neutrals light mode (2 and 4) and moderate in dark mode
-  /// (3 and 6). Dark mode uses dark surface tone 6.
+  /// (3 and 6). Dark mode uses dark surface tone 4.
   factory FlexTones.chroma(Brightness brightness) => brightness == Brightness.light
       ? const FlexTones.light(
           primaryTone: 40,
