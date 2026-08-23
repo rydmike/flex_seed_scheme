@@ -27,6 +27,7 @@ Load the matching skill; do not paste their contents into this file.
 | [.agents/skills/flex-seed-scheme/SKILL.md](.agents/skills/flex-seed-scheme/SKILL.md)       | Using the package (`example/`, or copy into a consuming app)                         |
 | [.agents/skills/code-documentation/SKILL.md](.agents/skills/code-documentation/SKILL.md)   | Writing or updating dartdoc and comments                                             |
 | [.agents/skills/code-review/SKILL.md](.agents/skills/code-review/SKILL.md)                 | Reviewing a branch, PR, or uncommitted diff                                          |
+| [.agents/skills/release/SKILL.md](.agents/skills/release/SKILL.md)                         | Publishing to pub.dev, dev releases, tagging, web demo deploy                        |
 
 ## Commands
 
@@ -35,10 +36,12 @@ Load the matching skill; do not paste their contents into this file.
 ```bash
 fvm flutter pub get
 (cd example && fvm flutter pub get)
-dart format lib test example --fix
-dart analyze
+fvm dart format lib test example
+fvm dart analyze
 fvm flutter test --coverage
 ```
+
+`dart format --fix` no longer exists in Dart 3.13; use plain `dart format` (lint fixes: `dart fix --apply`). Prefer the `fvm dart` / `fvm flutter` prefix so the pinned SDK is used.
 
 CI also runs `dart format --output=none --set-exit-if-changed .`. Optional local HTML: `genhtml coverage/lcov.info -o coverage/html`. Never hand-edit `coverage/` or `build/`.
 

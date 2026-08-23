@@ -86,8 +86,8 @@ Stop here unless the user asked to implement:
 Verify:
 
 ```bash
-dart format lib test example --fix
-dart analyze
+fvm dart format lib test example
+fvm dart analyze
 fvm flutter test --coverage
 ```
 
