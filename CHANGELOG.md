@@ -6,22 +6,35 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
 **Aug 23, 2026**
 
-The version requires Flutter 3.47.0 or higher.
+The version requires Flutter 3.47.0 or higher. Offers support for SDK decoupled Material and Cupertino libraries.
 
 **BREAKING**
-- This version requires Flutter 3.47.0 or higher.
-- This means full support for the standalone `material_ui` and `cupertino_ui` packages.
+- This version requires Flutter 3.47.0 or higher
+- It also opts in on Dart 3.13.0 language features and lints.
+- This release brings full support for the standalone `material_ui` and `cupertino_ui` packages.
+- Per **Flutter's official recommendation** the package is released as a **major breaking** release, but contains no breaking APIs or any new APIs. Produced `ColorScheme` results are same as before too.
 
 **TESTS**
-- Update tests to no longer use `useExpressiveOnContainerColors: false` for all MCU `DynamicSchemeVariant`s. This is no longer needed as the default is now `true` in Flutter stable 3.44.0 and later. The option to **not** use expressive on container colors is still available and can be used by setting `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`. However, Flutter ColorScheme.fromSeed does not use expressive on container colors anymore, nor does it offer it as an option. But with `FlexSeedScheme` it is still available and can be used as before. The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` already defaulted to `true` instead of `false` in FSS version 4.0.0. And started using it as default before Flutter switched to it.
+- Update tests to no longer use `useExpressiveOnContainerColors: false` for all MCU `DynamicSchemeVariant`s. This is no longer needed as the default is now `true` in Flutter stable 3.44.0 and later. The option to **not** use expressive on container colors is still available and can be used by setting `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`. However, Flutter's `ColorScheme.fromSeed` does not use expressive on container colors anymore, nor does it offer it as an option. With `FlexSeedScheme` it is still available and can be used as before. The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` already defaulted to `true` instead of `false` in FSS version 4.0.0, and started using it as default before Flutter switched to it. You can still use the legacy option if you need it.
 
 **CHORE**
 - Bump all dependencies.
+- Verified included MCU fork to be at parity with MCU 0.13.1. It was stated to be at 0.13.0 parity before this release. Flutter 3.47 just started using MCU 0.13.0. A check revealed that MCU 0.13.1 is a small internal change, that we also already had in FSS version 4.0.0, it was added before it was published in MCU.
+  - The new `Cam16` hue helper was already in FSS version 4.0.0; MCU 0.13.1 published that commit.
+  - This release is only a doc update about Scheme migration URL + declare fork at 0.13.1 (Flutter 3.47 still on 0.13.0).
+  - No user-facing ColorScheme / HCT change.
 - Example app's macOS build migrated from cocoapods to Swift Package Manager.
 - Code style: Changed from RydMike lints 2.6.0 to RydMike lints 3.0.0. Big code diffs and changes in the code style.
-- Fix new lints.
-- Example app: fix Flutter SDK deprecation of axisAlignment in ListTileReveal and SwitchListTileReveal widgets.
-- Example app: Temporary use of MaterialUiCompatibilityBridge, temporary fix for MaterialUi compatibility for packages that still use Material from SDK, pre Flutter 3.47.0.
+- Updated to opt in on using min Dart 3.13.0 SDK. 
+  - Old code base was compile time incompatible with Dart 3.13.0, fixed the issues that don't compile with Dart 3.13.0. The issue was this **breaking change in Dart 3.13:**
+    - Restriction on final and var in normal function parameters: With primary constructors, using final or var on formal parameters in normal functions becomes a compile-time error.
+    -  They are reserved exclusively for declaring parameters in primary constructors. Note that the lints `avoid_final_parameters` and `var_with_no_type_annotation` only work with a language version of **Dart 3.12** or lower. 
+    -  To enforce immutable parameters as a style choice in **Dart 3.13** and later, use the `parameter_assignments` linter rule, which this repo already always enforced. See https://dart.dev/language/primary-constructors 
+- Fixed all new lints that came with Dart 3.13. 
+- **Example app**: Fixed Flutter SDK deprecation of `axisAlignment` in `ListTileReveal` and `SwitchListTileReveal` widgets.
+- **Example app**: Temporary use of `MaterialUiCompatibilityBridge`. 
+  - Used as temporary fix for **MaterialUi** compatibility for packages that still use Material from SDK, pre Flutter 3.47.0. It is in the **example** app used for the not yet updated **FlexColorPicker** that the **example** app uses. 
+  - The color picker will be updated next and then this temporary fix will be removed and a 5.0.1 release will be published. It is a bit of a chicken and egg situation. The color picker also uses this package, and we need to publish a version of this package first, then update the picker and then update this package again so its example app can use the new version of the picker and remove the `MaterialUiCompatibilityBridge`.
 
 
 ## 4.0.1
