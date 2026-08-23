@@ -31,7 +31,7 @@ jobs:
         run: dart analyze . --fatal-infos
       - name: "Formatting Check"
         run: |
-          flutter format .
+          dart format .
           ./.github/workflows/scripts/validate-formatting.sh
   test:
     runs-on: ubuntu-latest

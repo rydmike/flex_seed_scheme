@@ -1,10 +1,10 @@
-# This GitHub action is configured to run "on" push to "master".
-# Currently, using the "validate" workflow instead, this is an older test CI/CD.
+# This GitHub action is configured to run on pull requests to "master".
+# This is the active test CI/CD workflow. The older "validate" workflow is
+# currently disabled (its triggers are set to branches: [none]).
 # This workflow:
 #  - Installs dart and flutter
 #  - Uses flutter stable channel.
 #    Consider setting up a matrix later with beta and dev included too.
-#  - Enables flutter web
 #  - Gets package dependencies
 #  - Runs dart analyze.
 #  - Show outdated packages, just added for info.

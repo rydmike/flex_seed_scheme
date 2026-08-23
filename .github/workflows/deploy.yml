@@ -14,7 +14,7 @@
 #  - Build WEB example app.
 #    Steps:
 #    - Flutter clean.
-#    - Flutter build web app, in release mode and with CanvasKit renderer.#
+#    - Flutter build web app, in release mode.
 #    - Deploy each built Web App to GitHub pages.
 name: Deploy
 on:
