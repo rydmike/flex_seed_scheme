@@ -21,19 +21,14 @@ include: all_lint_rules.yaml
 
 # Describes how Dart formatter should behave on project level.
 #
-# To use both these options you must be on minimum Dart SDK 3.8.0 (trailing_commas), but for the
-# (page_width) Dart SDK 3.7.0 is sufficient. However, when testing this, with option
-# "trailing_commas: preserve" and lint "require_trailing_commas: false" formatted code,
-# we still get HUGE git-diffs if we jump to min Dart SDK 3.8.0 and run "dart format ."
-# Keeping at min Dart 3.6.0 in older projects for now, to avoid this issue.
-# Will jump to min 3.8.0 pr higher when bumping page_width later.
+# Must use min Dart 3.8.0 for trailing_commas and min 3.7.0 for page_width.
 formatter:
   # Strongly recommended to preserve trailing commas as written and not let formatter mess with them.
   # See https://github.com/dart-lang/dart_style/issues/1652
   # Not using this setting contradicts the
   # - require_trailing_commas: false
   # linter rule and removes the ability to force line breaks.
-  # The preserve trailing commas is still a bit week and messes with them anyway.
+  # The preserve trailing commas option is still a bit weak and messes with them anyway.
   trailing_commas: preserve
   # We like our lines a bit longer than default dart format 80 chars and use 120 chars.
   page_width: 120
