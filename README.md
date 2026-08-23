@@ -18,7 +18,7 @@ Add the `flex_seed_scheme` package to `pubspec.yaml`:
 
 ### Demo Web Application
 
-You can try a web version of the package example and demo app [**here**](https://rydmike.com/flexseedscheme/demo-v4).
+You can try a web version of the package example and demo app [**here**](https://rydmike.com/flexseedscheme/demo-v5).
 
 ## Usage
 
@@ -553,7 +553,7 @@ FSS still defaults to setting `respectMonochromeSeed` to `false`, to not break a
 
 The included example application uses above color seeding and custom tone mapping. You can also choose any of the built-in pre-configured tone mappings as used seeding strategy. When you select seeding strategy, basic info about is displayed.
 
-You can try a web version of this example for version 4 of FSS here [**V4 demo**](https://rydmike.com/flexseedscheme/demo-v4). The older demos for version 1, 2 and 3 of FSS are still available [**V1 demo**](https://rydmike.com/flexseedscheme/demo-v1), [**V2 demo**](https://rydmike.com/flexseedscheme/demo-v2) and [**V3 demo**](https://rydmike.com/flexseedscheme/demo-v3)
+You can try a web version of this example for version 5 of FSS here [**V5 demo**](https://rydmike.com/flexseedscheme/demo-v5). The older demos for version 1, 2 and 3 of FSS are still available [**V1 demo**](https://rydmike.com/flexseedscheme/demo-v1), [**V2 demo**](https://rydmike.com/flexseedscheme/demo-v2), [**V3 demo**](https://rydmike.com/flexseedscheme/demo-v3), and [**V4 demo**](https://rydmike.com/flexseedscheme/demo-v4).
 
 You can use secondary and primary seed colors as additional keys to generate the color schemes. You can also toggle keeping contrasting onColors black & white, or force background and surface colors to be white in light mode and true black in dark mode. You can change the seed colors with a color picker by tapping on the seed colors. You can also modify the default error seed color.
 
