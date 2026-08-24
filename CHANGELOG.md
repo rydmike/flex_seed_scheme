@@ -2,7 +2,7 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
-## 5.0.0-dev.1
+## 5.0.0
 
 **Aug 24, 2026**
 
