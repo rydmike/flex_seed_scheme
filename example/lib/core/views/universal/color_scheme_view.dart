@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
-
-import '../../utils/flex_color_extension.dart';
-import '../app/copy_color_to_clipboard.dart';
+import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
+import 'package:flex_seed_scheme_example/core/views/app/copy_color_to_clipboard.dart';
+import 'package:material_ui/material_ui.dart';
 
 const Size _colorChipSize = Size(160, 50);
 const Size _onChipSize = Size(160, 36);
@@ -40,13 +39,11 @@ class ColorSchemeView extends StatelessWidget {
       border = border.copyWith(
         side: BorderSide(color: colorScheme.outlineVariant),
       );
-      // If
     } else {
       // If border was null, make one matching Card default, but with border
       // side, if it was not null, we leave it as it was.
       border ??= RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(theme.useMaterial3 ? 12 : 4)),
+        borderRadius: BorderRadius.all(Radius.circular(theme.useMaterial3 ? 12 : 4)),
         side: BorderSide(color: colorScheme.outlineVariant),
       );
     }
@@ -61,134 +58,142 @@ class ColorSchemeView extends StatelessWidget {
         spacing: spacing,
         runSpacing: spacing,
         children: <Widget>[
-          ColorGroup(children: <Widget>[
-            ColorChip(
-              label: 'primary',
-              color: colorScheme.primary,
-              onColor: colorScheme.onPrimary,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'P:${tones.primaryTone}',
-            ),
-            ColorChip(
-              label: 'onPrimary',
-              color: colorScheme.onPrimary,
-              onColor: colorScheme.primary,
-              showValue: showColorValue,
-              tone: 'P:${tones.onPrimaryTone}',
-            ),
-            ColorChip(
-              label: 'primaryContainer',
-              color: colorScheme.primaryContainer,
-              onColor: colorScheme.onPrimaryContainer,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'P:${tones.primaryContainerTone}',
-            ),
-            ColorChip(
-              label: 'onPrimaryContainer',
-              color: colorScheme.onPrimaryContainer,
-              onColor: colorScheme.primaryContainer,
-              showValue: showColorValue,
-              tone: 'P:${tones.onPrimaryContainerTone}',
-            ),
-          ]),
-          ColorGroup(children: <Widget>[
-            ColorChip(
-              label: 'primaryFixed',
-              color: colorScheme.primaryFixed,
-              onColor: colorScheme.onPrimaryFixed,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'P:${tones.primaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'onPrimaryFixed',
-              color: colorScheme.onPrimaryFixed,
-              onColor: colorScheme.primaryFixed,
-              showValue: showColorValue,
-              tone: 'P:${tones.onPrimaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'primaryFixedDim',
-              color: colorScheme.primaryFixedDim,
-              onColor: colorScheme.onPrimaryFixedVariant,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'P:${tones.primaryFixedDimTone}',
-            ),
-            ColorChip(
-              label: 'onPrimaryFixedVariant',
-              color: colorScheme.onPrimaryFixedVariant,
-              onColor: colorScheme.primaryFixedDim,
-              showValue: showColorValue,
-              tone: 'P:${tones.onPrimaryFixedVariantTone}',
-            ),
-          ]),
-          ColorGroup(children: <Widget>[
-            ColorChip(
-              label: 'secondary',
-              color: colorScheme.secondary,
-              onColor: colorScheme.onSecondary,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'S:${tones.secondaryTone}',
-            ),
-            ColorChip(
-              label: 'onSecondary',
-              color: colorScheme.onSecondary,
-              onColor: colorScheme.secondary,
-              showValue: showColorValue,
-              tone: 'S:${tones.onSecondaryTone}',
-            ),
-            ColorChip(
-              label: 'secondaryContainer',
-              color: colorScheme.secondaryContainer,
-              onColor: colorScheme.onSecondaryContainer,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'S:${tones.secondaryContainerTone}',
-            ),
-            ColorChip(
-              label: 'onSecondaryContainer',
-              color: colorScheme.onSecondaryContainer,
-              onColor: colorScheme.secondaryContainer,
-              showValue: showColorValue,
-              tone: 'S:${tones.onSecondaryContainerTone}',
-            ),
-          ]),
-          ColorGroup(children: <Widget>[
-            ColorChip(
-              label: 'secondaryFixed',
-              color: colorScheme.secondaryFixed,
-              onColor: colorScheme.onSecondaryFixed,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'S:${tones.secondaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'onSecondaryFixed',
-              color: colorScheme.onSecondaryFixed,
-              onColor: colorScheme.secondaryFixed,
-              showValue: showColorValue,
-              tone: 'S:${tones.onSecondaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'secondaryFixedDim',
-              color: colorScheme.secondaryFixedDim,
-              onColor: colorScheme.onSecondaryFixedVariant,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'S:${tones.secondaryFixedDimTone}',
-            ),
-            ColorChip(
-              label: 'onSecondaryFixedVariant',
-              color: colorScheme.onSecondaryFixedVariant,
-              onColor: colorScheme.secondaryFixedDim,
-              showValue: showColorValue,
-              tone: 'S:${tones.onSecondaryFixedVariantTone}',
-            ),
-          ]),
+          ColorGroup(
+            children: <Widget>[
+              ColorChip(
+                label: 'primary',
+                color: colorScheme.primary,
+                onColor: colorScheme.onPrimary,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'P:${tones.primaryTone}',
+              ),
+              ColorChip(
+                label: 'onPrimary',
+                color: colorScheme.onPrimary,
+                onColor: colorScheme.primary,
+                showValue: showColorValue,
+                tone: 'P:${tones.onPrimaryTone}',
+              ),
+              ColorChip(
+                label: 'primaryContainer',
+                color: colorScheme.primaryContainer,
+                onColor: colorScheme.onPrimaryContainer,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'P:${tones.primaryContainerTone}',
+              ),
+              ColorChip(
+                label: 'onPrimaryContainer',
+                color: colorScheme.onPrimaryContainer,
+                onColor: colorScheme.primaryContainer,
+                showValue: showColorValue,
+                tone: 'P:${tones.onPrimaryContainerTone}',
+              ),
+            ],
+          ),
+          ColorGroup(
+            children: <Widget>[
+              ColorChip(
+                label: 'primaryFixed',
+                color: colorScheme.primaryFixed,
+                onColor: colorScheme.onPrimaryFixed,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'P:${tones.primaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'onPrimaryFixed',
+                color: colorScheme.onPrimaryFixed,
+                onColor: colorScheme.primaryFixed,
+                showValue: showColorValue,
+                tone: 'P:${tones.onPrimaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'primaryFixedDim',
+                color: colorScheme.primaryFixedDim,
+                onColor: colorScheme.onPrimaryFixedVariant,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'P:${tones.primaryFixedDimTone}',
+              ),
+              ColorChip(
+                label: 'onPrimaryFixedVariant',
+                color: colorScheme.onPrimaryFixedVariant,
+                onColor: colorScheme.primaryFixedDim,
+                showValue: showColorValue,
+                tone: 'P:${tones.onPrimaryFixedVariantTone}',
+              ),
+            ],
+          ),
+          ColorGroup(
+            children: <Widget>[
+              ColorChip(
+                label: 'secondary',
+                color: colorScheme.secondary,
+                onColor: colorScheme.onSecondary,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'S:${tones.secondaryTone}',
+              ),
+              ColorChip(
+                label: 'onSecondary',
+                color: colorScheme.onSecondary,
+                onColor: colorScheme.secondary,
+                showValue: showColorValue,
+                tone: 'S:${tones.onSecondaryTone}',
+              ),
+              ColorChip(
+                label: 'secondaryContainer',
+                color: colorScheme.secondaryContainer,
+                onColor: colorScheme.onSecondaryContainer,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'S:${tones.secondaryContainerTone}',
+              ),
+              ColorChip(
+                label: 'onSecondaryContainer',
+                color: colorScheme.onSecondaryContainer,
+                onColor: colorScheme.secondaryContainer,
+                showValue: showColorValue,
+                tone: 'S:${tones.onSecondaryContainerTone}',
+              ),
+            ],
+          ),
+          ColorGroup(
+            children: <Widget>[
+              ColorChip(
+                label: 'secondaryFixed',
+                color: colorScheme.secondaryFixed,
+                onColor: colorScheme.onSecondaryFixed,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'S:${tones.secondaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'onSecondaryFixed',
+                color: colorScheme.onSecondaryFixed,
+                onColor: colorScheme.secondaryFixed,
+                showValue: showColorValue,
+                tone: 'S:${tones.onSecondaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'secondaryFixedDim',
+                color: colorScheme.secondaryFixedDim,
+                onColor: colorScheme.onSecondaryFixedVariant,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'S:${tones.secondaryFixedDimTone}',
+              ),
+              ColorChip(
+                label: 'onSecondaryFixedVariant',
+                color: colorScheme.onSecondaryFixedVariant,
+                onColor: colorScheme.secondaryFixedDim,
+                showValue: showColorValue,
+                tone: 'S:${tones.onSecondaryFixedVariantTone}',
+              ),
+            ],
+          ),
           ColorGroup(
             children: <Widget>[
               ColorChip(
@@ -223,38 +228,40 @@ class ColorSchemeView extends StatelessWidget {
               ),
             ],
           ),
-          ColorGroup(children: <Widget>[
-            ColorChip(
-              label: 'tertiaryFixed',
-              color: colorScheme.tertiaryFixed,
-              onColor: colorScheme.onTertiaryFixed,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'T:${tones.tertiaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'onTertiaryFixed',
-              color: colorScheme.onTertiaryFixed,
-              onColor: colorScheme.tertiaryFixed,
-              showValue: showColorValue,
-              tone: 'T:${tones.onTertiaryFixedTone}',
-            ),
-            ColorChip(
-              label: 'tertiaryFixedDim',
-              color: colorScheme.tertiaryFixedDim,
-              onColor: colorScheme.onTertiaryFixedVariant,
-              size: _colorChipSize,
-              showValue: showColorValue,
-              tone: 'T:${tones.tertiaryFixedDimTone}',
-            ),
-            ColorChip(
-              label: 'onTertiaryFixedVariant',
-              color: colorScheme.onTertiaryFixedVariant,
-              onColor: colorScheme.tertiaryFixedDim,
-              showValue: showColorValue,
-              tone: 'T:${tones.onTertiaryFixedVariantTone}',
-            ),
-          ]),
+          ColorGroup(
+            children: <Widget>[
+              ColorChip(
+                label: 'tertiaryFixed',
+                color: colorScheme.tertiaryFixed,
+                onColor: colorScheme.onTertiaryFixed,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'T:${tones.tertiaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'onTertiaryFixed',
+                color: colorScheme.onTertiaryFixed,
+                onColor: colorScheme.tertiaryFixed,
+                showValue: showColorValue,
+                tone: 'T:${tones.onTertiaryFixedTone}',
+              ),
+              ColorChip(
+                label: 'tertiaryFixedDim',
+                color: colorScheme.tertiaryFixedDim,
+                onColor: colorScheme.onTertiaryFixedVariant,
+                size: _colorChipSize,
+                showValue: showColorValue,
+                tone: 'T:${tones.tertiaryFixedDimTone}',
+              ),
+              ColorChip(
+                label: 'onTertiaryFixedVariant',
+                color: colorScheme.onTertiaryFixedVariant,
+                onColor: colorScheme.tertiaryFixedDim,
+                showValue: showColorValue,
+                tone: 'T:${tones.onTertiaryFixedVariantTone}',
+              ),
+            ],
+          ),
           ColorGroup(
             children: <Widget>[
               ColorChip(
@@ -514,7 +521,7 @@ class ColorChip extends StatelessWidget {
         waitDuration: const Duration(milliseconds: 700),
         message: copyEnabled
             ? 'Color #${color.hexCode}.'
-                '\nTap box to copy RGB value to Clipboard.'
+                  '\nTap box to copy RGB value to Clipboard.'
             : '',
         child: ColoredBox(
           color: color,

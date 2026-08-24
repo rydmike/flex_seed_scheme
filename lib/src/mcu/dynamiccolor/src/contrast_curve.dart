@@ -12,19 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
-/// A class containing the contrast curve for a dynamic color on its background.
+/// A class containing a value that changes with the contrast level.
 ///
-/// The four values correspond to contrast requirements for contrast levels
+/// Usually represents the contrast requirements for a dynamic color on its
+/// background, but it is also used to interpolate tones with the contrast
+/// level. The four values correspond to values for contrast levels
 /// -1.0, 0.0, 0.5, and 1.0, respectively.
 class ContrastCurve {
   /// Creates a `ContrastCurve` object.
   ///
-  /// [low] Contrast requirement for contrast level -1.0
-  /// [normal] Contrast requirement for contrast level 0.0
-  /// [medium] Contrast requirement for contrast level 0.5
-  /// [high] Contrast requirement for contrast level 1.0
+  /// [low] Value for contrast level -1.0
+  /// [normal] Value for contrast level 0.0
+  /// [medium] Value for contrast level 0.5
+  /// [high] Value for contrast level 1.0
   ContrastCurve(
     this.low,
     this.normal,
@@ -32,16 +34,16 @@ class ContrastCurve {
     this.high,
   );
 
-  /// [low] Contrast requirement for contrast level -1.0
+  /// Value for contrast level -1.0
   final double low;
 
-  /// [normal] Contrast requirement for contrast level 0.0
+  /// Value for contrast level 0.0
   final double normal;
 
-  /// [medium] Contrast requirement for contrast level 0.5
+  /// Value for contrast level 0.5
   final double medium;
 
-  /// [high] Contrast requirement for contrast level 1.0
+  /// Value for contrast level 1.0
   final double high;
 
   /// Returns the value at a given contrast level.

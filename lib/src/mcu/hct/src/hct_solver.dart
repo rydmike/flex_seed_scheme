@@ -16,25 +16,17 @@
 
 import 'dart:math';
 
-import '../../utils/color_utils.dart';
-import '../../utils/math_utils.dart';
-import '../cam16.dart';
-import '../viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/cam16.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// A class that solves the HCT equation.
 class HctSolver {
   static const List<List<double>> _scaledDiscountFromLinrgb = <List<double>>[
     <double>[0.001200833568784504, 0.002389694492170889, 0.0002795742885861124],
-    <double>[
-      0.0005891086651375999,
-      0.0029785502573438758,
-      0.0003270666104008398
-    ],
-    <double>[
-      0.00010146692491640572,
-      0.0005364214359186694,
-      0.0032979401770712076
-    ],
+    <double>[0.0005891086651375999, 0.0029785502573438758, 0.0003270666104008398],
+    <double>[0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076],
   ];
 
   static const List<List<double>> _linrgbFromScaledDiscount = <List<double>>[
@@ -336,8 +328,7 @@ class HctSolver {
   /// Returns the hue of [linrgb], a linear RGB color, in CAM16, in
   /// radians.
   static double _hueOf(List<double> linrgb) {
-    final List<double> scaledDiscount =
-        MathUtils.matrixMultiply(linrgb, _scaledDiscountFromLinrgb);
+    final List<double> scaledDiscount = MathUtils.matrixMultiply(linrgb, _scaledDiscountFromLinrgb);
     final double rA = _chromaticAdaptation(scaledDiscount[0]);
     final double gA = _chromaticAdaptation(scaledDiscount[1]);
     final double bA = _chromaticAdaptation(scaledDiscount[2]);
@@ -362,8 +353,7 @@ class HctSolver {
     return (mid - source) / (target - source);
   }
 
-  static List<double> _lerpPoint(
-      List<double> source, double t, List<double> target) {
+  static List<double> _lerpPoint(List<double> source, double t, List<double> target) {
     return <double>[
       source[0] + (target[0] - source[0]) * t,
       source[1] + (target[1] - source[1]) * t,
@@ -520,8 +510,7 @@ class HctSolver {
           } else {
             final int mPlane = ((lPlane + rPlane) / 2.0).floor();
             final double midPlaneCoordinate = _criticalPlanes[mPlane];
-            final List<double> mid =
-                _setCoordinate(left, midPlaneCoordinate, right, axis);
+            final List<double> mid = _setCoordinate(left, midPlaneCoordinate, right, axis);
             final double midHue = _hueOf(mid);
             if (_areInCyclicOrder(leftHue, targetHue, midHue)) {
               right = mid;
@@ -555,15 +544,14 @@ class HctSolver {
     // Operations inlined from Cam16 to avoid repeated calculation
     // ===========================================================
     final ViewingConditions viewingConditions = ViewingConditions.standard;
-    final double tInnerCoeff = 1 /
+    final double tInnerCoeff =
+        1 /
         pow(
-          1.64 -
-              pow(0.29, viewingConditions.backgroundYTowhitePointY).toDouble(),
+          1.64 - pow(0.29, viewingConditions.backgroundYTowhitePointY).toDouble(),
           0.73,
         ).toDouble();
     final double eHue = 0.25 * (cos(hueRadians + 2.0) + 3.8);
-    final double p1 =
-        eHue * (50000.0 / 13.0) * viewingConditions.nC * viewingConditions.ncb;
+    final double p1 = eHue * (50000.0 / 13.0) * viewingConditions.nC * viewingConditions.ncb;
     final double hSin = sin(hueRadians);
     final double hCos = cos(hueRadians);
     for (int iterationRound = 0; iterationRound < 5; iterationRound++) {
@@ -571,19 +559,16 @@ class HctSolver {
       // Operations inlined from Cam16 to avoid repeated calculation
       // ===========================================================
       final double jNormalized = j / 100.0;
-      final double alpha =
-          chroma == 0.0 || j == 0.0 ? 0.0 : chroma / sqrt(jNormalized);
+      final double alpha = chroma == 0.0 || j == 0.0 ? 0.0 : chroma / sqrt(jNormalized);
       final double t = pow(alpha * tInnerCoeff, 1.0 / 0.9).toDouble();
-      final double ac = viewingConditions.aw *
+      final double ac =
+          viewingConditions.aw *
           pow(
             jNormalized,
             1.0 / viewingConditions.c / viewingConditions.z,
           ).toDouble();
       final double p2 = ac / viewingConditions.nbb;
-      final double gamma = 23.0 *
-          (p2 + 0.305) *
-          t /
-          (23.0 * p1 + 11 * t * hCos + 108.0 * t * hSin);
+      final double gamma = 23.0 * (p2 + 0.305) * t / (23.0 * p1 + 11 * t * hCos + 108.0 * t * hSin);
       final double a = gamma * hCos;
       final double b = gamma * hSin;
       final double rA = (460.0 * p2 + 451.0 * a + 288.0 * b) / 1403.0;

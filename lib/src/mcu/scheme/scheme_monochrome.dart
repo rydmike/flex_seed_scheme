@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
 
 /// A Dynamic Color theme that is grayscale.
 class SchemeMonochrome extends DynamicScheme {
@@ -26,15 +26,14 @@ class SchemeMonochrome extends DynamicScheme {
     super.useExpressiveOnContainerColors,
     Hct? errorSourceColorHct,
   }) : super(
-          variant: Variant.monochrome,
-          primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue, errorSourceColorHct.chroma),
-        );
+         variant: Variant.monochrome,
+         primaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         secondaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         tertiaryPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         neutralPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         neutralVariantPalette: TonalPalette.of(sourceColorHct.hue, 0.0),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(errorSourceColorHct.hue, errorSourceColorHct.chroma),
+       );
 }

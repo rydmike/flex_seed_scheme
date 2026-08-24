@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-
-import 'home/views/pages/home_page.dart';
-import 'theme/controllers/theme_controller.dart';
-import 'theme/model/app_theme.dart';
+import 'package:flex_seed_scheme_example/home/views/pages/home_page.dart';
+import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
+import 'package:flex_seed_scheme_example/theme/model/app_theme.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   // Create a ThemeController.
@@ -28,6 +27,13 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.dark(controller),
           highContrastTheme: AppTheme.highContrastLight(controller),
           highContrastDarkTheme: AppTheme.highContrastDark(controller),
+          builder: (BuildContext context, Widget? child) {
+            // Temporary MaterialUi compatibility fix, needed as long as the
+            // used flex_color_picker still imports SDK material. Remove the
+            // bridge when the picker has migrated to material_ui.
+            // ignore: deprecated_member_use
+            return MaterialUiCompatibilityBridge(child: child!);
+          },
           home: HomePage(controller: controller),
         );
       },

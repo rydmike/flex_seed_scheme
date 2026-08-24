@@ -1,7 +1,6 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
-
-import '../../core/constants/app_colors.dart';
+import 'package:flex_seed_scheme_example/core/constants/app_colors.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A ChangeNotifier controller used to control inputs that configures the
 /// ColorScheme in ThemeData and ThemeMode.
@@ -260,7 +259,7 @@ class ThemeController with ChangeNotifier {
   List<Color> _recentColors = <Color>[];
   List<Color> get recentColors => _recentColors;
   // ignore: use_setters_to_change_properties, using a function instead.
-  void setRecentColors(final List<Color> colors) {
+  void setRecentColors(List<Color> colors) {
     _recentColors = colors;
   }
 }

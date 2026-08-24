@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../dynamiccolor/dynamic_scheme.dart';
-import '../dynamiccolor/variant.dart';
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_scheme.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// A playful theme - the source color's hue does not appear in the theme.
 class SchemeFruitSalad extends DynamicScheme {
@@ -39,34 +39,32 @@ class SchemeFruitSalad extends DynamicScheme {
     bool isNeutralVariantMonochrome = false,
     bool isErrorMonochrome = false,
   }) : super(
-          variant: Variant.fruitSalad,
-          primaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),
-            respectMonochromeSeed && isPrimaryMonochrome ? 0 : 48.0,
-          ),
-          secondaryPalette: TonalPalette.of(
-            MathUtils.sanitizeDegreesDouble(
-                (secondarySourceColorHct?.hue ?? sourceColorHct.hue) - 50.0),
-            respectMonochromeSeed && isSecondaryMonochrome ? 0 : 36.0,
-          ),
-          tertiaryPalette: TonalPalette.of(
-            tertiarySourceColorHct?.hue ?? sourceColorHct.hue,
-            respectMonochromeSeed && isTertiaryMonochrome ? 0 : 36.0,
-          ),
-          neutralPalette: TonalPalette.of(
-            neutralSourceColorHct?.hue ?? sourceColorHct.hue,
-            respectMonochromeSeed && isNeutralMonochrome ? 0 : 10.0,
-          ),
-          neutralVariantPalette: TonalPalette.of(
-            neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
-            respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 16.0,
-          ),
-          errorPalette: errorSourceColorHct == null
-              ? null
-              : TonalPalette.of(
-                  errorSourceColorHct.hue,
-                  respectMonochromeSeed && isErrorMonochrome
-                      ? 0
-                      : errorSourceColorHct.chroma),
-        );
+         variant: Variant.fruitSalad,
+         primaryPalette: TonalPalette.of(
+           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),
+           respectMonochromeSeed && isPrimaryMonochrome ? 0 : 48.0,
+         ),
+         secondaryPalette: TonalPalette.of(
+           MathUtils.sanitizeDegreesDouble((secondarySourceColorHct?.hue ?? sourceColorHct.hue) - 50.0),
+           respectMonochromeSeed && isSecondaryMonochrome ? 0 : 36.0,
+         ),
+         tertiaryPalette: TonalPalette.of(
+           tertiarySourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isTertiaryMonochrome ? 0 : 36.0,
+         ),
+         neutralPalette: TonalPalette.of(
+           neutralSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralMonochrome ? 0 : 10.0,
+         ),
+         neutralVariantPalette: TonalPalette.of(
+           neutralVariantSourceColorHct?.hue ?? sourceColorHct.hue,
+           respectMonochromeSeed && isNeutralVariantMonochrome ? 0 : 16.0,
+         ),
+         errorPalette: errorSourceColorHct == null
+             ? null
+             : TonalPalette.of(
+                 errorSourceColorHct.hue,
+                 respectMonochromeSeed && isErrorMonochrome ? 0 : errorSourceColorHct.chroma,
+               ),
+       );
 }

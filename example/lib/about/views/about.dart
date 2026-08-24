@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:flex_seed_scheme_example/core/constants/app_data.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../core/constants/app_data.dart';
-
-/// An about icon button used on the example's app app bar.
+/// An about icon button used on the example app's app bar.
 class AboutIconButton extends StatelessWidget {
   const AboutIconButton({super.key, this.color});
 
@@ -33,8 +32,7 @@ void showAppAboutDialog(BuildContext context) {
   final ThemeData theme = Theme.of(context);
   final TextStyle aboutTextStyle = theme.textTheme.bodyLarge!;
   final TextStyle footerStyle = theme.textTheme.bodySmall!;
-  final TextStyle linkStyle =
-      theme.textTheme.bodyLarge!.copyWith(color: theme.colorScheme.primary);
+  final TextStyle linkStyle = theme.textTheme.bodyLarge!.copyWith(color: theme.colorScheme.primary);
 
   final MediaQueryData media = MediaQuery.of(context);
   final double width = media.size.width;
@@ -45,8 +43,7 @@ void showAppAboutDialog(BuildContext context) {
     applicationName: AppData.title(context),
     applicationVersion: AppData.version,
     applicationIcon: const CircleAvatar(child: Text('FSS')),
-    applicationLegalese:
-        '${AppData.copyright}\n${AppData.author}\n${AppData.license}',
+    applicationLegalese: '${AppData.copyright}\n${AppData.author}\n${AppData.license}',
     children: <Widget>[
       Padding(
         padding: const EdgeInsets.only(top: 24),
@@ -55,7 +52,8 @@ void showAppAboutDialog(BuildContext context) {
             children: <TextSpan>[
               TextSpan(
                 style: aboutTextStyle,
-                text: 'The ${AppData.title(context)} application demonstrates '
+                text:
+                    'The ${AppData.title(context)} application demonstrates '
                     'features\n'
                     'of the ${AppData.packageName} custom key colors '
                     'ColorScheme generation package.\n\n'
@@ -68,12 +66,14 @@ void showAppAboutDialog(BuildContext context) {
               ),
               TextSpan(
                 style: aboutTextStyle,
-                text: '.\nIt also includes the source '
+                text:
+                    '.\nIt also includes the source '
                     'code of this application.\n\n',
               ),
               TextSpan(
                 style: footerStyle,
-                text: 'Built with Flutter ${AppData.flutterVersion},\n'
+                text:
+                    'Built with Flutter ${AppData.flutterVersion},\n'
                     'using ${AppData.packageName} '
                     '${AppData.version}\n'
                     'Media size (w:${width.toStringAsFixed(0)}, '
@@ -100,10 +100,10 @@ class LinkTextSpan extends TextSpan {
   // manage the recognizer from outside the TextSpan, e.g. in the State of a
   // stateful widget that then hands the recognizer to the TextSpan.
   LinkTextSpan({super.style, required Uri uri, required String super.text})
-      : super(
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              unawaited(launchUrl(uri));
-            },
-        );
+    : super(
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            unawaited(launchUrl(uri));
+          },
+      );
 }

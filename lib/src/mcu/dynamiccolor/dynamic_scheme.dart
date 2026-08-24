@@ -11,12 +11,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../hct/hct.dart';
-import '../palettes/tonal_palette.dart';
-import '../utils/math_utils.dart';
-import 'dynamic_color.dart';
-import 'material_dynamic_colors.dart';
-import 'variant.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/dynamic_color.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/material_dynamic_colors.dart';
+import 'package:flex_seed_scheme/src/mcu/dynamiccolor/variant.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Constructed by a set of values representing the current UI state (such as
 /// whether or not its dark theme, what the theme style is, etc.), and
@@ -36,8 +36,8 @@ class DynamicScheme {
     required this.neutralPalette,
     required this.neutralVariantPalette,
     TonalPalette? errorPalette,
-  })  : sourceColorArgb = sourceColorHct.toInt(),
-        errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
+  }) : sourceColorArgb = sourceColorHct.toInt(),
+       errorPalette = errorPalette ?? TonalPalette.of(25.0, 84.0);
 
   /// The source color of the theme as an ARGB integer.
   final int sourceColorArgb;
@@ -57,24 +57,24 @@ class DynamicScheme {
 
   /// Use expressive on container colors for light mode.
   ///
-  /// Material spec and MCU v0.12.0 changes light mode on colors for
-  /// containers from tone 10 to tone 30 can the `ContrastCurve` from
-  /// ContrastCurve(4.5, 7.0, 11.0, 21.0) to
-  /// ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal 4.5
-  /// instead of past 7.0.
+  /// Material spec and MCU v0.12.0 changed light mode on colors for
+  /// containers from tone 10 to tone 30, making them more color expressive
+  /// but with less contrast.
   ///
-  /// This change is not yet used by Flutter and not fully documented in the
-  /// M3 guide. In this MCY fork we are making this change a deliberate opt-in
-  /// feature and default to not opting in on it. This default may be adjusted
-  /// later to opt-in by default, but FSS will continue to offer the older
-  /// version with better contrast too.
+  /// In this MCU fork the flag only switches the light mode on-container
+  /// tone between 30 (true) and 10 (false). The `ContrastCurve` used for the
+  /// on-container colors is always ContrastCurve(3.0, 4.5, 7.0, 11.0), as in
+  /// MCU 0.12.0 and later. Dark mode is not affected by this flag.
   ///
-  /// Defaults to false in FSS version 3.0.0.
+  /// Defaults to true since FSS version 4.0.0, it was false when the flag was
+  /// introduced in FSS version 3.0.0. Flutter uses MCU 0.13.0 in Flutter
+  /// 3.44 and later and thus also uses the expressive on container colors,
+  /// without any option to opt out. This fork keeps the opt-out available.
   ///
-  /// The result you get with false, corresponds to used results in MCU until
-  /// version 0.11.1. Version 0.12.0 of MCU it corresponds to setting
-  /// this flag to true. This is a breaking change in MCU 0.12.0 and will
-  /// change the light mode color schemes produced by all DynamicColor based
+  /// The result you get with false, corresponds to results in MCU until
+  /// version 0.11.1. With true it corresponds to MCU version 0.12.0 and
+  /// later. This was a breaking change in MCU 0.12.0 and changed the light
+  /// mode color schemes produced by all DynamicColor based
   /// Material color schemes.
   final bool useExpressiveOnContainerColors;
 
@@ -104,12 +104,10 @@ class DynamicScheme {
   /// Given a tone, produces a reddish, colorful, color.
   final TonalPalette errorPalette;
 
-  /// Get the the rotated hue of the source color.
-  static double getRotatedHue(
-      Hct sourceColor, List<double> hues, List<double> rotations) {
+  /// Get the rotated hue of the source color.
+  static double getRotatedHue(Hct sourceColor, List<double> hues, List<double> rotations) {
     final double sourceHue = sourceColor.hue;
-    assert(hues.length == rotations.length,
-        'Hues and rotations length must match');
+    assert(hues.length == rotations.length, 'Hues and rotations length must match');
     if (rotations.length == 1) {
       return MathUtils.sanitizeDegreesDouble(sourceColor.hue + rotations[0]);
     }
@@ -134,24 +132,19 @@ class DynamicScheme {
 
   // Getters.
   /// The primaryPaletteKeyColor color of the theme.
-  int get primaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.primaryPaletteKeyColor);
+  int get primaryPaletteKeyColor => getArgb(MaterialDynamicColors.primaryPaletteKeyColor);
 
   /// The secondaryPaletteKeyColor color of the theme.
-  int get secondaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.secondaryPaletteKeyColor);
+  int get secondaryPaletteKeyColor => getArgb(MaterialDynamicColors.secondaryPaletteKeyColor);
 
   /// The tertiaryPaletteKeyColor color of the theme.
-  int get tertiaryPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.tertiaryPaletteKeyColor);
+  int get tertiaryPaletteKeyColor => getArgb(MaterialDynamicColors.tertiaryPaletteKeyColor);
 
   /// The neutralPaletteKeyColor color of the theme.
-  int get neutralPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.neutralPaletteKeyColor);
+  int get neutralPaletteKeyColor => getArgb(MaterialDynamicColors.neutralPaletteKeyColor);
 
   /// The neutralVariantPaletteKeyColor variant color of the theme.
-  int get neutralVariantPaletteKeyColor =>
-      getArgb(MaterialDynamicColors.neutralVariantPaletteKeyColor);
+  int get neutralVariantPaletteKeyColor => getArgb(MaterialDynamicColors.neutralVariantPaletteKeyColor);
 
   /// The background color of the theme.
   int get background => getArgb(MaterialDynamicColors.background);
@@ -169,23 +162,19 @@ class DynamicScheme {
   int get surfaceBright => getArgb(MaterialDynamicColors.surfaceBright);
 
   /// The surfaceContainerLowest color of the theme.
-  int get surfaceContainerLowest =>
-      getArgb(MaterialDynamicColors.surfaceContainerLowest);
+  int get surfaceContainerLowest => getArgb(MaterialDynamicColors.surfaceContainerLowest);
 
   /// The surfaceContainerLow color of the theme.
-  int get surfaceContainerLow =>
-      getArgb(MaterialDynamicColors.surfaceContainerLow);
+  int get surfaceContainerLow => getArgb(MaterialDynamicColors.surfaceContainerLow);
 
   /// The surfaceContainer color of the theme.
   int get surfaceContainer => getArgb(MaterialDynamicColors.surfaceContainer);
 
   /// The surfaceContainerHigh color of the theme.
-  int get surfaceContainerHigh =>
-      getArgb(MaterialDynamicColors.surfaceContainerHigh);
+  int get surfaceContainerHigh => getArgb(MaterialDynamicColors.surfaceContainerHigh);
 
   /// The surfaceContainerHighest color of the theme.
-  int get surfaceContainerHighest =>
-      getArgb(MaterialDynamicColors.surfaceContainerHighest);
+  int get surfaceContainerHighest => getArgb(MaterialDynamicColors.surfaceContainerHighest);
 
   /// The onSurface color of the theme.
   int get onSurface => getArgb(MaterialDynamicColors.onSurface);
@@ -202,7 +191,7 @@ class DynamicScheme {
   /// The inverseOnSurface color of the theme.
   int get inverseOnSurface => getArgb(MaterialDynamicColors.inverseOnSurface);
 
-  /// The inverseSurfaceVariant color of the theme.
+  /// The outline color of the theme.
   int get outline => getArgb(MaterialDynamicColors.outline);
 
   /// The outlineVariant color of the theme.
@@ -227,8 +216,7 @@ class DynamicScheme {
   int get primaryContainer => getArgb(MaterialDynamicColors.primaryContainer);
 
   /// The onPrimaryContainer color of the theme.
-  int get onPrimaryContainer =>
-      getArgb(MaterialDynamicColors.onPrimaryContainer);
+  int get onPrimaryContainer => getArgb(MaterialDynamicColors.onPrimaryContainer);
 
   /// The inversePrimary color of the theme.
   int get inversePrimary => getArgb(MaterialDynamicColors.inversePrimary);
@@ -240,12 +228,10 @@ class DynamicScheme {
   int get onSecondary => getArgb(MaterialDynamicColors.onSecondary);
 
   /// The secondaryContainer color of the theme.
-  int get secondaryContainer =>
-      getArgb(MaterialDynamicColors.secondaryContainer);
+  int get secondaryContainer => getArgb(MaterialDynamicColors.secondaryContainer);
 
   /// The onSecondaryContainer color of the theme.
-  int get onSecondaryContainer =>
-      getArgb(MaterialDynamicColors.onSecondaryContainer);
+  int get onSecondaryContainer => getArgb(MaterialDynamicColors.onSecondaryContainer);
 
   /// The tertiary color of the theme.
   int get tertiary => getArgb(MaterialDynamicColors.tertiary);
@@ -257,8 +243,7 @@ class DynamicScheme {
   int get tertiaryContainer => getArgb(MaterialDynamicColors.tertiaryContainer);
 
   /// The onTertiaryContainer color of the theme.
-  int get onTertiaryContainer =>
-      getArgb(MaterialDynamicColors.onTertiaryContainer);
+  int get onTertiaryContainer => getArgb(MaterialDynamicColors.onTertiaryContainer);
 
   /// The error color of the theme.
   int get error => getArgb(MaterialDynamicColors.error);
@@ -282,8 +267,7 @@ class DynamicScheme {
   int get onPrimaryFixed => getArgb(MaterialDynamicColors.onPrimaryFixed);
 
   /// The onPrimaryFixedVariant color of the theme.
-  int get onPrimaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onPrimaryFixedVariant);
+  int get onPrimaryFixedVariant => getArgb(MaterialDynamicColors.onPrimaryFixedVariant);
 
   /// The secondaryFixed color of the theme.
   int get secondaryFixed => getArgb(MaterialDynamicColors.secondaryFixed);
@@ -295,8 +279,7 @@ class DynamicScheme {
   int get onSecondaryFixed => getArgb(MaterialDynamicColors.onSecondaryFixed);
 
   /// The onSecondaryFixedVariant color of the theme.
-  int get onSecondaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onSecondaryFixedVariant);
+  int get onSecondaryFixedVariant => getArgb(MaterialDynamicColors.onSecondaryFixedVariant);
 
   /// The tertiaryFixed color of the theme.
   int get tertiaryFixed => getArgb(MaterialDynamicColors.tertiaryFixed);
@@ -308,6 +291,5 @@ class DynamicScheme {
   int get onTertiaryFixed => getArgb(MaterialDynamicColors.onTertiaryFixed);
 
   /// The onTertiaryFixedVariant color of the theme.
-  int get onTertiaryFixedVariant =>
-      getArgb(MaterialDynamicColors.onTertiaryFixedVariant);
+  int get onTertiaryFixedVariant => getArgb(MaterialDynamicColors.onTertiaryFixedVariant);
 }

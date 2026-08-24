@@ -50,7 +50,7 @@ class MathUtils {
     return input;
   }
 
-  /// Clamps an integer between two floating-point numbers.
+  /// Clamps a floating-point number between two floating-point numbers.
   ///
   /// Returns input when min <= input <= max, and either min or max
   /// otherwise.
@@ -113,14 +113,10 @@ class MathUtils {
   }
 
   /// Multiplies a 1x3 row vector with a 3x3 matrix.
-  static List<double> matrixMultiply(
-      List<double> row, List<List<double>> matrix) {
-    final double a =
-        row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];
-    final double b =
-        row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2];
-    final double c =
-        row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2];
+  static List<double> matrixMultiply(List<double> row, List<List<double>> matrix) {
+    final double a = row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];
+    final double b = row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2];
+    final double c = row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2];
     return <double>[a, b, c];
   }
 }

@@ -47,14 +47,15 @@ void main() {
         expect(
           actualAnswer.abs(),
           1.0,
-          reason: 'should be either +1.0 or -1.0 '
+          reason:
+              'should be either +1.0 or -1.0 '
               'from $from to $to (got $actualAnswer)',
         );
       }
     }
   });
   //
-  // RydMike add coverage for isOpaque
+  // RydMike add coverage for sanitizeDegreesInt and sanitizeDegreesDouble
   //
   test('sanitizeDegreesInt', () {
     expect(MathUtils.sanitizeDegreesInt(0), equals(0));
@@ -82,8 +83,7 @@ void main() {
   });
   test('hexFromArgb', () {
     expect(StringUtils.hexFromArgb(0xFFAABBCC), equals('#AABBCC'));
-    expect(StringUtils.hexFromArgb(0xFFAABBCC, leadingHashSign: false),
-        equals('AABBCC'));
+    expect(StringUtils.hexFromArgb(0xFFAABBCC, leadingHashSign: false), equals('AABBCC'));
   });
   test('argbFromHex', () {
     expect(StringUtils.argbFromHex('#FFAABBCC'), equals(0xFFAABBCC));

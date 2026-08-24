@@ -1,9 +1,8 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
-
-import '../../../core/utils/flex_color_extension.dart';
-import '../../../core/views/universal/color_scheme_box.dart';
-import '../../../core/views/universal/list_tile_reveal.dart';
+import 'package:flex_seed_scheme_example/core/utils/flex_color_extension.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/color_scheme_box.dart';
+import 'package:flex_seed_scheme_example/core/views/universal/list_tile_reveal.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Widget used to select used [FlexTones] with a popup menu.
 ///
@@ -50,16 +49,17 @@ class FlexTonesPopupMenu extends StatelessWidget {
               ),
               title: Text(variant.variantName, style: txtStyle),
             ),
-          )
+          ),
       ],
       child: ListTileReveal(
-        contentPadding:
-            contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 16),
         title: Text('$title ${variant.variantName}'),
         subtitle: Text(variant.description),
         subtitleReveal: ListTile(
-          title: Text('${variant.variantName}'
-              ' scheme variant configuration info:'),
+          title: Text(
+            '${variant.variantName}'
+            ' scheme variant configuration info:',
+          ),
           subtitle: Text('${variant.configDetails}\n'),
         ),
         trailing: Badge(

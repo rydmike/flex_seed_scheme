@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
-/// Describes the different in tone between colors.
+/// Describes the difference in tone between colors.
 enum TonePolarity {
   /// Darker tone polarity.
   darker,
@@ -26,7 +26,7 @@ enum TonePolarity {
   nearer,
 
   /// Farther tone polarity.
-  farther;
+  farther,
 }
 
 /// Documents a constraint between two DynamicColors, in which their tones must

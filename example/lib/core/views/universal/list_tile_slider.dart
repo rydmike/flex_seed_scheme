@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A [ListTile] with a [Slider] either in [title] or in [subtitle]
 /// position that can never return null.
 ///
 /// The Slider value is displayed as a trailing widget.
 ///
-/// This is a Flutter "Universal" Widget that only depends on the SDK and
-/// can be dropped into any application.
+/// This is a "Universal" widget that only depends on the `material_ui`
+/// package and can be dropped into any application.
 class ListTileSlider extends StatelessWidget {
   const ListTileSlider({
     super.key,
@@ -39,7 +39,7 @@ class ListTileSlider extends StatelessWidget {
   ///
   /// Typically a [Text] widget.
   ///
-  /// If both [title] is not null and [subtitle] are is null, the [Slider]
+  /// If both [title] is not null and [subtitle] is null, the [Slider]
   /// will be placed in the [ListTile]'s subtitle position.
   ///
   /// If both [title] and [subtitle] are not null, the [Slider] will
@@ -61,7 +61,7 @@ class ListTileSlider extends StatelessWidget {
 
   /// The number of discrete divisions.
   ///
-  /// If null, set to ([max]- [min]).toInt().
+  /// If null, set to ([max] - [min]).toInt().
   final int? divisions;
 
   /// The number of decimals to show for the value.
@@ -95,7 +95,7 @@ class ListTileSlider extends StatelessWidget {
           ? (double value) {
               onChanged?.call(value);
             }
-          // Sett to null to also disable the Slider in the ListTile.
+          // Set to null to also disable the Slider in the ListTile.
           : null,
     );
 
@@ -106,14 +106,14 @@ class ListTileSlider extends StatelessWidget {
       subtitle: (title != null && subtitle == null)
           ? slider
           : (subtitle != null)
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    subtitle!,
-                    slider,
-                  ],
-                )
-              : null,
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                subtitle!,
+                slider,
+              ],
+            )
+          : null,
       trailing: Padding(
         // For now using hard coded padding for sliderLabel.
         padding: const EdgeInsets.only(right: 8),

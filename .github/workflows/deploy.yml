@@ -14,7 +14,7 @@
 #  - Build WEB example app.
 #    Steps:
 #    - Flutter clean.
-#    - Flutter build web app, in release mode and with CanvasKit renderer.#
+#    - Flutter build web app, in release mode.
 #    - Deploy each built Web App to GitHub pages.
 name: Deploy
 on:
@@ -53,26 +53,26 @@ jobs:
         run: flutter pub outdated
       - name: "Verify that Dart formatting is used, fail if not"
         run: dart format --output=none --set-exit-if-changed .
-      - name: "Test package FlexColorScheme with coverage"
+      - name: "Test package FlexSeedScheme with coverage"
         run: flutter test --coverage
       - name: "Upload test coverage to Codecov"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage/lcov.info
+          files: coverage/lcov.info
 
       # Example Web demo - Build and deploy
       - name: "EXAMPLE START BUILD - Flutter clean before build"
         run: flutter clean && cd example && flutter clean
       - name: "EXAMPLE WEB release build"
-        run: cd example && flutter build web --base-href "/flexseedscheme/demo-v4/" --release -t lib/main.dart
+        run: cd example && flutter build web --base-href "/flexseedscheme/demo-v5/" --release -t lib/main.dart
       - name: "EXAMPLE DEPLOY to GitHub Pages repository, published on commit."
         uses: dmnemec/copy_file_to_another_repo_action@v1.0.4
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: 'example/build/web/.'
-          destination_folder: 'flexseedscheme/demo-v4'
+          destination_folder: 'flexseedscheme/demo-v5'
           destination_repo: 'rydmike/rydmike.github.io'
           user_email: 'm.rydstrom@gmail.com'
           user_name: 'rydmike'

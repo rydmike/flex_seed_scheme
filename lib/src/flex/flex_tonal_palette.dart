@@ -12,26 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:flex_seed_scheme/src/flex/flex_tones.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/key_color.dart';
 import 'package:flutter/foundation.dart';
-
-import '../mcu/hct/hct.dart';
-import '../mcu/palettes/key_color.dart';
-import 'flex_tones.dart';
 
 /// Enum used to select tones included in produced FlexTonalPalette.
 ///
-/// When using type [FlexPaletteType.common] the chroma of high tones, >= 90,
-/// is limited to maximum 40. This keeps the chromacity of tones 90 to 100,
-/// lower than 40.
-/// If the source color use more chromacity than 40, there may be a sudden jump
-/// in chroma reduction at tone 90. This is the standard behavior for the
-/// original Material 3 tonal palette computation. The [FlexPaletteType.common]
-/// is intended  to be used when there is a need to follow strict M3's
-/// original palette design.
+/// The two types differ only in which tones they include. The
+/// [FlexPaletteType.common] type is intended to be used when there is a need
+/// to follow the original, pre Flutter 3.22, Material-3 palette design.
 ///
-/// When using the [FlexPaletteType.extended] type tones, there are not only
-/// the new tones, but the chroma limit of tones >= 90 is also removed.
-/// This increases fidelity of higher tone when high chromacity is used.
+/// Before FlexSeedScheme 2.0.0 the [FlexPaletteType.common] type also limited
+/// the chroma of high tones, >= 90, to maximum 40. This limit was removed
+/// in FlexSeedScheme 2.0.0, to match the updated Material-3 color system in
+/// Flutter 3.22. Any remaining chroma reduction in high tones comes from the
+/// HCT color space gamut itself, not from a palette type limit.
 ///
 /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
 /// should be avoided and extended tones used instead. The common tones are
@@ -61,10 +57,12 @@ enum FlexPaletteType {
   /// in surface colors. These were added during 1st half of 2023 to the
   /// Material 3 color system specification.
   ///
-  /// The added tones 2, 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
+  /// The added tones 4, 6, 12, 17, 22, 24 are for new dark mode surfaces in
   /// revised Material 3 dark surface colors. Likewise added tones
-  /// 98, 97, 96, 94, 92, 87 are for light mode surfaces in the updated
-  /// Material-3 color system. For more information, see:
+  /// 98, 96, 94, 92, 87 are for light mode surfaces in the updated
+  /// Material-3 color system. Tones 2, 5, 65, 75, 84 and 97 are not in the
+  /// old or new M3 spec, they are FlexSeedScheme additions for even more
+  /// fidelity. For more information, see:
   /// https://m3.material.io/styles/color/the-color-system/color-roles
   ///
   /// Starting from Flutter 3.22 and FlexSeedScheme 2.0.0 the common tones
@@ -78,12 +76,15 @@ enum FlexPaletteType {
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
 ///
-/// This class can be instantiated in two ways:
+/// This class can be instantiated in three ways:
 /// 1. [of] From hue and chroma. (preferred)
-/// 2. [fromList] From a fixed-size ([FlexTonalPalette.commonSize]) list of ints
-/// representing ARBG colors. Correctness (constant hue and chroma) of the input
-/// is not enforced. [get] will only return the input colors, corresponding to
-/// [commonTones]. This also initializes the key color to black.
+/// 2. [fromHct] From an [Hct] color, using its hue and chroma.
+/// 3. [fromList] From a fixed-size list of ints representing ARGB colors,
+/// [FlexTonalPalette.commonSize] or [FlexTonalPalette.extendedSize] long,
+/// matching the used [FlexPaletteType]. Correctness (constant hue and chroma)
+/// of the input is not enforced. [get] will only return the input colors,
+/// corresponding to [commonTones] or [extendedTones]. The key color is
+/// deduced from the input color with the highest chroma.
 @immutable
 class FlexTonalPalette {
   /// Commonly-used tone values.
@@ -225,22 +226,22 @@ class FlexTonalPalette {
   FlexTonalPalette._fromHct(
     Hct hct, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = <int, int>{},
-        _paletteType = paletteType,
-        hue = hct.hue,
-        chroma = hct.chroma,
-        keyColor = hct,
-        _isFromCache = false;
+  ]) : _cache = <int, int>{},
+       _paletteType = paletteType,
+       hue = hct.hue,
+       chroma = hct.chroma,
+       keyColor = hct,
+       _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromHueAndChroma(
     this.hue,
     this.chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = <int, int>{},
-        _paletteType = paletteType,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = false;
+  ]) : _cache = <int, int>{},
+       _paletteType = paletteType,
+       keyColor = KeyColor(hue, chroma).create(),
+       _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order for factories
   FlexTonalPalette._fromCache(
@@ -248,10 +249,10 @@ class FlexTonalPalette {
     this.hue,
     this.chroma, [
     FlexPaletteType paletteType = FlexPaletteType.common,
-  ])  : _cache = cache,
-        _paletteType = paletteType,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = true;
+  ]) : _cache = cache,
+       _paletteType = paletteType,
+       keyColor = KeyColor(hue, chroma).create(),
+       _isFromCache = true;
 
   /// Create colors using [hue] and [chroma].
   static FlexTonalPalette of(
@@ -278,20 +279,17 @@ class FlexTonalPalette {
     FlexPaletteType paletteType = FlexPaletteType.common,
   ]) {
     assert(
-        (colors.length == commonSize &&
-                paletteType == FlexPaletteType.common) ||
-            (colors.length == extendedSize &&
-                paletteType == FlexPaletteType.extended),
-        'Length must be $commonSize when using FlexPaletteType.common OR '
-        'length must be $extendedSize when using FlexPaletteType.extended.');
+      (colors.length == commonSize && paletteType == FlexPaletteType.common) ||
+          (colors.length == extendedSize && paletteType == FlexPaletteType.extended),
+      'Length must be $commonSize when using FlexPaletteType.common OR '
+      'length must be $extendedSize when using FlexPaletteType.extended.',
+    );
     final Map<int, int> cache = <int, int>{};
     switch (paletteType) {
       case FlexPaletteType.common:
-        commonTones.asMap().forEach(
-            (int index, int toneValue) => cache[toneValue] = colors[index]);
+        commonTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
       case FlexPaletteType.extended:
-        extendedTones.asMap().forEach(
-            (int index, int toneValue) => cache[toneValue] = colors[index]);
+        extendedTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
     }
 
     // Approximately deduces the original hue and chroma that generated this
@@ -318,9 +316,8 @@ class FlexTonalPalette {
   /// Returns a fixed-size list of ARGB color ints for common tone values.
   ///
   /// Inverse of [fromList].
-  List<int> get asList => _paletteType == FlexPaletteType.common
-      ? commonTones.map(get).toList()
-      : extendedTones.map(get).toList();
+  List<int> get asList =>
+      _paletteType == FlexPaletteType.common ? commonTones.map(get).toList() : extendedTones.map(get).toList();
 
   /// Returns the ARGB representation of an HCT color at the given [tone].
   ///
@@ -360,9 +357,7 @@ class FlexTonalPalette {
     if (other is FlexTonalPalette) {
       if (!_isFromCache && !other._isFromCache) {
         // Both created with .of or .fromHct
-        return hue == other.hue &&
-            chroma == other.chroma &&
-            _paletteType == other._paletteType;
+        return hue == other.hue && chroma == other.chroma && _paletteType == other._paletteType;
       } else {
         return const ListEquality<int>().equals(asList, other.asList);
       }

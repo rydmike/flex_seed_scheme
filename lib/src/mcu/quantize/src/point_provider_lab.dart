@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../utils/color_utils.dart';
-import 'point_provider.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
 
 /// PointProviderLab.
 class PointProviderLab implements PointProvider {

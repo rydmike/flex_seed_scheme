@@ -13,10 +13,9 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
+import 'package:flex_seed_scheme/src/mcu/palettes/key_color.dart';
 import 'package:meta/meta.dart';
-
-import '../hct/hct.dart';
-import 'key_color.dart';
 
 /// A convenience class for retrieving colors that are constant in hue and
 /// chroma, but vary in tone.
@@ -24,9 +23,10 @@ import 'key_color.dart';
 /// This class can be instantiated in two ways:
 /// 1. [of] From hue and chroma. (preferred)
 /// 2. [fromList] From a fixed-size ([TonalPalette.commonSize]) list of ints
-/// representing ARBG colors. Correctness (constant hue and chroma) of the input
+/// representing ARGB colors. Correctness (constant hue and chroma) of the input
 /// is not enforced. [get] will only return the input colors, corresponding to
-/// [commonTones]. This also initializes the key color to black.
+/// [commonTones]. The key color is deduced from the input color with the
+/// highest chroma.
 @immutable
 class TonalPalette {
   /// Commonly-used tone values.
@@ -66,23 +66,23 @@ class TonalPalette {
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromHct(Hct hct)
-      : _cache = <int, int>{},
-        hue = hct.hue,
-        chroma = hct.chroma,
-        keyColor = hct,
-        _isFromCache = false;
+    : _cache = <int, int>{},
+      hue = hct.hue,
+      chroma = hct.chroma,
+      keyColor = hct,
+      _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromHueAndChroma(this.hue, this.chroma)
-      : _cache = <int, int>{},
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = false;
+    : _cache = <int, int>{},
+      keyColor = KeyColor(hue, chroma).create(),
+      _isFromCache = false;
 
   // ignore: sort_constructors_first, we prefer this order.
   TonalPalette._fromCache(Map<int, int> cache, this.hue, this.chroma)
-      : _cache = cache,
-        keyColor = KeyColor(hue, chroma).create(),
-        _isFromCache = true;
+    : _cache = cache,
+      keyColor = KeyColor(hue, chroma).create(),
+      _isFromCache = true;
 
   /// Create colors using [hue] and [chroma].
   static TonalPalette of(double hue, double chroma) {
@@ -98,11 +98,9 @@ class TonalPalette {
   ///
   /// Inverse of [TonalPalette.asList].
   static TonalPalette fromList(List<int> colors) {
-    assert(colors.length == commonSize,
-        'colors length must be equal to commonSize');
+    assert(colors.length == commonSize, 'colors length must be equal to commonSize');
     final Map<int, int> cache = <int, int>{};
-    commonTones.asMap().forEach(
-        (int index, int toneValue) => cache[toneValue] = colors[index]);
+    commonTones.asMap().forEach((int index, int toneValue) => cache[toneValue] = colors[index]);
 
     // Approximately deduces the original hue and chroma that generated this
     // list of colors.

@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Extensions on [Color] to brighten, lighten, darken and blend colors and
 /// can get a shade for gradients.
@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 /// been modified to use Flutter's HSLColor class instead of the custom one in
 /// the TinyColor lib. The functions from TinyColor re-implemented as Color
 /// extensions here are [brighten], [lighten] and [darken]. They are used
-/// for color calculations in FlexColorScheme, but also exposed for reuse.
+/// for color calculations in this example app.
 extension FlexColorExtensions on Color {
   /// Brightens the color with the given integer percentage amount.
   /// Defaults to 10%.
-  Color brighten([final int amount = 10]) {
+  Color brighten([int amount = 10]) {
     if (amount <= 0) return this;
     if (amount > 100) return Colors.white;
     final Color color = Color.fromARGB(
@@ -29,7 +29,7 @@ extension FlexColorExtensions on Color {
 
   /// Lightens the color with the given integer percentage amount.
   /// Defaults to 10%.
-  Color lighten([final int amount = 10]) {
+  Color lighten([int amount = 10]) {
     if (amount <= 0) return this;
     if (amount > 100) return Colors.white;
     // HSLColor returns saturation 1 for black, we want 0 instead to be able
@@ -37,20 +37,16 @@ extension FlexColorExtensions on Color {
     final HSLColor hsl = this == const Color(0xFF000000)
         ? HSLColor.fromColor(this).withSaturation(0)
         : HSLColor.fromColor(this);
-    return hsl
-        .withLightness(math.min(1, math.max(0, hsl.lightness + amount / 100)))
-        .toColor();
+    return hsl.withLightness(math.min(1, math.max(0, hsl.lightness + amount / 100))).toColor();
   }
 
   /// Darkens the color with the given integer percentage amount.
   /// Defaults to 10%.
-  Color darken([final int amount = 10]) {
+  Color darken([int amount = 10]) {
     if (amount <= 0) return this;
     if (amount > 100) return Colors.black;
     final HSLColor hsl = HSLColor.fromColor(this);
-    return hsl
-        .withLightness(math.min(1, math.max(0, hsl.lightness - amount / 100)))
-        .toColor();
+    return hsl.withLightness(math.min(1, math.max(0, hsl.lightness - amount / 100))).toColor();
   }
 
   /// Return uppercase Flutter style hex code string of the color.
@@ -59,9 +55,8 @@ extension FlexColorExtensions on Color {
   }
 
   /// Return uppercase RGB hex code string, with # and no alpha value.
-  /// This format is often used in APIs and in CSS color values..
+  /// This format is often used in APIs and in CSS color values.
   String get hex {
-    // ignore: lines_longer_than_80_chars, can't break this anywhere.
     return '#${value32bit.toRadixString(16).toUpperCase().padLeft(8, '0').substring(2)}';
   }
 }

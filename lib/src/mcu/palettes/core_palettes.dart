@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
+import 'package:flex_seed_scheme/src/mcu/palettes/tonal_palette.dart';
 import 'package:meta/meta.dart';
-
-import 'tonal_palette.dart';
 
 /// Comprises foundational palettes to build a color scheme. Generated from a
 /// source color, these palettes will then be part of a `DynamicScheme`
@@ -24,12 +23,12 @@ import 'tonal_palette.dart';
 ///
 /// FlexSeedScheme information:
 ///
-/// This exists in MCU but is not used by anything in MCU nor is it
-/// exported. It exists because CorePalette was deprecated in MCU in favor of
-/// DynamicScheme, and CorePalettes is the replacement for CorePalette.
-/// It is missing error palette compared to CorePalette and seems a bit
-/// half baked in MCU 0.13.0. We add equality, hashCode and toString
-/// that is missing compared to CorePalettes in MCU.
+/// This class exists in MCU because CorePalette was deprecated in MCU in
+/// favor of DynamicScheme, with CorePalettes as the replacement for
+/// CorePalette. However, nothing in MCU uses it, nor does MCU export it.
+/// It is missing the error palette compared to CorePalette and seems a bit
+/// half baked in MCU. In this fork we add equality, hashCode and toString
+/// that MCU's own CorePalettes lacks.
 /// We include it here for completeness. Recommend using
 /// DynamicScheme instead or old CorePalette.
 @immutable
@@ -72,12 +71,12 @@ class CorePalettes {
 
   @override
   int get hashCode => Object.hash(
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-      );
+    primary,
+    secondary,
+    tertiary,
+    neutral,
+    neutralVariant,
+  );
 
   @override
   String toString() {

@@ -30,16 +30,14 @@ void main() {
   });
   test('1G', () async {
     final QuantizerCelebi celebi = QuantizerCelebi();
-    final QuantizerResult result =
-        await celebi.quantize(<int>[green], maxColors);
+    final QuantizerResult result = await celebi.quantize(<int>[green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(green));
   });
   test('1B', () async {
     final QuantizerCelebi celebi = QuantizerCelebi();
-    final QuantizerResult result =
-        await celebi.quantize(<int>[blue], maxColors);
+    final QuantizerResult result = await celebi.quantize(<int>[blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
@@ -61,8 +59,7 @@ void main() {
 
   test('1R 1G 1B', () async {
     final QuantizerCelebi celebi = QuantizerCelebi();
-    final QuantizerResult result =
-        await celebi.quantize(<int>[red, green, blue], maxColors);
+    final QuantizerResult result = await celebi.quantize(<int>[red, green, blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
 
     expect(Set<int>.of(colors), hasLength(3));

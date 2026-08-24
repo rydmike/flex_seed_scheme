@@ -1,16 +1,19 @@
 name: flex_seed_scheme_example
-description: Example that demonstrate how to use the FlexSeedScheme package.
-version: 4.0.1
+description: Example that demonstrates how to use the FlexSeedScheme package.
+version: 5.0.0
 publish_to: 'none'
 environment:
-  sdk: '>=3.6.0 <4.0.0'
-  flutter: '>=3.38.0'
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
 
 dependencies:
   # Add Cupertino Icons font to your application. Used by the
   # CupertinoIcons class for iOS style icons, by Google flutter.dev.
   # https://pub.dev/packages/cupertino_icons
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
+
+  # The official Flutter Cupertino Design Library.
+  cupertino_ui: ^1.0.0
 
   # Color picker package, by Mike Rydstrom, rydmike.com (@rydmike).
   # Used for color selection in the Playground to make customized color schemes.
@@ -22,9 +25,12 @@ dependencies:
   flex_seed_scheme:
     path: ../
 
-  # The Flutter SDK, by Google flutter.dev.
+  # The Flutter SDK library itself.
   flutter:
     sdk: flutter
+
+  # The official Flutter Material UI Library.
+  material_ui: ^1.0.0
 
   # Used for launching a WEB URL, by Google flutter.dev.
   # https://pub.dev/packages/url_launcher

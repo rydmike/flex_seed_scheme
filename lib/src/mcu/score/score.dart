@@ -13,7 +13,7 @@
 // limitations under the License.
 import 'package:collection/collection.dart';
 
-import '../material_color_utilities.dart';
+import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 
 class _ScoredHCT implements Comparable<_ScoredHCT> {
   /// Creates a new _ScoredHCT.
@@ -55,7 +55,7 @@ class Score {
   /// color appears, usually from a source image.
   /// [desired] max count of colors to be returned in the list.
   /// [fallbackColorARGB] color to be returned if no other options available.
-  /// [filter] whether to filter out undesireable combinations.
+  /// [filter] whether to filter out undesirable combinations.
   ///
   /// The list returned is of length <= [desired]. The recommended color is the
   /// first item, the least suitable is the last. There will always be at least
@@ -63,10 +63,12 @@ class Score {
   /// a default fallback color will be provided, Google Blue. The default
   /// number of colors returned is 4, simply because that is the # of colors
   /// display in Android 12's wallpaper picker.
-  static List<int> score(Map<int, int> colorsToPopulation,
-      {int desired = 4,
-      int fallbackColorARGB = 0xff4285F4,
-      bool filter = true}) {
+  static List<int> score(
+    Map<int, int> colorsToPopulation, {
+    int desired = 4,
+    int fallbackColorARGB = 0xff4285F4,
+    bool filter = true,
+  }) {
     // Get the HCT color for each Argb value, while finding the per hue count
     // and total count.
     final List<Hct> colorsHct = <Hct>[];
@@ -98,15 +100,12 @@ class Score {
     for (final Hct hct in colorsHct) {
       final int hue = MathUtils.sanitizeDegreesInt(hct.hue.round());
       final double proportion = hueExcitedProportions[hue];
-      if (filter &&
-          (hct.chroma < _cutoffChroma ||
-              proportion <= _cutoffExcitedProportion)) {
+      if (filter && (hct.chroma < _cutoffChroma || proportion <= _cutoffExcitedProportion)) {
         continue;
       }
 
       final double proportionScore = proportion * 100.0 * _weightProportion;
-      final double chromaWeight =
-          hct.chroma < _targetChroma ? _weightChromaBelow : _weightChromaAbove;
+      final double chromaWeight = hct.chroma < _targetChroma ? _weightChromaBelow : _weightChromaAbove;
       final double chromaScore = (hct.chroma - _targetChroma) * chromaWeight;
       final double score = proportionScore + chromaScore;
       scoredHcts.add(_ScoredHCT(hct, score));
@@ -119,16 +118,13 @@ class Score {
     // 90 degrees(maximum difference for 4 colors) then decreasing down to a
     // 15 degree minimum.
     final List<Hct> chosenColors = <Hct>[];
-    for (int differenceDegrees = 90;
-        differenceDegrees >= 15;
-        differenceDegrees--) {
+    for (int differenceDegrees = 90; differenceDegrees >= 15; differenceDegrees--) {
       chosenColors.clear();
       for (final _ScoredHCT entry in scoredHcts) {
         final Hct hct = entry.hct;
         final Hct? duplicateHue = chosenColors.firstWhereOrNull(
-            (Hct chosenHct) =>
-                MathUtils.differenceDegrees(hct.hue, chosenHct.hue) <
-                differenceDegrees);
+          (Hct chosenHct) => MathUtils.differenceDegrees(hct.hue, chosenHct.hue) < differenceDegrees,
+        );
         if (duplicateHue == null) {
           chosenColors.add(hct);
         }
@@ -137,12 +133,9 @@ class Score {
       if (chosenColors.length >= desired) break;
     }
     final List<int> colors = <int>[];
-    // Rydmike: If MCU devs do not hit test this, I'm not going to either.
-    // coverage:ignore-start
     if (chosenColors.isEmpty) {
       colors.add(fallbackColorARGB);
     }
-    // coverage:ignore-end
     for (final Hct chosenHct in chosenColors) {
       colors.add(chosenHct.toInt());
     }

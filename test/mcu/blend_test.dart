@@ -15,7 +15,7 @@
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 const int red = 0xffff0000;
 const int blue = 0xff0000ff;

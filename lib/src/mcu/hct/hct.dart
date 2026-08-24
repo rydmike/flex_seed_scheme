@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../utils/color_utils.dart';
-import 'cam16.dart';
-import 'src/hct_solver.dart';
-import 'viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/cam16.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/src/hct_solver.dart';
+import 'package:flex_seed_scheme/src/mcu/hct/viewing_conditions.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
 
 /// HCT, hue, chroma, and tone. A color system that provides a perceptually
 /// accurate color measurement system that can also accurately render what

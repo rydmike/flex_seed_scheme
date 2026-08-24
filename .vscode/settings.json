@@ -1,16 +1,25 @@
 {
   "cSpell.words": [
+    "APCA",
     "ARBG",
+    "availables",
     "celebi",
     "dmnemec",
     "dynamiccolor",
     "flexseedscheme",
+    "goldens",
+    "hexcode",
     "materialdesign",
     "nonobvious",
     "quantizer",
+    "runtimetype",
     "settersinvariant",
+    "Somers",
     "subosito",
-    "Tonals"
+    "Tonals",
+    "worktree",
+    "worktreeinclude",
+    "worktrees"
   ],
   "dart.flutterSdkPath": ".fvm/versions/stable"
 }

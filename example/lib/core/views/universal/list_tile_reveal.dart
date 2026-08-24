@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A custom [ListTile] that has a built-in animated custom leading action
 /// after the [leading] widget built in as a part of [title] that
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 /// is provided as an optional user based reveal action. The purpose is to make
 /// UI less talkative but provide easy access to additional usage explanation.
 ///
-/// This is a Flutter "Universal" Widget that only depends on the SDK and
-/// can be dropped into any application.
+/// This is a "Universal" widget that only depends on the `material_ui`
+/// package and can be dropped into any application.
 class ListTileReveal extends StatefulWidget {
   const ListTileReveal({
     super.key,
@@ -19,6 +19,7 @@ class ListTileReveal extends StatefulWidget {
     this.subtitleReveal,
     this.trailing,
     this.contentPadding,
+    this.tileColor,
     this.onTap,
     this.dense,
     this.revealDense,
@@ -67,8 +68,19 @@ class ListTileReveal extends StatefulWidget {
   /// [subtitleReveal],
   /// and [trailing] widgets.
   ///
-  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used.
+  /// If null, `EdgeInsets.symmetric(horizontal: 16.0)` is used in M2
+  /// and `EdgeInsetsDirectional.only(start: 16.0, end: 24.0)` in M3.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// Defines the background color of `ListTileReveal` when `selected` is false.
+  ///
+  /// If this property is null and `selected` is false then
+  /// [ListTileThemeData.tileColor] is used. If that is also null and
+  /// `selected` is true, `selectedTileColor` is used.
+  ///
+  /// When that is also null, the [ListTileTheme.selectedTileColor] is
+  /// used, otherwise [Colors.transparent] is used.
+  final Color? tileColor;
 
   /// Called when the user taps this list tile.
   ///
@@ -129,6 +141,7 @@ class _ListTileRevealState extends State<ListTileReveal> {
     return Column(
       children: <Widget>[
         ListTile(
+          tileColor: widget.tileColor,
           enabled: widget.enabled,
           contentPadding: widget.contentPadding,
           leading: widget.leading,
@@ -157,7 +170,7 @@ class _ListTileRevealState extends State<ListTileReveal> {
           transitionBuilder: (Widget child, Animation<double> animation) {
             return SizeTransition(
               sizeFactor: animation,
-              axisAlignment: _isOpen ? 1 : -1,
+              alignment: AlignmentDirectional(-1, _isOpen ? 1 : -1),
               child: child,
             );
           },

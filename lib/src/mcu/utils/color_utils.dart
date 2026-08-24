@@ -16,7 +16,7 @@
 
 import 'dart:math';
 
-import 'math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Color science utilities.
 ///
@@ -90,12 +90,9 @@ class ColorUtils {
   /// Converts a color from ARGB to XYZ.
   static int argbFromXyz(double x, double y, double z) {
     const List<List<double>> matrix = _xyzToSrgb;
-    final double linearR =
-        matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
-    final double linearG =
-        matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z;
-    final double linearB =
-        matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z;
+    final double linearR = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
+    final double linearG = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z;
+    final double linearB = matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z;
     final int r = delinearized(linearR);
     final int g = delinearized(linearG);
     final int b = delinearized(linearB);
@@ -136,15 +133,9 @@ class ColorUtils {
     final double linearG = linearized(greenFromArgb(argb));
     final double linearB = linearized(blueFromArgb(argb));
     const List<List<double>> matrix = _srgbToXyz;
-    final double x = matrix[0][0] * linearR +
-        matrix[0][1] * linearG +
-        matrix[0][2] * linearB;
-    final double y = matrix[1][0] * linearR +
-        matrix[1][1] * linearG +
-        matrix[1][2] * linearB;
-    final double z = matrix[2][0] * linearR +
-        matrix[2][1] * linearG +
-        matrix[2][2] * linearB;
+    final double x = matrix[0][0] * linearR + matrix[0][1] * linearG + matrix[0][2] * linearB;
+    final double y = matrix[1][0] * linearR + matrix[1][1] * linearG + matrix[1][2] * linearB;
+    final double z = matrix[2][0] * linearR + matrix[2][1] * linearG + matrix[2][2] * linearB;
     const List<double> whitePoint = _whitePointD65;
     final double xNormalized = x / whitePoint[0];
     final double yNormalized = y / whitePoint[1];
@@ -182,8 +173,8 @@ class ColorUtils {
   ///
   /// L* in L*a*b* and Y in XYZ measure the same quantity, luminance.
   ///
-  /// L* measures perceptual luminance, a linear scale. Y in XYZ
-  /// measures relative luminance, a logarithmic scale.
+  /// L* measures perceptual luminance, a perceptually uniform, nonlinear
+  /// scale. Y in XYZ measures relative luminance, a linear scale.
   ///
   /// [lstar] L* in L*a*b*
   /// Returns Y in XYZ
@@ -195,8 +186,8 @@ class ColorUtils {
   ///
   /// L* in L*a*b* and Y in XYZ measure the same quantity, luminance.
   ///
-  /// L* measures perceptual luminance, a linear scale. Y in XYZ
-  /// measures relative luminance, a logarithmic scale.
+  /// L* measures perceptual luminance, a perceptually uniform, nonlinear
+  /// scale. Y in XYZ measures relative luminance, a linear scale.
   ///
   /// [y] Y in XYZ
   /// Returns L* in L*a*b*

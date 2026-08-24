@@ -11,8 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import '../utils/color_utils.dart';
-import '../utils/math_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/color_utils.dart';
+import 'package:flex_seed_scheme/src/mcu/utils/math_utils.dart';
 
 /// Utility methods for calculating contrast given two colors, or calculating a
 /// color given one color and a contrast ratio.
@@ -21,7 +21,7 @@ import '../utils/math_utils.dart';
 /// perception, Y becomes HCT's tone and L*a*b*'s' L*. Informally, this is the
 /// lightness of a color.
 ///
-/// Methods refer to tone, T in the the HCT color space.
+/// Methods refer to tone, T in the HCT color space.
 /// Tone is equivalent to L* in the L*a*b* color space, or L in the LCH color
 /// space.
 class Contrast {
@@ -31,8 +31,7 @@ class Contrast {
   static double ratioOfTones(double toneA, double toneB) {
     final double localToneA = MathUtils.clampDouble(0.0, 100.0, toneA);
     final double localToneB = MathUtils.clampDouble(0.0, 100.0, toneB);
-    return _ratioOfYs(
-        ColorUtils.yFromLstar(localToneA), ColorUtils.yFromLstar(localToneB));
+    return _ratioOfYs(ColorUtils.yFromLstar(localToneA), ColorUtils.yFromLstar(localToneB));
   }
 
   static double _ratioOfYs(double y1, double y2) {

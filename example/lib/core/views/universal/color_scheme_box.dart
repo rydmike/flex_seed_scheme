@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Widget used to display a colored option box used in PopupMenus.
 class ColorSchemeBox extends StatelessWidget {
@@ -14,13 +14,11 @@ class ColorSchemeBox extends StatelessWidget {
   final IconData optionIcon;
 
   // Return true if the color is light, meaning it needs dark text for contrast.
-  static bool _isLight(final Color color) =>
-      ThemeData.estimateBrightnessForColor(color) == Brightness.light;
+  static bool _isLight(Color color) => ThemeData.estimateBrightnessForColor(color) == Brightness.light;
 
   // On color for icon on the colored box.
-  static Color _onColor(final Color color) => _isLight(color)
-      ? Colors.black.withValues(alpha: 0.4)
-      : Colors.white.withValues(alpha: 0.4);
+  static Color _onColor(Color color) =>
+      _isLight(color) ? Colors.black.withValues(alpha: 0.4) : Colors.white.withValues(alpha: 0.4);
 
   @override
   Widget build(BuildContext context) {

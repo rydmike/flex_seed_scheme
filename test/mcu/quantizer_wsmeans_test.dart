@@ -24,36 +24,31 @@ const int maxColors = 256;
 
 void main() {
   test('1Rando', () {
-    final QuantizerResult result =
-        QuantizerWsmeans.quantize(<int>[0xff141216], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[0xff141216], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(0xff141216));
   });
 
   test('1R', () {
-    final QuantizerResult result =
-        QuantizerWsmeans.quantize(<int>[red], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
   });
   test('1R', () {
-    final QuantizerResult result =
-        QuantizerWsmeans.quantize(<int>[red], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[red], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(red));
   });
   test('1G', () {
-    final QuantizerResult result =
-        QuantizerWsmeans.quantize(<int>[green], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[green], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(green));
   });
   test('1B', () {
-    final QuantizerResult result =
-        QuantizerWsmeans.quantize(<int>[blue], maxColors);
+    final QuantizerResult result = QuantizerWsmeans.quantize(<int>[blue], maxColors);
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(1));
     expect(colors[0], equals(blue));
@@ -87,19 +82,7 @@ void main() {
   });
   test('Mixed 2, with pixels print', () {
     final QuantizerResult result = QuantizerWsmeans.quantize(
-      <int>[
-        blue,
-        blue,
-        blue,
-        blue,
-        blue,
-        red,
-        blue1,
-        blue1,
-        red,
-        green,
-        random
-      ],
+      <int>[blue, blue, blue, blue, blue, red, blue1, blue1, red, green, random],
       maxColors,
       returnInputPixelToClusterPixel: true,
     );
@@ -116,5 +99,17 @@ void main() {
     final List<int> colors = result.colorToCount.keys.toList();
     expect(colors, hasLength(0));
     expect(colors.isEmpty, equals(true));
+  });
+
+  // Extra tests not covered by MCU upstream.
+  test('a starting cluster far away from all points ends up empty and is '
+      'reset, all points land in the remaining cluster', () {
+    final QuantizerResult result = QuantizerWsmeans.quantize(
+      <int>[0xff000011, 0xff000012],
+      2,
+      startingClusters: <int>[0xff000011, 0xffffffff],
+    );
+    expect(result.colorToCount.keys, hasLength(1));
+    expect(result.colorToCount.values.first, 2);
   });
 }

@@ -1,6 +1,6 @@
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   //****************************************************************************
@@ -12,8 +12,7 @@ void main() {
     for (final FlexSchemeVariant variant in FlexSchemeVariant.values) {
       final FlexTones flexTones = variant.tones(brightness);
 
-      test(
-          'FSVA1.01: GIVEN a FlexSchemeVariant EXPECT variant to return '
+      test('FSVA1.01: GIVEN a FlexSchemeVariant EXPECT variant to return '
           'correct tones for the FlexSchemeVariant', () {
         switch (variant) {
           case FlexSchemeVariant.tonalSpot:

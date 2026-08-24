@@ -14,11 +14,10 @@
 
 import 'dart:math' as math show Random, min;
 
+import 'package:flex_seed_scheme/src/mcu/quantize/quantizer.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider.dart';
+import 'package:flex_seed_scheme/src/mcu/quantize/src/point_provider_lab.dart';
 import 'package:flutter/foundation.dart';
-
-import 'quantizer.dart';
-import 'src/point_provider.dart';
-import 'src/point_provider_lab.dart';
 
 /// DistanceAndIndex.
 class DistanceAndIndex implements Comparable<DistanceAndIndex> {
@@ -50,11 +49,13 @@ class QuantizerWsmeans {
 
   /// debugLog.
   static void debugLog(String log) {
+    // coverage:ignore-start
     if (debug) {
       if (kDebugMode) {
-        print(log); // coverage:ignore-line
+        print(log);
       }
     }
+    // coverage:ignore-end
   }
 
   /// Do quantize.
@@ -71,8 +72,7 @@ class QuantizerWsmeans {
     final List<int> pixels = <int>[];
     int pointCount = 0;
     for (final int inputPixel in inputPixels) {
-      final int pixelCount = pixelToCount
-          .update(inputPixel, (int value) => value + 1, ifAbsent: () => 1);
+      final int pixelCount = pixelToCount.update(inputPixel, (int value) => value + 1, ifAbsent: () => 1);
       if (pixelCount == 1) {
         pointCount++;
         points.add(pointProvider.fromInt(inputPixel));
@@ -89,8 +89,7 @@ class QuantizerWsmeans {
 
     final int clusterCount = math.min(maxColors, pointCount);
 
-    final List<List<double>> clusters =
-        startingClusters.map((int e) => pointProvider.fromInt(e)).toList();
+    final List<List<double>> clusters = startingClusters.map((int e) => pointProvider.fromInt(e)).toList();
     final int additionalClustersNeeded = clusterCount - clusters.length;
     if (additionalClustersNeeded > 0) {
       final math.Random random = math.Random(0x42688);
@@ -124,15 +123,13 @@ class QuantizerWsmeans {
     debugLog(
       'have ${clusters.length} starting clusters, ${points.length} points',
     );
-    final List<int> clusterIndices =
-        List<int>.generate(pointCount, (int index) => index % clusterCount);
+    final List<int> clusterIndices = List<int>.generate(pointCount, (int index) => index % clusterCount);
     final List<List<int>> indexMatrix = List<List<int>>.generate(
       clusterCount,
       (_) => List<int>.filled(clusterCount, 0),
     );
 
-    final List<List<DistanceAndIndex>> distanceToIndexMatrix =
-        List<List<DistanceAndIndex>>.generate(
+    final List<List<DistanceAndIndex>> distanceToIndexMatrix = List<List<DistanceAndIndex>>.generate(
       clusterCount,
       (int index) => List<DistanceAndIndex>.generate(
         clusterCount,
@@ -168,8 +165,7 @@ class QuantizerWsmeans {
       int pointsMoved = 0;
       for (int i = 0; i < clusterCount; i++) {
         for (int j = i + 1; j < clusterCount; j++) {
-          final double distance =
-              pointProvider.distance(clusters[i], clusters[j]);
+          final double distance = pointProvider.distance(clusters[i], clusters[j]);
           distanceToIndexMatrix[j][i].distance = distance;
           distanceToIndexMatrix[j][i].index = i;
           distanceToIndexMatrix[i][j].distance = distance;
@@ -185,13 +181,11 @@ class QuantizerWsmeans {
         final List<double> point = points[i];
         final int previousClusterIndex = clusterIndices[i];
         final List<double> previousCluster = clusters[previousClusterIndex];
-        final double previousDistance =
-            pointProvider.distance(point, previousCluster);
+        final double previousDistance = pointProvider.distance(point, previousCluster);
         double minimumDistance = previousDistance;
         int newClusterIndex = -1;
         for (int j = 0; j < clusterCount; j++) {
-          if (distanceToIndexMatrix[previousClusterIndex][j].distance >=
-              4 * previousDistance) {
+          if (distanceToIndexMatrix[previousClusterIndex][j].distance >= 4 * previousDistance) {
             continue;
           }
           final double distance = pointProvider.distance(point, clusters[j]);
@@ -231,7 +225,7 @@ class QuantizerWsmeans {
       for (int i = 0; i < clusterCount; i++) {
         final int count = pixelCountSums[i];
         if (count == 0) {
-          clusters[i] = <double>[0.0, 0.0, 0.0]; // coverage:ignore-line
+          clusters[i] = <double>[0.0, 0.0, 0.0];
           continue;
         }
         final double a = componentASums[i] / count;

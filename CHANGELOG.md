@@ -2,6 +2,98 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 5.0.0-dev.1
+
+**Aug 24, 2026**
+
+The version requires Flutter 3.47.0 or higher. Offers support for SDK decoupled Material and Cupertino libraries.
+
+**BREAKING**
+- This version requires Flutter 3.47.0 or higher
+- It also opts in on Dart 3.13.0 language features and lints.
+- This release brings full support for the standalone `material_ui` and `cupertino_ui` packages.
+- Per **Flutter's official recommendation** the package is released as a **major breaking** release, but contains no breaking APIs or any new APIs. Produced `ColorScheme` results are same as before too, with one intentional bug fix exception, see the `surfaceTintTone` fix below.
+  
+- **FIX-BREAKING**: The `FlexTones.surfaceTintTone` tone mapping is now actually applied to the produced `ColorScheme.surfaceTint` on the `tones` based generation path. It was always intended to be, but the produced scheme previously always assigned the produced primary color to `ColorScheme.surfaceTint`, silently ignoring the tone mapping. This bug fix changes produced `ColorScheme.surfaceTint` results for the built-in configurations `FlexTones.ultraContrast`, `FlexTones.candyPop` and `FlexTones.chroma`, whose custom `surfaceTintTone` (30 in light mode, 95 in dark mode) differs from their primary tone, as well as for custom `FlexTones` where `surfaceTintTone` differs from `primaryTone`. The built-ins `vivid`, `vividSurfaces`, `vividBackground`, `highContrast` and `jolly` define `surfaceTintTone` 30 in light mode where their primary tone is also 30, so their produced results do not change. The `surfaceTint` override parameter in `SeedColorScheme.fromSeeds` works as before. The MCU `variant` based path is unchanged and keeps `surfaceTint` equal to `primary`, matching Flutter's `ColorScheme.fromSeed`, which uses `MaterialDynamicColors.primary` and not `MaterialDynamicColors.surfaceTint` for the produced `surfaceTint` color. This is intentional Flutter parity: the two MCU colors differ when `contrastLevel` is not 0 and for the monochrome variant; a code comment now documents this so it is not mistaken for a bug. Usage of the `surfaceTintTone` feature is likely extremely rare, so consumer impact of its fix should be very low, and the new result is the originally intended one.
+
+**FIX**
+- `FlexTones`: the `useCam16` property was missing from `copyWith`, `operator ==`, `hashCode` and `debugFillProperties`. Any `copyWith` call silently reset `useCam16` to its default true, including the internal copyWith-based modifier `expressiveOnContainer` that `SeedColorScheme.fromSeeds` applies. This did not change any produced colors, since `Cam16.fromInt` and `Hct.fromInt` return the same hue and chroma for the same input color, which is also why the omission went unnoticed. Equality however wrongly reported two `FlexTones` configs differing only in `useCam16` as equal. All four are fixed and `debugFillProperties` also gained the previously missing `onErrorTone` entry.
+
+**CHANGE DOCS**
+
+The changes below are only documentation and agent changes. No code behavior was changed.
+
+- Reviewed and corrected the informational `FlexSchemeVariant` UI strings `description` and `configDetails` against the actual scheme generation code. As documented, these strings may change in any release and this is not a breaking change. No generated colors are affected.
+  - `expressive`: config details tertiary palette uses Chroma 32 (not 24) and hue rotation range 15-120 degrees (not 20-120).
+  - `soft`, `vivid`, `highContrast` and `oneHue`: config details neutral palette uses Chroma 6 (not 4). The value 4 was a leftover from before FSS 2.0.0, when the Material-3 default neutral chroma changed to 6.
+  - `fidelity` and `content`: the descriptions were nearly identical, they now state their actual difference: tertiary palette is the seed color's complement (fidelity) versus an analogous hue (content).
+  - `vividBackground`: description no longer refers to the deprecated `background` color swap, it now describes the actual difference to `vividSurfaces` (white surface in light mode, slightly darker surface in dark mode).
+  - Aligned hue rotation phrasing: variants that also rotate a provided key color's hue (`vibrant`, `expressive`) now read "Hue from primary or key rotated x-y degrees", while variants that use a provided key hue as-is keep the "Hue primary rotated 60 degrees or key" form.
+- Fixed stale doc comments that no longer matched the code:
+  - `FlexSchemeVariant.vividSurfaces`: neutral chroma is 5 and neutralVariant 10, not 8 and 16.
+  - `FlexSchemeVariant.candyPop` and `FlexSchemeVariant.chroma`: removed references to the removed `background` color and corrected surface tones (chroma uses light surface tone 99 and dark 4).
+  - `FlexTones.dark`: default neutral chroma limits are 6 and 8, not 4 and 8.
+  - `FlexTones.candyPop`: dark mode surface tone is 6, not 5.
+  - `FlexTones.chroma`: light mode surface tone is 99 (not 98) and dark mode 4 (not 6).
+- Codebase-wide documentation review, verified doc comment claims against the actual code and fixed stale information and typos. No code behavior was changed. Highlights:
+  - `FlexPaletteType.extended` has **30** tones; docs variously claimed 24, 25, 26 and 27, and omitted the FSS extra tones 65, 75 and 84 from listings. Also corrected which extended tones are M3 spec additions versus FSS extras (2 and 97 are FSS extras).
+  - Removed the stale `FlexPaletteType` narrative about the `common` type limiting chroma to max 40 for tones >= 90. That clamp was removed in FSS 2.0.0; the palette types now differ only in included tones.
+  - `FlexTones` field docs: `secondaryMinChroma` and `tertiaryMinChroma` effective fallbacks are 0 (docs claimed 16 and 24); `neutralChroma` constructor default is 6 (doc claimed 4); `onSecondaryFixedTone` maps to `onSecondaryFixed` (doc said `secondaryFixed`); `onSurfacesUseBW` doc no longer claims it affects main on-colors.
+  - Documented two known code quirks instead of changing behavior: `FlexTones.copyWith` does not include `useCam16` (a copy always resets it to true) and produced `ColorScheme.surfaceTint` is always assigned `primary`, so `FlexTones.surfaceTintTone` is currently not applied. Both are candidates for actual code fixes in a future release.
+  - `FlexCorePalette` docs: six palettes (not five), error palette defaults to hue 25 / chroma 84; code sample now uses `value32bit` instead of deprecated `Color.value`; "matching Flutter SDK" chroma claims qualified as pre Flutter 3.22 behavior.
+  - MCU fork (comments only, all divergences from upstream text are listed in the mcu-fork-sync skill reference): corrected the stale `useExpressiveOnContainerColors` doc block (defaults to true since FSS 4.0.0 and only switches the light mode on-container tone, not the contrast curve), wrong color names on `outline`, `onBackground` and `secondary` docs, a duplicated `Cam16` class doc, inverted L*/Y linearity claims, restored two "nonlinearity" comments corrupted by line reflow, added the missing Google license header to `key_color.dart`, removed a misleading "automatically generated" banner from the heavily customized `scheme.dart`, removed dead commented-out imports, and fixed assorted upstream typos.
+  - **Example app**: updated stale UI text and comments that said expressive on-container colors are "not yet used by Flutter" (Flutter 3.44+ uses them, with no opt-out; FSS keeps the opt-out). Corrected "only depends on the SDK" claims to `material_ui`, wrong default value comments in `custom_tones.dart`, and assorted typos.
+  - Repo docs and CI comments: `dart format --fix` no longer exists in Dart 3.13, commands updated in `AGENTS.md` and skills; `CONTRIBUTING.md` now says `master` branch; corrected stale workflow header comments (`test.yml` is the active CI, `validate.yaml` is disabled and used a removed `flutter format` command; web build no longer references a renderer flag).
+- Reviewed the README against the code and updated stale information, typos and grammar. Screenshots are unchanged; they were made with earlier demo app versions but remain valid for documentation purposes. Highlights:
+  - Corrected the predefined `FlexTones` configuration count to twelve (said eleven) and the pre-FSS 2.0.0 default value comments in the custom `FlexTones` code sample (`primaryMinChroma`, `secondaryChroma` and `tertiaryChroma` default to null, not 36/16/24).
+  - Removed the stale description of the `FlexPaletteType.common` high-tone chroma clamp, deleted in FSS 2.0.0; the palette types now differ only in included tones.
+  - Rewrote the resolved Flutter/MCU speculation in the expressive on-container section: Flutter stable 3.44 and later use MCU 0.13.0 with expressive on-containers as the only option, FSS keeps the opt-out. Also clarified that the FSS fork's flag only switches the light on-container tone 30/10, the contrast curve always follows the newer spec.
+  - Fixed a broken code sample (`Colors(0xFF555555)` → `Color(0xFF555555)`), wrong sample comments (chroma variant labeled vibrant), and replaced a misleading example that chained `onMainsUseBW().expressiveOnContainer()`, where the second modifier was a no-op, with a working example plus a note about modifier order.
+  - Fixed wrong symbol names (`FlexTones.extended`/`FlexTones.common` → `FlexPaletteType.*`), `tonalSport` → `tonalSpot`, `FlexSeedSeed scheme` → `FlexSeedScheme`, "FFS" → FSS, repeated "from a seeds", "none surface" → non-surface, and assorted grammar issues.
+  - Added a "Version 5.0.0" note (Flutter 3.47/Dart 3.13 requirement, `material_ui`/`cupertino_ui` support, the `surfaceTintTone` fix), a headline bullet for `respectMonochromeSeed`, and a new "Color Channel Getters" section documenting the exported `value32bit`/`alpha8bit`/`red8bit`/`green8bit`/`blue8bit` extensions.
+  - The Example Application section heading now links to the v5 demo.
+- Agent/skills config: added a new `release` skill (pub.dev publish flow, GitHub release triggered web demo deploy, downstream coordination), added a "Verify claims against code" section with known stale-info traps and the `FlexSchemeVariant` string phrasing conventions to the `code-documentation` skill, and logged deliberate MCU comment divergences in the `mcu-fork-sync` skill reference. Also documented in the `package-development` skill that `analysis_options.yaml` is the versioned RydMike linter preferences file publicly shared as a gist, so rule changes to it or `all_lint_rules.yaml` get a CHANGELOG note and a reminder to update the gist.
+
+**TESTS**
+- Added full-scheme golden locks for `FlexTones.candyPop` and `FlexTones.chroma`, light and dark (FCS7.028, FCS7.029). Together with the existing `ultraContrast` goldens, all three tone mappings whose produced results changed with the `surfaceTintTone` fix are now locked against unintended changes.
+- Added a test locking the legacy `useExpressiveOnContainerColors: false` on-container colors on the MCU variant path (FCS7.030). Coverage of those legacy branches was lost when other tests moved to the new expressive default.
+- Added a no-op test for all six `FlexTones` modifiers called with a false flag (FTO1.15).
+- Improved MCU fork test coverage and removed 14 `coverage:ignore` markers by adding tests for previously untested branches. These are extra coverage tests not done by MCU upstream. They will allow us to better verify our forked MCU version and detect changes made to MCU upstream in the future:
+  - `DynamicColor.getTone`: background color landing in the awkward tone 50..60 zone, `ToneDeltaPair` with `stayTogether` in both light and dark mode, all dual background fallback branches, and the `foregroundTone` negligible-difference edge case.
+  - `TemperatureCache`: `analogous` with more divisions than hue steps and with count larger than divisions, plus cached `complement` and `inputRelativeTemperature` calls.
+  - `Score.score` fallback color when all input colors are filtered out.
+  - `QuantizerWsmeans` empty cluster reset when a starting cluster captures no points.
+  - Covered the last IDE-reported coverage misses: the `identical` equality short circuits in `CorePalette` and `CorePalettes` (self comparison tests) and the awkward-zone adjustment to tone 60 in `DynamicColor.getTone`, used when tone 49 cannot reach the required contrast against a dark background.
+  - The package now has 100% line coverage with only 8 remaining ignore markers, all on verified dead code: compile-time disabled debug logging in `QuantizerWsmeans`, negative modulo guards in `MathUtils` that Dart's `%` operator can never produce, index guards in `TemperatureCache.analogous` that its callers can never trigger, and one unreachable defensive padding line.
+- Added regression tests for the `FlexTones` `useCam16` fix: equality of configs differing only in `useCam16` (FTO1.02c) and `copyWith`/modifier preservation of `useCam16` (FTO1.09d).
+- Updated the `FlexTones` toString golden for the added `onErrorTone` and `useCam16` diagnostics properties.
+- Corrected the expected configurations in FTO1.017/FTO1.018: they omitted `useCam16: false` for `FlexTones.material`, which the previous incomplete equality operator could not detect.
+- Update tests to no longer use `useExpressiveOnContainerColors: false` for all MCU `DynamicSchemeVariant`s. This is no longer needed as the default is now `true` in Flutter stable 3.44.0 and later. The option to **not** use expressive on container colors is still available and can be used by setting `useExpressiveOnContainerColors` to `false` when calling `SeedColorScheme.fromSeeds`. However, Flutter's `ColorScheme.fromSeed` does not use expressive on container colors anymore, nor does it offer it as an option. With `FlexSeedScheme` it is still available and can be used as before. The `SeedColorScheme.fromSeeds` parameter `useExpressiveOnContainerColors` already defaulted to `true` instead of `false` in FSS version 4.0.0, and started using it as default before Flutter switched to it. You can still use the legacy option if you need it.
+
+**CHORE**
+- Bump all dependencies.
+- Publishing: resolved both `dart pub publish --dry-run` warnings and reduced the published package archive from 13 MB to about 0.5 MB.
+  - Untracked the git-ignored, Flutter tool generated example platform files (`generated_plugin_registrant.*`, `generated_plugins.cmake` and `GeneratedPluginRegistrant.swift` for Windows, Linux and macOS). They are regenerated by `flutter pub get` and builds, and current Flutter project templates git-ignore them. They are no longer part of the published package either.
+  - Added a root `.pubignore`. It restates the publishing-relevant `.gitignore` rules (a `.pubignore` replaces the `.gitignore` in the same directory for publishing decisions) and additionally excludes internal repository content from the published archive: `AGENTS.md`, `docs/`, `scripts/`, and the image folders `doc_assets/` and `example/screenshots/`. The README references its images via absolute GitHub URLs, so pub.dev does not need them in the archive. Excluding `docs/` also resolves the pub layout warning about a plural top-level docs directory.
+- CI: bumped `codecov/codecov-action` from the end-of-life v3 to v5 in all three workflows and renamed its `file:` input to `files:` per the v4+ API. The `-dev.1` release will serve as a live test of the deploy workflow.
+- Verified included MCU fork to be at parity with MCU 0.13.1. It was stated to be at 0.13.0 parity before this release. Flutter 3.47 just started using MCU 0.13.0. A check revealed that MCU 0.13.1 is a small internal change, that we also already had in FSS version 4.0.0, it was added before it was published in MCU.
+  - The new `Cam16` hue helper was already in FSS version 4.0.0; MCU 0.13.1 published that commit.
+  - This release is only a doc update about Scheme migration URL + declare fork at 0.13.1 (Flutter 3.47 still on 0.13.0).
+  - No user-facing ColorScheme / HCT change.
+- Example app's macOS and iOS builds migrated from CocoaPods to Swift Package Manager.
+- Code style: Changed from RydMike lints 2.6.0 to RydMike lints 3.0.0. Big code diffs and changes in the code style.
+- Updated to opt in on using min Dart 3.13.0 SDK. 
+  - Old code base was compile time incompatible with Dart 3.13.0, fixed the issues that don't compile with Dart 3.13.0. The issue was this **breaking change in Dart 3.13:**
+    - Restriction on final and var in normal function parameters: With primary constructors, using final or var on formal parameters in normal functions becomes a compile-time error.
+    -  They are reserved exclusively for declaring parameters in primary constructors. Note that the lints `avoid_final_parameters` and `var_with_no_type_annotation` only work with a language version of **Dart 3.12** or lower. 
+    -  To enforce immutable parameters as a style choice in **Dart 3.13** and later, use the `parameter_assignments` linter rule, which this repo already always enforced. See https://dart.dev/language/primary-constructors 
+- Fixed all new lints that came with Dart 3.13. 
+- **Example app**: Fixed Flutter SDK deprecation of `axisAlignment` in `ListTileReveal` and `SwitchListTileReveal` widgets.
+- **Example app**: Temporary use of `MaterialUiCompatibilityBridge`. 
+  - Used as temporary fix for **MaterialUi** compatibility for packages that still use Material from SDK, pre Flutter 3.47.0. It is in the **example** app used for the not yet updated **FlexColorPicker** that the **example** app uses. 
+  - The color picker will be updated next and then this temporary fix will be removed and a 5.0.1 release will be published. It is a bit of a chicken and egg situation. The color picker also uses this package, and we need to publish a version of this package first, then update the picker and then update this package again so its example app can use the new version of the picker and remove the `MaterialUiCompatibilityBridge`.
+
+
 ## 4.0.1
 
 **Nov 23, 2025**

@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-
-import '../../../core/views/app/color_name_value.dart';
-import '../../../core/views/app/color_picker_inkwell.dart';
-import '../../../theme/controllers/theme_controller.dart';
+import 'package:flex_seed_scheme_example/core/views/app/color_name_value.dart';
+import 'package:flex_seed_scheme_example/core/views/app/color_picker_inkwell.dart';
+import 'package:flex_seed_scheme_example/theme/controllers/theme_controller.dart';
+import 'package:material_ui/material_ui.dart';
 
 // Display the colors in currently selected input color scheme, including
 // their name and color code.
 //
-// Allow user to edit the colors, if we are we are viewing the last color
+// Allow user to edit the colors, if we are viewing the last color
 // scheme, which is the custom color scheme.
 class ShowInputColors extends StatelessWidget {
   const ShowInputColors({
@@ -18,12 +17,10 @@ class ShowInputColors extends StatelessWidget {
   final ThemeController controller;
 
   // Return true if the color is light, meaning it needs dark text for contrast.
-  static bool _isLight(final Color color) =>
-      ThemeData.estimateBrightnessForColor(color) == Brightness.light;
+  static bool _isLight(Color color) => ThemeData.estimateBrightnessForColor(color) == Brightness.light;
 
   // On color used when a theme color property does not have a theme onColor.
-  static Color _onColor(final Color color) =>
-      _isLight(color) ? Colors.black : Colors.white;
+  static Color _onColor(Color color) => _isLight(color) ? Colors.black : Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +57,6 @@ class ShowInputColors extends StatelessWidget {
           width: 1,
         ),
       );
-      // else
     } else {
       // If border was null, make one matching Card default, but with border
       // side, if it was not null, we leave it as it was.
@@ -114,8 +110,7 @@ class ShowInputColors extends StatelessWidget {
                           color: primary,
                           child: ColorPickerInkWellDialog(
                             color: primary,
-                            tonalPaletteFixedMinChroma:
-                                controller.respectMonochromeSeed,
+                            tonalPaletteFixedMinChroma: controller.respectMonochromeSeed,
                             onChanged: controller.setPrimarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -172,12 +167,10 @@ class ShowInputColors extends StatelessWidget {
                         elevation: 0,
                         clipBehavior: Clip.hardEdge,
                         child: Material(
-                          color:
-                              controller.useSecondaryKey ? secondary : surface,
+                          color: controller.useSecondaryKey ? secondary : surface,
                           child: ColorPickerInkWellDialog(
                             color: secondary,
-                            tonalPaletteFixedMinChroma:
-                                controller.respectMonochromeSeed,
+                            tonalPaletteFixedMinChroma: controller.respectMonochromeSeed,
                             onChanged: controller.setSecondarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -189,12 +182,8 @@ class ShowInputColors extends StatelessWidget {
                             enabled: controller.useSecondaryKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc secondary $secondary'),
-                              color: controller.useSecondaryKey
-                                  ? secondary
-                                  : surface,
-                              textColor: controller.useSecondaryKey
-                                  ? onSecondary
-                                  : surface,
+                              color: controller.useSecondaryKey ? secondary : surface,
+                              textColor: controller.useSecondaryKey ? onSecondary : surface,
                               showInputColor: false,
                               label: 'secondary',
                               showMaterialName: true,
@@ -223,9 +212,7 @@ class ShowInputColors extends StatelessWidget {
                       dense: true,
                       title: const Text('Pinned'),
                       value: controller.pinSecondary,
-                      onChanged: controller.useSecondaryKey
-                          ? controller.setPinSecondary
-                          : null,
+                      onChanged: controller.useSecondaryKey ? controller.setPinSecondary : null,
                     ),
                   ),
                 ],
@@ -246,10 +233,8 @@ class ShowInputColors extends StatelessWidget {
                         child: Material(
                           color: controller.useTertiaryKey ? tertiary : surface,
                           child: ColorPickerInkWellDialog(
-                            color:
-                                controller.useTertiaryKey ? tertiary : surface,
-                            tonalPaletteFixedMinChroma:
-                                controller.respectMonochromeSeed,
+                            color: controller.useTertiaryKey ? tertiary : surface,
+                            tonalPaletteFixedMinChroma: controller.respectMonochromeSeed,
                             onChanged: controller.setTertiarySeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -261,12 +246,8 @@ class ShowInputColors extends StatelessWidget {
                             enabled: controller.useTertiaryKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc tertiary $tertiary'),
-                              color: controller.useTertiaryKey
-                                  ? tertiary
-                                  : surface,
-                              textColor: controller.useTertiaryKey
-                                  ? onTertiary
-                                  : surface,
+                              color: controller.useTertiaryKey ? tertiary : surface,
+                              textColor: controller.useTertiaryKey ? onTertiary : surface,
                               label: 'tertiary',
                               showInputColor: false,
                               showMaterialName: true,
@@ -295,9 +276,7 @@ class ShowInputColors extends StatelessWidget {
                       dense: true,
                       title: const Text('Pinned'),
                       value: controller.pinTertiary,
-                      onChanged: controller.useTertiaryKey
-                          ? controller.setPinTertiary
-                          : null,
+                      onChanged: controller.useTertiaryKey ? controller.setPinTertiary : null,
                     ),
                   ),
                 ],
@@ -318,8 +297,7 @@ class ShowInputColors extends StatelessWidget {
                           color: controller.useErrorKey ? error : surface,
                           child: ColorPickerInkWellDialog(
                             color: controller.useErrorKey ? error : surface,
-                            tonalPaletteFixedMinChroma:
-                                controller.respectMonochromeSeed,
+                            tonalPaletteFixedMinChroma: controller.respectMonochromeSeed,
                             onChanged: controller.setErrorSeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -332,8 +310,7 @@ class ShowInputColors extends StatelessWidget {
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc error $error'),
                               color: controller.useErrorKey ? error : surface,
-                              textColor:
-                                  controller.useErrorKey ? onError : surface,
+                              textColor: controller.useErrorKey ? onError : surface,
                               label: 'error',
                               showInputColor: false,
                               showMaterialName: true,
@@ -362,9 +339,7 @@ class ShowInputColors extends StatelessWidget {
                       dense: true,
                       title: const Text('Pinned'),
                       value: controller.pinError,
-                      onChanged: controller.useErrorKey
-                          ? controller.setPinError
-                          : null,
+                      onChanged: controller.useErrorKey ? controller.setPinError : null,
                     ),
                   ),
                 ],
@@ -384,10 +359,8 @@ class ShowInputColors extends StatelessWidget {
                         child: Material(
                           color: controller.useNeutralKey ? neutrals : surface,
                           child: ColorPickerInkWellDialog(
-                            color:
-                                controller.useNeutralKey ? neutrals : surface,
-                            tonalPaletteFixedMinChroma:
-                                controller.respectMonochromeSeed,
+                            color: controller.useNeutralKey ? neutrals : surface,
+                            tonalPaletteFixedMinChroma: controller.respectMonochromeSeed,
                             onChanged: controller.setNeutralSeedColor,
                             recentColors: controller.recentColors,
                             onRecentColorsChanged: controller.setRecentColors,
@@ -399,11 +372,8 @@ class ShowInputColors extends StatelessWidget {
                             enabled: controller.useNeutralKey,
                             child: ColorNameValue(
                               key: ValueKey<String>('ipc neutral $neutrals'),
-                              color:
-                                  controller.useNeutralKey ? neutrals : surface,
-                              textColor: controller.useNeutralKey
-                                  ? onNeutrals
-                                  : surface,
+                              color: controller.useNeutralKey ? neutrals : surface,
+                              textColor: controller.useNeutralKey ? onNeutrals : surface,
                               label: 'surfaces',
                               showInputColor: false,
                               showMaterialName: true,

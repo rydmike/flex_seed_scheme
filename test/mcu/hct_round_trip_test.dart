@@ -14,15 +14,14 @@
 import 'package:flex_seed_scheme/src/mcu/hct/hct.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 void main() {
   // Estimated test time: 3 ~ 4 minutes.
   test('hct_preserves_original_color', () {
     for (int argb = 0xFF000000; argb <= 0xFFFFFFFF; argb++) {
       final Hct hct = Hct.fromInt(argb);
-      final int reconstructedArgb =
-          Hct.from(hct.hue, hct.chroma, hct.tone).toInt();
+      final int reconstructedArgb = Hct.from(hct.hue, hct.chroma, hct.tone).toInt();
       expect(reconstructedArgb, isColor(argb));
     }
   });

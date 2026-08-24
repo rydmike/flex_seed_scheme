@@ -1,5 +1,5 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Custom app scroll behavior class.
 ///
@@ -10,17 +10,17 @@ import 'package:flutter/material.dart';
 /// Normally you would probably not use this scroll behavior in real
 /// desktop/web apps, but I like it, so I use it when I can choose! :)
 ///
-/// This is a Flutter class that only depends on the SDK and can be dropped
-/// into any application.
+/// This is a class that only depends on the `material_ui` package and can
+/// be dropped into any application.
 @immutable
 class AppScrollBehavior extends MaterialScrollBehavior {
   const AppScrollBehavior();
   // Override behavior methods and getters like dragDevices
   @override
   Set<PointerDeviceKind> get dragDevices => <PointerDeviceKind>{
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+  };
 }
 
 /// Another alternative custom scroll behavior class.
@@ -33,21 +33,17 @@ class AppleScrollBehavior extends ScrollBehavior {
   const AppleScrollBehavior();
 
   @override
-  Widget buildScrollbar(
-          BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
+  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) => child;
 
   @override
-  Widget buildOverscrollIndicator(
-          BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
+  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) => child;
 
   // Override behavior methods and getters like dragDevices
   @override
   Set<PointerDeviceKind> get dragDevices => <PointerDeviceKind>{
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+  };
 
   @override
   TargetPlatform getPlatform(BuildContext context) => TargetPlatform.macOS;
@@ -68,8 +64,7 @@ class AppleScrollBehavior extends ScrollBehavior {
 /// https://stackoverflow.com/questions/51119795/how-to-remove-scroll-glow
 class ScrollNoEdgeEffect extends ScrollBehavior {
   @override
-  Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) {
+  Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) {
     return child;
   }
 }

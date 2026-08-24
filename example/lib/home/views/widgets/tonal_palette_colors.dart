@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
-import 'package:flutter/material.dart';
-
-import '../../../core/views/app/copy_color_to_clipboard.dart';
-import 'palette_color_box.dart';
+import 'package:flex_seed_scheme_example/core/views/app/copy_color_to_clipboard.dart';
+import 'package:flex_seed_scheme_example/home/views/widgets/palette_color_box.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// TonalPaletteColors widget.
 class TonalPaletteColors extends StatelessWidget {
@@ -40,9 +39,7 @@ class TonalPaletteColors extends StatelessWidget {
   }
 
   static Color _onColor(Color color) {
-    return ThemeData.estimateBrightnessForColor(color) == Brightness.light
-        ? Colors.black
-        : Colors.white;
+    return ThemeData.estimateBrightnessForColor(color) == Brightness.light ? Colors.black : Colors.white;
   }
 
   @override
@@ -59,8 +56,7 @@ class TonalPaletteColors extends StatelessWidget {
                 color: Color(tonalPalette[i]),
                 height: height,
                 onTap: () {
-                  unawaited(
-                      copyColorToClipboard(context, Color(tonalPalette[i])));
+                  unawaited(copyColorToClipboard(context, Color(tonalPalette[i])));
                 },
                 child: Center(
                   child: Stack(

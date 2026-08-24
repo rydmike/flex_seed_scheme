@@ -18,7 +18,7 @@ import 'package:flex_seed_scheme/src/mcu/hct/src/hct_solver.dart';
 import 'package:flex_seed_scheme/src/mcu/material_color_utilities.dart';
 import 'package:test/test.dart';
 
-import './utils/color_matcher.dart';
+import 'utils/color_matcher.dart';
 
 const int black = 0xff000000;
 const int white = 0xffffffff;
@@ -113,45 +113,35 @@ void main() {
   test('gamutMap_red', () {
     const int colorToTest = red;
     final Cam16 cam = Cam16.fromInt(colorToTest);
-    final int color =
-        Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest))
-            .toInt();
+    final int color = Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest)).toInt();
     expect(colorToTest, equals(color));
   });
 
   test('gamutMap_green', () {
     const int colorToTest = green;
     final Cam16 cam = Cam16.fromInt(colorToTest);
-    final int color =
-        Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest))
-            .toInt();
+    final int color = Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest)).toInt();
     expect(colorToTest, equals(color));
   });
 
   test('gamutMap_blue', () {
     const int colorToTest = blue;
     final Cam16 cam = Cam16.fromInt(colorToTest);
-    final int color =
-        Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest))
-            .toInt();
+    final int color = Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest)).toInt();
     expect(colorToTest, equals(color));
   });
 
   test('gamutMap_white', () {
     const int colorToTest = white;
     final Cam16 cam = Cam16.fromInt(colorToTest);
-    final int color =
-        Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest))
-            .toInt();
+    final int color = Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest)).toInt();
     expect(colorToTest, equals(color));
   });
 
   test('gamutMap_midgray', () {
     const int colorToTest = green;
     final Cam16 cam = Cam16.fromInt(colorToTest);
-    final int color =
-        Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest))
-            .toInt();
+    final int color = Hct.from(cam.hue, cam.chroma, ColorUtils.lstarFromArgb(colorToTest)).toInt();
     expect(colorToTest, equals(color));
   });
 
@@ -184,7 +174,8 @@ void main() {
             expect(
               _colorIsOnBoundary(hctColor.toInt()),
               true,
-              reason: 'HCT request for non-sRGB color should return '
+              reason:
+                  'HCT request for non-sRGB color should return '
                   'a color on the boundary of the sRGB cube '
                   'for $hctRequestDescription, but got '
                   '${StringUtils.hexFromArgb(hctColor.toInt())} instead',
@@ -205,8 +196,7 @@ void main() {
     test('without array', () {
       const int colorToTest = red;
       final Cam16 cam = Cam16.fromInt(colorToTest);
-      final List<double> xyz =
-          cam.xyzInViewingConditions(ViewingConditions.sRgb);
+      final List<double> xyz = cam.xyzInViewingConditions(ViewingConditions.sRgb);
       expect(xyz[0], closeTo(41.23, 0.01));
       expect(xyz[1], closeTo(21.26, 0.01));
       expect(xyz[2], closeTo(1.93, 0.01));
@@ -215,9 +205,7 @@ void main() {
     test('with array', () {
       const int colorToTest = red;
       final Cam16 cam = Cam16.fromInt(colorToTest);
-      final List<double> xyz = cam.xyzInViewingConditions(
-          ViewingConditions.sRgb,
-          array: <double>[0, 0, 0]);
+      final List<double> xyz = cam.xyzInViewingConditions(ViewingConditions.sRgb, array: <double>[0, 0, 0]);
       expect(xyz[0], closeTo(41.23, 0.01));
       expect(xyz[1], closeTo(21.26, 0.01));
       expect(xyz[2], closeTo(1.93, 0.01));
@@ -228,127 +216,73 @@ void main() {
     test('red in black', () {
       const int colorToTest = red;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xff9F5C51));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xff9F5C51));
     });
 
     test('red in white', () {
       const int colorToTest = red;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xffFF5D48));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xffFF5D48));
     });
 
     test('green in black', () {
       const int colorToTest = green;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xffACD69D));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xffACD69D));
     });
 
     test('green in white', () {
       const int colorToTest = green;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xff8EFF77));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xff8EFF77));
     });
 
     test('blue in black', () {
       const int colorToTest = blue;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xff343654));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xff343654));
     });
 
     test('blue in white', () {
       const int colorToTest = blue;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xff3F49FF));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xff3F49FF));
     });
 
     test('white in black', () {
       const int colorToTest = white;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xffFFFFFF));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xffFFFFFF));
     });
 
     test('white in white', () {
       const int colorToTest = white;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xffFFFFFF));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xffFFFFFF));
     });
 
     test('midgray in black', () {
       const int colorToTest = midgray;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xff605F5F));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xff605F5F));
     });
 
     test('midgray in white', () {
       const int colorToTest = midgray;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xff8E8E8E));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xff8E8E8E));
     });
 
     test('black in black', () {
       const int colorToTest = black;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0))
-              .toInt(),
-          isColor(0xff000000));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 0.0)).toInt(), isColor(0xff000000));
     });
 
     test('black in white', () {
       const int colorToTest = black;
       final Hct hct = Hct.fromInt(colorToTest);
-      expect(
-          hct
-              .inViewingConditions(
-                  ViewingConditions.make(backgroundLstar: 100.0))
-              .toInt(),
-          isColor(0xff000000));
+      expect(hct.inViewingConditions(ViewingConditions.make(backgroundLstar: 100.0)).toInt(), isColor(0xff000000));
     });
   });
   //
@@ -419,19 +353,15 @@ void main() {
     });
   });
   group('Cam from fromXyzInViewingConditions', () {
-    test(
-        'fromXyzInViewingConditions(0, 12000, -12000, '
+    test('fromXyzInViewingConditions(0, 12000, -12000, '
         'ViewingConditions.make)', () {
-      final Cam16 cam = Cam16.fromXyzInViewingConditions(
-          0, 12000, -12000, ViewingConditions.make());
+      final Cam16 cam = Cam16.fromXyzInViewingConditions(0, 12000, -12000, ViewingConditions.make());
       final int camToInt = cam.toInt();
       expect(Color(camToInt), equals(const Color(0xff00ff00)));
     });
-    test(
-        'fromXyzInViewingConditions(10, 20, 40, '
+    test('fromXyzInViewingConditions(10, 20, 40, '
         'ViewingConditions.make)', () {
-      final Cam16 cam = Cam16.fromXyzInViewingConditions(
-          10, 20, 40, ViewingConditions.make(surround: 0.4));
+      final Cam16 cam = Cam16.fromXyzInViewingConditions(10, 20, 40, ViewingConditions.make(surround: 0.4));
       final int camToInt = cam.toInt();
       expect(Color(camToInt), equals(const Color(0xff00a7ba)));
     });

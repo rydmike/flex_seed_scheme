@@ -1,6 +1,6 @@
 name: flex_seed_scheme
 description: A more flexible and powerful version of Flutter's ColorScheme.fromSeed. Use multiple seed colors, custom chroma and tone mapping.
-version: 4.0.1
+version: 5.0.0-dev.1
 homepage: https://github.com/rydmike/flex_seed_scheme
 repository: https://github.com/rydmike/flex_seed_scheme
 issue_tracker: https://github.com/rydmike/flex_seed_scheme/issues
@@ -28,25 +28,35 @@ topics:
   - materialdesign
 
 environment:
-  sdk: '>=3.6.0 <4.0.0'
-  flutter: '>=3.38.0'
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
 
 dependencies:
   # Used by mcu: tonal_palette.dart, require at least 1.19.0.
   # https://pub.dev/packages/collection
   collection: ^1.19.1
 
+  # The official Flutter Cupertino Design Library.
+  cupertino_ui: ^1.0.0
+
+  # The flutter library itself
   flutter:
     sdk: flutter
 
+  # The official Flutter Material UI Library.
+  material_ui: ^1.0.0
+  
   # Annotations used to express developer intentions that can't otherwise be deduced by
   # statically analyzing source code. Package is from Google dart.dev team.
   #
   # Flutter does not expose the "@internal" annotation via foundation, to use it we need to import the package.
-  # Version 1.9.1 is first with updated SDK constraints to >=2.12.0 <4.0.0. We use same as Flutter 3.38.
+  # Version 1.9.1 is first with updated SDK constraints to >=2.12.0 <4.0.0. 
+  # We use same version constraint as Flutter 3.44.
   # https://pub.dev/packages/meta
-  meta: ^1.17.0
+  meta: ^1.18.0
 
+  
+  
 dev_dependencies:
   coverage: ^1.15.0
   flutter_test:
