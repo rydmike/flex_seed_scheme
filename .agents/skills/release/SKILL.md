@@ -29,14 +29,15 @@ Also verify:
 - CHANGELOG top section: correct version, date, and tags (`BREAKING`, `FIX`, `CHANGE`, `NEW`, `TESTS`, `CHORE`; `PACKAGE`, `WEB DEMO` when they apply).
 - Coverage still 100% (Codecov gate).
 - README and `example/` updated for any user-facing change; README web-demo links point at the current demo path (v5: `/flexseedscheme/demo-v5/`).
-- No dry-run warnings you cannot explain, and review the dry-run archive file tree: expect roughly **0.5 MB** compressed. A multi-MB jump means something internal leaked in.
+- No dry-run warnings you cannot explain, and review the dry-run archive file tree: expect roughly **1 MB** compressed (package + example + the 7 pubspec-declared screenshots). A multi-MB jump means something internal leaked in.
 
 ## Publishing contents — .pubignore
 
 The root [.pubignore](../../../.pubignore) controls what is published:
 
 - A `.pubignore` REPLACES the `.gitignore` in the same directory for publishing decisions. When adding publishing-relevant rules to the root `.gitignore`, mirror them in `.pubignore` — otherwise gitignored files reappear in the archive.
-- It excludes internal content from the archive: `AGENTS.md`, `docs/`, `scripts/`, `doc_assets/` and `example/screenshots/` (README images load from absolute GitHub URLs; pub.dev does not need them). Excluding `docs/` also avoids pub's "rename docs to doc" layout warning.
+- It excludes internal content from the archive: `AGENTS.md`, `docs/`, `scripts/` and `doc_assets/` (README images load from absolute GitHub URLs; pub.dev does not need them). Excluding `docs/` also avoids pub's "rename docs to doc" layout warning.
+- **Never exclude `example/screenshots/`**: those files are declared in the pubspec `screenshots:` section and MUST be in the archive. The pub.dev SERVER rejects the upload if one is missing ("Screenshot ... is missing from archive") — the local dry run does NOT check this. Server-only checks like this are what "The server may enforce additional checks" means; a clean dry run is necessary but not sufficient.
 - Hidden dot-directories (`.agents/`, `.github/`, `.claude/`, …) are always excluded by pub; they need no rules.
 - The Flutter tool generated example platform files (`generated_plugin_registrant.*`, `generated_plugins.cmake`, `GeneratedPluginRegistrant.swift`) are deliberately untracked and unpublished since 5.0.0 — `flutter pub get` regenerates them. Do not re-add them to git.
 

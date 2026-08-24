@@ -47,5 +47,9 @@ scripts/
 # Publish-only exclusions: image assets. The README references these images
 # via absolute raw.githubusercontent.com URLs, so pub.dev renders them from
 # GitHub and they are not needed inside the published package archive.
+#
+# NOTE: Do NOT exclude example/screenshots/ here. Those files are declared in
+# the pubspec.yaml `screenshots:` section and MUST be inside the archive; the
+# pub.dev server rejects the upload if they are missing. `dart pub publish
+# --dry-run` does not check this, only the server does.
 doc_assets/
-example/screenshots/
