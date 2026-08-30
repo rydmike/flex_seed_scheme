@@ -29,10 +29,12 @@ Document intent and purpose so humans and agents can maintain this package. The 
 
 ### Language
 
+- Use US English.
 - Use simple, direct language. Avoid jargon that does not help.
 - Tone and chroma integers (40, 80, 36, …) **are** the domain. Name what they map to in comments. Do not invent a spacing-token system for them.
 - Short `dart` snippets on `fromSeeds`, `FlexTones`, and `FlexSchemeVariant` are welcome when they show a default, an interaction, or a migration. Do not paste the README.
-
+- README, skills, and `docs/` follow [AGENTS.md](../../../AGENTS.md) Markdown Style: one paragraph or bullet per line; do not hard-wrap prose. Leave fenced code, tables, and headings as they are.
+  
 ### Magic numbers
 
 - Prefer a named local or static constant when a number is reused or its meaning is not obvious from context.

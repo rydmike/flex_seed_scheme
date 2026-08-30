@@ -1109,21 +1109,264 @@ extension SeedColorScheme on ColorScheme {
     }
   }
 
-  /// Build one of the Flutter SDK defined DynamicScheme variants.
+  /// Returns a [DynamicScheme] from seed keys [primarySeedColor],
+  /// [secondarySeedColor], [tertiarySeedColor], [errorSeedColor],
+  /// [neutralSeedColor] and [neutralVariantSeedColor].
   ///
-  /// If used with a FlexTones based [FlexSchemeVariant] variant it returns
-  /// tonalSpot, the default Material-3 SDK style.
+  /// This is the MCU path used by [fromSeeds] when [variant] has
+  /// [FlexSchemeVariant.isFlutterScheme] set to true. Prefer [fromSeeds] to
+  /// produce a [ColorScheme]. Use this when you need the raw [DynamicScheme],
+  /// for example to read palettes or tones via [MaterialDynamicColors].
+  ///
+  /// Standard MCU only supports one seed color. FSS includes a forked MCU
+  /// library that enables using up to six seed colors, providing more degrees
+  /// of freedom also with MCU based scheme variants.
+  ///
+  /// As with [ColorScheme.fromSeed], prefer using the same key colors when seed
+  /// generating your light and dark schemes to create a balanced and matching
+  /// light and dark theme.
+  ///
+  /// Resolve [ColorScheme] role colors from the result with
+  /// [MaterialDynamicColors] getters, such as
+  /// `MaterialDynamicColors.primary.getArgb(scheme)`. That is what [fromSeeds]
+  /// does internally on this path.
+  ///
+  /// ## [brightness]
+  ///
+  /// Overall brightness of the produced [DynamicScheme]. There is no default;
+  /// pass [Brightness.light] or [Brightness.dark]. Mapped to MCU `isDark`.
+  ///
+  /// ## [variant]
+  ///
+  /// Required algorithm used to build the [DynamicScheme].
+  ///
+  /// Values with [FlexSchemeVariant.isFlutterScheme] set to true map to the
+  /// matching Flutter SDK [DynamicSchemeVariant] / MCU scheme:
+  /// [FlexSchemeVariant.tonalSpot], [FlexSchemeVariant.fidelity],
+  /// [FlexSchemeVariant.content], [FlexSchemeVariant.monochrome],
+  /// [FlexSchemeVariant.neutral], [FlexSchemeVariant.vibrant],
+  /// [FlexSchemeVariant.expressive], [FlexSchemeVariant.rainbow] and
+  /// [FlexSchemeVariant.fruitSalad].
+  ///
+  /// Any [FlexTones]-based [FlexSchemeVariant] (`isFlutterScheme` false)
+  /// returns MCU `SchemeTonalSpot`, the default Material-3 SDK style. Those
+  /// variants belong on the [fromSeeds] `tones` / `variant` path, where they
+  /// use [FlexTones] mapping instead of MCU.
+  ///
+  /// Hue and chroma rules for each MCU variant are documented on
+  /// [FlexSchemeVariant]. Two constructors differ from the rest:
+  ///
+  /// * [FlexSchemeVariant.monochrome] always uses chroma 0 palettes. Extra
+  ///   seed colors except [errorSeedColor] are ignored. [respectMonochromeSeed]
+  ///   has no effect.
+  /// * [FlexSchemeVariant.rainbow] still uses extra seeds for hue, but its
+  ///   neutral palettes are always chroma 0, so [respectMonochromeSeed] does
+  ///   not change those palettes.
+  ///
+  /// ## [primarySeedColor]
+  ///
+  /// Required seed color used to generate all the primary-dependent palettes
+  /// in a [DynamicScheme].
+  ///
+  /// In the Material 3 color system and in [ColorScheme.fromSeed], this color
+  /// is used to generate palettes for all tonal palettes, except the error
+  /// palette that has its own fixed seed value.
+  ///
+  /// The default is the same here. However, if colors are provided for
+  /// [secondarySeedColor] and [tertiarySeedColor] their tonal palettes will be
+  /// seeded from their own key color. Likewise for [errorSeedColor],
+  /// [neutralSeedColor] and [neutralVariantSeedColor]. It is uncommon and
+  /// seldom needed to customize them, but to create very custom and unique
+  /// looking apps, it is possible to do so.
+  ///
+  /// As in [ColorScheme.fromSeed], there is no guarantee that the used key
+  /// color ends up as the corresponding main color in the produced scheme.
+  /// [primarySeedColor] will typically not become your [ColorScheme.primary]
+  /// color. It will only be of the same hue. If you used a color intended for
+  /// light theme mode as [primarySeedColor], consider overriding `primary` in
+  /// [fromSeeds] for the light theme with the same color value as your
+  /// [primarySeedColor].
+  ///
+  /// ## [secondarySeedColor]
+  ///
+  /// Optional key color used to seed the secondary tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.secondary]. It
+  /// will only be of the same hue. If omitted, the secondary palette is
+  /// derived from the primary seed using the hue and chroma rules of the
+  /// selected [variant].
+  ///
+  /// ## [tertiarySeedColor]
+  ///
+  /// Optional key color used to seed the tertiary tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.tertiary]. It
+  /// will only be of the same hue. If omitted, the tertiary palette is derived
+  /// from the primary seed using the hue and chroma rules of the selected
+  /// [variant].
+  ///
+  /// ## [errorSeedColor]
+  ///
+  /// Optional key color used to seed the error tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.error]. It will
+  /// only be of the same hue. If omitted, MCU uses hue 25 and chroma 84.
+  ///
+  /// ## [neutralSeedColor]
+  ///
+  /// Optional key color used to seed the neutral tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes [ColorScheme.surface]. It
+  /// will only be of the same hue. If omitted, the neutral palette is derived
+  /// from the primary seed using the hue and chroma rules of the selected
+  /// [variant].
+  ///
+  /// ## [neutralVariantSeedColor]
+  ///
+  /// Optional key color used to seed the neutral variant tonal palette.
+  ///
+  /// There is no guarantee that this seed becomes the [ColorScheme] variant
+  /// colors. It will only be of the same hue. If omitted, the palette is
+  /// derived from the primary seed using the hue and chroma rules of the
+  /// selected [variant].
+  ///
+  /// The variant palette is only used by [ColorScheme.onSurfaceVariant],
+  /// [ColorScheme.outline] and [ColorScheme.outlineVariant]. The main color
+  /// that used it prior to Flutter 3.22, `surfaceVariant`, has been deprecated.
+  ///
+  /// ## [contrastLevel]
+  ///
+  /// Contrast level between color pairs, such as [ColorScheme.primary] and
+  /// [ColorScheme.onPrimary]. The value 0.0 is the default (normal) contrast;
+  /// -1.0 is the lowest; 1.0 is the highest. From Material Design guideline,
+  /// the normal, medium and high contrast options correspond to 0.0, 0.5 and
+  /// 1.0 respectively.
+  ///
+  /// Always used by this method. Must be in the range -1.0 to 1.0; values
+  /// outside that range throw in debug mode. This is the same property as
+  /// [ColorScheme.fromSeed]'s `contrastLevel`.
+  ///
+  /// On [fromSeeds], [contrastLevel] is ignored when using [FlexTones] or a
+  /// [variant] with [FlexSchemeVariant.isFlutterScheme] set to false. Contrast
+  /// on that path is set with [FlexTones] mappings such as
+  /// [FlexTones.highContrast] and [FlexTones.ultraContrast].
+  ///
+  /// ## [useExpressiveOnContainerColors]
+  ///
+  /// If true, makes the light theme mode colors
+  /// [ColorScheme.onPrimaryContainer], [ColorScheme.onSecondaryContainer],
+  /// [ColorScheme.onTertiaryContainer] and [ColorScheme.onErrorContainer] more
+  /// color expressive. This comes at the cost of their contrast level and
+  /// accessibility.
+  ///
+  /// The value has no impact on dark mode colors. Expressive on-colors for
+  /// container colors have always been used in dark mode in Material 3 design
+  /// and they have good contrast and accessibility.
+  ///
+  /// When true, on-container colors of all scheme variants use the new
+  /// expressive tone, if the currently used tone is 10. If a scheme already
+  /// uses an intentionally customized tone, the new expressive tone will not
+  /// be used for those tones, even when this setting is true.
+  ///
+  /// MCU schemes that contain such on-container tones are:
+  ///
+  /// * Fidelity
+  /// * Monochrome
+  /// * Content
+  ///
+  /// Defaults to true.
+  ///
+  /// The Material design spec for the tones used by on-container colors
+  /// changed from tone **10** to **30** for **LIGHT** theme mode. It also
+  /// sets the min `ContrastCurve` from ContrastCurve(4.5, 7.0, 11.0, 21.0)
+  /// to ContrastCurve(3.0, 4.5, 7.0, 11.0), making min contrast for normal
+  /// contrast 4.5 instead of the past 7.0.
+  ///
+  /// Flutter 3.38 still used the older MCU 0.11.1 tone 10. MCU 0.12.0 and the
+  /// Material 3 spec use tone 30. That MCU change is breaking versus 0.11.1
+  /// and changes the light mode color schemes produced by all DynamicColor
+  /// based Material color schemes.
+  ///
+  /// In FlexSeedScheme before 4.0.0 this defaulted to false. Version 4.0.0
+  /// changed the default to true to align with default behaviour in Flutter
+  /// versions after the 3.38 stable release. For more info see
+  /// https://github.com/flutter/website/pull/12125
+  ///
+  /// Flutter SDK does not offer a way to opt out of this change. With
+  /// FlexSeedScheme you can set [useExpressiveOnContainerColors] to false.
+  /// The new on-color tones for containers in light mode make them more color
+  /// expressive, but they also reduce their contrast level and accessibility.
+  /// For a higher contrast level, prefer setting this to false.
+  ///
+  /// ## [respectMonochromeSeed]
+  ///
+  /// If true, a seed whose red, green and blue channels are equal is treated
+  /// as chroma 0, so the palette is greyscale. Any configured minimum chroma
+  /// is ignored for that seed.
+  ///
+  /// Defaults to false to match MCU and [ColorScheme.fromSeed], which map
+  /// white/grey seeds to cyan-ish palettes and black to a red-ish palette.
+  /// Prefer true if monochrome seeds should stay greyscale. Seeds that are
+  /// not monochrome produce the same result either way.
+  ///
+  /// When an optional seed is omitted, its monochrome check uses
+  /// [primarySeedColor]. If that seed is greyscale and this flag is true,
+  /// omitted extra palettes also get chroma 0. [errorSeedColor] is only
+  /// treated as monochrome when an error seed is actually provided.
   static DynamicScheme buildDynamicScheme({
+    /// Overall brightness; maps to MCU `isDark`.
     required Brightness brightness,
+
+    /// MCU scheme algorithm. FlexTones-based values fall back to tonalSpot.
     required FlexSchemeVariant variant,
+
+    /// Required seed for primary-dependent palettes.
+    ///
+    /// Extra keys are optional. The seed is hue-only; it typically does not
+    /// become [ColorScheme.primary].
     required Color primarySeedColor,
+
+    /// Optional seed for the secondary tonal palette.
+    ///
+    /// Hue-only. If omitted, derived from the primary seed.
     Color? secondarySeedColor,
+
+    /// Optional seed for the tertiary tonal palette.
+    ///
+    /// Hue-only. If omitted, derived from the primary seed.
     Color? tertiarySeedColor,
+
+    /// Optional seed for the error tonal palette.
+    ///
+    /// Hue-only. If omitted, MCU uses hue 25 and chroma 84.
     Color? errorSeedColor,
+
+    /// Optional seed for the neutral tonal palette.
+    ///
+    /// Hue-only. If omitted, derived from the primary seed.
     Color? neutralSeedColor,
+
+    /// Optional seed for the neutral variant tonal palette.
+    ///
+    /// Feeds [ColorScheme.onSurfaceVariant], [ColorScheme.outline] and
+    /// [ColorScheme.outlineVariant] only.
     Color? neutralVariantSeedColor,
+
+    /// Contrast between pairs such as primary and onPrimary, range -1 to 1.
+    ///
+    /// Always used here. Must be in [-1.0, 1.0].
     double contrastLevel = 0.0,
+
+    /// If true, light-mode on-container colors use expressive tone 30.
+    ///
+    /// Dark mode is unchanged. Set to false for higher contrast (legacy tone
+    /// 10). Defaults to true since version 4.0.0.
     bool useExpressiveOnContainerColors = true,
+
+    /// If true, equal-RGB seeds stay greyscale (chroma 0).
+    ///
+    /// Defaults to false to match MCU and [ColorScheme.fromSeed]. No effect
+    /// on [FlexSchemeVariant.monochrome], which is already greyscale.
     bool respectMonochromeSeed = false,
   }) {
     assert(

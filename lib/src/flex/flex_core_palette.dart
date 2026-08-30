@@ -105,7 +105,7 @@ class FlexCorePalette {
   }
 
   /// Create a standard Material 3 core tonal palette from Hue and Chroma.
-  // ignore: sort_constructors_first
+  // ignore: sort_constructors_first, we like this order here!
   FlexCorePalette.fromHueChroma(
     double hue,
     double chroma, [
