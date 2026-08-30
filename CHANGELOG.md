@@ -14,8 +14,7 @@ All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 - `SeedColorScheme.buildDynamicScheme` now has the same dartdoc shape as `fromSeeds`: a short purpose, then parameter sections, plus matching inline parameter docs.
 
 **CHORE**
-
-* Example web demo: replaced the deprecated Flutter service-worker bootstrap with `flutter_bootstrap.js`.
+- Example web demo: replaced the deprecated Flutter service-worker bootstrap with `flutter_bootstrap.js`.
 
 
 ## 5.0.0
