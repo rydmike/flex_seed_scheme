@@ -80,6 +80,21 @@ Seed keys (`primaryKey`, `secondaryKey`, …) set hue and chroma of palettes. Th
 
 `///` on public API; `//` on private helpers. In `//`, wrap names in backticks — never `[Type]`. In `///`, use `[Type]` only when the symbol is in dartdoc scope.
 
+## Formatting Scope
+
+- Do not run `dart format .` — it does not honor `.gitignore` or `analyzer: exclude` and may fail inside `build/` (see [dart-lang/dart_style#1840](https://github.com/dart-lang/dart_style/issues/1840)).
+- Do not run formatting across the entire repo unless explicitly requested.
+- Prefer formatting only the files you changed to keep diffs reviewable.
+
+## Markdown Style
+
+Applies to every markdown file in this repo (skills, `docs/`, README files) and to issue, PR, and review text you write:
+- Use US English.
+- Never insert line breaks inside a paragraph or a bullet item. One paragraph = one line. One bullet = one line.
+- Let the IDE, GitHub, Slack, and agent previews wrap to the viewport; do not hard-wrap at 80/100 columns.
+- Never reflow fenced code blocks, tables, or headings — the rule is about prose lines only.
+- Avoid wide tables in anything rendered on GitHub; prefer compact lists. Tables are fine for short enumerable facts.
+
 ## Tests
 
 FSS suites use numbered `GIVEN` / `EXPECT` names (`FCS7`, `FTO1`, …), Flutter `equals`, or golden `toString` + `equalsIgnoringHashCodes`. MCU suites are Google-ported hex locks via `isColor` / `isCloseToColor`. Do not rewrite MCU hex values or FSS golden blobs unless the behavior change is intentional. Recipes: [package-development](.agents/skills/package-development/SKILL.md).
