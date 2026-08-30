@@ -37,7 +37,7 @@ sealed class AppData {
   // build number.
   static const String versionMajor = '5';
   static const String versionMinor = '0';
-  static const String versionPatch = '0';
+  static const String versionPatch = '1';
   static const String versionBuild = '01';
   static const String versionFull =
       '$versionMajor.$versionMinor.$versionPatch'

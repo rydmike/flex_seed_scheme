@@ -2,6 +2,22 @@
 
 All notable changes to the **FlexSeedScheme** (FSS) package are documented here.
 
+## 5.0.1
+
+**Aug 30, 2026**
+
+**EXAMPLE**
+- Example app bumped to use FlexColorPicker 4.0.0, and removed the temporary use of `MaterialUiCompatibilityBridge`.
+- Example web demo: replaced the deprecated Flutter service-worker / `loadEntrypoint` bootstrap with `flutter_bootstrap.js`.
+
+**DOCS**
+- `SeedColorScheme.buildDynamicScheme` now has the same dartdoc shape as `fromSeeds`: a short purpose, then parameter sections, plus matching inline parameter docs.
+
+**CHORE**
+
+* Example web demo: replaced the deprecated Flutter service-worker bootstrap with `flutter_bootstrap.js`.
+
+
 ## 5.0.0
 
 **Aug 24, 2026**
